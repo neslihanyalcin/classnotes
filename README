@@ -1,14 +1,18 @@
 
-ODE, Cok Degiskenli Calculus, Lineer Cebir, Hesapsal Bilim derslerinde
-alinan notlarin Latex ve derlenmis PDF dosyalari. Ayrica matematik ve
-uygulamali matematik hakkinda yazilmis bazi yazilar. Ornek Python
-kodlari gerektigi yerde yazilar ile beraber ayni dizinde bulunabilir.
+ODE, Cok Degiskenli Calculus, Lineer Cebir, Hesapsal Bilim, Istatistik
+video derslerinden, ya da ders kitaplarindan alinan notlarin Latex ile
+yazilmis ve PDF olarak uretilmis dosyalari. matematik ve uygulamali
+matematik hakkinda yazilmis bazi yazilarimiz da depoda
+bulunabilir. Ornek Python kodlari gerektigi yerde yazilar ile beraber
+ayni dizinde olacaktir. 
 
 ---
 
-Here are lecture notes in ODE, Multivariate Calculus, Linear Algebra
-and Computational Science classes in Latex in Turkish language. There
-is also a small handbook of collected math, applied math articles.
+Here are lecture notes in ODE, Multivariate Calculus, Linear Algebra,
+Computational Science, Statistics classes written in Latex, in Turkish
+with their generated PDF files. There is also a small handbook of
+collected math, applied math articles. All necessary Python code is
+also shared[ in the same directory as the article / classnote.
 
 --
 
