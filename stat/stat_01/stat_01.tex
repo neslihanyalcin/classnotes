@@ -125,18 +125,100 @@ degiskeninler icin isler. Surekli durumda olasilik hesabi icin belli iki
 nokta arasinda entegral hesabi yapmamiz gereklidir. Ek olarak PDF 1'den
 buyuk olabilir, ama PMF olamaz. PDF'in 1'den buyuk olabilmesi entegrali
 bozmaz mi? Unutmayalim, entegral hesabi yapiyoruz, noktasal degerlerin 1
-olmasi tum 1'lerin toplandigi anlamina gelmez. Bakiniz Entegralleri Nasil
-Dusunelim yazimiz. 
+olmasi tum 1'lerin toplandigi anlamina gelmez. Bakiniz {\em Entegralleri
+  Nasil Dusunelim} yazimiz.
 
+Tanim
 
+$X$ rasgele degiskeninin CDF'i $F$ olsun. Ters CDF (inverse cdf), ya da
+ceyrek fonksiyonu (quantile function)
 
+\[ F^{-1}(q) = inf \bigg\{ x: F(x) \le q \bigg\} \]
 
+ki $q \in [0,1]$. Eger $F$ kesinlikle artan ve surekli bir fonksiyon ise
+$F^{-1}(q)$ tekil bir $x$ sayisi ortaya cikarir, ki $F(x) = q$. 
 
+Eger $inf$ kavramini bilmiyorsak simdilik onu minimum olarak
+dusunebiliriz. 
 
+$F^{-1}(1/4)$ birinci ceyrek
 
+$F^{-1}(1/2)$ medyan (median, ya da ikinci ceyrek), 
 
+$F^{-1}(3/4)$ ucuncu ceyrek 
 
+olarak bilinir. 
 
+Iki rasgele degisken $X$ ve $Y$ dagilimsal olarak birbirine esitligi, yani
+$X \ eqind \ Y$ eger $F_X(x) = F_Y(x)$, $\forall x$. Bu $X,Y$ birbirine
+esit, birbirinin aynisi demek degildir. Bu degiskenler hakkindaki tum
+olasiliksal islemler, sonuclar ayni olacak demektir. 
+
+Uyari! ``$X$'in dagilimi $F$'tir'' beyanini $X \sim F$ seklinde yazmak bir
+gelenek. Bu biraz kotu bir gelenek aslinda cunku $\sim$ sembolu ayni
+zamanda yaklasiksallik kavramini belirtmek icin de kullaniliyor.
+
+Bernoulli Dagilimi
+
+$X$'in bir yazi-tura atisini temsil ettigini
+dusunelim. O zaman $P(X = 1) = p$, ve $P(X = 0) = 1 - p$ olacaktir, 
+ki $p
+\in [0,1]$ olmak uzere. O zaman $X$'in dagilimi Bernoulli deriz, 
+ve $X \sim
+Bernoulli(p)$ diye gosteririz. Olasilik fonksiyonu 
+$f(x) = p^x(1-p)^{(1-x)}$, $x \in \{0,1\}$. 
+
+Yani $x$ ya 0, ya da 1. Parametre $p$, 0 ile 1 arasindaki herhangi bir reel 
+sayi. 
+
+Uyari! 
+
+$X$ bir rasgele degisken; $x$ bu degiskenin alabilecegi spesifik bir deger;
+$p$ degeri ise bir \textbf{parametre}, yani sabit, onceden belirlenmis reel
+sayi. Tabii istatistiki problemlerde (olasilik problemlerinin tersi olarak
+dusunursek) cogunlukla o sabit parametre bilinmez, onun veriden
+hesaplanmasi, kestirilmesi gerekir. Her halukarda, cogu istatistiki modelde
+rasgele degiskenler vardir, ve onlardan ayri olarak parametreler vardir. Bu
+iki kavrami birbiriyle karistirmayalim.
+
+Normal (Gaussian) Dagilim
+
+$X \sim N(\mu, \sigma^2)$ ve PDF
+
+\[ f(x) = \frac{1}{\sigma\sqrt{2\pi}} 
+exp \bigg\{ - \frac{1}{2\sigma^2}(x-\mu)^2  \bigg\}
+, \ x \in \Re
+\]
+
+ki $\mu \in \Re$ ve $\sigma > 0$ olacak sekilde.
+
+Ileride gorecegiz ki $\mu$ bu dagilimin ``ortasi'', ve $\sigma$ onun
+etrafa ne kadar ``yayildigi'' (spread). Normal dagilim olasilik ve
+istatistikte cok onemli bir rol oynar. Dogadaki pek cok olay
+yaklasiksal olarak Normal dagilima sahiptir. Sonra gorecegimiz uzere,
+mesela bir rasgele degiskenin degerlerinin toplami her zaman Normal
+dagilima yaklasir (Merkezi Limit Teorisi -Central Limit Theorem-). 
+
+Eger $\mu = 0$ ve $\sigma = 1$ ise $X$'in standart Normal dagilim oldugunu
+soyleriz. Gelenege gore standart Normal dagilim rasgele degiskeni $Z$ ile
+gosterilmelidir, PDF ve CDF $\phi(z)$ ve $\Phi(z)$ olarak gosterilir. 
+
+$\Phi(z)$'nin kapali form (closed-form) tanimi yoktur. Bu, matematikte
+``analitik bir forma sahip degil'' demektir, formulu bulunamamaktadir,
+bunun sebebi ise Normal PDF'in entegralinin analitik olarak alinamiyor
+olusudur. 
+
+Bazi faydali puf noktalari
+
+1. Eger $X \sim N(\mu, \sigma^2)$ ise, o zaman $Z = (X-\mu) / \sigma \sim
+N(0,1)$. 
+
+2. Eger $Z \sim N(0,1)$ ise, o zaman $X = \mu + \sigma Z \sim N(\mu,\sigma^2)$
+
+3. Eger $X_i \sim N(\mu_i, \sigma_i^2)$, $i=1,2,...$ ve her $X_i$
+digerlerinden bagimsiz ise, o zaman 
+
+\[ \sum_{i=1}^n X_i = N\bigg( \sum_{i=1}^n\mu_i, \sum_{i=1}^n\sigma^2 \bigg) \]
 
 
 
