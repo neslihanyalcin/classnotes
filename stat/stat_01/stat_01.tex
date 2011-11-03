@@ -220,12 +220,37 @@ digerlerinden bagimsiz ise, o zaman
 
 \[ \sum_{i=1}^n X_i = N\bigg( \sum_{i=1}^n\mu_i, \sum_{i=1}^n\sigma^2 \bigg) \]
 
+Tekrar $X \sim N(\mu, \sigma^2)$ alirsak ve 1. kuraldan devam edersek /
+temel alirsak su da dogru olacaktir. 
 
+\[ P(a < X < b) = ? \]
 
+\[ 
+= P\bigg(
+\frac{a-\mu}{\sigma} < 
+\frac{X-\mu}{\sigma} < 
+\frac{b-\mu}{\sigma}
+\bigg) 
+\]
 
+\[
+= P\bigg(\frac{a-\mu}{\sigma} < Z < \frac{b-\mu}{\sigma}\bigg) 
+= 
+\Phi\bigg(\frac{b-\mu}{\sigma}\bigg) - 
+\Phi\bigg(\frac{a-\mu}{\sigma}\bigg) 
+\]
 
+Ilk gecisi nasil elde ettik? Bir olasilik ifadesi $P(\cdot)$ icinde esitligin iki
+tarafina ayni anda ayni toplama, cikarma operasyonlarini yapabiliriz. 
 
+Son ifadenin anlami sudur. Eger standart Normal'in CDF'ini
+hesaplayabiliyorsak, istedigimiz Normal olasilik hesabini yapabiliriz
+demektir, cunku artik $X$ iceren bir hesabin $Z$'ye nasil tercume
+edildigini goruyoruz. 
 
+Tum istatistik yazilimlari $\Phi(z)$ ve $\Phi(z)^{-1}$ hesabi icin gerekli
+rutinlere sahiptir. Tum istatistik kitaplarinda $\Phi(z)$'nin belli
+degerlerini tasiyan bir tablo vardir.
 
 
 
