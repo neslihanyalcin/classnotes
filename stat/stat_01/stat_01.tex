@@ -32,9 +32,10 @@ atip sonucu kaydetmek ise, bu deneyin mumkun tum sonuclari soyledir
 Sonuclar ve Olaylar (Outcomes and Events)
 
 $\Omega$ icindeki her nokta bir sonuctur (outcome). Olaylar $\Omega$'nin
-herhangi bir alt kumesidir. Mesela ustteki yazi-tura deneyinde ``iki atisin
-icinden ilk atisin her zaman H gelmesi olayi'' boyle bir alt kume
-olusturur, bu olaya $A$ diyelim, ve bu kume $A = \{HH,HT\}$ olacaktir. 
+herhangi bir alt kumesidir ve sonuclardan olusurlar. Mesela ustteki
+yazi-tura deneyinde ``iki atisin icinden ilk atisin her zaman H gelmesi
+olayi'' boyle bir alt kumedir, bu olaya $A$ diyelim, $A =
+\{HH,HT\}$.
 
 Ya da bir deneyin sonucu $\omega$ fiziksel bir olcum , diyelin ki sicaklik
 olcumu. Sicaklik $\pm$, reel bir sayi olduguna gore, $\Omega = (-\infty,
@@ -73,7 +74,7 @@ hic aklimizdan cikartmayalim.
 Ornek
 
 10 kere yazi-tura attik diyelim. VE yine diyelim ki $X(\omega)$ rasgele
-degiskeni $\omega$ siralamasindaki (sequence) tura sayisi. Iste bir
+degiskeni her $\omega$ siralamasinda (sequence) olan tura sayisi. Iste bir
 esleme. Mesela eger $\omega = HHTHHTHHTT$ ise $X(\omega) = 6$. Tura sayisi
 eslemesi $\omega$ sonucunu 6 sayisina esledi. 
 
@@ -84,8 +85,43 @@ reel sayilar (unit disc). Diyelim ki bu kumeden rasgele secim
 yapiyoruz. Tipik bir sonuc $\omega = (x,y)$'dir. Tipik rasgele degiskenler
 ise $X(\omega) = x$, $Y(\omega) = y$, $Z(\omega) = x+y$ olabilir. Goruldugu
 gibi bir sonuc ile reel sayi arasinda esleme var. $X$ rasgele degiskeni
-mesela sonucu $x$'e esliyor, yani $(x,y)$ icinden sadece $x$'i cekip
-cikartiyor. Benzer sekilde $Y,Z$ degiskenleri var. 
+bir sonucu $x$'e eslemis, yani $(x,y)$ icinden sadece $x$'i cekip
+cikartmis. Benzer sekilde $Y,Z$ degiskenleri var. 
+
+Toplamsal Dagilim Fonksiyonu (Cumulative Distribution Function -CDF-)
+
+Tanim
+
+$X$ rasgele degiskeninin CDF'i $F_X: \Re \to [0,1]$ tanimi
+
+\[ F_X(x) = P(X \ge x) \]
+
+Eger $X$ ayriksal ise, yani sayilabilir bir kume $\{x_1,x_2,...\}$ icinden
+degerler aliyorsa olasilik fonksiyonu (probability function), ya da
+olasilik kutle fonksiyonu (probability mass function) 
+
+\[ f_X(x) = P(X = x) \]
+
+Bazen $f_X$, ve $F_X$ yerine sadece $f$ ve $F$ yazariz. 
+
+Tanim
+
+Eger $X$ surekli (continuous) ise, yani tum $x$'ler icin $f_X(x) > 0$,
+$\int_{-\infty}^{+\infty}f(x) dx = 1$ olacak sekilde bir $f_X$ mevcut ise, o zaman her $a \le b$ icin
+
+\[ P(a<X<b) = \int_{a}^{b}f_X(x)dx \]
+
+O zaman $F_X(x)$'in turevi alinabildigi her $x$ noktasinda  $f_X(x) = F'_X(x)$
+demektir. 
+
+Dikkat! Eger $X$ surekli ise o zaman $P(X = x) = 0$ degerindedir. $f(x)$
+fonksiyonunu $P(X=x)$ olarak gormek hatalidir. Bu sadece ayriksal rasgele
+degiskeninler icin isler. Surekli durumda olasilik hesabi icin belli iki
+nokta arasinda entegral hesabi yapmamiz gereklidir. 
+
+
+
+
 
 
 
