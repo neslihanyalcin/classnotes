@@ -32,7 +32,7 @@ atip sonucu kaydetmek ise, bu deneyin mumkun tum sonuclari soyledir
 Sonuclar ve Olaylar (Outcomes and Events)
 
 $\Omega$ icindeki her nokta bir sonuctur (outcome). Olaylar $\Omega$'nin
-herhangi bir alt kumesidir. Mesela ustteki yazi tura deneyinde ``iki atisin
+herhangi bir alt kumesidir. Mesela ustteki yazi-tura deneyinde ``iki atisin
 icinden ilk atisin her zaman H gelmesi olayi'' boyle bir alt kume
 olusturur, bu olaya $A$ diyelim, ve bu kume $A = \{HH,HT\}$ olacaktir. 
 
@@ -43,12 +43,49 @@ sicaklik olcumunun 10'dan buyuk ama 23'ten kucuk ya da esit
 olma ``olayi'' $A = (10,23]$. Koseli parantez kullanildi cunku sinir
 degerini dahil ediyoruz. 
 
+Ornek 
+
+10 kere yazi-tura at. $A$ = ``en az bir tura gelme'' olayi olsun. $T_j$ ise
+$j$'inci yazi-tura atisinda yazi gelme olayi olsun. $P(A)$ nedir? 
+
+Bunun hesabi icin en kolayi, hic tura gelmeme, yani tamamen yazi gelme
+olasiligini, $A^c$'yi hesaplamak, ve onu 1'den cikartmaktir. $^c$ sembolu
+``tamamlayici (complement)'' kelimesinden geliyor.
+
+\[ P(A) = 1 - P(A^c) \]
+
+\[ = 1 - P(\textit{hepsi yazi}) \]
+
+\[ = 1-P(T_1)P(T_2)...P(T_{10}) \]
+
+\[ = 1 - \bigg(\frac{1}{2}\bigg)^{10} \approx .999 \]
+
+
 Rasgele Degiskenler (Random Variables)
 
 Bir rasgele degisken $X$ bir eslemedir, ki bu esleme $X: \Omega \to \Re$
-seklindedir, yani bir sonucu bir reel sayi esler. 
+her sonuc ile bir reel sayi arasindaki eslemedir. 
 
+Olasilik derslerinde bir noktadan sonra artik ornekleme uzayindan
+bahsedilmez, ama bu kavramin arkalarda bir yerde her zaman devrede oldugunu
+hic aklimizdan cikartmayalim. 
 
+Ornek
+
+10 kere yazi-tura attik diyelim. VE yine diyelim ki $X(\omega)$ rasgele
+degiskeni $\omega$ siralamasindaki (sequence) tura sayisi. Iste bir
+esleme. Mesela eger $\omega = HHTHHTHHTT$ ise $X(\omega) = 6$. Tura sayisi
+eslemesi $\omega$ sonucunu 6 sayisina esledi. 
+
+Ornek 
+
+$\Omega = \{ (x,y); x^2+y^2 \le 1 \}$, yani kume birim cember ve icindeki
+reel sayilar (unit disc). Diyelim ki bu kumeden rasgele secim
+yapiyoruz. Tipik bir sonuc $\omega = (x,y)$'dir. Tipik rasgele degiskenler
+ise $X(\omega) = x$, $Y(\omega) = y$, $Z(\omega) = x+y$ olabilir. Goruldugu
+gibi bir sonuc ile reel sayi arasinda esleme var. $X$ rasgele degiskeni
+mesela sonucu $x$'e esliyor, yani $(x,y)$ icinden sadece $x$'i cekip
+cikartiyor. Benzer sekilde $Y,Z$ degiskenleri var. 
 
 
 
