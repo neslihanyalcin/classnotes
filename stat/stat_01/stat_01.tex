@@ -98,7 +98,7 @@ $X$ rasgele degiskeninin CDF'i $F_X: \Re \to [0,1]$ tanimi
 
 Eger $X$ ayriksal ise, yani sayilabilir bir kume $\{x_1,x_2,...\}$ icinden
 degerler aliyorsa olasilik fonksiyonu (probability function), ya da
-olasilik kutle fonksiyonu (probability mass function) 
+olasilik kutle fonksiyonu (probability mass function -PMF-) 
 
 \[ f_X(x) = P(X = x) \]
 
@@ -111,13 +111,22 @@ $\int_{-\infty}^{+\infty}f(x) dx = 1$ olacak sekilde bir $f_X$ mevcut ise, o zam
 
 \[ P(a<X<b) = \int_{a}^{b}f_X(x)dx \]
 
-O zaman $F_X(x)$'in turevi alinabildigi her $x$ noktasinda  $f_X(x) = F'_X(x)$
+Bu durumda $f_X$ olasilik yogunluk fonksiyonudur (probability density function
+-PDF-). 
+
+\[ F_X = \int_{\infty}^{x}f_X(t)dt \]
+
+Ayrica $F_X(x)$'in turevi alinabildigi her $x$ noktasinda  $f_X(x) = F'_X(x)$
 demektir. 
 
 Dikkat! Eger $X$ surekli ise o zaman $P(X = x) = 0$ degerindedir. $f(x)$
 fonksiyonunu $P(X=x)$ olarak gormek hatalidir. Bu sadece ayriksal rasgele
 degiskeninler icin isler. Surekli durumda olasilik hesabi icin belli iki
-nokta arasinda entegral hesabi yapmamiz gereklidir. 
+nokta arasinda entegral hesabi yapmamiz gereklidir. Ek olarak PDF 1'den
+buyuk olabilir, ama PMF olamaz. PDF'in 1'den buyuk olabilmesi entegrali
+bozmaz mi? Unutmayalim, entegral hesabi yapiyoruz, noktasal degerlerin 1
+olmasi tum 1'lerin toplandigi anlamina gelmez. Bakiniz Entegralleri Nasil
+Dusunelim yazimiz. 
 
 
 
