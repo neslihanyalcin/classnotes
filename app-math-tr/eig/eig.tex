@@ -1,0 +1,125 @@
+\documentclass[12pt,fleqn]{article}
+\setlength{\parindent}{0pt}
+\usepackage{graphicx}
+\usepackage{cancel}
+\usepackage{listings}
+\usepackage[latin5]{inputenc}
+\usepackage{color}
+\setlength{\parskip}{8pt}
+\setlength{\parsep}{0pt}
+\setlength{\headsep}{0pt}
+\setlength{\topskip}{0pt}
+\setlength{\topmargin}{0pt}
+\setlength{\topsep}{0pt}
+\setlength{\partopsep}{0pt}
+\setlength{\mathindent}{0cm}
+
+\begin{document}
+Ozvektorler, Ozdegerleri Elle Hesaplamak (Eigenvectors, Eigenvalues)
+
+Ozdegerler ve ozvektorler her matrise gore ozel vektorlerdir, ki matris bu
+ozel vektorleri transform ettiginde / islediginde sonuc yine ozvektorun
+kendisidir, daha dogrusu onun bir sabit (ozdeger) ile carpilmis
+halidir. Yani
+
+\[ Ax = \lambda x \]
+
+Tek tarafa gecirelim
+
+\[ Ax - \lambda x = 0 \]
+
+Bu noktada $x$'leri disari cekmek isterdik, fakat bunu yapamayiz, cunku o
+zaman iceride $A - \lambda$ kalir ve bu olmaz, cunku $A$ bir matris,
+$\lambda$ bir tek sayi. Ama $Ix = x$'ten hareketle
+
+\[ Ax - \lambda I x = 0 \]
+
+diyebiliriz. Simdi disari cekersek
+
+\[ (A - \lambda I) x = 0 \]
+
+Bu ifadenin dogru olmasi icin parantez icindeki ifade / matris tekil
+(singular) olmalidir. Bunun icin ise parantez icinin determinanti sifir
+olmalidir. Yani
+
+\[ |A - \lambda I| = 0 \]
+
+Ornek 
+
+\[ 
+A = 
+\left[\begin{array}{rr}
+1 & 4 \\ 3 & 5
+\end{array}\right]
+ \]
+
+\[ 
+A - \lambda I = 
+\left[\begin{array}{rr}
+1 & 4 \\ 3 & 5
+\end{array}\right] - 
+\lambda
+\left[\begin{array}{rr}
+1 & 0 \\ 0 & 1
+\end{array}\right] 
+ \]
+
+\[ 
+= 
+\left[\begin{array}{rr}
+1 - \lambda & 4 \\ 3 & 5-\lambda
+\end{array}\right]
+ \]
+
+\[ det(A - \lambda I) = (1-\lambda)(5-\lambda) - 4 \cdot 3 \]
+
+Ustteki denkleme karakteristik denklem (characteristic equation) denir. 
+
+\[ = -7 -6\lambda + \lambda^2 \]
+
+Kokleri $\lambda_1 = 7$, $\lambda_2 = -1$.
+
+Her ozdegere tekabul eden ozvektoru bulmak istiyorsak, cikartma islemini
+yapalim
+
+\[ 
+A - \lambda I = 
+\left[\begin{array}{rr}
+1-7 & 4 \\ 3 & 5-7
+\end{array}\right] = 
+\left[\begin{array}{rr}
+-6 & 4 \\ 3 & -2
+\end{array}\right]
+ \]
+
+Su formule donersek
+
+\[ (A - \lambda I) x = 0 \]
+
+Cikartma sonrasi elimize gecen matrisi carpacak oyle bir $x$ vektoru
+ariyoruz ki bu vektorle carpinca elimize sifir (vektoru) gecsin. Yani bu
+aradigimiz $x$ vektoru $(A - \lambda I)$'nin sifir uzayinda (nullspace). 
+
+2 x 2 boyutundaki boyle ufak bir ornek icin $x$'i aslinda tahmin
+edebiliriz. Oyle iki sayi bulalim ki, 1. ve 2. kolonu onlarla ayri ayri
+carpip topladigimizda sonuc sifir olsun. Her iki kolonun tepesinde -6 ve 4
+goruyorum, sadece bu iki sayinin sifira toplanmasi icin acaba -6'yi 2 ile
+4'u 3 ile carpip toplasam olur mu? Kolondaki diger sayilara bakiyoruz, 3 ve
+-2 icin de bu ise yariyor. Demek ki ozvektorlerden biri 
+
+\[ x_1 = 
+\left[\begin{array}{r}
+2 \\ 3
+\end{array}\right]
+ \]
+
+Diger ise ayni teknigi kullanarak
+
+\[ x_2 = 
+\left[\begin{array}{r}
+-2 \\ 1
+\end{array}\right]
+ \]
+
+
+\end{document}
