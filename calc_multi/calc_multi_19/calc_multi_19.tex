@@ -295,20 +295,104 @@ islemden sonra ayni sonucu bulabilirdik. Daha zor olurdu ama bulunurdu. O
 zaman bir tavsiye, isimizi en kolaylastiracak parametrizasyonu kullanmak en
 iyisi. Ustte en sondaki parametrizasyon pek iyi degil. 
 
+Geometrik Yaklasim
+
+Parametrizasyon, vs. ile her zaman bir cozume varilabilir. Fakat bazen
+geometrik olarak yaklasmak cozumu daha hizlandirabiliyor. 
+
+Vektor $\Delta \vec{r}$'yi dusunelim. 
+
+\includegraphics[height=2cm]{19_11.png}
+
+Eger bu vektoru cok ufak alirsam, vektorun gidisata teget oldugunu
+dusunebiliriz. Yani birim teget vektor ile ayni yonu gosterecek, uzunlugu
+ise gidisat uzerinde alinan mesafenin ufak bir parcasi $\Delta s$ olacak. 
+
+\includegraphics[height=4cm]{19_12.png}
+
+\[ d\vec{r} = <dx, dy> \]
+ 
+oldugu soylemistik, o zaman ayni sekilde
+
+\[  d\vec{r} = \vec{T} \ ds \]
+
+Her seyi $dt$'ye bolunce elimize anlamli bir ifade ciktigini gorebiliyoruz
+
+\[ \frac{d\vec{r}}{dt} = <\frac{dx}{dt}, \frac{dy}{dt}> = \vec{T}\frac{ds}{dt} \]
+
+Yani geometrik dusunerek sunu da soylemem mumkun,
+
+\[  \int_C \vec{F} \cdot d\vec{r}  = \int_C M dx + N dy
+=  \int_C \vec{F} \cdot \vec{T} ds
+\]
+
+$\vec{F} \cdot \vec{T}$'yi tek sayisal (scalar) bir nicelik olarak
+gorebiliriz, ki bu tek sayi kuvvetin teget yonunde olan etkisi, kuvveti o
+yone ``yansitinca (projection)'' ele gecen deger. Sonra bu yansimasi alip
+tum egri boyunca entegre ediyorum. 
+
+Ornek
+
+$C$ = ortasi orijinde olan $a$ yaricapindaki cember, ve gidisat saat
+yonunun tersi yonde.
+
+\[ \vec{F} = x\hat{i} + y\vec{j} \]
+
+\includegraphics[height=3cm]{19_13.png}
+
+Fizigi iyi olanlar sonucun ne olacagini tahmin edebilir, sifir olacak cunku
+gidisat her zaman kuvvet vektorlerine dik. 
+
+Yani $\vec{F} \perp \vec{T}$, o zaman $\vec{F} \cdot \vec{T} = 0$, yani
+
+\[  \int_C \vec{F} \cdot \vec{T} ds = 0\]
+
+Sonuc basit sekilde hesaplandi. Burada iki saat parametrizasyon
+yapabilirdik, vs. ve sonuc yine ayni cikardi. 
+
+Ornek
+
+Ustteki ayni $C$, ama $\vec{F} = -y\hat{i} + x\hat{j}$. 
+
+\includegraphics[height=2cm]{19_14.png}
+
+Bu durumda her iki vektor ayni yone isaret ediyor. 
+
+Yani $\vec{F} // \vec{T}$, o zaman $\vec{F} \cdot \vec{T} = |\vec{F}| =
+a$. 
+
+Artik entegrali cok hizli sekilde hesaplayabiliriz. 
+
+\[  \int_C \vec{F} \cdot \vec{T} ds 
+=  \int_C a ds 
+= a  \int_C ds 
+= a \cdot C \textit{'nin uzunlugu }
+\]
+
+$C$'nin uzunlugu nedir? $2\pi a$. Yani ustteki entegral
+
+\[ = 2\pi a^2 \]
+
+Eger bu hesabi parametrizasyon ile yapsaydik? 
+
+\[ x = acos\theta \]
+
+\[ y = asin\theta \]
+
+\[ 0 \le \theta \le 2\pi \]
+
+\[ \int_C -y dx + x dy \]
 
 
+\[ = \int_C -(asin\theta)(-asin\theta d\theta) + 
+(acos\theta)(a cos\theta d\theta)
+\]
 
+\[ = \int_0^{2\pi} a^2 (sin^2\theta + cos^2\theta)d\theta \]
 
+\[ = \int_0^{2\pi} a^2 d\theta \]
 
-
-
-
-
-
-
-
-
-
+Ayni sonuca eristik. 
 
 
 \end{document}
