@@ -138,16 +138,81 @@ Is ve Cizgi Entegrali
 
 $W$ yapilan is (work)'i temsil ediyor. 
 
+Fakat senaryomuzda demistik ki gidisat karmasik ve guc surekli
+degisiyor.
 
+\includegraphics[height=4cm]{19_9.png}
 
+O zaman is hesabini yapmak icin gidisati ufak parcalara ayirmaliyim, o
+parcalar icin carpimi yapip sonuclari toplamaliyim. Parcalar olabilecegi
+kadar ufak olmali tabii ki, bu ne demektir? Bir entegral demektir. Yani
 
+Bir gidisat $C$ uzerinde yapilan is 
 
+\[ W = \int_C \vec{F} \cdot d\vec{r} \]
 
+Notasyonun hesapsal anlamina bakalim simdi. Soyle gorebiliriz
 
+\[ = \lim_{\Delta r_i \to 0} \sum_i  \vec{F} \cdot \Delta\vec{r}_i\]
 
+\[ = 
+\lim_{\Delta t \to 0} \sum_i  
+\vec{F} \cdot \bigg( \frac{\Delta\vec{r}}{\Delta t} \Delta t 
+\bigg)
+\]
 
+Aslinda hem bolume, hem bolene $\Delta t$ ekleyerek hic bir sey
+degistirmedik, ama yeni ortaya cikan terim $\Delta\vec{r} / \Delta t$ hiz
+vektoru $d\vec{r}/dt$'ye esit. Limitin $\Delta t$'ye donustugune dikkat.
 
+Yani ilk bastaki entegralimizi su sekilde hesaplayabiliriz
 
+\[ = \int_{t_1}^{t_2} \vec{F} \cdot \frac{d\vec{r}}{dt} dt \]
+
+Ornek
+
+Su kuvvetin
+
+\[ \vec{F} = -y\hat{i} + x\hat{j} \]
+
+Su parametrik egri $C$ uzerinde
+
+\[ x = t  \]
+
+\[ y = t^2 \]
+
+\[ 0 \le t \le 1 \]
+
+yaptigi isi hesapla. 
+
+\includegraphics[height=3cm]{19_10.png}
+
+Bu arada, ``$C$'yi nereden buldun?'' diye bir soru gelebilir, bu yanlis bir
+soru. $C$'yi bulmadik, o bize sorunun icinde verildi, yani elimizdeki veri
+bu. Kuvvet alani ve egri tamamen ayri yerlerden, ayri sekilde tanimlanmis
+olabilir. 
+
+\[ \int_C \vec{F} \cdot d\vec{r} 
+= \int_{0}^{1} \vec{F} \cdot \frac{d\vec{r}}{dt} dt 
+\]
+
+$\vec{F}$ nedir? 
+
+\[ \vec{F} = <-y,x> = <-t^2,t> \]
+
+Hiz nedir? 
+
+\[ dx/dt = 1 \]
+
+\[ dy/dt = 2t \]
+
+O zaman 
+
+\[ W = \int_{0}^{1}  <-t^2,t>\cdot<1,2t>dt \]
+
+\[ = \int_{0}^{1} (-t^2 + 2t^2)dt\]
+
+\[ = \int_{0}^{1} t^2dt = \frac{1}{3} \]
 
 
 
