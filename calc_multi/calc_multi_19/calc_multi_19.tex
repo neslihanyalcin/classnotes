@@ -215,6 +215,87 @@ O zaman
 \[ = \int_{0}^{1} t^2dt = \frac{1}{3} \]
 
 
+Baska Bir Yol
+
+Vektor alanimizin bilesenleri
+
+\[ \vec{F} = <M,N> \]
+
+olduguna gore, su da dogru olmali
+
+\[ d\vec{r} = <dx, dy> \]
+
+Bunun bize soyledigi sudur
+
+\[  \vec{F} \cdot d\vec{r}  = M dx + N dy
+\]
+
+Bu esitlik uzerinden problemlerin cogunlukla su sekilde yazildigini
+gorursunuz
+
+\[  \int_C \vec{F} \cdot d\vec{r}  = \int_C M dx + N dy\]
+
+Esitligin sagindaki vektor alani degil artik, ama aslinda asagi yukari ayni
+seyler. Yani aradaki fark bir fonksiyonun gradyani ile kismi
+diferansiyelleri arasindaki iliskiye benziyor. Notasyon farkli, ama aslinda
+ayni icerige sahipler. 
+
+Peki bu yeni formdaki cizgi entegralini nasil hesaplayalim? Hem $M$ hem $N$
+icinde $x,y$ var, eger entegrali sadece $dx$, sadece $dy$ icin alirsak yine
+$y$'ler, $x$'ler ortaya cikacak, fakat biz bunu istemiyoruz, biz tek bir
+sayi istiyoruz. Buradaki puf nokta su, egri boyunca $x,y$ birbiriyle
+baglantili. Yani $M,N$ iceren bir formulu entegre ediyor olabiliriz, ama
+$C$ boyunca aslinda sadece tek bir parametre var. Bu tek degiskn $x$
+olabilir, $y$ olabilir, $t$ olabilir. O zaman 
+
+Metot: $x,y$ degiskenlerini tek bir degisken baglaminda belirt. O tek degiskeni
+digerlerinin yerine gecir. 
+
+Biraz onceki ornek
+
+\[ \int_C \vec{F} \cdot d\vec{r} 
+= \int_C -y dx + x dx
+\]
+
+Her seyi yeni, tek bir degisken $t$ baglaminda belirtelim. Problem zaten
+sunu vermisti
+
+\[ x = t  \]
+
+\[ y = t^2 \]
+
+$dx,dy$'yi bulmak icin
+
+\[ dx = dt \]
+
+\[ dy = 2tdt \]
+
+O zaman entegral suna donusur
+
+\[ = \int_C -t^2 dt + t \cdot 2t dt\]
+
+\[ = \int_0^1 t^2 dt = \frac{1}{3}\]
+
+
+$\int_C \vec{F} \cdot d\vec{r}$ entegrali $C$'ye baglidir, parametrizasyonun nasil 
+yapildigina bagli degildir. Yani hangi degiskeni istersek onu seceriz,
+mesela yukaridaki ornekte 
+
+\[ 
+\left\{ \begin{array}{l}
+x  = sin\theta \\
+y  = sin^2\theta 
+\end{array} \right.
+ \]
+
+\[ 0 \le \theta \le \frac{\pi}{2} \]
+
+farz etmek te mumkundur. Sonra $dx,dy$ bulunurdu, bir suru trigonometrik
+islemden sonra ayni sonucu bulabilirdik. Daha zor olurdu ama bulunurdu. O
+zaman bir tavsiye, isimizi en kolaylastiracak parametrizasyonu kullanmak en
+iyisi. Ustte en sondaki parametrizasyon pek iyi degil. 
+
+
 
 
 
