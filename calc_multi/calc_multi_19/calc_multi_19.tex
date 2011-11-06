@@ -125,10 +125,10 @@ temsil edecekler. Simdi su senaryoyu dusunelim. Bir parcacigin uzerine bir
 kuvvet uygulaniyor ve bu parcacik bir seyahat cizgisi uzerinde
 ilerliyor. Fizikten bilindigi gibi kuvvetin yaptigi ``is (work)'' kuvvetin
 o kuvvetin sayesinde ne kadar yer degisikligi oldugunun vektoru
-(displacement vektorun) noktasal carpimina esittir. Eger gidisat duz
+(displacement vector) ile noktasal carpimina esittir. Eger gidisat duz
 olursa, ve kuvvet sabitse bu hesap basitce yapilabilir, ama daha cetrefil
 bir gidisat takip ediliyorsa ve kuvvet o sirada surekli degisiyorsa, o
-zaman uzerinden entegrasyon yapmamiz gerekir. 
+zaman uzerinden entegrasyon yapmamiz gerekir.
 
 Is ve Cizgi Entegrali
 
@@ -318,7 +318,9 @@ oldugu soylemistik, o zaman ayni sekilde
 
 Her seyi $dt$'ye bolunce elimize anlamli bir ifade ciktigini gorebiliyoruz
 
-\[ \frac{d\vec{r}}{dt} = <\frac{dx}{dt}, \frac{dy}{dt}> = \vec{T}\frac{ds}{dt} \]
+\[ \frac{d\vec{r}}{dt} = <\frac{dx}{dt}, \frac{dy}{dt}> 
+= \vec{T} \ \frac{ds}{dt} 
+\]
 
 Yani geometrik dusunerek sunu da soylemem mumkun,
 
@@ -326,9 +328,9 @@ Yani geometrik dusunerek sunu da soylemem mumkun,
 =  \int_C \vec{F} \cdot \vec{T} ds
 \]
 
-$\vec{F} \cdot \vec{T}$'yi tek sayisal (scalar) bir nicelik olarak
-gorebiliriz, ki bu tek sayi kuvvetin teget yonunde olan etkisi, kuvveti o
-yone ``yansitinca (projection)'' ele gecen deger. Sonra bu yansimasi alip
+$\vec{F} \cdot \vec{T}$'yi tek sayisal (scalar) bir nicelik olarak gorebiliriz, ki bu tek 
+sayi, kuvvetin teget yonunde olan etkisi, kuvveti o yone 
+``yansitinca (projection)'' ele gecen degerdir. Sonra bu yansimayi alip
 tum egri boyunca entegre ediyorum. 
 
 Ornek
@@ -356,15 +358,16 @@ Ustteki ayni $C$, ama $\vec{F} = -y\hat{i} + x\hat{j}$.
 
 \includegraphics[height=2cm]{19_14.png}
 
-Bu durumda her iki vektor ayni yone isaret ediyor. 
+Bu durumda her iki vektor ayni yone isaret ediyor (ama ayni buyuklukte
+degiller, $\vec{T}$'nin birim vektor oldugunu unutmayalim). 
 
 Yani $\vec{F} // \vec{T}$, o zaman $\vec{F} \cdot \vec{T} = |\vec{F}| =
-a$. 
+a$.
 
 Artik entegrali cok hizli sekilde hesaplayabiliriz. 
 
 \[  \int_C \vec{F} \cdot \vec{T} ds 
-=  \int_C a ds 
+=  \int_C a \ ds 
 = a  \int_C ds 
 = a \cdot C \textit{'nin uzunlugu }
 \]
