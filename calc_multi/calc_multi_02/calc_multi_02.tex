@@ -158,22 +158,20 @@ $\vec{A}$'nin etrafinda bir dikdortgen hayal edelim, ve dikdortgeni
 icindeki vektor ile beraber alip sola dogru ceviriyoruz. O zaman uzun kenar
 artik yukari dogru bakiyor, yani $a_1$ yukari bakiyor, $a_2$ nin de yeri
 degisiyor, yani bu buyuklukler yer degistiriyorlar. Ayrica $a_2$ artik ters
-yone gittigi icin isareti degisiyor.
+yone gittigi icin isareti degisiyor. Normalde
 
-O zaman su formule donersek
+\[ \vec{A}\cdot\vec{B} = a_1b_1 + a_2b_2 \]
 
-\[ = \vec{A'} \cdot \vec{B} \]
+vardi, ustteki cizimden hareketle ise
 
-soyle olur
+\[ \vec{A'} \cdot \vec{B} = a_1b_2 - a_2b_1 \]
 
-\[ a_1b_2 - a_2b_1 \]
-
-Bu formul determinantlardan tanidik gelebilecek bir formul, 
+elde ediyoruz. Bu formul determinantlardan tanidik gelebilecek bir formul, 
 
 \[ = det(\vec{A},\vec{B}) \]
 
-Aslinda $\vec{A},\vec{B}$ ile bu vektorleri yanyana kolonlara koydugumuz su
-formu dusunuyoruz ve onun determinantini aliyoruz
+$\vec{A},\vec{B}$ ile bu vektorleri yanyana kolonlara koydugumuz su formu
+dusunuyoruz ve onun determinantini aliyoruz
 
 \[ =
 \left|\begin{array}{rr}
@@ -182,9 +180,16 @@ b_1 & b_2 \\
 \end{array}\right|
  \]
 
-Ve bu determinant hesabinin sonucu kenarlari $\vec{A}$ ve $\vec{B}$ olan
-bir paralelogramin alanidir. Tabii paralelogram icindeki ucgeni istiyorsak
-bu sonucu ikiye boleriz. 
+Bu hesabin sonucu kenarlari $\vec{A}$ ve $\vec{B}$ olan bir paralelogramin alanidir. 
+Tabii paralelogram icindeki ucgeni istiyorsak bu sonucu ikiye
+boleriz. Ucgen hesabinin icinde $sin$ iceren formul oldugunu nereden
+biliyoruz? Sekle bakalim
+
+\includegraphics[height=2cm]{triangle.png}
+
+Yukseklik $h=|w|sin\theta$'dir. Alan ise
+
+\[ \textit{ Alan } = \frac{1}{2}|v||w|sin\theta \]
 
 Not: Alan pozitif bir seydir, fakat $a_1b_2 - a_2b_1$'in kesinlikle pozitif
 cikmasinin garantisi yoktur. Eksi degerli terimler buyuyup arti degerlileri
@@ -326,7 +331,7 @@ b_1 & b_2 \\
 
 Bu formulde sadece $a_1,a_2,b_1,b_2$ var, o zaman capraz carpimi o hale
 getirmek icin $a_3=0,b_3=0$ kullanabiliriz, cunku iki vektoru her zaman
-alip xy duzlemi uzerine koyabiliriz [1]. Acilimi yaptimiz zaman
+alip xy duzlemi uzerine koyabiliriz [1,2]. Acilimi yaptimiz zaman
 determinant sonucu ile ayni seyi elde ettigimizi goruruz.
 
 2)
@@ -510,6 +515,11 @@ fakat bu vektoru de ayni sekilde kullanabiliriz. Sonuc $x+y =1$ cikacak.
 Kaynaklar
 
 [1] Anton, Rorres, Elementary Linear Algebra with Applications, 9th Edition
+
+[2] Michael Corral, Vector Calculus, sf. 21
+
+
+
 
 
 \end{document}
