@@ -17,15 +17,16 @@ MIT OCW Cok Degiskenli Calculus - Ders 13
 
 Lagrange Carpanlari (Multipliers)
 
-Amac $f(x,y,z)$ gibi birden fazla degisken iceren bir fonksiyonu maksimize
-etmek, degisik olan, $x,y,z$ degiskenlerinin birbirinden bagimsiz
+Amac yine $f(x,y,z)$ gibi birden fazla degisken iceren bir fonksiyonu
+maksimize etmek, degisik olan, $x,y,z$ degiskenlerinin birbirinden bagimsiz
 ol\textbf{ma}masi. Bu degiskenlerin arasindaki iliski $g(x,y,z)=c$ gibi bir
 fonksiyon tarafindan gosteriliyor olabilir, $c$ bir sabittir. Yani
 $f(x,y,z)$'i minimize ya da maksimize ediyoruz ve bunu sadece $g(x,y,z)=c$
-sartina / sinirlama ifadesine (constraint) uyan $x,y,z$ degerleri icin yapiyoruz.
+sartina / sinirlama ifadesine (constraint) uyan $x,y,z$ degerleri icin
+yapiyoruz.
 
 Bunun icin hangi teknigi kullaniriz? Yollardan biri, eger sinirlama ifadesi
-basit ise, belki bir degiskeni cebirsel olarak cozebiliriz (digerleri
+basit ise, belki bir degiskeni cebirsel olarak cozmek (digerleri
 baglaminda ifade ederek), sonra geri $f$'e sokariz, boylece klasik bir min
 / maks problemi elde ederiz, ki o tur bir problemi cozmeyi artik biliyoruz.
 
@@ -33,7 +34,7 @@ Fakat bazen $x,y,z$ degiskenleri icin analitik cozum mumkun olmaz, o zaman
 farkli teknikler kullanmamiz gerekir. Bu derste ogrenecegimiz teknikler
 bunlar olacak. 
 
-Uygulama baglaminda, Lagrange Carpanlari bize niye ilgilendiriyor? Belki
+Uygulama baglaminda, Lagrange Carpanlari bizi niye ilgilendiriyor? Belki
 fizik, termodinamik dersinde gormussunuzdur, sicaklik, hacim ve basinc
 degerleri vardir, ve bu degerler birbirinden bagimsiz
 degildir. Termodinamikte $PV=nRT$ denklemi vardir, gerci burada analitik
@@ -63,7 +64,7 @@ O zaman
 
 \[ ki, \ xy = 3  \]
 
-Yani sinirlama ifadesi $g(x,y) = xy$ olarak sectik. 
+Yani sinirlama ifadesini $g(x,y) = xy$ olarak sectik. 
 
 Grafige bakalim. Yuvarlaklar $f(x,y)$ konturlari, yesil okla gosterilen
 mesela $f(x,y) = 20$ konturu. Bu kontur ust sag kose ve sol alt kosede
@@ -91,7 +92,9 @@ olmalari gerekir. Bu durumda
 \[ \nabla f // \nabla g \]
 
 ifadesi dogru olmalidir, yani $f$'in gradyani $g$'nin gradyanina
-paraleldir. Bazi ornekler
+paraleldir. Bazi ornekler [hocanin kullandigi program mouse ile tiklanan
+yerde (mavi nokta) her iki fonksiyonun gradyanini hemen grafikliyebiliyor,
+alttaki resimler birkac ornek noktada yapilan tiklamalar]. 
 
 \includegraphics[height=3cm]{13_4.png}
 
