@@ -46,7 +46,38 @@ $min \ f$'e sahipse,
 
 \[ min \ f \cdot (b-a) \le \int_a^b f(x)dx \le max \ f \cdot (b-a) \]
 
-demektir.
+demektir. 
+
+\includegraphics[height=4cm]{minmax.png}
+
+Bu kural diyor ki $f$'in $[a,b]$ uzerindeki entegrali hicbir zaman $f$'in
+minimum'u carpi $[a,b]$ araliginin uzunlugu'ndan kucuk olamaz, ve $f$'in
+maksimumu carpi $[a,b]$ araliginin uzunlugu'ndan buyuk olamaz. 
+
+Ispat
+
+Eger $(b-a)$'yi $ \sum_{k=1}^n \Delta x_k$ olarak gorursek
+
+\[ min \ f \cdot (b-a) = min \ f \cdot \sum_{k=1}^n \Delta x_k \]
+\[  = \sum_{k=1}^n min \ f \cdot \Delta x_k  \]
+
+$[a,b]$ araligindaki herhangi bir deger $c_k$ icin
+
+\[  \le \sum_{k=1}^n f(c_k) \cdot \Delta x_k  \]
+
+Oyle degil mi? $min \ f$ degeri en kucuk deger ise, $[a,b]$ araligindaki
+herhangi bir nokta $c_k$'nin $f$ degeri bu degere ya esit, ya da ondan
+buyuktur. Yani $min \ f \le f(c_k)$. Devam edersek
+
+\[  \le \sum_{k=1}^n max \ f \cdot \Delta x_k  \]
+
+Ustteki benzer mantigi takip ediyor, bu sefer $f(c_k) \le max \ f $. Son
+ifadedeki $max$'i disari alabiliriz. 
+
+\[ = max \ f \sum_{k=1}^n \cdot \Delta x_k  \]
+
+\[ = max \ f (b-a)  \]
+
 
 Ortalama Deger Teoremi
 
