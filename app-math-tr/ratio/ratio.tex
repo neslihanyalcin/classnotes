@@ -1,0 +1,88 @@
+\documentclass[12pt,fleqn]{article}
+\setlength{\parindent}{0pt}
+\usepackage{graphicx}
+\usepackage{cancel}
+\usepackage{listings}
+\usepackage[latin5]{inputenc}
+\usepackage{color}
+\setlength{\parskip}{8pt}
+\setlength{\parsep}{0pt}
+\setlength{\headsep}{0pt}
+\setlength{\topskip}{0pt}
+\setlength{\topmargin}{0pt}
+\setlength{\topsep}{0pt}
+\setlength{\partopsep}{0pt}
+\setlength{\mathindent}{0cm}
+
+\begin{document}
+$dy/dx$ bir kesir olarak gorulebilir mi? 
+
+Mesela Thomas Calculus 11th Baski, bolum 3.8 sf 225'te turev $dy/dx$'in bir
+kesir, bir oran olmadigi soylenir. Fakat bu sekilde gorulemez mi? Cunku $dy
+= f'(x)dx$ formulunde $dx$ icin gercek sayilar verip sonucu (diferansiyeli)
+$dy$ olarak hesaplayabiliyoruz. Eger bu formulu tekrar duzenlersek $dy/dx$
+for kesir olarak gorulebilirdi.. belki.
+
+Fakat bu teorik olarak tamamiyle, her zaman islemiyor. Yani pratikte bazen
+bu sekilde gorebiliyoruz, fakat isin en temelinde durum boyle degil.
+
+Tarihsel olarak, Calculus'u kesfeden matematikci Leibniz bu notasyonu ileri
+surdugunde $dy/dx$'i bir kesir olarak dusunmustu, bu degerin temsil ettigi
+buyukluk ``$x$'deki sonsuz ufak (infinitesimal) degisimin $y$'de yarattigi
+sonsuz ufak degisime orani'' olarak dusunuluyordu.
+
+Fakat Calculus'un sonsuz ufakliklar mantigini reel sayilar cercevesinde
+kullanmak teorik olarak pek cok problemi beraberinde getiriyor. Bunlardan
+biri, sonsuz ufakligin reel sayilarin oldugu bir cercevede var
+olamamasidir! Reel sayilar onemli bir onsarti yerine getirirler, bu sartin
+ismi Arsimet Sarti'dir. Bu sarta gore, ne kadar kucuk olursa olsun herhangi
+bir pozitif tam sayi $\epsilon > 0$, ne kadar buyuk olursa olsun reel bir
+sayi $M>0$ baglaminda, $n\epsilon > M$ sartini dogrulayacak bir dogal sayi
+$n$ her zaman mevcuttur. Fakat sonsuz ufak bir $\xi$ o kadar ufak olmalidir
+ki onu kendisine ne kadar eklersek ekleyelim, hicbir zaman 1'e erisemeyiz,
+ki bu durum Arsimet Sartina aykiri olur [..]
+
+Bu problemlerden kurtulmak icin takip eden 200 sene icinde Calculus ta
+temelinden baslayarak sifirdan tekrar yazilmistir, ve simdi gorduklerimiz
+bu sifirdan insanin sonuclari (mesela limit kavrami bunun bir sonucu). Bu
+tekrar yazim sayesinde / yuzunden turevler artik bir oran degil, bir limit.
+
+\[ \lim_{h \to 0} \frac{f(x+h) - f(x)}{h}\]
+
+Bu ``oranin limiti''ni ``limitlerin orani'' olarak yazamayacagimiz icin
+(cunku hem bolum, hem bolen sifira gidiyorlar), o zaman turev bir oran
+degildir.
+
+Fakat Leibniz'in notasyonu o tur kullanimi ozendiriyor sanki, oraya dogru
+bir cekim yaratiyor, hatta bazen notasyonu o sekilde gormenin ise yaradigi
+bile oluyor, yani cogu zaman bu notasyon sanki {\em kesirmis gibi}
+davraniyor. Zincirleme Kanunu mesela 
+
+\[ \frac{dy}{dx} = \frac{dy}{du}\frac{du}{dx} \]
+
+Turevleri kesir olarak goruldugu bir durumda ustteki ifade hakikaten dogal
+duruyor. Ya da Tersi Fonksiyon (Inverse Function) teorisi
+
+\[ \frac{dx}{dy} = \frac{1}{\frac{dy}{dx}} \]
+
+sonucu da eger turevleri kesir olarak dusunuldugu bir ortamda dogal
+gelecektir. Iste bu sebeple, yani notasyonun cok guzel ve ozendirdiginin
+cogunlukla dogru seyler olmasi sebebiyle artik bir limiti eden temsil
+notasyonu kullanmaya devam ediyoruz, her ne kadar artik gercekten bir
+kesiri temsil etmiyor olsa bile. Hatta su ilginc tarihi anektodu ekleyelim,
+bu notasyon o kadar iyidir, Newton'un notasyonu tek tirnak, mesela $y'$,
+isaretinden o kadar ileridir ki Ingiltere'deki matematik ve bilim kara
+Avrupa'sinin yuzyillarca gerisinde kalmistir, cunku Newton ve Leibniz
+arasinda Calculus'u kimin kesfettigi konusunda bir catisma yasandi (bugunku
+konsensus ikisinin de Calculus'u ayni anda kesfettigi uzerine), ve bu
+catisma ortaminda Ingiliz bilim cevresinin Avrupa'daki ilerlemeleri,
+Leibniz notasyonunu dislayip Newton'u takip etmeleri sonucunu getirdi.. ve
+bu sebeple pek cok alanda ilerleyemeyip, takilip kaldilar [..]. 
+
+Sonuca gelirsek, $dy/dx$'i bir kesir gibi yaziyor, ve pek cok hesapta onu
+sanki bir kesirmis gibi kullaniyor, kullanabiliyor olsak bile, $dy/dx$ bir
+kesir degildir, sadece filmde (bazen) o rolu oynar. 
+
+
+
+\end{document}
