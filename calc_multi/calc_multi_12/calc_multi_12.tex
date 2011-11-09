@@ -222,22 +222,24 @@ Cevap evet. Yonsel turevler bu ise yariyorlar.
 
 \includegraphics[height=4cm]{12_6.png}
 
-Bir duz cizgi uzerindeki gidisata (trajectory) bakalim. $s$ adli bir
-parametreye bagli bir pozisyon vektoru $\vec{r(s)}$ hayal edelim, ve
-$d\vec{r}/ds = \hat{u}$ olsun. 
+Yani $\hat{u}$ uzerinden gecen yolda ilerlerken $z$'nin nasil degisecegini
+merak ediyorum. Duz cizgi uzerindeki gidisata (straight line trajectory)
+bakiyoruz.
 
-Niye ustte $t$ yerine $s$ kullandim? Bu hem mesafe icin alisilagelmis bir
-kullanis, hem de aslinda sonuc pek fark yaratmiyor [bir de hoca ozellikle
-arada terminoloji degistererek ogrencilerin fazla ezbere ogrenmesinin onune
-gecmek istiyor], cizgi boyunca birim hizda ilerliyorum, o zaman
-1,2,3.. gibi zaman indeksleriyle (ya da 1.0,1.1,1.2,vs..)  hesaplanabilecek
-pozisyon yerine, 1,2,3.. gibi indeksler de kullanabilirim. Simdi
-parametrize ettigim sey katedilen yol o zaman, $s$'i daha once egri
-uzunlugu olarak gorduk, benzer anlam, sadece bu sefer egri yerine duz cizgi
-var, ama yine mesafe kavramini kullaniyoruz.
+$s$ adli bir parametreye bagli bir pozisyon vektoru $\vec{r(s)}$ hayal
+edelim, oyle ki,
 
-Devam edelim, o zaman $dw/ds$ nedir? Bunu hesaplamak icin Zincirleme
-Kanunu'nun ozel bir durumunu kullanacagiz. 
+\[ d\vec{r}/ds = \hat{u} \]
+
+sonucunu versin.
+
+Niye ustte $t$ yerine $s$ kullandim? Cunku cizgi boyunca birim hizda
+ilerliyorum, o zaman parametrize ettigim sey katedilen yol. $s$ bir anlamda
+egri uzunlugu (arc length), tabii tam egri denemez cunku cizgi duz, ama
+yine mesafe kavramini kullaniyoruz.
+
+O zaman $dw/ds$ nedir? Bunu hesaplamak icin Zincirleme Kanunu'nun ozel bir
+durumunu kullanacagiz.
 
 Eger $\hat{u} = <a,b>$ ise
 
@@ -247,7 +249,7 @@ Eger $\hat{u} = <a,b>$ ise
 
 Bu formulleri $w$'ye sokariz, sonra $dw/ds$'i hesaplariz. 
 
-Yonsel turev soyle gosterilir.
+Tanim: Yonsel Turev
 
 \[ \frac{dw}{ds}_{|\hat{u}} \]
 
@@ -275,7 +277,6 @@ Hatirlamamiz gereken formul o zaman
 
 \[ \frac{dw}{ds}_{|\hat{u}} =  \nabla w \cdot \hat{u} \]
 
-
 Esitligin sag tarafi ``gradyanin $\hat{u}$ yonunde giden bileseni, kismi''
 olarak ta nitelenebilir. 
 
@@ -283,9 +284,9 @@ Kavramlarin birbiriyle alakasini iyice gormek icin suna bakalim
 
 Ornek
 
-\[ \frac{dw}{ds}_{|\hat{i}} =  \nabla w \cdot \hat{i} \]
-
-\[ = \frac{\partial w}{\partial x} \]
+\[ 
+\frac{dw}{ds}_{|\hat{i}} =  \nabla w \cdot \hat{i} = 
+\frac{\partial w}{\partial x} \]
 
 Geometrik olarak
 
@@ -333,6 +334,32 @@ zamandir. Yani $\hat{u} \perp \nabla w$ ise. Bunu anlamanin bir diger yolu,
 hic degisimin olmadigi yonun kesit yuzeyine teget oldugudur, bu yuzeyde $w$
 hic degismedigine gore degisim olmaz, degisim yoksa, biz de teget hareket
 ediyoruz demektir. 
+
+Soru
+
+\includegraphics[height=3cm]{2d9.png}
+
+P noktasinda $\partial w/ \partial x$ ve $\partial w/\partial y$'yi kabaca hesapla. 
+
+\[ \frac{\partial w}{\partial x} = \frac{dw}{ds} \bigg|_{\hat{i}} \approx
+\frac{\Delta w}{\Delta s} \approx
+\frac{-1}{5/3} = -0.6
+\]
+
+\[ \frac{\partial w}{\partial y} = \frac{dw}{ds} \bigg|_{\hat{j}} \approx
+\frac{\Delta w}{\Delta s} \approx
+\frac{-1}{1} = -1
+\]
+
+$\Delta = -1$ cunku dik giderken kesit seviye 2'den 1'e geliyoruz, $w$ 1
+azaliyor. Bu gidisat $s$'in kendi degisimi $\Delta s$, bunu da kabaca, sol
+alt kosedeki skalaya bakarak tahmin ediyoruz, saga dogru yatay gidis 1'den
+buyuk gibi duruyor, ona 5/3 demisiz, yukari dogru gidisat tam 1 gibi
+duruyor, ona 1 demisiz. 
+
+$\partial w / \partial y$ hesabinda niye asagi degil yukari gitmisiz? Cunku
+$\hat{i}$'nin yonu yukaridir, asagi degil. 
+
 
 Hiperboloid 
 
