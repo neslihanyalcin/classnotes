@@ -13,11 +13,11 @@ Y = np.arange(-10, 10, 0.5)
 X, Y = np.meshgrid(X, Y)
 
 Z = (X + 2*Y ) / -3
+
 surf = ax.plot_surface(X, Y, Z,rstride=1, cstride=1, alpha=0.3)
 
+ax.set_xlim3d(-10, 10)
+ax.set_ylim3d(-10, 10)
 ax.set_zlim3d(0, 30)
-ax.set_xlabel('X')
-ax.set_ylabel('Y')
-ax.set_zlabel('Z')
 
 plt.show()
