@@ -189,7 +189,7 @@ zordur, bazen sadece sayisal / numerik / hesapsal acidan cozulebilir
 
 \[ 2x - \lambda y = 0\]
 
-\[ 2y= \lambda x = 0 \]
+\[ 2y - \lambda x = 0 \]
 
 \[ xy = 3 \]
 
@@ -388,11 +388,60 @@ variriz.
 O zaman $Q$ noktasi her kenardan esit uzaklikta, tam ortada (incenter)
 olmali. 
 
+Soru
 
+Bir dikdortgensel kutu birinci oktan (octant) icine konuyor, ki kutunun $Q$
+kosesi tam orijinde, onun caprazsal olarak tam zittinda duran $P$ noktasi
+ise $f(x,y,z)=c$ gibi bir yuzeye dokunuyor. Lagrange Carpanlari teknigini
+kullanarak hangi $P$ noktasi icin bu kutunun en buyuk hacime sahip
+olacagini hesaplayin, ve hesabinizin bir maksimum nokta ortaya cikartip
+cikarmadigini nasil bildiginizi ortaya koyun. 
 
+Oktan kavrami alttaki sekilde gosteriliyor, Latin ``octo'' bilindigi gibi
+``sekiz'' anlamina geliyor, ki alttaki 3D kordinat sistemi 8 parcaya
+bolunmus. 1. oktan tum isaretlerin, yani $x,y,z$'nin hepsinin + oldugu
+bolge. 
 
+\includegraphics[height=4cm]{octant.png}
 
+Cevap
 
+a) $f(x,y,z) = x + 2y + 3z = 18$
+
+\[ \nabla (xyz) = \lambda \cdot \nabla f(x,y,z) \]
+
+\[ yz = \lambda, \ xz = 2\lambda, \ xy = 3\lambda \]
+
+Bu formulleri ayni anda cozmek icin ustteki uc denklemi sirasiyla $x,y,z$
+ile carpariz boylece sol tarafi ayni olan uc tane denklem elde etmis
+oluruz. 
+
+\[ xyz = \lambda x \]
+
+\[ xyz = 2 \lambda y \]
+
+\[ xyz = 3 \lambda z \]
+
+Boylece uc denklemin sag tarafi artik birbirine esittir. 
+
+\[ x = 2y = 3z \]
+
+Daha onceden biliyoruz ki
+
+\[ x + 2y + 3z = 18 \]
+
+Birbirine esit uc seyin toplami $18$ ise, o seylerin her birinin buyuklugu
+$6$ demektir, yani 
+
+\[ x = 2y = 3z = 6\]
+
+Buradan $x,y,z$ teker teker bulunabilir,
+
+\[ x = 6, y=3, z= 2 \]
+
+Bu bir maksimumdur cunku 1. oktanda kalip olabilecegimiz en kucuk deger
+$x,y,z$ sifir oldugu, yani orijinde oldugu zamandir. Bu noktalar orjinden
+buyuk degerler. 
 
 
 
