@@ -152,10 +152,51 @@ Degisim orani $\Omega$ bolgesinin sinirlarindan ne geciyorsa o'dur.
 
 Bolgenin dis sinirina dik olan birim normal vektorler dusunelim. Eger bu
 vektorlerden kirmizi okla gosterilen soldaki normale bakarsak, sivi akisi
-ona pek etki etmiyor, yani zarin o bolgesine giris ve cikis fazla
-yok. Fakat sagda isaretli normal uzerinde oldukca fazla akis var. 
+ona pek etki etmiyor, yani zarin o bolgesinde cikis fazla yok. Fakat sagda
+isaretli normal uzerinden oldukca fazla akis var.
 
 \includegraphics[height=3cm]{pde_02.png}
+
+Bu durumu da
+
+\[ \frac{d}{dt} \int_\Omega \rho(x,t) dx   = 
+- \int_{\partial \Omega} \rho(x,t) \vec{v} \cdot \vec{n} \ dS 
+\]
+
+seklinde gosterebiliriz (esitligin sag tarafini simdi ekledik). $\partial
+\Omega$ bolgenin 
+``siniri'' anlaminda kullanildi, eger 2 boyutlu duzlemde isek
+$\partial \Omega$ siniri bir egridir, eger 3 boyutta isek sinir 2 boyutlu bir
+yuzey (surface), vs (genel kural olarak $n-1$ boyutlu bir yuzeydir).
+
+$\vec{n}$ resimde cizilen birim normaller. 
+
+Bu denklemin tek soyledigi iceri giren ile cikanin birbirine (eksi isaret
+sonrasinda) birbirine esit oldugu. Iki tarafin kutle / zaman birimine sahip
+oldugunu kontrol edebiliriz. 
+
+Simdi Ileri Calculus'tan hatirlayabileceginiz bir kural 
+
+Gauss'un Teorisi
+
+Elimdeki $F: \Re^n \to \Re^n$ uzerinde tanimli herhangi bir vektor alani
+icin, ki $x \mapsto F(x)$ olmak uzere ($\mapsto$ isareti eslenme (maps to)
+anlamina geliyor), ve elimde $\Omega \subset \Re^n$ bolgesi var ise, ve bu
+vektor alani puruzsuz (smooth) bir vektor alani ise (bu vektor
+bilesenlerinin turevi alinabilir fonksiyonlar oldugunu soyler), o zaman su
+da dogrudur. Vektor alaninin sapmasini (divergence) entegre ediyorum, 
+
+\[ 
+\int_\Omega \nabla \cdot F dx =
+\int_{\partial \Omega} F \cdot n \ dS
+\]
+
+
+
+
+
+
+
 
 
 
