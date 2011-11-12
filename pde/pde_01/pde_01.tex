@@ -21,7 +21,7 @@ Dersin kullanacagi ana kitap L. C. Evans'in Kismi Turevsel Denklemler
 (partial differential equations -PDE-) kitabi olacak. Bir sonraki ders icin
 okuma odevi soyle:
 
-1. sf. 1-13'teki ozet
+1. Sf. 1-13'teki ozet
 
 2. Alt bolum 2.1 sf. 17-19
 
@@ -55,9 +55,76 @@ alissak iyi olur. Yani
 
 \[ Du = \nabla u \]
 
+Ustteki gibi denklemlere bakacagiz, cozumlerini gorecegiz. Mesela ustteki
+denklem direk ODE yaklasimi ile cozulebiliyor. Bu hakikaten ilginc bir sey,
+yani ustteki gibi genis bir PDE kategorisi, $n$ tane degisken icerebilen
+turden denklemler ODE'lere indirgenerek cozulebiliyor. Bu yonteme
+``karakteristikler metotu (method of characteristics)'' ismi veriliyor.
 
+Bu arada
 
+\[ F(x, u(x), Du(x)) = 0 \]
 
+formu oldukca geneldir, cok genel gayri lineer, normal (ordinary)
+diferansiyel denklemin formudur. Bir ornek
+
+\[ |\nabla u|^2 = n^2(x) \]
+
+denklemidir, ki bu denklem dalga denkleminde dalgalarin uc noktalarini
+(wavefront) incelerken ortaya cikar. 
+
+Lineer PDE
+
+Lineer PDE'lerin ornekleri mesela isi denklemi (heat equation), ya da
+yayilma / difuzyon (diffusion) denklemi.
+
+\[ \frac{\partial u}{\partial t} = 
+\nabla  u
+\]
+
+Bir diger ornek dalga denklemi (wave equation)
+
+\[ \frac{1}{c^2} \frac{\partial ^2}{\partial t^2}u = \nabla u\]
+
+yayilmanin hizi $c$ sabiti olarak gosteriliyor. 
+
+Shrodinger denklemi ise soyle
+
+\[ i \frac{\partial }{\partial t}\psi  = -\nabla \psi \]
+
+Isi denklemiyle alakali onemli bir nokta denge (equilibrium)
+noktasidir. Denklem uzun zaman zarfi baglaminda incelendiginde bir denge
+noktasina eristigi gorulecektir. Ki bu bizi Laplaca denklemine goturur. 
+
+\[ \nabla u = 0 \]
+
+Ya da daha genel olarak 
+
+\[ \nabla u = f \]
+
+ise bu denkleme Poisson denklemi adi veriliyor. 
+
+Tum bu denklemler aslinda pek cok uygulama alaninda ortaya cikan, cok genis
+belli basli bazi kategorilerin prototipidirler. Mesela Isi denklemine
+parabolik (parabolic) kismi denklem kategorisi deniyor. Dalga denklemi
+hiperbolik (hyperbolic) kategorisi, Schrodinger ise dagilan (dispursive)
+PDE kategorisi olarak aniliyor. Laplaca, Poisson denklemlerine elliptik
+(elliptic) kategorisi ismi veriliyor. 
+
+Tum bu denklemleri incelerken onlari temsil ettikleri daha genis
+kategorinin ornekleri olarak gorecegiz. 
+
+Simdi PDE'lerin ortaya ciktigi cok basit bir ornegi gorelim. 
+
+Elimizde bir $\Omega$ bolgesi / alani oldugunu hayal edelim, ki $\Omega \in
+\Re^n$ olsun, 
+yani alttaki resimde cizdigimiz $\Re^2$.
+
+Yine diyelim ki bu $\Omega$ bolgesinin etrafinda bir tur siviyla kapli, ve
+bu sivi hareket ediyor. Bu hareketi sabit bir hiz vektor alani olarak
+gosteriyoruz. 
+
+\includegraphics[height=2cm]{pde_01.png}
 
 
 
