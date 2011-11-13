@@ -56,7 +56,7 @@ O zaman is hesap entegralinin uc parcasi olacak. Her parca $i$ icin
 
 gerekiyor. 
 
-1) x ekseni, $(0,0)$'dan $(1,0)$'a. 
+1) Yatay x ekseninde, $(0,0)$'dan $(1,0)$'a. 
 
 \[ y = 0, \ dy = 0 \]
 
@@ -64,12 +64,40 @@ gerekiyor.
 
 Cizgi entegrali cok basit yani. Bu sifir sonucunu baska sekilde de
 gorebilirdik, vektor alanina bakarsak x eksenine her zaman dik oldugunu
-gorururz. O zaman $\vec{F}\cdot \vec{T}$ hep sifir sonucunu verecektir. 
+gorururuz. O zaman $\vec{F}\cdot \vec{T}$ hep sifir sonucunu verecektir. 
 
+2) $c_2$ bolumu. 
 
+$x,y$'yi tek degisken baglaminda nasil temsil edecegimizi bulmamiz
+gerekiyor. Eger bir cember uzerinde hareket ediyorsak, bu tek degisken aci
+olabilir. 
 
+\[ x = cos(\theta) \]
 
+\[ y = sin(\theta) \]
 
+\[ 0 \le \theta \le \pi / 4 \]
+
+Turevleri alirsak
+
+\[ dx = -sin\theta \ d\theta\]
+
+\[ dy = cos\theta \ d\theta \]
+
+Entegral
+
+\[ \int_{c_2} y dx + x dy = 
+\int_0^{\pi/4} sin\theta (-sin\theta \ d\theta)  + 
+cos\theta \ cos\theta \ d\theta
+\]
+
+\[ = \int_0^{\pi/4} cos^2\theta - sin^2\theta d\theta \]
+
+\[ = \int_0^{\pi/4} cos(2\theta) d\theta \]
+
+\[ = \frac{1}{2}sin2\theta \bigg|_0^{\pi/4} \]
+
+\[ = \frac{1}{2} \]
 
 
 
