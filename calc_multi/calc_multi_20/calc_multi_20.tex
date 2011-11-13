@@ -60,7 +60,7 @@ gerekiyor.
 
 \[ y = 0, \ dy = 0 \]
 
-\[ \int_{C_1} y dx + x dy = 0 \ dx + 0 = 0\]
+\[ \int_{c_1} y dx + x dy = 0 \ dx + 0 = 0\]
 
 Cizgi entegrali cok basit yani. Bu sifir sonucunu baska sekilde de
 gorebilirdik, vektor alanina bakarsak x eksenine her zaman dik oldugunu
@@ -100,6 +100,103 @@ cos\theta \ cos\theta \ d\theta
 \[ = \frac{1}{2}sin2\theta \bigg|_0^{\pi/4} \]
 
 \[ = \frac{1}{2} \]
+
+3) $c_3$ bolumu
+
+\[ \int_{c_2} y dx + x dy \]
+
+\includegraphics[height=4cm]{20_4.png}
+
+Basladigimiz noktayi biliyoruz, geriye dogru orijine gelecegiz. Bu cizgiyi
+parametrize etmek zor degil. 
+
+\[ x = \frac{1}{\sqrt{2}} - \frac{1}{\sqrt{2}} t \]
+
+\[ y = \frac{1}{\sqrt{2}} - \frac{1}{\sqrt{2}} t \]
+
+\[ 0 \le t \le 1 \]
+
+Ama ustteki dogru olsa da, gereginden fazla cetrefil oldu. 
+
+Daha kolay bir yontem ``orijinden'' ileri dogru bir yon dusunmek, ve sonra
+``bunun tersi olsun'' diyerek istedigimiz gidisati elde etmek. Yani
+
+\[ x = t \]
+
+\[ y = t \]
+
+ki $t$, 0 ile $1/\sqrt{2}$ arasinda. Bu bize $(-c_3)$'u verecek, yani
+$c_3$'un tersini. O zaman entegrali su sekilde gorebiliriz
+
+\[ \int_{-c_3} = - \int_{c_3}  \]
+
+Buradaki numara 0'dan baslamanin cebirsel temsili kolaylastirmis
+olmasi. Devam edelim
+
+\[ dx = dt \]
+
+\[ dy = dt \]
+
+\[ \int_{-c_3} y dx + x dy  = 
+\int_{0}^{\frac{1}{\sqrt{2}}} t \ dt + t \ dt = 
+\int_{0}^{\frac{1}{\sqrt{2}}} 2t \ dt = 
+t^2 \bigg|_{0}^{\frac{1}{\sqrt{2}}} =
+\frac{1}{2}
+\]
+
+Usttekinin tersine ihtiyacimiz olduguna gore 
+
+\[ \int_{c_3} y dx + x dy  = -\frac{1}{2}
+\]
+
+
+Ya da iki ustteki entegralin sinirlarini tam ters yonde de alabilirdik,
+0'dan $1/\sqrt{2}$'a gitmek yerine, $1/\sqrt{2}$'dan 0'a gidebilirdik, o da
+ayni sonucu verirdi. 
+
+Nihayet, yapilan tum is, tum entegrallerin toplami olacagina gore
+
+\[ \int_C = \int_{c_1} + \int_{c_2} + \int_{c_3}  \]
+
+\[ = 0 + \frac{1}{2} - \frac{1}{2} = 0\]
+
+Peki cizgisel entegralleri hesaplamaktan kurtulabilir miyiz? 
+
+Simdi, gordugumuzde vurgulamamis olsakDiyelim ki vektor alani $\vec{F}$ bir
+fonksiyonun gradyani, yani
+
+\[ \vec{F}  = \nabla f\]
+
+Bir gradyan alanimiz var yani, ve bu durumda $f(x,y)$'ye bir potansiyel
+alani (potential field) diyebiliriz. Bu isim fizikle alakali dogal olarak,
+$f$ fonksiyonu $x,y$ noktasinda ne kadar enerji, potansiyel,
+vs. depolandigini gosterir genellikle, ve bu noktadaki gradyan kuvveti
+verir. Daha dogrusu gradyanin negatifi, fizikciler gradyani eksi ile
+carparlar, yani matematikciler ile aralarinda boyle bir fark
+vardir. Aklimizda tutalim. Biz eksi olmayan yontemi kullanacagiz.
+
+Cizgizel Entegraller Icin Calculus'un Temel Teorisi
+
+\[ \int_{C} \nabla f \cdot d\vec{r} = 
+f(P_1) - f(P_0)
+ \]
+
+\includegraphics[height=3cm]{20_5.png}
+
+Bu cok faydali bir formul, ama sadece vektor alani bir gradyan ise, ve
+$f$'i biliyorsak ise yarar. Ileriki bir derste bir vektor alaninin bir
+gradyan olup olmadigini nasil anlayacagimizi gorecegiz, ve eger bir gradyan
+ise, potansiyel fonksiyonunu geri elde etmenin tekniklerini gorecegiz. 
+
+
+
+
+
+
+
+
+
+
 
 
 
