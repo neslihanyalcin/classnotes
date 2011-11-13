@@ -188,6 +188,74 @@ $f$'i biliyorsak ise yarar. Ileriki bir derste bir vektor alaninin bir
 gradyan olup olmadigini nasil anlayacagimizi gorecegiz, ve eger bir gradyan
 ise, potansiyel fonksiyonunu geri elde etmenin tekniklerini gorecegiz. 
 
+\[ \int_C f_x dx + f_y dy  = \int_C df = f(P_1) - f(P_0) \]
+
+
+Ustteki en sagdaki esitlige bakinca $f$ noktalari arasindaki fark formulunu
+nasil elde ettigimiz aslinda pek sasirtici degil. Bu formda elde ettigimiz
+sonuc tek degiskenli Calculus'taki sonuc ile ayni. 
+
+Ispat
+
+Diyelim ki size bir egri verdim ve alttaki entegrali hesaplamanizi
+istedim. 
+
+\[ \int_{C} \nabla f \cdot d\vec{r} =  \int_C f_x dx + f_y dy
+ \]
+
+Bunu nasil yapariz? Bir parametre seceriz ve her seyi o parametre
+baglaminda temsil ederiz. 
+
+\[ C: x = x(t), y = y(t) \]
+
+O zaman 
+
+\[ dx = x'(t)dt, dy = y'(t)dt \]
+
+\[ \int_{C} \nabla f \cdot d\vec{r} =  
+\int_C \bigg( f_x \frac{dx}{dt} + f_y \frac{dy}{dt} \bigg) dt
+\]
+
+Parantez icindeki ifadeler tanidik geliyor mu? Boyle bir sonucu Zincirleme
+Kanunu sonucunda da gormustuk. 
+
+\[ = \int_C \frac{df}{dt} dt\]
+
+Diyelim ki $t_0 \le t \le t_1$
+
+\[ = \int_{t_0}^{t_1} \frac{df}{dt} dt\]
+
+Ve bildik Calculus'un Temel Teorisine gore ustteki $f$'in iki deger
+arasindaki farkina esittir. 
+
+\[ = f\bigg( x(t), y(t) \bigg) \bigg|_{t_0}^{t_1} =
+f(P_1) - f(P_0)
+\]
+
+Ispat tamamlandi. 
+
+Ornek
+
+Bastaki ornege donersek, orada gorulen vektor alani aslinda raslantisal bir
+sekilde bir gradyan alani da olabilir mi acaba? Vektor alani soyleydi
+
+\[ \vec{F} = <y,x> \]
+
+Acaba aklimiza $x$'e gore turevi alininca $y$, $y$'ye gore turevi alininca
+$x$ olan bir fonksiyon geliyor mu? Evet, mesela $xy$ fonksiyonu boyle bir
+fonksiyon. Yani
+
+\[ f(x,y) = xy \]
+
+O zaman bu alanda bir cizgi entegralini hesaplamak icin $f$'in baslangic,
+bitis noktalari arasindaki farki almak yeterli. 
+
+\includegraphics[height=4cm]{20_6.png}
+
+Ustteki resmi nasil okuruz? $c_1$ boyunca potansiyel hic degismedi, yapilan
+is sifir. Sonra $c_2$ boyunca hareket ve $1/2$'ye geldik, yapilan is $1/2$,
+gibi. 
+
 
 
 
