@@ -173,6 +173,76 @@ Parca $c_2$: $y$, 0'dan $y_1$'e gidiyor, $x=x_1$, $dx = 0$.
 
 \[ = y_1^3 + 4x_1^2 \]
 
+Bu iki sonucu birbirine ekleyince potansiyelin formulu ortaya cikacak.
+
+\[ f(x_1,y_1) = \frac{4}{3} x_1^3 + y_1^3 + 4x_1^2 + c\]
+
+Formuldeki $c$ bir sabit, bastan beri oldugunu farzettigimiz entegrasyon
+sabiti bu. 
+
+Bu noktada $x_1,y_1$ yerine $x,y$ da kullanabiliriz artik
+
+\[ f(x,y) = \frac{4}{3} x^3 + y^3 + 4x^2 + c\]
+
+Bu sonucu kontrol edebilirsiniz, eger gradyani alirsaniz, ilk bastaki
+vektor alanini elde edersiniz. 
+
+2. Yontem - anti turevleri kullanarak
+
+Oyle bir fonksiyon ariyoruz ki 
+
+\[ 
+\left\{ \begin{array}{l}
+f_x = 4x^2 + 8xy \\
+f_y = 3y^2 + 4x^2
+\end{array} \right.
+ \]
+
+dogru olmali. 
+
+1. formulu $x$'e gore entegre edelim. 
+
+\[ f = \frac{4}{3}x^3 + 4x^2y + g(y) \ \ \ (*)\]
+
+Burada $g(y)$ entegrasyon sabiti gibi, ama tam degil, cunku $y$ degiskenine
+bagli. Ama yine de ilerleme kaydetmis sayiliriz cunku $g(y)$ en azindan
+$x$'e bagli degil. 
+
+Simdi ustteki $f$'in $y$'ye gore kismi turevini alirsam ne olur? 
+
+\[ f_y = 4x^2 + g'(y) \]
+
+Bu formulu uc formul ustteki bloktaki $f_y$ ile uydurmak istiyorum
+simdi. Bu uydurma bana $g'(y)$'nin ne oldugunu soyleyecek. 
+
+\[ 4x^2 + g'(y) = 3y^2 + 4x^2 \]
+
+ise, o zaman
+
+\[ g' = 3y^2 \]
+
+\[ g(y) = y^3 + c \]
+
+Bu sefer sabit $c$ gercek bir sabit, yani bir sayi, cunku $g$ fonksiyonu
+$y$ haricinde baska hicbir seye bagli degil. 
+
+Devam edelim, ustteki formulu alip (*)'a sokarsak
+
+\[ f = \frac{4}{3}x^3 + 4x^2y + y^3 + c\]
+
+Ve daha once 1. yontem sirasinda soyledigimiz gibi, $c$ olmasa da olur,
+formulun geri kalani aradigimiz potansiyel alan icin yeterli. 
+
+Bu yontemin avantaji hic entegral tanimi yazmamiza gerek yok. Ama islemleri
+dikkatli yapmamiz lazim. 
+
+
+
+
+
+
+
+
 
 
 
