@@ -81,10 +81,57 @@ Hangi $a$ degerleri icin bu alan bir gradyan alani olur?
 \[ N_x = 8x \]
 
 $a=8$. Bu arada, ikinci kismi turevleri birbirine esit yapinca, bu esitlik
-her noktada dogru olmalidir. Yani cebirsel olarak bir esitlik hazirlayip
-cebirsel numaralarla $x$'i bulmuyoruz, cunku cebirsel olarak cozumde $x=0$
-da islerdi, ama bu dogru cevap olmazdi. Biz esitligin iki tarafinin
-``tamamen ayni ifade'' olmasini istiyoruz.
+her noktada dogru olmalidir. Yani cebirsel olarak $ax = 8x$ seklinde bir
+esitlik hazirlayip cebirsel numaralarla $x$'i bulmuyoruz, cunku bu cebirsel
+cozumde $x=0$ da islerdi, ama bu dogru cevap olmazdi. Biz ikinci kismi
+turevlerin ``ayni ifade'' olmasini istiyoruz.
+
+Devam edelim. Alanimiz artik soyle
+
+\[ \vec{F} = (4x^2 + 8xy)\hat{i} + (3y^2 + 4x^2)\hat{j} \]
+
+Peki bu gradyan alaniniyla baglantili potansiyel alani nasil buluruz? 
+
+Bir yontem tahmin etmektir, cogunlukla ise yarar. Ama daha sistematik olan
+iki yontem gorecegiz simdi, sinavda bunlardan birini kullanin, cunku tahmin
+her zaman ise yaramiyor, hatta bazi durumlarda tahmin yanlis yollara bile
+goturebiliyor. 
+
+1. Yontem - cizgi entegralini hesaplayarak 
+
+\includegraphics[height=4cm]{21_2.png}
+
+Alanimizda cizgi entegral alalim, benim en favori noktam, orijinden
+baslasin, $x_1,y_1$ noktasina giden $C$ uzerinde yapilan isi hesaplasin.
+Sonuc soyle olmali
+
+\[ \int_C \vec{F} \cdot d\vec{r} = 
+f(x_1,y_1) - f(0,0)
+\]
+
+Eger bu dogruysa sunu da yazabilmeliyim (basit bir cebirsel manipulasyon)
+
+\[ f(x_1,y_1) = \int_C \vec{F} \cdot d\vec{r} + f(0,0) \]
+
+ki $f(0,0)$ bir sabittir. Bu sabitin ne oldugunu bilmiyoruz, ama onun ne
+olacagini aslinda ``tanimlayabiliriz''. 
+
+Diyelim ki bir potansiyel fonksiyonumuz var. Bu fonksiyona 1 eklemek, ya da
+hernangi baska bir sayi eklemek bu potansiyeli degistirmez, cunku
+gradyanlar ayni kalacaktir (sabitler kismi turev alinirken yokolacagi
+icin). o zaman $f(0,0)$'i bu eklenen sabit olarak gorebiliriz, ya da
+entegrasyon sabiti olarak gorebiliriz. Aynen Calculus'ta anti-turev
+alindigi zaman oldugu gibi, cebirsel olarak elde edilen formul ``sabit
+haricinde'' elde edilen bir sonuctur. 
+
+Fakat ustteki ihtiyaclar baglaminda, bir entegral alinmistir, ama sabit
+haricinde formulde geri kalan aradigimiz potansiyel fonksiyonu olarak
+gorulebilir. 
+
+O zaman cizgi entegralini hesaplayacagiz. Bu hesapta ustteki resimdekinden
+daha basit bir $C$ kullanmak daha iyi olur, mesela soyle (sari cizgi)
+
+\includegraphics[height=4cm]{21_3.png}
 
 
 
