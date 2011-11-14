@@ -236,10 +236,92 @@ formulun geri kalani aradigimiz potansiyel alan icin yeterli.
 Bu yontemin avantaji hic entegral tanimi yazmamiza gerek yok. Ama islemleri
 dikkatli yapmamiz lazim. 
 
+Bu arada, $g'$'yi uydurduktan sonra eger formul icinde bir $x$ gorursek,
+bir seyler yanlis gitmis demektir, belki de aradigimiz alan muhafazakar
+degil. 
 
+Notasyon 
 
+Kapali bir egri, yani basi ve sonu birlesen bir egri uzerinden entegral
+alininca, bu kapaliligin bariz olmasi icin cogunlukla entegral isareti
+degistirilir ve soyle kullanilir 
 
+\[ \oint_{C} \vec{F} \cdot d\vec{r} = 0\]
 
+Yani entegral isaretinin uzerinde bir cember var. Bu notasyon hesaplamada
+hicbir sey degistirmiyor, sadece hatirlatici olarak kullaniliyor. 
+
+Ekler
+
+Gradyan alani var ise, her noktada $M_x = M_y$ olmali demistik. Bu ifadeye
+tersinden bakarsak o da gecerli olur mu? Yani her noktada $M_x = M_y$ ise
+gradyan alani olmali mi? Evet, \underline{ama} eger $\vec{F}$ tum duzlemde
+tanimli ise, ya da bir diger deyisle, basitce bagli bolgede (simply
+connected region) isek. Basitce bagli bolgelerin tanimi bir dahaki derste. 
+
+Tanim
+
+Rotasyonel operator, Curl'un ne oldugunu gorelim simdi. 
+
+\[ curl(\vec{F}) = N_x - M_y \]
+
+Yani bunlar zaten elimizde olan bilgiler, sadece bu bilgiyi degisik bir
+sekilde paketledik, tek bir sayi haline getirdik. 
+
+$M_x = M_y$ sartini $curl(\vec{F}) = 0$ olarak ta ifade edebiliriz. Curl'un
+olctugu bir vektor alaninin muhafazakar olmaktaki basarisizligidir. Baska
+bir deyisle muhafazakarligin testi $curl(\vec{F})$'in sifir olup olmadigi. 
+
+Bu kavrami zihnimizda canlandirabilmek icin bir hiz alanini
+dusunelim. Boyle bir alanda curl rotasyonu olcer. Curl gidisat sirasina ne
+kadar bukulme /  kivrilma (twisting) oldugunu olcer, burada Ingilizce satafatli bir
+tanim ``vorticity''. 
+
+Diyelim ki bir sabit vektor alanindayim, tum vektorler ayni
+
+\includegraphics[height=2cm]{21_5.png}
+
+\[ \vec{F} = <a,b> \]
+
+O zaman curl tabii ki sifir, cunku kismi turevleri alinca ikisi de sifir
+olacak. Ve resimden de bariz oldugu uzere, bu alanda hic kivrilma bukulme
+yok. 
+
+Ya da radyal vektor alanina bakalim
+
+\includegraphics[height=2cm]{21_6.png}
+
+\[ \vec{F}= <x,y> \]
+
+\[ curl \ \vec{F} = \frac{\partial }{\partial x}(y) -
+ \frac{\partial }{\partial y}(x) = 0
+ \]
+
+ve hakikaten bu alanda da hic rotasyon yok. 
+
+Diger yandan bizim favori alana bakarsak
+
+\includegraphics[height=3cm]{21_1.png}
+
+\[ \vec{F} = <-y,x> \]
+
+\[ curl \ \vec{F} = \frac{\partial }{\partial x}(x) -
+ \frac{\partial }{\partial y}(-y) = 2
+ \]
+
+Bu hareket birim acisal hizda hareket eder, ve curl bu hizin iki katini
+hesaplar. 
+
+Bir hareketin bilesenlerini dusunursek, mesela bir yerden bir yere tasinma
+(translation), yayilma (dilation), rotasyon, vs. Curl bu bilesenlerden
+bir noktada rotasyonun ne kadar yuksek oldugunu olcer. 
+
+Cetrefil bir hareket tabii ki her noktada farkli rotasyon sergileyebilir,
+bu sebeple zaten curl belli bir noktada olculur, sabit olmasi sart
+degildir, her yerde degisebilir. Mesela atmosferik modellemede curl'un
+yuksek oldugu bolgeler bir kasirga olabilir. 
+
+Curl'un isareti rotasyonun saat yonunde olup olmadigini belirler. 
 
 
 
