@@ -240,8 +240,36 @@ Hepsini toplarsak
 
 \[ \oint_C M dx  =
 \int_a^b M(x,f_1(x))  dx -
-\int_a^b M(x,f_2(x)) dx 
+\int_a^b M(x,f_2(x)) dx  \  \  \ (*)
  \]
+
+Simdi cift entegrale bakiyorum, ve bakalim bu cift entegrali ustteki
+ifadeye esitleyebilecek miyim. 
+
+\[ \int \int_R -M_y dA = 
+- \int_a^b \int_{f_1(x)}^{f_2(x)} \frac{\partial M}{\partial y} dy dx \]
+
+Daha once soylemistik, bolgeyi belli basit, belli bir sekilde secmemizin
+sebebi $dy,dx$'i ayarlamamizin kolay olmasi icindi. Yani cift entegral icin
+kesitler hazirlarken bu kesitlerin kolay olmasi icin bolgeyi boyle
+sectik. 
+
+Icteki entegral
+
+\[ \int_{f_1(x)}^{f_2(x)} \frac{\partial M}{\partial y} dy =
+M(x,f_2(x)) - M(x,f_1(x))
+ \]
+
+Geri koyarsak
+
+\[ \int \int_R -M_y dA = 
+- \int_a^b M(x,f_2(x)) - M(x,f_1(x)) dx \]
+
+Bu ifade (*) ifadesi ile ayni. Ispat tamamlandi. Cunku ozel sart dikeysel
+basit bolgelerde ispat gecerli, bu faraziyeyi ortadan kaldirirsak, tum
+bolgeler icin ispat gecerli. $y$ bileseni icin de ayni sey gecerli, o zaman
+genel teori ispatlanmis oldu. 
+
 
 
 
