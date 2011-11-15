@@ -33,7 +33,7 @@ $\vec{F}$ var ise, o zaman
 
 Diger bir formda 
 
-\[ \oint_C M dx + N dy = \int \int_R (N_x - N_y) \ dA \]
+\[ \oint_C M dx + N dy = \int \int_R (N_x - M_y) \ dA \]
 
 Ustteki her iki formulde de esitligin iki tarafinin birbirinden ne kadar
 farkli hesaplar olduguna dikkat edelim. Mesela bir ustteki formulun sol
@@ -119,6 +119,36 @@ Bu ayni zamanda eger kapali egri icindeki her noktada $curl \ \vec{F} = 0$ ise, 
 zaman $\oint_C \vec{F} \cdot d\vec{r} = 0$ oldugunun ispatidir, bu da $\vec{F}$'in muhafazakar oldugunun
 ispatidir. 
 
+Problem Set 8 Problem 2 icin Green Teorisi uygulanamiyor, cunku $C$
+icinde orijin var. 
+
+Ispat
+
+Sunu ispatlamaya ugrasiyoruz
+
+\[ \oint_C M dx + N dy = \int \int_R (N_x - M_y) \ dA \]
+
+Isimizi kolaylastirmak icin daha basit bir ifadeyi ispat edelim. Ustteki
+formulun ozel bir hali
+
+\[ \oint_C M dx  = \int \int_R -M_y \ dA \]
+
+bu durumda $N=0$, ve vektor alaninda sadece $x$ bileseni var. 
+
+Peki bu ozel sart niye yeterli? Iddia o ki eger bu daha basit ifadeyi ispat
+edebilirsem, sadece $y$ bilesenin oldugu diger sarti da ispat edebilirim,
+sonra bu iki ozel sarti toplarsam genel sarti elde ederim. 
+
+Diger ozel sart
+
+\[ \oint_C N dy  = \int \int_R N_x \ dA \]
+
+Bir problem daha var, eger egri cetrefil ise cift entegrali olusturmak zor
+olabilir. 
+
+\includegraphics[height=2cm]{22_3.png}
+
+O zaman daha basit egrilerle ise baslamak daha iyi. 
 
 
 
