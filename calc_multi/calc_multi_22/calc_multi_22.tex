@@ -1,0 +1,107 @@
+\documentclass[12pt,fleqn]{article}
+\setlength{\parindent}{0pt}
+\usepackage{graphicx}
+\usepackage{cancel}
+\usepackage{listings}
+\usepackage[latin5]{inputenc}
+\usepackage{color}
+\setlength{\parskip}{8pt}
+\setlength{\parsep}{0pt}
+\setlength{\headsep}{0pt}
+\setlength{\topskip}{0pt}
+\setlength{\topmargin}{0pt}
+\setlength{\topsep}{0pt}
+\setlength{\partopsep}{0pt}
+\setlength{\mathindent}{0cm}
+
+\begin{document}
+Cok Degiskenli Calculus - Ders 22
+
+Diyelim ki genel bir vektor alanimiz var, ve bu alan muhafazakar degil, biz
+kapali bir egri icinde cizgi entegrali hesaplamak istiyoruz, bu entegral
+sifir olmayacak. Bu hesabi iki metotla yapabiliriz. Ya direk entegral
+hesabi yapariz, ya da Green'in Teoremi adli bir teknigi kullaniriz. 
+
+Green'in Teorisi
+
+Eger $C$ egrisi $R$ alanini tanimlayan kapali bir egriyse, bu egri
+uzerindeki hareket saat yonunun tersi ise, ve elimde egrinin ve icindeki
+alanin her noktasinda tanimli ve turevi alinabilir bir vektor alani
+$\vec{F}$ var ise, o zaman 
+
+\[ \oint_C \vec{F} \cdot d\vec{r} = \int \int_R curl \ \vec{F} \ dA \]
+
+Diger bir formda 
+
+\[ \oint_C M dx + N dy = \int \int_R (N_x - N_y) \ dA \]
+
+Ustteki her iki formulde de esitligin iki tarafinin birbirinden ne kadar
+farkli hesaplar olduguna dikkat edelim. Mesela bir ustteki formulun sol
+tarafi bir cizgi entegrali, bir (mesela) $t$ uzerinden birbirine bagli iki
+$x,y$ degiskeninin, bir sekilde birbirine bagli sekilde degisen $x,y$
+degiskenleri uzerinden bir entegral hesabi bu. Ama ayni formulde esitligin
+sag tarafi egrinin ``icindeki'' bolgede, bu bolgedeki her nokta icin
+gecerli. Bu bolgede $x,y$ birbirinden bagimsiz. 
+
+Peki niye saat yonu tersi dedik? Bu aslinda herhangi bir yon olabilir, ama
+bu yon $M_x-N_y$ ile uyumlu, eger saat yonu olursa, ona gore bir $M_x,N_y$
+ifadesinin kullanilmasi gerekir. 
+
+Ornek
+
+$C$ egrisi $(2,0)$ noktasinda cizilmis 1 yaricapli bir cember
+olsun. Gidisat saat yonu tersinde. 
+
+\includegraphics[height=2cm]{22_1.png}
+
+\[ \oint_C ye^{-x} dx + (\frac{1}{2}x^2 - e^{-x})dy \]
+
+Direk olarak
+
+\[ x = 2 + cos\theta, dx = -sin\theta \ d\theta \]
+
+\[ y = sin\theta, dy = cos\theta \ d\theta \]
+
+Sonra ustteki iki satirdaki formulleri alip entegrale koyardim, ve 0 ile
+$\pi$ sinirlari arasinda entegrali hesaplardim. 
+
+Tum bu islemler yerine Green'in Teorisini kullanalim. Yani cift entegral
+hesabini yapalim. $M,N$ nedir? 
+
+\[ \oint_C 
+\underbrace{ye^{-x}}_{M} dx + 
+\underbrace{(\frac{1}{2}x^2 - e^{-x})}_{N}dy \]
+
+Cift entegral o zaman soyle
+
+\[ \int \int_R (N_x - N_y) \ dA =
+\]
+
+$R$ nedir? 
+
+\includegraphics[height=2cm]{22_2.png}
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}
