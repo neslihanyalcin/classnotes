@@ -1,0 +1,89 @@
+\documentclass[12pt,fleqn]{article}
+\setlength{\parindent}{0pt}
+\usepackage{graphicx}
+\usepackage{cancel}
+\usepackage{listings}
+\usepackage[latin5]{inputenc}
+\usepackage{color}
+\setlength{\parskip}{8pt}
+\setlength{\parsep}{0pt}
+\setlength{\headsep}{0pt}
+\setlength{\topskip}{0pt}
+\setlength{\topmargin}{0pt}
+\setlength{\topsep}{0pt}
+\setlength{\partopsep}{0pt}
+\setlength{\mathindent}{0cm}
+
+\begin{document}
+Kismi Kesirler Yontemi (Partial Fractions Method)
+
+Bazen su sekildeki bir kesiri 
+
+\[ \frac{8x + 22}{(x-1)(x+5)} \]
+
+bolendeki her carpan ayri bir kesir parcasinda olacak sekilde o parcalarin
+toplami olarak gostermek faydalidir. 
+
+\[ \frac{...}{(x-1)} + \frac{...}{(x+5)} \]
+
+Bu tur bir parcali kesirin entegralini almak cok daha kolaydir
+mesela. Fakat bu parcalama islemini nasil yapacagiz?
+
+Cebir kullanarak bu problemi cozebiliriz. Ustte nokta nokta olan yerlerin
+ne oldugunu merak ediyoruz, o zaman onlara $A,B$ degiskenlerini atarsak
+
+\[ \frac{A}{(x-1)} + \frac{B}{(x+5)} = \frac{8x + 22}{(x-1)(x+5)}\]
+
+Eger bolum kisminda temiz bir esitlik elde etmek istiyorsak, o zaman
+ustteki kesirlerin bolen kismini birbirinin aynisi haline getirmeliyiz. Ilk
+terimin bolum, bolen kismini $(x+5)$, ikincisinin bolum, bolen kismini
+$(x-1)$ ile carparsak, bu esitligi elde ederiz. 
+
+\[ \frac{(x+5)A}{(x-1)(x+5)} + \frac{(x-1)B}{(x+5)(x-1)} = 
+\frac{8x + 22}{(x-1)(x+5)}
+\]
+
+
+Bolen kismi birbirine esit olduguna gore, artik sadece kesirlerin ust
+kismini kullanabiliriz, cunku aradigimiz bilinmeyenler orada. 
+
+\[ (x+5)A + (x-1)B = 8x+22 \]
+
+Esitligin sol tarafinin acilimini dusunursek, 
+
+\[ xA + .. + Bx + .. = 8x + .. \]
+
+\[ x(A + B) +  .. = 8x + .. \]
+
+
+ve her iki tarafta $x$'in katsayilarinin ayni olmasi zorunlulugundan
+hareketle
+
+\[ A + B = 8 \]
+
+olacaktir. Benzer sekilde geri kalan sabitleri esitlersek 
+
+\[ 5A - B = 22 \]
+
+O zaman elimizde iki bilinmeyen, iki denklem var, bu sistemi cozmek cok
+kolay! 
+
+\[ B = 5A - 22 \]
+
+Oteki denkleme sokalim
+
+\[ A + 5A - 22 = 8 \]
+
+\[ 6A = 30 \]
+
+\[ A = 5 \]
+
+\[ B = 3 \]
+
+Demek ki kismi kesirlerimiz soyle olacak 
+
+\[ \frac{5}{(x-1)} + \frac{3}{(x+5)} = \frac{8x + 22}{(x-1)(x+5)}\]
+
+
+
+\end{document}
