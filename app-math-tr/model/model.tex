@@ -249,18 +249,13 @@ gerekiyor. Yani, p sayýsýndaki bir nüfus için, p(p - 1) kadar ikili iliþki
 olduðunu düþünürsek, o zaman bu ikili iliþki ve yarýþ sonucundaki ölüm
 oranýný þu þekilde modelleyebiliriz.
 
-\[ k_3 \frac{p(p-1)}{2} \]
-
-$k_3$ sabit deðeri, yeni oranýmýz. Böylece denklemimizi þu þekilde
-deðiþtirmemiz gerekiyor.
-
 \[ \frac{dp}{dt} = ap - bp^2 \]
 
+Burada $p$ ve $p^2$ ifadelerinin katsayilari, sabitleri degisik, cunku bir
+sabit normal dogum olumu, digeri ise kaynaklara olan yaristaki olumler icin
+secildi. 
+
 \[ p(0) = p_0 \]
-
-\[ a = k_1 0 k_2 + k_3 / 2 \]
-
-\[ b = k_4 / 2 \]
 
 \[ \int \frac{1}{p(a-bp)}dp = \int dt \]
 
@@ -271,7 +266,8 @@ deðiþtirmemiz gerekiyor.
 
 \[ \frac{1}{a} ln|p| = \frac{1}{a}ln|a-bp| = t+c_1 \]
 
-\[ ln|\frac{p}{a-bp}| = at + c_2 \]
+\[ ln \bigg| \frac{p}{a-bp} \bigg| = at + c_2 \]
+
 \[ \frac{p}{a-bp} = c_3e^{at} \]
 
 \[ p(t) = \frac{ ac_3 a^{at}}{bc_3e^{at} + 1} = \frac{ac_3e^{at}}{bc_3 + e^{-at}} \]

@@ -2,7 +2,7 @@ import os, sys
 
 if len(sys.argv) == 1 or sys.argv[1] == 'tex':
     cmd = "pdftk */cover.pdf */model.pdf */karesel.pdf */invtrig.pdf \
-ratio/ratio.pdf */fundamental.pdf */integral-mult.pdf \
+pfractions/pfractions.pdf ratio/ratio.pdf */fundamental.pdf */integral-mult.pdf \
 */euler.pdf */taylor.pdf */taylor2d.pdf \
 eig/eig.pdf */logaritma.pdf */complexity.pdf */probsolve.pdf */id3.pdf \
 */turev.pdf */totaldiff.pdf */eigseg.pdf */rayleigh.pdf \
