@@ -11,18 +11,19 @@ def resid(p, y, t):
 
 if __name__ == '__main__':
     t, x1 = np.loadtxt('population.txt', unpack=True)
-    y1 = np.log(x1)
+    t = np.linspace(0,10,len(t))
     
     A0,k0,K0 = 1, 1, 1
-    [A,k,K], flag  = optimize.leastsq(resid, [A0,k0,K0], 
-                                           args=(y1, t))
+    [A,k,K], flag  = optimize.leastsq(resid, [A0,k0,K0], args=(x1, t))
 
-
-    print flag, A,k,K
+    print "flag",flag
+    print "A", A
+    print "k",k
+    print "K",K
         
-    t = np.linspace(0,10,100)
-    plt.plot(t, f(t,A,k,K))
-    plt.hold(True)        
+    plt.plot(t, f(t,A,k,K), 'go')
+    plt.hold(True)            
+    plt.plot(t, x1, 'ro')
     
     
     plt.show()
