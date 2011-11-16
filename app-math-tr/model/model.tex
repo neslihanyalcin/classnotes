@@ -255,70 +255,91 @@ Burada $p$ ve $p^2$ ifadelerinin katsayilari, sabitleri degisik, cunku bir
 sabit normal dogum olumu, digeri ise kaynaklara olan yaristaki olumler icin
 secildi. 
 
-\[ p(0) = p_0 \]
+Simdi biraz notasyon degisikligi, Cebirsel islemleri kolaylastirmak icin
+sabitlerde biraz oynama yapacagiz. $a = k$, ve $b = k/K$ diyelim. 
 
-\[ \int \frac{1}{p(a-bp)}dp = \int dt \]
+\[ kp - \frac{k}{K}p^2 = \frac{dp}{dt} \]
 
-\[ 
-\frac{1}{a} \int \frac{1}{p} dp - \frac{1}{a} \int \frac{-b}{a-bp} dp =
-\int dt
-\]
+\[ kp (1 - \frac{p}{K}) = \frac{dp}{dt} \]
 
-\[ \frac{1}{a} ln|p| = \frac{1}{a}ln|a-bp| = t+c_1 \]
+Degisken ayirma (seperation of variables) yontemini kullanirsak
 
-\[ ln \bigg| \frac{p}{a-bp} \bigg| = at + c_2 \]
+\[ \frac{dp}{p(1-p/K)}  = k \ dt\]
 
-\[ \frac{p}{a-bp} = c_3e^{at} \]
+Iki tarafin da entegralini alalim
 
-\[ p(t) = \frac{ ac_3 a^{at}}{bc_3e^{at} + 1} = \frac{ac_3e^{at}}{bc_3 + e^{-at}} \]
+\[ \int \frac{dp}{p(1-p/K)}  = \int k \ dt\]
 
-\[ c_3 = \frac{p_0}{a-bp_0} \]
+\[ \int \frac{1}{p(1-p/K)}dp  = \int k \ dt\]
 
-eger
+Esitligin sol tarafinda entegralin icindeki ifadede hem bolum, hem boleni
+$K$ ile carparsak
 
-\[ p_0 \ne 0 \]
+\[ = \frac{K}{p(K-p)} \]
 
-ya da
+Bunun uzerinde kismi kesirler yontemini (partial fractions method)
+kullanabiliriz, ozellikle bolumdeki carpanlarin toplaminin bolumde oldugu
+durumlarda, ki bizim ornegimizde bu $p + K - p = K$, bu ifadeyi ayirmak cok
+kolay, kismi kesirlerin bolumu hemen 1 olabilir
 
-\[ p_0 \ne a/b \]
+\[ = \frac{1}{p}  + \frac{1}{K-p}\]
 
-Bu ikinci modele, lojistik modeli ismi veriliyor. Lojistik bildiðimiz gibi,
-mallarý bir yerden bir yere ulaþtýrmak, kaynak idaresi gibi anlamlar
-çaðrýþtýrýyor, zaten ikinci denklemin içindeki faktörlerden biri de, artýk,
-kaynaklara olan eriþimin oluþturduðu yarýþma durumudur.
+Entegralde yerine koyalim
 
-Örnek 2
+\[ \int \frac{1}{p}  + \frac{1}{K-p} dp  = \int k \ dt\]
 
-1790 yýlýndaki 3.93 milyonluk nüfusu temel alarak, ve 1840 yýlýnda 17.07
-milyon ve 1890 yýlýnda 62.95 milyonluk nüfusu varsayarak, $t$'ye göre olan
-bir nüfus fonksiyonu bul.
 
-Çözüm: $t=0$ 1790 senesi olduðuna göre, $p_0 = 3.93$ demektir. Þimdi a ve b
-parametrelerini bulmamýz lazým. $p(50) = 17.07, p(100) = 62.95$ oluyor.
+\[ \int \frac{dp}{p} + \int \frac{dp}{K-p} = \int k \ dt \]
 
-\[ 17.07 = \frac{3.93a}{3.93b + (a-3.93b)e^{-50a}} \]
+\[ ln|p| - ln|K-p| = kt + C \]
 
-\[ 62.95 =  \frac{3.93a}{3.93b + (a-3.93b)e^{-100a}} \]
+\[ ln \bigg| \frac{p}{K-p}\bigg|  = kt + C\]
 
-Ýki bilinmeyenli ve doðrusal olmayan bir denklem var elimizde. Genelde
-böyle bir sistemi çözmek için yaklaþýksal (approximate) bir yöntem
-kullanmamýz gerekecekti, Newton metodu gibi. Fakat, t1 ve t2 zamanlarýnda
-olan deðerleri bildiðimiz için, çözüm þöyle olacak.
+\[ ln \bigg| \frac{K-p}{p}\bigg|  = -kt - C\]
 
-\[ 3.93b = \frac{3.93-17.07e^{-50a}}{17.07 (1-e^{-50a})} \]
+Iki tarafi $e$ bazinda hesaplarsak
 
-Bu denklemi 2 üstteki denkleme koyduðumuz zaman, bir takým cebir
-iþlemlerinden sonra, elimize þu deðerler çýkacak. a = 0.0304667 ve b =
-0.0001214. Yani, elimizdeki veriler icin olan lojistik model þöyle olacak.
+\[ \bigg| \frac{K-p}{p}\bigg| = e^{-kt - C} \]
 
-\[ p(t) = \frac{0.11977340}{(0.0004771 + 0.0299896) - e^{-0.0304667}} \]
+Eger $A = \pm e^{-C}$ alirsak
 
-Bu sonucu verilerden kontrol etmeyi size býrakýyorum.
+\[ \frac{K-p}{p} = A e^{-kt }  \ \ \ \ (*)\]
+
+\[ \frac{K}{p} - 1 = Ae^{-kt} \]
+
+\[ \frac{K}{p}  = 1 + Ae^{-kt} \]
+
+\[ \frac{p}{K}  = \frac{1}{ 1 + Ae^{-kt}}\]
+
+\[ p(t) = \frac{K}{ 1 + Ae^{-kt}} \]
+
+Final formule eristik. 
+
+Peki $A$ nedir? Eger (*) ifadesine $t=0$ verirsek
+
+\[ \frac{K-p(0)}{p(0)} = A e^{k \cdot 0} = A\]
+
+$p(0) = p_0$ diyelim
+
+\[ \frac{K-p_0}{p_0} = A \]
+
+Bu denklemin tahminleri cok daha iyi isleyecektir. 
+
+Elde ettigimiz $p(t)$ fonksiyonunu grafikledigimiz zaman cikti suna
+benzeyecektir. 
+
+\includegraphics[height=6cm]{hill.png}
+
+Elde edilen sekilde bir 'S' goruntusunde, bu fonksiyona ``S egrisi'' adi
+verildigi de oluyor. Bir diger isim ``Hill fonksiyonu''. 
+
+
+
 
 Sonuç
 
 Bu yazýda hem model kurmanýn ve türevsel denklemlerin yararlarýný
-gördük. Türevsel denklem kurarken düþünülmesi gereken, dp/dt görünce 'oran'
+gördük. Türevsel denklem kurarken düþünülmesi gereken, $dp/dt$ görünce 'oran'
 düþünmek, yani akla 'deðiþim' getirmek. Tabii daha türevleri daha detaylý
 anlayabilmek için (ispatý ile birlikte) limitlerin kuramý yararlý olur,
 fakat unutmayalým ki limitlerin analiz'in ispatý için yetiþinceye kadar
@@ -328,5 +349,9 @@ bilim adamlarý türevleri ve tümlevleri kullanýyorlardý.
 Analiz, dinamik olan sistemler için kullanýlýr, yani deðiþmekte olan
 sistemler için gereklidirler. Analiz'in tarihinin fizik ile yakýn alakasý
 bundandýr.
+
+Kaynaklar
+
+http://www.math.northwestern.edu/~mlerma/courses/math214-2-03f/notes/c2-logist.pdf
 
 \end{document}
