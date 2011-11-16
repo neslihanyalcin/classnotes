@@ -1,5 +1,6 @@
 # World population prediction 
 # Logistic growth, Hill function
+# Dunya nufus artisi, lojistik denklem
 import numpy as np
 from scipy import optimize
 import matplotlib.pyplot as plt
