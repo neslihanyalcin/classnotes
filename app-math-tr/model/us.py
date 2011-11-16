@@ -13,7 +13,6 @@ def resid(p, y, t):
 
 if __name__ == '__main__':
     t, x1 = np.loadtxt('us.txt', unpack=True)
-    print len(t)
     t = np.linspace(0,10,len(t))
     
     A0,k0,K0 = 1, 1, 1
