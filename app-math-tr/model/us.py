@@ -1,6 +1,6 @@
-# US population prediction 
-# Logistic growth, Hill function
+# US population prediction, Logistic growth, Hill function
 # Amerika nufus artisi, lojistik denklem
+
 import numpy as np
 from scipy import optimize
 import matplotlib.pyplot as plt
@@ -17,12 +17,10 @@ if __name__ == '__main__':
     t = np.linspace(0,10,len(t))
     
     A0,k0,K0 = 1, 1, 1
+
     [A,k,K], flag  = optimize.leastsq(resid, [A0,k0,K0], args=(x1, t))
 
-    print "flag",flag
-    print "A", A
-    print "k",k
-    print "K",K
+    print flag, A, k, K
         
     plt.plot(t, x1, 'ro')
     plt.hold(True)            

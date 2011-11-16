@@ -333,6 +333,23 @@ benzeyecektir.
 Elde edilen sekilde bir 'S' goruntusunde, bu fonksiyona ``S egrisi'' adi
 verildigi de oluyor. Bir diger isim ``Hill fonksiyonu''. 
 
+Veri Uydurmak 
+
+Hill fonksiyonunu sayisal yontemler kullanarak tarihi veriye uydurarak,
+sabitlerini hesaplatmak mumkundur. Scipy paketindeki
+\verb!scipy.optimize.leastsq! fonksiyonu bu isi yapabilir. Uydurmanin
+islemesi icin once bir \verb!f! tanimlanir, daha sonra bu fonksiyonun
+gercek veri ile arasindaki hatayi tanimlayan bir fonksiyon verilir. Bu iki
+fonksiyon uzerinden veri uydurmasi yapilacaktir. 
+
+\lstinputlisting[language=Python]{us.py}
+
+Program isletildikten sonra grafik basilacak. Grafikte kirmizi noktalar
+gercek veri, yesil noktalar ise uyumu yapilmis fonksiyonun gelecek yillar
+icin gosterdigi tahmindir. 
+
+\includegraphics[height=6cm]{us.png}
+
 Sonuç
 
 Bu yazýda hem model kurmanýn ve türevsel denklemlerin yararlarýný
