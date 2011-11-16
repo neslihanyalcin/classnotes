@@ -1,3 +1,5 @@
+# US population prediction 
+# Logistic growth, Hill function
 import numpy as np
 from scipy import optimize
 import matplotlib.pyplot as plt

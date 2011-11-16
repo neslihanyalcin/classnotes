@@ -1,3 +1,5 @@
+# World population prediction 
+# Logistic growth, Hill function
 import numpy as np
 from scipy import optimize
 import matplotlib.pyplot as plt
@@ -10,7 +12,6 @@ def resid(p, y, t):
     return y - f(t,A,k,K)
 
 if __name__ == '__main__':
-    #t, x1 = np.loadtxt('us.txt', unpack=True)
     t, x1 = np.loadtxt('world.txt', unpack=True)
     print len(t)
     t = np.linspace(0,1,len(t))
