@@ -23,10 +23,9 @@ if __name__ == '__main__':
     print "k",k
     print "K",K
         
+    plt.plot(t, x1, 'ro')
+    plt.hold(True)            
     t = np.linspace(0,4,len(t))    
-    plt.plot(t, f(t,A,k,K), 'go')
-    #plt.hold(True)            
-    #plt.plot(t, x1, 'ro')
-    
+    plt.plot(t, f(t,A,k,K), 'go')    
     
     plt.show()
