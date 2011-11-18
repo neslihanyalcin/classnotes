@@ -116,6 +116,111 @@ icin bunun sonucu olarak alan kapali egriden ``disari'' cikmis olur.
 
 \includegraphics[height=5cm]{23_6.png}
 
+Bir cemberde oldugum icin normal surekli cembere tam dik konumda, ve
+$\vec{F}$'e surekli paralel. O zaman 
+
+\[ \vec{F} \cdot \hat{n} = |\vec{F}||\hat{n}| \]
+
+Fakat $\hat{n}$ birim vektor oldugu icin uzunlugu 1, o zaman
+
+\[ \vec{F} \cdot \hat{n} = |\vec{F}| \]
+
+Bu vektor alaninin buyuklugu nedir? Yani alanin her $x,y$ noktasindaki
+vektorun buyuklugu (magnitude) nedir? Vektor buyuklugu karelerin toplaminin
+karekokudur, $\sqrt{x^2 + y^2}$, ki bu buyukluk orijinden olan uzakliga
+esittir. O zaman orijinde oturan cember uzerinde isek, uzaklik cemberin
+yaricapina esittir, yani $a$. Yani ustteki formul soyle olur
+
+\[ \vec{F} \cdot \hat{n} = |\vec{F}| = a\]
+
+Cizgi entegralin bayagi kolay o zaman
+
+\[ \int_C \vec{F} \cdot \hat{n} \ ds 
+= \int_C a \ ds  = a \cdot \textit{C'nin uzunlugu}
+\]
+
+C'nin uzunlugu $2\pi a$ olduguna gore
+
+\[ = 2\pi a^2 \]
+
+Bu buyukluk beklenebilecegi uzere pozitif, cunku akis cemberden disari
+dogru. 
+
+Ornek
+
+Ayni $C$ ama degisik $\vec{F}$ (bizim diger favori vektor alanimiz), 
+
+\[ \vec{F} = <-y,x> \]
+
+\includegraphics[height=2cm]{23_7.png}
+
+Fakat burada vektorler her zaman cembere teget, o zaman o vektorlerin dik
+bileseni olamaz, yani sifir olur. Burada akis olmadigini ciplak gozle bile
+gorebiliyoruz. $\vec{F} \cdot \hat{n} = 0$, o zaman akis = 0. 
+
+Tabii ki hesabi yapmak icin geometri her zaman yardim edemeyebilir, her
+durumda isleyecek bir metot gerekli, aynen is hesabini yaptigimizda 
+$Mdx +
+Ndy$ hesabini yaptigimiz gibi. Akis hesabinda benzer bir yaklasim var. 
+
+Bilesenleri Kullanarak Hesap
+
+Hatirlarsak is hesabinda 
+
+\[ d\vec{r} = \vec{T} \ ds = <dx,dy> \]
+
+olmustu. O zaman dusunelim, ustte $\vec{T} ds$ kullandik, burada onun
+yerine $\hat{n} \ ds$ var, onu nasil temsil edebiliriz? 
+
+$\hat{n}$ aslinda $\vec{T}$'nin saat yonunde 90 derece dondurulmus hali
+degil midir? O zaman 
+
+\[ \hat{n}ds = <dy,-dx> \]
+
+Donus saat yonunde oldugu icin eksi isaret $dx$ onunde. 
+
+Demek ki $\vec{F} = <M,N>$ icin
+
+\[ \int_C \vec{F} \cdot \hat{n} \ ds =
+\int_C  <M,N> \cdot <dy,-dx> = 
+\int_C -N dx + M dy
+\]
+
+Gerisi is hesabinda gordugumuz gibi. $x,y$ birbiriyle alakali, cogunlukla
+ucuncu bir degisken $t$, $\theta$, vs gibi, ustteki formulu bu ortak
+degisken cercevesinde tekrar yaziyoruz, sonra entegrali cozuyoruz. 
+
+Peki Green'in Teorisi'nde yaptigimizi burada da yapabilir miyiz? Yani cizgi
+entegralinin yerine bir cift entegral gecirmek. Cevap evet, akis hesabi
+icin de isleyen Green Teorisi'nin bir versiyonu var. 
+
+Akis Icin Green Teorisi
+
+Eger $C$ bir $R$ alanini cevreliyorsa ve yonu saat yonu tersinde ise, ve
+$\vec{F}=<P,Q>$ $R$ icinde her yerde turevi alinabilir ise, o zaman 
+
+\[ \oint_C \vec{F} \cdot \hat{n} \ ds = 
+\int \int_R div \ \vec{F} \ dA
+\]
+
+$div$ kelimesi uzaklasim (divergence) kavramindan geliyor ve formulu soyle:
+
+\[ div \ <P,Q> = Px + Q_y \]
+
+Bu hesabi hatirlamak $curl$ formulunu hatirlamaktan daha basit aslinda,
+$x,y$ uzerinden kismi turevler aliniyor ve bu turevler normal $P,Q$ sirasi
+uzerinde uygulaniyor, sonuc toplaniyor. 
+
+\includegraphics[height=4cm]{23_8.png}
+
+Akis hesabi, o zaman, $C$ icinden gecerek $R$'den disari cikan akis
+hesabidir. Ustteki resimde mesela $C$'nin sag kismina etki eden $\vec{F}$
+pozitif etki ederler, sol kismindakiler negatif olurlar (iceri giriyorlar)
+ve bunlarin toplami tum akisi verecektir. 
+
+
+
+
 
 
 
