@@ -179,17 +179,93 @@ Simdi Ileri Calculus'tan hatirlayabileceginiz bir kural
 
 Gauss'un Teorisi
 
-Elimdeki $F: \Re^n \to \Re^n$ uzerinde tanimli herhangi bir vektor alani
-icin, ki $x \mapsto F(x)$ olmak uzere ($\mapsto$ isareti eslenme (maps to)
-anlamina geliyor), ve elimde $\Omega \subset \Re^n$ bolgesi var ise, ve bu
-vektor alani puruzsuz (smooth) bir vektor alani ise (bu vektor
-bilesenlerinin turevi alinabilir fonksiyonlar oldugunu soyler), o zaman su
-da dogrudur. Vektor alaninin sapmasini (divergence) entegre ediyorum, 
+$F: \Re^n \to \Re^n$ uzerinde tanimli herhangi bir vektor alani icin,
+$x
+\mapsto F(x)$ olmak uzere, $\mapsto$ isareti eslenme (maps to) anlamina
+geliyor, $\Omega \subset \Re^n$ bolgesi var ise, ve bu vektor alani
+puruzsuz (smooth) bir vektor alani ise (bu vektor bilesenlerinin
+turevi alinabilir fonksiyonlar oldugunu soyler), o zaman su da
+dogrudur. Vektor alaninin sapmasini (divergence) entegre ediyorum, 
 
 \[ 
-\int_\Omega \nabla \cdot F dx =
+\int_\Omega \nabla \cdot F \ dx =
 \int_{\partial \Omega} F \cdot n \ dS
 \]
+
+
+$\nabla \cdot$ operatoru $div$ anlaminda kullanildi, ve $\Omega$ bir alan. 
+
+Gauss'un Teorisi, Calculus'un Temel Teorisinin cok boyutlu bir karsiligi
+olarak dusunulebilir aslinda.
+
+Gauss'un Teorisini bizim formulasyona uygulayalim
+
+\[ \int_{\partial \Omega} \rho \vec{v} \cdot \vec{n} \ dS =
+\int_\Omega \nabla \cdot (\rho \vec{v}) dx 
+\]
+
+Simdi sunu yazabilirim
+
+\[ \frac{d}{dt} \int_\Omega \rho \ dx = 
+\int_\Omega \nabla \cdot (\rho \vec{v}) dx
+ \]
+
+Esitligin solundaki turevi alip, sag tarafi sola tasiyalim
+
+\[ \int_\Omega \bigg( 
+\partial_t \rho + \nabla \cdot (\rho \vec{v}) 
+\bigg)dx = 0
+ \]
+
+$\Omega$ isareti $\Re^n$ icinde herhangi bir hacim ise (iki boyutta bir
+alan, 3 boyutta hacim), bu hacimi sonsuz kuculttugumuzde artik su ifadenin 
+
+\[ \partial_t \rho + \nabla \cdot (\rho \vec{v})  = 0 \]
+
+noktasal (pointwise) olarak her $x,t$ icin dogru oldugunu gorebiliriz, eger
+$\rho$ yeterinc puruzsuz bir fonksiyon ise tabii ki. 
+
+Ustteki fonksiyon suna da esittir
+
+\[ \partial_t \rho + \vec{v} \cdot \nabla \rho = 0\]
+
+Bu denklem $F(x,\rho,\nabla \rho)=0$ formundaki bir denklemdir, genel
+olarak bu formla ilgileniriz, bir ustteki ornek ise bu formun en basit
+orneklerinden biri, transportasyon fenomeni (transport phenomena) denklemi.
+
+Simdi transport denklemini cozelim, once direk olarak, sonra biraz dolayli
+gibi gozukebilecek bir sekilde ama sonra gorecegiz ki bu dolayli yontem
+aslinda cozum icin cok uygun. 
+
+Tek boyutta formul su formda
+
+\[ \partial_t \rho + v \partial_x \rho = 0 \]
+
+Daha genel olarak diyelim ki 
+
+\[ \partial_t u + c\partial_x u = 0, \ \ c>0 \]
+
+var diyelim, baslangic sarti
+
+\[ u(x,0) = F(x) \]
+
+Boyle problemlere cogunlukla Baslangic Sart Problemleri (Initial Value
+Problem) ismi verilir. 
+
+Diyelim baslangic sarti $F \in C'$  soyle bir fonksiyon
+
+\includegraphics[height=2cm]{1_3.png}
+
+Cozum nedir? Sudur 
+
+\[ u(x,t) = F(x-ct) \]
+
+
+
+
+
+
+
 
 
 
