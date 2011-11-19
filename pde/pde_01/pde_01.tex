@@ -26,13 +26,13 @@ olmak uzere
 
 \[ \frac{\partial u}{\partial x} + \frac{\partial u}{\partial t} = 0\]
 
-denklemi bir PDE'dir. Cozum bir tek sayisal sonuc degil, cozum bir
-fonksiyon. Dusunelim, mesela $f$ fonksiyonu tek degiskenli ve turevi
+denklemi bir PDE'dir. Cozum bir tek sayisal sonuc degil, bir
+fonksiyondur. Dusunelim, mesela $f$ fonksiyonu tek degiskenli ve turevi
 alinabilir bir fonksiyon ise
 
 \[ u(x,t) = f(x-t) \]
 
-diyebilir miyiz? Yani cozum $f(x-t)$ olabilir mi? Kontrol edelim 
+cozumdur diyebilir miyiz? Yani cozum $f(x-t)$ olabilir mi? Kontrol edelim 
 
 \[ u_x = f'(x-t) \]
 
@@ -48,6 +48,36 @@ uyar. Bu genel tanima uyan bir suru fonksiyon vardir, mesela
 \[ u(x,t) = e^{-(x-t)^2} \]
 
 \includegraphics[height=4cm]{1_02.png}
+
+Not: Burada $f$'i bir $f(z)$ olarak gorebiliriz, bu fonksiyona $(x-y)$
+geciliyor, yani bir icice fonksiyon ortaya cikiyor. O zaman ustteki formlar
+aslinda $f(z) = z^2$, ve $e^{-z^2}$ seklinde. Tabii kismi turevler ile
+turev alinca Zincirleme Kanunu devreye girmelidir ve gecilen degerlerin,
+``fonksiyonlarin'' da turevi alinmalidir, vs. 
+
+Yani ustteki sonuc aslinda diyor ki $x-t$ seklinde hep beraber olmak uzere
+bu ikiliyi kullanan herhangi bir fonksiyon, ustteki PDE'nin
+cozumudur. Bu sekilde cozum birden fazla fonksiyon oluyor, ve bunlarin
+birbirinden ne kadar farkli olabildigi gostermeye calistigimiz noktalardan
+biri. 
+
+Ustteki PDE bir tasinim (advection) ornegidir, ve 1. seviye lineer homojen
+bir denklemdir. 1. seviye en yuksek turev seviyesinin seviyesine isaret
+eder, lineer homojen ise tum cozumlerin lineer bir sekildeki kombinasyonu
+yine bir cozumdur anlamina gelir. Ustteki PDE icin ne kadar cesitli
+cozumler olabildigini gorduk, onlarin kombinasyonlariyla bu cesitlerin daha
+da artacagini dusunebiliriz. kiyasla soyle bir ODE icin
+
+\[  y' - y  = 0\]
+
+icin cozumler
+
+\[ y = Ae^x \]
+
+denklemidir Tek bir cozume indirgemek icin baslangic sarti mesela $y(0) =
+2$ 
+veririz ve oradan tek cozum $y = 2e^x$ buluruz. 
+
 
 
 
