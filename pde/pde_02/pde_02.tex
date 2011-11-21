@@ -85,6 +85,123 @@ karakteristik egrilerini elde ederiz. Tekrar duzenlersek
 
 \includegraphics[height=4cm]{2_1.png}
 
+O zaman PDE'nin genel cozumu 
+
+\[ u(x,y) = f(C) = f(y - \frac{1}{2}x^2) \]
+
+diyebiliriz, $f$ rasgele bir fonksiyondur, soylenmeye ugrasilan farkli
+sabitlere tekabul eden $u$'lardir. PDE cozumu $u$'nun sabite esit olmasiyla
+alakali cunku PDE'yi yonsel turev olarak temsil edince bu sonuca
+variyoruz. Ustteki denklem de karakteristik egriler acisindan gelerek o
+sabiti bize sagliyor.
+
+$f$'in genel cozum oldugunu ana denklemde yerine koyarak test edebiliriz.
+
+Ornek 
+
+\[ u_x + yu_y = 0 \]
+
+O zaman 
+
+\[ \frac{dy}{dx} = y \]
+
+\[ y = Ce^x \]
+
+ya da
+
+\[  C = e^{-x}y\]
+
+Genel cozum 
+
+\[ u(x,y) = f(C) = f(e^{-x}y) \]
+
+PDE icinde yerine koyarak sonucu kontrol edelim
+
+\[ u_x + yu_y = 
+-f'(e^{-x}y)e^{-x}y + y f'(e^{-x}y) e^{-x} = 0
+ \]
+
+Isi Denklemi 
+
+\[ u_{tt} = c^2 u_{xx} \]
+
+isi denklemi olarak bilinir. Bir diger sekilde 
+
+\[ u_{tt} - c^2 u_{xx} = 0\]
+
+Bu denklemi operatorlerin faktorize edilmis hali olarak gormek mumkundur. 
+
+\[ u_{tt} - c^2 u_{xx} = 
+\bigg( \frac{\partial }{\partial t} - c \frac{\partial }{\partial x} \bigg)
+\bigg( \frac{\partial }{\partial t} + c \frac{\partial }{\partial x} \bigg)
+u = 0
+\ \ \ (***)
+\]
+
+Esitligin sag tarafindaki operatorler hakikaten isi denklemine tekabul
+ediyor mu? Kontrol edelim, 
+
+\[ \bigg( \frac{\partial }{\partial t} + c \frac{\partial }{\partial x}
+\bigg) u = 
+\frac{\partial u}{\partial t} + c \frac{\partial u}{\partial x}
+\]
+
+Sag tarafa bir daha operator uygulayalim (bu sefer eksi olan operator),
+yani sunu hesaplayalim
+
+\[ 
+\bigg( \frac{\partial }{\partial t} - c \frac{\partial }{\partial x} \bigg)
+\frac{\partial u}{\partial t} + c \frac{\partial u}{\partial x} 
+ \]
+
+\[ = 
+\frac{\partial ^2 u}{\partial t^2} + 
+c \frac{\partial u}{\partial x \partial t} - 
+c \frac{\partial u}{\partial t \partial x} - 
+c^2\frac{\partial ^2 u}{\partial x^2} 
+ \]
+
+$u_{xt} = u_{tx}$ olduguna gore ortadaki iki terim iptal olur
+
+\[ = 
+\frac{\partial ^2 u}{\partial t^2} -
+c^2\frac{\partial ^2 u}{\partial x^2} 
+ \]
+
+Acilimi ispatlamis olduk. 
+
+Simdi isi denkleminin operator acilimini, faktorize edilmis halini
+dusunursek, o zaman iddia ediyorum ki genel cozum su halde
+
+\[ u(x,t) = f(x+ct) + g(x-ct) \]
+
+ki $f$ ve $g$ tek degiskenli rasgele birer fonksiyon. 
+
+Ispat
+
+(***) sebebiyle ve eger $v$'nin $v = u_t + cu_x$ oldugunu farzedersek, o zaman 
+
+\[ v_t - cv_x = 0 \]
+
+dogru olmalidir. O zaman elimizde iki tane birinci derece denklem vardir
+
+\[ v_t - cv_x = 0 \]
+
+\[ u_t + cu_x = v \]
+
+Simdi bu denklemleri teker teker cozelim. 1. Ders'ten biliyoruz ki iki
+ustteki denklemin cozumu 
+
+\[ v(x,t) = h(x+ ct) \]
+
+ki $h$ herhangi bir fonksiyon. Simdi diger formulu cozmek lazim, ki onun
+da formu
+
+\[ u_t + cu_x = h(x + ct)  \]
+
+Cozmek derken ustteki denkleme gore $u(x,t)$'yi bulmak gerekli. 
+
+
 
 
 
