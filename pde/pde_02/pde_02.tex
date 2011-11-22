@@ -24,7 +24,7 @@ eder. PDE su formdadir
 
 \[ \frac{\partial u}{\partial x} + 
 p(x,y) \frac{\partial u}{\partial y} = 0 
-\ \ \ (*)
+\ \ \ (1)
  \]
 
 ve $p(x,y)$, $x,y$ degiskenlerinin bir fonksiyonudur. 
@@ -51,19 +51,19 @@ icin soyle bir basit diferansiyel denklem (ODE) yazabiliriz.
 ya da
 
 \[ \frac{dy}{dx} = p(x,y) 
-\ \ \ (**)
+\ \ \ (2)
 \]
 
 Bu ODE bir yon alani (direction field) olusturur (bkz MIT OCW ODE Ders 1).
 
-Simdi geri adim atip her seye tekrar bakalim. (*) diyor ki $x,y$ noktasinda
+Simdi geri adim atip her seye tekrar bakalim. (1) diyor ki $x,y$ noktasinda
 $u$'nun $<1,p(x,y)>$ yonundeki yonsel turevi sifir. Yani $x,y$ noktasinda
 $<1,p(x,y)>$ yonunde ilerlersek $u$ hic degismeyecek. 
 
-Ayni zamanda $<1,p(x,y)>$ vektorleri (**) icin bir yonsel alan da
-tanimliyor!  Bilindigi gibi (**) denklemi cozum egrileri (solution curves)
+Ayni zamanda $<1,p(x,y)>$ vektorleri (2) icin bir yonsel alan da
+tanimliyor!  Bilindigi gibi (2) denklemi cozum egrileri (solution curves)
 ortaya cikartir, ve ne raslanti ki (!) bu cozum egrilerinin her birinde
-(*)'deki $u$ sabit kalir. 
+(1)'deki $u$ sabit kalir. 
 
 Ornek 
 
@@ -121,11 +121,13 @@ PDE icinde yerine koyarak sonucu kontrol edelim
 -f'(e^{-x}y)e^{-x}y + y f'(e^{-x}y) e^{-x} = 0
  \]
 
-Isi Denklemi 
+* * *
+
+Dalga Denklemi 
 
 \[ u_{tt} = c^2 u_{xx} \]
 
-isi denklemi olarak bilinir. Bir diger sekilde 
+dalga denklemi olarak bilinir. Bir diger sekilde 
 
 \[ u_{tt} - c^2 u_{xx} = 0\]
 
@@ -135,10 +137,10 @@ Bu denklemi operatorlerin faktorize edilmis hali olarak gormek mumkundur.
 \bigg( \frac{\partial }{\partial t} - c \frac{\partial }{\partial x} \bigg)
 \bigg( \frac{\partial }{\partial t} + c \frac{\partial }{\partial x} \bigg)
 u = 0
-\ \ \ (***)
+\ \ \ (3)
 \]
 
-Esitligin sag tarafindaki operatorler hakikaten isi denklemine tekabul
+Esitligin sag tarafindaki operatorler hakikaten dalga denklemine tekabul
 ediyor mu? Kontrol edelim, 
 
 \[ \bigg( \frac{\partial }{\partial t} + c \frac{\partial }{\partial x}
@@ -170,48 +172,61 @@ c^2\frac{\partial ^2 u}{\partial x^2}
 
 Acilimi ispatlamis olduk. 
 
-Simdi isi denkleminin operator acilimini, faktorize edilmis halini
-dusunursek, o zaman iddia ediyorum ki genel cozum su halde
+Cozumu bulalim. Karakteristik kordinat (characteristic coordinate)
+yontemini kullanalim. Bu sefer ilginc bir sey yapacagiz, kordinat
+degisimini tanimlayan esitliklerden sonra operatorler uzerinde sanki
+cebirsel buyukluklermis gibi islem yapacagiz. 
 
-\[ u(x,t) = f(x+ct) + g(x-ct) \]
+\[ \xi = x + ct \]
 
-ki $f$ ve $g$ tek degiskenli rasgele birer fonksiyon. 
+\[ \eta = x - ct \]
 
-Ispat
+Bu kordinat degisimi icin bir tahmin yuruttuk. Dogru olup olmadigini simdi
+gorecegiz. 
 
-(***) sebebiyle ve eger $v$'nin $v = u_t + cu_x$ oldugunu farzedersek, o zaman 
+\[ \partial_x = \partial_\xi + \partial_\eta \]
 
-\[ v_t - cv_x = 0 \]
+\[ \partial_t = c\partial_\xi - c \partial_\eta \]
 
-dogru olmalidir. O zaman elimizde iki tane birinci derece denklem vardir
+Bu formuller aslinda 1. derste gordugumuz (1)(2) formullerine benziyor,
+sadece usttekiler pur operator formunda ve sabitler bu probleme gore
+ayarli. 
 
-\[ v_t - cv_x = 0 \]
+Simdi iki ustteki formulu $c$ ile carpip bir ustteki formul ile toplarsak,
+sonuc 
 
-\[ u_t + cu_x = v \]
+\[ \partial_t + c\partial_x = 2c \partial_\xi \]
 
-Simdi bu denklemleri teker teker cozelim. 1. Ders'ten biliyoruz ki iki
-ustteki denklemin cozumu 
+Toplamak yerine bir ustteki formulden iki ustteki formulu cikartirsak
 
-\[ v(x,t) = h(x+ ct) \]
+\[ \partial_t - c\partial_x = -2c \partial_\eta \]
 
-ki $h$ herhangi bir fonksiyon. Simdi diger formulu cozmek lazim, ki onun
-da formu
+Ustteki esitliklerin sol taraflari, daha once PDE icin operator acilimi
+yaptigimizda ortaya cikan operatorler ile ayni. O zaman acilimda yerlerine
+koyarsak, PDE soyle olur
 
-\[ u_t + cu_x = h(x + ct)  \]
+\[ (2c\partial_\xi)(-2c\partial_\eta)u = 0 \]
 
-Cozmek derken ustteki denkleme gore $u(x,t)$'yi bulmak gerekli. 
+Diger bir deyisle 
 
+\[ u_{\xi_\eta} = 0 \]
 
+Biliyoruz ki $c \ne 0$. Bu transform edilmis denklemin cozumu nedir? Ilk
+once $\eta$'ya gore entegral aliriz, 
 
+\[ u_\xi = f(\xi) \]
 
+Bir daha entegral aliriz
 
+\[ u = F(\xi) + G(\eta) \]
 
+ki $F' = f$ olarak alindi. Burada aslinda $f,F$'in ne olduklari pek onemli
+degil, ikisi de rasgele fonksiyonlar, tek onemli olan aldiklari
+parametreler. O zaman cozum 
 
+\[ u(x,t) = F(x+ct) + G(x-ct) \]
 
-
-
-
-
+ki $F,G$ rasgele fonksiyonlar. 
 
 
 
