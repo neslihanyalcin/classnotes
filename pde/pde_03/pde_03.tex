@@ -1,0 +1,61 @@
+\documentclass[12pt,fleqn]{article}
+\setlength{\parindent}{0pt}
+\usepackage{graphicx}
+\usepackage{cancel}
+\usepackage{listings}
+\usepackage[latin5]{inputenc}
+\usepackage{color}
+\setlength{\parskip}{8pt}
+\setlength{\parsep}{0pt}
+\setlength{\headsep}{0pt}
+\setlength{\topskip}{0pt}
+\setlength{\topmargin}{0pt}
+\setlength{\topsep}{0pt}
+\setlength{\partopsep}{0pt}
+\setlength{\mathindent}{0cm}
+
+\begin{document}
+Ders 3
+
+Yayilim (Diffusion) Denklemi
+
+Bu bolumde cozmeye ugrasacagimiz problemi
+
+\[  u_t = k u_{xx}, \ \ (-\infty < x < \infty, 0 < t < \infty) \]
+
+\[ u(x,0) = \phi(x) \]
+
+
+Bu denklemi ozel (particular) bir $\phi$ icin cozecegiz, ve sonra genel
+cozumu bu ozel cozumden cikartacagiz. Bunu yaparken yayilim denkleminin 5
+degismezlik (invariance) ozelligini kullanacagiz. 
+
+a) Her sabit $y$ icin $u(x,y)$ cozumunu $u(x-y,t)$ olarak tercume edilir /
+tasinirsa (translate), ortaya cikan denklem yeni bir cozumdur.
+
+b) Cozumun her turevi, mesela $u_x$, $u_t$, $u_{xx}$ gibi, yeni bir
+cozumdur. 
+
+c) Cozumlerin lineer kombinasyonlari yeni bir cozumdur. 
+
+d) Iki cozumun entegrali bir cozumdur, mesela $S(x,t)$ bir cozum ise, o
+zaman $S(x-y,t)$ de bir cozumdur (bunu (a) soyluyor zaten), o zaman 
+
+\[ v(x,t) = \int_{-\infty}^{\infty}S(x-y,t)g(y) dy   \]
+
+bir cozumdur.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}
