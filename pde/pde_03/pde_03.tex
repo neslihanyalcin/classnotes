@@ -17,20 +17,163 @@
 \begin{document}
 Ders 3
 
+Dalga Denklemi Baslangic Deger Problemi (Initial Value Problem) 
+
+Baslangic deger problemi 
+
+\[ u_{tt} = c^2u_{xx} \]
+
+\[ -\infty < x < \infty \]
+
+ve baslangic sartlari 
+
+\[ u(x,0) = \phi(x) \]
+
+\[ u_t(x,0) = \psi(x) \]
+
+ki $\phi$ ve $\psi$, $x$'in herhangi bir fonksiyonu. 
+
+Her $\phi$ ve $\psi$ icin bu problemde tek bir cozum vardir, yani tek bir
+$u$ elde edilir. Mesela $\phi(x) = sin(x)$ ve $\psi(x) = 0$ ise, o zaman
+$u(x,t) = sin \ x \ cos \ ct$. 
+
+Kontrol edelim. Cozum soyleydi:
+
+\[ u(x,t) = f(x+ct) + g(x-ct) \ \ \ (5)\]
+
+$t=0$ dersek 
+
+\[ u(x,0)  = f(x) + g(x) \]
+
+$u(x,0) = \phi(x)$ demistik
+
+\[ \phi(x) = f(x) + g(x) \ \ \ (1) \]
+
+Zincirleme Kanunu kullanarak $t$'ye gore turev alalim ve $t=0$ diyelim
+
+\[ u_t(x,0) = cf' - cg' \]
+
+$u_t(x,0) = \psi(x)$ demistik
+
+\[ \psi(x) = cf'(x) - cg'(x) \ \ \ (2) \]
+
+Formul (1) ve (2)'yi bir denklem sistemi olarak gorebiliriz, ve ayni anda
+cozmeye ugrasabiliriz. (1)'in turevini alalim, ve (2)'yi $c$'ye bolelim
+
+\[ \phi' = f' + g' \]
+
+\[ \frac{1}{c}\psi = f' - g' \]
+
+Ustteki iki denklemi toplarsak
+
+\[ f' = \frac{1}{2} \bigg( \phi' + \frac{\psi}{c}  \bigg) \]
+
+Cikarirsak
+
+\[ g' = \frac{1}{2}  \bigg( \phi' - \frac{\psi}{c}  \bigg) \]
+
+
+$f'$'in entegralini alalim. Ek: $x$ yerine $s$ kullanacagiz simdi,
+
+\[ \int f' = \int \frac{1}{2} \bigg( \phi' + \frac{\psi}{c}  \bigg) \]
+
+\[ f = \frac{1}{2}\phi(s) + \frac{1}{2}\int_0^s \frac{\psi(x)}{c} + A\]
+
+\[ f = \frac{1}{2}\phi(s) + \frac{1}{2c} \int_0^s \psi(x) + A 
+\ \ \ (3)
+\]
+
+$g'$'nin entegrali
+
+\[ g = \frac{1}{2}\phi(s) - \frac{1}{2c} \int_0^s \psi(x) + B
+\ \ \ (4)
+\]
+
+
+ki $A$ ve $B$ sabitler. $A=0,B=0$ cunku (3) ve (4) toplaninca icinde $A,B$
+olmayan (1) elde edilir, o zaman $A=0,B=0$ olmalidir. Boylece genel formul
+(5) icin gereken $f,g$ fonksiyonlarini elde etmis oluyoruz. Genel formulde
+biraz once buldugumuz $f,g$ yerine gecirirsek, ve $f$ icin $s = x+ct$, $g$
+icin $s = x-ct$ kullanirsak,
+
+\[ u(x,t) = 
+\frac{1}{2}\phi(x+ct) + 
+\frac{1}{2c} \int_0 ^{x+ct} \psi + 
+\frac{1}{2}\phi(x-ct) -
+\frac{1}{2c} \int_0 ^{x+ct} \psi 
+ \]
+
+Basitlestirirsek 
+
+\[ = \frac{1}{2}[\phi(x+ct) + \phi(x-ct)] + 
+\frac{1}{2c} \int_{x-ct} ^{x+ct} \psi (s) ds
+ \]
+
+Bu cozum matematikci d'Alembert'in 1746'da buldugu baslangic deger
+probleminin cozumdur. 
+
+Ornek
+
+\[ \phi(x) = 0, \psi(x) = cos(x) \] 
+
+ise cozum 
+
+\[ u(x,t) = \frac{1}{2c}[sin(x+ct) - sin(x-ct)] \]
+
+Trigonometrik esitlik kullanirsak, her iki terimin acilimi
+
+\[ sin(x+ct) = cos(x)sin(ct) + sin(x)cos(ct) \]
+
+\[ sin(x-ct) = -cos(x)sin(ct) + sin(x)cos(ct) \]
+
+Ustteki formullerden 2.'yi 1.'den cikartalim, 
+
+\[ sin(x+ct) - sin(x-ct) = 2cos(x)sin(ct) \]
+
+$u(x,t)$ icinde yerine koyalim
+
+\[ u(x,t) = \frac{1}{c}cos(x)sin(ct) \]
+
+Cozum bu. Kontrol edersek, 
+
+\[ u_{tt} = -c cos(x)sin(ct) \]
+
+\[ u_{xx} = -(1/c)cos(x)sin(ct) \]
+
+boylece 
+
+\[ u_{tt} = c^2 u_{xx} \]
+
+Baslangic sartini kontrol etmek daha da kolay, ilk sart
+
+\[ u(x,0) = \frac{1}{c}cos(x)sin(c \cdot 0)  = 0\]
+
+Ikinci sart
+
+\[ u_t(x,t) = \frac{1}{c}cos(x) \ c \ cos(ct) \]
+
+\[ u_t(x,0) = \frac{1}{c}cos(x) \ c \]
+
+\[  = cos(x) \]
+
+
 Yayilim (Diffusion) Denklemi
 
 Bu bolumde cozmeye ugrasacagimiz problemi
 
-\[  u_t = k u_{xx}, \ \ (-\infty < x < \infty, 0 < t < \infty) \]
+\[  u_t = k u_{xx}  \]
 
 \[ u(x,0) = \phi(x) \]
 
+oyle ki 
+
+\[ -\infty < x < \infty, 0 < t < \infty \]
 
 Bu denklemi ozel (particular) bir $\phi$ icin cozecegiz, ve sonra genel
 cozumu bu ozel cozumden cikartacagiz. Bunu yaparken yayilim denkleminin 5
 degismezlik (invariance) ozelligini kullanacagiz. 
 
-a) Her sabit $y$ icin $u(x,y)$ cozumunu $u(x-y,t)$ olarak tercume edilir /
+a) Bir sabit $y$ icin $u(x,y)$ cozumunu $u(x-y,t)$ olarak tercume edilir /
 tasinirsa (translate), ortaya cikan denklem yeni bir cozumdur.
 
 b) Cozumun her turevi, mesela $u_x$, $u_t$, $u_{xx}$ gibi, yeni bir
@@ -43,7 +186,55 @@ zaman $S(x-y,t)$ de bir cozumdur (bunu (a) soyluyor zaten), o zaman
 
 \[ v(x,t) = \int_{-\infty}^{\infty}S(x-y,t)g(y) dy   \]
 
-bir cozumdur.
+bir cozumdur. Aslinda bu beyan, (c)'nin limite giderkenki hali. 
+
+e) Eger $u(x,t)$ yayilim denkleminin bir cozumu ise, o zaman genisletilmis
+(dilated) fonksiyon $u(\sqrt{a} x, at)$ da, herhangi bir $a>0$ icin, bir
+cozumdur. Ispat (Zincirleme Kanunu ile)
+
+\[ v(x,t) =  u(\sqrt{a} x, at) \]
+
+\[ v_t = [\partial(at) / \partial t]u_t = au_t \]
+
+\[ v_x = [\partial(\sqrt{a}x) / \partial x]u_x = \sqrt{a}u_x \]
+
+\[ v_{xx} = \sqrt{a} \cdot \sqrt{a} u_{xx} = a u_{xx} \]
+
+Hedefimiz ozel bir cozum bulmak ve ozellik (d)'yi kullanarak tum diger
+cozumleri insa etmek. Aradigimiz ozel fonksiyon ise $Q(x,t)$ adini
+verecegimiz ve bizim tanimladigimiz ozel baslangic sartlari
+
+\[ Q(x,0) = 1, \ x>0 \textit{ icin } \]
+
+\[ Q(x,0)=0, \ x<0 \textit{ icin }  \]
+
+Bu baslangic sartlarini secmemizin sebebi genisletme (dilation)
+operasyonunun bu sartlara etki etmemesi. 
+
+$Q$'yu uc adimda bulacagiz. 
+
+1. Adim
+
+Cozumun su ozel formda olacagini soyluyoruz. 
+
+\[ Q(x,t) = g(p), \ p = \frac{x}{\sqrt{4kt}} \]
+
+$g$ tek degiskenli bir fonksiyon, fonksiyonun ne oldugunu sonra
+tanimlayacagiz, $\sqrt{4kt}$ ise daha ilerideki baska bir formulu
+basitlestirmek icin kullaniliyor. 
+
+$Q$'nin niye bu ozel formda olmasini istiyoruz? Cunku cozumun genisletmeye
+``dayanikli'' olmasi gerekiyorsa, boyle bir cozum sadece $Q$ $x,t$'ye
+$x/\sqrt{t}$ kombinasyonu uzerinden bagliysa mumkundur. Kontrol edelim,
+genisleme $x/\sqrt{t}$'yi alip $\sqrt{a}x/\sqrt{at} = x/\sqrt{t}$ yapar,
+yani baslangica dondurur. 
+
+2. Adim
+
+
+
+
+
 
 
 
