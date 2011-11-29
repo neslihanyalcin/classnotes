@@ -212,7 +212,7 @@ cozumleri insa etmek. Aradigimiz ozel fonksiyon ise $Q(x,t)$ adini
 verecegimiz  bir fonksiyon ve bizim tanimladigimiz ozel baslangic
 sartlari soyle:
 
-\[ Q(x,0) = 1, \ x>0 \textit{ icin } \]
+\[ Q(x,0) = 1, \ x>0 \textit{ icin } \ \ \ \label{7}\]
 
 \[ Q(x,0)=0, \ x<0 \textit{ icin }  \]
 
@@ -267,12 +267,74 @@ $\partial p/\partial t$'yi su sekilde hesaplariz
 -\frac{1}{2t} \frac{x}{\sqrt{4kt}}
  \]
 
+Yani 
+
+\[ Q_t = 
+- g'(p)\frac{1}{2t} \frac{x}{\sqrt{4kt}}
+\]
+
+Ayni mantikla $Q_x$
+
+\[ Q_x = g'(p)\frac{1}{\sqrt{4kt}} \]
+
+Bir daha $x$'e gore kismi turev alalim, yine Zincirleme Kanunu 
+
+\[ Q_{xx} = \frac{\partial dQ_x}{\partial dp}
+\frac{\partial p}{\partial x} = 
+\frac{1}{\sqrt{4kt}}g''(p)\frac{1}{\sqrt{4kt}} 
+ \]
+
+\[ = \frac{1}{4kt}g''(p) \]
+
+\[ Q_t - kQ_{xx} = 
+- g'(p)\frac{1}{2t} \frac{x}{\sqrt{4kt}} -
+k\bigg[ 
+ \frac{1}{4kt}g''(p) 
+\bigg] = 0
+ \]
+
+(6)'ya gore $p = x/\sqrt{4kt}$, o zaman 
+
+\[ =
+- g'(p)\frac{1}{2t} p - \frac{1}{4t}g''(p)  = 0
+ \]
+
+\[ = \frac{1}{t} \bigg[
+-p\frac{1}{2}g'(p) - \frac{1}{4}g''(p)
+\bigg] = 0
+ \]
+
+Tum carpim sifira esitse, koseli parantez ici sifir demektir, cunku $0 < t$
+sarti var, $t$ sifir olamaz, ayrica parantez icini 4 ile carparsak, sifira
+esitlik bozulmaz, o zaman 
+
+\[ g'' + 2pg = 0 \]
+
+Bu bir ODE ! Cozum icin entegre edici faktor (integrating factor)
+ $exp \
+\int 2p dp = exp(p^2)$ kullanilabilir. $g'(p) = c_1 exp(-p^2)$ elde
+ederiz. 
+
+\[ Q(x,t) = g(p) = c_1 \int e^{-p^2} dp + c_2 \]
 
 
+3. Adim 
 
+Bu adimda $Q$ icin nihai bir formul uretmeye ugrasacagiz. Ustteki formul
+sadece $t>0$ sartini dikkate aldi, fakat bizim (7)'de belirttigimiz
+baslangic sartlarimiz da var. Bu sartlari limit olarak ifade edebiliriz,
+cunku mesela $x>0$ sonrasi tum degerler icin bir sey tanimladik, ve $Q$'nun bu
+durum icin olacagi nihai deger belli, sarta gore 1. Bu tanim limit tanimini
+cagristiriyor, 
 
+Eger $x>0$ ise
 
+\[ 1 = \lim_{t \to 0} Q = 
+ c_1 \int_0^{\infty} e^{-p^2} dp + c_2 = 
+c_1 \frac{\pi}{2} + c_2
+ \]
 
+Eger  $p = x/\sqrt{4kt}$ ise 
 
 
 
