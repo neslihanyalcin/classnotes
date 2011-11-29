@@ -1,0 +1,73 @@
+\documentclass[12pt,fleqn]{article}
+\setlength{\parindent}{0pt}
+\usepackage{graphicx}
+\usepackage{cancel}
+\usepackage{listings}
+\usepackage[latin5]{inputenc}
+\usepackage{color}
+\setlength{\parskip}{8pt}
+\setlength{\parsep}{0pt}
+\setlength{\headsep}{0pt}
+\setlength{\topskip}{0pt}
+\setlength{\topmargin}{0pt}
+\setlength{\topsep}{0pt}
+\setlength{\partopsep}{0pt}
+\setlength{\mathindent}{0cm}
+\usepackage{showkeys}
+\renewcommand*\showkeyslabelformat[1]{(#1)}
+
+\begin{document}
+$e^{-x^2}$ Nasil Entegre Edilir? 
+
+\[ \int_{-\infty}^{\infty} e^{-x^2} dx \ \ \ \label{1} \]
+
+ifadesi ozellikle olasilik matematiginde cokca gorulen bir ifadedir. Bu
+hesabi yapmak icin kutupsal kordinatlar kullanacagiz. 
+
+Simdi ustteki ifadeyle alakali su ifadeye bakalim. 
+
+\[ \int_{-\infty}^{\infty} \int_{-\infty}^{\infty} e^{-x^2-y^2} dx dy \]
+
+Iddia ediyorum ki bu son ifade (1)'in sadece karesi, yani (1)'in kendisiyle
+carpimi. Niye boyle? Cunku $e$ ifadelerini carpim olarak gosterirsek
+
+\[ \int_{-\infty}^{\infty} 
+\underbrace{\int_{-\infty}^{\infty} e^{-x^2} e^{-y^2} dx}
+dy \]
+
+cift entegral icinde isaretlenen blokta yer alan $e^{-y^2}$ $x$'ten
+bagimsiz, o zaman bloktaki entegralin disina alinabilir. Yani soyle olabilir
+
+\[ \int_{-\infty}^{\infty} 
+e^{-y^2} \int_{-\infty}^{\infty} e^{-x^2}  dx
+dy \]
+
+Devam edelim: ustteki ic entegral (1) ifadesi degil mi? Evet. Simdi bir
+ilginc durum daha ortaya cikti, 
+
+\[ \int_{-\infty}^{\infty}  e^{-y^2} 
+\underbrace{\int_{-\infty}^{\infty} e^{-x^2}  dx}
+dy \]
+
+simdi de isaretlenen blok $y$ entegraline gore sabit, o da ikinci
+entegralin disina cikarilabilir! (1) yerine $I$ kullanirsak 
+
+\[ I \int_{-\infty}^{\infty}  e^{-y^2} dy \]
+
+Icinde $y$ iceren entegral nedir? O da $I$'dir! Niye, cunku bu ifade icinde
+(1)'in icinde $y$ olan versiyonundan ibaret. O zaman 
+
+\[ I \cdot I = I^2 \]
+
+Tum bu taklalari niye attik peki? Cunku cift entegralli ifadenin
+entegralini almak daha kolay, eger onu hesaplarsak, sonucun karekokunu
+aldigimiz anda $I$'yi bulmus olacagiz. 
+
+
+
+
+
+
+
+
+\end{document}
