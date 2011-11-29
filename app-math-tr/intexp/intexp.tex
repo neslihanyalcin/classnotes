@@ -63,11 +63,48 @@ Tum bu taklalari niye attik peki? Cunku cift entegralli ifadenin
 entegralini almak daha kolay, eger onu hesaplarsak, sonucun karekokunu
 aldigimiz anda $I$'yi bulmus olacagiz. 
 
+O zaman ifadeyi hesaplayalim, 
+
+\[ I^2 = \int_{-\infty}^{\infty} \int_{-\infty}^{\infty} e^{-x^2-y^2} dx dy \]
+
+Basta soyledigimiz gibi kullanacagimiz numara kutupsal forma
+gecmek. Entegralin sinirlarina bakalim, tum $x$ ve tum $y$ ekseni uzerinden
+entegral aliyoruz. Kutupsal formda bu $r$'nin 0'dan sonsuza ve $\theta$'nin
+0'dan $2\pi$'a gitmesi anlamina geliyor. 
+
+\[ x = rcos(\theta) \]
+
+\[ y = rsin(\theta) \]
+
+\[ dx = -rsin(\theta)d\theta \]
+
+\[ dy = rcos(\theta)d\theta \]
+
+\[ r^2 = x^2 + y^2 \]
+
+Peki $e^{-x^2-y^2}$ kutupsal formda nedir? 
+
+\[ e^{-x^2-y^2} = e^{-(x^2+y^2)} = e^{-r^2} \]
+
+Entegrali yazalim
+
+\[ \int_{0}^{\infty} \int_{0}^{2\pi} e^{-r^2} r d\theta dr \]
+
+Niye entegral sirasinda $\theta$'yi once yazdim? Cunku entegral icindeki
+ifadede $\theta$'ya bagli hicbir terim yok, o zaman ic entegral bana sadece
+$2\pi$ verir. Geriye kalanlar
+
+\[ 2\pi \int_{0}^{\infty} e^{-r^2} r dr \]
+
+Bu entegral cok daha kolay. Yerine koyma (subtitution) teknigi ile bu
+problemi cozebiliriz. 
 
 
 
 
 
+
+http://www.youtube.com/watch?v=fWOGfzC3IeY\&feature=related
 
 
 \end{document}
