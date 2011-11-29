@@ -14,6 +14,7 @@
 \setlength{\partopsep}{0pt}
 \setlength{\mathindent}{0cm}
 \usepackage{showkeys}
+\renewcommand*\showkeyslabelformat[1]{(#1)}
 
 \begin{document}
 Ders 3
@@ -40,7 +41,7 @@ $u(x,t) = sin \ x \ cos \ ct$.
 
 Kontrol edelim. Cozum soyleydi:
 
-\[ u(x,t) = f(x+ct) + g(x-ct) \ \ \ \label{(5)}\]
+\[ u(x,t) = f(x+ct) + g(x-ct) \ \ \ \label{5}\]
 
 $t=0$ dersek 
 
@@ -48,7 +49,7 @@ $t=0$ dersek
 
 $u(x,0) = \phi(x)$ demistik
 
-\[ \phi(x) = f(x) + g(x) \ \ \ \label{(1)} \]
+\[ \phi(x) = f(x) + g(x) \ \ \ \label{1} \]
 
 Zincirleme Kanunu kullanarak $t$'ye gore turev alalim ve $t=0$ diyelim
 
@@ -56,7 +57,7 @@ Zincirleme Kanunu kullanarak $t$'ye gore turev alalim ve $t=0$ diyelim
 
 $u_t(x,0) = \psi(x)$ demistik
 
-\[ \psi(x) = cf'(x) - cg'(x) \ \ \ \label{(2)} \]
+\[ \psi(x) = cf'(x) - cg'(x) \ \ \ \label{2} \]
 
 Formul (1) ve (2)'yi bir denklem sistemi olarak gorebiliriz, ve ayni anda
 cozmeye ugrasabiliriz. (1)'in turevini alalim, ve (2)'yi $c$'ye bolelim
@@ -81,13 +82,13 @@ $f'$'in entegralini alalim. Ek: $x$ yerine $s$ kullanacagiz simdi,
 \[ f = \frac{1}{2}\phi(s) + \frac{1}{2}\int_0^s \frac{\psi(x)}{c} + A\]
 
 \[ f = \frac{1}{2}\phi(s) + \frac{1}{2c} \int_0^s \psi(x) + A 
-\ \ \ \label{(3)}
+\ \ \ \label{3}
 \]
 
 $g'$'nin entegrali
 
 \[ g = \frac{1}{2}\phi(s) - \frac{1}{2c} \int_0^s \psi(x) + B
-\ \ \ \label{(4)}
+\ \ \ \label{4}
 \]
 
 
