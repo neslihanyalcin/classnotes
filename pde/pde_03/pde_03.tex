@@ -225,7 +225,7 @@ $Q$'yu uc adimda bulacagiz.
 
 Cozumun su ozel formda olacagini soyluyoruz. 
 
-\[ Q(x,t) = g(p), \ p = \frac{x}{\sqrt{4kt}} \]
+\[ Q(x,t) = g(p), \ p = \frac{x}{\sqrt{4kt}} \ \ \ \label{6} \]
 
 
 $g$ tek degiskenli bir fonksiyon, fonksiyonun ne oldugunu sonra
@@ -239,6 +239,40 @@ genisleme $x/\sqrt{t}$'yi alip $\sqrt{a}x/\sqrt{at} = x/\sqrt{t}$ yapar,
 yani baslangica dondurur. 
 
 2. Adim
+
+One surdugumuz cozumden ana PDE'ye erismek icin $Q_t,Q_{x},Q_{xx}$'i
+bulmamiz lazim. (6) uzerinde Zincirleme Kanunu kullanarak bunlari elde
+etmeye ugrasalim. 
+
+\[ \frac{\partial Q}{\partial t} = 
+\frac{\partial Q}{\partial p}\frac{\partial p}{\partial t}
+\]
+
+$Q$ tek bir degisken $p$'ye bagli olduguna gore $\partial$ yerine $d$
+kullanabiliriz. 
+
+\[ Q_t = 
+\frac{dQ}{dp}\frac{\partial p}{\partial t}  = 
+g'(p)\frac{\partial p}{\partial t} 
+\]
+
+$\partial p/\partial t$'yi su sekilde hesaplariz
+
+\[ 
+\frac{\partial }{\partial t}
+\bigg( 
+\frac{x}{\sqrt{4k} t ^{-1/2}}
+\bigg) = 
+-\frac{1}{2} \frac{x}{\sqrt{4k}} t ^{-3/2} = 
+-\frac{1}{2t} \frac{x}{\sqrt{4kt}}
+ \]
+
+
+
+
+
+
+
 
 
 

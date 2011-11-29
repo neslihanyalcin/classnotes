@@ -14,5 +14,9 @@ if len(sys.argv) == 1 or sys.argv[1] == 'tex':
     print s
     for ss in s: 
         f = re.search('There were multiply-defined labels', ss)
-        if f: exit()
+        if f: 
+            print "---------------------------------------"
+            print "There were multiply-defined labels"
+            print "---------------------------------------"
+            exit()
     os.system("evince pde*.pdf")    
