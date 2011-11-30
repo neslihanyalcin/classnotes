@@ -52,9 +52,9 @@ topladigimizi hayal ediyorduk.
 
 \includegraphics[height=4cm]{16_3.png}
 
-Cift entegralde bu ufak bir kenari $\Delta x$ diger kenari $\Delta y$ olan
-bir dikdortgen alani, $\Delta A$. Sonra $\Delta A$'yi o noktadaki $f$ ile
-cariyoruz, ve resimde cizgili gosterilen hacmi buluyoruz. Tum entegral icin
+Cift entegralde bu ufak kesit bir kenari $\Delta x$ diger kenari $\Delta y$ olan
+bir dikdortgen alani $\Delta A$. Sonra $\Delta A$'yi o noktadaki $f$ ile
+carpiyoruz, ve resimde cizgili gosterilen hacmi buluyoruz. Tum entegral icin
 bu hacimleri topluyoruz. Entegral matematiksel olarak bir limit olarak
 gosteriliyor, yani $\Delta A$ gitgide ufaliyor. 
 
@@ -70,10 +70,11 @@ Tabii ki entegral hesabini yaparken, tek ya da cift olsun, her seferinde
 ufak parcalara bolup, toplam ile ugrasmiyoruz. Entegral kavraminin bize
 sagladigi formulsel kolayliklari kullaniyoruz.
 
-Cift entegral formullerini kullanmak icin ``tarayici bir duzlem'' hayal
-edebiliriz. Mesela alttaki resimde $yz$ duzlemine paralel duzlemin arkadan
-one dogru onune gecerek her seyi taradigini dusunelim, her duzlem $x=x_0$'a
-tekabul ediyor, o zaman tarama sirasinda farkli $x_0$'lar kullaniyoruz. 
+Formulsel olarak cift entegral hesabi yapmak icin ``tarayici bir
+duzlem'' hayal edebiliriz. Mesela alttaki resimde $yz$ duzlemine paralel
+duzlemin arkadan one dogru onune gecerek her seyi taradigini dusunelim, her
+duzlem $x=x_0$'a tekabul ediyor, o zaman tarama sirasinda farkli $x_0$'lar
+kullaniyoruz.
 
 \includegraphics[height=4cm]{16_5.png}
 
@@ -89,7 +90,31 @@ Yani
 
 \includegraphics[height=3cm]{16_6.png}
 
-Taramanin sinirlari ise ustteki yesil oklarla gosteriliyor. 
+Taramanin sinirlari ise ustteki yesil oklarla gosteriliyor, degerleri
+$x_{min}$, $x_{maks}$ olarak gosteribiliriz, yani
+
+\[ Hacim = \int_{x_{min}}^{x_{max}} S(x) dx \]
+
+$S(x)$'in kendisi de bir entegraldir, fakat $y$ degiskeni uzerinden, cunku
+fotograf sirasinda $x$ sabit. 
+
+\[ S(x) = \int f(x,y) dy \]
+
+$y$'nin alt ust limitleri $x=x_0$ olmak uzere (cunku o kesit uzerindeyiz)
+$R$'nin baslangic ve bitis degeridir. Yani
+
+\[ S(x) = \int_{y_{min}(x)}^{y_{max}(x)} f(x,y) dy \]
+
+Bu onemli bir nokta: $y$'nin limit degerleri belli bir $x$ degerine
+bagli. Alttaki resimde bu daha iyi anlasilabilir. 
+
+\includegraphics[height=3cm]{16_7.png}
+
+Ustteki resim onceki 3 boyutlu resmin bir kusbakisi. Her kesit bir cizgi
+olarak gozukuyor, eger buyuk kirmizi cizgi (kesit) uzerinde isek,
+hesaplanan alan entegrali, kucuk kirmizi cizgi (kesite) uzerindekine
+nazaran degisik olacaktir.
+
 
 
 
