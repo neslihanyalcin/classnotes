@@ -13,8 +13,6 @@
 \setlength{\topsep}{0pt}
 \setlength{\partopsep}{0pt}
 \setlength{\mathindent}{0cm}
-\usepackage{showkeys}
-\renewcommand*\showkeyslabelformat[1]{(#1)}
 
 \begin{document}
 Ders 16
@@ -68,10 +66,30 @@ Toplam soyle gosterilebilir
 
 ve $\Delta A \to 0$ uzerinden limit aliyoruz, cift entegrali elde ediyoruz. 
 
-Tabii ki her problem icin entegral hesabinin yaparken tek ya da cift olsun
+Tabii ki entegral hesabini yaparken, tek ya da cift olsun, her seferinde
 ufak parcalara bolup, toplam ile ugrasmiyoruz. Entegral kavraminin bize
-sagladigi cebirsel kolayliklari kullaniyoruz. 
+sagladigi formulsel kolayliklari kullaniyoruz.
 
+Cift entegral formullerini kullanmak icin ``tarayici bir duzlem'' hayal
+edebiliriz. Mesela alttaki resimde $yz$ duzlemine paralel duzlemin arkadan
+one dogru onune gecerek her seyi taradigini dusunelim, her duzlem $x=x_0$'a
+tekabul ediyor, o zaman tarama sirasinda farkli $x_0$'lar kullaniyoruz. 
+
+\includegraphics[height=4cm]{16_5.png}
+
+Tek bir $x_0$ ``fotografina'' bakarsak, o duzlemin uzerinde dusen $f$
+yansimasinin altindaki alanin normal (tek) bir entegral olarak
+hesaplanabilecegini gorebiliriz. One dogru her hareket bir $\Delta x$ ise,
+oradan her ufak hareketin hacmini buluruz. Tum bu ufak hacimleri toplarsak,
+toplam hacmi elde ederiz. Fotograftaki her alana $S(x)$ adi verelim.
+
+Yani 
+
+\[ Hacim = \int S(x) dx \]
+
+\includegraphics[height=3cm]{16_6.png}
+
+Taramanin sinirlari ise ustteki yesil oklarla gosteriliyor. 
 
 
 
