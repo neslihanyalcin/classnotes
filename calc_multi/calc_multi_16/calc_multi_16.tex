@@ -111,11 +111,56 @@ bagli. Alttaki resimde bu daha iyi anlasilabilir.
 \includegraphics[height=3cm]{16_7.png}
 
 Ustteki resim onceki 3 boyutlu resmin bir kusbakisi. Her kesit bir cizgi
-olarak gozukuyor, eger buyuk kirmizi cizgi (kesit) uzerinde isek,
-hesaplanan alan entegrali, kucuk kirmizi cizgi (kesite) uzerindekine
-nazaran degisik olacaktir.
+olarak gozukuyor, eger buyuk kirmizi cizgi (kesit) uzerinde isek, baslangic
+bitis $y$ degerleri ile hesaplanan alan entegrali, kucuk kirmizi cizgi
+(kesite) uzerindekine nazaran degisik olacaktir.
+
+\[ A = \int_{x_{min}}^{x_{max}} 
+\bigg[ 
+\int_{y_{min}(x)}^{y_{max}(x)} f(x,y) dy 
+\bigg] dx
+ \]
 
 
+Bu isleme tekrarli entegral (iterated integral) ismi de veriliyor, cunku
+bir anlamda fonksiyonun uzerinden iki kere gecmemiz gerekiyor. 
+
+Onemli bir nokta oldugu icin tekrar vurgulayayim: Dis entegraldaki
+$x_{min}, x_{max}$ degerleri birer sayi sadece. Ic entegraldaki
+$y_{max}(x)$ degerleri ise dis entegraldaki $x$'e bagli. 
+
+Ornek
+
+\[ z = 1 - x^2 - y^2 \]
+
+\[ 0 \le x \le 1 \]
+
+\[ 0 \le y \le 1 \]
+
+\includegraphics[height=5cm]{16_8.png}
+
+\[ \int_0^1 \int_0^1  1-x^2-y^2 \ dy \ dx \]
+
+Ilk once ic entegrali hesaplayacagim, $x$ sabit kalacak. Dikkat: ustteki
+resimdeki kesitteki $f$ yansimasina bakarsak, alanin bir bolumu pozitif
+alan, digeri negatif alan. Yani entegral hesabinin isaretleri dogru
+kullanmasi lazim. 
+
+1) Ic Entegral
+
+\[ \int_0^1 (1-x^2-y^2) dy = [y - x^2y - \frac{y^3}{3}]_0^1 \]
+
+\[ = (1 - x^2 - \frac{1}{3}) - 0 = \frac{2}{3} - x^2\]
+
+Son formul sadece $x$'in fonksiyonu, bu noktada artik $y$ kalmadi, cunku
+$y$ entegrasyon degiskenimizdi. Ama hala $x$ var, cunku kesit uzerindeki
+alan $x$'in degerine bagli. 
+
+2) Dis Entegral 
+
+\[ \int_0^1 (\frac{2}{3} - x^2)dx = [\frac{2}{3}x - \frac{1}{3}x^3]_0^1 = 
+\frac{1}{3}
+ \]
 
 
 
