@@ -219,22 +219,135 @@ Yani sinirlari hesaplarken degisik sorular soruyoruz. Dis entegral icin
 ``ilk kesit nerede, son kesit nerede?'' diye soruyoruz, ic entegral icin
 ``her $x$ degeri icin alt $y$ ust $y$ nedir?'' sorusunu soruyoruz. 
 
+Hesabi yapalim. 
+
+Ic Entegral 
+
+\[  \int_0^{\sqrt{1-x^2}}  (1-x^2-y^2) dy = 
+[ y - x^2 - \frac{y^3}{3} ]_0^{\sqrt{1-x^2}}
+ \]
+
+\[ =  (1-x^2)\sqrt{1-x^2} - \frac{(1-x^2)^{3/2}}{3}\]
+
+\[ = \frac{2}{3} (1-x^2)^{3/2} \]
+
+Dis Entegral
+
+\[ \int_0^1 \frac{2}{3} (1-x^2)^{3/2} dx \]
+
+Yerine gecirme (subsitution) teknigi kullanmamiz lazim. 
+
+\[ x = sin\theta \]
+
+\[ dx = cos\theta d\theta\]
+
+\[ (1-x^2)^{1/2} = cos\theta \]
+
+\[ 
+\int_0^1 \frac{2}{3} (1-x^2)^{3/2} dx = 
+\int_0^{\pi/2} \frac{2}{3} cos^3\theta \ cos\theta \ d\theta = 
+\frac{2}{3} \int_0^{\pi/2} cos^4\theta d\theta
+\]
+
+En sondaki entegrali almak icin cift aci (double angle) formullerini
+kullanmak lazim. 
+
+\[ cos^2\theta = \frac{1 + cos 2\theta}{2} \]
+
+O zaman 
+
+\[ = 
+\frac{2}{3} \int_0^{\pi/2} 
+\bigg( \frac{1 + cos 2\theta}{2} \bigg)^2 d\theta 
+\]
+
+\[ = \frac{2}{3} \int_0^{\pi/2} (
+\frac{1}{4} + 
+\frac{1}{2}cos2\theta + 
+\frac{1}{4}cos^22\theta)d\theta
+ \]
+
+Biraz arap sacina dondu, ama hesabin sonunda sonuc $\pi/8$ cikacak. 
+
+Bu karisiklik aslinda biraz zor bir yolu sectigimizin sinyali. Daha iyisi
+kutupsal forma gecmemizdi. Bir sonraki derste onu gorecegiz. Bu derste daha
+basit bir numara gorecegiz. 
+
+Entegrasyon sirasini degistirebildigimizi soylemistik. $dy dx$ 
+yerine $dx
+dy$ kullanacagiz, ama sinir degerlerine dikkat, $dx dy$ degisimini
+yaptigimizda, sinirlari oldugu gibi alip disaridan iceri tasiyamayiz. 
+
+Tabii tum sinirlar sabit degerler ise, o zaman degisim olur, mesela
+
+\[ \int_0^1 \int_0^2 dx dy =
+\int_0^2 \int_0^1 dy dx
+\]
 
 
+\includegraphics[height=3cm]{16_12.png}
 
+Otomatik degisim burada isler cunku ustteki resimde goruldugu gibi, alan
+bir dikdortgen. Yani once dikey, sonra yatay kesmemizle, once yatay sonra
+dikey kesmek ``kazara'' ayni sey. Her zaman boyle olmayabilir. 
 
+Ornek 
 
+\[ \int_0^1 \int_x^{\sqrt{x}} \frac{e^y}{y} dy dx \]
 
+Bu ornegi ozellikle sectik, cunku bilindigi kadariyla 
 
+\[ \int \frac{e^y}{y} dy \]
 
+entegralinin analitik cozumu yoktur. Yani ustteki ifadeyi gordugumuz anda
+biliyoruz ki tikandik. Hemen entegral degisimini dusunuruz, ve onun icin,
+sinir degerlerinin ne anlama geldigini hesaplamaya baslariz. 
 
+Bir sinir diyor ki $y$, $x$'ten $\sqrt{x}$'e gidiyor. Her iki fonksiyonun
+grafigini cizeriz. 
 
+\includegraphics[height=3cm]{16_13.png}
 
+Bolgeyi anlamak icin
 
+\includegraphics[height=3cm]{16_14.png}
 
+Her $y$ icin $x$ sinirlari ne olur? 
 
+\includegraphics[height=3cm]{16_15.png}
 
+Sari cizgi ornek bir $y$ kesiti icin $x$ baslangic sinirinin $y$'den
+$y^2$'e gittigini gosteriyor. $y$'nin sinirlari ise dikey olarak en alt ve
+en ust, ki bu degerler 0 ve 1. 
 
+\[ = \int_0^1 \int_y^{y^2}  \frac{e^y}{y} dx dy \]
+
+Gordugumuz gibi entegral sira degisimi kut diye yapilabilecek bir sey
+degil. 
+
+Ic
+
+\[ \bigg[ \frac{e^y}{y}x \bigg]_{x=y^2}^{y} = 
+e^y - e^yy
+\]
+
+Dis
+
+\[ \int_0^1 e^y - ye^y dy  \]
+
+Biliyoruz ki 
+
+\[ (ye^y)' = e^y + ye^y \]
+
+\[ (-ye^y)' = -e^y - ye^y \]
+
+Son ifade neredeyse dis entegraldekine esit, sadece $e^y$'in isareti
+istedigimiz gibi degil, onu telafi etmek icin biz disaridan $2e^y$
+eklersek, eksi isaret artiya doner. O zaman entegral 
+
+\[ \bigg[ -ye^y + 2ey \bigg]_0^1 \]
+
+\[ = e - 2 \]
 
 
 \end{document}
