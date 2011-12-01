@@ -60,7 +60,75 @@ Bu demektir ki kenarlari sonsuz kuculttugumuz zamanda bile
 
 \[ dA = r \ dr \ d\theta \]
 
-olacak. 
+olacak. Entegral
+
+\[ \int_0^{\pi/2} \int_0^1  f \ dr \ d\theta\]
+
+\[ f =  (1-x^2-y^2)\]
+
+Kutupsal forma tabii ki mekanik bir sekilde
+
+\[ x = rcos\theta \]
+
+\[ y = rsin\theta \]
+
+esitliklerini alip $f$ icinde yerlerine koyabiliriz, fakat biraz dikkatli
+bakarsak $-x^2-y^2$ aslinda $-(x^2+y^2)$ ve $r^2=x^2+y^2$ olduguna gore,
+bunu kullanabiliriz
+
+\[ f =   1-r^2 \]
+
+Yani
+
+\[ \int_0^{\pi/2} \int_0^1  1-r^2 \ dr \ d\theta\]
+
+
+\[ \int_0^{\pi/2}  \bigg[ \frac{r^2}{2} - \frac{r^4}{4} \bigg]_0^1 \ d\theta\]
+
+
+\[ \int_0^{\pi/2}  \frac{1}{4} \ d\theta = \frac{1}{4} \frac{\pi}{2} =
+\frac{\pi}{8}
+\]
+
+Onceki derse gore daha kolay oldu. 
+
+Cift entegraller ne ise yarar? 
+
+Onceki derste cift entegralleri hacim hesaplama baglaminda isledik. Fakat
+hacim hesabi tek uygulama alanlari degil, aynen tek degiskenli entegralin
+sadece alan hesaplamada kullanilmadigi gibi. Cift entegralleri
+belli bir bolgedeki fonksiyonlari toplama olarak gormek daha iyi [1], belki bu
+fonksiyonun o bolgedeki ortalamasini hesaplamak istiyoruz, vs. Bazi
+kullanimlari listeleyelim:
+
+Uygulamalar 
+
+1) Belli bir bolge $R$'nin alanini hesaplamak. 
+
+\includegraphics[height=2cm]{17_3.png}
+
+Bazi durumlarda bu hesap tek entegral ile yapilabiliyor, ama cift entegral
+ile daha kolay. Soyle
+
+\[ Alan(R) = \int \int_R 1 \ dA \]
+
+Eger cift entegralleri illa hacim olarak gormek istiyorsak, ustteki hesap
+yuksekligi 1, baz alani $R$ olan bir ``hacmi'' hesapliyor. Hacim =  baz
+alan X yukseklik, ama yukseklik 1 oldugu icin, ustteki hesap ayni sadece baz
+alanin ne oldugunu hesapliyor! Guzel bir cinlik. 
+
+2) 
+
+
+Kaynaklar
+
+[1] Bu konu hakkinda Uygulamali Matematik kitapcigimizdaki ``Entegralleri
+Nasil Dusunelim'' yazisinin okunmasini da tavsiye ederim. 
+
+
+
+
+
 
 
 
