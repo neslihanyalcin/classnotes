@@ -218,7 +218,7 @@ kullanilir. Ustteki resimde kirmizi noktayi ele alalim, uzakligi kirmizi
 okla gosteriliyor. Bu uzaklik aslinda $|y|$ degil midir? $r^2$ lazim, o
 zaman $y^2$ kullaniriz. 
 
-\[ I_x = \int \int y^2 y^2 \delta dA \]
+\[ I_x = \int \int y^2 \delta dA \]
 
 Ornek
 
@@ -250,6 +250,50 @@ frizbiyi alip parmaginiz etrafinda dondurdugunuzde oldugu gibi.
 Bu hesap icin iki secenek var. Eger kordinat sistemi oldugu gibi kalirsa,
 isler biraz zor. Ama sistemi degistirip yesil noktayi yeni orijin haline
 getirirsek, isler biraz daha kolay. 
+
+\includegraphics[height=3cm]{17_9.png}
+
+Formul yine ayni
+
+\[ I_0 = \int \int r^2 r dr d\theta \]
+
+Sinirlar nasil hesaplanir? 
+
+\includegraphics[height=4cm]{17_10.png}
+
+[Yeni] orijinden isin gonderdigimizi dusunelim, bu isinlar cemberden nerede
+disari cikar? Yani isaretli yerin uzunlugu nedir? $2a \ cos\theta$. Peki
+$\theta$ sinirlari nedir? $-\pi$ ile $\pi$, yani $y$ ekseninin tamamen sag
+tarafi. ``Ama y ekseni uzerindeyken cembere girip cikmiyoruz'' dusuncesi
+akla gelebilir, fakat orada teget halindeyiz, yani sinirlar dogru. 
+
+\[ I_0 = \int_{-\pi/2}^{\pi/2} \int_0^{2a cos\theta} r^2 r dr d\theta \]
+
+Ic
+
+\[ = \bigg[ \frac{r^4}{4} \bigg]_{0}^{2a cos\theta} =
+4a^4 cos^4\theta
+\]
+
+
+Dis
+
+\[ I_0 = \int_{-\pi/2}^{\pi/2} 4a^4 cos^4\theta d\theta \]
+
+Ders Notlari 3B icinde bu formulun cabuk hesabi var. Sonuc
+
+\[  = \frac{3}{2} \pi a^4 \]
+
+Yani bir frizbiyi ortasindan dondurmek yerine kenar noktasi etrafinda
+dondurmek 3 kat daha zor. 
+
+
+
+
+
+
+
+
 
 
 
