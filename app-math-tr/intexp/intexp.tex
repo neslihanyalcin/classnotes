@@ -72,14 +72,6 @@ gecmek. Entegralin sinirlarina bakalim, tum $x$ ve tum $y$ ekseni uzerinden
 entegral aliyoruz. Kutupsal formda bu $r$'nin 0'dan sonsuza ve $\theta$'nin
 0'dan $2\pi$'a gitmesi anlamina geliyor. 
 
-\[ x = rcos(\theta) \]
-
-\[ y = rsin(\theta) \]
-
-\[ dx = -rsin(\theta)d\theta \]
-
-\[ dy = rcos(\theta)d\theta \]
-
 \[ r^2 = x^2 + y^2 \]
 
 Peki $e^{-x^2-y^2}$ kutupsal formda nedir? 
@@ -88,23 +80,41 @@ Peki $e^{-x^2-y^2}$ kutupsal formda nedir?
 
 Entegrali yazalim
 
-\[ \int_{0}^{\infty} \int_{0}^{2\pi} e^{-r^2} r d\theta dr \]
+\[ \int_{0}^{\infty} \int_{0}^{2\pi} e^{-r^2} r d\theta dr 
+\ \ \ \label{2}
+\]
 
 Niye entegral sirasinda $\theta$'yi once yazdim? Cunku entegral icindeki
 ifadede $\theta$'ya bagli hicbir terim yok, o zaman ic entegral bana sadece
 $2\pi$ verir. Geriye kalanlar
 
-\[ 2\pi \int_{0}^{\infty} e^{-r^2} r dr \]
+\[=  2\pi \int_{0}^{\infty} e^{-r^2} r dr \]
 
 Bu entegral cok daha kolay. Yerine koyma (subtitution) teknigi ile bu
 problemi cozebiliriz. 
 
+\[ u = -r^2 \]
+
+\[ du =  -2r \ dr\]
+
+\[=  2\pi \int_{0}^{\infty} e^u \frac{-1}{2} du \]
+
+\[=  -\pi \int_{0}^{\infty} e^u  du \]
+
+\[=  -\pi  e^u  \bigg|_{0}^{\infty} = -\pi  e^{-r^2}  \bigg|_{0}^{\infty} \]
+
+\[ = \pi \]
+
+Bu sonuc $I^2$. Eger $I$ degerini istiyorsak, karekok almaliyiz, yani
+aradigimiz sonuc $\sqrt{\pi}$. 
+
+Tek degiskenli bir problemi aldik ve cift degiskenli problem haline
+getirdik. Isleri kolaylastiran (2) denklemindeki $r$ degiskeni oldu, onun
+sayesinde yerine gecirme islemi cok kolaylasti, ve sonuca ulastik. 
 
 
 
-
-
-http://www.youtube.com/watch?v=fWOGfzC3IeY\&feature=related
+http://www.youtube.com/watch?v=fWOGfzC3IeY
 
 
 \end{document}
