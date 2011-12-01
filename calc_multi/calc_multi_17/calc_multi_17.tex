@@ -141,9 +141,74 @@ bolmemiz gerekir. Fakat bu sicaklik olcumu icin potansiyel olarak sonsuz
 tane olcum olabilir. Bu hesabin matematiksel sekli olcum fonksiyonunu alan
 uzerinden entegre etmek, sonra alan buyukluguyle bolmektir. 
 
+Notasyon
+
+\[ \textit{f'in ortalamasi} = \bar{f} \]
+
+\[ \bar{f} = \frac{1}{Alan(R)} \int \int f \ dA \]
+
+2a) Ustteki ortalama her yerde ayni (uniform) bir ortalama, her noktaya
+ayni onemi veriyoruz. Eger bazi noktalara daha fazla agirlik vermek
+istersek, agirlikli ortalama (weighted average) hesabi yapabiliriz.
+
+\[ \textit{f'in agirlikli ortalamasi} = \frac{1}{Kutle(R)} 
+\int \int_R f \ \delta \ dA
+ \]
+
+Agirlikli ortalama kutle merkezi (center of mass) hesaplarinda ise
+yarar. Belki bir objenin bazi taraflari digerlerine gore daha agir, bu
+objenin kutle merkez hesabi bunu hesaba katmali. 
+
+2 Boyutta kutle merkezi $(\bar{x},\bar{y})$, 
+
+\[  \bar{x}  = \frac{1}{Kutle} \int \int_R x \ \delta \ dA  \]
+
+\[  \bar{y}  = \frac{1}{Kutle} \int \int_R y \ \delta \ dA  \]
+
+
+3) Donme direnci (moment of intertia): Bu kavram bir objenin donuse
+karsi gosterdigi direnctir, aynen itilmeye karsi direnisin kutle oldugu
+gibi. Bir objeyi ne kadar ileri firlatabilecegim onun kutlesine baglidir,
+onu ne kadar dondurebilecegim donme direncine baglidir. 
+
+DD hesabi icin bir eksen tanimlanmasi gereklidir, cunku ``neyin etrafinda
+donulecegi'' ancak bir eksene gore anlamlidir. Hesap nasil yapilir? 
+
+Ana fikir kinetik enerjiyi kullanmak. Eger noktasal bir kutle $m$ hiz $v$
+ile hareket ediyorsa, kinetik enerji $1/2 mv^2$. 
+
+Itmek yerine kutleyi bir eksen etrafinda $r$ uzaklikta $\omega$ rotasyonel
+hizda donecek sekilde hareket ettirirsem,
+
+\[ \frac{1}{2}mv^2 = \frac{1}{2}mr^2\omega^2  \]
+
+Donme direncinin itilmeyle olan baglantisi formulde gozukuyor, $m$ itilme
+formulunde $v^2$'in katsayisi. $mr^2$ ise $\omega^2$'nin katsayisi.
+
+Fakat bu basit bir noktasal kutle icin. Daha cetrefil bir objeyi dondurmek
+istiyorsak, bu objenin tum DD'si objenin icindeki tum noktasal DD'lerin
+toplami olacaktir. 
+
+Yogunlugu $\delta$ olan bir obje icin 
+
+\[ \Delta m = \delta \Delta A \]
+
+DD
+
+\[ \Delta m r^2 = r^2 \delta \Delta A \]
+
+Ustteki parcalari bir bolge uzerinden toplarsam, tum DD'yi bulurum. 
 
 
 
+
+
+
+
+
+
+
+---
 
 Kaynaklar
 
