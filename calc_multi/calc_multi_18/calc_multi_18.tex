@@ -197,9 +197,42 @@ O zaman
 $|J|$ ifadesi Jacobian'in yani determinant hesabinin tam degeri (absolute
 value) anlaminda. Eger $J$ sonucu mesela -10 cikarsa, biz 10 kullanacagiz. 
 
+Ornek 
 
+Kutupsal forma gecerken transformasyonun $r \ dr \ d\theta$ gerektirdigini
+bir ornek uzerinden gormustuk. Simdi bu yeni metotu kullanarak ayni sonucu
+bulmaya calisalim. 
 
+\[  x= r cos\theta \]
 
+\[  y= r sin\theta \]
+
+Degisken degisiminin Jacoban'i
+
+\[ J = \frac{\partial (x,y)}{\partial(r,\theta)}  =
+\left|\begin{array}{rr}
+x_r & x_\theta \\
+y_r & y_\theta
+\end{array}\right|   =
+\left|\begin{array}{rr}
+cos\theta & -rsin\theta\\
+sin\theta & rcos\theta
+\end{array}\right|
+\]
+
+En sagdaki determinanti hesaplayinca
+
+\[ = rcos^2\theta + rsin^2\theta \]
+
+\[ = r \]
+
+O zaman 
+
+\[ dx \ dy = |r| dr \ d\theta \]
+
+$r$ her zaman pozitif olduguna gore tam deger isaretine gerek yok
+
+\[ = r \ dr \ d\theta\]
 
 
 
