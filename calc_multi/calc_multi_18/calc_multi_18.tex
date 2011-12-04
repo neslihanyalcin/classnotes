@@ -253,6 +253,53 @@ istediginiz sonucu elde edin. Zaten dikkat edilirse, $u,v$ transformunda
 $|J|$, $dx,dy$ yaninda cikti, ustteki son ornekte $r$, $dr,d\theta$
 yaninda. 
 
+Ornek
+
+\[ \int_0^1 \int_0^1 x^2y dx \ dy  \]
+
+Aslinda bu hesabi oldugu gibi yapmak cok kolay. Fakat biz isi
+zorlastirarak, degisken degisimi
+
+\[ u =x  \]
+
+\[ v = xy \]
+
+sonrasi hesabi yapmaya ugrasacagiz. Bir degisken degisimi entegre edilen,
+ya da sinir ifadelerini basitlestirmek icin yapilir, ama ustteki degisim
+bunlari hicbirini yapmiyor. Sadece ornek amacli bu zor yolu sectik zaten. 
+
+Once neyin entegre edildigini bulalim. 
+
+1) Alan ogesini bulalim, Jacobian'i kullanalim. 
+
+\[ \frac{\partial (u,v)}{\partial(x,y)}  = 
+\left|\begin{array}{rr}
+1 & 0 \\
+y & x
+\end{array}\right| = 
+x
+ \]
+
+Yani
+
+\[ du \ dv = x dx \ dy \]
+
+Tabii $x$'in tam degeri olacak, ama tanimladigimiz sinir icinde zaten $x$
+pozitif. 
+
+2) Entegre edilen formulun $u,v$ iceren hali 
+
+\[ x^2y dx \ dy =  x^2y  \frac{1}{x} du \ dv = 
+xy du \ dv = 
+v \ du \ dv 
+\]
+O zaman 
+
+\[ \int \int _{???} v \ du \ dv \]
+
+Yeni sinirlari bulalim. Ustteki entegrale bakalim, ic entegral $u$
+degisiyor, $v$ sabit kaliyor demektir. O zaman $v=xy$ sabit demektir, her
+sabit $xy$ icin alttaki resimdeki kirmizi cizgilerden biri dusunulebilir
 
 
 
