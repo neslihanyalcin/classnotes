@@ -96,7 +96,8 @@ olacak.
 
 \includegraphics[height=2cm]{18_3.png}
 
-Bir ornek uzerinde gorelim, her kenari 1 uzunlugunda kareyi alirsak
+Bir ornek uzerinde gorelim, her kenari 1 uzunlugunda, alani 1 olan kareyi
+alirsak
 
 \includegraphics[height=3cm]{18_4.png}
 
@@ -104,7 +105,101 @@ ve bu karenin her noktasini $u,v$ formulleriyle donusturursek
 
 \includegraphics[height=3cm]{18_5.png}
 
-elde edilir. Hakikaten bu bir paralelogram. 
+elde edilir. Hakikaten bu bir paralelogram. Alan hesaplamak icin
+determinant hesabi yapariz
+
+\[ A' = 
+\left|\begin{array}{rr}
+3 & 1 \\
+-2 & 1
+\end{array}\right| = 5
+ \]
+
+$x,y$ formundaki 1 buyuklugundeki alan, 5 katina cikti. Yani 
+
+\[ dA = 5 \ dA' \]
+
+\[ du \ dv = 5 dx \ dy \]
+
+O zaman entegrasyon sirasinda 
+
+\[ \int \int ... \ dx \ dy = \int \int .. \ \frac{1}{5} du \ dv \]
+
+haline gelmeli. 
+
+Genel Durum 
+
+\[ u = u(x,y) \]
+
+\[ v = v(x,y)  \]
+
+\[ \Delta u \approx u_x \Delta x + u_y \Delta y  \]
+
+\[ \Delta v \approx v_x \Delta x + v_y \Delta y  \]
+
+Matris formunda 
+
+\[ 
+\left[\begin{array}{r}
+\Delta u \\
+\Delta v 
+\end{array}\right] \approx 
+\left[\begin{array}{rr}
+u_x & u_y \\
+v_x & v_y
+\end{array}\right] 
+\left[\begin{array}{r}
+\Delta x \\
+\Delta y 
+\end{array}\right] 
+ \]
+
+Demek ki kenarlari $\Delta x,\Delta y$ olan dikdortgen transform
+edildiginde, kenarlari $\Delta u,\Delta v$ olan paralelogramin sekli kismi
+turevlere bagli, cunku ustte transform eden matrisin icinde kismi turevler
+var, ve kismi turevlerin degerleri belli $x,y$ noktalarinda hesaplandigina
+gore, transformasyon ayrica belli $x,y$ noktalarina da bagli. Eger cebirsel
+olarak turetseydik, alan buyuklugu olceklenmesinin (ustte 5 olan) ustteki
+transform matrisinin determinanti oldugunu gorurduk. 
+
+\[<\Delta x,0> \to <\Delta u, \Delta v> \approx <u_x \Delta x, v_x\Delta x> \]
+
+\[ <0, \Delta y> \to <\Delta u,\Delta v> \approx <u_y\Delta y,v_y \Delta y> \]
+
+Eger ustteki iki formulde sag taraftaki vektorlerin determinantini alirsak,
+ki o vektorler paralelogramin kenarlaridir, o zaman 
+
+\[ Alan' =  det(..)\Delta x \Delta y  \]
+
+bulurduk. 
+
+Degiskenin degisiminin Jacobian'i denen bir kavramdan bahsedelim simdi: 
+
+\[ J = \frac{\partial (u,v)}{\partial(x,y)} \]
+
+Bu cok garip bir notasyon. $\partial$ isareti kullaniyorum ama bu cercevede
+kismi turev aldigim anlaminda degil, $du \ dv$ ve $dx \ dy$ arasindaki
+orani hesapladigimi bana hatirlatmasi icin. 
+
+\[ J =  \left|\begin{array}{rr}
+u_x & u_y \\
+v_x & v_y
+\end{array}\right|
+\]
+
+O zaman 
+
+\[ du \ dv = 
+|J| dx \ dy = 
+\bigg|\frac{\partial (u,v)}{\partial(x,y)}\bigg| dx \ dy
+ \]
+
+$|J|$ ifadesi Jacobian'in yani determinant hesabinin tam degeri (absolute
+value) anlaminda. Eger $J$ sonucu mesela -10 cikarsa, biz 10 kullanacagiz. 
+
+
+
+
 
 
 
