@@ -234,6 +234,25 @@ $r$ her zaman pozitif olduguna gore tam deger isaretine gerek yok
 
 \[ = r \ dr \ d\theta\]
 
+Yorum 
+
+$u,v$ orneginde hedef $J$ hesabinin bolum kismindaydi, simdi hedef
+$r,\theta$ bolen kisminda. Bu problem olur mu? 
+
+Olmaz, cunku 
+
+\[ J = \frac{\partial (u,v)}{\partial(x,y)} \cdot
+\frac{\partial (x,y)}{\partial(u,v)} = 1
+ \]
+
+yani $u,v \to x,y$ yonunde transformu yapan Jacobian ile $x,y \to u,v$
+yonunde transform yapan Jacobian birbirinin tersi. Bu sebeple transformu
+yaparken bu yonlerden hangisini hesapladiginiz onemli degil, en kolayi
+hangisiyse onu hesaplayin, sonra eger ters yon gerekiyorsa $1 / sonuc$ ile
+istediginiz sonucu elde edin. Zaten dikkat edilirse, $u,v$ transformunda
+$|J|$, $dx,dy$ yaninda cikti, ustteki son ornekte $r$, $dr,d\theta$
+yaninda. 
+
 
 
 
