@@ -217,6 +217,79 @@ Sonucun tam hali
 
 \[ 1 \leadsto \frac{1}{s}, \ \ s > 0 \]
 
+Ama diger yandan ``ya $s < 0$ ise o zaman Laplace Transformu nedir?''
+sorusunun da anlami yoktur. 1'in Laplace transformu alttaki fonksiyondur,
+bu fonksiyonun eksi bolgesinde karsiligi yoktur. 
+
+\includegraphics[height=2cm]{19_2.png}
+
+Ornek 
+
+\[ e^{at} \leadsto ? \]
+
+Bu arada insanlar Laplace transform teknigini simdiye kadar pek cok
+gordugumu turden fonksiyonlar uzerinde kullanirlar hep, ustel fonksiyonlar,
+polinomlar, sinus, cosinus ifadeleri, kompleks sayilar, vs. Diger turden
+seylerde .. onu kullanmazlar. Bu hayal kirikligi yaratmasin, ODE cozerken
+Laplace teknigi bazi isleri diger kullandigimiz tekniklerden cok daha iyi
+yapar. Neyse Laplace'in avantajlarina ileride daha belirgin vurgu
+yapacagiz. Ornegimize donelim. 
+
+Aslinda daha genel bir duruma bakalim, su ifadenin
+
+\[ e^{at}f(t) \]
+
+Laplace transformunu yapacagiz, ve bunu $f(t)$'nin transformu bilindigi
+durum icin yapacagiz, ustteki blok ifade icin genel bir formul uretecegiz,
+ve onu basarinca, $e^{at}$ ifadesini $e^{at} \cdot 1$ olarak gorulebilir, eh
+1'in transformunu zaten biliyoruz, o zaman genel formul uzerinden $e^{at}$'in
+transformunu hemen buluruz. Genel formulun transformu
+
+\[ \int_0^{\infty} e^{at} f(t)e^{-st} \ dt \]
+
+Iki ustel ifadeyi birlestirelim, ve oyle yapalim ki $f(t)$'in transformu
+bir sekilde formulde olsun. Ulasmak istedigim nokta 
+
+\[ \int_0^{\infty} f(t)e^{-( ... )t } \ dt \]
+
+seklinde, eger eksi bu sekilde disarida kalacaksa, geri kalanlar neye
+benzer? 
+
+\[ \int_0^{\infty} f(t)e^{-(s-a)t } \ dt \]
+
+Bu nedir? Bu da bir Laplace transformudur! Eger $-a$ orada olmasaydi, geri
+kalanlar $f(t)$'nin transformu olacakti. O zaman 
+
+\[ = F(s-a) \]
+
+Sartlari koyalim, ustteki durumda $s-a > 0$ olmali, o zaman $s > a$
+olmali. 
+
+$F$ icinde $-a$ sonucu bir tur ``kaydirma'' gibi duruyor, zaten bu genel
+formulun ismi ``ustel kaydirma kurali (exponential shift
+law)''. Muhendisler bu kurali cok kullanirlar. 
+
+$e^{at}$'ye donelim. 1'in transformu $1/s$ ise, kaydirma kuraliyla
+
+\[ e^{at} \leadsto \frac{1}{s-a} \]
+
+Peki transform edilmek istenen sinus ve cosinus oldugu durumlarda ne
+yapariz? Hatirlayalim, sin ve cos ifadelerini kompleks olarak ifade
+edebiliriz, ve ustteki genel kural $a$ bir kompleks sayi oldugunda da
+isler. 
+
+\[ e^{(a+bi)t} \leadsto \frac{1}{s - (a+bi)}, \ \ s>a  \]
+
+Kontrol edelim, mesela 
+
+\[ sin \ at \leadsto ? \]
+
+\[ cos \ at \leadsto ? \]
+
+
+
+
+
 
 
 
