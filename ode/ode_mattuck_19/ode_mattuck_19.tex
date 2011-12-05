@@ -56,16 +56,91 @@ ilintilendirmek.
 Peki eger $a(n) = 1$ ise, yani fonksiyon hep ayni sabit deger 1'i
 veriyorsa, o zaman toplam ne olur? 
 
-\[ 1 \leadsto \frac{1}{1-x}, |x|<1 \]
+\[ 1 \leadsto \frac{1}{1-x}, \ \ |x|<1 \]
 
 cunku $a(n) = 1$ ise ustel seri 
 
-\[ 1 \cdot x + 1 \cdot x^2 + 1 \cdot x^3 + ... \]
+\[ = 1 \cdot x + 1 \cdot x^2 + 1 \cdot x^3 + ... \]
 
 \[ = x + x^2 + x^3 + ... \]
 
 olacaktir, ve bu toplam $1/1-x$'e yaklasir (dikkat: $|x|<1$ oldugu
 durumda). 
+
+Baska bir fonksiyona daha bakalim, $1 / n!$ 
+
+\[ \frac{1}{n!} \leadsto e^x \]
+
+Bu (ilginc) bakis acisinda gore, isleme bir ayriksal fonksiyon giriyor,
+disariya bir surekli fonksiyon cikiyor. Bu arada dikkat, giren $n$ bazli, cikan $x$
+bazli. 
+
+Simdi diyelim ki ayriksal olan toplam islemini surekli hale getirmek
+istiyorum. Once
+
+\[ n = 0,1,2,.. \]
+
+yerine surekli bir degisken kullanmaya baslarim, mesela
+
+\[ t: 0 \le t \le \infty \]
+
+ki bu $t$ ustteki araliktaki tum reel degerleri tasiyabilecek. 
+
+Fakat ayriksaldan sureklilige gecince toplam islemini kullanamam, onun
+yerine entegral kullanmam gerekir. 
+
+\[ \int_0^{\infty} a(t)x^t \ dt \]
+
+Peki bu neyin fonksiyonu acaba? $t$'nin degil cunku onun ``uzerinden''
+entegre ediyorum / yokediyorum (integrate out), entegrasyon sonrasi $t$
+kalmiyor. Hayir, ustteki fonksiyon her $x$ icin belli bir deger
+hesaplayacagina gore, o $x$'in bir fonksiyonu olmali. 
+
+\[ \int_0^{\infty} a(t)x^t \ dt = A(x)\]
+
+Fakat hala isimiz bitmedi. Hicbir muhendis, matematikci ustteki gibi bir
+formu kullanmaz, cunku $x$ baz halde ve bu tur ifadeler turev alirken,
+entegrasyon yaparken problem cikartabilir. Daha iyi bir baz $e$ olur, $e$
+bazli turev almayi, entegrasyon yapmayi herkes sever [cunku cok kolay]. 
+
+\[ x = e^{ln \ x} \]
+
+\[ x^t = (e^{ln \ x})^t \]
+
+Bir nokta daha: eger $x > 1$ ise ustteki entegralin bir deger yaklasmasi
+(converge) cok zordur, cunku entegral ust sinirinda $\infty$ var, bu tur
+entegraller dikkatli muamele ister. O zaman su sarti koyarim, $0 < x < 1$. 
+
+Eger  $0 < x < 1$ olacak ise, $ln \ x < 0$ demektir. 
+
+Tabii kimse $ln \ x$'i bir degisken olarak kullanmaz, 
+
+\[ s = ln \ x \]
+
+ve negatif degiskenlerle ugrasmak istemedigimiz icin 
+
+\[ -s = -ln \ x \] 
+
+yapariz, ki hep pozitif olan $-s$ ile is yapabilelim. 
+
+Tum bunlar kozmetik degisiklikler bu arada, sembolik olarak bu islemi
+hosumuza giden bir seye dondurmek icin yaptiklarimiz. 
+
+Entegrali tekrar yazalim simdi. Oncelikle kimse fonksiyon olarak $a(t)$
+ismini kullanmaz, ona $f$ diyelim. 
+
+\[ \int_0^{\infty} f(t)(e^{-s})^t \ dt = ..\]
+
+Ustunu almak, kurallara gore carpima donustugune gore
+
+\[ \int_0^{\infty} f(t)e^{-st} \ dt = ..\]
+
+Fonksiyon neye esit? $A(x)$, $x$'in fonksiyonu idi, ama simdi $s$
+kullaniyoruz, o zaman 
+
+\[ \int_0^{\infty} f(t)e^{-st} \ dt = F(s)\]
+
+
 
 
 
