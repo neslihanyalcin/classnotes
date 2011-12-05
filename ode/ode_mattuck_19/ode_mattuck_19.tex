@@ -1,0 +1,86 @@
+\documentclass[12pt,fleqn]{article}
+\setlength{\parindent}{0pt}
+\usepackage{graphicx}
+\usepackage{cancel}
+\usepackage{listings}
+\usepackage[latin5]{inputenc}
+\usepackage{color}
+\setlength{\parskip}{8pt}
+\setlength{\parsep}{0pt}
+\setlength{\headsep}{0pt}
+\setlength{\topskip}{0pt}
+\setlength{\topmargin}{0pt}
+\setlength{\topsep}{0pt}
+\setlength{\partopsep}{0pt}
+\setlength{\mathindent}{0cm}
+\usepackage{latexsym}
+\usepackage{showkeys}
+\renewcommand*\showkeyslabelformat[1]{(#1)}
+
+\begin{document}
+Ders 19 
+
+Bu dersten baslayarak ve birkac ders boyunca cogu muhendis ve bazi
+bilimcinin, onlarin karsilastigi turden tum diferansiyel denklemleri
+cozmekte en populer buldugu yontemi gorecegiz. Yontemin ismi Laplace
+Transformu. 
+
+Bu yontemi kullanmak icin birkac hafta yeterli, ama o zaman bile metot
+etrafinda belli bir gizem bulutu kaliyor, insanlar teknigin nereden
+geldigini bir turlu anlayamiyorlar, ve dogal olarak bu onlari rahatsiz
+ediyor.  
+
+Laplace Transformunu anlamanin iyi bir yolu onu ustel seri (power series)
+olarak gormektir. Bir ustel seri bildigimiz gibi su formdadir
+
+\[ \sum_{0}^{\infty} a_n x^n \]
+
+Bu seriye yapilacak en dogal islem onu toplamaktir. Sonuc genelde $f(x)$
+gibi bir genel tanimla gosterilir, biz burada gelenekten biraz kopacagiz,
+toplamin $a$ ile iliskisini iyice belli etmek icin $A(x)$ kullanacagiz. 
+
+\[ \sum_{0}^{\infty} a_n x^n = A(x)\]
+
+Bir degisiklik daha: $a_n$ aslinda bir ayriksal dizin icindeki belli $a$
+degerleri, bunu da iyice belli etmek icin bilgisayar notasyonu kullanalim,
+$a_n$, $a(n)$ olsun. 
+
+\[ \sum_{0}^{\infty} a(n) x^n = A(x)\]
+
+Bu sekilde bakinca, ustel serinin yaptigi bir ayriksal fonksiyonu $a$'yi
+(cunku icinde reel sayilar var, ve bir fonksiyon) belli bir toplam ile
+ilintilendirmek. 
+
+\[ a(n) \leadsto A(x) \]
+
+Peki eger $a(n) = 1$ ise, yani fonksiyon hep ayni sabit deger 1'i
+veriyorsa, o zaman toplam ne olur? 
+
+\[ 1 \leadsto \frac{1}{1-x}, |x|<1 \]
+
+cunku $a(n) = 1$ ise ustel seri 
+
+\[ 1 \cdot x + 1 \cdot x^2 + 1 \cdot x^3 + ... \]
+
+\[ = x + x^2 + x^3 + ... \]
+
+olacaktir, ve bu toplam $1/1-x$'e yaklasir (dikkat: $|x|<1$ oldugu
+durumda). 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}
