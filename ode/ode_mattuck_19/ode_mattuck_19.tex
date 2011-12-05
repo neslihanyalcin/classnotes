@@ -143,7 +143,81 @@ kullaniyoruz, o zaman
 \[ \int_0^{\infty} f(t)e^{-st} \ dt = F(s)\]
 
 Nihai formul ustteki. Ve tekrar vurgulayayim, bu formul ayriksal ustel seri
-(1)'in analog versiyonundan ibaret. Iste Laplace Transformu budur. 
+(1)'in analog versiyonundan ibaret. Iste Laplace Transformu budur. Bu
+operasyonun en alisilmadik tarafi iceri $t$'nin fonksiyonun girmesi, ama
+disari $s$'in fonksiyonun cikmasi. Kiyasla operatorlerde boyle degildi,
+diferansiyel operatorunde mesela $3x$ giriyor, disari $3$ cikiyor, ama
+burada isler boyle degil, bu karisiklik yaratiyor. Ama vurgulamak gerekir
+ki Laplace Transformu adi ustunde bir transformdur, degiskenin degismesinin
+sebebi burada. 
+
+\includegraphics[height=3cm]{19_1.png}
+
+Laplace icin kitabimizin kullandigi notasyon 
+
+\[ \mathcal{L}(f(t)) = F(s) \]
+
+Fakat bazen bu notasyonu kullanmak cok zor oluyor, bir suru parantez ust
+uste biniyor, vs. O durumlarda su yeterli
+
+\[ f(t) \leadsto F(s) \]
+
+Tabii lineerlik kuralini da ustteki ile ifade etmek zor, onun icin
+$\mathcal{L}$ daha iyi, 
+
+\[ \mathcal{L}(f+g) = \mathcal{L}(f) + \mathcal{L}(g) \]
+
+Sabitle carpim kural 
+
+\[ \mathcal{L}(cf) = c \mathcal{L}(f)  \]
+
+Lineerlik kurali isliyor cunku entegraller baglaminda dusunursek,
+entegrallerin toplami ayni entegral altinda gruplanabilir, yani bu kural
+isliyor cunku entegralin kendisi de lineer bir operator. 
+
+Eh artik ise koyulalim. Mesela bildik bazi fonksiyonlarin Laplace
+transformunu bulalim. 
+
+Ornek
+
+\[ 1 \leadsto ? \]
+
+\[ \int_0^{\infty} e^{-st} \ dt \]
+
+Dikkat, bu entegral uygun olmayan bir (improper) entegral. Bu tur
+entegrallerin tanimina bakali 
+
+\[ \lim_{R \to \infty}  \int_{0}^{R} e^{-st} dt  \]
+
+Once su entegrali hesaplayalim, 
+
+\[  \int_{0}^{R} e^{-st} dt \]
+
+$t$'ye gore entegral aliyoruz, o zaman $s$ bir sabit gibidir. 
+
+\[  = \frac{ e^{-st}}{-s}  \bigg|_{0}^{R} \]
+
+\[ = \frac{e^{-sR} - 1}{-s} \]
+
+O zaman 
+
+\[ \lim_{R \to \infty}  \int_{0}^{R} e^{-st} dt  = 
+\lim_{R \to \infty} \frac{e^{-sR} - 1}{-s}  = 
+\frac{1}{s}
+\]
+
+Yani 
+
+\[ 1 \leadsto \frac{1}{s} \]
+
+Bu dogru mu? Hayir degil. Bir hata yaptik, daha dogrusu bir seyi
+atladik. Limit ifadesindeki $e^{-sR}$ sifira gider, sadece ve sadece $s >
+0$ ise. 
+Sonucun tam hali 
+
+\[ 1 \leadsto \frac{1}{s}, \ \ s > 0 \]
+
+
 
 
 
