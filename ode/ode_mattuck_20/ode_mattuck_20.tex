@@ -31,6 +31,81 @@ Cevap hayir cunku ustteki bir uygunsuz (improper) entegral, ust sinir
 sonsuzluga gidiyor ve bildigimiz gibi uygunsuz entegraller her zaman bir
 degere yaklasmiyorlar (converge). 
 
+Laplace tranformunun mumkun olmasinin kontrolu, entegre edilen $f(t)$'nin
+``cok hizli buyumemesi''yle alakali. Fonksiyonun buyuyebilir tabii,, ama
+cok hizli buyurse o zaman $e^{-st}$ ile carpilmak onu asagi cekemez, ve
+entegralin tamami bir degere yaklasamaz. O zaman $f(t)$'nin olmasi
+gerektigi sarti ``ustel tipte (exponential type)'' olarak tarif
+edebiliriz. Yani 
+
+\[ |f(t)| \le C e^{kt}, \ \textit{ sabit } C > 0, \forall t \ge 0 
+\textit{ herhangi bir } k > 0
+\]
+
+$f(t)$'nin kesin (absolute) degerini kullandik, fonksiyonun eksi yonde mi,
+arti yonde mi oldugu onemli degil, onemli olan buyuyus (ya da kuculus)
+hizi. Bu arada, ustteki tanimda bir suru dehset hizla buyuyen fonksiyon
+mumkun, mesela $e^{100t}$'yi dusunelim; bu fonksiyonun nasil buyudugunu
+goren var mi? Roket gibi yukari firlar, o kadar hizli bir buyumeden
+bahsediyoruz. Yani ustteki sart genis bir yelpazedeki fonksiyonlari
+kapsayabilir, cok kisitlayici sayilmaz. Bazi ornekler gorelim.
+
+$sin(t)$ ustel tipte midir? Evet, cunku $|sin(t)| \le 1$ daha dogrusu
+$|sin(t)| \le 1 \cdot e^{0t}$. 
+
+Ya $t^n$? Bu fonksiyon da roket gibi yukari firlar ama acaba
+karsilastirilacak ustel fonksiyonda $k$'yi yeterince buyuk yaparsak onun
+ustesinden gelebilir miyiz? Sasirtici gelebilir ama buna gerek yok, $k=1$
+bu isi hallediyor. 
+
+\[ t^n \le M e^t, \ \textit{ M herhangi bir sabit }, \forall t > 0 \]
+
+Yani bu ustel tip bir fonksiyon. Bunun tabii ki boyle olacagini tahmin
+edebilirdik, gecen derste $t^n$'nin Laplace tranformunu hesapladik ne de
+olsa (Laplace tranformu yapabilmek teoride her zaman ustel tip olmasi
+anlamina gelmiyor aslinda, ama pratikte her zaman oyle), neyse, ama ustteki
+karsilastirma nasil isledi? Su hesabi yapalim
+
+\[ \frac{t^n}{e^t} \]
+
+Iddia ediyorum ki ustteki ifade bir $M$ sabiti ile ``sinirlanmistir
+(bounded by)'', yani hep $M$'in altindadir. Kontrol etmek icin yani
+
+\[ \frac{t^n}{e^t} \le  M\]
+
+sorusunu kontrol ederiz. Ya da onunla direk ilgili bir soru  $t \to \infty$ iken
+
+\[ \frac{t^n}{e^t} \to ?\]
+
+sorusunu. Ustteki bolum sifira yaklasir. Niye? Yine onceki dersten,
+L'Hospital Kurali sebebiyle! Bolumun sifira gitmesi ne anlama gelir? 
+
+\includegraphics[height=2cm]{20_1.png}
+
+Bolum sifirda baslamistir, ve sifira gider. Bu demektir ki arada bir yerde
+muhakkak bir maksimum degere (max value) sahiptir, bu noktaya $M$ dersek,
+bolum $M$ tarafindan sinirlandirilmistir diyebiliriz.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
