@@ -82,9 +82,45 @@ L'Hospital Kurali sebebiyle! Bolumun sifira gitmesi ne anlama gelir?
 
 \includegraphics[height=2cm]{20_1.png}
 
-Bolum sifirda baslamistir, ve sifira gider. Bu demektir ki arada bir yerde
-muhakkak bir maksimum degere (max value) sahiptir, bu noktaya $M$ dersek,
-bolum $M$ tarafindan sinirlandirilmistir diyebiliriz.
+Bolum sifirda baslamistir, ve sifira gider, ve surekli bir fonksiyondur. Bu
+demektir ki arada bir yerde muhakkak bir maksimum degere (max value)
+sahiptir, bu noktaya $M$ dersek, bolum $M$ tarafindan sinirlandirilmistir
+diyebiliriz.
+
+Simdi ustel tip ``olmayan'' iki tane fonksiyon gorelim. 
+
+Mesela $1/t$ ustel tip degildir. 
+
+\[ \int_0^{\infty} e^{-st}\frac{1}{t} dt  \]
+
+Entegralin sinirlarina bakalim, $t$ 0 yakinda iken $e^{-st} \approx
+1$. Geri kalan
+
+\[ \int_0 \frac{dt}{t} \]
+
+ki ust siniri belirtmedik, ne olursa olsun, bir noktaya yaklasmaz, ustteki
+fonksiyon $ln(t)$ gibidir, $ln(0)=-\infty$ degeridir zaten. O zaman $1/t$
+ustel tip degildir, ve $1/t$'nin Laplace tranformu yoktur. 
+
+Bir bakima ustteki fonksiyon ``ise dogru baslamadigi'' icin ustel tip
+olamamistir, tas bastan sonsuzluk devreye girmistir cunku. Daha ilginc bir
+ornek asiri hizli buyuyen bir fonksiyon. Mesela
+
+\[ e^{t^2} \]
+
+Bu fonksiyon ustel tip olamayacak kadar hizli buyur. Cunku 
+
+\[ e^{t^2} > e^{kt} \]
+
+$k$ ne kadar buyuk olursa olsun ustteki ibare gecerlidir. 
+
+Cunku sonsuza giderken $t^2 > kt$ olur, $t>k$'yi gectikten sonra bu
+olacaktir, evet oraya gelinceye kadar bayagi beklemek gerekebilir, ama
+sonsuza giderken bu kesinlikle olur.
+
+
+
+
 
 
 
