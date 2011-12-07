@@ -173,6 +173,144 @@ gitmek zor oluyor, fakat $Y(s)$'ten bir cebirsel cozume ulasmak kolay
 oluyor. Zaten tranformun kendisi de kolay. Tabii ters Laplace biraz zor,
 kismi kesirler kullanilacak, tabloya bakilacak, vs. 
 
+Turevin Laplace Tranformuna gelelim,
+
+\[ \mathcal{L}(f'(t)) \]
+
+ifadesini nasil tranform ederim? Girdi herhangi bir $f'$ olabilecegine
+gore, elde edilmesi umulabilecek en iyi sonuc, ogeleri temel fonksiyon
+$f$'i iceren bir seyler olabilir. Baska bir sey bilmiyoruz. 
+
+\[ \mathcal{L}(f'(t)) = \int_0^{\infty} f'(t)e^{-st} \ dt \]
+
+Yani oyle bir islem bulayim ki ustteki ifade $f'$ degil $f$ icersin, sonra
+oradan $f$'in Laplace tranformuna geceyim. 
+
+Peki bu islem, bu cinlik ne olabilir? $f'$ den kurtulmak istiyorsam,
+$e$'nin turevi onemli degilse ne yaparim? Parcalarla entegral (integration
+by parts) kullanirim. 
+
+Bu arada bu metot Ileri Analiz alanindaki en onemli tekniktir, her turlu
+ilginc cinligin temelinde bu metot yatar. Tabii parcalarla entegral'in
+kendisi de turevlerde carpim kuralinin tersten okunusundan baska bir sey
+degil.
+
+\[ = e^{-st}f(t) \bigg]_{0}^{\infty}  - 
+\int_{0}^{\infty} -s e^{-st}f(t)dt
+ \]
+
+Soldaki ilk parcanin degeri icin bir limit hesabi lazim
+
+\[ \lim_{t \to \infty} \frac{f(t)}{e^{st}} = 0 
+, s>0
+\textit{ eger f(t) ustel tip ise }
+\]
+
+Iste onceden bahsettigimiz kavram yine karsimiza cikti. Ustteki limit
+sadece $f$ ustel bir tip ise sifira gider. 
+
+\[=  0 - f(0) + s \int_0^{\infty} f(t)e^{-st} \ dt
+ \]
+
+Formule $f(0)$ var, iste baslangic degeri bunun icin lazim, oraya $f(0)$
+koyabileyim diye. Geriye tek bir entegral kaldi, o da $f$'in Laplace
+transformu! 
+
+\[=  0 - f(0) + s F(s) \]
+
+\[=  s F(s) - f(0) \]
+
+Ikinci Turev
+
+$f''$ icin ne yapariz? Yine parcalarla entegral akla gelebilir, fakat bu
+noktada, direk $f$ ile o zor. Ama 
+
+\[ f''(t) = [f'(t)]' \]
+
+dersek, o zaman koseli parantezin birinci turevi ile ugrasiyoruz demektir,
+
+\[ = s \mathcal{L} (f'(t)) - f'(0)\]
+
+\[ =  s[sF(s) -f(0)] - f'(0)\]
+
+\[ =  s^2F(s) - sf(0) - f'(0)\]
+
+$f(0),f'(0)$ problemin baslangic degerleri, ki onlar bilinecek. Bazen
+problemde bunlar sifir olur, ya da problem oyle duzenlenir ki onlar sifir
+hale ``getirilir'', isler iyice kolaylasir, vs.
+
+Ornek
+
+\[ y'' - y = e^{-t}, \ y(0) = 1, y'(0)=0 \]
+
+Bu problemi operatorler kullanarak cozmeyi biliyoruz. Iki adim: once sifira
+esitleyip homojen denklemi cozeriz, karakteristik polinomu aliriz, kokleri
+buluruz. Sonra ozel cozumu buluruz, ustel cevap formulu (exponential
+response formulu) bir ara devreye girer, ve en sonunda baslangic
+degerlerini yerine koyariz. Bayagi uzun bir islem olur. 
+
+Bu cozum Laplace ile cok daha kolay. Fonksiyonun transformuna $Y$ dersem,
+$y''$ transformu
+
+\[ s^2Y - s - 0\]
+
+geri kalani
+
+\[ s^2Y - s - Y = \frac{1}{s+1}\]
+
+$Y$'yi yanliz birakalim
+
+\[ (s^2-1)Y = \frac{1}{s+1} + s \]
+
+Esitligin sag tarafindaki terimler birlestirilebilir, bunu yapmak bazen
+iyidir, bazen kotudur, tecrubeye gore karar vermek gerekir. 
+
+\[ (s^2-1)Y = \frac{s^2+s+1}{s+1} \]
+
+Biliyoruz ki
+
+\[ s^2-1 = (s+1)(s-1) \]
+
+O zaman 
+
+\[ Y = \frac{s^2+s+1}{(s+1)^2(s-1)} \]
+
+
+Kismi kesirler 
+
+\[ = \frac{}{(s+1)^2} + \frac{}{s+1} + \frac{}{s-1} \]
+
+
+Lisede bu teknigi gorenleriniz olabilir, ve lisede ustteki gibi bir
+problemde ekstra bir $s+1$ boleni kullanmazlar genelde. Fakat uc kesir
+yerine iki kesir kullanirsaniz, bolumde sabitler elde edemezsiniz. 
+
+Kesirleri elde etmek icin ``uzerini kapatma'' yontemi, defterde elimizi bir
+bolen uzerine koyarak onu kapatmaktan geliyor, $Y$'de  $s-1$'in
+uzerini kapatip $s=1$ deriz, $3/4$ cikar. $(s+1)^2$'nin uzerini kapatalim,
+$s=-1$, sonuc $-1/2$. 
+
+Tek basina $s+1$ biraz daha ikircikli. Kare formulunu acarsak,
+$(s+1)(s+1)$, ve tek birini kapatirsak, digeri tum boleni sifir yapar,
+kesirin alt kismi sifir olamaz, sonuc sonsuz olur. Baska bir teknik lazim. 
+
+Dert degil, bildiklerimizi yerine koyar, $s=0$ dersek, 
+
+\[ = \frac{-1/2}{(s+1)^2} + \frac{C}{s+1} + \frac{3/4}{s-1} \]
+
+\[ -1 = -\frac{1}{2} + C - \frac{3}{4}\]
+
+\[ C = \frac{1}{4} \]
+
+
+
+
+
+
+
+
+
+
 
 
 
