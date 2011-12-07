@@ -118,6 +118,62 @@ Cunku sonsuza giderken $t^2 > kt$ olur, $t>k$'yi gectikten sonra bu
 olacaktir, evet oraya gelinceye kadar bayagi beklemek gerekebilir, ama
 sonsuza giderken bu kesinlikle olur.
 
+E o zaman $e^{t^2}$ iceren diferansiyel denklemleri nasil cozecegiz?
+Laplace ile degil ama baska bir sekilde. Nasil bir yol takip etmeliyiz?
+Cozumu biz vermeyecegiz, cunku arastirmalarimizda oyle bir denklem hic
+karsimiza cikmiyor. Tabiat sin, cos, $e$ iceren ustel fonksiyonlari
+sever, fizikte $e^{t^2}$ turunden hicbir ifade gormedim, belki bu benim
+cahilligimle alakali. 
+
+Not: $e^{-t^2}$ baska bir hikaye. O y ekseninden asagi, iki yana yayilan bir
+fonksiyon uretir. 
+
+* * * 
+
+Simdi Laplace Tranform ile diferansiyel denklem cozmeye gelelim. 
+
+Laplace ile cozmek ve simdiye kadar kullandigimiz yontemlerle cozmek
+arasinda cok temel bazi farkliliklar var. 
+
+\[ y'' + Ay' + By = h(t) \]
+
+Simdiye kadar gordugumuz teknikler bu problemi bu haliyle cozerler. Ama
+Laplace tranformu bir baslangic sart problemine (initial value problem)
+ihtiyac duyar. Yani cozumden once baslangic sartini kesinlikle tanimlamaniz
+gerekir. 
+
+Peki bu degerleri bilmiyorsam ne yaparim? O degerler icin degiskenler
+atariz, 
+
+\[ y(0) = y_0, \ y'(0) = y_0' \]
+
+ve boyle devam ederiz, cozumun icinde tabii ki $y_0,y_0'$ degerleri
+olacaktir. Yani bir anlamda baslangic degerleri yoksa bile ``varmis gibi''
+yapiyoruz, kiyasla diger yontemlerde varmis gibi yapmaya bile gerek
+yoktu. Kimisine gore bu buyuk bir eksik sayilabilir belki, kimisi icin de
+hic onemli degildir. Biz ikinci bakis acisini bu derste takip edelim
+isterseniz.
+
+Bir turevin Laplace Tranformunu nasil yaparim? Bir turevin Laplace'i
+{\em cebirsel} bir fonksiyondur, yani kendisi turev olmayan, dogaustu
+(transcendental) olmayan bir $Y(s)$ fonksiyonu. 
+
+$Y(s)$ elde edilince, onu cebirsel yontemlerle cozeriz. Her cebirsel
+fonksiyon cozulebilir demiyoruz, ama Laplace'in bize sagladigi cebirsel
+fonksiyonlar cozulebilir olacaktir. $Y$ fonksiyonlari polinomlar icerirler, 
+
+\[ Y = \frac{p(s)}{q(s)} \]
+
+$Y$'yi elde edince ne yapariz? Bu cozumun Laplace tranformudur, onu alip
+$\mathcal{L}^{-1}$ ile geriye gideriz ve aradigimiz $y = y(t)$'yi buluruz. 
+
+ODE'den cozume gitmek yerine ekstra Laplace basamagindan gecmek, sonra
+geriye gitmek acaip gibi gelebilir, ama cogu zaman ODE'den direk cozume
+gitmek zor oluyor, fakat $Y(s)$'ten bir cebirsel cozume ulasmak kolay
+oluyor. Zaten tranformun kendisi de kolay. Tabii ters Laplace biraz zor,
+kismi kesirler kullanilacak, tabloya bakilacak, vs. 
+
+
 
 
 
