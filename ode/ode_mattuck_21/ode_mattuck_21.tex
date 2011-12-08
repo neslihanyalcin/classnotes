@@ -195,17 +195,106 @@ islemi yapmak istiyorum, bu islem sonsuza kadar devam ediyor.
 
 \[ = \int_0^{\infty} \int_0^t e^{-st} f(u)g((t-u)) \ du \ dt \]
 
+Ispat tamamlandi. 
 
+Laplace Transformunu ile burum islemi arasindaki baglantiyi gorduk. Burum
+cok onemli bir islemdir, ama onu kullanan pek cok kisi onu Laplace
+Transformuyla alakali olarak kullanmaz. Onu oldugu gibi tek basina
+kullanirlar. Bir ornek vereyim: benim kizim bir doga / cevre muhendisi
+(environmental engineer), ve musterileri icin risk analizi yapmak gibi
+isleri var. Bir gun bir musterisi icin, bir bilimsel makale okuyordu,
+makale asit yagmuru ile alakaliydi, yagmur gelirse cevre ne kadar zarar
+gorur gibi konularla ilgiliydi. Verilen zararin hesabi icin burum
+kullaniliyor dedi, ``bana sordu bu da ne boyle?''. Makaleyi ben de okudum,
+hakikaten ilgincti, yani bu alanda burum hesabinin olmasi ilgincti. 
 
+Sonralari diger insanlar da benzer sorularla bana geldiler. Kuzey Kutbu'nda
+delme islemi yapan bir muhendis geldi mesela, delme sirasinda algilanan
+radyoaktiviteyi kullanip milyonlarca yil onceki iklim sartlari hakkinda
+hesap yapmakla ilgileniyordu, o da burum hesabini kullandi. 
 
+O yuzden simdi ben de size pek cok alana adapte edilebilecek, genel, basit
+bir model gosterecegim, bu modeli ornek olarak aklinizda tutmaniz burum
+hesabini anlamaniz icin iyi olur. Problem radyoaktif atiklarla alakali. 
 
+Bir fabrika radyoaktif atik uretiyor. 
 
+$f(t)$: atim hizi (rate), $t$ sene. Atim hizi iki zaman noktasini
+dusunursek, $t_i,t_{i+1}$ arasinda uretilen radyoaktif atigin $\approx
+f(t_i) \cdot \Delta t$ 
+anlaminda. 
 
+\includegraphics[height=2cm]{21_3.png}
 
+Zaman kuculdukce ustteki hesap iyilesiyor. 
 
+Problemim, $t=0$'dan baslarsam $t$ aninda ne kadar radyoaktif atik
+biriktiginin hesabi. 
 
+Bu hesabi zorlastiran radyoaktif maddelerin ayni anda curuyor
+olmasidir. Yani bir yandan atik uretiliyor, bir yandan bu atiklar bir
+sekilde radyoaktif ozelliklerini kaybediyorlar. Yani yaptigimiz hesap
+uretilen madde obeklerinin, parcalarinin birikintide ``ne kadar
+bekledigini'' de hesaba katmali \textbf{ki} onun curumesini de
+bir yandan hesaplayabilelim.
 
+Curume hesabi basit bir diferansiyel denklem, $t$ aninda kalan madde icin,
+eger $A_0$ ile baslanirsa cozumu
 
+\[ A_0e^{-kt} \]
+
+$t$ ekseninin ismini degistirip $u$ yapalim (bunu niye yaptigimiz birazdan
+belli olacak)
+
+\includegraphics[height=2cm]{21_4.png}
+
+O zaman daha once hesapladigimiz gibi $[u_i,u_{i+1}]$ arasinda uretilen
+radyoaktif atik $\approx f(u_i)\Delta u$. 
+
+$t$ aninda curume ise 
+
+\[  \approx f(u_i)\Delta u \cdot e^{-k ( \ \ \ )}\]
+
+$e$'nin solundaki kisim atilan, eklenen kisim. Curume hesabina gore orasi
+bir nevi $A_0$. Peki $e$'nin ustundeki bosluga ne yazilmali? Oraya eklenen
+kismin curudugu zaman araligi konulmali. O zaman araligi nedir? $u_i$'da
+atilmis, $t$ anina bakiyorum, o zaman $t-u_i$ araligi kadar curumus
+demektir. 
+
+\[  \approx f(u_i)\Delta u \cdot e^{-k ( t-u_i )}\]
+
+Simdi tum $u$ araliklarini alip birbiriyle toplarsam, $t$ anindaki toplami
+bulurum,  
+
+\[ \approx \sum_{i=1}^{n} f(u_i) e^{-k(t-u_i)} \Delta u \]
+
+Eger $\Delta u \to 0$ ustteki ``Riemann toplami'' suna yaklasir (araliklar
+$u_1 = 0$, ve $u_n = t$ arasinda) 
+
+\[ \to \int_0^{t} f(u) e^{k(t-u)}du \]
+
+Ustteki fonksiyon bir burumdur, 
+
+\[ = f(t) * e^{-kt} \]
+
+Yani hesap atik fonksiyonu ile curume fonksiyonun bir burumudur
+(convolution of). 
+
+Pek cok diger problem ustteki probleme indirgenebilir, onun merceginden
+anlasilablir. Mesela cop atiklarini dusunelim, ama cop atiklari curumuyor
+olsunlar. O zaman burum hesabi
+
+\[ f(t) * 1 \]
+
+1 kullanildi cunku curume yok. 
+
+Bir diger ornek, tavuk yetistiriliyor, 
+
+$f(t)$ yeni tavuklarin uretilme orani (kg)
+
+$t$ dogduklari anda civcivlerin buyume buyume orani
+
+$t$ aninda kac kilo tavuk oldugu $f(t) * t$. 
 
 
 
