@@ -48,11 +48,11 @@ Peki niye boyle bir kisayolun olmasi iyi bir sey? Faydayi belirttik ama
 sebebini belirtmedik. 
 
 Bunu anlamak icin once ustel serilere bakalim. Hatirlayalim, Laplace
-transformu ustel serilere (power series) paralelligi vardi
+transformunun ustel serilere (power series) paralelligi vardi
 
 \[ F(x) = \sum a_n x^n \]
 
-Ve $n$'i $t$ yapip surekli ortama gecince Laplace transformunu elde
+$n$'yi $t$ yapip surekli ortama gecince Laplace transformunu elde
 ediyorduk.
 
 Simdi ikinci fonksiyon
@@ -130,15 +130,15 @@ Ornek
 Simdi burum isleminin Laplace Transformu ile baglantisini ispatlayacagiz. 
 
 \[ F(s)G(s) = \int_0^{\infty}  e^{-su}f(u) du\cdot  
-\int_0^{\infty}  e^{-sv}f(v) dv
+\int_0^{\infty}  e^{-sv} g(v) dv
 \]
 
 Usttekini cebirsel olarak bir yere ``dogru'' manipule etmeden once, belki
 sunu dusunsek daha iyi olur. ``Neyi'' manipule edersek ustteki forma
-geliriz? Cift entegrallerde entegre edilenleri ``tek bir seyin''
-fonksiyonlari carpimi olarak gormek ise yarar, cunku o zaman mesela ic
-entegral her neyse o degiskene gore digeri sabit sayilir, disari
-atilabilir, vs. Yani usttekine alttaki formulden gelebiliriz
+geliriz? Cift entegrallerde entegre edilenleri her biri ``tek bir seyin''
+fonksiyonu olan ayri gruplarin carpimi olarak gormek ise yarar, cunku o
+zaman mesela ic entegral her neyse o degiskene gore digeri sabit sayilir,
+disari atilabilir, vs. Yani usttekine alttaki formulden gelebiliriz
 
 \[ = \int_{0}^{\infty} \int_{0}^{\infty} e^{-s(u+v)} f(u)g(v) du dv \]
 
@@ -147,10 +147,10 @@ degisken olarak disaridan formule dahil ediliyor) isimiz
 kolaylasirdi. $u=u$ olarak aliriz, $v$ artik kullanilmaz, $t-u = v$
 yeterli.  
 
-\[ = \int \int  e^{-st} f(u)g((t-u)) \ du \ ?? \ dt \]
+\[ = \int \int  e^{-st} f(u)g((t-u)) \ du \ \_\_ \ dt \]
 
-Ustte $dt$ kullanmak istiyorum ama bu degisimi dikkatli yapmak lazim, soru
-isaretleri yerine ne gelecegi icin Jacobian matrisini kullanmam lazim.
+Ustte $dt$ kullanmak istiyorum ama bu degisimi dikkatli yapmak lazim, bos
+birakilan yere ne gelecegi icin Jacobian matrisini kullanmam lazim.
 
 \[ dudv = \frac{\partial(u,v)}{\partial(u,t)}dudt \]
 
@@ -197,8 +197,11 @@ islemi yapmak istiyorum, bu islem sonsuza kadar devam ediyor.
 
 Ispat tamamlandi. 
 
-Laplace Transformunu ile burum islemi arasindaki baglantiyi gorduk. Burum
-cok onemli bir islemdir, ama onu kullanan pek cok kisi onu Laplace
+Laplace Transformunu ile burum islemi arasindaki baglantiyi gorduk. 
+
+* * *
+
+Burum cok onemli bir islemdir, ama onu kullanan pek cok kisi onu Laplace
 Transformuyla alakali olarak kullanmaz. Onu oldugu gibi tek basina
 kullanirlar. Bir ornek vereyim: benim kizim bir doga / cevre muhendisi
 (environmental engineer), ve musterileri icin risk analizi yapmak gibi
@@ -206,7 +209,7 @@ isleri var. Bir gun bir musterisi icin, bir bilimsel makale okuyordu,
 makale asit yagmuru ile alakaliydi, yagmur gelirse cevre ne kadar zarar
 gorur gibi konularla ilgiliydi. Verilen zararin hesabi icin burum
 kullaniliyor dedi, ``bana sordu bu da ne boyle?''. Makaleyi ben de okudum,
-hakikaten ilgincti, yani bu alanda burum hesabinin olmasi ilgincti. 
+hakikaten ilgincti, yani bu alanda burum hesabinin olmasi ilgincti.
 
 Sonralari diger insanlar da benzer sorularla bana geldiler. Kuzey Kutbu'nda
 delme islemi yapan bir muhendis geldi mesela, delme sirasinda algilanan
@@ -219,24 +222,21 @@ hesabini anlamaniz icin iyi olur. Problem radyoaktif atiklarla alakali.
 
 Bir fabrika radyoaktif atik uretiyor. 
 
-$f(t)$: atim hizi (rate), $t$ sene. Atim hizi iki zaman noktasini
-dusunursek, $t_i,t_{i+1}$ arasinda uretilen radyoaktif atigin $\approx
-f(t_i) \cdot \Delta t$ 
-anlaminda. 
+$f(t)$: atim hizi (rate), $t$ sene. Iki zaman noktasini dusunursek,
+$t_i,t_{i+1}$ arasinda uretilen radyoaktif atik $\approx f(t_i) \cdot
+\Delta t$. Zaman araligi
+kuculdukce bu hesap kesinlesecek. 
 
 \includegraphics[height=2cm]{21_3.png}
 
-Zaman kuculdukce ustteki hesap iyilesiyor. 
-
 Problemim, $t=0$'dan baslarsam $t$ aninda ne kadar radyoaktif atik
-biriktiginin hesabi. 
+biriktiginin hesabi. Bu hesabi zorlastiran radyoaktif maddelerin ayni anda
+curuyor olmasidir.
 
-Bu hesabi zorlastiran radyoaktif maddelerin ayni anda curuyor
-olmasidir. Yani bir yandan atik uretiliyor, bir yandan bu atiklar bir
-sekilde radyoaktif ozelliklerini kaybediyorlar. Yani yaptigimiz hesap
-uretilen madde obeklerinin, parcalarinin birikintide ``ne kadar
-bekledigini'' de hesaba katmali \textbf{ki} onun curumesini de
-bir yandan hesaplayabilelim.
+Yani bir yandan atik uretiliyor, bir yandan bu atiklar bir sekilde
+radyoaktif ozelliklerini kaybediyorlar. O zaman yaptigimiz hesap uretilen
+madde obeklerinin, parcalarinin birikintide ``ne kadar bekledigini'' de
+hesaba katmali \textbf{ki} onun curumesini de bir yandan hesaplayabilelim.
 
 Curume hesabi basit bir diferansiyel denklem, $t$ aninda kalan madde icin,
 eger $A_0$ ile baslanirsa cozumu
