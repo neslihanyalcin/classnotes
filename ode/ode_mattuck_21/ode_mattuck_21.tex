@@ -20,7 +20,177 @@
 \begin{document}
 Ders 21
 
-Bürüm (Convolution) 
+Bürüm (convolution) teknigi, iki fonksiyon uzerinde islem yaparak ucuncu
+bir fonksiyon elde eder, ve ozel bir isareti vardir. 
+
+\[ f(t) * g(t) \]
+
+Elde edilen fonksiyon $f(t)$'ye neredeyse hic benzemeyecektir. Burum
+islemini faydali hale getiren iki sebep var. Birinci fayda formel tanimiyla
+alakali. Diyelim ki ustteki iki fonksiyonun ayri ayri Laplace Transformu 
+
+\[ F(s) = \int_0^{\infty} e^{-st} f(t) \ dt \]
+
+\[ G(s) = \int_0^{\infty} e^{-st} g(t) \ dt \]
+
+Iki fonksiyonun carpiminin Laplace transformunu elde etmek icin
+fonksiyonlarin ayri ayri transformunu bir sekilde bir sekilde kullanan bir
+formul olsa iyi olmaz miydi? Boyle bir fonksiyon var midir?
+
+Dolayli yoldan evet. Transformlarin carpimi, fonksiyonlarin carpiminin
+degil ama ``bürümlerinin'' transformuna esittir. Yani
+
+\[ F(s)G(s) =  \int_0^{\infty} e^{-st} (f*g)\ dt 
+\ \ \ \label{1}
+\]
+
+Peki niye boyle bir kisayolun olmasi iyi bir sey? Faydayi belirttik ama
+sebebini belirtmedik. 
+
+Bunu anlamak icin once ustel serilere bakalim. Hatirlayalim, Laplace
+transformu ustel serilere (power series) paralelligi vardi
+
+\[ F(x) = \sum a_n x^n \]
+
+Ve $n$'i $t$ yapip surekli ortama gecince Laplace transformunu elde
+ediyorduk.
+
+Simdi ikinci fonksiyon
+
+\[ G(x) = \sum b_n x^n \]
+
+Ustteki formullerde katsayi icin $a_nb_n$ kullansam, bu $F(x)$ ve $G(x)$
+ile bir sekilde baglanti yaratir miydi? Cevap dolayli yoldan
+evet. Asagidaki formulde $c_n$'i $a_n,b_n$ ile ilintilendiren bir formul
+lazim bize. 
+
+\[ F(x)G(x) = \sum c_n x^n \]
+
+Bu formul odeviniz olsun, ama bu formulu bir kere bulunca surekli ortam
+icin birazdan verecegimiz formule ne kadar benzedigini goreceksiniz. 
+
+\[ f(t)*g(t) = \int_0^t f(u)g(t-u) du \]
+
+Ne bicim bir formul bu? Onu anlamanin en iyi yolu onu kullanarak bir seyler
+hesaplamak herhalde. 
+
+Bu arada burum sirabagimsiz (commutative) bir islemdir, yani 
+
+\[ f*g = g*f \]
+
+Burum formulune bakinca sirabagimsizlik bariz degil, cunku formul simetrik
+durmuyor, ama burum formulunu (1)'deki gibi gorursek, o zaman bariz
+oluyor. 
+
+\[ \mathcal{L} (f*g) \leadsto F(s)G(s) \]
+
+ise, $F(s)$ ve $G(s)$ carpimi sirabagimsizdir, o zaman burum de
+sirabagimsizdir. 
+
+Ornek
+
+$t^2 * t$'yi hesaplayalim
+
+\[ t^2 * t =
+\int_0^t u^2 \cdot (t - u)du
+\]
+
+\[ = \frac{u^3}{3}t - \frac{u^4}{4} \bigg]_{0}^{t} = 
+\frac{t^4}{3} - \frac{t^4}{4} =
+\frac{t^4}{12}
+\]
+
+Pur formul kullanan cozum boyle. Ama hile (!) yaparak Laplace transformunu
+kullanabiliriz. 
+
+\[ t^2 \leadsto \frac{2}{s^3}, t \leadsto \frac{1}{s^2} \]
+
+Bu transformlarin carpimini alirsak 
+
+\[F(s)G(s) = \frac{2}{s^5} \]
+
+
+Usttekinin ters Laplace'i nedir? 
+
+\[ \mathcal{L}^{-1}(\frac{2}{s^5}) = \frac{1}{12}t^4 \]
+
+Bunu nasil hemen bulduk? Bildigimiz bir ters transform soyle
+
+\[ \mathcal{L}^{-1}(\frac{4!}{s^5}) = t^4 \]
+
+Bunu alip iki usttekine cevirmek icin 12 ile bolmek gerekiyordu. 
+
+Ornek
+
+\[ f(t) * 1 = \int_0^t f(u) \ 1 \ du \]
+
+\[  = \int_0^t f(u) du \]
+
+
+Simdi burum isleminin Laplace Transformu ile baglantisini ispatlayacagiz. 
+
+\[ F(s)G(s) = \int_0^{\infty}  e^{-su}f(u) du\cdot  
+\int_0^{\infty}  e^{-sv}f(v) dv
+\]
+
+Usttekini cebirsel olarak bir yere ``dogru'' manipule etmeden once, belki
+sunu dusunsek daha iyi olur. ``Neyi'' manipule edersek ustteki forma
+geliriz? Cift entegrallerde entegre edilenleri ``tek bir seyin''
+fonksiyonlari carpimi olarak gormek ise yarar, cunku o zaman mesela ic
+entegral her neyse o degiskene gore digeri sabit sayilir, disari
+atilabilir, vs. Yani usttekine alttaki formulden gelebiliriz
+
+\[ = \int_{0}^{\infty} \int_{0}^{\infty} e^{-s(u+v)} f(u)g(v) du dv \]
+
+Daha da basitlestirelim. Eger $t=u+v$ olsaydi (ki $t$ burada yeni bir
+degisken olarak disaridan formule dahil ediliyor) isimiz
+kolaylasirdi. $u=u$ olarak aliriz, $v$ artik kullanilmaz, $t-u = v$
+yeterli.  
+
+\[ = \int_{0}^{\infty} \int_{0}^{\infty} e^{-st} f(u)g((t-u)) \ du \ ?? \ dt \]
+
+Ustte $dt$ kullanmak istiyorum ama bu degisimi dikkatli yapmak lazim, soru
+isaretleri yerine ne gelecegi icin Jacobian matrisini kullanmam lazim.
+
+\[ dudv = \frac{\partial(u,v)}{\partial(u,t)}dudt \]
+
+\[ u = u \]
+
+\[ v = t - u \]
+
+\[ J = \left|\begin{array}{rr}
+1 & 0 \\ -1 &1
+\end{array}\right| = 1
+\]
+
+Yani 
+
+\[ dudv = 1 \ dudt \]
+
+O zaman 
+
+
+\[ = \int_{0}^{\infty} \int_{0}^{\infty} e^{-st} f(u)g((t-u)) \ du \ dt \]
+
+Tamam. Bir adim daha kaldi, entegral sinirlarini da degistirmek lazim. Bu
+biraz daha zor olabilir. 
+
+Ic entegrale bakalim, $u$ degisiyor, $t$ sabit tutuluyor. Daha dogrusu
+$t=u+v$ olduguna gore $u+v$ bir sabit. Bir $u,v$ grafigi dusunursek, 
+
+\includegraphics[height=4cm]{21_1.png}
+
+$u+v$ gosterilen duz cizgiler uzerinde sabittir. 
+
+
+
+
+
+
+
+
+
+
 
 
 
