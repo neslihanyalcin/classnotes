@@ -12,7 +12,7 @@ ode/Elementary*
 */*/*.aux
 */CompSci_Strang.djvu
 calc_multi/*/*.pdf
-ode/*/*.pdf
+ode/*/ode*.pdf
 compscieng1/*/*.pdf
 analytic_pde/*/*.pdf
 pde/*/*.pdf
