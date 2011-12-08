@@ -147,7 +147,7 @@ degisken olarak disaridan formule dahil ediliyor) isimiz
 kolaylasirdi. $u=u$ olarak aliriz, $v$ artik kullanilmaz, $t-u = v$
 yeterli.  
 
-\[ = \int_{0}^{\infty} \int_{0}^{\infty} e^{-st} f(u)g((t-u)) \ du \ ?? \ dt \]
+\[ = \int \int  e^{-st} f(u)g((t-u)) \ du \ ?? \ dt \]
 
 Ustte $dt$ kullanmak istiyorum ama bu degisimi dikkatli yapmak lazim, soru
 isaretleri yerine ne gelecegi icin Jacobian matrisini kullanmam lazim.
@@ -170,7 +170,7 @@ Yani
 O zaman 
 
 
-\[ = \int_{0}^{\infty} \int_{0}^{\infty} e^{-st} f(u)g((t-u)) \ du \ dt \]
+\[ = \int \int e^{-st} f(u)g((t-u)) \ du \ dt \]
 
 Tamam. Bir adim daha kaldi, entegral sinirlarini da degistirmek lazim. Bu
 biraz daha zor olabilir. 
@@ -178,9 +178,31 @@ biraz daha zor olabilir.
 Ic entegrale bakalim, $u$ degisiyor, $t$ sabit tutuluyor. Daha dogrusu
 $t=u+v$ olduguna gore $u+v$ bir sabit. Bir $u,v$ grafigi dusunursek, 
 
-\includegraphics[height=4cm]{21_1.png}
+\includegraphics[height=3cm]{21_1.png}
 
 $u+v$ gosterilen duz cizgiler uzerinde sabittir. 
+
+\includegraphics[height=3cm]{21_2.png}
+
+$u$ ustteki oklar yonunde artar. Peki $u$ bolgeye soldan girdiginde degeri
+nedir? Sifir. Alttan cikarken degeri nedir? O noktada $v=0$ olduguna gore,
+$u+v = t$ olduguna gore, $u=t$. 
+
+\[ = \int \int_0^t e^{-st} f(u)g((t-u)) \ du \ dt \]
+
+Dis entegral, orijin noktasindaki $t=0$'dan baslayarak tum cizgiler icin bu
+islemi yapmak istiyorum, bu islem sonsuza kadar devam ediyor. 
+
+\[ = \int_0^{\infty} \int_0^t e^{-st} f(u)g((t-u)) \ du \ dt \]
+
+
+
+
+
+
+
+
+
 
 
 
