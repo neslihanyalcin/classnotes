@@ -1,0 +1,75 @@
+\documentclass[12pt,fleqn]{article}
+\setlength{\parindent}{0pt}
+\usepackage{graphicx}
+\usepackage{cancel}
+\usepackage{listings}
+\usepackage[latin5]{inputenc}
+\usepackage{color}
+\setlength{\parskip}{8pt}
+\setlength{\parsep}{0pt}
+\setlength{\headsep}{0pt}
+\setlength{\topskip}{0pt}
+\setlength{\topmargin}{0pt}
+\setlength{\topsep}{0pt}
+\setlength{\partopsep}{0pt}
+\setlength{\mathindent}{0cm}
+\usepackage{latexsym}
+\usepackage{showkeys}
+\renewcommand*\showkeyslabelformat[1]{(#1)}
+\usepackage{polynom}
+
+\begin{document}
+Polinom Bolmek 
+
+Dogal sayilari bolmek icin kullandigimiz bolme yonteminin (long division)
+benzerini polinomlar icin de kullanabiliriz. Dogal sayilar icin bir ornek
+mesela 146 / 4 diyelim, once bolumde 3 olacagini tahmin ederiz, 3 x 4 = 12,
+bolunende 14 var, 14-12=2. Sonra bu 2'yi alip bolumde kalan 6 ile
+birlestiririz, 26 yapariz, daha dogrusu 2*10 + 6 deriz. Devam ederiz. 
+
+Polinom bolerken benzer bir durum var, mesela $6x^3-16x^2+17x-6$ polinomunu
+$3x-2$ ile bolelim. Bu bolme islemi su sekilde gosterilir, bolunen yukarida
+degil asagida. Notasyon biraz degisik ama onemli degil. 
+
+\polylongdiv[stage=1]{6x^3-16x^2+17x-6}{3x-2}
+
+Once $6x^3$'u $3x$ ile boluyoruz. Sonuc $2x^2$. Onu alip cizgi isaretinin
+ustune yaziyoruz. 
+
+\polylongdiv[stage=2]{6x^3-16x^2+17x-6}{3x-2}
+
+Sonra ilginc bir hareket, $2x^2$'i alip hem $3x$ ile, hem de $-2$ ile
+carpiyoruz, sonucu bolunen polinomun altina yaziyoruz, 
+
+\polylongdiv[stage=3]{6x^3-16x^2+17x-6}{3x-2}
+
+ve cikartma islemi yapiyoruz.
+
+\polylongdiv[stage=4]{6x^3-16x^2+17x-6}{3x-2}
+
+Ve islem bu sekilde devam ediyor. 
+
+\polylongdiv{6x^3-16x^2+17x-6}{3x-2}
+
+Bolme islemi tamamen sifira gitmeyebilir. Mesela $3x^3 - 2x^2 + 4x  - 3$
+ile $x^2+3x+3$ bolunurse
+
+\polylongdiv{3x^3 - 2x^2 + 4x  - 3}{x^2+3x+3}
+
+Geriye $28x+30$ kalacaktir. Geri kalan oldugu zaman da bu aslinda ise
+yarayan bir sonuctur, artik eski polinomu su sekilde ifade edebiliriz
+
+\[=  (3x-11) + \frac{28x+30}{x^2+3x+3} \]
+
+Bu polinomda bolum 1. derece, bolen 2. derecedir, fakat orijinal polinom
+3. dereceden idi. Yani derece sayisinda bir dusus yasandi, yani bir
+basitlestirme elde edildi. 
+
+
+
+
+
+
+
+
+\end{document}
