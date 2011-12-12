@@ -1,0 +1,116 @@
+\documentclass[12pt,fleqn]{article}
+\setlength{\parindent}{0pt}
+\usepackage{graphicx}
+\usepackage{cancel}
+\usepackage{listings}
+\usepackage[latin5]{inputenc}
+\usepackage{color}
+\setlength{\parskip}{8pt}
+\setlength{\parsep}{0pt}
+\setlength{\headsep}{0pt}
+\setlength{\topskip}{0pt}
+\setlength{\topmargin}{0pt}
+\setlength{\topsep}{0pt}
+\setlength{\partopsep}{0pt}
+\setlength{\mathindent}{0cm}
+\usepackage{latexsym}
+\usepackage{showkeys}
+\renewcommand*\showkeyslabelformat[1]{(#1)}
+
+\begin{document}
+Ek - z Transform 
+
+Bu konuya Strang hocanin dersinde deginiliyor, fakat cok kapsamli olarak
+islenmiyor. Bu yaziyi baska bir baslikta yayinlayabilirdik, fakat ait
+oldugu yer bu ders, o sebeple buraya koyduk.
+
+z Transform, Laplace Transformunun ayriksal dunyadaki karsiligidir. Bu
+sebeple transform edilen surekli fonksiyon $f(t)$ degil, ayriksal, bir
+vektor olarak gorulebilecek $x(n)$'dir. z Transform
+
+\[ Z[x(n)] \leadsto X(z) = \sum_{-\infty}^{\infty} x(n)z^{-n}  \]
+
+ki $z$ bir kompleks sayidir. 
+
+Gelisiguzel (casual) sistemlerden gelen verilerde sadece $n>0$ veriye
+bakilabilir, o zaman alt sinir sifir olur
+
+\[ X(z) = \sum_{0}^{\infty} x(n)z^{-n}  \]
+
+z Transform ne ise yarar? Laplace Transform diferansiyel denklemlerin
+cozulmesine yardim ediyordu. z Transform benzer sekilde farklilik
+(difference) denklemlerin cozulmesine yardim eder. Farklilik denklemi
+mesela
+
+\[ y(n) = 0.9 y(n-1) + x(n) \]
+
+seklinde olabilir. Daha genel olarak farklilik denklemleri su sekilde
+belirtilebilir,
+
+\[ \sum_{k=0}^N a_k y(n-k) = \sum_{l=0}^M b_k x(n-l) 
+\ \ \ \label{1}
+\]
+
+Iki ustteki ornek genel denklemin $N=1,M=0$ oldugu halidir, katsayilar 
+$a_0
+= 0.9,a_1=1,b_0=1$. Genel formdan $y(n)$'i disari cekebiliriz, o zaman $k$
+sifir yerine $k=1$'den baslar
+
+\[ y(n) + \sum_{k=1}^N a_k y(n-k) = \sum_{l=0}^M b_k x(n-l) \]
+
+Farklilik denkleminin genel haline z Transform uygulariz. 
+
+\[ X(z) = x(0) + x(1)z^{-1} + x(2) z^{-2} + ... 
+\ \ \ \label{2}
+\]
+
+ise, bu dizin uzerinde zaman kaydirma islemi yapsak, yani $-1$ indeksi $0$
+haline gelse, onun gibi tum degerler bir ileri kaysa, $x(-1)$, $x(0)$ olsa,
+onun gibi $a$ katsayilari da ileri kaysa
+
+\[ x(-1) + x(0)z^{-1} + x(1) z^{-2} + ...\]
+
+Simdi $z^{-1}$'i disari cekelim
+
+\[ = x(-1) + z^{-1} \bigg[ x(0) + x(1) z^{-1} + ... \bigg] \]
+
+Koseli parantez icine bakarsak, oradaki degerler (2)'deki seriye benzemiyor
+mu? O zaman oraya direk $X(z)$ degerini koyabiliriz
+
+\[ = x(-1) + z^{-1}X(z)\]
+
+Bir daha kaydirirsak, 
+
+\[ z^{-2}X(z) + z^{-1}x(-1) + x(-2) \]
+
+elde ederiz, $m$ kadar kaydirirsak
+
+\[ z^{-m}X(z^{-1}) + z^{-m+1}x(-1) + z^{-m+2}x(-2) + ... + x(-m) \]
+
+Eger baslangic sartlari sifir ise, ustteki formulde $x(-1),x(-2),..$
+tamamen sifir kabul edilebilir, ve daha basit su formulu elde ederiz. 
+
+\[ Z[x(n-m)] \leadsto z^{-m}X(z^{-1})\]
+
+Simdi bu bilgiyle beraber (1)'in z Transformunu yapalim. 
+
+
+
+
+
+
+
+
+
+
+Kaynaklar
+
+[1] Introduction to DSP and Filter Design, B. A. Shenoi, pg. 41
+
+[2] Digital Signal Processing, Ifeachor, pg. 105
+
+[3] Digital Signal Processing using Matlab, Slicer, pg. 119
+
+\end{document}
+
+
