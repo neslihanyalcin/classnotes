@@ -20,13 +20,14 @@
 \begin{document}
 Ek - z Transform 
 
-Bu konuya Strang hocanin dersinde deginiliyor, fakat cok kapsamli olarak
-islenmiyor. Bu yaziyi baska bir baslikta yayinlayabilirdik, fakat ait
-oldugu yer bu ders, o sebeple buraya koyduk.
+Bu konuya Strang hocanin dersinde kismen deginiliyor, fakat cok kapsamli
+olarak islenmiyor. Bu yaziyi kendi basinam, baska bir baslik altinda
+yayinlayabilirdik, fakat kavramsal olarak ait oldugu yer bu ders, o sebeple
+buraya koyduk.
 
-z Transform, Laplace Transformunun ayriksal dunyadaki karsiligidir. Bu
-sebeple transform edilen surekli fonksiyon $f(t)$ degil, ayriksal, bir
-vektor olarak gorulebilecek $x(n)$'dir. z Transform
+z Transform, Laplace Transformunun ayriksal dunyadaki karsiligidir,
+transform edilen surekli fonksiyon $f(t)$ degil, ayriksal, bir vektor
+olarak gorulebilecek $x(n)$'dir. z Transform
 
 \[ Z[x(n)] \leadsto X(z) = \sum_{-\infty}^{\infty} x(n)z^{-n}  \]
 
@@ -42,31 +43,36 @@ cozulmesine yardim ediyordu. z Transform benzer sekilde farklilik
 (difference) denklemlerin cozulmesine yardim eder. Farklilik denklemi
 mesela
 
-\[ y(n) = 0.9 y(n-1) + x(n) \]
+\[ y(n) = 0.9 y(n-1) + x(n) 
+\ \ \ \label{3}
+\]
 
 seklinde olabilir. Daha genel olarak farklilik denklemleri su sekilde
 belirtilebilir,
 
-\[ \sum_{k=0}^N a_k y(n-k) = \sum_{l=0}^M b_k x(n-l) 
+\[ \sum_{k=0}^N a_k y(n-k) = \sum_{l=0}^M b_l x(n-l) 
 \ \ \ \label{1}
 \]
 
-Iki ustteki ornek genel denklemin $N=1,M=0$ oldugu halidir, katsayilar 
-$a_0
-= 0.9,a_1=1,b_0=1$. Genel formdan $y(n)$'i disari cekebiliriz, o zaman $k$
-sifir yerine $k=1$'den baslar
+Iki ustteki ornek, bu genel denklemin $N=1,M=0$ oldugu halidir, katsayilar
+$a_1 = 0.9,b_0=1$. Genel formdan $y(n)$'i disari cekebiliriz, o zaman
+$k$ sifir yerine $k=1$'den baslar
 
-\[ y(n) + \sum_{k=1}^N a_k y(n-k) = \sum_{l=0}^M b_k x(n-l) \]
+\[ y(n) + \sum_{k=1}^N a_k y(n-k) = \sum_{l=0}^M b_l x(n-l) \]
 
-Farklilik denkleminin genel haline z Transform uygulariz. 
+Genel cozum icin farklilik denkleminin bu formuna z Transform
+uygulayabiliriz. 
+
+Ama ondan once kaydirma islemi, lineerlik gibi bazi temel ozellikleri,
+islemleri gorelim. Mesela
 
 \[ X(z) = x(0) + x(1)z^{-1} + x(2) z^{-2} + ... 
 \ \ \ \label{2}
 \]
 
 ise, bu dizin uzerinde zaman kaydirma islemi yapsak, yani $-1$ indeksi $0$
-haline gelse, onun gibi tum degerler bir ileri kaysa, $x(-1)$, $x(0)$ olsa,
-onun gibi $a$ katsayilari da ileri kaysa
+haline gelse, onun gibi tum degerler bir ileri kaysa, $x(-1)$, $x(0)$ olur,
+ve transform
 
 \[ x(-1) + x(0)z^{-1} + x(1) z^{-2} + ...\]
 
@@ -83,7 +89,7 @@ Bir daha kaydirirsak,
 
 \[ z^{-2}X(z) + z^{-1}x(-1) + x(-2) \]
 
-elde ederiz, $m$ kadar kaydirirsak
+elde ederiz. Genel olarak $m$ kadar kaydirirsak
 
 \[ z^{-m}X(z^{-1}) + z^{-m+1}x(-1) + z^{-m+2}x(-2) + ... + x(-m) \]
 
@@ -92,7 +98,80 @@ tamamen sifir kabul edilebilir, ve daha basit su formulu elde ederiz.
 
 \[ Z[x(n-m)] \leadsto z^{-m}X(z^{-1})\]
 
+Ayrica, z Transformun lineerlik ozelligi sayesinde 
+
+\[ Z(ax(n)) = aZ(x(n)) \leadsto aX(z) \]
+
 Simdi bu bilgiyle beraber (1)'in z Transformunu yapalim. 
+
+\[ Y(z) + \sum_{k=1}^Na_kz^{-k}Y(z) = \sum_{l=0}^M b_l z^{-l}X(z)  \]
+
+\[ \to Y(z) \bigg[ 1 + \sum_{k=1}^Na_kz^{-k} \bigg] = \sum_{l=0}^M b_l z^{-l}X(z)  \]
+
+\[ \to Y(z)  = \frac{\sum_{l=0}^M b_l z^{-l}X(z) }{ 1 +
+  \sum_{k=1}^Na_kz^{-k}} 
+\ \ \ \label{5}
+\]
+
+Formulun bolumdeki ust kismini acarsak 
+
+\[ b_0z^0 + b_1z^{-1} + b_2z^{-2} + ... + b_mz^{-M} \]
+
+$b_0z^{-M}$ disari cekilirse
+
+\[ = b_0z^{-M}(z^M + \frac{b_1}{b_0}z^{M-1} +  \frac{b_2}{b_0}z^{M-2} +
+.. + 
+ \frac{b_M}{b_0})
+\]
+
+Bolumun alt kismini acarsak 
+
+\[ 1 + a_1z^{-1} + a_2z^{-2} + ... + a_Nz^{-N} \]
+
+$z^{-N}$ disari cekersek 
+
+\[ = z^{-N} ( z^{N} + z^{N-1} + .. + a_N) \]
+
+Bu yeni formlari bolumde $Y(z)$ icinde yerine koyalim
+
+\[ Y(z) = 
+\frac{b_0z^{-M}(z^M + ..\frac{b_M}{b_0})}{z^{-N} ( z^{N} + .. + a_N)} 
+\]
+
+\[ = b_0 z^{N - M} \frac{z^M + ..\frac{b_M}{b_0}}{z^{N} + .. + a_N }\]
+
+Bolum ve bolene bir daha bakalim simdi. Burada gosterilenler birer polinom,
+ve Cebirin Temel Teorisi'ne (Fundamental Theorem of Algebra) gore $n$
+derecesindeki bir $p(x)$ polinomunun mutlaka $n$ tane reel ya da kompleks
+koku vardir. 
+
+Bir polinomun koku var ise, bu polinom $p(x)$ su sekilde de gosterilebilir
+
+\[ p(x) = (x-r_n)(x-r_{n-1})..(x-r_1) \]
+
+Bu mantigi iki ustteki formule uygularsak 
+
+\[ = b_0 z^{N - M} 
+\frac{\prod_{l=1}^{M}(z-z_l)}{ \prod_{k=1}^{N}(z-p_k) }
+\]
+
+Cozmek istedigimiz ornek (3)'e tekrar bakalim. Ustteki formule bu noktada
+gerek yok, (5)'e gore bile bu denklemin z Transformunu bulabiliriz. 
+
+\[ H(z) = \frac{1}{1-0.9z^{-1}} \]
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
