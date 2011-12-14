@@ -43,7 +43,7 @@ cozulmesine yardim ediyordu. z Transform benzer sekilde farklilik
 (difference) denklemlerin cozulmesine yardim eder. Farklilik denklemi
 mesela
 
-\[ y(n) = 0.9 y(n-1) + x(n) 
+\[ y(n) = 0.85 y(n-1) + x(n) 
 \ \ \ \label{3}
 \]
 
@@ -55,7 +55,7 @@ belirtilebilir,
 \]
 
 Iki ustteki ornek, bu genel denklemin $N=1,M=0$ oldugu halidir, katsayilar
-$a_1 = 0.9,b_0=1$. Genel formdan $y(n)$'i disari cekebiliriz, o zaman
+$a_1 = 0.85,b_0=1$. Genel formdan $y(n)$'i disari cekebiliriz, o zaman
 $k$ sifir yerine $k=1$'den baslar
 
 \[ y(n) + \sum_{k=1}^N a_k y(n-k) = \sum_{l=0}^M b_l x(n-l) \]
@@ -155,31 +155,36 @@ Bu mantigi iki ustteki formule uygularsak
 \frac{\prod_{l=1}^{M}(z-z_l)}{ \prod_{k=1}^{N}(z-p_k) }
 \]
 
+Yani $b_0z^{N-M}$ haricindeki ifadeler bir polinoma sebebiye verirler, ve
+bu polinomun kokleri bulunabilir, kokler bulununca cozum olan $z$ degerleri
+bulunmus olacaktir. Bu $z$ degerlerini alip z Transformunu olusturuz, ve ya
+tabloya bakarak, ya da baska sekilde ters transform yaparak farksal
+denklemin cozumune ulasmaya calisiriz. 
+
 Cozmek istedigimiz ornek (3)'e tekrar bakalim. Ustteki formule bu noktada
 gerek yok, (5)'e gore bile bu denklemin z Transformunu bulabiliriz. 
 
-\[ H(z) = \frac{1}{1-0.9z^{-1}} \]
+\[ Y(z) = \frac{1}{1-0.85z^{-1}} \]
 
+Eger yaygin z Transformlarin tablosuna bakarsak, $|z|>0.85$ icin ustteki
+formulun ters z Transformunun 
 
+\[ y(n) = Z^{-1} [Y(z)] = 0.85^nu(n) \]
 
+oldugunu ogreniyoruz, ve $u(n)$ soyle 
 
+\[ u(n) = 
+\left\{ \begin{array}{ll}
+1, & n \ge 0\\
+0, & n < 0
+\end{array} \right.
+ \]
 
+(3) ile gosterilen formul 
 
+\lstinputlisting[language=Python]{patents-test2.py}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+\lstinputlisting[language=Python]{patents-test1.py}
 
 
 Kaynaklar
