@@ -169,7 +169,7 @@ gerek yok, (5)'e gore bile bu denklemin z Transformunu bulabiliriz.
 Eger yaygin z Transformlarin tablosuna bakarsak, $|z|>0.85$ icin ustteki
 formulun ters z Transformunun 
 
-\[ y(n) = Z^{-1} [Y(z)] = 0.85^nu(n) \]
+\[ h(n) = Z^{-1} [Y(z)] = 0.85^nu(n) \]
 
 oldugunu ogreniyoruz, ve $u(n)$ soyle 
 
@@ -180,12 +180,38 @@ oldugunu ogreniyoruz, ve $u(n)$ soyle
 \end{array} \right.
  \]
 
-(3) ile gosterilen formul 
+Dikkat edilirse ters z Transform tablosunda $y$ dgil $h$ bazli sonuclar
+gosteriliyor, $h$ fonksiyonlari vurus cevabi (impulse response)
+fonksiyonlaridir, ve hesaplamalari burum (convolution) uzerinden olur. Bir
+$h$, bir lineer sistemi tekil olarak temsil ettigi icin $h$'i alip $y$
+bazli sonuca gitmek cok kolaydir, hemen $h$'in tarif ettigi burumu
+yapariz. 
+
+\[ y(n) = \sum_{k=-\infty}^\infty x(k) h(n-k) = \sum_{k=-\infty}^\infty x(k) 0.85^{n-k} u(n-k). \]
+
+Kodlama
+
+Dusunelim ki (3) ile tarif edilen farklilik denklemi bir sirketin patent
+portfoyunu temsil ediyor. 
+
+Bu sirket, her sene portfoyu $y(n)$'e, $x(n)$ kadar yeni patent ekliyor,
+ama her sene ayni zamanda elindeki patentlerin yuzde 15'i ``eskiyor'', yani
+zamanlari dolarak portfoyunden cikiyor. Bu eksiltme islemini bir onceki
+$y(n)$'i 0.85 ile carparak temsil ediyoruz. 
+
+Boyle bir problemde $x(n)$ bize veri olarak verilecektir, ve toplamsal /
+kumulatif (cumulative) $y(n)$'i hesaplamamiz istenecektir. O zaman ustteki
+sonucu kodlarsak ve ornek veri
+
+[  4.   3.   2.   8.   4.   4.  10.   4.  10.   7.   4.   7. ]
+
+ise, kod soyledir
 
 \lstinputlisting[language=Python]{patents-test2.py}
 
-\lstinputlisting[language=Python]{patents-test1.py}
+Bu sistemi otomatik olarak cozen Python islemi \verb!lfilter! cagrisidir. 
 
+\lstinputlisting[language=Python]{patents-test1.py}
 
 Kaynaklar
 
