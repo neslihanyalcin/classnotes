@@ -70,10 +70,117 @@ sekil ortaya cikar (mavi cizgiler).
 
 \includegraphics[height=3cm]{22_5.png}
 
+$f(t)$'nin bir parcasini cekip cikartiyoruz yani. Bu cok ise yarayan bir
+numara / teknik. 
+
+* * *
+
+Birim adimin Laplace Transformunu alalim.
+
+\[ \mathcal{L}(u(t)) = \int_{0}^{\infty} e^{-st}u(t) dt  \]
+
+Entegral alt siniri 0'dan basliyor. Birim adim 0'dan buyukse hep 1, o zaman
+ustte $u(t)$'yi 1 alabiliriz. Yani ustteki aslinda 1'in Laplace
+Transformudur. 
+
+\[ = \frac{1}{s} \ \ \ s>0 \]
+
+Peki ters yonde gidersek? 
+
+\[ \mathcal{L}^{-1}(\frac{1}{s}) = ?  \]
+
+Geriye giderken 1'e mi birim adima mi donecegim? Simdiye kadar geriye
+giderken hep 1 sectim. Artik bu yeterli degil. Problem nerede? Cunku
+Laplace Transformu entegral alt siniri 0'dan basliyor, yani transform 0
+oncesine bakmiyor bile. Bir fonksiyon $f(t)$ 0'dan once envai turde degere
+sahip olabilir, Laplace Transformu ayni olacaktir. 
+
+\includegraphics[height=3cm]{22_6.png}
+
+Eger hangi tur problem ile ugrastigimizi biliyorsak bu durum bir sorun
+cikarmaz. Muhendisler soyle kategorize ederler; eger bir problem simdiki
+zamandan, $t=0$, baslayip ileri gidiyorsa o bir Laplace Transform
+problemidir, eger gecmis zaman verisi gerekiyorsa o bir Fourier Transform
+problemidir. 
+
+Eger 1'den geriye giderken ortaya cikan tanimsizliktan (ambiguity)
+kurtulmak istiyorsak, ters Laplace'dan elde edilen fonksiyonu birim adim
+ile carpariz, boylece sifirdan once sifir olmasini garanti etmis oluruz. 
+
+\[ f(t) \leadsto F(s) \]
+
+\[ \mathcal{L}^{-1}(F(s)) = u(t)f(t) \]
+
+Boylece ters Laplace ozgun (unique) hale gelir.
+
+* * * 
+
+Tasima (translation) ve Laplace hakkinda
+
+$\mathcal{L}(f(t-a))$'yi $\mathcal{L}(f(t))$ temel alarak yazabilir miyiz?
+Bu ne yazik ki mumkun degil. 
+
+\includegraphics[height=3cm]{22_7.png}
+
+Ustte $f(t)$'yi $a$ kadar saga kaydirdik. Kesik cizgili yeni, tasinmis
+fonksiyonu niye duz cizgili fonksiyon baglaminda temsil edemiyorum? Sebep
+bariz, cunku $f(t)$'nin sifir oncesi degeri. O deger Laplace Transformu
+sirasinda kullanilmaz, ama tasindiktan sonra yeni fonksiyonda
+kullanilir. Aradaki bu uyusmazligi, eksikligi kapatmak mumkun degildir. 
+
+Yapabilecegimiz en iyi sey, kaybettigimiz bolumu $u(t-a)f(t-a)$ ile Laplace
+Transformundan silmektir. Altta koyu cizgili olan kismin transformunu
+aliriz yani.
+
+\includegraphics[height=2cm]{22_8.png}
+
+\[ u(t-a)f(t-a) \leadsto e^{-as}F(s) \]
+
+Fakat $f$ cogunlukla $t-a$ formunda gelmez, mesela $sin(t)$, $cos(t)$
+olur, o zaman su teknigi kullanabilirsiniz
+
+\[ u(t-a)f(t) \leadsto e^{-as}\mathcal{L}(f(t+a)) \]
+
+Bu teknige bazilari ustel kaydirma fonksiyonu (exponential shift formula)
+diyor. Biz bu terimi kullanmayacagiz. Biz $t$ ekseni tercumesi (t-axis
+translation) formulu diyecegiz. 
+
+Transform
+
+\[ \int_{0}^{\infty}e^{-st}u(t-a)f(t-a) dt \]
 
 
+Ama formulde $F(s)$ kullanmak istiyorum, o zaman $f(t-a)$'yi bir sekilde
+$f(t)$ yapmam lazim. Degisken degisimi yaparim. 
 
+\[ t_1 = t-a \]
 
+\[ = \int_{a}^{\infty}e^{-s(t_1+a)}u(t_1)f(t_1) dt_1 \]
+
+\[ = e^{-sa} \int_{-a}^{\infty}e^{-st_1}u(t_1)f(t_1) dt_1 \]
+
+$u(t_1)$ $t_1<0$ icin sifir olduguna gore $-a,0$ arasini entegral alt
+sinirindan atabiliriz, 
+
+\[ = e^{-sa} \int_{0}^{\infty}e^{-st_1}f(t_1) dt_1 \]
+
+$u(t_1)$'in kendisini niye attik? Cunku sifir sonrasi 1 degerinde zaten. 
+
+``Ama $t$ degiskeni $t_1$ haline geldi, artik bu Laplace Transformu olmaz''
+diye dusunenler olabilir. Fakat entegrasyonda kullanilan fonksiyonun illa
+$t$ ismini tasimasi gerekmiyor, cunku o degisken bir yer tutucu (dummy)
+sadece. Entegre edilen, sinirlar duzgunse, ustteki de bir Laplace
+Transformudur.
+
+Yani
+
+\[ u(t-a)f(t-a) \leadsto e^{-as}\mathcal{L}(f(t)) \]
+
+$t$ yerine $t+a$ gecirdim.
+
+Eger $u(t-a)f(t)$ olsaydi?
+
+\[ u(t-a)f(t-a+a) \leadsto e^{-as}\mathcal{L}(f(t+a))) \]
 
 
 
