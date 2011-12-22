@@ -94,13 +94,14 @@ Kaydirilmis birim adimin Laplace'i
  \]
 
 Alt sinir $a$ oldu cunku $a$'dan once sifir, sonrasi 1. Bizi tek
-ilgilendiren 1 olduktan sonra, o zaman alt siniri degistiririz. 
+ilgilendiren kisim fonksiyon 1 olduktan sonra, o zaman alt siniri 
+degistiririz. 
 
 \[ = \frac{e^{-st}}{-s} \bigg|_{a}^{\infty} =
 \frac{e^{-as}}{s}
 \]
 
-Diger bazi ozellikler - mesela 
+Diger bir ozellik
 
 \[ \mathcal{L}(e^{ct}f(t)) = F(s-c) \]
 
@@ -112,13 +113,13 @@ Ispat: Eger entegral temsilini acarsak
 
 
 Bu son ifadeye baska bir yonden erisebilir miyiz? Mesela $F(s-c)$ nedir? 
-$s$ yerine $s-c$ koyarsak, bunu temel formulden hemen turetebiliriz. 
+$s$ yerine $s-c$ koyarsak (temel formulden turetelim)
 
 \[ F(s-c) = \int _{0}^{\infty} f(t) e^{-(s-c)t} ft  \]
 
 \[ = \int _{0}^{\infty} e^{(-s+c)t} dt  = \int _{0}^{\infty} e^{(c-s)t} dt   \]
 
-Yani ifadeye eristik. 
+Ayni ifadeye eristik. 
 
 * * *
 
@@ -172,7 +173,11 @@ transformunu aliriz yani.
 
 \includegraphics[height=2cm]{22_8.png}
 
-\[ u(t-a)f(t-a) \leadsto e^{-as}F(s) \]
+\[ u(t-a)f(t-a) \leadsto e^{-as}F(s) 
+\ \ \ \label{2}
+\]
+
+(2) gecisi Laplace Tablosunda gorulebilir.
 
 Fakat $f$ cogunlukla $t-a$ formunda gelmez, mesela $sin(t)$, $cos(t)$
 olur, o zaman su teknigi kullanabilirsiniz
@@ -183,10 +188,9 @@ Bu teknige bazilari ustel kaydirma fonksiyonu (exponential shift formula)
 diyor. Biz bu terimi kullanmayacagiz. Biz $t$ ekseni tercumesi (t-axis
 translation) formulu diyecegiz. 
 
-Transform
+(2)'nin ispati
 
 \[ \int_{0}^{\infty}e^{-st}u(t-a)f(t-a) dt \]
-
 
 Ama formulde $F(s)$ kullanmak istiyorum, o zaman $f(t-a)$'yi bir sekilde
 $f(t)$ yapmam lazim. Degisken degisimi yaparim. 
@@ -237,26 +241,81 @@ e^{-s}\mathcal{L} (t^2+2t+1) =
 e^{-s}(\frac{2}{s^3} + \frac{2}{s^2} + \frac{1}{s})
  \]
 
-Bayagi kalabalik bir sonuc oldu, fakat transformunu aldigimiz fonksiyon da
-o kadar basit bir fonksiyon degil zaten. Altta yesille isaretli cizgiler 
+Bayagi kalabalik bir sonuc oldu, fakat transformunu aldigimizda elde edilen
+yukaridaki fonksiyon da o kadar basit bir fonksiyon degil zaten; altta
+yesil renkle isaretli 
 
 \includegraphics[height=2cm]{22_9.png}
 
 Fonksiyon kesintili (discontinuous) bir fonksiyon. Kesintinin nerede
 olustugu $e^{-as}$ formulunde $a$, yani $e^{-s} = e^{-1\cdot s}$ icin 1. 
 
+* * *
 
+\[ \mathcal{L}^{-1}\bigg( \frac{1+e^{-\pi s}}{s^2+1} \bigg) \]
 
+Cevabin bir kesikli fonksiyon olacagini simdiden biliyoruz, cunku formul
+icinde ustel bir fonksiyon var. Ilk yapacagimiz is ustel fonksiyonu yanliz
+kalacak sekilde ifadeyi parcalamak. 
 
+\[ = \frac{1}{s^2+1} + \frac{e^{-\pi s}}{s^2 + 1}\]
 
+Once suna bakalim
 
+\[ \frac{1}{s^2+1} \stackrel{-1}{\leadsto}  \ \ ? \]
 
+Eger usttekine cevap olarak $sin(t)$ dersek, yanlis olur. Eger ustel
+fonksiyon formulun geri kalaninda olmasaydi, o zaman $sin(t)$ olabilirdi,
+ama simdi 
 
+\[ \frac{1}{s^2+1} \stackrel{-1}{\leadsto} u(t)sin(t) \]
 
+kullanmamiz lazim. Peki
 
+\[ \frac{e^{-\pi s}}{s^2 + 1} \stackrel{-1}{\leadsto} \ \ ? \]
 
+Yine (2)'yi kullanirim, 
 
+\[\stackrel{-1}{\leadsto} u(t-\pi)sin(t-\pi) \]
 
+Nihai cevap nedir? Iki parcayi toplarim
+
+\[ \frac{1}{s^2+1} + \frac{e^{-\pi s}}{s^2 + 1} \stackrel{-1}{\leadsto} 
+u(t)sin(t) + u(t-\pi)sin(t-\pi) 
+\]
+
+Bu cevap teknik olarak dogru, ama biraz masajlayip onu daha duzgun bir hale
+getirmek lazim [hatta hoca sakayla karisik bu halde birakirsaniz sinavda
+not kirarim diyor]. 
+
+O zaman her parcaya teker teker bakalim. Formulun $u(t)sin(t)$ kismi
+sadece $t \ge 0$ icin anlamli, cunku ondan once birim step fonksiyonu
+sifir. $u(t-\pi)sin(t-\pi) $ kismi ise $t \ge \pi$ icin anlamli. Elimizde
+iki tane senaryo var aslinda, o zaman bu fonksiyonu parcali, senaryolu
+olarak gosterebiliriz. 
+
+\[ 
+f(t) = 
+\left\{ \begin{array}{ll}
+sin(t) & 0 \le t \le \pi \\
+sin(t) + (-sin(t)) & t \ge \pi
+\end{array} \right.
+ \]
+
+Terim $-sin(t)$, $sin(t-\pi)$'dan geldi, cunku $sin$'i $\pi$ kadar yana
+kaydirirsak (altta kesik cizgili) 
+
+\includegraphics[height=2cm]{22_10.png}
+
+elde edilen $-sin(t)$'dir. Nihai formul
+
+\[ 
+f(t) = 
+\left\{ \begin{array}{ll}
+sin(t) & 0 \le t \le \pi \\
+0 & t \ge \pi
+\end{array} \right.
+ \]
 
 
 
