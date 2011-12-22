@@ -83,13 +83,50 @@ Entegral alt siniri 0'dan basliyor. Birim adim 0'dan buyukse hep 1, o zaman
 ustte $u(t)$'yi 1 alabiliriz. Yani ustteki aslinda 1'in Laplace
 Transformudur. 
 
-\[ = \frac{1}{s} \ \ \ s>0 \]
+\[ = \frac{1}{s} \ \ \ s>0 
+\ \ \ \label{1}
+\]
 
-Peki ters yonde gidersek? 
+Kaydirilmis birim adimin Laplace'i
+
+\[ \mathcal{L} (u(t-a)) = 
+\int_{a}^{\infty} 1 \cdot e^{-st} dt
+ \]
+
+Alt sinir $a$ oldu cunku $a$'dan once sifir, sonrasi 1. Bizi tek
+ilgilendiren 1 olduktan sonra, o zaman alt siniri degistiririz. 
+
+\[ = \frac{e^{-st}}{-s} \bigg|_{a}^{\infty} =
+\frac{e^{-as}}{s}
+\]
+
+Diger bazi ozellikler - mesela 
+
+\[ \mathcal{L}(e^{ct}f(t)) = F(s-c) \]
+
+Ispat: Eger entegral temsilini acarsak
+
+\[ = \int _{0}^{\infty} e^{ct}f(t)e^{-st}dt  =
+\int e^{(c-s)t} f(t) dt
+ \]
+
+
+Bu son ifadeye baska bir yonden erisebilir miyiz? Mesela $F(s-c)$ nedir? 
+$s$ yerine $s-c$ koyarsak, bunu temel formulden hemen turetebiliriz. 
+
+\[ F(s-c) = \int _{0}^{\infty} f(t) e^{-(s-c)t} ft  \]
+
+\[ = \int _{0}^{\infty} e^{(-s+c)t} dt  = \int _{0}^{\infty} e^{(c-s)t} dt   \]
+
+Yani ifadeye eristik. 
+
+* * *
+
+(1) formulundede ters yonde gidersek
 
 \[ \mathcal{L}^{-1}(\frac{1}{s}) = ?  \]
 
-Geriye giderken 1'e mi birim adima mi donecegim? Simdiye kadar geriye
+Geriye giderken 1'e mi, birim adima mi donecegim? Simdiye kadar geriye
 giderken hep 1 sectim. Artik bu yeterli degil. Problem nerede? Cunku
 Laplace Transformu entegral alt siniri 0'dan basliyor, yani transform 0
 oncesine bakmiyor bile. Bir fonksiyon $f(t)$ 0'dan once envai turde degere
@@ -103,9 +140,10 @@ zamandan, $t=0$, baslayip ileri gidiyorsa o bir Laplace Transform
 problemidir, eger gecmis zaman verisi gerekiyorsa o bir Fourier Transform
 problemidir. 
 
-Eger 1'den geriye giderken ortaya cikan tanimsizliktan (ambiguity)
-kurtulmak istiyorsak, ters Laplace'dan elde edilen fonksiyonu birim adim
-ile carpariz, boylece sifirdan once sifir olmasini garanti etmis oluruz. 
+Eger 1 noktasindan ( $t=0$ ) geriye giderken ortaya cikan tanimsizliktan
+(ambiguity) kurtulmak istiyorsak, ters Laplace'dan elde edilen fonksiyonu
+birim adim ile carpariz, boylece $t=0$ oncesi sifir olmasini garanti etmis
+oluruz.
 
 \[ f(t) \leadsto F(s) \]
 
@@ -115,7 +153,7 @@ Boylece ters Laplace ozgun (unique) hale gelir.
 
 * * * 
 
-Tasima (translation) ve Laplace hakkinda
+Tasima (translation) ve Laplace 
 
 $\mathcal{L}(f(t-a))$'yi $\mathcal{L}(f(t))$ temel alarak yazabilir miyiz?
 Bu ne yazik ki mumkun degil. 
@@ -128,9 +166,9 @@ bariz, cunku $f(t)$'nin sifir oncesi degeri. O deger Laplace Transformu
 sirasinda kullanilmaz, ama tasindiktan sonra yeni fonksiyonda
 kullanilir. Aradaki bu uyusmazligi, eksikligi kapatmak mumkun degildir. 
 
-Yapabilecegimiz en iyi sey, kaybettigimiz bolumu $u(t-a)f(t-a)$ ile Laplace
-Transformundan silmektir. Altta koyu cizgili olan kismin transformunu
-aliriz yani.
+Yapabilecegimiz en iyi sey, kaybettigimiz bolumu $u(t-a)f(t-a)$ kullanimiyla
+Laplace Transformundan silmektir. Altta koyu cizgili olan kismin
+transformunu aliriz yani.
 
 \includegraphics[height=2cm]{22_8.png}
 
@@ -182,10 +220,30 @@ Eger $u(t-a)f(t)$ olsaydi?
 
 \[ u(t-a)f(t-a+a) \leadsto e^{-as}\mathcal{L}(f(t+a))) \]
 
+Ornek 
 
+\[ u_{ab} = u(t-a) - u(t-b) \]
 
+\[ \leadsto \frac{e^{-as}}{s} - \frac{e^{-bs}}{s} \]
 
+Ornek
 
+\[ u(t-1)t^2 \]
+
+Transformu nedir? 
+
+\[ \leadsto e^{-s}\mathcal{L}((t+1)^2) = 
+e^{-s}\mathcal{L} (t^2+2t+1) =
+e^{-s}(\frac{2}{s^3} + \frac{2}{s^2} + \frac{1}{s})
+ \]
+
+Bayagi kalabalik bir sonuc oldu, fakat transformunu aldigimiz fonksiyon da
+o kadar basit bir fonksiyon degil zaten. Altta yesille isaretli cizgiler 
+
+\includegraphics[height=2cm]{22_9.png}
+
+Fonksiyon kesintili (discontinuous) bir fonksiyon. Kesintinin nerede
+olustugu $e^{-as}$ formulunde $a$, yani $e^{-s} = e^{-1\cdot s}$ icin 1. 
 
 
 
