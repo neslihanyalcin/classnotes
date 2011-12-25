@@ -1,0 +1,86 @@
+\documentclass[12pt,fleqn]{article}
+\setlength{\parindent}{0pt}
+\usepackage{graphicx}
+\usepackage{cancel}
+\usepackage{listings}
+\usepackage[latin5]{inputenc}
+\usepackage{color}
+\setlength{\parskip}{8pt}
+\setlength{\parsep}{0pt}
+\setlength{\headsep}{0pt}
+\setlength{\topskip}{0pt}
+\setlength{\topmargin}{0pt}
+\setlength{\topsep}{0pt}
+\setlength{\partopsep}{0pt}
+\setlength{\mathindent}{0cm}
+\usepackage{latexsym}
+\usepackage{showkeys}
+\renewcommand*\showkeyslabelformat[1]{(#1)}
+
+\begin{document}
+Cauchy Ortalama Deger Teorisi (Cauchy Mean-value Theorem)
+
+Teori soyle
+
+Eger $f,g$ fonksiyonlari $[a,b]$ araliginda surekli ise ve $g'(x) \ne 0$
+farz edildigi durumda $[a,b]$ arasinda oyle bir $c$ vardir ki,
+
+\[ \frac{f'(c)}{g'(c)} = \frac{f(b)-f(a)}{g(b)-g(a)} \]
+
+ifadesi dogrudur. 
+
+Ispat
+
+Simdi daha onceden gordugumuz Ortalama Deger Teorisi'ni (Cauchy olmayan)
+iki kere kullanacagiz. Teoriyi once $g(a) \ne g(b)$ oldugunu gostermek icin
+kullanacagiz. Cunku eger bu dogru olsaydi, Ortalama Deger Teorisi 
+
+\[ g'(c) = \frac{g(b) - g(a)}{b-a} = 0\]
+
+olurdu, ki bu $[a,b]$ arasindaki bi4 $c$ icin basta yaptigimiz faraziyemiz
+$g'(x) \ne 0$ ile ters duserdi. 
+
+Ikinci kullanim: $F(x)$ adinda, $f,g$ fonksiyonlarini kullanan baska bir
+fonksiyon kurgulayalim.
+
+\[ F(x) = f(x) - f(a) - \frac{f(b)-f(a) }{g(b)-g(a)}[g(x)-g(a)] \]
+
+Bu fonksiyonun turevi, $f,g$'nin turevi alinabildigi her yerde alinabilir
+olur. Ayrica $F(b) = F(a) = 0$. $a,b$ degerlerini yerine koyarsak bunu
+gorebiliriz, mesela $x=a$ icin
+
+\[ F(a) = \cancelto{0}{f(a) - f(a)} -
+\frac{f(b)-f(a) }{g(b)-g(a)}
+[\cancelto{0}{g(a)-g(a)}] 
+\]
+
+\[  = 0 - 0 = 0 \]
+
+O zaman, $F(b) = F(a) = 0$'dan bir sonuca daha erisiriz. Bir fonksiyon
+$a,b$ uclarinda sifir ise, bu fonksiyon bir sekilde azalip, cogaliyor, ya
+da cogalip azaliyor demektir, yani kesinlikle bir yerde tepe yapiyor
+demektir. Tepe yapmanin Calculus'taki tercumesi $[a,b]$ arasindaki bir $c$
+icin $F'(c)=0$ olmasidir. O zaman ustteki $F(x)$'in turevini alirsak, ve
+$x=c$ dersek, 
+
+\[ F'(c) = f'(c) - \frac{f(b)-f(a)}{g(b)-g(a)}[g'(c)] = 0\]
+
+dogru olmalidir. Turev alirken $f(a)$ yokoldu cunku sabitti, buyuk bolum
+yerinde kaldi cunku tamami $g(x)$ icin katsayi. Eger tekrar duzenlersek,
+negatif terimi sola alirsak, ve iki tarafi $g'(c)$'ye bolersek,
+
+\[ \frac{f'(c)}{g'(c)} = \frac{f(b)-f(a)}{g(b)-g(a)} \]
+
+ifadesini elde ederiz. Yani bastaki teoriyi elde etmis oluruz. 
+
+Ortalama Deger Teorisini ilk kez kullanmamizin sebebi, ustteki bolenin sifir
+olmamasini istedigimiz icindi, cunku sifirla bolum tanimsizdir. 
+
+
+
+Kaynaklar 
+
+[1] Thomas Calculus, 11. Baski sf. 294
+
+
+\end{document}
