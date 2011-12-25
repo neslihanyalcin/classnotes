@@ -43,10 +43,43 @@ modellerim? Diyelim ki
 
 \includegraphics[height=3cm]{23_2.png}
 
-0 aninda kuvvet uygulamasi basliyor, 0'dan 1'e cikiyoruz, $h$ kadar devam
-ediyor, sonra sifira iniyor. 
+0 aninda kuvvet uygulamasi basliyor, 0'dan yukari cikiyoruz, $h$ kadar
+devam ediyor, sonra sifira iniyoruz. Eger bu vurusun, yani grafik altindaki
+entegral alaninin 1 olmasini istiyorsak (ki vurus birim olabilsin), o zaman
+kuvvet sifirdan $1/h$'ye yukselmeli. 
 
+Yay sistemini modellersek (ve birim adim fonksiyonunu kullanirsak)
 
+\[ y'' + y  = \frac{1}{h}u_{0h}(t) \]
+
+Birim adim notasyonumuz, hatirlanacagi gibi, $a,b$ arasinda 1 olan bir
+durum icin $u_{ab}$ idi, ama bu ornekte 1 degil, $1/h$'ye cikiyoruz, o
+zaman her seyi $1/h$ ile carpariz.
+
+Ustteki sistemi cozmek istiyorsak, sag tarafin Laplace Transformunu almamiz
+lazim. Her seyi birim adim fonksiyonu ile yazalim, ve transformu yapalim
+
+\[ \frac{1}{h} [ u(t) - u(t-h) ] 
+\stackrel{\mathcal{L}}{\leadsto} \ \ ?
+\]
+
+Hatirlarsak
+
+\[ u(t-a)g(t-a) \stackrel{\mathcal{L}}{\leadsto}  e^{-as}G(s) \]
+
+O zaman iki ustteki
+
+\[ = \frac{1}{h}[ \frac{1}{s} - \frac{e^{-hs}}{s} ]\]
+
+Simdi su soruyu soralim: eger $h$ sifira giderse ne olur? Laplace Transform
+ne olur? Elimizdeki birim vurus olduguna gore, $a,b$ araligi kuculdukce,
+alan 1 kalmak zorunda oldugu icin kuvvet sonsuza gitmelidir. 
+
+\[ \lim_{h \to 0} \frac{1-e^{-hs}}{hs} \]
+
+$u=hs$ kullanalim, temiz olsun 
+
+\[ \lim_{u \to 0} \frac{1-e^{-u}}{u} \]
 
 
 
