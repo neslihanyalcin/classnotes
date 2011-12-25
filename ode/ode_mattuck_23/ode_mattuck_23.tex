@@ -21,17 +21,19 @@
 Ders 23 
 
 Bu ders Laplace Transformlarinin son dersi, ayni zamanda, yeni bir girdi
-fonksiyonunu gorecegiz -- birim vurus (unit impulse) fonksiyonlari. Vurus
-nedir? Tokat atmaktan bahsetmiyoruz tabii; vurus, mesela bir objeye bir zaman
-surecinde $f(t)$ kuvveti uyguladigimizi dusunelim, 
+fonksiyonunu gorecegiz -- birim vurus (unit impulse) fonksiyonlari. Bu
+fonksiyonlar ne ise yarar? Mesela tum paranizi bankaya koydunuz, sonra
+yarisini cektiniz, vs. Bu tur hesaplar vurus fonksiyonu ile yapilir. Peki
+vurus nedir? Tokat atmaktan bahsetmiyoruz tabii; vurus, mesela bir objeye
+bir zaman surecinde $f(t)$ kuvveti uyguladigimizda,
 
 \[ f(t) \textit{ vurusu } = \int _{a}^{b}f(t)dt \]
 
-Eger $f(t)$ sabit ise, 
+Eger $f(t)$ sabit ise, ustteki su hale gelir
 
 \[ Vurus = F \cdot (b-a) \]
 
-Guc derken nasil bir sistemden bahsediyoruz? Mesela
+Peki guc derken nasil bir sistemden bahsediyoruz? Mesela
 
 \includegraphics[height=2cm]{23_1.png}
 
@@ -81,10 +83,19 @@ $u=hs$ kullanalim, temiz olsun
 
 \[ \lim_{u \to 0} \frac{1-e^{-u}}{u} \]
 
+Limite bakarsak bolum ve bolen ayni anda sifir oluyor, yani $0/0$
+durumu. Bu istenen bir sey degil. Cozum nedir? Bazilari Taylor acilimi
+yaparak serideki ilk birkac terimi usttekinin yerine gecirebilir. Ama
+cogunuz bu noktada herhalde L'Hospital Kuralini kullanacaktir. Bolum ve
+bolenin ayri ayri turevini aliriz,
 
+\[ = \lim_{u \to 0} \frac{e^{-u}}{1} = 1\]
 
+Basa donersek, 
 
+\[ \frac{1}{h}u_{0h}(t) \leadsto \frac{1-e^{-hs}}{hs} \]
 
+Ustteki $h \to 0$ iken 1' yaklasiyor.  
 
 
 
