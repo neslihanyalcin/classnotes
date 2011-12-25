@@ -1,0 +1,128 @@
+\documentclass[12pt,fleqn]{article}
+\setlength{\parindent}{0pt}
+\usepackage{graphicx}
+\usepackage{cancel}
+\usepackage{listings}
+\usepackage[latin5]{inputenc}
+\usepackage{color}
+\setlength{\parskip}{8pt}
+\setlength{\parsep}{0pt}
+\setlength{\headsep}{0pt}
+\setlength{\topskip}{0pt}
+\setlength{\topmargin}{0pt}
+\setlength{\topsep}{0pt}
+\setlength{\partopsep}{0pt}
+\setlength{\mathindent}{0cm}
+\usepackage{latexsym}
+\usepackage{showkeys}
+\renewcommand*\showkeyslabelformat[1]{(#1)}
+
+\begin{document}
+L'Hospital (l'Hôpital) Kurali
+
+\[ \lim_{x \to a} \frac{f(x)}{g(x)}\]
+
+bazen hesaplanamaz, cunku hem $f(a)$ hem $g(a)$ sifira esittir. Bu durum
+$0/0$ gibi acaip bir durum ortaya cikarir, ki boyle bir seyi hesaplamak mumkun
+degildir. $0/0$'in diger bir adi ``hesaplanamayan form (indeterminate
+form)''. Fakat L'Hospital 1. Senaryo kuralina gore, 
+
+\[ \lim_{x \to a} \frac{f(x)}{g(x)} = 
+\frac{f'(a)}{g'(a)} 
+\]
+
+esitligi kullanilabilir. 
+
+Ispat
+
+$f'(a)$ ve $g'(a)$'dan geriye dogru gidelim, ki bu tanimlarin kendisi de
+birer limit zaten. 
+
+\[ \frac{f'(a)}{g'(a)} = 
+\frac
+{\lim_{x \to a } \frac{ f(x) - f(a)}{x-a}}
+{\lim_{x \to a } \frac{ g(x) - g(a)}{x-a}}
+\]
+
+\[ =
+\lim_{x \to a } \frac
+{ \frac{ f(x) - f(a)}{x-a}}
+{ \frac{ g(x) - g(a)}{x-a}}
+\]
+
+\[ =
+\lim_{x \to a } \frac
+{f(x) - f(a) }{g(x)-g(a)}
+\ \ \ \label{1}
+\]
+
+$x \to a$ iken $g(a)$ ve $f(a)$'nin sifira gittigini biliyoruz, tum bu
+islere girmemizin sebebi oydu zaten, o zaman 
+
+\[ =
+\lim_{x \to a } \frac
+{f(x) - 0 }{g(x)- 0} = 
+\lim_{x \to a }  \frac{f(x)  }{g(x)}
+\]
+
+Bir diger hesaplanamayan form $\infty/\infty$ icin de L'Hospital Kurali
+aynen gecerli. O formun ispati biraz daha cetrefil, ama kullanma baglaminda
+aynen isliyor. 
+
+Uyari: Eger $0/0$ ya da  $\infty/\infty$ durumu ortada yoksa L'Hospital
+Kuralini kullanmayin. Ispat da zaten boyle bir durumun oldugu bilgisinden 
+hareketle sonuca ulasiyor. 
+
+$\infty/\infty$ Durumu
+
+Bu ispat icin
+
+$L=\lim_{x \to \infty} f'(x)/g'(x)$ kabul edelim ve oyle bir $a$ secelim ki
+
+$\frac{f'(x)}{g'(x)} \stackrel{\approx}{\epsilon} L$, $x>a$. 
+
+olsun. 
+
+Not: Hocanin notasyonuna gore eger $a,b$ birbirlerine $\epsilon$ kadar
+yakinlarsa $a \stackrel{\approx}{\epsilon} b$ kullanilir.
+
+Simdi ispatin geri kalaninda su alttaki iki yaklasiksalligi ispat
+etmek bir yontemdir, ($x\gg 1$ olmak uzere)
+
+\[ 
+\frac{f(x)}{g(x)} \stackrel{\approx}{\epsilon}
+\frac{f(x)-f(a)}{g(x)-g(a)} \stackrel{\approx}{\epsilon}
+L
+ \]
+
+Ortadaki ifade (1)'e benziyor. Simdi ilk yaklasiksallik icin 
+
+\[ f(x) - f(a) = f(x) [ 1 - f(a)/f(x)]  \]
+
+yazariz. Bu basit bir cebirsel manipulasyon. Ayni seyi $g(x)$'li bolen icin
+de yapariz. Sonra limit teorisini kullaniriz. Bu yaklasiksalligin varligi bariz,
+cunku, herhangi bir $\epsilon$ icin $x_0$'i yeterince buyuk secebiliriz ki
+alttaki
+
+\[ 1 - \epsilon < \frac{1 -  f(a)/f(x)}{1-g(a)/g(x)} < 1 + \epsilon \]
+
+$x > x_0$ icin hep dogru olur. Unutmayalim, $f(x),g(x)$, $x\to \infty$ iken
+sonsuzluga gidiyorlar. Sabit bir $f(a),g(a)$ degerini sonsuza giden bir
+degerle bolunce ortaya sifir cikiyor, elde kalanlar yaklasiksal olarak $1/1$. 
+
+Ikinci yaklasiksallik icin, Cauchy Ortalama Deger Teorisi (Cauchy
+Mean-value Theorem) kullaniriz.  $a < c < x$ seklinde oyle bir $c$ vardir ki
+$(f(x) - f(a))g'(c) = (g(x)-g(a))f'(c)$ dogrudur. Yani
+
+\[ \frac{f(x)-f(a)}{g(x)-g(a)} = \frac{f'(c)}{g'(c)} \]
+
+ki bu ifade $L$'e  $\epsilon$ kadar yakindir.
+
+Kaynaklar
+
+[1] Thomas Calculus 11th Edition, sf. 292
+
+[2] Arthur Mattuck, Introduction to Analysis, sf. 220
+
+
+\end{document}
