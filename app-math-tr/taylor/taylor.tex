@@ -13,7 +13,54 @@
 \setlength{\mathindent}{0cm}
 
 \begin{document}
-Taylor Serisini Turetmek 
+Taylor Serisi
+
+Formul 
+
+\[ f(x) = \sum _{n=0}^{\infty} \frac{f^{n}(0)}{n!} x^n  \]
+
+Bu formule nasil ulasirim? Su sekildeki bir seri olsun
+
+\[ f(x) = a_0 + a_1x + a_2x^2 +a_3x^3 + ...   \]
+
+Usttekinin turevini alalim.  Tabii ki sabit $a_0$ yokolacak, $x$'in
+onundeki katsayi kalacak, vs. Sonuc
+
+\[ f' = a_1 + 2a_2x + 3a_3 x^2 + .. \]
+
+Birkac kez daha
+
+\[ f'' =  2a_2 + 3 \cdot 2 a_3 x + .. \]
+
+\[ f''' = 3 \cdot 2 a_3 + 4 \cdot 3 \cdot 2 a_4 x+ ... \]
+
+Eger son formule sifir verirsem, 3. terimi cimbizla cekip alabilirim
+
+\[ f'''(0) = 3 \cdot 2 a_3 \]
+
+Cunku geri kalan her sey sifir olup yokoldu, geriye sabitler kaldi. O zaman
+$a_3$'u elde etmek istiyorsam,
+
+\[ \frac{f'''(0)}{3 \cdot 2 \cdot 1}  = a_3\]
+
+Bir kalip ortaya cikmistir herhalde, genel olarak 
+
+\[ a_n = \frac{f^n(0)}{n!} \]
+
+\[ n! = n(n-1)(n-2)...1 \]
+
+Bu katsayilar Taylor formulunde $x_n$ onune gelecek katsayilardir. 
+
+O zaman 
+
+\[ f(x) = f(0) + f'(0)x + f'' \frac{x^2}{2!} + ...\]
+
+Daha genel olarak 0 yerine $a$ alirsak, $a$ yakinindaki fonksiyonun
+acilimini temsil edebiliriz
+
+\[ f(x) = f(a) + f'(a)(x-a) + f'' \frac{(x-a)^2}{2!} + ...\]
+
+Alternatif Turetim
 
 Taylor serilerinin arkasindaki fikir, surekli ve sonsuz defa turevi
 alinabilen turden bir fonksiyon $f(x)$'i bir $x_0$ noktasinin (burada $a$
@@ -94,9 +141,23 @@ farzederek Taylor serileri uzerinden $f(t+h)$'i gelistirmek suretiyle
 temsil edebiliriz. Eger $x = t+h$ ve $a = t$ alirsak alttaki orijinal
 Taylor serisini
 
-\[ f(x) = f (x_0)+(x-x_0) f'(x_0) + \frac1 2 (x-x_0)^2f''(x) + ...\]
+\[ f(x) = f (a)+(x-a) f'(a) + \frac1 2 (x-a)^2f''(x) + ...\]
 
-su sekle donusturebiliriz
+donusturebiliriz. Baslayalim,
+
+\[ x = t + h \Rightarrow h = x-t \]
+
+\[ t = a \]
+
+Once $a=t$ gecisini yapalim
+
+\[ f(t+h) = f(t) +  f'(t)(x-t) + f''(t)\frac{(x-t)^2}{2!} + ...\]
+
+Simdi $h = x-t$ gecisi
+
+\[ f(t+h) = f(t) +  f'(t)h + f''(t)\frac{(h)^2}{2!} + ...\]
+
+Boylece
 
 \[ f(t+h) = f (t)+h f'(t) + \frac 1 2 h^2 f''(t) + ...\]
 
@@ -115,6 +176,8 @@ olarak tanimindan hareketle). Biraz cebirsel manipulasyon yaparsak
 En son formulun Taylor serisi 1. derece acilimiyla ayni oldugu goruluyor. 
 
 Kaynak
+
+MIT OCW 18.01 Ders 38
 
 http://www.proofwiki.org/wiki/Taylor's\_Theorem
 
