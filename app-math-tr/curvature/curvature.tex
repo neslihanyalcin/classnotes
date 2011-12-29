@@ -12,6 +12,7 @@
 \usepackage{listings}
 
 \begin{document}
+Egim (Curvature)
 
 Kesit seviyeleri tekniginde bir egri normal formda degil, dolayli (implicit) bir
 fonksiyon ile $F(x,y) = 0$ olarak gosterilir. Bu fonksiyonun tam diferansiyelini
@@ -32,16 +33,19 @@ Simdi $y'$'in turevini bir daha alalim. Yukaridaki $y'$ formulunde en sag taraf
 bir bolme islemi icerdigi icin burada Calculus'un Bolumler Kuralini (Quotient
 Rule) uygulamamiz lazim. Bu kural soyle gosterilir:
 
-\[ \frac{d}{dx}\bigg(\frac{u}{v}\bigg) = \frac{\frac{v du}{dx} - \frac{u dv}{dx}}{v^2} \]
+\[ \frac{d}{dx}\bigg(\frac{u}{v}\bigg) = 
+\frac{\displaystyle \frac{v du}{dx} - \frac{u dv}{dx}}{v^2} \]
 
 Bolumler Kurali icin $u$ ve $v$ tanimlari nedir? 
 
 \[ u = -F_x(x,f(x))  \]
+
 \[ v = F_y(x,f(x)) \]
 
 O zaman
 
 \begin{equation} v \frac{du}{dx} = F_y \frac{dF_x}{dx} \label{eq1} \end{equation}
+
 \begin{equation} u \frac{dv}{dx} = -F_x \frac{dF_y }{dx} \label{eq2} \end{equation}
 
 Bunlardan mesela $dF_x/dx$ uzerinde Zincirleme Kanunu (Chain Rule) uygulamak
@@ -110,7 +114,8 @@ Bolen kismi nedir?
 Yerine koyarsak,
 
 \[ 
-\kappa = \frac{- \frac{F_y^2F_{xx} - 2F_{xy}F_xF_y + F_x^2F_{yy}}{F_y^3}}
+\kappa = \frac{\displaystyle
+- \frac{F_y^2F_{xx} - 2F_{xy}F_xF_y + F_x^2F_{yy}}{F_y^3}}
 {(F_y^2 + F_x^2)^{3/2}F_y^{-3}}
  \]
 
