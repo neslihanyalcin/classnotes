@@ -21,6 +21,31 @@
 \begin{document}
 Ders 1 
 
+Reel Cizgi 
+
+Reel sayilarin oldugu kume $\mathbb{R}$'ye geometrik bir acidan ``reel
+cizgi'' ismi de verilir. Reel cizgi uzerinde uzaklik kavrami, mesela iki
+nokta $x,y$ arasinda
+
+\[ d(x,y) = |x - y| \]
+
+olarak gosterilebilir. Uzaklik fonksiyonu $d$'nin ozellikleri sunlardir:
+
+1. $d(x,y) > 0$. Her uzaklik ya sifir, ya da pozitiftir. 
+
+2. $d(x,y) = 0$ eger $x=y$ ise. 
+
+3. $d(x,y) = d(y,x)$
+
+4. $d(x,y) \le d(x,z) + d(z,y)$. Bu esitsizlige ``ucgen esitsizligi
+(triangle inequality) ismi verilir. 
+
+\includegraphics[height=4cm]{1_03.png}
+
+Ozet olarak soylenmeye calisilan, $x,y$ arasinda ucuncu bir noktaya
+ziplanarak gidiliyorsa, bu mesafeyi arttirir, ve bu artis en az $x,y$
+arasindaki mesafe kadardir. Daha fazla da olabilir. 
+
 Diziler (Sequences)
 
 Bir dizi aslinda sadece bir listedir. Listede 1. eleman vardir, 2. eleman
@@ -199,7 +224,51 @@ dogrulugunu hesaplamak icin nadiren boyle bir yonteme basvurulur.
 
 Alt Dizinler (Subsequences) 
 
+\[ 1, -1, 2, -2, 3, -3, 4, -4, 5, -5, . . . \]
 
+seklindeki bir dizinin icinde iki tane daha dizin oldugu
+gorulebilir. Bunlardan biri
+
+\[ 1, 2, 3, 4, 5, ... \]
+
+Digeri 
+
+\[ -1, -2, -3, -4, -5, ... \]
+
+Bu dizin icinde dizin kavramini temsil etmek icin ``altdizin'' kelimesini
+kullanacagiz. Cogunlukla bir dizini incelemenin en iyi yolu onun
+altdizinlerine bakmaktir. Ama altdizinlerin daha derli toplu bir tanimi ne
+olabilir acaba? Ustte kabaca yaptigimiz kavramin formel matematiksel bir
+tanimina ihtiyacimiz var. 
+
+Tanim
+
+\[ s_1, s_2,s_3,s_4,...\]
+
+gibi herhangi bir dizini ele alalim. Altdizin ile 
+
+\[ s_{n_1},s_{n_2},s_{n_3},s_{n_4},... \]
+
+demek istiyoruz ki
+
+\[ n_1 < n_2 < n_3 < ... \]
+
+olmali, altdizinde kullanilan indekslerin her biri, bir oncekinden buyuk
+olmali. 
+
+\[ 1, 2, 3, 4, 5, ... \]
+
+dizini, 
+
+\[ 1, -1, 2, -2, 3, -3, 4, -4, 5, -5, . . . \]
+
+dizinin altdizini cunku orijinal dizinden cekip cikartilan elemanlarin
+indekleri $n_1=1,n_2 = 3,n_3 = 5$ seklinde. 
+
+Bolzano-Weierstrass Teorisi 
+
+Her sinirli (bounded) dizi icinde yaklasan (convergent) bir altdizi
+vardir. Teorinin ispatini burada vermeyecegiz. 
 
 Cauchy Kriteri 
 
@@ -226,64 +295,28 @@ Ispat
 
 Teorinin bu ogesi o kadar onemli ki kendine has yeni bir terminolojiyi hak
 ediyor. Ustteki ogeye uyan her diziye Cauchy dizisi adi veriliyor. Yani
-teori ``bir dizi sadece ve sadece Cauch dizisi ise yaklasiksaldir''
+teori ``bir dizi sadece ve sadece Cauchy dizisi ise yaklasiksaldir''
 diyor. Bu terminoloji daha ileri matematikte (mesela temel alinan kume reel
 sayilar degil, daha cetrefil uzaylar oldugu zaman) gecerli
 olmayabilecektir, ama bu durumda da gerektirdigi ek sartlar, ve ortaya
 koydugu ifadenin kesinligi cok onemlidir.
 
-Ispat biraz uzun, ve Bolzano-Weierstrass teorisini gerektirecek. 
+Ispat biraz uzun, ve Bolzano-Weierstrass teorisini gerektirecek. Bir
+yondeki ispat oldukca kolay. Farz edelim ki $\{s_n\}$ bir $L$ sayisina
+yaklasiyor. Diyelim ki $\epsilon > 0$. O zaman bir tam sayi $N$ olmali ki 
 
+\[ |s_k - L| < \frac{\epsilon}{2} \]
 
+ki $k \ge N$. Eger hem $m$ hem $n$ $N$'den buyuklerse, 
 
+\[ |s_n - s_m| \le |s_n - L| + |L - s_m| < 
+\frac{\epsilon}{2} + \frac{\epsilon}{2} <
+\epsilon
+\]
 
-
-
-
-
-
-
-
-\vspace{10cm}
-
-Eger $S$ kumesi ``yukaridan sinirlanmis (bounded from above)'' ise o zaman
-$x \in S$ icin oyle bir $y$ var demektir ki her $x$ icin $x \le y$
-olsun. Yani $S$ icindeki her deger bu $y$ degerinden kucuk olsun. Bu $x$
-degerine $S$'in supremum'u da deniyor, ve $\sup\limits_{x \in S}(x)$ ya da
-$sup\{x:x \in S\}$ olarak gosterilebiliyor. Benzer sekilde kumenin en alt
-siniri, yani infimum degeri $\inf\limits_{x \in S}(x)$ ya da $inf\{x:x \in
-S\}$ olarak gosteriliyor. 
-
-Eger elimizde bir seri (sequence) var ise o zaman sartlari biraz daha
-gevsetmek iyidir, burada limit superior kavrami devreye girer. Inf ve sup
-degerleri alti / ustu deger olamaz, ama limit superior oyle bir sayidir ki
-onun sonrasinda sonlu (finite) / belli sayida kume ogesi olmasina izin
-verilir. Limit superior aslinda bir serinin yaklastigi (converge) degerden
-baskasi degildir. 
-
-\includegraphics[height=1.5cm]{1_01.png}
-
-\includegraphics[height=3cm]{1_02.png}
-
-Formel olarak diyelim ki $\{x_n\}$ bir seri, ve diyelim ki bir reel
-sayi $S$ var, ki bu reel sayi su sartlari tatmin ediyor 
-1) Her $\epsilon > 0$ icin bir $N$ var, oyle ki her $n>N$ icin $x_n
-< S + \epsilon$ 
-ve 2) her $\epsilon > 0$ ve $M>0$ icin bir  $n>M$ var ki $x_n
-> S - \epsilon$. O 
-zaman $S$ sayisina  $\{x_n\}$ serisinin limit superior'u denir. 
-
-Bu tanimin soylemeye calistigi serinin yaklastigi degerden sonra ve once
-sonlu buyuklukte (bir pencere tanimlarsak bu pencere icinde sonlu sayida
-eleman olacaktir (sonsuz degil). Bu pencerenin tanimlanabiliyor olmasi,
-onun makul bir noktada olmasini gerektirir, ki bu nokta da yaklasilan
-degerden baskasi degildir. 
-
-Limit inferior bunun tersidir, 
-
-\[ \lim \inf x_n  = -\lim \sup(-x_n)\]
-
-
+Ustteki ilk esitsizlik / acilim ucgen esitsizliginden ortaya cikiyor. Bu
+esitsizlikten ortaya cikan iki yeni terimin hangi degerlere sahip oldugunu
+biliyoruz, yerlerine koyunca $\epsilon$ elde ediyoruz. 
 
 
 
