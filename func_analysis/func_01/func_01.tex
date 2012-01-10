@@ -336,20 +336,41 @@ Ustteki ilk esitsizlik / acilim ucgen esitsizliginden ortaya cikiyor. Bu
 esitsizlikten ortaya cikan iki yeni terimin hangi degerlere sahip oldugunu
 biliyoruz, yerlerine koyunca $\epsilon$ elde ediyoruz. 
 
-Simdi daha zor olan ikinci bolume gelelim. Bu bolumun ispati icin yine iki
-alt bolum lazim. 
+Simdi daha zor olan ikinci bolume gelelim. Bu bolumun ispati icin, uc
+tane alt bolum lazim. 
 
 Once her Cauchy dizisinin sinirli oldugunu iddia ediyoruz. Ispat icin
 ustteki sinirli diziler hakkindaki teoriye basvururuz, her yaklasan dizi
 sinirlidir, her Cauchy dizisi bir degere yaklastigina gore, o zaman her
 Cauchy dizisi sinirlidir.
 
-Ikinci bolum icin yaklasik (sinirli) $\{s_n\}$ dizisine Bolzano-Weierstrass
+Ikinci alt bolum icin yaklasik (sinirli) $\{s_n\}$ dizisine Bolzano-Weierstrass
 teorisi uygulayarak yaklasik bir alt dizin $\{s_{n_k}\}$ elde ediyoruz. 
 
+Ucuncu alt bolum Cauchy dizilerinin dogal bir sonucu aslinda. Eger
+ $s_{n_k}
+\to L$ oldugunu biliyorsak, ve $\{s_n\}$'nin Cauchy oldugunu biliyorsak, o
+zaman $s_n \to L$ oldugunu gosterebiliriz. $\epsilon > 0$ olsun, ve $N$'i
+oyle secelim ki, tum $n,m \ge N$ icin
 
+\[ |s_n - s_m| < \epsilon/2 \]
 
+Sonra $K$'yi oyle secelim ki, her $k \ge K$ icin
 
+\[ |s_{n_k} - L| < \epsilon/2 \]
+
+olsun. Diyelim ki $n \ge N$. Simdi $m$'i $n_k$'nin $N$'den buyuk olan herhangi
+bir degerine esitleyelim ki $k \ge K$ olsun. Bu deger icin $s_m =
+s_{n_k}$'dir. 
+
+\[ |s_n - L| \ge |s_n - s_{n_k}| + |s_{n_k} - s_n| < 
+\epsilon/2 + \epsilon/2 = \epsilon 
+\]
+
+Birinci esitsizlik, ucgen esitsizliginden geliyor. Daha sonra elde edilen
+terimlerin bildigimiz degerlerini yerine koyuyoruz, $s_n \to L$ oldugunu
+goruyoruz (ustteki formulun basi ve sonunu birlestirirsek, elde ettigimiz
+sonuc). Ispat tamamlandi. 
 
 
 
