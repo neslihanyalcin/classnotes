@@ -21,7 +21,58 @@
 \begin{document}
 Ders 2
 
-Tanim: Tamamlilik (Completeness) 
+Sureklilik
+
+Tanim
+
+$S \subset \mathbb{R}$, $f: S \to \mathbb{R}$ bir fonksiyon olsun, ve $c
+\in S$ bir sayi olsun. 
+``$f$'in $c$'de surekli oldugu'' soylenir, su durumda: Eger her
+$\epsilon>0$ icin bir $\delta > 0$ var ise, oyle ki ne zaman $x \in S$ ve $|x-c| < \delta$
+ise, o zaman $|f(x) - f(c)| < \epsilon$ dogrudur. 
+
+Eger  $f: S \to \mathbb{R}$ her $c \in S$ icin dogru ise, yani bir $c$
+noktasi degil tum $c$'ler icin gecerli ise, o zaman $f$'in surekli oldugunu
+soyleriz. Yani nokta belirtmeye ihtiyac kalmaz. 
+
+Ustteki tanim Analizde dogru anlasilmasi gereken en onemli teorilerden
+biridir, ve anlamasi pek kolay degildir. Dikkat edilirse $\delta$ hem
+$\epsilon$'a hem de $c$'ye baglidir. Yani her $c \in S$ icin ayni $\delta$
+secmemek gerekir. 
+
+Surekli fonksiyon taniminin limitlerin tanimina benziyor olmasi bir
+raslanti degil, surekli fonksiyonlarin onemli bir ozelligi zaten onlarin
+duzgun limitleri olan kurgular olmalaridir. 
+
+Lipschitz Surekliligi 
+
+Tanim 
+
+$f: S \to \mathbb{R}$ oldugunu kabul edelim, ve oyle bir $K$ sayisi olsun ki $S$
+icindeki her $x$ ve$y$ icin 
+
+\[ |f(x) - f(y)| \le K|x-y| \]
+
+ifadesi dogru olsun. O zaman $f$'in ``Lipschitz Surekli'' oldugu soylenir. 
+
+Cok genis bir fonksiyon kategorisi Lipschitz sureklidir. 
+
+Teori 
+
+Bir Lipschitz surekli fonksiyon tutarli / ayni / esit (uniform) sekilde
+sureklidir.
+
+Ispat
+
+
+
+
+
+
+
+Tamamlilik (Completeness) 
+
+Tanim
 
 Bir metrik uzayi $(X,d)$ tamamdir (complete) eger $X$ alanindaki her Cauchy
 serisi (o da $X$ icinde olan) bir ogeye yaklasiyor ise. 
@@ -31,6 +82,7 @@ $\mathbb{R}$ uzayinin ``tamam'' oldugunu gorebiliriz. Cunku her Cauchy
 dizisinin $\mathbb{R}$'de yakinlastigini biliyoruz, ayrica bir bir reel sayiya
 yaklasildigini biliyoruz. Bu reel sayi $L$'in kendisi de zaten $\mathbb{R}$ icinde
 olduguna gore, $\mathbb{R}$ uzayi tamamdir. 
+
 
 Inf ve Sup
 
