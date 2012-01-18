@@ -187,16 +187,16 @@ tasinirsa (translate), ortaya cikan denklem yeni bir cozumdur.
 b) Cozumun her turevi, mesela $u_x$, $u_t$, $u_{xx}$ gibi, yeni bir
 cozumdur. 
 
-c) Cozumlerin lineer kombinasyonlari yeni bir cozumdur. Bu lineerligin bir
-sonucu zaten.
+c) Cozumlerin lineer kombinasyonlari yeni bir cozumdur. Bu lineerligin
+dogal bir sonucu zaten.
 
 d) Iki cozumun entegrali bir cozumdur, mesela $S(x,t)$ bir cozum ise, o
-zaman $S(x-y,t)$ de bir cozumdur ((a)'nin soyledigi gibi), o zaman
+zaman $S(x-y,t)$ de bir cozumdur -(a)'da soylendigi gibi-, o zaman
 
 \[ v(x,t) = \int_{-\infty}^{\infty}S(x-y,t)g(y) dy   \]
 
-bir cozumdur. Aslinda bu beyan, (c)'nin limite gidiyorkenki versiyonu,
-sekli.
+bir cozumdur. Aslinda bu beyan, (c)'nin limite gidiyor iken olan versiyonu
+/ sekli.
 
 e) Eger $u(x,t)$ yayilim denkleminin bir cozumu ise, o zaman genisletilmis
 (dilated) fonksiyon $u(\sqrt{a} x, at)$ da, herhangi bir $a>0$ icin, bir
@@ -320,7 +320,6 @@ ederiz.
 
 \[ Q(x,t) = g(p) = c_1 \int e^{-p^2} dp + c_2 \]
 
-
 3. Adim 
 
 Bu adimda $Q$ icin nihai bir formul uretmeye ugrasacagiz. Ustteki formul
@@ -337,10 +336,71 @@ Eger $x>0$ ise
 c_1 \frac{\pi}{2} + c_2
  \]
 
-Eger  $p = x/\sqrt{4kt}$ ise 
 
+Eger $x<0$ ise
 
+\[ 0 = \lim_{t \to 0} Q = 
+ c_1 \int_0^{-\infty} e^{-p^2} dp + c_2 = 
+-c_1 \frac{\pi}{2} + c_2
+ \]
 
+Not: $\int_0^{-\infty} e^{-p^2} dp$ entegralinin niye $\pi/2$ sonucunu
+verdigini ``$e^{-x^2}$ Nasil Entegre Edilir?'' yazisinda bulabilirsiniz. 
+
+Boylece katsayilar $c_1 = 1/\pi$ ve $c_2 = 1/2$ sonuclarina erisiyoruz. O
+zaman $Q$ su fonksiyon olmali
+
+\[ Q(x,t) = 
+\frac{1}{2} + \frac{ 1}{\sqrt{\pi}} \int _{0}^{x/\sqrt{4kt}} e^{-p^2} dp
+ \]
+
+$t>0$ olmak uzere. Bu sonucun ana PDE denklemi, (6) ve (7) denklemlerini
+tatmin ettigine dikkat. 
+
+4. Adim
+
+$Q$'yu bulduktan sonra simdi $S = \partial Q/\partial x$ tanimini
+yapalim. (b) ozelligi uzerinden $S$'nin ayni zamanda ana denklemin bir
+cozumu oldugunu biliyoruz. Herhangi bir fonksiyon $\phi$ icin, ayrica sunu
+da tanimliyoruz. 
+
+\[ u(x,t) = \int _{-\infty}^{\infty} S(x-y,t) \phi(y)dy 
+\ \ \ \label{8}
+\]
+
+$t>0$ icin. (d) ozelligi uzerinden $u$, PDE icin yeni bir cozumdur. Biz ek
+olarak sunu iddia ediyoruz ki $u$ tek / ozgun (unique) cozumdur. PDE'nin ve
+sinir sartinin cozum icin dogru olup olmadigini kontrol etmek icin 
+
+\[ u(x,t) = \int _{-\infty}^{\infty} 
+\frac{\partial Q}{\partial x}(x-y,t)\phi(y)dy
+\]
+
+\[ = -\int _{-\infty}^{\infty} 
+\frac{\partial }{\partial x}[Q(x-y,t)]\phi(y)dy
+  \]
+
+Parcalarla entegral (integration by parts) uyguladiktan sonra 
+
+\[ 
+=  + \int _{-\infty}^{\infty} 
+Q(x-y,t)\phi'(y)dy - 
+Q(x-y,t)\phi(y) \bigg| _{y=-\infty}^{y=+\infty}
+  \]
+
+Limitlerin yokolacagini farzediyoruz. Ozelde, gecici olarak $\phi(y)$'nin
+buyuk $|y|$ degerleri icin sifira esit olacagini farzedelim. O zaman 
+
+\[ u(x,0) = 
+\int _{-\infty}^{\infty} Q(x-y, 0) \phi'(y)dy 
+ \]
+
+\[ 
+= \int _{-\infty}^{\infty} \phi'(y)dy = \phi \bigg| _{-\infty}^{x} = \phi(x)
+ \]
+
+Usttekinin sonucun sebebi $Q$ icin farzettigimiz baslangic sartlari, ve
+$\phi(-\infty) = 0$ faraziyesi. Bu PDE'nin sinir sarti. 
 
 
 
