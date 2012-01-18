@@ -400,7 +400,25 @@ buyuk $|y|$ degerleri icin sifira esit olacagini farzedelim. O zaman
  \]
 
 Usttekinin sonucun sebebi $Q$ icin farzettigimiz baslangic sartlari, ve
-$\phi(-\infty) = 0$ faraziyesi. Bu PDE'nin sinir sarti. 
+$\phi(-\infty) = 0$ faraziyesi. Bu PDE'nin sinir sarti. (8)'in cozum
+formulu oldugunu anliyoruz, ki 
+
+\[ S = \frac{\partial Q}{\partial x} = \frac{ 1}{2\sqrt{\pi kt}} 
+e^{ -x^2 / 4kt}
+\]
+
+$t>0$ icin. Yani 
+
+\[ u(x,t) = 
+ \frac{ 1}{2\sqrt{\pi kt}} 
+\int _{-\infty}^{\infty} e^{-(x-y)^2 / 4kt} \phi(y) dy
+ \]
+
+$S(x,t)$ literaturde {\em kaynak fonksiyonu} (source function), {\em Green'in
+fonksiyonu}, {\em temel cozum} (fundamental solution), {\em gaussian}, ya
+da {\em aktarici / yayici} (propagator) ya da {\em yayilim} (diffusion) denklemi
+olarak bilinir. Ya da basitce yayilim cekirdegi (diffusion kernel). Formul
+sadece $t>0$ icin bir cozum verir, $t=0$ icin anlamsizdir. 
 
 
 
