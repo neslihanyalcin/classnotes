@@ -1,18 +1,18 @@
 
-ODE, Cok Degiskenli Calculus, Lineer Cebir, Hesapsal Bilim, Istatistik
-video derslerinden, ya da ders kitaplarindan alinan notlarin Latex ile
-yazilmis ve PDF olarak uretilmis dosyalari. Matematik ve uygulamali
-matematik hakkinda yazilmis bazi yazilarimiz da depoda
-bulunabilir. Ornek Python kodlari gerektigi yerde yazilar ile beraber
-ayni dizinde olacaktir. 
+ODE, Cok Degiskenli Calculus, Lineer Cebir, Hesapsal Bilim,
+Istatistik, Fonksiyonel Analiz[ video derslerinden, ya da ders
+kitaplarindan alinan notlarin Latex ile yazilmis ve PDF olarak
+uretilmis dosyalari. Matematik ve uygulamali matematik hakkinda
+yazilmis bazi yazilarimiz da depoda bulunabilir. Ornek Python kodlari
+gerektigi yerde yazilar ile beraber ayni dizinde olacaktir.
 
 ---
 
 Here are lecture notes in ODE, Multivariate Calculus, Linear Algebra,
-Computational Science, Statistics classes written in Latex, in Turkish
-with their generated PDF files. There is also a small handbook of
-collected math, applied math articles. All necessary Python code is
-also shared[ in the same directory as the article / classnote.
+Computational Science, Statistics, Functional Analysis classes written
+in Latex, in Turkis. There is also a small handbook of collected math,
+applied math articles. All necessary Python code is also shared[ in
+the same directory as the article / classnote.
 
 --
 
@@ -33,5 +33,7 @@ http://dl.dropbox.com/u/1570604/skfiles/multivar_calculus.pdf
 http://dl.dropbox.com/u/1570604/skfiles/stat.pdf
 
 http://dl.dropbox.com/u/1570604/skfiles/pde.pdf
+
+http://dl.dropbox.com/u/1570604/skfiles/functional_analysis.pdf
 
 
