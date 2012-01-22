@@ -410,6 +410,57 @@ Ana formulun kismi turevinde ustteki formulu yerine koyalim
 1 + 2z
  \]
 
+Soru 2J-4 b)
+
+\[ w = x^3y - z^2t, \ \ xy = zt\]
+
+icin
+
+\[ \bigg( \frac{\partial w}{\partial t}  \bigg)_{x,z}  \]
+
+hesabini yap, tam diferansiyel teknigini kullan. 
+
+Cevap
+
+Cozum icin her iki denklemin tam diferansiyelini alacagiz. Bagimli,
+bagimsiz bilgisi ise ``diferansiyel yerine gecirme'' uyguladigimizda ise
+yarayacak, yani daha once duz degisken uzeinden yaptigimiz degisimi, simdi
+diferansiyeller uzerinden yapacagiz. Tam diferansiyeli mekanik bir sekilde
+once yazalim
+
+\[ dw = w_x dx + w_y dy + w_z dz + w_t td \]
+
+Gerekli kismi turevleri alalim
+
+\[ = 3x^2y dx + x^3dy - 2zt dz + -z^2 dt\]
+
+Aynisi ikinci denklem icin 
+
+\[ y dx + x dy = t dz + z dt \]
+
+Bizden istenene gore $t,x,z$'nin bagimsiz, geri kalan $y$'nin bagimli
+oldugunu anliyoruz. O zaman ustteki formulde $dy$'yi yanliz birakirsak ve
+ana tam diferansiyel icinde yerine koyarsak, istedigimiz sonuca
+erisecegiz. 
+
+\[ y dx  = t dz + z dt = x dy\]
+
+Yerine koyalim, ve gruplayalim
+
+\[ = 3x^2ydx + x^2(tdz + zdt - ydx) - 2ztdz - z^2dt \]
+
+\[ = (3x^2y  - x^2y)dx + (x^2t-2zt)dz + (x^2z-z^2)dt  \]
+
+\[ = (2x^2y) dx + (x^2t-2zt) dz + (x^2z-z^2)dt  \]
+
+Aradigimiz kismi turev $t$'ye gore, o zaman ustteki tam diferansiyel
+aciliminda $dt$'nin katsayisina bakacagiz. Orada $x^2x-z^2$ yaziyor, demek
+ki aradigimiz sonuc bu. 
+
+\[ \bigg( \frac{\partial w}{\partial t}  \bigg)_{x,z} = x^2x-z^2 \]
+
+
+
 
 
 
