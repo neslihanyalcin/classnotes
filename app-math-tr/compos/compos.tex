@@ -1,0 +1,89 @@
+\documentclass[12pt,fleqn]{article}
+\setlength{\parindent}{0pt}
+\usepackage{graphicx}
+\usepackage{cancel}
+\usepackage{listings}
+\usepackage[latin5]{inputenc}
+\usepackage{color}
+\setlength{\parskip}{8pt}
+\setlength{\parsep}{0pt}
+\setlength{\headsep}{0pt}
+\setlength{\topskip}{0pt}
+\setlength{\topmargin}{0pt}
+\setlength{\topsep}{0pt}
+\setlength{\partopsep}{0pt}
+\setlength{\mathindent}{0cm}
+\usepackage{latexsym}
+\usepackage{amsfonts}
+\usepackage{showkeys}
+\renewcommand*\showkeyslabelformat[1]{(#1)}
+
+\begin{document}
+Icice Fonksiyonlar (Composite Functions)
+
+\[ y = \frac{3}{2}x = \frac{1}{2}3x \]
+
+bir icice fonksiyon olarak gorulebilir. 
+
+\[ y = \frac{1}{2}u, \ u=3x \]
+
+dersek, $y$ icindeki $u$ bir baska fonksiyon olabilir. Yani aslinda 
+
+\[ y = f(u) \]
+
+\[ u = g(x) \]
+
+Yani
+
+\[ y = f(g(x)) \]
+
+Ustteki form bazen 
+
+\[ y = f \circ g \]
+
+olarak ta gosterilebiliyor. 
+
+Zincirleme Kanunu (Icice Fonksiyonlar Icin)
+
+Eger $f(u)$, $u=g(x)$ noktasinda, ve $g(x)$, $x$ noktasinda turevi
+alinabilir durumda ise, o zaman icice fonksiyon $(f \circ g)(x) = f(g(x))$
+$x$ noktasinda turevi alinabilir demektir, ve
+
+\[ (f \circ g)'(x) = f'(g(x)) \cdot g'(x) \]
+
+dogru olacaktir. Leibniz notasyonu ile 
+
+\[ \frac{ dy}{dx} = \frac{ dy}{du} \cdot \frac{ du}{dx} \]
+
+Ustteki formulu kesirlerin carpimi olarak gormek kismen dogru olabilir, en
+azindan hatirlamak icin iyi, ama formel ispat baska sekilde yapiliyor,
+detaylar icin [2] ve ``$dy/dx$ bir kesir olarak gorulebilir mi?'' yazisina
+bakabilirsiniz.
+
+Turev alirken $'$ isaretinin kullanilabilme sebebi fonksiyonda tek degisken
+oldugu zaman neye gore turev alindiginin bariz olmasi.
+
+Ornek 
+
+Basta verilen ornek icin $dy/dx$' i bulun. 
+
+\[ \frac{ dy}{dx} = \frac{ 3}{2}, \
+\frac{dy}{du} = \frac{ 1}{2}, \
+\frac{ du}{dx} = 3
+ \]
+
+\[ \frac{ dy}{dx} = \frac{ dy}{du} \cdot \frac{ du}{dx} \]
+
+O zaman 
+
+\[ \frac{ 1}{2} \cdot 3 = \frac{ 3}{2} \]
+
+
+Kaynaklar 
+
+[1] Thomas Calculus 11th Edition, pg 227
+
+[2] Thomas Calculus 11th Edition, pg 191
+
+
+\end{document}
