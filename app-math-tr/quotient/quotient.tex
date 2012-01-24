@@ -1,0 +1,73 @@
+\documentclass[12pt,fleqn]{article}
+\setlength{\parindent}{0pt}
+\usepackage{graphicx}
+\usepackage{cancel}
+\usepackage{listings}
+\usepackage[latin5]{inputenc}
+\usepackage{color}
+\setlength{\parskip}{8pt}
+\setlength{\parsep}{0pt}
+\setlength{\headsep}{0pt}
+\setlength{\topskip}{0pt}
+\setlength{\topmargin}{0pt}
+\setlength{\topsep}{0pt}
+\setlength{\partopsep}{0pt}
+\setlength{\mathindent}{0cm}
+\usepackage{latexsym}
+\usepackage{amsfonts}
+\usepackage{showkeys}
+\renewcommand*\showkeyslabelformat[1]{(#1)}
+
+\begin{document}
+Turev Alirken Bolum Kurali (Quotient Rule)
+
+Bolum kurali soyle gosterilir 
+
+\[ \frac{ u(x)}{v(x)} = \frac{u(x)'v(x) - u(x)v(x)'}{v(x)^2} \]
+
+Ya da $x$ gostermeden
+
+\[ \frac{ u}{v} = \frac{u'v - uv'}{v^2} \]
+
+Bu formulu hatirlamak biraz zor gelebilir. Eger hatirlamiyorsak hatirlamasi
+daha basit olan Carpim Kurali (product rule) uzerinden
+turetebiliriz. Carpim kurali bildigimiz gibi
+
+\[ (uv)' = u'v + uv' \]
+
+Burada bir numara yaparak 
+
+\[ (u \ \frac{ 1}{v})' \]
+
+uzerinde Carpim Kuralini kullanarak turev alacagiz, boylece otomatik olarak
+arka planda aslinda $u/v$'nin turevini aldirtmis olacagiz. 
+
+\[ \bigg(u \ \frac{ 1}{v}\bigg)' = 
+u \bigg(\frac{1}{v}\bigg)' + u' \bigg(\frac{1}{v}\bigg)
+\]
+
+Bu arada
+
+\[ \bigg(\frac{ 1}{v}\bigg)'  = -\frac{v'}{v^2} \]
+
+Bolumde $v'$ var, cunku unutmayalim $v$ aslinda $v(x)$, o zaman ana
+formulde yerine koyalim
+
+\[  = 
+-u\frac{v'}{v^2}  + u' \bigg(\frac{1}{v}\bigg)
+\]
+
+\[  = 
+\frac{u' }{v} -\frac{uv'}{v^2}
+\]
+
+
+Birinci terimde bolum ve boleni $v$ ile carpalim, ki iki terimi
+birlestirebilelim, 
+
+\[  = 
+\frac{u'v }{v^2} -\frac{uv'}{v^2} = 
+\frac{u'v-uv'}{v^2}
+\]
+
+\end{document}
