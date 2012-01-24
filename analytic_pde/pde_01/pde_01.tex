@@ -13,6 +13,10 @@
 \setlength{\topsep}{0pt}
 \setlength{\partopsep}{0pt}
 \setlength{\mathindent}{0cm}
+\usepackage{latexsym}
+\usepackage{amsfonts}
+\usepackage{showkeys}
+\renewcommand*\showkeyslabelformat[1]{(#1)}
 
 \begin{document}
 Analitik PDE - Ders 1
@@ -117,8 +121,8 @@ kategorinin ornekleri olarak gorecegiz.
 Simdi PDE'lerin ortaya ciktigi cok basit bir ornegi gorelim. 
 
 Elimizde bir $\Omega$ bolgesi / alani oldugunu hayal edelim, ki $\Omega \in
-\Re^n$ olsun, 
-yani alttaki resimde cizdigimiz $\Re^2$.
+\mathbb{R}^n$ olsun, 
+yani alttaki resimde cizdigimiz $\mathbb{R}^2$.
 
 Yine diyelim ki bu $\Omega$ bolgesinin etrafinda bir tur siviyla kapli, ve
 bu sivi hareket ediyor. Bu hareketi sabit bir hiz vektor alani olarak
@@ -126,7 +130,7 @@ gosteriyoruz.
 
 \includegraphics[height=2cm]{1_1.png}
 
-$\Re^n$'deki bu sabit hiz alanini $\vec{V}$ olarak gosterelim. $\vec{V}$'nin vektor isaretini 
+$\mathbb{R}^n$'deki bu sabit hiz alanini $\vec{V}$ olarak gosterelim. $\vec{V}$'nin vektor isaretini 
 koyduk, ama ileride bunu yapmayabiliriz, ama anlatimin cercevesinden bir
 seyin  vektor olup olmadigini anlamak kolay. 
 
@@ -179,10 +183,10 @@ Simdi Ileri Calculus'tan hatirlayabileceginiz bir kural
 
 Gauss'un Teorisi
 
-$F: \Re^n \to \Re^n$ uzerinde tanimli herhangi bir vektor alani icin,
+$F: \mathbb{R}^n \to \mathbb{R}^n$ uzerinde tanimli herhangi bir vektor alani icin,
 $x
 \mapsto F(x)$ olmak uzere, $\mapsto$ isareti eslenme (maps to) anlamina
-geliyor, $\Omega \subset \Re^n$ bolgesi var ise, ve bu vektor alani
+geliyor, $\Omega \subset \mathbb{R}^n$ bolgesi var ise, ve bu vektor alani
 puruzsuz (smooth) bir vektor alani ise (bu vektor bilesenlerinin
 turevi alinabilir fonksiyonlar oldugunu soyler), o zaman su da
 dogrudur. Vektor alaninin sapmasini (divergence) entegre ediyorum, 
@@ -217,7 +221,7 @@ Esitligin solundaki turevi alip, sag tarafi sola tasiyalim
 \bigg)dx = 0
  \]
 
-$\Omega$ isareti $\Re^n$ icinde herhangi bir hacim ise (iki boyutta bir
+$\Omega$ isareti $\mathbb{R}^n$ icinde herhangi bir hacim ise (iki boyutta bir
 alan, 3 boyutta hacim), bu hacimi sonsuz kuculttugumuzde artik su ifadenin 
 
 \[ \partial_t \rho + \nabla \cdot (\rho \vec{v})  = 0 \]

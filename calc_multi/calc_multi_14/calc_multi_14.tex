@@ -459,6 +459,48 @@ ki aradigimiz sonuc bu.
 
 \[ \bigg( \frac{\partial w}{\partial t}  \bigg)_{x,z} = x^2x-z^2 \]
 
+Soru 2K-3 a)
+
+Laplace Denklemi iki boyutta soyle
+
+\[ \frac{\partial^2 w}{\partial x^2} + 
+\frac{\partial^2 w}{\partial y^2}  = 0
+ \]
+
+Diyelim ki su formda olmak uzere
+
+\[ w = ax^2 + bxy + cy^2 \]
+
+tum cozumleri istiyoruz. Bu cozumu bulduktan sonra cozumun $c_1f_1(x,y) +
+c_2f_2(x,y)$ 
+olarak temsil edilebilecegini gosterin, ki $c_1,c_2$ rasgele
+birer sabit ve $f_1,f_2$ ozel birer polinom. Yani cozum $f_1,f_2$'nin
+lineer bir kombinasyonu olabilmeli.
+
+Cozum 
+
+\[ w_{xx} = \frac{\partial }{\partial x} (2ax + 4) = 2a \]
+
+\[ w_{yy} = \frac{\partial }{\partial y} (2cy) = 2c \]
+
+Eger Laplace'a gore $w_{xx} + w_{yy} = 0$ olmasi gerekiyorsa,
+
+\[ 2a + 2c = 0 \]
+
+\[ a = -c \]
+
+olmali. Simdi ana formulde $a$ yerine $-c$ koyalim. 
+
+\[ ax^2 + bxy -ay^2 \]
+
+\[ = a(x^2-y^2) + bxy \]
+
+Ustteki formul iki polinomun lineer kombinasyonu formatina girdi bile. Iki
+rasgele sabiti $a,b$ olarak gorebiliriz, ve iki polinom
+
+\[ f_1 = x^2-y^2 \]
+
+\[ f_2 = xy \]
 
 
 

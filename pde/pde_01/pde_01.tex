@@ -13,6 +13,10 @@
 \setlength{\topsep}{0pt}
 \setlength{\partopsep}{0pt}
 \setlength{\mathindent}{0cm}
+\usepackage{latexsym}
+\usepackage{amsfonts}
+\usepackage{showkeys}
+\renewcommand*\showkeyslabelformat[1]{(#1)}
 
 \begin{document}
 Ders 1
@@ -155,7 +159,7 @@ Diyelim ki PDE'nizi soyle yazdiniz
 
 \[\mathcal{L}u = f(\vec{x}) \]
 
-Burada $u$ bagimli degisken, $\vec{x}$ bir vektor, $\vec{x} \in \Re ^n$, ve
+Burada $u$ bagimli degisken, $\vec{x}$ bir vektor, $\vec{x} \in \mathbb{R} ^n$, ve
 bu vektorun icinde birden fazla degisken var, bu degiskenlerin hepsi
 bagimsiz.
 
@@ -176,7 +180,7 @@ sonucunu verecek $u$ hangisidir?'' sorusudur.
 
 Bu analojiden devam etmek gerekirse, belli bir noktada $u$'nun icinde
 oldugu ``fonksiyon uzayi'' hakkinda dusunmemiz gerekebilir, $\vec{x}$'in
-icinde oldugu $\Re^n$ uzayi gibi. Lineer cebir durumunda operatorun
+icinde oldugu $\mathbb{R}^n$ uzayi gibi. Lineer cebir durumunda operatorun
 ozelliklerine bakilir, mesela `` $b$'nin icinde oldugu ve $A$ operatoru
 uygulanip hic sonuc alinamayacak uzayin belli kisimlari var
 midir?'' gibi sorularla ugrasilabilir, bunlar $A$'nin ``ulasamadigi
@@ -249,7 +253,7 @@ olanlari degil.
 
 Faraziyeye devam edelim, diyelim ki $V$ icinde bir baz (basis) var. Baz
 nedir? Lineer cebirden hatirlayalim, mesela uc boyutlu Oklidsel (Euclidian)
-uzayi $\Re^3$. 
+uzayi $\mathbb{R}^3$. 
 
 \includegraphics[height=4cm]{1_6.png}
 

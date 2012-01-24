@@ -13,6 +13,10 @@
 \setlength{\topsep}{0pt}
 \setlength{\partopsep}{0pt}
 \setlength{\mathindent}{0cm}
+\usepackage{latexsym}
+\usepackage{amsfonts}
+\usepackage{showkeys}
+\renewcommand*\showkeyslabelformat[1]{(#1)}
 
 \begin{document}
 Monte Carlo, Entegraller, MCMC
@@ -24,7 +28,7 @@ ornek, mesela bir dagilimin baska bir fonksiyon ile carpiminin beklentisini
 
 \[ E(f) = \int p(x)f(x)dx \]
 
-entegralidir, $x \in \Re^n$, $p(x)$ dagilim fonksiyonu, $f(x)$ herhangi bir
+entegralidir, $x \in \mathbb{R}^n$, $p(x)$ dagilim fonksiyonu, $f(x)$ herhangi bir
 baska fonksiyon olmak uzere, o zaman tum $x$ degerlerini goz onune alarak
 (ayriksal baglamda ya teker teker gecerek, ya da analitik olarak) entegral
 hesabini yapmak gerekecekti.

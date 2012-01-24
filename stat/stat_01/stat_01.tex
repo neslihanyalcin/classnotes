@@ -13,6 +13,10 @@
 \setlength{\topsep}{0pt}
 \setlength{\partopsep}{0pt}
 \setlength{\mathindent}{0cm}
+\usepackage{latexsym}
+\usepackage{amsfonts}
+\usepackage{showkeys}
+\renewcommand*\showkeyslabelformat[1]{(#1)}
 
 \begin{document}
 Ders 1
@@ -64,7 +68,7 @@ olasiligini, $A^c$'yi hesaplamak, ve onu 1'den cikartmaktir. $^c$ sembolu
 
 Rasgele Degiskenler (Random Variables)
 
-Bir rasgele degisken $X$ bir eslemedir, ki bu esleme $X: \Omega \to \Re$
+Bir rasgele degisken $X$ bir eslemedir, ki bu esleme $X: \Omega \to \mathbb{R}$
 her sonuc ile bir reel sayi arasindaki eslemedir. 
 
 Olasilik derslerinde bir noktadan sonra artik ornekleme uzayindan
@@ -92,7 +96,7 @@ Toplamsal Dagilim Fonksiyonu (Cumulative Distribution Function -CDF-)
 
 Tanim
 
-$X$ rasgele degiskeninin CDF'i $F_X: \Re \to [0,1]$ tanimi
+$X$ rasgele degiskeninin CDF'i $F_X: \mathbb{R} \to [0,1]$ tanimi
 
 \[ F_X(x) = P(X \ge x) \]
 
@@ -187,10 +191,10 @@ $X \sim N(\mu, \sigma^2)$ ve PDF
 
 \[ f(x) = \frac{1}{\sigma\sqrt{2\pi}} 
 exp \bigg\{ - \frac{1}{2\sigma^2}(x-\mu)^2  \bigg\}
-, \ x \in \Re
+, \ x \in \mathbb{R}
 \]
 
-ki $\mu \in \Re$ ve $\sigma > 0$ olacak sekilde.
+ki $\mu \in \mathbb{R}$ ve $\sigma > 0$ olacak sekilde.
 
 Ileride gorecegiz ki $\mu$ bu dagilimin ``ortasi'', ve $\sigma$ onun
 etrafa ne kadar ``yayildigi'' (spread). Normal dagilim olasilik ve
