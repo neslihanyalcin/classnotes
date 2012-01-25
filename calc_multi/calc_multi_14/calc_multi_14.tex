@@ -502,6 +502,64 @@ rasgele sabiti $a,b$ olarak gorebiliriz, ve iki polinom
 
 \[ f_2 = xy \]
 
+Soru 2K-4
+
+Tek boyutlu dalga denklemi 
+
+\[ \frac{\partial ^2w}{\partial x^2} = \frac{ 1}{c^2} 
+\frac{\partial ^2w}{\partial t^2} \]
+
+icin $w = f(x+ct) + g(x-ct)$ fonksiyonun bir cozum oldugunu gosterin. 
+
+Cevap 
+
+Ders 11'de gosterildigi gibi $f(u)$ gibi bir fonksiyonun turevini alirken
+Zincirleme Kanunu gerekiyor, bu kanunu her iki terim uzerinde ayri ayri
+uyguluyoruz,
+
+\[ \frac{\partial w}{\partial x}  = 
+\frac{\partial f}{\partial u}
+\frac{\partial u}{\partial x} + 
+\frac{\partial g}{\partial u}
+\frac{\partial u}{\partial x} 
+\]
+
+$f$, $u$ baglaminda tek degiskene bagliymis gibi gorulebilir, o zaman
+$\partial$ yerine $d$ kullanilabilir, ya da $'$. 
+
+\[ \frac{\partial w}{\partial x}  = 
+\frac{df}{du}
+\frac{\partial u}{\partial x} + 
+\frac{dg}{du}
+\frac{du}{\partial x} 
+\]
+
+Islemi yapalim
+
+\[ w_x = f' + g' \]
+
+Ustte hicbir $x,t$ ifadesi kalmadi, cunku $x+ct$ ya da $x-ct$'nin $x$'e
+gore gore turevi 1 sadece. Bir daha turev alirsak
+
+\[ w_{xx} = f'' + g'' \]
+
+\[ w_t = f'c - g'c \]
+
+Ustteki turevde $u$ uzerinden tekrar Zincirleme Kanunu uygulandigina
+dikkat. Cunku $f'$ turev olmasina ragmen hala $u$'nun bir fonksiyonu hala.
+
+\[ w_{tt} = f'c^2 + g'c^2 \]
+
+Yerine koyarsak dalga denklemindeki esitligin dogru oldugunu goruruz. 
+
+Ilginc olan $f,g$'nin gosterilen $u$'lari icerdigi takdirde, herhangi bir
+fonksiyon olabilecegidir. Daha fazla detay icin PDE Ders 1 notlarina
+bakilabilir.
+
+
+
+
+
 
 
 
