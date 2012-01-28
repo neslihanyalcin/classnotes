@@ -9,6 +9,7 @@ p = polyfit(pdata[0:-1, 1], pratios, 1)
 
 r = p[1]
 K = -r/p[0]
+print K
 
 prev = pdata[-1,1] # en sonuncu veri noktasini al
 prevy = pdata[-1,0]

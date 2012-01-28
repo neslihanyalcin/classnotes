@@ -17,7 +17,7 @@ if __name__ == '__main__':
     print "len t", len(t)
     t = np.linspace(0,1,len(t))
     
-    A0,k0,K0 = 10000, 1, 1
+    A0,k0,K0 = 100000, 1, 1
     [A,k,K], flag  = optimize.leastsq(resid, [A0,k0,K0], args=(x1, t))
 
     print "flag",flag

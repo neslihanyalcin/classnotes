@@ -33,7 +33,10 @@ Matematiksel olarak $\alpha,1-\alpha$ ile yapilmaya ugrasilan $x_1,x_2$
 ``arasindaki'' bir noktayi temsil etmek. Eger $0 \le \alpha \le 1$ ise,
 $x_1,x_2$'yi sirasiyla $\alpha,1-\alpha$ ile carpip sonuclari toplamak
 ``biraz $x_1$'den, biraz $x_2$'den almak'' anlamina geliyor, bu da tanim
-itibariyle her zaman $x_1,x_2$ arasinda bir yerde olmaktir. 
+itibariyle her zaman $x_1,x_2$ arasinda bir yerde olmaktir. $\alpha$ 0 ile
+1 arasindadir, yani bir nevi yuzde hesabi yapiliyor, 0.2 oradan, 0.8
+suradan aliniyor. Hesabin bir tur yuzde hesabi olmasi sebebiyle iki nokta
+arasinda kalinmasi garanti edilmis oluyor. 
 
 \includegraphics[height=3cm]{4_1.png}
 
@@ -129,11 +132,53 @@ Ornek 1
 
 $C[a,b]$ adi verilen norm edilmis uzay, $[a,b]$ reel araligi, arti norm
 
-\[ ||x|| = \min_{a \le t \le b} |x(t)| \]
+\[ ||x|| = \max_{a \le t \le b} |x(t)| \]
 
-tanimindan olusur. Bu uzay daha once bir vektor uzayi olarak
-gosterilmisti. Simdi teklif edilen norm'un 3 gerekli onsarti yerine getirip
-getirmedigine bakalim.
+tanimindan olusur. Hatirlarsak bu uzay daha once bir vektor uzayi olarak
+gosterilmisti. Norm $[a,b]$ araligina bakiyor, her $x(t)$ icin kesin degeri
+(absolute value) en yuksek olan degeri alip onu norm degeri ilan
+ediyor. Fonksiyon bir parabol ise, parabolun tepe noktasi o fonksiyon icin
+norm kabul edilecek. 
+
+Simdi teklif edilen norm'un 3 gerekli onsarti yerine getirip getirmedigine
+bakalim. Bariz ki $||x|| \ge 0$ cunku norm kesin deger kullandik ve kesin
+degerler hep sifirdan buyuk, ayrica $||x||$ sifir olmasi icin $x(t)$'nin
+her yerde sifir olmasi lazim, fonksiyon tek bir noktada sifirdan azicik
+daha buyuk olsaydi, $max$ hemen onu norm kabul ederdi. Ucgensel esitsizlik
+alttaki iliskinin bir uzantisi zaten
+
+\[ 
+\max |x(t) + y(t)| \le 
+\max [|x(t)| + |y(t)|] \le
+\max |x(t)| + max |y(t)|
+\]
+
+Ustteki esitsizlikler maksimum fonksiyonun ozellikleri, ve bu ozellikler
+onun ucgensel esitsizligi de yerine getirmesini sagliyor. 
+
+En son olarak 3. onsart alttaki iliskinin dogal sonucu olarak yerine
+getirilmis oluyor 
+
+\[ \max |\alpha x(t)|  = \max |\alpha||x(t)| = |\alpha| \max |x(t)|  \]
+
+Ornek
+
+$[a,b]$ araliginda tanimli tum surekli fonksiyonlarin uzayi alttaki norm
+uzerinden bir norm edilmis uzaydir
+
+\[ ||x|| = \int _{ a}^{b} |x(t)|dt \]
+
+Dikkat, bu norm edilmis uzay $C[a,b]$'den farklidir. 
+
+Ornek 
+
+Oklitsel n-uzayi ki $E^n$ olarak temsil edilir, ve norm'u $x = \{ \xi_1,
+\xi_2, .., \xi_n\}$ 
+icin $||x|| = (\sum _{ i=1}^{n} |\xi_i|^2)^{1/2}$, bir norm edilmis uzaydir. 
+
+
+
+
 
 
 
