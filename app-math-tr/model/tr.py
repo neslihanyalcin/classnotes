@@ -34,4 +34,4 @@ if __name__ == '__main__':
     t = np.linspace(0,4,len(t))    
     plt.plot(t, f(t,A,k,K), 'go')    
     
-    #plt.show()
+    plt.show()
