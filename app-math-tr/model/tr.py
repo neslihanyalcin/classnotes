@@ -14,19 +14,24 @@ def resid(p, y, t):
 
 if __name__ == '__main__':
     t, x1 = np.loadtxt('tr.txt', unpack=True)
+    print "len t", len(t)
     t = np.linspace(0,1,len(t))
     
-    A0,k0,K0 = 17821, 1, 1
+    A0,k0,K0 = 10000, 1, 1
     [A,k,K], flag  = optimize.leastsq(resid, [A0,k0,K0], args=(x1, t))
 
     print "flag",flag
     print "A", A
     print "k",k
     print "K",K
-        
+
+    ahead = 1.
+    res = K / (1.+A*np.exp(-k*(1.+(ahead/len(t)))))
+    print res    
+
     plt.plot(t, x1, 'ro')
     plt.hold(True)            
     t = np.linspace(0,4,len(t))    
     plt.plot(t, f(t,A,k,K), 'go')    
     
-    plt.show()
+    #plt.show()
