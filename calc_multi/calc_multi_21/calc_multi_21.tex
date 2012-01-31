@@ -13,6 +13,11 @@
 \setlength{\topsep}{0pt}
 \setlength{\partopsep}{0pt}
 \setlength{\mathindent}{0cm}
+\usepackage{latexsym}
+\usepackage{amsfonts}
+\usepackage{mathrsfs}
+\usepackage{showkeys}
+\renewcommand*\showkeyslabelformat[1]{(#1)}
 
 \begin{document}
 Cok Degiskenli Calculus - Ders 21
@@ -135,7 +140,10 @@ daha basit bir $C$ kullanmak daha iyi olur, mesela soyle (sari cizgi)
 
 Bu $C$ niye daha basit. Cunku iki parcanin ayri ayri entegralini alirken,
 bir parcada $dy$, diger parcada $dx$ sifir olacak, cunku o eksende degisim
-olmayacak, boylece cebirsel olarak isimiz daha kolaylasacak. 
+olmayacak, boylece cebirsel olarak isimiz daha kolaylasacak. Not: Beyaz
+yerine sari cizgiyi niye kullanabildik? Cunku gradyan alaninda cizgisel
+entegrali hesapliyoruz, baslangic ve bitis noktasi ayni olan entegraller
+ayni degerdedir. 
 
 Parcalari soyle tanimlayalim
 
@@ -143,7 +151,7 @@ Parcalari soyle tanimlayalim
 
 \[ \vec{F} = <4x^2 + 8xy, 3y^2 + 4x^2>\]
 
-Entegal
+Entegral
 
 \[ \int_C \vec{F} \cdot d\vec{r} = 
 (4x^2 + 8xy) dx + (3y^2 + 4x^2) dy
@@ -171,18 +179,18 @@ Parca $c_2$: $y$, 0'dan $y_1$'e gidiyor, $x=x_1$, $dx = 0$.
 \[ = \bigg[ y^3 + 4x_1^2y \bigg]_0^{y_1} \]
 
 
-\[ = y_1^3 + 4x_1^2 \]
+\[ = y_1^3 + 4x_1^2y_1 \]
 
 Bu iki sonucu birbirine ekleyince potansiyelin formulu ortaya cikacak.
 
-\[ f(x_1,y_1) = \frac{4}{3} x_1^3 + y_1^3 + 4x_1^2 + c\]
+\[ f(x_1,y_1) = \frac{4}{3} x_1^3 + y_1^3 + 4x_1^2y_1 + c\]
 
 Formuldeki $c$ bir sabit, bastan beri oldugunu farzettigimiz entegrasyon
 sabiti bu. 
 
 Bu noktada $x_1,y_1$ yerine $x,y$ da kullanabiliriz artik
 
-\[ f(x,y) = \frac{4}{3} x^3 + y^3 + 4x^2 + c\]
+\[ f(x,y) = \frac{4}{3} x^3 + y^3 + 4x^2y + c\]
 
 Bu sonucu kontrol edebilirsiniz, eger gradyani alirsaniz, ilk bastaki
 vektor alanini elde edersiniz. 
@@ -202,7 +210,7 @@ dogru olmali.
 
 1. formulu $x$'e gore entegre edelim. 
 
-\[ f = \frac{4}{3}x^3 + 4x^2y + g(y) \ \ \ (*)\]
+\[ f = \frac{4}{3}x^3 + 4x^2y + g(y) \ \ \ \label{1}\]
 
 Burada $g(y)$ entegrasyon sabiti gibi, ama tam degil, cunku $y$ degiskenine
 bagli. Ama yine de ilerleme kaydetmis sayiliriz cunku $g(y)$ en azindan
@@ -226,7 +234,7 @@ ise, o zaman
 Bu sefer sabit $c$ gercek bir sabit, yani bir sayi, cunku $g$ fonksiyonu
 $y$ haricinde baska hicbir seye bagli degil. 
 
-Devam edelim, ustteki formulu alip (*)'a sokarsak
+Devam edelim, ustteki formulu alip (1)'e sokarsak
 
 \[ f = \frac{4}{3}x^3 + 4x^2y + y^3 + c\]
 

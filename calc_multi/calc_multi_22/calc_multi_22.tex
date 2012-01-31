@@ -13,6 +13,11 @@
 \setlength{\topsep}{0pt}
 \setlength{\partopsep}{0pt}
 \setlength{\mathindent}{0cm}
+\usepackage{latexsym}
+\usepackage{amsfonts}
+\usepackage{mathrsfs}
+\usepackage{showkeys}
+\renewcommand*\showkeyslabelformat[1]{(#1)}
 
 \begin{document}
 Cok Degiskenli Calculus - Ders 22
@@ -200,8 +205,8 @@ ifadesini ispatla.
 
 \includegraphics[height=3cm]{22_7.png}
 
-Ustteki de bir basit olarak bolunmus bir bolgeyi gosteriyor. Cizgili bolumu
-nasil hesaplariz? 
+Ustteki de basit olarak bolunmus bir bolgeyi gosteriyor. Cizgili bolumu
+nasil hesaplariz?
 
 \includegraphics[height=3cm]{22_8.png}
 
@@ -220,7 +225,7 @@ ifadesini bilmedigim icin bunu yapamam, tanimi burada birakirim.
 
 $C_2$
 
-$x$ degeri $b$ $dx = 0$
+$x$ degeri $b$, $dx = 0$
 
 \[ \int_{c_2}M(x,y) dx = 0\]
 
@@ -240,7 +245,7 @@ Hepsini toplarsak
 
 \[ \oint_C M dx  =
 \int_a^b M(x,f_1(x))  dx -
-\int_a^b M(x,f_2(x)) dx  \  \  \ (*)
+\int_a^b M(x,f_2(x)) dx  \  \  \ \label{1}
  \]
 
 Simdi cift entegrale bakiyorum, ve bakalim bu cift entegrali ustteki
@@ -265,10 +270,10 @@ Geri koyarsak
 \[ \int \int_R -M_y dA = 
 - \int_a^b M(x,f_2(x)) - M(x,f_1(x)) dx \]
 
-Bu ifade (*) ifadesi ile ayni. Ispat tamamlandi. Cunku ozel sart dikeysel
+Bu ifade (1) ifadesi ile ayni. Ispat tamamlandi. Cunku ozel sart dikeysel
 basit bolgelerde ispat gecerli, bu faraziyeyi ortadan kaldirirsak, tum
 bolgeler icin ispat gecerli. $y$ bileseni icin de ayni sey gecerli, o zaman
-genel teori ispatlanmis oldu. 
+genel teori ispatlanmis oldu.
 
 Guzel Bir Ornek 
 
