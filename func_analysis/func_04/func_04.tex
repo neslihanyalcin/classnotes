@@ -191,10 +191,31 @@ Eger bir dizi yaklasiyorsa, limiti ozgundur (unique)
 
 Ispat
 
+Diyelim ki $x_n \to x$ ve $x_n \to y$, yani $x_n$ apayri iki limite
+yaklasiyor (gibi) bir sey ortaya attik. Peki o zaman $||x-y||$ ne olur?
+Gorecegiz ki bu norm sifira gidecek ve bu sebeple $x,y$'nin birbirinden
+farkli olamayacagini anlamis olacagiz. 
 
+\[ ||x-y|| =  ||x-x_n + x_n-y|| \]
 
+Ustte yine ayni numarayi kullandik, $-x_n+x_n$ ekleyerek esitlikte hicbir
+sey degistirmiyoruz, ama daha fazla terim elde ederek simdi ucgensel
+esitsizligi kullanabilecegiz. $+$ isaretinin solundaki ve sagindaki
+bloklari ayri terimler gibi kabul edersek, 
 
+\[ ||x-x_n + x_n-y|| \le ||x-x_n || + ||x_n-y|| \]
 
+ve
+
+\[ ||x-x_n || \to 0 \]
+
+\[ ||x_n-y|| \to 0\]
+
+olduguna gore 
+
+\[ ||x-y|| \to 0 \]
+
+$\square$
 
 
 
