@@ -5,7 +5,7 @@ Ders 5
 Teori 
 
 Bir kume $F$ kapalidir (closed), eger $F$ icindeki her yaklasiksal dizinin
-limiti yine $F$ icindeyse. Ispat atlandi. 
+1limiti yine $F$ icindeyse [ispat atlandi]. 
 
 Tanim 
 
@@ -40,6 +40,114 @@ $l_5$, vs. Bu uzayin normu nedir? Dikkat, ustteki bir norm degil, uzayi
 tanimlamak icin kullandigimiz sartlardan biri. Norm, 
 
 \[ ||x||_p = \bigg( \sum_{i=1}^\infty |\xi_i|^p \bigg)^{1/p}  \]
+
+$l_\infty$ uzayi tum sinirli (bounded) dizileri icinde barindirir. $p =
+\infty$ kullanilmasi
+biraz garip gelebilir, $|\xi_i|$'in hem $\infty$ ile kati alinacak, hem de tum bu katlarin toplami 
+sonsuzluktan kucuk olacak! 
+
+$l_\infty$ icindeki bir oge $x = \{ \xi_i \}$'in normu 
+
+\[ ||x||_\infty = \sup_i |\xi_i| \]
+
+Banach Uzaylari 
+
+Tanim
+
+Bir norm edilmis uzayda $\{x_n\}$ dizisine Cauchy dizisi denmesinin sarti sudur:
+Eger $m,n
+\to \infty$ iken $||x_n - x_m|| \to 0$ dogru olmalidir; mesela verilen $\epsilon > 0$
+icin oyle  bir $N$ olmalidir ki, her $n,m > N$ icin $||x_n - x_m|| < \epsilon$ dogru
+olmalidir.
+
+Bir norm edilmis uzayda her yaklasan dizi Cauchy dizisidir. Eger $x_n \to
+x$ ise, 
+o zaman 
+
+\[ ||x_n - x_m|| = ||x_n -x +x -x_m|| \le 
+||x_n - x|| + ||x-x_m|| \to 0
+ \]
+
+Fakat bu kuralin tersi her zaman dogru olmayabilir, yani her Cauchy dizisi
+yaklasiksal olmayabilir. 
+
+Icinde her Cauchy dizisinin yaklasiksal oldugu norm edilmis uzaylar
+analizde ozellikle ilgi gorur, onemlidir, cunku bu tur uzaylarda
+yaklasiksal dizileri bulmak / gostermek icin onlarin limitlerini bulmak
+gerekmez (sadece Cauchy olduklarini gostermek yeter). Bu tur norm edilmis
+uzaylara tam (complete) uzaylar denir.
+
+Tanim
+
+Norm edilmis uzay $X$ icindeki her Cauchy dizisinin $X$ icinde bir limiti
+var ise, bu uzaya tam denir. Tam olan bir norm edilmis uzaya Banach Uzayi
+ismi verilir. 
+
+Uygulamalarda onumuze cikan problemleri Banach uzayina olan yansimasini /
+orada da aynen isleyecek bir versiyonunu / esdegerini yaratmak icin oldukca
+caba sarfederiz. Bu problemleri diger, cogunlukla tam olmayan, uzaylardan
+cikartmak icin cok ugrasiriz, cunku optimizasyon problemlerinde Banach
+uzaylarinin bir avantaji vardir; hedef fonsiyonunu maksimize edecek optimal
+vektoru bulmak icin cogunlukla bir vektor dizisi yaratiriz, ve bu dizideki
+her eleman bir oncekinden daha iyi olur, ve o zaman aradigimiz optimal
+vektor otomatik olarak bu dizinin limiti olacaktir. Bu teknigin ise
+yaramasi icin limiti hesaplayamiyor olsak bile, bu dizinin yaklastigini bir
+sekilde bilmemiz gerekir / bunu bize gosterecek bir test
+gerekir. Yaklasiksallik icin Cauchy kriteri iste bunu saglar, temel
+aldigimiz uzay tam ise, Cauchy dizisinin yaklasacagindan emin olabiliriz.
+
+Simdi tam olmayan bir norm edilmis uzay gorelim. 
+
+Ornek
+
+$X$ uzayi $[0,1]$ uzerinde tanimli tum surekli fonsiyonlar olsun, ve norm
+$\|x\| = \int_{0}^{1} |x(t)|dt$. $X$'in tam olmadigini ispat icin $X$ icinde soyle bir 
+dizi yaratacagiz, 
+
+
+
+\[ 
+ x_n(t) =
+\left\{ \begin{array}{ll}
+0 &  0 \le t \le \frac{1}{2} - \frac{1}{n} \\ \\
+nt-\frac{n}{2} + 1 &  \frac{1}{2} - \frac{1}{n} \le t \le \frac{1}{2} \\ \\
+1 & t \ge \frac{1}{2}
+\end{array} \right.
+ \]
+
+Bu dizinin her elemani bir surekli fonsiyondur ve bu yuzden $X$'in bir
+uyesidir. 
+
+\includegraphics[height=6cm]{5_1.png}
+
+Bu dizi Cauchy midir? $||x_n - x_m||$'i hesaplayalim ve $n,m \to \infty$
+iken ne oluyor ona bakalim. Aslinda hesap icin entegralleri cebirsel olarak
+hesaplamaya gerek yok, entegral $f$'in altindaki alani hesapladigina gore,
+gorsel olarak dusunebiliriz. Ustteki grafikte gordugumuz gibi her $n$ yeni
+bir fonsiyon yaratir. Fakat $n,m$ sonsuza gittikce ikisi de basamak (step)
+fonsiyonu olmaya yaklasacaktir, ve farklarinin normu $||x_n - x_m||$ sifira
+yaklasacaktir. Alan farki icin tam formul
+
+\includegraphics[height=6cm]{5_2.png}
+
+\[ 
+\frac{1}{2} \cdot 1 \cdot (\frac{ 1}{2}-a_m) - 
+\frac{1}{2} \cdot 1 \cdot (\frac{ 1}{2}-a_n) =
+\frac{ 1}{2}\frac{ 1}{m} - 
+\frac{ 1}{2}\frac{ 1}{n} 
+ \]
+
+Yani
+
+\[ ||x_n - x_m|| = \frac{ 1}{2}|1/n - 1/m| \]
+
+
+
+
+
+
+
+
 
 
 
