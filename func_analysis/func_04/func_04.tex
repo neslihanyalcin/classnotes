@@ -85,7 +85,7 @@ kuralinin bir uzantisi / sonucu (lemma) su:
 
 Teori 
 
-Norm edilmis bir lineer uzayda $||x|| - ||y|| \le ||x-y||$. 
+Norm edilmis bir lineer uzayda $||x|| - ||y|| \le ||x-y|| \ \ \ \label{1}$ 
 
 Ispat
 
@@ -157,9 +157,39 @@ Oklitsel n-uzayi ki $E^n$ olarak temsil edilir, ve norm'u $x = \{ \xi_1,
 \xi_2, .., \xi_n\}$ 
 icin $||x|| = (\sum _{ i=1}^{n} |\xi_i|^2)^{1/2}$, bir norm edilmis uzaydir. 
 
+Yaklasiksallik (Convergence)
 
+Cogu zaman, istenen bir ozellige sahip olan bir vektorun varligini ispat
+ederken belli bir limite yaklasan bir vektor dizisi yaratmak yaygin bir
+tekniktir. Cogu zaman bu limitin istenen ozellige sahip oldugu
+gosterilebilir. Bu sebeple yaklasiksallik kavrami Analizde cok onemli rol
+oynayan bir kavramdir. 
 
+Tanim 
 
+Norm edilmis bir lineer uzayda sonsuz sayida vektor iceren bir dizi
+$\{x_n\}$'in $x$'e {\em yaklastigi} soylenir eger $\{||x_n-x||\}$ reel
+sayilar dizisi sifira yaklasiyorsa. Bu durumda $x_n \to x$ diyebiliriz.
+
+Eger $x_n \to x$, $||x_n|| \to ||x||$ olmali, cunku (1)'e gore 
+
+\[ ||x_n||  - ||x|| \le ||x_n-x|| \]
+
+ya da, terimlerin yeri degistirilmis halde
+
+\[ ||x||  - ||x_n|| \le ||x-x_n|| \]
+
+O zaman 
+
+\[ \bigg| ||x||  - ||x_n|| \bigg|  \le ||x-x_n|| \to 0\]
+
+olmalidir. 
+
+Teori 
+
+Eger bir dizi yaklasiyorsa, limiti ozgundur (unique)
+
+Ispat
 
 
 
