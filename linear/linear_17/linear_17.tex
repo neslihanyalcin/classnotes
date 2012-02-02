@@ -15,11 +15,125 @@ Ortonormal vektorler
 \[ 
 q_i^Tq_j = \left\{ \begin{array}{lll}
 0 & eger & i \ne j \ ise\\
-0 & eger & i = j \ ise
+1 & eger & i = j \ ise
 \end{array} \right.
  \]
 
-Yani $q$ vektorleri diger her $q$'ya (kendisi haricinde) ortogonal. 
+Yani $q$ vektorleri diger her $q$'ya (kendisi haricinde) ortogonal. Her
+biri bir digerine 90 derece dik vektorlerden olusan bir baz olmasi dogal
+bir sey. $q$ vektorleri birim, bu sebeple kendisiyle noktasal carpimi
+1. Ortonorma kelimesindeki ``normal'' buradan geliyor, normalize edilmis
+vektorlerimiz var. 
+
+Ortonormal baza sahip olmak hesaplari basitlestirir, cogu hesabi
+iyilestirir, sayisal lineer cebirin cogunlugu ortonormal vektorlerle is
+yapmak etrafinda kurulmustur, cunku onlar asiri buyumezler, asiri
+kuculmezler, kontrol altinda is yapmak mumkun olur. 
+
+Bu $q$'leri $Q$ icine koyacagiz. Dersin ikinci kisminda eger ortonormal bir
+$A$ matrisim var ise, onu nasil ortonormal yaparim, onu gorecegiz. Simdi
+ustteki 1 ve 0 iceren formulu matris olarak yazmak istiyorum. 
+
+\[ 
+Q = 
+\left[\begin{array}{rrr}
+\uparrow &  & \uparrow \\
+q_1 & ... &  q_n \\
+\downarrow &  & \downarrow 
+\end{array}\right]
+ \]
+
+O zaman 
+
+\[ 
+Q^TQ = 
+\left[\begin{array}{rrr}
+\leftarrow & q_1^T & \rightarrow \\
+& &  \\
+\leftarrow & q_n^T & \rightarrow 
+\end{array}\right]
+\left[\begin{array}{rrr}
+\uparrow &  & \uparrow \\
+q_1 & ... &  q_n \\
+\downarrow &  & \downarrow 
+\end{array}\right] = 
+I
+ \]
+
+Eger $Q$ kare ise, $Q^TQ = I$  bize $Q^T = Q^{-1}$ oldugunu soyler. 
+
+Ornek 
+
+Her permutasyon matrisi 
+
+\[ 
+Q = 
+\left[\begin{array}{rrr}
+0 & 0 & 1 \\
+1 & 0 & 0 \\
+0 & 1 & 0 
+\end{array}\right]
+ \]
+
+kendi devrigi ile carpilinca, yani 
+
+\[ 
+Q^T = 
+\left[\begin{array}{rrr}
+0 & 1 & 0 \\
+0 & 0 & 1 \\
+1 & 0 & 0 
+\end{array}\right]
+ \]
+
+ile, sonuc $I$ olacaktir. Bir diger ornek 
+
+\[ Q = 
+\left[\begin{array}{cc}
+cos \theta & -sin \theta \\
+sin \theta & cos \theta \\
+\end{array}\right]
+ \]
+
+
+Ornek
+
+\[ Q = 
+\left[\begin{array}{cc}
+1 & 1 \\
+1 & -1 \\
+\end{array}\right]
+ \]
+
+ortogonal matris degildir (simdilik). Her kolonun uzunlugu $\sqrt{2}$, o
+zaman tum matrisi $\sqrt{2}$ bolerim,
+
+\[ Q = \frac{1}{\sqrt{2}}
+\left[\begin{array}{cc}
+1 & 1 \\
+1 & -1 \\
+\end{array}\right]
+ \]
+
+Ornek 
+
+\[ Q = \frac{ 1}{2}
+\left[\begin{array}{rrrr}
+1 & 1& 1& 1 \\
+1 & -1& 1& -1 \\
+1 & 1& -1& -1 \\
+1 & -1& -1& 1 
+\end{array}\right]
+ \]
+
+Ortogonal matrisler niye iyidir? Onlar hangi hesaplari basitlestirirler? 
+
+
+
+
+
+
+
 
 
 
