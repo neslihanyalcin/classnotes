@@ -141,10 +141,49 @@ Yani
 
 \[ ||x_n - x_m|| = \frac{ 1}{2}|1/n - 1/m| \]
 
+Grafikte sadece pozitif kisim gozukuyor cunku unutmayalim, $t$ degerleri
+$[0,1]$ arasinda geliyor, ve formuldeki tum parcalar buna gore pozitif
+degerler uretiyorlar. 
 
+Teori 
 
+Bir Cauchy dizisi sinirlidir
 
+Ispat
 
+$\{x_n\}$ bir Cauchy dizisi diyelim, ve $N$ oyle bir tam sayi olsun ki $n >
+N$ 
+icin $||x_n - x_N|| < 1$ dogru olacak. $n > N$ icin
+
+\[ ||x_n|| = ||x_n - x_N + x_N || \le ||x_N|| + ||x_n - x_N|| < ||x_N|| + 1 \]
+
+\[ \square \]
+
+Ornek
+
+$C[0,1]$ bir Banach uzayidir. Daha once bu uzayin tam oldugunu
+soylemistik. $C[0,1]$'in tam oldugunu ispatlamak icin $C[0,1]$ icindeki her
+Cauchy dizisinin bir limiti oldugunu gostermek yeterlidir. 
+
+Diyelim ki $\{x_n\}$ $C[0,1]$ icinde bir Caucy dizisi. Her sabit $t \in
+[0,1]$ 
+icin $|x_n(t) - x_m(t)| \le ||x_n - x_m|| \to 0$, o zaman  $\{x_n(t)\}$
+reel sayilardan olusan bir Cauchy dizisidir. Bu dizi dogal olarak reel
+sayilar uzayi $\mathbb{R}$'dedir, ve $\mathbb{R}$'nin tam oldugunu
+biliyoruz. O zaman bu dizinin yaklastigi bir $x(t)$ her zaman olacaktir,
+yani $x_n(t) \to x(t)$. Bunun sonucu olarak $x_n$ fonksiyonlari da $x$'e
+yaklasmalidir. 
+
+Genel olarak tarif etmek gerekirse, $x_n$ dizisini $\mathbb{R}$'deki bir
+baska dizi $\{x_n(t)\}$'ye indirgiyoruz, yani yansimasini yaratiyoruz,
+sectigimiz tek bir $t$ uzerinde. Uzayi degistirmemizin avantaji su,
+$\mathbb{R}$'nin tam oldugunu biliyoruz. O zaman oraya indirgedigimiz
+Cauchy dizisinin bir limiti olmalidir. Simdi, $\mathbb{R}$'den filmi geriye
+sariyoruz, her $t$ icin elimizdeki limitleri toparliyoruz, ve $x_n$
+seviyesine getiriyoruz. Bunu tum $t$'ler icin yapabildigimize gore, o zaman
+tum $x_n$'nin de bir limiti olmalidir. 
+
+\[ \square \]
 
 
 
