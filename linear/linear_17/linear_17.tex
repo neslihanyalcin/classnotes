@@ -126,7 +126,94 @@ Ornek
 \end{array}\right]
  \]
 
-Ortogonal matrisler niye iyidir? Onlar hangi hesaplari basitlestirirler? 
+Ornek 
+
+\[ Q = \frac{ 1}{3}
+\left[\begin{array}{rr}
+1 & -2 \\
+2 & -1 \\
+2 & 2 
+\end{array}\right]
+ \]
+
+Bir kolon daha eklersem 
+
+\[ Q = \frac{ 1}{3}
+\left[\begin{array}{rrr}
+1 & -2 & 2\\
+2 & -1 & -2 \\
+2 & 2 & 1
+\end{array}\right]
+ \]
+
+Ortonormal vektorler ve ozelde Gram-Schmidt ile ugrasirken gorecegiz,
+surekli normal vektorlerle ugrastigimiz icin surekli uzunluga bolmeniz
+gerekir, ve bu surekli bir karekoku hesabin icine ceker. Ustteki ornek
+temiz, karekok direk sayi olarak elde edildi. 
+
+Ortogonal matrisler niye iyidir? Onlar hangi hesaplari basitlestirirler?
+$Q$ ne icin kullanilir? 
+
+Diyelim ki bir diger matrisi alip $Q$'nun kolon uzayina yansitmak
+(projection) istiyorum. Yansitma formulunu, matrisi $Q$ icin yazarsak,
+
+\[ P = Q (Q^TQ)^{-1}Q^T \]
+
+Formulde $Q$ olmasinin bir avantaji, $Q^TQ = I$, o zaman 
+
+\[ P = Q Q^T \]
+
+Bu yansitma matrisinin ozelliklerini / ogelerini (properties) kontrol
+edelim. Iki tane ozellik olmasi gerekiyor. Eger kolonlar ortonormal ise, ve
+yansitma matrisi kare ise, o zaman kolon uzayi nedir? Tum uzaydir!
+Ortonormal kolonlar o uzayi yaratmak / kapsamak (span) icin
+yeterlidir. Bu uzaydaki her turlu vektoru bu ortonormal vektorlerin bir
+kombinasyonu uzerinen uretebilirsiniz. Peki, tum uzaya yansitmak ne
+demektir? Nasil bir $P$ tum uzaya yansitir? Birim (identity) matrisi. Tum
+uzaya yansitmak hicbir seyi degistirmemek demektir aslinda, ve bu
+degismezligi yapacak tek yansitma matrisi $I$. 
+
+\[ P = Q Q^T = I \textit{ eger I kare ise }\]
+
+Bir diger ozellik yansitma matrislerinin simetrik olmasi. Devrigi ile
+sagdan carpilmak bir matrisi zaten simetrik yapar, sart $QQ^T$ icin
+gecerlidir. Bu ozelligin sebebi yansitip, sonra tekrar yansitinca, ikinci
+yansitmanin degisim yaratmamasi. Yani 
+
+\[ (QQ^T)(QQ^T) = QQ^T \]
+
+olmali. Kontrol edelim,
+
+\[ Q(Q^TQ)Q^T = QIQ^T = QQ^T\]
+
+$Q$'nun ozellikleri bize su sekilde de yarar. Normal formul nedir? 
+
+\[ A^TA\hat{x} = A^Tb \]
+
+$A$ yerine $Q$ ise
+
+\[ Q^TQ\hat{x} = Q^Tb \]
+
+$Q^TQ = I$ olduguna gore, 
+
+\[ \hat{x} = Q^Tb \]
+
+Isler iyice basitlesti yani. $A$'li versiyonda sol taraftaki ic carpimlari
+(inner product) hesaplamak gerekecekti, cebirsel cozum icin ugrasilacakti,
+vs. Bunlar $Q$ ile yok. $\hat{x}$'in $i$'inci elemani $q_i^Tb$, yani 
+
+\[ \hat{x}_i = q_i^Tb \]
+
+Ustteki formulun matematigin en onemli formullerinden biri oldugu
+soylenebilir. Yani elimizde ortonormal baz var ise, yansimaninin $i$'inci
+ogesi yukaridaki gibidir. 
+
+
+
+
+
+
+
 
 
 
