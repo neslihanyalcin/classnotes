@@ -208,20 +208,177 @@ Ustteki formulun matematigin en onemli formullerinden biri oldugu
 soylenebilir. Yani elimizde ortonormal baz var ise, yansimaninin $i$'inci
 ogesi yukaridaki gibidir. 
 
+Simdi dersin ikinci bolumune gelelim. Diyelim ki elimizde ortonormal matris
+yok, bagimsiz vektorler var, onlari ortonormal yapacagiz. Gram-Schmidt
+burada ortaya cikiyor. 
+
+Gram-Schmidt
+
+GS hesabi eliminasyon ile ayni sey degildir, amacimiz ucgensel degil,
+amacimiz bir matrisi ortogonal, kolonlarini ortonormal yapmak. Iki
+vektorumuz var diyelim, $a,b$. Belki 12 boyutlu bir ortamdalar, belki
+(alttaki gibi) 2 boyuttalar. Vektorler bagimsiz. 
+
+\includegraphics[height=2cm]{17_1.png}
+
+Bu iki vektorden $q_1,q_2$ ortonormal vektorlerini cikartmak istiyorum. Ya
+da, once ortogonal $A,B$, sonra ortonormal $q_1,q_2$ diyelim. Bunun icin once
+
+\[ q_1 = \frac{ A}{||A||}, q_2 = \frac{ B}{||B||}  \]
+
+Aslinda $a$'dan $A$ alinca, o vektorun isi bitmis kabul edilebilir. Bir yon
+tamam, ama ilk yon oldugu icin onun ortogonal hali yeterli. Simdi ikinci
+vektor nasil ortonormal olacak, cunku artik birinciye gore dik olmali, onu
+oldugu gibi alamayiz. 
+
+\includegraphics[height=2cm]{17_2.png}
+
+Aradigimiz vektor $b$'nin $a$'ya yansimasi degil, ona tam dik olan
+$e$. Eger $b$'nin formulu ``$b$'nin $a$'ya yansimasi, arti $e$'' ise, o
+zaman ters yone gitmek icin cikartma islemini kullaniriz,
+
+\[ B = b - [yansima] \]
+
+$b$'nin $a$'ya yansimasi nedir? Yerine koyalim,
+
+\[ B = b - \frac{ A^Tb}{A^TA}A \]
+
+Bu formul dogru mu? Kontrol edelim, eger $B$ hakikaten $A$'ya ortogonal bir
+vektor veriyorsa, o zaman $A^T$ ile carpilinca sifir elde etmeliyiz. 
+
+\[ A^TB = A^T(b - \frac{ A^Tb}{A^TA}A) \]
+
+\[ = A^Tb - \frac{ A^Tb}{A^TA}A^TA \]
+
+\[ = A^Tb - A^Tb = 0 \]
+
+Peki ya iki degil uc tane vektor olsaydi? Yani $A,B$'ye ek olarak bir de
+$C$ hesaplamamiz gerekiyor. Bu hesaba su sekilde bakabiliriz, aynen $B$'yi
+bulmak icin $b$'den $a$ yonunde olan yansimasinin kismini cikarttigimiz
+gibi, $C$'yi bulmak icin $c$'den $a$ ve $b$ yonunde olan yansimasini
+kisimlari cikartmayi dusunebiliriz.
+
+\[ C = c - \frac{ A^Tc}{A^TA}A - \frac{ B^Tc}{B^TB}B \]
+
+Yani $C \perp A$, $C \perp B$. 
+
+Ornek
+
+\[ 
+a = 
+\left[\begin{array}{r}
+1 \\ 1 \\ 1
+\end{array}\right],
+b = 
+\left[\begin{array}{r}
+1 \\ 0 \\ 2
+\end{array}\right]
+ \]
+
+Hemen $A = a$ deriz. $B$ nedir?
+
+\[ 
+B = 
+\underbrace{
+\left[\begin{array}{r}
+1 \\ 0 \\ 2
+\end{array}\right]}_{b}
+-
+\frac{ 3}{3}
+\underbrace{
+\left[\begin{array}{r}
+1 \\ 1 \\ 1
+\end{array}\right]}_{A}
+=
+\left[\begin{array}{r}
+0 \\ -1 \\ 1
+\end{array}\right]
+ \]
+
+$Q$'yu olusturalim. Unutmayalim, her $q$ birim vektor, normalize
+olmali. Problem degil, degerleri ustten alirken her elemani uzunluguna
+boleriz, 
+
+\[ Q =
+\left[\begin{array}{rrr}
+\uparrow &  & \uparrow \\
+q_1 & ... &  q_n \\
+\downarrow &  & \downarrow 
+\end{array}\right]
+=
+\left[\begin{array}{rr}
+1/\sqrt{3} & 0 \\
+1/\sqrt{3} & -1/\sqrt{2} \\
+1/\sqrt{3} & 1/\sqrt{2} 
+\end{array}\right]
+ \]
+
+Hatirlarsak ilk halimiz
+
+\[ A =
+\left[\begin{array}{rr}
+1 & 1 \\
+1 & 0\\
+1 & 2
+\end{array}\right]
+ \]
+
+seklindeydi. 
+
+$Q$'nun kolon uzayi ile $A$'nin kolon uzayi arasindaki baglanti, fark
+nedir? Kolon uzayi bir matrisin kolonlarinin tum kombinasyonlari ise, 3
+boyutlu uzayda iki kolonum var, demek ki kolon uzayi bir duzlem (plane),
+her iki matris icin durum bu. Alaka nerede? Iki duzlem de ayni! Tek
+yaptigim ayni uzayi yaratan ama birbirine dik iki yeni vektor yaratmak
+oldu. $Q$ vektorlerunden daha memnunum cunku $Q$ ortonormal. 
+
+Peki Gram-Schmidt'i Lineer Cebir dilinde nasil daha temiz sekilde
+gosteririm? Eliminasyon mesela 
+
+\[ A = LU \]
+
+olarak gosterilir. Gram-Schmidt'in karsiligi nedir? Sudur:
+
+\[ A = QR \]
 
 
+\[ 
+\left[\begin{array}{rrr}
+\uparrow &  \uparrow \\
+a_1 &  a_2 \\
+\downarrow &  \downarrow 
+\end{array}\right]
+=
+\left[\begin{array}{rrr}
+\uparrow &  \uparrow \\
+q_1 &  q_2 \\
+\downarrow &  \downarrow 
+\end{array}\right]
+\left[\begin{array}{rrr}
+ &   \\
+0 &  
+\end{array}\right]
+ \]
 
+Yani $R$ ust ucgensel (lower triangular) bir matristir, sol alt kose
+sifirdir. Niye? 
 
+\[ 
+=
+\left[\begin{array}{rrr}
+\uparrow &  \uparrow \\
+q_1 &  q_2 \\
+\downarrow &  \downarrow 
+\end{array}\right]
+\left[\begin{array}{rrr}
+a_1^Tq_1 &  * \\
+a_1^Tq_2 &  *
+\end{array}\right]
+ \]
 
-
-
-
-
-
-
-
-
-
+Sifir $a_1^Tq_1$'dan geliyor. Ozetlemek gerekirse, $A$'yi alip $Q$'yu elde
+ediyoruz, ve bu iki matris arasindaki iliski ust ucgensel olan $R$
+matrisi. 
 
 
 \end{document}
