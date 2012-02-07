@@ -11,9 +11,9 @@ o cizgiye dik olan ikinci bir cizgiden gectigini bilir. Kabaca da hemen
 gorulebilecek akla yatkin bu basit sonuc, noktadan duzleme olan mesafeler
 icin de kolayca genellestirilebilir. Daha da ileri gidip n-boyutlu Oklit
 uzaylarina genellemek gerekirse, bir noktadan bir altuzaya gidecek en kisa
-vektorun o altuzaya ortagonal olacagidir. Hatta bu son sonuc en kuvvetli,
+vektor o altuzaya ortagonal olmalidir. Bu arada, bu son sonuc en kuvvetli,
 onemli optimizasyon prensiplerinin biri olan Yansitma Teorisi'nin ozel
-sartlardindan biridir.
+sartlarindan biridir.
 
 Bu gozlemde kritik puf nokta ortoganalliktir. Ortoganallik kavrami genel
 olarak norm edilmis uzaylarda mevcut degildir, ama Hilbert Uzaylarinda
@@ -21,15 +21,112 @@ mevcuttur. Hilbert Uzayi norm edilmis uzaylarin ozel bir halidir, norm
 edilmis uzaylardaki ozelliklere ek olarak bir de icsel carpim (inner
 product) islemi tanimlar, bu islem analitik geometrideki iki vektorun
 noktasal carpimina (dot product) esdegerdir, iki vektorun icsel carpimi
-sifir ise o vektorlerin ortoganal oldugu soylenecektir. 
+sifir ise o vektorlerin ortogonal oldugu soylenebilir.
 
 Icsel carpim ile kusanmis Hilbert Uzaylari iki ve uc boyutlardaki geometrik
 buluslari genellememizi saglayacak yapisal bir cevher saglar bize, sonuc
-olarak pek cok analitik cozum Hilbert Uzaylarina uygulanabilir
-haldedir. Ortonormal bazlar, Fourier Serileri, en az kareler minimizasyonu
-gibi kavramlarinin hepsinin Hilbert Uzayinda karsiliklari vardir. 
+olarak pek cok analitik cozumun Hilbert Uzaylarinda karsiligi vardir;
+Ortonormal bazlar, Fourier Serileri, en az kareler minimizasyonu gibi
+kavramlarinin hepsi Hilbert Uzayinda da kullanilabilirler.
 
 On-Hilbert Uzaylari (Pre-Hilbert Spaces)
+
+On-Hilbert Uzayi bir lineer vektor uzayi $X$ ile, $X \times X$ uzerinde
+tanimlanmis bir ic carpim isleminin beraberligidir. Yani $X$'teki her
+elemanin bir digeri (ve kendisi) ile eslesmesi uzerinde tanimli bir ic
+carpim islemi vardir, ki bu islem $x,y \in X$, $(x|y)$ olarak gosterilir,
+ve carpimin sonucu bir skalar, tekil buyukluk (mesela bir sayi) olacaktir. 
+
+$\sqrt{ (x|x)}$ buyuklugu $||x||$ olarak gosterilir, norm operatoru tanidik
+geldi herhalde, zaten birazdan yapacagimiz ilk islerden biri bu buyuklugun
+hakikaten bir norma esit oldugunu gostermek. 
+
+Onsartlar 
+
+1. $(x|y) = \overline{(y|x)}$
+
+2. $(x+y|z) = (x|z) + (y|z)$
+
+3. $(\lambda x|y) = \lambda(x|y)$
+
+Cauchy-Schwarz Esitsizligi
+
+Bir ic carpim uzayinda (inner product space)r $x,y$ icin $|(x|y)| \le
+\|x\|\|y\|$ olmali. 
+Bu kucuktur ya da esittir ifadesindeki esitlik kismi sadece $x = \lambda y$
+ise, ya da $y = \theta$ ise dogru. 
+
+Ispat
+
+$y = \theta$ icin esitlik kismi basitce dogrulanabilir. O zaman diger
+sartlari kontrol etmek icin $y \ne \theta$ alalim. Bir skalar olan her
+$\lambda$ degeri icin 
+
+\[ 
+0 \le (x-\lambda y | x-\lambda y) 
+ \]
+
+Belirlenen sartlara gore bu esitsizlik dogru olmali. Sadece dogru oldugunu
+bildigimiz bir ifadeyi yazdik o kadar. Bir nevi oltayi attik, bekliyoruz. 
+Sonra ustteki ifadeye 2. onsarti uyguluyoruz
+
+\[ \le (x|x-\lambda y) - (\lambda y| x - \lambda y)\]
+
+Bu iki terim uzerinde yine 2. onsarti ayri ayri kullaniyoruz
+
+\[ 
+\le (x|x) - (\lambda y|x) - 
+\bigg[ (x|\lambda y) - (\lambda y|\lambda y) \bigg] 
+\]
+
+\[ 
+\le (x|x) - (\lambda y|x) -  (x|\lambda y) + (\lambda y|\lambda y) 
+\]
+
+Icinde $\lambda$ olan tum terimler uzerinde 3. onsarti uyguluyoruz
+
+\[ 
+\le
+(x|x) - \lambda(y|x) -
+\lambda(x|y) + |\lambda|^2 (y|y)
+ \]
+
+Simdi $\lambda  = (x|y)/(y|y)$ farz ediyoruz. $\lambda$ her sey olabilecegine gore bu 
+belirledigimiz sey de olabilir. Yerine koyunca, 
+
+\[ \le (x|x) - 
+\frac{ (x|y)(y|x)}{(y|y)} - 
+\frac{ (x|y)(x|y)}{(y|y)} + 
+\frac{ |(x|y)|^2}{|(y|y)|^2}(y|y)
+ \]
+
+1. onsarti kullanarak ustteki ucuncu terimin isaretini degistirelim
+
+\[ \le (x|x) - 
+\cancel{\frac{ (x|y)(y|x)}{(y|y)}} +
+\cancel{\frac{ (x|y)(y|x)}{(y|y)}} + 
+\frac{ |(x|y)|^2}{|(y|y)|^{\cancel{2}}}(y|y)
+ \]
+
+\[ \le (x|x) - 
+\frac{ |(x|y)|^2}{(y|y)}
+ \]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
