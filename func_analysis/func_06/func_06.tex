@@ -161,9 +161,58 @@ Bu ucgensel esitsizligin ta kendisidir.
 
 \[ \square \]
 
+Tanim 
 
+Tam olan bir On-Hilbert uzayi Hilbert Uzayi olarak adlandirilir. 
 
+Hilbert Uzayi o zaman normu etkileyen / belirleyenbir ic carpim islemi
+tanimlamis bir Banach uzayidir. $E^n,l_2,L_2[a,b]$ uzaylarinin hepsi
+Hilbert uzaylaridir. Ic carpimlar bu arada altta gosterilen sureklilik
+ozelligine sahiptir.
 
+Teori 
+
+Ic Carpimlarin Surekliligi: Diyelim ki bir On-Hilbert uzayinda $x_n \to x$
+ve $y_n \to y$. O zaman $(x_n|y_n) \to (x|y)$.
+
+Ispat
+
+$\{x_n\}$ serisi yaklasiksal olduguna gore, sinirli (bounded) olmak
+zorundadir; mesela diyelim ki $||x_n|| \le M$. Simdi,
+
+\[ |(x_n|y_n) - (x|y)| \]
+
+hesabini yapalim. Ifadenin icine $(x_n|y)$ arti ve eksi isaretleriyle
+koyalim, 
+
+\[ = |(x_n|y_n) - (x_n|y) + (x_n|y) + (x|y)| \]
+
+Ustteki ilk ve son iki terimi gruplayalim, 2. onsarti tersten uyguluyoruz
+yani, 
+
+\[ = |(x_n|y_n-y) + (y|x_n-x)| \]
+
+Ustteki mutlak degeri ortasindan parcalayacagiz. Ufak not, mutlak deger
+operasyonu icin de ucgensel esitsizlik gecerlidir, yani 
+
+\[ |a+b| \le |a| + |b| \]
+
+O zaman 
+
+\[ \le |(x_n|y_n-y)| + |(y|x_n-x)| \]
+
+Her iki terim uzerinde ayri ayri Cauchy-Schwarz esitsizligini uygularsak, 
+
+\[ \le ||x_n|||y_n-y)|| + ||y||||x_n-x|| \]
+
+$||x_n||$ sinirli olduguna gore, 
+
+\[ |(x_n|y_n) - (x|y)| \le M||y_n-y)|| + ||y||||x_n-x|| \to 0 \]
+
+Esitsizligin sagi sifira gidiyor, cunku $M$ sabit, isptain basinda $x_n \to x$
+ve $y_n \to y$ farzettik, o zaman ustteki farklar sifira gider. 
+
+\[ \square \]
 
 
 
