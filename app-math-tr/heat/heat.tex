@@ -1,20 +1,6 @@
-\documentclass[12pt,fleqn]{article}
-\usepackage{graphicx}
-\setlength{\parindent}{0pt}
-\setlength{\parskip}{8pt}
-\setlength{\parsep}{0pt}
-\setlength{\headsep}{0pt}
-\setlength{\topskip}{0pt}
-\setlength{\topmargin}{0pt}
-\setlength{\topsep}{0pt}
-\setlength{\partopsep}{0pt}
-\setlength{\mathindent}{0cm}
-\usepackage[utf8]{inputenc}
-\usepackage{listings}
-
+\documentclass[12pt,fleqn]{article}\usepackage{../common}
 \begin{document}
-
-Isı Denklemi
+Isi Denklemi
 
 \[ \frac{\partial u}{\partial t} = \frac{\partial^2u}{\partial x^2} \]
 
@@ -25,7 +11,7 @@ bir demir cubugu uzerinde isinin dagilmasi konusuna bakacagiz, boyutu
 temsil icin $x$ degiskeni kullanilacak. $t$ degiskeni zamani temsil
 ediyor olacak. Baslangic sartlari (initial conditions) olarak isinin
 t=0 aninda demir cubuk uzerinde $x$'e bagli bir sinus fonksiyonu ile
-dagildigini farzedecegiz, sınır sartlari ise (boundary conditions)
+dagildigini farzedecegiz, sinir sartlari ise (boundary conditions)
 cubugun iki ucunun sifir derecede tutulmasi olacak. Sonucta isinin
 nereye gidecegini tahmin ederek te soyleyebiliriz -- isi demirin iki
 ucundan kacarak tum cubuk boyunca sifir dereceye inecektir.
@@ -39,7 +25,7 @@ denklem varsa cozum bulmak demek bir fonksiyon bulmak demektir, bir sayi degil;
 yaklasiksal yontemle de oyle bir $u$ fonksiyonu bulacagiz ki, test / belli
 noktalarda gercek fonksiyonla olabildigince ayni sonuclar verecek.
 
-Cozumde sınırlı farklar (finite differences) denen bir metot kullanilacak. Bu
+Cozumde sinirli farklar (finite differences) denen bir metot kullanilacak. Bu
 yaklasiksal metotta calculus'un sonsuz ufakliklar icin kullanilan turevleri,
 bildigimiz sayisal cikartma islemi uzerinden tanimlanan ``farkliliklara''
 donusecekler. Mesela $d^2/dx^2$ nedir? $x$'e gore turevin turevidir, hesapsal
@@ -134,10 +120,10 @@ kodlar bir dongu icinde, her zaman dilimi icin bilinmeyen $U_{j+1}$ degerini
 bulacak. Dongunun sonunda yeni $U_{j+1}$ eski $U_j$ olacak ve hesap devam
 edecek. 
 
-Sınır Sartları
+Sinir Sartlari
 
-Her iki ucta $u$'nun sifir olma sarti uygulamali matematikte Dirichlet sınır
-sartı olarak biliniyor. Bu sart $A$ matrisinin olusturulmasi sirasinda
+Her iki ucta $u$'nun sifir olma sarti uygulamali matematikte Dirichlet sinir
+sarti olarak biliniyor. Bu sart $A$ matrisinin olusturulmasi sirasinda
 kendiliginden olusuyor. Ufaltilmis bir D2 matrisi uzerinde gostermek gerekirse, 
 
 \[ \left[ \begin{array}{ccccc}
