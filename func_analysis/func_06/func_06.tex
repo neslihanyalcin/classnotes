@@ -112,6 +112,54 @@ belirledigimiz sey de olabilir. Yerine koyunca,
 \frac{ |(x|y)|^2}{(y|y)}
  \]
 
+Ya da 
+
+\[ |(x|y)|  \le \sqrt{ (x|x)(y|y)} = ||x||||y||\]
+
+\[ \square \]
+
+Teori 
+
+Bir On-Hilbert uzayi $X$'te $||x|| = \sqrt{ (x|x)}$ bir normdur. 
+
+Ispat
+
+Norm icin tum tanimlar zaten ortaya cikti, tek eksik ucgensel esitsizlik
+tanimi. Herhangi bir $x,y \in X$ icin 
+
+\[ ||x+y||^2 = (x+y|x+y) \]
+
+\[ = (x|x+y) + (y|x+y) \]
+
+\[ = (x|x) + (y|x) + (x|y) + (y|y) \]
+
+\[ = (x|x) + 2|(x|y)| + (y|y) \]
+
+Simdi norm ifadesini kullanalim
+
+\[ = ||x||^2 + 2|(x|y)| + ||y||^2 \]
+
+Sagdan ikinci terimde  Cauchy-Schwarz teorisini uygulayalim
+
+\[ \le ||x||^2 + 2||x||||y|| + ||y||^2 \]
+
+Isaretin esitlikten esitsizlige dondugune dikkat. $||x||||y||$ kullanarak
+$(x|y)$'tan daha buyuk olan bir buyukluk kullanmaya baslamis olduk, bu
+yuzden esitligin sag tarafi, sol tarafindan buyuk hale geldi. Gruplarsak
+
+\[ \le (||x||+||y||)^2  \]
+
+Yani
+
+\[ ||x+y||^2 \le (||x||+||y||)^2  \]
+
+Karekok alirsak 
+
+\[ ||x+y|| \le ||x||+||y||  \]
+
+Bu ucgensel esitsizligin ta kendisidir. 
+
+\[ \square \]
 
 
 
