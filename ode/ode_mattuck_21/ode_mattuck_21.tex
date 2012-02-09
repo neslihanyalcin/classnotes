@@ -2,12 +2,12 @@
 \begin{document}
 Ders 21
 
-Bürüm (convolution) teknigi, iki fonksiyon uzerinde islem yaparak ucuncu
-bir fonksiyon elde eder, ve ozel bir isareti vardir. 
+Evristirme (convolution) teknigi, iki fonksiyon uzerinde islem yaparak
+ucuncu bir fonksiyon elde eder, ve ozel bir isareti vardir.
 
 \[ f(t) * g(t) \]
 
-Elde edilen fonksiyon $f(t)$'ye neredeyse hic benzemeyecektir. Burum
+Elde edilen fonksiyon $f(t)$'ye neredeyse hic benzemeyecektir. Evristirme
 islemini faydali hale getiren iki sebep var. Birinci fayda formel tanimiyla
 alakali. Diyelim ki ustteki iki fonksiyonun ayri ayri Laplace Transformu 
 
@@ -56,17 +56,17 @@ icin birazdan verecegimiz formule ne kadar benzedigini goreceksiniz.
 Ne bicim bir formul bu? Onu anlamanin en iyi yolu onu kullanarak bir seyler
 hesaplamak herhalde. 
 
-Bu arada burum sirabagimsiz (commutative) bir islemdir, yani 
+Bu arada evristirme sirabagimsiz (commutative) bir islemdir, yani 
 
 \[ f*g = g*f \]
 
-Burum formulune bakinca sirabagimsizlik bariz degil, cunku formul simetrik
-durmuyor, ama burum formulunu (1)'deki gibi gorursek, o zaman bariz
+Evristirme formulune bakinca sirabagimsizlik bariz degil, cunku formul simetrik
+durmuyor, ama evristirme formulunu (1)'deki gibi gorursek, o zaman bariz
 oluyor. 
 
 \[ \mathcal{L} (f*g) \leadsto F(s)G(s) \]
 
-ise, $F(s)$ ve $G(s)$ carpimi sirabagimsizdir, o zaman burum de
+ise, $F(s)$ ve $G(s)$ carpimi sirabagimsizdir, o zaman evristirme de
 sirabagimsizdir. 
 
 Ornek
@@ -109,7 +109,7 @@ Ornek
 \[  = \int_0^t f(u) du \]
 
 
-Simdi burum isleminin Laplace Transformu ile baglantisini ispatlayacagiz. 
+Simdi evristirme isleminin Laplace Transformu ile baglantisini ispatlayacagiz. 
 
 \[ F(s)G(s) = \int_0^{\infty}  e^{-su}f(u) du\cdot  
 \int_0^{\infty}  e^{-sv} g(v) dv
@@ -179,27 +179,27 @@ islemi yapmak istiyorum, bu islem sonsuza kadar devam ediyor.
 
 Ispat tamamlandi. 
 
-Laplace Transformunu ile burum islemi arasindaki baglantiyi gorduk. 
+Laplace Transformunu ile evristirme islemi arasindaki baglantiyi gorduk. 
 
 * * *
 
-Burum cok onemli bir islemdir, ama onu kullanan pek cok kisi onu Laplace
+Evristirme cok onemli bir islemdir, ama onu kullanan pek cok kisi onu Laplace
 Transformuyla alakali olarak kullanmaz. Onu oldugu gibi tek basina
 kullanirlar. Bir ornek vereyim: benim kizim bir doga / cevre muhendisi
 (environmental engineer), ve musterileri icin risk analizi yapmak gibi
 isleri var. Bir gun bir musterisi icin, bir bilimsel makale okuyordu,
 makale asit yagmuru ile alakaliydi, yagmur gelirse cevre ne kadar zarar
-gorur gibi konularla ilgiliydi. Verilen zararin hesabi icin burum
+gorur gibi konularla ilgiliydi. Verilen zararin hesabi icin evristirme
 kullaniliyor dedi, ``bana sordu bu da ne boyle?''. Makaleyi ben de okudum,
-hakikaten ilgincti, yani bu alanda burum hesabinin olmasi ilgincti.
+hakikaten ilgincti, yani bu alanda evristirme hesabinin olmasi ilgincti.
 
 Sonralari diger insanlar da benzer sorularla bana geldiler. Kuzey Kutbu'nda
 delme islemi yapan bir muhendis geldi mesela, delme sirasinda algilanan
 radyoaktiviteyi kullanip milyonlarca yil onceki iklim sartlari hakkinda
-hesap yapmakla ilgileniyordu, o da burum hesabini kullandi. 
+hesap yapmakla ilgileniyordu, o da evristirme hesabini kullandi. 
 
 O yuzden simdi ben de size pek cok alana adapte edilebilecek, genel, basit
-bir model gosterecegim, bu modeli ornek olarak aklinizda tutmaniz burum
+bir model gosterecegim, bu modeli ornek olarak aklinizda tutmaniz evristirme
 hesabini anlamaniz icin iyi olur. Problem radyoaktif atiklarla alakali. 
 
 Bir fabrika radyoaktif atik uretiyor. 
@@ -218,9 +218,9 @@ curuyor olmasidir.
 Yani bir yandan atik uretiliyor, bir yandan bu atiklar bir sekilde
 radyoaktif ozelliklerini kaybediyorlar. O zaman yaptigimiz hesap uretilen
 madde obeklerinin, parcalarinin birikintide ``ne kadar bekledigini'' de
-hesaba katmali \textbf{ki} onun curumesini de bir yandan hesaplayabilelim.
+hesaba katmali \textbf{ki} onun çürümesini de bir yandan hesaplayabilelim.
 
-Curume hesabi basit bir diferansiyel denklem, $t$ aninda kalan madde icin,
+Çürüme hesabi basit bir diferansiyel denklem, $t$ aninda kalan madde icin,
 eger $A_0$ ile baslanirsa cozumu
 
 \[ A_0e^{-kt} \]
@@ -233,14 +233,14 @@ belli olacak)
 O zaman daha once hesapladigimiz gibi $[u_i,u_{i+1}]$ arasinda uretilen
 radyoaktif atik $\approx f(u_i)\Delta u$. 
 
-$t$ aninda curume ise 
+$t$ aninda cürüme ise 
 
 \[  \approx f(u_i)\Delta u \cdot e^{-k ( \ \ \ )}\]
 
-$e$'nin solundaki kisim atilan, eklenen kisim. Curume hesabina gore orasi
+$e$'nin solundaki kisim atilan, eklenen kisim. Çürüme hesabina gore orasi
 bir nevi $A_0$. Peki $e$'nin ustundeki bosluga ne yazilmali? Oraya eklenen
 kismin curudugu zaman araligi konulmali. O zaman araligi nedir? $u_i$'da
-atilmis, $t$ anina bakiyorum, o zaman $t-u_i$ araligi kadar curumus
+atilmis, $t$ anina bakiyorum, o zaman $t-u_i$ araligi kadar çürümüþ
 demektir. 
 
 \[  \approx f(u_i)\Delta u \cdot e^{-k ( t-u_i )}\]
@@ -255,20 +255,20 @@ $u_1 = 0$, ve $u_n = t$ arasinda)
 
 \[ \to \int_0^{t} f(u) e^{k(t-u)}du \]
 
-Ustteki fonksiyon bir burumdur, 
+Ustteki fonksiyon bir evrismedir, 
 
 \[ = f(t) * e^{-kt} \]
 
-Yani hesap atik fonksiyonu ile curume fonksiyonun bir burumudur
+Yani hesap atýk fonksiyonu ile çürüme fonksiyonun bir evrismesidir
 (convolution of). 
 
 Pek cok diger problem ustteki probleme indirgenebilir, onun merceginden
-anlasilablir. Mesela cop atiklarini dusunelim, ama cop atiklari curumuyor
-olsunlar. O zaman burum hesabi
+anlasilablir. Mesela cop atiklarini dusunelim, ama cop atiklari çürümüyor
+olsunlar. O zaman evristirme hesabi
 
 \[ f(t) * 1 \]
 
-1 kullanildi cunku curume yok. 
+1 kullanildi cunku çürüme yok. 
 
 Bir diger ornek, tavuk yetistiriliyor, 
 
