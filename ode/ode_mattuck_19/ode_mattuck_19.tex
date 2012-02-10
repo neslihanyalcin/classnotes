@@ -87,23 +87,23 @@ formu kullanmaz, cunku $x$ baz halde ve bu tur ifadeler turev alirken,
 entegrasyon yaparken problem cikartabilir. Daha iyi bir baz $e$ olur, $e$
 bazli turev almayi, entegrasyon yapmayi herkes sever [cunku cok kolay]. 
 
-\[ x = e^{ln \ x} \]
+\[ x = e^{\ln x} \]
 
-\[ x^t = (e^{ln \ x})^t \]
+\[ x^t = (e^{\ln x})^t \]
 
 Bir nokta daha: eger $x > 1$ ise ustteki entegralin bir deger yaklasmasi
 (converge) cok zordur, cunku entegral ust sinirinda $\infty$ var, bu tur
 entegraller dikkatli muamele ister. O zaman su sarti koyarim, $0 < x < 1$. 
 
-Eger  $0 < x < 1$ olacak ise, $ln \ x < 0$ demektir. 
+Eger  $0 < x < 1$ olacak ise, $\ln x < 0$ demektir. 
 
-Tabii kimse $ln \ x$'i bir degisken olarak kullanmaz, 
+Tabii kimse $\ln x$'i bir degisken olarak kullanmaz, 
 
-\[ s = ln \ x \]
+\[ s = \ln x \]
 
 ve negatif degiskenlerle ugrasmak istemedigimiz icin 
 
-\[ -s = -ln \ x \] 
+\[ -s = -\ln x \] 
 
 yapariz, ki hep pozitif olan $-s$ ile is yapabilelim. 
 
@@ -223,7 +223,7 @@ Aslinda daha genel bir duruma bakalim, su ifadenin
 
 Laplace transformunu yapacagiz, ve bunu $f(t)$'nin transformu bilindigi
 durum icin yapacagiz, ustteki blok ifade icin genel bir formul uretecegiz,
-ve onu basarinca, $e^{at}$ ifadesini $e^{at} \cdot 1$ olarak gorulebilir, eh
+ve onu basarinca, $e^{at}$ ifadesi $e^{at} \cdot 1$ olarak gorulebilir, eh
 1'in transformunu zaten biliyoruz, o zaman genel formul uzerinden $e^{at}$'in
 transformunu hemen buluruz. Genel formulun transformu
 
@@ -411,6 +411,36 @@ Bir sonrakine bakarsak, ve bu zinciri sonuna kadar devam ettirirsek
 
 $s$ uzeri $n+1$ cunku bir ekstra $1/s$ $\mathcal{L} (t^0)$'dan geliyor. 
 
+Soru - Problem Set 7 Part II 26 a) 
+
+Farz edelim ki $f(t)$'nin Laplace Transformu $F(s)$ ve $a > 0$. $g(t) =
+f(at)$ icin
+degisken degistirme (change of variables) teknigini kullanarak bir formul
+bul, bu bu formul $F(s)$'i kullanan bir formul olsun. 
+
+Cevap 
+
+Eger duz formulu yazsaydik, 
+
+\[ \int _{ 0}^{\infty} f(at) e^{ -st} dt \]
+
+olacakti. Ustteki $f(at)$'yi $f(t)$ gibi bir forma nasil dondururuz? $a$'yi
+disa cekemeyiz, cunku $f$'in nasil bir fonksiyon oldugunu bilmiyoruz. O
+zaman $f$'e tek degisken veremesek bile ``veriyormus gibi'' yapariz,
+degisken degisimi kullaniriz. 
+
+\[ u=at, \ t = u/a, \ du=adt \]
+
+\[ \int _{ 0}^{\infty} f(u) e^{ -s(u/a)} \ 1/a \ du \]
+
+\[ = \frac{ 1}{a}\int _{ 0}^{\infty} f(u) e^{ -(s/a)u} \ du  = 
+\frac{ 1}{a}F \bigg(\frac{ s}{a} \bigg)
+\]
+
+Bu arada $f(t)$ yerine $f(u)$ var ama, zaten $t$ degiskeni bir yer tutucu
+gibi, onemli olan, ``Laplace Transformundan'' bahsedilen fonksiyon $f$. 
+
+
 Kaynaklar
 
 [1] Bilindigi gibi parcalarla entegrasyon formulu
@@ -418,12 +448,6 @@ Kaynaklar
 \[ \int_a^b u dv = 
 uv - \int_a^b v du
  \]
-
-
-
-
-
-
 
 
 

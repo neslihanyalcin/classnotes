@@ -4,17 +4,17 @@
 Ders 23 
 
 Bu ders Laplace Transformlarinin son dersi, ayni zamanda, yeni bir girdi
-fonksiyonunu gorecegiz -- birim vurus (unit impulse) fonksiyonlari. Bu
+fonksiyonunu gorecegiz -- birim dürtü (unit impulse) fonksiyonlari. Bu
 fonksiyonlar ne ise yarar? Mesela tum paranizi bankaya koydunuz, sonra
-yarisini cektiniz, vs. Bu tur hesaplar vurus fonksiyonu ile yapilir. Peki
-vurus nedir? Tokat atmaktan bahsetmiyoruz tabii; vurus, mesela bir objeye
-bir zaman surecinde $f(t)$ kuvveti uyguladigimizda,
+yarisini cektiniz, vs. Bu tur hesaplar dürtü fonksiyonu ile yapilir. Peki
+dürtü nedir? Dürtü, mesela bir objeye bir zaman surecinde $f(t)$ kuvveti
+uyguladigimizda,
 
-\[ f(t) \textit{ vurusu } = \int _{a}^{b}f(t)dt \]
+\[ f(t) \textit{ durtu } = \int _{a}^{b}f(t)dt \]
 
 Eger $f(t)$ sabit ise, ustteki su hale gelir
 
-\[ Vurus = F \cdot (b-a) \]
+\[ Durtu = F \cdot (b-a) \]
 
 Peki guc derken nasil bir sistemden bahsediyoruz? Mesela
 
@@ -29,8 +29,8 @@ modellerim? Diyelim ki
 \includegraphics[height=3cm]{23_2.png}
 
 0 aninda kuvvet uygulamasi basliyor, 0'dan yukari cikiyoruz, $h$ kadar
-devam ediyor, sonra sifira iniyoruz. Eger bu vurusun, yani grafik altindaki
-entegral alaninin 1 olmasini istiyorsak (ki vurus birim olabilsin), o zaman
+devam ediyor, sonra sifira iniyoruz. Eger bu dürtüun, yani grafik altindaki
+entegral alaninin 1 olmasini istiyorsak (ki dürtü birim olabilsin), o zaman
 kuvvet sifirdan $1/h$'ye yukselmeli. 
 
 Yay sistemini modellersek (ve birim adim fonksiyonunu kullanirsak)
@@ -57,7 +57,7 @@ O zaman iki ustteki
 \[ = \frac{1}{h}[ \frac{1}{s} - \frac{e^{-hs}}{s} ]\]
 
 Simdi su soruyu soralim: eger $h$ sifira giderse ne olur? Laplace Transform
-ne olur? Elimizdeki birim vurus olduguna gore, $a,b$ araligi kuculdukce,
+ne olur? Elimizdeki birim dürtü olduguna gore, $a,b$ araligi kuculdukce,
 alan 1 kalmak zorunda oldugu icin kuvvet sonsuza gitmelidir. 
 
 \[ \lim_{h \to 0} \frac{1-e^{-hs}}{hs} \]
