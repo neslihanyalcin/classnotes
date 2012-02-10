@@ -54,8 +54,11 @@ Entegrale sokarsak
 
 \[ = \pi ab \]
 
-Genel olarak yapmaya calistigimiz olcekleme faktorunun (scaling factor) ne
-oldugunu bulmak, ki $dx \ dy$ ve $du \ dv$ arasindaki gecis mumkun olsun. 
+Ustteki ornekte $u,v$ ile $x,y$ arasindaki iliski oldukca basitti. Eger
+iliski daha cetrefil ise neler yapmamiz gerektigini alttaki ornekte
+gorecegiz. Genel olarak yapmaya calistigimiz olcekleme faktorunun (scaling
+factor) ne oldugunu bulmak, ki $dx \ dy$ ve $du \ dv$ arasindaki gecis
+mumkun olsun.
 
 Ornek 
 
@@ -64,7 +67,8 @@ Ornek
 \[ v = x + y \]
 
 Niye ustteki gibi $u,v$ kullanilmis? Belki entegre edilen fonksiyonu, belki
-de sinirlari basitlestirmek istiyoruz. 
+de sinirlari basitlestirmek istiyoruz ($x,y$ icin $A$, $u,v$ versiyonu icin
+$A'$ kullanalim). 
 
 $dA = dx \ dy$, ya da $dA' = du \ dv$ 
 
@@ -75,12 +79,18 @@ topladigini soylemistik.
 
 Problem soyle, ustteki dikdortgen, bu ornegin donusum formullerine gore
 $u,v$ baglaminda alttaki gibi bir sekle donusecek, yani paralelogram
-olacak. 
+olacak. Parallelogram olacagini biliyoruz cunku degisim formulleri
+lineer. 
 
 \includegraphics[height=2cm]{18_3.png}
 
-Bir ornek uzerinde gorelim, her kenari 1 uzunlugunda, alani 1 olan kareyi
-alirsak
+Bu tur degisimler matrisler uzerinden gosterilebilir bu arada, cunku
+matrislerin, bir transformasyon matrisinin resimlere ne yapabilecegini
+biliyoruz, yatirip, yassilastirma yapabiliyorlar mesela, acilar,
+buyuklukler tamamen degisiyor vs. 
+
+Sonsuz kucuklukte olmasa da, neler olacagini daha iyi gormek icin her
+kenari 1 uzunlugunda, alani 1 olan kareye bakalim
 
 \includegraphics[height=3cm]{18_4.png}
 
@@ -141,7 +151,7 @@ Demek ki kenarlari $\Delta x,\Delta y$ olan dikdortgen transform
 edildiginde, kenarlari $\Delta u,\Delta v$ olan paralelogramin sekli kismi
 turevlere bagli, cunku ustte transform eden matrisin icinde kismi turevler
 var, ve kismi turevlerin degerleri belli $x,y$ noktalarinda hesaplandigina
-gore, transformasyon ayrica belli $x,y$ noktalarina da bagli. Eger cebirsel
+gore, transformasyon da belli $x,y$ noktalarina da bagli. Eger cebirsel
 olarak turetseydik, alan buyuklugu olceklenmesinin (ustte 5 olan) ustteki
 transform matrisinin determinanti oldugunu gorurduk. 
 

@@ -54,7 +54,10 @@ icin birazdan verecegimiz formule ne kadar benzedigini goreceksiniz.
 \[ f(t)*g(t) = \int_0^t f(u)g(t-u) du \]
 
 Ne bicim bir formul bu? Onu anlamanin en iyi yolu onu kullanarak bir seyler
-hesaplamak herhalde. 
+hesaplamak herhalde. Not: Kabaca bir tanim soyle olabilir belki, $t$ bazli
+iki fonksiyon aliniyor, sifirdan ile $t$ degeri arasindaki tum degerler $f$
+icin oldugu gibi, $g$ icin tam tersi sekilde $f,g$'ye hesaplattirilip
+birbirleri ile carpiliyor.
 
 Bu arada evristirme sirabagimsiz (commutative) bir islemdir, yani 
 
@@ -132,7 +135,8 @@ yeterli.
 \[ = \int \int  e^{-st} f(u)g((t-u)) \ du \ \_\_ \ dt \]
 
 Ustte $dt$ kullanmak istiyorum ama bu degisimi dikkatli yapmak lazim, bos
-birakilan yere ne gelecegi icin Jacobian matrisini kullanmam lazim.
+birakilan yere ne gelecegini bulmak icin Jacobian matrisini kullanmam
+lazim.
 
 \[ dudv = \frac{\partial(u,v)}{\partial(u,t)}dudt \]
 
