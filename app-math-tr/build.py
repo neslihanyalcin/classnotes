@@ -1,9 +1,12 @@
 import os, sys
 
 if len(sys.argv) == 1 or sys.argv[1] == 'tex':
-    cmd = "pdftk */cover.pdf */model.pdf */karesel.pdf quotient/quotient.pdf */invtrig.pdf \
-pfractions/pfractions.pdf ratio/ratio.pdf compos/compos.pdf poldiv/poldiv.pdf */fundamental.pdf  \
-*/cauchy.pdf */integral-mult.pdf */lhosp*.pdf */euler.pdf intexp/intexp.pdf */taylor.pdf  \
+    cmd = "pdftk */cover.pdf */model.pdf ./bases/bases.pdf */karesel.pdf \
+quotient/quotient.pdf */invtrig.pdf \
+pfractions/pfractions.pdf ratio/ratio.pdf compos/compos.pdf \
+poldiv/poldiv.pdf */fundamental.pdf  \
+*/cauchy.pdf */integral-mult.pdf */lhosp*.pdf */euler.pdf \
+intexp/intexp.pdf */taylor.pdf  \
 */taylor2d.pdf eig/eig.pdf */logaritma.pdf */complexity.pdf */probsolve.pdf \
  */id3.pdf */turev.pdf */totaldiff.pdf */eigseg.pdf */rayleigh.pdf \
 exp/exp.pdf */moment.pdf */dagilimlar.pdf */buyuk.pdf */cebisev.pdf \
