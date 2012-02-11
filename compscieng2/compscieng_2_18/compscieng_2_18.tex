@@ -43,7 +43,15 @@ oncelikle hizdir, yukarida gordugumuz gibi, matris carpimi var, bu cok
 hizli. Bir diger ozellik bagimsizlik. Bir digeri baz vektorlerinin
 ortonormal olmasi. Bu son ozellik elde edilebilirse en iyisidir. Ustteki
 $K$ pek iyi bir baz degildir. Arnoldi'nin amaci Krylov bazini ortogonalize
-etmektir. $b,Ab,..$'yi alip $q_1,q_2,..,q_j$ olusturmaktir.
+etmektir. $b,Ab,..$'yi alip $q_1,q_2,..,q_j$ olusturmaktir. Koda bakalim, 
+
+\begin{lstlisting}[language=Matlab,mathescape]
+$q_1$ = $b$ / ||$b$||; % normalize et
+for $j$ = 1,..,n-1
+  $t = Aq_j$
+  for i = 1,..,j
+    $h_{ij}$ = $q_i^Tt$ 
+\end{lstlisting}
 
 
 
