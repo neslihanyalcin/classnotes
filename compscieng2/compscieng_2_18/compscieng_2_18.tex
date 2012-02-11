@@ -1,0 +1,60 @@
+\documentclass[12pt,fleqn]{article}\usepackage{../common}
+\begin{document}
+Ders 18
+
+[bazi multigrid yorumlari atlandi]
+
+Krylov Matrisleri 
+
+Bu matrislerden $K$ olarak bahsedecegiz ve bu yontem baglaminda 
+
+\[ Ax = b \]
+
+sistemini cozuyor olacagiz. Krylov matrisleri soyle yaratilir
+
+\[ K = \left[\begin{array}{rrrrr}
+b & Ab & A^2b & .. & A^{j-1}b
+\end{array}\right] \]
+
+Krylov altuzayi ise ustteki kolonlarin lineer kombinasyonudur (span), ya da
+ustteki matrisin kolon uzayidir da denebilir. Bu tur bir matrisle niye
+ilgilenirim? Jacobi islemi aslinda bu kolonlarin kombinasyonlarindan birini
+her adimda yavas yavas secer, yani aslinda Krylov altuzayinin bir
+parcasinda calisir. Daha dogrusu ufak ufak baslar, o altuzayda yavas yavas
+buyur.
+
+Jacobi surekli bir kombinasyon secimi yapar, tabii bu secimin en iyi secim
+oldugu soylenemez. Secimin en iyisini yapsak daha iyi olmaz mi? 
+
+En iyiyi secmek icin kullanilacak metot eslenik gradyan (conjugate
+gradient) olacak. Bu metot $K$ icinde $x_j$'yi secer. 
+
+$K$ uzayi yaklasiksal cozumumuzu aradigimiz yer tabii ki. Bu arada ustteki
+$K$ uzayinin elemanlarini yaratmak cok kolay, matris carpimi yapiyoruz, ve
+bir sonraki eleman bir oncekinin $A$ katidir, ve $A$ cogunlukla seyrektir
+(sparse), bazen de simetriktir (eslenik gradyan metotu icin $A$ simetrik,
+pozitif kesin olmali).
+
+Ama EG metotundan once Arnoldi kavramini gormemiz lazim. 
+
+Uygulamali Matematikte surekli bir seyler ``seceriz'', ve cogunlukla baz
+vektorleri seceriz ve birkac ozellik arariz. Aradigimiz ozellikler
+oncelikle hizdir, yukarida gordugumuz gibi, matris carpimi var, bu cok
+hizli. Bir diger ozellik bagimsizlik. Bir digeri baz vektorlerinin
+ortonormal olmasi. Bu son ozellik elde edilebilirse en iyisidir. Ustteki
+$K$ pek iyi bir baz degildir. Arnoldi'nin amaci Krylov bazini ortogonalize
+etmektir. $b,Ab,..$'yi alip $q_1,q_2,..,q_j$ olusturmaktir.
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}
