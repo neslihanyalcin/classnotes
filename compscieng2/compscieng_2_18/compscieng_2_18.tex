@@ -16,12 +16,12 @@ sistemini cozuyor olacagiz. Krylov matrisleri soyle yaratilir
 b & Ab & A^2b & .. & A^{j-1}b
 \end{array}\right] \]
 
-Krylov altuzayi ise ustteki kolonlarin lineer kombinasyonudur (span), ya da
-ustteki matrisin kolon uzayidir da denebilir. Bu tur bir matrisle niye
-ilgilenirim? Jacobi islemi aslinda bu kolonlarin kombinasyonlarindan birini
-her adimda yavas yavas secer, yani aslinda Krylov altuzayinin bir
-parcasinda calisir. Daha dogrusu ufak ufak baslar, o altuzayda yavas yavas
-buyur.
+Krylov altuzayi $\mathscr{K}$ ise ustteki kolonlarin lineer kombinasyonudur
+(span), ya da ustteki matrisin kolon uzayidir da denebilir. Bu tur bir
+matrisle niye ilgilenirim? Jacobi islemi aslinda bu kolonlarin
+kombinasyonlarindan birini her adimda yavas yavas secer, yani aslinda
+Krylov altuzayinin bir parcasinda calisir. Daha dogrusu ufak ufak baslar, o
+altuzayda yavas yavas buyur.
 
 Jacobi surekli bir kombinasyon secimi yapar, tabii bu secimin en iyi secim
 oldugu soylenemez. Secimin en iyisini yapsak daha iyi olmaz mi? 
@@ -29,8 +29,8 @@ oldugu soylenemez. Secimin en iyisini yapsak daha iyi olmaz mi?
 En iyiyi secmek icin kullanilacak metot eslenik gradyan (conjugate
 gradient) olacak. Bu metot $K$ icinde $x_j$'yi secer. 
 
-$K$ uzayi yaklasiksal cozumumuzu aradigimiz yer tabii ki. Bu arada ustteki
-$K$ uzayinin elemanlarini yaratmak cok kolay, matris carpimi yapiyoruz, ve
+$\mathscr{K}$ uzayi yaklasiksal cozumumuzu aradigimiz yer tabii ki. Bu arada ustteki
+$K$ matrisinin elemanlarini yaratmak cok kolay, matris carpimi yapiyoruz, ve
 bir sonraki eleman bir oncekinin $A$ katidir, ve $A$ cogunlukla seyrektir
 (sparse), bazen de simetriktir (eslenik gradyan metotu icin $A$ simetrik,
 pozitif kesin olmali).
@@ -47,14 +47,15 @@ etmektir. $b,Ab,..$'yi alip $q_1,q_2,..,q_j$ olusturmaktir. Koda bakalim,
 
 \begin{lstlisting}[language=Matlab,mathescape,numbers=left]
 $q_1$ = $b$ / ||$b$||; % normalize et
-for $j$ = 1,..,n-1
-  $t = Aq_j$;
-  for i = 1,..,j
-    $h_{ij} = q_i^Tt$
-    $t = t - h_{ij}q_i$
-  end
-  $h_{j+1,j} = ||t||$
-  $q_{j+1} = t / h_{j+1,j}$    
+for $j$ = 1,..,n-1 % $q_{j+1}$'i hesaplamaya basla
+  $t = Aq_j$; 
+  for i = 1,..,j  % $t$ $\mathscr{K}_{j+1}$ uzayinda
+    $h_{ij} = q_i^Tt$  % h_{ij}q_i, $t$'nin $q_i$'ye yansimasi
+    $t = t - h_{ij}q_i$ % yansimayi cikart
+  end % $t$, $q_1,..,q_j$'ye ortogonal
+  $h_{j+1,j} = ||t||$ % $t$'nin buyuklugunu hesapla
+  $q_{j+1} = t / h_{j+1,j}$ 
+end % $q_1,..,q_j$ ortonormal
 \end{lstlisting}
 
 Fikir Gram-Schmidt fikriyle cok benzer. 1. satirda ilk vektoru oldugu gibi
@@ -107,7 +108,7 @@ ornekte $j = n = 4$, tum degerleri isledik. Eger $n$ cok buyuk bir sayi ise
 mesela $10^5$ gibi, $j << n$ yani sona gelmeden cok once durmak
 isteriz. Eslenik gradyan bunu basariyor. 
 
-$K$ formatindaki bir matrise Vondermond matrisi de denir, bu tur
+$K$ formatindaki bir matrise Vondermonde matrisi de denir, bu tur
 matrislerde ilk kolon sabit, 3., 4., .. kolonlar ikincinin ustel 
 halidir. 
 
@@ -135,15 +136,53 @@ en kucuk ozdeger ne olurdu? $Q^TQ = I$  o zaman caprazda hep 1 var, $1/1 =
 1$. 
 Bu en iyi kosullandirma sayisidir. 
 
+Simdi su cok onemli formul icin gerekli her bilesene sahibiz. 
 
+\[ AQ = QH \]
 
+$A$ bize verilen -diyelim ki- simetrik matris. $Q$ Arnoldi'den gelen
+baz. $H$ ise kodda gorulen carpan degerleri. Yani $QH$ bir nevi
+Gram-Schmidt'teki gibi, hatirlarsak Gram-Schmidt $QR$ ile temsil
+ediliyordu. $Q$ yine ortonormal, Gram-Schmidt'te $R$ ust kosegen. 
 
+$H$ hesaplanirsa
 
+\[  H = 
+\left[\begin{array}{rrrr}
+5/2 & \sqrt{ 5/2} && \\
+\sqrt{ 5/2} & 5/2 & \sqrt{ 4/5}& \\
+ & \sqrt{ 4/5} & 5/2 & \sqrt{ 9/20}\\
+ &&  \sqrt{ 9/20} & 5/2 
+\end{array}\right]
+\]
 
+$H$ simetrik ve ucgensel kosegen (tridiagonal). Ucgensel kosegenlik bize ne
+soyler?  Tekrarin (recurrence) kisa oldugunu.
 
+\[ AQ = QH \]
 
+formulune donelim, kolonsal olarak ustteki carpimi nasil gosteririz? 
 
+\[ Aq_1  = \frac{ 5}{2}q_1  + \frac{ \sqrt{ 5}}{2} q_2 \]
 
+Tek bir kalemde eger $A$ simetrik ise $H$'in de simetrik oldugunu nasil
+gosteririm? $H$'nin formulu lazim, 
+
+\[ H = Q^{-1}AQ \]
+
+$Q^{-1}$ nedir? $Q$'nun ortogonal oldugunu hatirlayalim, o zaman 
+$Q^{-1} =
+Q^T$. Ustte yerine koyalim,
+
+\[ H = Q^{T}AQ \]
+
+Buna bakarak $H$ kesin simetriktir diyebiliriz, simetrik matrisler aynen
+ustteki gibi yaratilir zaten, ortaya bir simetrik matris koyarsin, sagdan
+herhangi bir matris, soldan onun devrigi ile carparsin, ve yeni bir
+simetrik matris ortaya cikar. 
+
+Yani vardigimiz sonuc Krylov bazinin hizli, basit sekilde ortogonalize
+edilebilecegidir. 
 
 
 
