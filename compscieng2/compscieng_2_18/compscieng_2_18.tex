@@ -12,7 +12,7 @@ Bu matrislerden $K$ olarak bahsedecegiz ve bu yontem baglaminda
 
 sistemini cozuyor olacagiz. Krylov matrisleri soyle yaratilir
 
-\[ K = \left[\begin{array}{rrrrr}
+\[ K_j = \left[\begin{array}{rrrrr}
 b & Ab & A^2b & .. & A^{j-1}b
 \end{array}\right] \]
 
@@ -45,13 +45,95 @@ ortonormal olmasi. Bu son ozellik elde edilebilirse en iyisidir. Ustteki
 $K$ pek iyi bir baz degildir. Arnoldi'nin amaci Krylov bazini ortogonalize
 etmektir. $b,Ab,..$'yi alip $q_1,q_2,..,q_j$ olusturmaktir. Koda bakalim, 
 
-\begin{lstlisting}[language=Matlab,mathescape]
+\begin{lstlisting}[language=Matlab,mathescape,numbers=left]
 $q_1$ = $b$ / ||$b$||; % normalize et
 for $j$ = 1,..,n-1
-  $t = Aq_j$
+  $t = Aq_j$;
   for i = 1,..,j
-    $h_{ij}$ = $q_i^Tt$ 
+    $h_{ij} = q_i^Tt$
+    $t = t - h_{ij}q_i$
+  end
+  $h_{j+1,j} = ||t||$
+  $q_{j+1} = t / h_{j+1,j}$    
 \end{lstlisting}
+
+Fikir Gram-Schmidt fikriyle cok benzer. 1. satirda ilk vektoru oldugu gibi
+aliyoruz, sadece normalize ediyoruz. Sonra 3. satirda bir deneme
+amacli bir vektor $t$'ye  bakiyoruz. Bu vektor ilk bastaki $b$'ye ortogonal
+olmayacak muhakkak. O zaman 5. satirda bir ic carpim (inner product)
+sonrasi, 6. satirda $t$'den cikartiyoruz. 8 ve 9. satirlarda bu
+vektoru normalize ediyoruz. 
+
+Eger $A$ simetrik ise, $h_{ij}h_{ij-1}$ carpimini birkac kere cikartmam
+yeterlidir. 
+
+Ornek 
+
+\[  
+A = 
+\left[\begin{array}{rrrr}
+1 &&& \\
+ & 2 && \\
+ && 3 & \\
+ &&& 4 
+\end{array}\right]
+\]
+
+$A$ hem simetrik, onun otesinde kosegen, ayrica oldukca seyrek. 
+
+\[  
+b = 
+\left[\begin{array}{r}
+1 \\ 1\\ 1 \\ 1
+\end{array}\right]
+\]
+
+
+\[  
+K_4 = 
+\left[\begin{array}{rrrr}
+1 & 1 & 1 & 1\\
+1 & 2 & 4 & 8\\
+1 & 3 & 9 & 27\\
+1 & 4 & 16 & 64 
+\end{array}\right]
+\]
+
+Krylov matrisi ustte. Ilk kolonu $b$ ile ayni. 2. kolon icin $A$ ile
+carpmisiz. 3. icin bir daha $A$ ile carpmissiz, 4. icin bir daha. 
+
+$K$ eger bir baz ise, temsil ettigi uzay tum $\mathbb{R}^4$'tur. Ustteki
+ornekte $j = n = 4$, tum degerleri isledik. Eger $n$ cok buyuk bir sayi ise
+mesela $10^5$ gibi, $j << n$ yani sona gelmeden cok once durmak
+isteriz. Eslenik gradyan bunu basariyor. 
+
+$K$ formatindaki bir matrise Vondermond matrisi de denir, bu tur
+matrislerde ilk kolon sabit, 3., 4., .. kolonlar ikincinin ustel 
+halidir. 
+
+Vondermond matrisleri pek iyi kosullandirilmis (conditioned) matrisler
+degildir. Alakali bir soru: iyi, kotu kosullandirilmis matrisi nasil
+anlariz? Matris tekil (singular) degil. Determinanti hesaplasak sifir
+cikmaz. Ama neredeyse ``tekil olmaya yakin''. Bunun testini nasil yapariz? 
+
+Matris tekil degil, o zaman ozdegerleri hesaplamak akla gelebilir,
+oradan $\lambda_{min}, \lambda_{maks}$'i kontrol etmek.. Fakat simetrik
+olmayan matrislerin ozdegerlerini hesaplamak hos degildir, ``guvenilir''
+hesaplar degildirler. Cok kotu kosullandirilmis ama tum ozdegerleri 1 olan
+matrisler olabilir mesela, caprazinda 1'ler olur, caprazin ustunden
+katrilyonlar olabilir.. 
+
+Bu isi dogru yapmanin yolu $V^TV$'ye bakmak. Yani genel kural, matris
+simetrik degilse, devrigi ile kendisini carp, sonucun ozdegerleri hep
+pozitif olur. $V^TV$'nin $i$'inci ozdegeri, $V$'nin $i$'inci ozdegerinin
+karesi olacaktir. 
+
+Bu arada $V^TV$ matrisine Gram matrisi denir. 
+
+Eger $Q^TQ$ olsaydi kosullandirma sayisi (condition number), yani en buyuk /
+en kucuk ozdeger ne olurdu? $Q^TQ = I$  o zaman caprazda hep 1 var, $1/1 =
+1$. 
+Bu en iyi kosullandirma sayisidir. 
 
 
 
