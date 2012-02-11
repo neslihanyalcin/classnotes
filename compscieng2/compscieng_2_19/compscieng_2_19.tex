@@ -2,5 +2,39 @@
 \begin{document}
 Ders 19
 
+Eslenik Gradyan (Conjugate Gradient) Yontemi 
+
+Arnoldi metotu Gram-Schmidt'e tam olmsa da benzeyen bir yontemdir ve bir
+ortogonal baz ortaya cikartir. Bu baz, Krylov altuzayinin bazidir, ki bu
+altuzaydaki her yeni baz vektor, $e$'nin baska bir ustu alinip carpilarak
+elde edilir. Fakat bu pek iyi bir baz degildir, bazlarin ortogonalize
+edilmesi gerekir, ve Arnoldi'nin yaptigi budur. 
+
+Arnoldi-Lanczos yontemi ozdegerler (eigenvalue) bulmak icin de kullanilir.
+
+\[ AQ = QH \]
+
+esitligindeki $H$ matrisinin alt-matrisine bakilirsa, aranilan ozdegerler
+buradan okunabilir. Bu alt-matris simetrik ve ust-caprazsaldir
+(upper-diagonal). 
+
+\[ H = Q^{-1}AQ \]
+
+formulunde $H,A$ matrisleri birbirine benzerdir (similar) ve benzer
+matrislerin ozdegerleri aynidir. 
+
+Bu kavramlardan soyle bir bahsetmek istedim, belki gunun birinde cok buyuk
+bir matrisin ozdegerlerini bulmak istersiniz, aklinizda olsun. Yazilim
+\verb!arpack! bunun icin kullanilabiliyor. Bahsi yaptik bir diger sebep
+lineer cebirin yarisi lineer sistemlerse, diger yarisi ozdeger
+problemleridir denebilir. Buraya gelmisken ustteki ozdeger yonteminden
+bahsetmemek olmazdi. 
+
+Konumuza donelim. 
+
+$A$ pozitif kesin ve simetrik. 
+
+
+
 
 \end{document}
