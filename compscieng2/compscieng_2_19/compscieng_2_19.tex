@@ -47,8 +47,25 @@ $r_k$, $q_{k+1}$'in bir katidir. Yani $r$ ile gosterilen ``artiklar
 
 \[ r_i^Tr_k = 0, \ i < k \]
 
+Artiklarin birbirine ortogonal olmasinin sebebi iclerinde $A$ olmasi. 
 
+Baslangic degerleri
 
+\[ d_0 = b \]
+
+\[ x_0 = 0 \]
+
+\[ r_0 = b - Ax_0  = b\]
+
+Simetrik Pozitif Kesin $A$ Icin Eslenik Gradyan Metodu
+
+\begin{lstlisting}[language=Matlab,mathescape,numbers=left]
+$\alpha_k = r_{k-1}^T r_{k-1} / d_{k-1}^T A d_{k-1}$
+$\alpha_k = \alpha_{k-1} + \alpha_k d_{k-1}$
+$r_k = r_{k-1} - \alpha_k Ad_{k-1}$
+$\beta_k = r_k^Tr_k / r_{k-1}^Tr_{k-1}$
+$d_k = r_k + \beta_k d_{k-1}$
+\end{lstlisting}
 
 
 
