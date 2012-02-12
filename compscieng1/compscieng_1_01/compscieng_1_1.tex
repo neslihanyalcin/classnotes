@@ -41,7 +41,7 @@ boyutlarda basimizi agritabilir. Seyrek matrisleri daha hizli cozmenin
 yontemleri vardir, ama 1 milyon x 1 milyon bir yogun matris cozmesi
 imkansiz hale gelebilir. 
 
-Baska ozellikler? Matris ucsel caprazli (tridiagonal). Bu tur matrisler cok
+Baska ozellikler? Matris uclu kosegen (tridiagonal) [1]. Bu tur matrisler cok
 onemlidir, Newton sagolsun, ikinci seviye diferansiyel denklemlerden
 surekli ortaya cikarlar mesela. 
 
@@ -436,5 +436,10 @@ daha fazla yer degistirebiliyor. Ama alt kisima yaklastikca orada bir
 birikme oluyor, cunku alt uc kisim da sabitlenmis. 
 
 \lstinputlisting[language=Python]{elastic_uniform_load.py}
+
+Ekler
+
+[1] Uclu kosegenlik, matris caprazi, onun bir ustu ve alti haricindeki tum
+diger elemanlarin sifir oldugu bir matristir. 
 
 \end{document}

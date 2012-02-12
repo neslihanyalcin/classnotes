@@ -32,7 +32,20 @@ bahsetmemek olmazdi.
 
 Konumuza donelim. 
 
-$A$ pozitif kesin ve simetrik. 
+$A$ pozitif kesin ve simetrik olmali. Eger degilse birazdan gosgterecegimiz
+formulleri kullanmak biraz riskli olur, isleyebilirler ama garanti olmaz. 
+
+$r_K = b - Ax_k $, $K_k$'ye ortogonal, $x_k \in \mathscr{K}_K$. 
+
+Demek ki $x_k$'yi ozyineli olarak yaratabiliriz, ve her adimda sadece $A$
+ile carpmamiz gerekir. Ustteki formulde $A$ ile carpim olduguna gore, $r_K$
+bir sonraki uzay $k+1$ icinde olacaktir. Arnoldi'den biliyoruz ki $q_{k+1}$
+ayni uzay icindedir. O zaman 
+
+$r_k$, $q_{k+1}$'in bir katidir. Yani $r$ ile gosterilen ``artiklar
+(residuals)'' birbirine ortogonal. Yani 
+
+\[ r_i^Tr_k = 0, \ i < k \]
 
 
 
