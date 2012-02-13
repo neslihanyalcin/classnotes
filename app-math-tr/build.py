@@ -1,4 +1,4 @@
-import os, sys
+import os, sys, glob
 
 if len(sys.argv) == 1 or sys.argv[1] == 'tex':
     cmd = "pdftk */cover.pdf */model.pdf ./bases/bases.pdf */karesel.pdf \
@@ -17,3 +17,13 @@ exp/exp.pdf */moment.pdf */dagilimlar.pdf */buyuk.pdf */cebisev.pdf \
 output ~/Dropbox/Public/skfiles/app-math-tr.pdf "
     os.system(cmd)
     exit()
+
+if sys.argv[1] == 'all':
+    print os.listdir(".")
+    for a in os.listdir("."):
+        if os.path.isdir(a):
+            os.chdir(a)
+            os.system("pdflatex *.tex")    
+            os.chdir("..")
+           
+    
