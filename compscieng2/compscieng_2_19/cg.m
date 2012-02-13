@@ -15,7 +15,11 @@ for i = 1:10
    r2old = r2;
    r2 = r'*r;                      % a second scalar product
    beta = r2/r2old;               
+   disp("beta")
+   disp(beta)
    d = r+beta*d;                   % new search direction
+   disp("d");
+   disp(d)
    disp(x);
    disp("\n");
 end
