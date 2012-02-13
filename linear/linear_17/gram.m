@@ -1,4 +1,4 @@
-A = [3 4;5 6];
+A = [3 4; 5 6];
 [m,n] = size(A);
 disp(n);
 for j=1:n
@@ -10,7 +10,3 @@ for j=1:n
   R(j,j) = norm(v);
   Q(:,j) = v/R(j,j);
 end
-disp("R");
-disp(R);
-disp("Q");
-disp(Q);
