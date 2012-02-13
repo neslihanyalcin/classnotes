@@ -56,7 +56,8 @@
 
   (setq kaydir-sayisi (+ kaydir-sayisi (length result-son-dugums)))
   
-  result-son-dugums)) ;;and that's it Son-dugums is returned by the function 
+  result-son-dugums)) ;;and that's it Son-dugums is returned  
+                      ;;by the function 
 
 ;;
 ;; copy wan't provided in my version of lisp.
@@ -84,7 +85,10 @@
 	       (ny durum)
 	       (nx durum)
 	       (ny durum))
-      (setf durum (nil-yerini-guncellestir durum (- (nx durum) 1) (ny durum)))))
+      (setf durum (nil-yerini-guncellestir durum (- (nx durum) 1) 
+					   (ny durum)))
+      )
+     )
     durum))
 
 ;;

@@ -9,8 +9,8 @@
 (defun gitgide-derinlesen-kka (s0 sg sons depth ARTIS-OLCUSU)
   
   (block B
-   (if (gitgide-icin-kka s0 sg sons depth)	;call dfs directly to depth
-       (return-from B t))	;solution found if dfs is true, so return t
+   (if (gitgide-icin-kka s0 sg sons depth) ;call dfs directly to depth
+       (return-from B t)) ;solution found if dfs is true, so return t
 
    (gitgide-derinlesen-kka       ;else, try again but more deeply!
     s0			     	;the same initial state

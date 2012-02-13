@@ -131,7 +131,8 @@
       nil ;;return nil
     (if (equal durum (first dugum-listesi))	;;else if we find one
 	dugum-listesi ;;return where we found it
-      (MEMBER-DURUM durum (rest dugum-listesi))))) ;;else keep looking recursively
+      ;;else keep looking recursively      
+      (MEMBER-DURUM durum (rest dugum-listesi))))) 
 
 
 (defun cocuklari-getiren-islem (dugum)

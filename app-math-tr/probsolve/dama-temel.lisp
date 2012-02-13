@@ -1,13 +1,14 @@
-;; Oyun tahtasi liste icinde liste olarak temsil edildi. Her tahta konumu,
-;; eger uzerinde bir tas var ise, bir liste nesnesi tasir. Eger bu tas
-;; normal bir tas ise, bu liste ("b" nil) gibi olur. Eger bu tas kral tasi
-;; ise, ("b" T) olarak temsil edilecektir. Yani, ikinci T ya da NIL degeri
-;; krallik gostergesidir. Eger konum uzerinde hic tas yok ise, liste nesnesi
-;; yerine NIL bulacaksiniz, dikkat edin (nil nil) degil. Listenin en sonundaki
-;; iki rakam, tahta uzerinde o anda her renkten kac tas kaldigini gosterir.
-;; Birinci rakam beyaz, ikincisi siyah icin. Bunu yapmamizin sebebi
-;; algoritmayi hizlandirmak icin, boylece ikidebir tahtayi bastan sona taramak
-;; gerekmiyor.
+;; Oyun tahtasi liste icinde liste olarak temsil edildi. Her tahta
+;; konumu, eger uzerinde bir tas var ise, bir liste nesnesi
+;; tasir. Eger bu tas normal bir tas ise, bu liste ("b" nil) gibi
+;; olur. Eger bu tas kral tasi ise, ("b" T) olarak temsil
+;; edilecektir. Yani, ikinci T ya da NIL degeri krallik
+;; gostergesidir. Eger konum uzerinde hic tas yok ise, liste nesnesi
+;; yerine NIL bulacaksiniz, dikkat edin (nil nil) degil. Listenin en
+;; sonundaki iki rakam, tahta uzerinde o anda her renkten kac tas
+;; kaldigini gosterir.  Birinci rakam beyaz, ikincisi siyah icin. Bunu
+;; yapmamizin sebebi algoritmayi hizlandirmak icin, boylece ikidebir
+;; tahtayi bastan sona taramak gerekmiyor.
 
 (setq *beyaz*                  "b")
 (setq *siyah*                  "s")

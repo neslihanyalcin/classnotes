@@ -41,7 +41,8 @@
      ;; esasen kat-kat arama.
      (setf acik-i (append acik-i kizlar-i)) 
 
-     (setf nb (pop acik-g)) ;;Tamam, ilk dugumu cikar, acik listeyi guncellestir
+     ;;Tamam, ilk dugumu cikar, acik listeyi guncellestir
+     (setf nb (pop acik-g)) 
 
      (setf ortak-dugum (member nb acik-i  :test #'durum-karsilastirici))
      (when ortak-dugum

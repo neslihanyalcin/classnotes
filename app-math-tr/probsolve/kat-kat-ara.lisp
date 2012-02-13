@@ -15,7 +15,8 @@
        
      (setf n (pop acik)) ;; ilk dugumu cikart
 
-     ;; tamamlanmis listesine n dugumunu koy, cunku birazdan onu isleyecegiz
+     ;; tamamlanmis listesine n dugumunu koy, cunku birazdan onu 
+     ;; isleyecegiz
      (push n tamamlanmis) 
 
      ;; sonuc dugumune geldik mi? (bulduk mu?)
