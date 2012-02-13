@@ -5,18 +5,18 @@ Fourier Transformu ve DFT
 Unlu matematikci Fourier sunu kesfetmisti; periyodik olan bir fonksiyon F(x)
 sinus ve cosinus terimlerinin toplami olarak temsil edilebilir.
 
-\[ F(x) = a_o + \sum_{n=1}^{\infty}a_ncos \ nx + \sum_{n=1}^{\infty}b_nsin \ nx  \]
+\[ F(x) = a_o + \sum_{n=1}^{\infty}a_n \cos nx + \sum_{n=1}^{\infty}b_n \sin nx  \]
 
 Bu fonksiyonda a ve b sayi degerlerinin bilinmesi gerekmektedir. Onlari nasil
 buluruz? 
 
-$a_k$ degerlerini bulmak icin iki tarafi $cos \ kx$ ile carpip
+$a_k$ degerlerini bulmak icin iki tarafi $\cos kx$ ile carpip
 $\int_{-\pi}^{\pi}$ ile entegralini alirsak,
 
-\[ \int_{-\pi}^{\pi} F(x)cos \ kx \ dx = \int_{-\pi}^{\pi} a_0 cos \
-kx \ dx +  \sum_{n=1}^{\infty}\int_{-\pi}^{\pi} a_ncos \ nx \ cos \ kx \ dx +   \]
+\[ \int_{-\pi}^{\pi} F(x)\cos kx \ dx = \int_{-\pi}^{\pi} a_0 \cos
+kx \ dx +  \sum_{n=1}^{\infty}\int_{-\pi}^{\pi} a_n \cos nx \cos kx \ dx +   \]
 
-\[ \sum_{n=1}^{\infty}\int_{-\pi}^{\pi} a_nsin \ nx \ cos \ kx \ dx   \]
+\[ \sum_{n=1}^{\infty}\int_{-\pi}^{\pi} a_n \sin nx \cos kx \ dx   \]
 
 Esitligin sag tarafinda birinci terim $cos(kx)$, $sin(kx)$'e donusur. Fakat sinus
 fonksiyonu $\pi$ ve $-\pi$ noktalarinda (ya da onlarin k ile carpilmis $2\pi$,
@@ -24,23 +24,23 @@ $-2\pi$, vs. gibi katlarinda) sifir degerine sahip oldugu icin, bu terim tamamen
 sifir olacaktir, formulden atilabilir.
 
 Ikinci terimde $cos(nx)cos(kx)$'in ustteki gibi entegrali eger k ve n esit
-degilse, sifirdir. Sadece n ve k esit ise $a_k(cos \ kx)^2$ degeri elde edilir.
-$(cos \ kx)^2$'in iseustteki sekilde entegrali $\pi$ sonucunu verir. Yani ikinci
+degilse, sifirdir. Sadece n ve k esit ise $a_k(\cos kx)^2$ degeri elde edilir.
+$(\cos kx)^2$'in iseustteki sekilde entegrali $\pi$ sonucunu verir. Yani ikinci
 terimde olan, o sonsuza kadar giden koca toplam icinde sadece tek bir terim sag
 kalabilir.
 
-Ucuncu terimde $sin \ nx \ cos \ kx$ carpiminin entegrali her zaman
+Ucuncu terimde $\sin nx \cos kx$ carpiminin entegrali her zaman
 sifir degerini dondurur. Bu terim de formulden atilir. Geri kalanlari tekrar
 duzenlersek, 
 
-\[ a_k = \int_{-\pi}^{\pi} F(x)cos \ kx \ dx \]
+\[ a_k = \int_{-\pi}^{\pi} F(x)\cos kx \ dx \]
 
-sonucunu elde ederiz. $b_k$ icin benzer islemler, ama bu sefer $sin \ kx$ ile carpilarak yapilirsa ve
+sonucunu elde ederiz. $b_k$ icin benzer islemler, ama bu sefer $\sin kx$ ile carpilarak yapilirsa ve
 sonuc asagi yukari ayni.
 
-\[ b_k = \int_{-\pi}^{\pi} F(x)sin \ kx \ dx \]
+\[ b_k = \int_{-\pi}^{\pi} F(x)\sin kx \ dx \]
 
-$a_0$ icin ise, $cos \ kx$ ya da $sin \ kx$ ile carpmaya gerek yok. Sadece iki
+$a_0$ icin ise, $\cos kx$ ya da $\sin kx$ ile carpmaya gerek yok. Sadece iki
 tarafin entegralini almak yeterli, $a_o$'i istedigimiz icin $n=0$ demektir, o
 zaman sin ve cos iceren hicbir terime ihtiyac yoktur.
 
@@ -69,7 +69,7 @@ Bu formulde $i$ degeri hayali sayi olarak bilinen $\sqrt{-1}$ degeridir.
 
 $F(x)$ formulunu ustteki trigonometrik esitliklere gore donusturelim. 
 
-\[ F(x) = .. +  \sum_{n=1}^{\infty}a_ncos \ nx + \sum_{n=1}^{\infty}b_nsin \ nx \]
+\[ F(x) = .. +  \sum_{n=1}^{\infty}a_n \cos nx + \sum_{n=1}^{\infty}b_n \sin nx \]
 
 \[ = .. + \sum_{n=1}^{\infty} a_n \frac{e^{inx} + e^{-inx}}{2} +  \sum_{n=1}^{\infty} b_n \frac{e^{inx} - e^{-inx}}{2i}\\ \]
 
