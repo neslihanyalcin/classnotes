@@ -6,6 +6,7 @@ if len(sys.argv) == 1 or sys.argv[1] == 'tex':
     
 if sys.argv[1] == 'all':
     for a in sorted(glob.glob("ode*")):
+        if a == "ode_mattuck_99": continue
         os.chdir(a)
         os.system("pdflatex ode_mattuck*.tex")    
         os.chdir("..")
