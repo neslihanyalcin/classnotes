@@ -150,6 +150,17 @@ Ornek Jacobi kodlari
 
 \lstinputlisting[language=Python]{jacobi2.py}
 
+Bu kodlarin ikisi de ozyineli Jacobi hesabi yapiyor. Birincisi her dongude 
+\verb!solve! islemi yapiyor. Fakat daha once belirttigimiz gibi, her
+dongude carpim islemi yapmak cok daha optimal olur. Ikinci kod [2]
+
+\[ Px_{k+1} =  (P - A)x_k + b \]
+
+islemini iki parcaya ayirmis, $P,P-A$ ve $P,b$ sistemlerini ayri ayri
+cozerek, dongu icinde $Jx + c$ ile sadece carpma ve toplama kullanmayi
+basarmis. Bu parcalamanin yapilabilmesinin sebebi tabii ki bir lineer
+sistemle calisiyor olmamiz. Cok akillica bir teknik. 
+
 Kaynaklar
 
 [1] Ilginc bir tarihi anektod, Gauss Eliminasyon yontemini kesfeden bizzat
@@ -158,7 +169,7 @@ eliminasyon isinin ozellikle hesabin elle yapildigi eski yilllarda cok
 kulfet getiriyordu. Ozyineli ilk metotlardan Gauss-Seidel teknigi Gauss'u
 cok memnun etti, ve kendi hesaplarinda bu teknigi kullandi.
 
-
+[2] http://www.math.umn.edu/~olver/matlab.html
 
 
 
