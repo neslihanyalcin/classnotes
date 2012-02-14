@@ -99,9 +99,11 @@
   (setq gecici-tas2 (tas-degeri-ver (cadr hamle) tahta))
 
   ;; hamle
-  (setq tahta (tas-degeri-degis (cadr hamle) 
-			 (tas-cikart (car hamle) tahta) gecici-tas1))
-  (setq atlanan-konum (atlayarak-gidilen-konumlar (car hamle) (cadr hamle))) 
+  (setq tahta 
+	(tas-degeri-degis (cadr hamle) 
+			  (tas-cikart (car hamle) tahta) gecici-tas1))
+  (setq atlanan-konum 
+	(atlayarak-gidilen-konumlar (car hamle) (cadr hamle))) 
 
   ;; eger gerekiyorsa krala cevir
   (cond
@@ -205,24 +207,27 @@
 	 ((equal eleman (list "s" nil))
 	  (if (and (equal 2 (- bitisy baslay))
 		   (equal (car (tas-degeri-ver
-				(atlayarak-gidilen-konumlar (car hareket)
-						(cadr hareket)) tahta)) "b"))
+				(atlayarak-gidilen-konumlar 
+				 (car hareket)
+				 (cadr hareket)) tahta)) "b"))
 	      t
 	    )
 	  )
 	 ((equal eleman (list "b" nil))
 	  (if (and (equal -2 (- bitisy baslay))
 		   (equal (car (tas-degeri-ver
-				(atlayarak-gidilen-konumlar (car hareket)
-						(cadr hareket)) tahta)) "s"))
+				(atlayarak-gidilen-konumlar 
+				 (car hareket)
+				 (cadr hareket)) tahta)) "s"))
 	      t
 	    )
 	  )
 	 ((equal (cadr eleman) t)
 	  (if (and (equal 2 (abs (- bitisy baslay)))
 		   (equal (car (tas-degeri-ver
-				(atlayarak-gidilen-konumlar (car hareket)
-						(cadr hareket)) tahta))
+				(atlayarak-gidilen-konumlar 
+				 (car hareket)
+				 (cadr hareket)) tahta))
 			  (renk-degistir renk)))
 	      t
 	    )
@@ -276,38 +281,43 @@
   (setq tas-konumlari (tas-yerlerini-ver renk tahta))
   (let ((muhtemel-hareketler nil) (mumkun-atlamalar nil))
     (dolist (kon tas-konumlari)
-      (setq mumkun-atlamalar (append mumkun-atlamalar
-				   (mecburi-hareketleri-ver kon tahta renk)))
+      (setq mumkun-atlamalar 
+	    (append mumkun-atlamalar
+		    (mecburi-hareketleri-ver kon tahta renk)))
       (if (null mumkun-atlamalar) 
 	  (progn
 	    (if (hamle-kurallara-uygunmu
 		 (list kon (list (- (car kon) 1)
 				 (- (cadr kon) 1))) tahta renk)
 		(setq muhtemel-hareketler
-		      (append muhtemel-hareketler
-			      (list (list kon (list (- (car kon) 1)
-						    (- (cadr kon) 1)))))))
+		      (append 
+		       muhtemel-hareketler
+		       (list (list kon (list (- (car kon) 1)
+					     (- (cadr kon) 1)))))))
 	    (if (hamle-kurallara-uygunmu
 		 (list kon (list (- (car kon) 1)
 				 (+ (cadr kon) 1))) tahta renk)
 		(setq muhtemel-hareketler
-		      (append muhtemel-hareketler
-			      (list (list kon (list (- (car kon) 1)
-						    (+ (cadr kon) 1)))))))
+		      (append 
+		       muhtemel-hareketler
+		       (list (list kon (list (- (car kon) 1)
+					     (+ (cadr kon) 1)))))))
 	    (if (hamle-kurallara-uygunmu
 		 (list kon (list (+ (car kon) 1)
 				 (- (cadr kon) 1))) tahta renk)
 		(setq muhtemel-hareketler
-		      (append muhtemel-hareketler
-			      (list (list kon (list (+ (car kon) 1)
-						    (- (cadr kon) 1)))))))
+		      (append 
+		       muhtemel-hareketler
+		       (list (list kon (list (+ (car kon) 1)
+					     (- (cadr kon) 1)))))))
 	    (if (hamle-kurallara-uygunmu
 		 (list kon (list (+ (car kon) 1)
 				 (+ (cadr kon) 1))) tahta renk)
 		(setq muhtemel-hareketler
-		      (append muhtemel-hareketler
-			      (list (list kon (list (+ (car kon) 1)
-						    (+ (cadr kon) 1)))))))
+		      (append 
+		       muhtemel-hareketler
+		       (list (list kon (list (+ (car kon) 1)
+					     (+ (cadr kon) 1)))))))
 	    ) ;; progn sonu
 	) ;; if sonu
       )
@@ -524,16 +534,22 @@
 ;; 
 (defun atlamalari-bul (gecici_tahta kon yenix yeniy renk m-hareketler)
   (let ((muhtemel-hareketler nil))
-    (if (hamle-kurallara-uygunmu (list kon (list yenix yeniy)) gecici_tahta renk)
+    (if (hamle-kurallara-uygunmu 
+	 (list kon (list yenix yeniy)) gecici_tahta renk)
 	(progn
-	  (setq gecici_tahta (tas-oynat (list kon (list yenix yeniy)) gecici_tahta))
-	  (setq gecici (mecburi-hareketleri-ver (list yenix yeniy) gecici_tahta renk))
+	  (setq gecici_tahta 
+		(tas-oynat (list kon (list yenix yeniy)) gecici_tahta))
+	  (setq gecici 
+		(mecburi-hareketleri-ver 
+		 (list yenix yeniy) gecici_tahta renk))
 	  (if gecici 
 	      (dolist (b gecici)
 		(setq a (list kon (list yenix yeniy)))
 		(if muhtemel-hareketler
 		    (setq muhtemel-hareketler
-			  (append muhtemel-hareketler (list (append a (cdr b)))))
+			  (append 
+			   muhtemel-hareketler 
+			   (list (append a (cdr b)))))
 		  (setq muhtemel-hareketler
 			(list (append muhtemel-hareketler a (cdr b))))
 		  )
@@ -541,7 +557,8 @@
 	    (setq muhtemel-hareketler (list (list kon (list yenix yeniy))))
 	    )
 	  ))
-    (if muhtemel-hareketler (append m-hareketler muhtemel-hareketler) m-hareketler)
+    (if muhtemel-hareketler 
+	(append m-hareketler muhtemel-hareketler) m-hareketler)
     )
   )
 
@@ -580,7 +597,8 @@
       (hamle-kurallara-uygunmu '((0 2)(1 2)) *tahta* *beyaz*) nil)
 
 (oyuna-basla *beyaz*)
-(test "dogru hamle yap" (hamle-kurallara-uygunmu '((0 2)(1 3)) *tahta* 'USER::BLACK) T)
+(test "dogru hamle yap" 
+      (hamle-kurallara-uygunmu '((0 2)(1 3)) *tahta* 'USER::BLACK) T)
 
 (oyuna-basla *beyaz*)
 (setf beklenen-hareket-listesi 
@@ -595,7 +613,8 @@
       '(((nil ("b" nil) ("s" T) ("b" nil) nil ("b" nil) nil ("b" nil))
 	 (("b" nil) nil ("b" nil) nil ("b" nil) nil ("b" nil) nil)
 	 (nil ("b" nil) nil ("b" nil) nil ("b" nil) nil ("b" nil))
-	 (nil nil nil nil nil nil nil nil) (nil nil nil nil nil nil nil nil)
+	 (nil nil nil nil nil nil nil nil) 
+	 (nil nil nil nil nil nil nil nil)
 	 (nil nil ("s" nil) nil ("s" nil) nil ("s" nil) nil)
 	 (nil ("s" nil) nil ("s" nil) nil ("s" nil) nil ("s" nil))
 	 (("s" nil) nil ("s" nil) nil ("s" nil) nil ("s" nil) nil))
@@ -609,6 +628,7 @@
      (nil nil nil nil nil nil nil nil)(nil nil nil nil nil nil nil nil)
      (nil nil nil nil nil nil nil nil)(nil nil nil nil nil nil nil nil )
      (nil nil nil nil nil nil nil nil)) (12 0)))
-(test "siyah icin oyun bitti" (oyun-bitti-mi? *siyah* hic-siyah-tassiz-tahta) t)
+(test "siyah icin oyun bitti" 
+      (oyun-bitti-mi? *siyah* hic-siyah-tassiz-tahta) t)
 
 (print "Tamam. Temel Birim Testler Gecti")
