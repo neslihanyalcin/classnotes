@@ -13,7 +13,6 @@ def proj_board(im, xl, yl, z):
             X = array([x, y, z])
             q = dot(K, X)
             q = [int(q[0]/q[2]), int(q[1]/q[2])]
-            #if q[0] < image_size.height and q[1] < image_size.width and q[0] > 0 and q[1] > 0:
             cv.Set2D(im, im.height-q[1], q[0], color)
 
 def detect(image):
@@ -38,8 +37,10 @@ def detect(image):
 def show_data(image, mu_x):
     line_type = cv.CV_AA
     pt1 =  (30, 400)
-    font = cv.InitFont (cv.CV_FONT_HERSHEY_SIMPLEX, 0.8, 0.1, 0, 1, cv.CV_AA)
-    cv.PutText (image, "Particle Filter " + str(mu_x), pt1, font, cv.CV_RGB(255,255,0))
+    font = cv.InitFont (cv.CV_FONT_HERSHEY_SIMPLEX, 
+                        0.8, 0.1, 0, 1, cv.CV_AA)
+    cv.PutText (image, "Particle Filter " + str(mu_x), pt1
+                , font, cv.CV_RGB(255,255,0))
 
 
 if __name__ == "__main__":
