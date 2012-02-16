@@ -9,19 +9,19 @@ b = np.array([1.,1.,1.])
 
 xreal = lin.solve(A, b); print "solution", xreal
 
-d = b
+p = b
 r = b
 x = b*0;
 r2 = np.dot(r.T,r)
-for i in range(10):
-    Ad = np.dot(A,d)
-    alpha = r2 / np.dot(d.T,Ad)
-    x = x + np.dot(alpha,d)
-    r = r-np.dot(alpha,Ad)
+for i in range(5):
+    Ap = np.dot(A,p)
+    alpha = r2 / np.dot(p.T,Ap)
+    x = x + np.dot(alpha,p)
+    r = r-np.dot(alpha,Ap)
     r2old = r2
     r2 = np.dot(r.T,r)
     beta = r2 / r2old
-    d = r + np.dot(beta,d)
+    p = r + np.dot(beta,p)
     print x
 
        

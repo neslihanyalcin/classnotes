@@ -148,8 +148,125 @@ ortadaki nokta tam sifir olabilir, cunku en dusuktur.
 
 Her iki teknigin gidisati resimde gorulmektedir. 
 
+[gerisi atlandi]
+
+Ekler 
+
+Ustteki anlatimda Krylov altuzaylarinin eslenik gradyan metotunun
+isleyisinde tam olarak nasil rol oynadigi belirtilmemis. Aslinda Krylov
+altuzaylari gerektirmeden bu metotu anlatmak mumkun. 
+
+Iki vektor $u,v$ birbirine A-ortogonaldir eger
+
+\[ u^TAv = 0 \] 
+
+ise. Dikkat, bu iki vektor, tek baslarina, $u^Tv$ olarak birbirine
+ortogonal olmayabilir, ama ortada $A$ oldugu halde carpim sifir cikarsa
+ortogonal olmasalar da A-ortogonal olurlar. Bu ortogonalligin bir diger
+ismi eslenik (conjugate) olmaktir.
+
+Simdi diyelim ki elimizde herbiri birbirine ortogonal olan $n$ tane
+$\{p_k\}$ yonu / vektoru var. O zaman $p_k$ $\mathbb{R}^n$ icin bir baz
+olusturur ve biz de $Ax = b$ denkleminin cozumu $x_*$'i bu bazi temel
+alarak temsil ederiz. Yani baz vektorlerini carpan bazi katsayilar vardir,
+ve bu carpimlarin toplami $x_*$ olur. 
+
+\[ x_* = \sum _{ i=1}^{n} \alpha_i p_i \]
+
+Katsayilari bulmak icin ustteki formulu $A$ ile carpalim
+
+\[ b = A x_* = \sum _{ i=1}^{n} \alpha_i A p_i \]
+
+Simdi $p_k^T$ ile carpalim
+
+\[
+p_k^Tb = p_k^TA x_* = 
+\sum _{ i=1}^{n} \alpha_i p_k^T A p_i = 
+\alpha_k p_k^T A p_k \]
+
+Son esitlik A-ortogonal'lik sayesinde ortaya cikti. Elimizdeki $k$'inci
+vektoru tum vektorler ile carpiyoruz, ama o vektorlerin yine $k$'inci
+vektor haricindeki diger hepsi $p_k$'ye A-ortogonal oldugu icin carpimda
+sifir oluyorlar, ve toplama etki etmiyorlar. Bu sayede toplam ortadan
+kalkiyor, sadece tek bir caprim kaliyor. Devam edersek,
+
+\[ \alpha_k = \frac{p_k^Tb}{p_k^T A p_k} \]
+
+Boylece $Ax = b$'yi cozmek icin bir metot elde ediyoruz, eger $n$ tane
+eslenik yon bulabilirsek, $\alpha$ degerlerini hemen hesaplayabiliriz. 
+
+Isin puf noktasi, guzel tarafi simdi ortaya cikiyor. Eger eslenik vektorler
+$p_k$'leri dikkatlice secersek, yaklasik cozum $x_*$ icin hepsine
+ihtiyacimiz olmaz. Yani yapmak istedigimiz eslenik gradyan yontemini
+ozyineli bir metot olarak insa etmek. Ilk adimimizi gradyan inisi (gradient
+descent) gibi gradyanin negatifi (en fazla cikisin tersi, cunku minimize
+etmek istiyoruz) olarak alalim. Ama simdi artik formulunu hatirlayalim,
+
+\[ r_k = b - Ax_k \]
+
+ki bu formul $k$ adimindaki artiktir yani hatadir. $r_k$'nin $x = x_k$
+noktasinda gradyanin negatifi oldugunu dusunursek, ise baslarken $r_k$ ile
+basliyoruz demektir. Ilk gidisat yonu bu olduguna gore, sonraki ona
+ortogonal olacak. Simdi Gram-Schmidt benzeri bir teknik uyguluyoruz,
+Gram-Schmidt teker teker duz ortogonal vektorler uretiyordu, biz $r_k$'den
+baslayip, daha dogrusu $r_0$'dan baslayip, ona A-ortogonal vektorler
+uretecegiz. 
+
+\[ p_{k+1} = r_k - \sum_{i \le k} \frac{ p_i^TAr_k}{p_iAp_i}p_k  \ \ \
+\label{1} \]
+
+Yani $p_{k+1}$ ile $r_{k+1}$ ayni. 
+
+Ayrica ozyineli $x$ formulu
+
+\[ x_{k+1} = x_k + \alpha_k p_{k+1} \]
+
+Bu formul niye mantikli? Eger cozum $x_*$ ortogonal $p_k$ vektorlerinin bir
+lineer kombinasyonu ise, cozum vektorleri birbiri ardina dizilmis ve ``bir
+yere giden'' bir zincir olarak gorulebilir. Ustteki formul sadece bu
+zinciri yavas yavas kurmakta..
+
+Simdi daha once gordugumuz $\alpha_{k}$ formulunu $k+1$ icin uyarlayalim,
+
+\[ \alpha_{k+1} = \frac{p_{k+1}^Tb}{p_{k+1}^T A p_{k+1}} \]
+
+Bu formulde $r$'yi kullanmak istiyoruz, $b$'yi yoketmek istiyoruz,
+
+\[ r_k = b - Ax_k \]
+
+\[ b = r_k + Ax_k   \]
+
+Yerine koyalim
+
+\[ \alpha_{k+1} = \frac{p_{k+1}^T(r_k + Ax_k  )}{p_{k+1}^T A p_{k+1}} \]
+
+\[ \alpha_{k+1} = \frac{p_{k+1}^Tr_k }{p_{k+1}^T A p_{k+1}} \]
+
+$r_kA p_{k+1}$ terimi nereye gitti? Sifir oldu ve yokoldu cunku $r_k$ ve $
+p_{k+1}$ 
+birbirine A-ortogonal, $A$ uzerinden carpimlari sifir.
+
+Son formulu geriye $k$ indisine dondurebiliriz,
+
+\[ \alpha_k = \frac{p_{k}^Tr_k }{p_{k}^T A p_{k}} \]
+
+Hatta $p_k$ yerine $r_k$ koyabiliriz,
+
+\[  = \frac{r_{k}^Tr_k }{p_{k}^T A p_{k}} \]
+
+Ozyineli $r_k$ icin (1) formulunu alalim
+
+\[ p_{k+1} = r_k - \sum_{i \le k} \frac{ p_i^TAr_k}{p_iAp_i}p_k \]
+
+ve ustteki $\alpha_k$ tanimini kullanacak sekilde
+
+\[ r_{k+1} = r_k - \sum_{i \le k} \alpha_k A p_k \]
+
+Bilgisayar kodlamasi baglaminda dusunursek, her dongude $\alpha_k A p_k$ ifadesi bir
+onceki $r$ icinden cikartiliyor, ve bir sonraki $r$ haline geliyor.
+
+
 \lstinputlisting[language=Python]{cg.py}
 
-[gerisi atlandi]
 
 \end{document}
