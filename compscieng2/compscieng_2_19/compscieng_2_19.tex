@@ -150,6 +150,54 @@ Her iki teknigin gidisati resimde gorulmektedir.
 
 [gerisi atlandi]
 
+Ekler 
+
+Ustteki anlatimda Krylov altuzaylarinin eslenik gradyan metotunun
+isleyisinde tam olarak nasil rol oynadigi belirtilmemis. Aslinda Krylov
+altuzaylari gerektirmeden bu metotu anlatmak mumkun. 
+
+Iki vektor $u,v$ birbirine A-ortogonaldir eger
+
+\[ u^TAv = 0 \] 
+
+ise. Dikkat, bu iki vektor, tek baslarina, $u^Tv$ olarak birbirine
+ortogonal olmayabilir, ama ortada $A$ oldugu halde carpim sifir cikarsa
+ortogonal olmasalar da A-ortogonal olurlar. Bu ortogonalligin bir diger
+ismi eslenik (conjugate) olmaktir.
+
+Simdi diyelim ki elimizde herbiri birbirine ortogonal olan $n$ tane
+$\{p_k\}$ yonu / vektoru var. O zaman $p_k$ $\mathbb{R}^n$ icin bir baz
+olusturur ve biz de $Ax = b$ denkleminin cozumu $x_*$'i bu bazi temel
+alarak temsil ederiz. Yani baz vektorlerini carpan bazi katsayilar vardir,
+ve bu carpimlarin toplami $x_*$ olur. 
+
+\[ x_* = \sum _{ i=1}^{n} \alpha_i p_i \]
+
+Katsayilari bulmak icin ustteki formulu $A$ ile carpalim
+
+\[ b = A x_* = \sum _{ i=1}^{n} \alpha_i A p_i \]
+
+Simdi $p_k^T$ ile carpalim
+
+\[
+p_k^Tb = p_k^TA x_* = 
+\sum _{ i=1}^{n} \alpha_i p_k^T A p_i = 
+\alpha_k p_k^T A p_k \]
+
+Son esitlik A-ortogonal'lik sayesinde ortaya cikti. Elimizdeki $k$'inci
+vektoru tum vektorler ile carpiyoruz, ama o vektorlerin yine $k$'inci
+vektor haricindeki diger hepsi $p_k$'ye A-ortogonal oldugu icin carpimda
+sifir oluyorlar, ve toplama etki etmiyorlar. Bu sayede toplam ortadan
+kalkiyor, sadece tek bir caprim kaliyor. Devam edersek,
+
+\[ \alpha_k = \frac{p_k^Tb}{p_k^T A p_k} \]
+
+Boylece $Ax = b$'yi cozmek icin bir metot elde ediyoruz, eger $n$ tane
+eslenik yon bulabilirsek, $\alpha$ degerlerini hemen hesaplayabiliriz. 
+
+Isin puf noktasi, guzel tarafi simdi ortaya cikiyor. Eger eslenik vektorler
+$p_k$'leri dikkatlice secersek, yaklasik cozum $x_*$ icin hepsine
+ihtiyacimiz olmaz. 
 
 \lstinputlisting[language=Python]{cg.py}
 
