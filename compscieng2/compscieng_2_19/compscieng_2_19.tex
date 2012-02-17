@@ -173,40 +173,163 @@ ve bu carpimlarin toplami $x_*$ olur.
 
 \[ x_* = \sum _{ i=1}^{n} \alpha_i p_i \]
 
-Katsayilari bulmak icin ustteki formulu $A$ ile carpalim
-
-\[ b = A x_* = \sum _{ i=1}^{n} \alpha_i A p_i \]
-
-Simdi $p_k^T$ ile carpalim
-
-\[
-p_k^Tb = p_k^TA x_* = 
-\sum _{ i=1}^{n} \alpha_i p_k^T A p_i = 
-\alpha_k p_k^T A p_k \]
-
-Son esitlik A-ortogonal'lik sayesinde ortaya cikti. Elimizdeki $k$'inci
-vektoru tum vektorler ile carpiyoruz, ama o vektorlerin yine $k$'inci
-vektor haricindeki diger hepsi $p_k$'ye A-ortogonal oldugu icin carpimda
-sifir oluyorlar, ve toplama etki etmiyorlar. Bu sayede toplam ortadan
-kalkiyor, sadece tek bir caprim kaliyor. Devam edersek,
-
-\[ \alpha_k = \frac{p_k^Tb}{p_k^T A p_k} \]
-
 Boylece $Ax = b$'yi cozmek icin bir metot elde ediyoruz, eger $n$ tane
-eslenik yon bulabilirsek, $\alpha$ degerlerini hemen hesaplayabiliriz. 
+eslenik yon bulabilirsek, $\alpha$ degerlerini hemen hesaplayabiliriz.
+Ayrica eger eslenik vektorler $p_k$'leri dikkatlice secersek, yaklasik cozum $x_*$
+icin hepsine ihtiyacimiz olmaz. Ozyineli $x$ formulunu kullanabiliriz,
 
-Isin puf noktasi, guzel tarafi simdi ortaya cikiyor. Eger eslenik vektorler
-$p_k$'leri dikkatlice secersek, yaklasik cozum $x_*$ icin hepsine
-ihtiyacimiz olmaz. 
-
-Ozyineli $x$ formulu
-
-\[ x_{k+1} = x_k + \alpha_k p_{k+1} \]
+\[ x_{k+1} = x_k + \alpha_k p_{k+1} \ \ \ \label{1} \]
 
 Bu formul niye mantikli? Eger cozum $x_*$ ortogonal $p_k$ vektorlerinin bir
 lineer kombinasyonu ise, cozum vektorleri birbiri ardina dizilmis ve ``bir
 yere giden'' bir zincir olarak gorulebilir. Ustteki formul sadece bu
 zinciri yavas yavas kurmakta..
+
+Ilk once ozyineli olarak artiklar $r_k$ arasinda bir iliski kuralim,
+(1)'nin iki tarafi $A$ ile carpip, $-b$ cikartalim (cunku 
+$r_i = b -
+Ax_i$'a erismek istiyoruz),
+
+\[A x_{k+1} - b = A x_k - b + \alpha_k A p_{k} \]
+
+\[-r_{k+1} = -r_k + \alpha_k A p_{k} \]
+
+\[r_{k+1} = r_k - \alpha_k A p_{k} \]
+
+Simdi hata terimini hesaplayalim. $e_i$, yani $i$'inci tahminin hatasi, 
+
+\[ e_i = x - x_i  \]
+
+Iki tarafi $A$ ile carpalim
+
+\[ Ae_i = Ax - Ax_i  \]
+
+\[ Ae_i = b - Ax_i  \]
+
+Sag taraf $r_i$ taniminin aynisi degil mi? O zaman 
+
+\[ Ae_i = r_i 
+\ \ \ \label{5}
+\]
+
+$e$'yi ozyineli olarak temsil etmek te mumkundur, (1)'nin her iki
+tarafindan $x$ cikartirsam, 
+
+\[ x_{k+1} - x = x_k - x + \alpha_k p_{k} \]
+
+\[ e_{k+1} = e_k + \alpha_k p_k \ \ \ \label{2}\]
+
+Bu her adimi $\alpha_k$'ye bagli ozyineli bir tanimdir. 
+
+$\alpha$ katsayilarini bulmak icin bir sonraki yonden gelen hatanin, onceki
+arama yonlerine, ya da bir onceki arama yonune A-ortogonal olmasini
+istiyoruz. Yani
+
+\[ p_k^TA e_{i+1}  = 0\]
+
+olmali. 
+
+\[ p_k^TA (x_{i+1}-x)  = 0\]
+
+\[ p_k^TA (x_{i} + \alpha_i p_i -x)  = 0\]
+
+\[ p_k^TA (e_i + \alpha_i p_i )  = 0\]
+
+\[ p_k^Tr_i + \alpha_i A p_i   = 0\]
+
+\[ \alpha_i = -\frac{ p_k^Tr_i}{\alpha_i A p_i} 
+\ \ \ \label{6}
+\]
+
+Simdi hata terimine donelim, diyelim ki $e_0$ vektoru, bu vektor, diger
+her vektor gibi icinde oldugumuz uzayin bazlarinin bir kombinasyonu olarak
+temsil edilebilir. Bizim bazlarimiz $p_k$ olduguna gore, 
+
+\[ e_0 = \sum _{ j=0}^{n-1} \delta_j p_j \]
+
+Katsayi olarak $\delta_j$ sectik, $\alpha$ ile karisiklik olmasin
+diye. Simdi iki tarafi $p_k^T A$ ile carpalim, 
+
+\[ p_k^T A e_0 = \sum _{ j=0}^{n-1} \delta_j p_k^T A p_j \]
+
+Yine ayni ortogonallik numarasi, toplam icinde $j$ olmayan tum diger $p$
+carpimlari sifirdir, 
+
+\[ p_k^T A e_0 =  \delta_j p_j^T A p_j \]
+
+\[ \delta_j = \frac{ p_k^T A e_0}{ p_j^T A p_j } 
+\ \ \ \label{4}
+\]
+
+Simdi $e_0$'in yerine (2)'teki ozyineli tanimdan turetecegim bir sey koymak
+istiyorum. Diyelim ki $e_0$'dan baslayip teker teker bir sonraki $e$'yi
+hesaplayip alt alta yazdim, ve topladim
+
+\[ \cancel{e_{1}} = e_0 + \alpha_0 p_0\]
+
+\[ \cancel{e_{2}} = \cancel{e_1} + \alpha_1 p_1\]
+
+\[ ... \]
+
+\[ e_{k} = \cancel{e_{k-1}} + \alpha_{k-1} p_{k-1}\]
+
+
+Sag kalan tek terimler 
+
+\[ e_k = e_0 + \sum _{ j=0}^{k-1} \alpha_j p_j \]
+
+(4) icinde $e_0$ yerine koyalim
+
+\[ \delta_j = \frac{ p_k^T A e_k - \cancel{\sum _{ j=0}^{k-1} \alpha_j p_k^T A p_j}}
+{ p_j^T A p_j } 
+\]
+
+Niye iptal? Yine A-ortogonalligi. Dikkat edilirse $j$'ler $k-1$'e kadar
+cikiyor, $k$'ye bile erismiyor, carpim hep sifir. Kalanlar,
+
+\[  = \frac{ p_k^T A e_k}
+{ p_j^T A p_j } 
+\]
+
+(5)'i kullanirsak, 
+
+\[ \delta_j = \frac{ p_k^T r_k}
+{ p_j^T A p_j } 
+\]
+
+(6) ile bu formulun benzerligi bariz, sadece eksi isareti farkli. O zaman 
+
+\[ \delta_k = -\alpha_k \]
+
+diyebiliriz. Bu demektir ki hata formulunde $\alpha$ yerine $\delta$
+kullanabiliriz, 
+
+\[ e_0 = -\sum _{ j=0}^{n-1} \alpha_j p_j \]
+
+Hatalarin ozyineli denklemi (2)'yi uste uygularsak, 
+
+\[ e_i = -\sum _{ j=i}^{n-1} \alpha_j p_j 
+\ \ \ \label{3}
+\]
+
+Simdi artiklarin ve gidis yonlerinin ortogonal olduklarini
+gosterelim. (3)'u $p_k^TA$ ile carpalim, 
+
+\[ p_k^TAe_i = -\sum _{ j=i}^{n-1} \alpha_j  p_k^TAp_j 
+\]
+
+\[ p_k^Tr_i = -\sum _{ j=i}^{n-1} \alpha_j  p_k^TAp_j 
+\]
+
+$p$'ler arasindaki A-ortogonallik sayesinde ve $k < i$ icin 
+
+\[ p_k^Tr_i = 0\]
+
+Madem ki yonler ve artiklar birbirine ortogonal, Gram-Schmidt isleminin
+A-ortogonal halini artiklardan yon uretmek icin kullanabiliriz. Her artigi
+alip, icinden ona ortogonal bir yon cikartak mumkun. 
+
+
 
 \lstinputlisting[language=Python]{cg.py}
 
