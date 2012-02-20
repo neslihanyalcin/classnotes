@@ -3,15 +3,17 @@
 (Defun Durum (dugum) (first dugum))
 (Defun Kaydir (dugum) (second dugum))
 (Defun G-guncel (dugum) (third dugum))
-(Defun t-guncel (dugum) (fourth dugum))	;; tguncel 'tahmin guncel' den geliyor.
+;; tguncel 'tahmin guncel' den
+;; geliyor.
+(Defun t-guncel (dugum) (fourth dugum))	
 (Defun Ust (dugum) (fifth dugum))
 
 (defun FIYAT (ust cocuk) 1) 
 
 ;;
-;; sinifta tanimlanan tahmin islevi (function). baslangic tahtasindaki her tas
-;; icin, ayni tasin sonuc tahtasindaki pozisyonuna olan uzakliklari toplayan
-;; bir islev. 
+;; sinifta tanimlanan tahmin islevi (function). baslangic 
+;; tahtasindaki her tas icin, ayni tasin sonuc tahtasindaki 
+;; pozisyonuna olan uzakliklari toplayan bir islev.
 ;;
 (defun tguncel-hesapla (su-anki-durum sonuc-durumu)
   (let ((i 0)(j 0)(toplam 0)(su-anki nil)(uzaklik 0))
@@ -21,24 +23,32 @@
       (setf su-anki (nth i (nth j su-anki-durum)))
       
       (cond ((member su-anki (first sonuc-durumu))
-	     (setf uzaklik
-		   (+ (abs (- 0 j))
-		      (abs (- i (position su-anki (first sonuc-durumu)))))))
+	     (setf 
+	      uzaklik
+	      (+ (abs (- 0 j))
+		 (abs (- i (position su-anki 
+				     (first sonuc-durumu)))))))
 	
 	    ((member su-anki (second sonuc-durumu))
-	     (setf uzaklik
-		   (+ (abs (- 1 j))
-		      (abs (- i (position su-anki (second sonuc-durumu)))))))
+	     (setf 
+	      uzaklik
+	      (+ (abs (- 1 j))
+		 (abs (- i (position su-anki 
+				     (second sonuc-durumu)))))))
 
 	    ((member su-anki (third sonuc-durumu))
-	     (setf uzaklik
-		   (+ (abs (- 2 j))
-		      (abs (- i (position su-anki (third sonuc-durumu)))))))
+	     (setf 
+	      uzaklik
+	      (+ (abs (- 2 j))
+		 (abs (- i (position su-anki 
+				     (third sonuc-durumu)))))))
 	     
 	    ((member su-anki (fourth sonuc-durumu))
-	     (setf uzaklik
-		   (+ (abs (- 3 j))
-		      (abs (- i (position su-anki (fourth sonuc-durumu)))))))
+	     (setf 
+	      uzaklik
+	      (+ (abs (- 3 j))
+		 (abs (- i (position su-anki 
+				     (fourth sonuc-durumu)))))))
 	    )
      
       (setf toplam (+ toplam uzaklik))
@@ -51,7 +61,8 @@
   )
 
 ;; bu algoritma, fiyati-sabit-arama islevi temel alinarak yazilmistir.
-;; yani, algoritma asagi yukari aynidir. Tek fark, FIYAT islevinin hesaplanmasi.
+;; yani, algoritma asagi yukari aynidir. Tek fark, FIYAT islevinin
+;; hesaplanmasi.
 (defun a-yildiz-arama (s0 sg sons)
   (let ( ( acik   (list  (list s0 nil 0 0 nil) ) ) 
 	 ;;g-guncel set to 0
@@ -85,7 +96,8 @@
      (setf acik	
 	   (sort acik #'(lambda(dugum1 dugum2)
 			  (< (+ (g-guncel dugum1) (t-guncel dugum1))
-			     (+ (g-guncel dugum2) (t-guncel dugum2)) ))))
+			     (+ (g-guncel dugum2) (t-guncel dugum2)) 
+			     ))))
 				
 
      ) 

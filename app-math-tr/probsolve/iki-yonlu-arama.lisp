@@ -1,7 +1,8 @@
 (load "ortak.lisp")
 
 (defun iki-yonlu-ara (di ds ileriden-cocuklar geriden-cocuklar)
-  (let ( ( acik-i   (list  (list di nil nil) ) ) ;;dikkat ic liste bir dugum
+  (let ( ( acik-i   (list  (list di nil nil) ) ) ;;dikkat ic liste bir
+						 ;;dugum
 	 ( acik-g   (list  (list ds nil nil) ) ) 
 	 ;;tamamlanan listesine ihtiyac yok
 	 ( nf      nil )
