@@ -145,13 +145,11 @@ zamanda yaklasiksallik kavramini belirtmek icin de kullaniliyor.
 
 Bernoulli Dagilimi
 
-$X$'in bir yazi-tura atisini temsil ettigini
-dusunelim. O zaman $P(X = 1) = p$, ve $P(X = 0) = 1 - p$ olacaktir, 
-ki $p
-\in [0,1]$ olmak uzere. O zaman $X$'in dagilimi Bernoulli deriz, 
-ve $X \sim
-Bernoulli(p)$ diye gosteririz. Olasilik fonksiyonu 
-$f(x) = p^x(1-p)^{(1-x)}$, $x \in \{0,1\}$. 
+$X$'in bir yazi-tura atisini temsil ettigini dusunelim. O zaman $P(X = 1) =
+p$, 
+ve $P(X = 0) = 1 - p$ olacaktir, ki $p \in [0,1]$ olmak uzere. O zaman
+$X$'in dagilimi Bernoulli deriz, ve $X \sim Bernoulli(p)$ diye
+gosteririz. Olasilik fonksiyonu $f(x) = p^x(1-p)^{(1-x)}$, $x \in \{0,1\}$.
 
 Yani $x$ ya 0, ya da 1. Parametre $p$, 0 ile 1 arasindaki herhangi bir reel 
 sayi. 
@@ -237,8 +235,18 @@ Tum istatistik yazilimlari $\Phi(z)$ ve $\Phi(z)^{-1}$ hesabi icin gerekli
 rutinlere sahiptir. Tum istatistik kitaplarinda $\Phi(z)$'nin belli
 degerlerini tasiyan bir tablo vardir.
 
+Ornek 
 
+$X \sim N(3,5)$ ise $P(X > 1)$ nedir? 
 
+Cevap 
+
+\[ P(X>1) = 1 - P(X < 1) = 1 - P( Z < \frac{ 1 - 3}{\sqrt{5 }}) = 
+1 - \Phi(-0.8944) = .81
+ \]
+
+Soru tam $P(a  < X < b)$, sadece $b$ oldugu icin yukaridaki form ortaya
+cikti. 
 
 
 \end{document}
