@@ -1,4 +1,5 @@
 \documentclass[12pt,fleqn]{article}\usepackage{../common}
+
 \begin{document}
 Ders 1
 
@@ -92,7 +93,8 @@ yontemi ileri de gorecegiz.
 
 Daha derine inelim simdi. $K$ matrisi tersi alinabilen (invertible) bir
 matris midir? Evet. Bu ne demektir? $KK^{-1} = I$, ve $I$ matrisi birim
-(identity) matrisidir, Python'da \verb!np.eye(N)! komutuyla yaratilabilir. 
+(identity) matrisidir, Python'da \verb!np.eye(N)! komutuyla 
+yaratilabilir. 
 
 Bir matrisin tersinin alinip alinamayacagini nasil anlayabiliriz? Bu cok
 onemli, temel bir sorudur. 
@@ -296,7 +298,7 @@ Tersine cevirilme durumu? T tersine cevirilebilir, B cevirilemez. B icin
 yine ayni u = [1 1 1 1] ispatini kullanabiliriz. 
 
 K, T, B, C matrislerini ayni anda yaratan bir Python programi
-surada. Kullanim mesela 4x4 boyutlari icin \verb!K, T, B, C = ktbc(4)!
+surada. Kullanim mesela 4x4 boyutlari icin \lstinline!K, T, B, C = ktbc(4)!
 seklinde, bu bize tum ozel matrisleri bir kerede olusturuyor.
 
 \lstinputlisting[language=Python]{ktbc.py}
