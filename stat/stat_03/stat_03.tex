@@ -137,11 +137,68 @@ Ana formulumuz neydi?
  \]
 
 
-\[ P(X < 1/4 | Y = 1/3) = \int _{ 0}^{1/4} \frac{ x+ \frac{ 1}{3} }{\frac{ 1}{2} +
-  \frac{1 }{3}} dx \]
+\[ P(X < 1/4 | Y = 1/3) = 
+\int _{ 0}^{1/4} \frac{ x+ \frac{ 1}{3} }{\frac{ 1}{2} + \frac{1 }{3}} dx = 
+\frac{ \frac{ 1}{32}+ \frac{ 1}{3} }{\frac{ 1}{2} + \frac{1 }{3}} = 
+\frac{ 14}{32}
+\]
+
+Cok Degiskenli (Multivariate) Dagilimlar ve IID Orneklemler (Samples)
+
+$X = (X_1,...,X_n)$ olsun, ki $(X_1,...,X_n)$'lerin herbiri bir rasgele
+degisken, o zaman $X$'e rasgele vektor (random vector) ismi
+verilir. $f(x_1,...,x_n)$'in PDF'i temsil ettigini dusunelim. Bu PDF'i baz
+alarak aynen iki degiskenli (bivariate) orneklerde oldugu gibi, benzer
+tekniklerle bilesenleri, kosullu dagilimlari, vs. hesaplamak mumkundur.
+
+Cok Degiskenli Normal 
+
+Tek degiskenli Normal dagilimin iki parametresi vardi, $\mu,\sigma$. Cok
+degiskenli formda $\mu$ bir vektor, $\sigma$ yerine ise $\Sigma$ matrisi
+var. Once rasgele degiskeni tanimlayalim,
+
+\[ Z = 
+\left[\begin{array}{r}
+Z_1 \\ \vdots \\ Z_k
+\end{array}\right]
+ \]
+
+ki $Z_1,...,Z_k \sim N(0,1)$. $Z$'nin yogunlugu 
+
+\[ f(z) = \prod _{ i=1}^{k}f(z_i) = 
+\frac{ 1}{(2\pi)^{k/2}} \exp 
+\bigg\{ 
+-\frac{ 1}{2}\sum _{ j=1}^{k}z_j^2
+\bigg\}
+ \]
+
+\[ =
+\frac{ 1}{(2\pi)^{k/2}} \exp 
+\bigg\{ 
+-\frac{ 1}{2}z^Tz
+\bigg\}
+ \]
 
 
+Bu durumda $Z$'nin {\em standart} cok degiskenli Normal dagilima sahip
+oldugu soylenir, ve $Z \sim N(0,I)$ olarak gosterilir. Buradaki $0$
+degeri icinde $k$ tane sifir olan bir vektor olarak, $I$ ise $k \times k$
+birim (identity) matrisi olarak anlasilmalidir. 
 
+Daha genel olarak bir vektor $X$'in cok degiskenli Normal dagilimina sahip
+oldugunu soyleriz, ve bunu $X \sim N(\mu,\Sigma)$ olarak gosteririz, eger
+dagilimin yogunlugu 
+
+\[ f(x;\mu,\Sigma) = 
+\frac{ 1}{(2\pi)^{k/2} \det(\Sigma)^{1/2}} \exp 
+\bigg\{ 
+-\frac{ 1}{2}(x-\mu)^T\Sigma^{-1}(x-\mu)
+\bigg\}
+ \]
+
+$\Sigma$ pozitif kesin (positive definite) bir matristir. Hatirlayalim, bir matris
+pozitif kesindir eger tum sifir olmayan $x$ vektorleri icin $x^T\Sigma x >
+0$ ise. 
 
 
 
