@@ -200,6 +200,362 @@ $\Sigma$ pozitif kesin (positive definite) bir matristir. Hatirlayalim, bir matr
 pozitif kesindir eger tum sifir olmayan $x$ vektorleri icin $x^T\Sigma x >
 0$ ise. 
 
+Not: Karekok kavrami tekil sayilardan matrislere de aktarilabilir. Bir
+matris $B$'nin $A$'nin karekoku oldugu soylenir, eger $B \cdot B = A$ ise.
+
+Devam edersek, eger $\Sigma$ pozitif kesin ise bir $\Sigma^{1/2}$ matrisini
+oldugu gosterilebilir, ki bu matrise $\Sigma$'nin karekoku ismi verilir, ve
+bu karekokun su ozellikleri vardir, (i)  $\Sigma^{1/2}$ simetriktir, (ii)
+$\Sigma =  \Sigma^{1/2}\Sigma^{1/2} = I$ ve $\Sigma^{-1/2} =
+(\Sigma^{1/2})^{-1}$. 
+
+Diyelim ki Normal bir vektor $X$'i $X = (X_1,X_2)$ olarak parcaladik. Ayni
+sekilde $\mu = (\mu_1,\mu_2)$ olarak parcalayabiliriz. $\Sigma$ ise
+
+\[ \Sigma = 
+\left[\begin{array}{rr}
+\Sigma_{11} & \Sigma_{12}\\
+\Sigma_{21} & \Sigma_{22}
+\end{array}\right]
+ \]
+
+olarak parcalanabilir. $a,b$'nin parcalarinin boyutlari $p,q$ olsun, $n =
+p+q$.
+
+Simdi birlesik Gaussian'i 
+
+\[ f(x;\mu,\Sigma) = 
+\frac{ 1}{(2\pi)^{(p+q)/2} \det(\Sigma)^{1/2}} 
+\exp 
+\bigg\{ 
+-\frac{ 1}{2}
+\left[\begin{array}{r}
+x_1 - \mu_1\\
+x_2 - \mu_2
+\end{array}\right]^T
+\left[\begin{array}{rr}
+\Sigma_{11} & \Sigma_{12}\\
+\Sigma_{21} & \Sigma_{22}
+\end{array}\right]^{-1}
+\left[\begin{array}{r}
+x_1 - \mu_1\\
+x_2 - \mu_2
+\end{array}\right]
+\bigg\}
+ \]
+
+Birlesik yogunlugu parcalar uzerinden belirtirsek, bu yogunlugu $X_2$ icin
+bilesen yogunluga ve $X_1$ icin bir kosullu yogunluga ayirabiliriz. Yani 
+
+\[ f(x_1,x_2) = f(x_1|x_2) f(x_2) \]
+
+tanimindaki parcalari elde etmeye calisacagiz.  Ama bundan once
+boluntulenmis matrislere yakindan bakalim. 
+
+Bir boluntulenmis (partitioned) matrisin tersini almak icin, o matrisin
+parcalarinin tersini almak dogru degildir, yani
+
+\[ 
+\left[\begin{array}{rr}
+E & F \\
+G & H
+\end{array}\right] ^{-1} \ne
+\left[\begin{array}{rr}
+E^{-1} & F ^{-1}\\
+G^{-1} & H^{-1}
+\end{array}\right]  
+ \]
+
+Tersini alma islemi icin bazi numaralar lazim. Ana numara boluntulenmis matrisi 
+kosegen bir matris haline getirmek, cunku kosegen matrislerin tersi,
+kosegendeki elemanlarin tersidir, yani ters alma operasyonu bu tur
+matrislerin ``icine isler'', o yuzden bir sekilde bir kosegen matris
+elde etmeye ugrasacagiz. Bunun icin boluntulenmis matrisimizi sagdan ve
+soldan bazi matrislerle carpacagiz. Ayrica sunu da bilelim, 
+
+\[ XYZ = W \]
+
+durumunda $Y$'nin tersini almak istersek, sag ve soldaki $X,Z$
+matrislerinin tersini almak gerekmez, niye?
+
+\[ X^{-1}XYZ = X^{-1}W \]
+
+\[ YZZ^{-1} = X^{-1}WZ^{-1} \]
+
+\[ Y = X^{-1}WZ^{-1} \]
+
+Simdi iki tarafin da tersini alalim, 
+
+\[ Y^{-1} = ZW^{-1}X \]
+
+Tamam, baslayalim. 
+
+\[ M = 
+\left[\begin{array}{rr}
+E & F \\
+G & H
+\end{array}\right] 
+ \]
+
+matrisini kosegen yapacagiz. Eger sadece alt sol koseyi sifirlayasaydik, 
+bunu yapacak ozel bir matrisle soldan carpardik,
+
+\[ 
+\left[\begin{array}{rr}
+I & -FH^{-1} \\
+0 & I
+\end{array}\right] 
+\left[\begin{array}{rr}
+E & F \\
+G & H
+\end{array}\right] = 
+\left[\begin{array}{rr}
+E & F \\
+0 & H
+\end{array}\right] 
+ \]
+
+Sadece kust sag koseyi sifirlamak isteseydik,
+
+\[ 
+\left[\begin{array}{rr}
+E & F \\
+G & H
+\end{array}\right] 
+\left[\begin{array}{rr}
+I & 0 \\
+-H^{-1}G & I
+\end{array}\right] 
+=
+\left[\begin{array}{rr}
+E & 0 \\
+G & H
+\end{array}\right] 
+ \]
+
+Hepsini biraraya koyalim, 
+
+\[ 
+\left[\begin{array}{rr}
+I & -FH^{-1} \\
+0 & I
+\end{array}\right] 
+\left[\begin{array}{rr}
+E & F \\
+G & H
+\end{array}\right] 
+\left[\begin{array}{rr}
+I & 0 \\
+-H^{-1}G & I
+\end{array}\right] 
+= 
+\left[\begin{array}{rr}
+E-FH^{-1}G & 0 \\
+0 & H
+\end{array}\right] 
+\ \ \ \label{2}
+ \]
+
+Bu carpimin dogrulugu carpim elle yapilarak kontrol edilebilir.
+
+Ustte gordugumuz gibi 
+
+\[ XYZ = W \]
+
+ifadesindeki $Y$'nin tersi 
+
+\[ Y^{-1} = ZW^{-1}X \]
+
+ile olur. 
+
+\[ 
+\underbrace{
+\left[\begin{array}{rr}
+I & -FH^{-1} \\
+0 & I
+\end{array}\right] 
+}_{X}
+\underbrace{
+\left[\begin{array}{rr}
+E & F \\
+G & H
+\end{array}\right] 
+}_{Y}
+\underbrace{
+\left[\begin{array}{rr}
+I & 0 \\
+-H^{-1}G & I
+\end{array}\right] 
+}_{Z}
+= 
+\underbrace{
+\left[\begin{array}{rr}
+E-FH^{-1}G & 0 \\
+0 & H
+\end{array}\right] 
+}_{W}
+ \]
+
+
+O zaman 
+
+\[ 
+\left[\begin{array}{rr}
+E & F \\
+G & H
+\end{array}\right]^{-1}
+=
+\left[\begin{array}{rr}
+I & 0 \\
+-H^{-1}G & I
+\end{array}\right] 
+\left[\begin{array}{rr}
+E-FH^{-1}G & 0 \\
+0 & H
+\end{array}\right]^{-1}
+\left[\begin{array}{rr}
+I & -FH^{-1} \\
+0 & I
+\end{array}\right] 
+ \]
+
+Daha kisa olmasi esitligin sag tarafinda, ortadaki matris icin
+$E-FH^{-1}G$ yerine $M/H$ kullanalim (bu arada $M/H$ lineer cebirde $M$'in
+$H$'e gore Schur tamamlayicisi (complement) olarak bilinir),
+
+\[ 
+\left[\begin{array}{rr}
+E & F \\
+G & H
+\end{array}\right]^{-1}
+=
+\left[\begin{array}{rr}
+I & 0 \\
+-H^{-1}G & I
+\end{array}\right] 
+\left[\begin{array}{rr}
+(M/H)^{-1} & 0 \\
+0 & H^{-1}
+\end{array}\right]
+\left[\begin{array}{rr}
+I & -FH^{-1} \\
+0 & I
+\end{array}\right] 
+\ \ \ \label{3}
+ \]
+
+Esitligin sag tarafindaki carpimi gerceklestirirsek, 
+
+\[ =
+\left[\begin{array}{rr}
+(M/H)^{-1} & -(M/H)^{-1}FH^{-1} \\
+-H^{-1}G(M/H)^{-1} & H^{-1}+H^{-1}G(M/H)^{-1}FH^{-1} 
+\end{array}\right]
+ \]
+
+Bu final ifade boluntulenmis bir matrisin tersini o matrisin icindeki parcalar
+uzerinden temsil eden bir ifadedir. 
+
+Icinde bir kosesi sifir olan boluntulenmis matrislerde determinantlar soyle
+isler,
+
+\[ 
+det \bigg(
+\left[\begin{array}{rr}
+E & 0 \\
+G & H
+\end{array}\right]
+\bigg) 
+= 
+det \bigg(
+\left[\begin{array}{rr}
+E & F \\
+0 & H
+\end{array}\right] 
+\bigg) =
+det(E)det(H)
+ \]
+
+Ayrica 
+
+\[ det(AB) = det(A)det(B) \]
+
+O zaman (2)'nin determinantini alirsak, 
+
+\[ |M| = |M/H||H| \]
+
+Bu ifade gayet dogal duruyor (bir raslanti herhalde, ya da Schur tamamlayicisi 
+isareti ozellikle boyle secilmis),
+
+Boluntulenmis bir matrisin devrigini almak icin her blogunun ayri ayri devrigi
+alinir, ve tum bloklarin yani boluntulenmis tamaminin bir daha devrigi
+alinir, yani
+
+\[ 
+\left[\begin{array}{rr}
+A & B \\ C & D 
+\end{array}\right]^T = 
+\left[\begin{array}{rr}
+A^T & C^T \\ B^T & D^T
+\end{array}\right]
+ \]
+
+Simdi cok degiskenli Normal icin bilesen ve kosullu yogunluk hesaplarina
+gelelim. Gaussian formulunun $\exp$ kismini alirsak, 
+
+\[ \exp 
+\bigg\{ 
+-\frac{ 1}{2}
+\left[\begin{array}{r}
+x_1 - \mu_1\\
+x_2 - \mu_2
+\end{array}\right]^T
+\left[\begin{array}{rr}
+\Sigma_{11} & \Sigma_{12}\\
+\Sigma_{21} & \Sigma_{22}
+\end{array}\right]^{-1}
+\left[\begin{array}{r}
+x_1 - \mu_1\\
+x_2 - \mu_2
+\end{array}\right]
+\bigg\}
+ \]
+
+
+(3)'teki acilimi kullanirsak, ve $E = \Sigma_{11},F=\Sigma_{12},..$ olacak sekilde,
+
+\[ = \exp 
+\bigg\{ 
+-\frac{ 1}{2}
+\left[\begin{array}{r}
+x_1 - \mu_1\\
+x_2 - \mu_2
+\end{array}\right]^T
+\left[\begin{array}{rr}
+I & 0 \\ 
+-\Sigma_{22}^{-1}\Sigma_{21} & I
+\end{array}\right]
+\left[\begin{array}{rr}
+(\Sigma/\Sigma_{22}) & 0 \\ 
+0 & \Sigma_{22}^{-1} 
+\end{array}\right]
+\left[\begin{array}{rr}
+I & -\Sigma_{12}\Sigma_{22}^{-1}  \\ 
+0 & I
+\end{array}\right]
+\left[\begin{array}{r}
+x_1 - \mu_1\\
+x_2 - \mu_2
+\end{array}\right]
+\bigg\}
+ \]
+
+
+Acilimi tamamen yaparsak, 
+
+
+
+
 
 
 
