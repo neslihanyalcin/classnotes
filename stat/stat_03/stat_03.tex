@@ -480,9 +480,11 @@ Ayrica
 
 \[ det(AB) = det(A)det(B) \]
 
-O zaman (2)'nin determinantini alirsak, 
+O zaman (2)'nin determinantini alirsak, $\det$ yerine $||$ kullandik, 
 
-\[ |M| = |M/H||H| \]
+\[ |M| = |M/H||H| 
+\ \ \ \label{4}
+\]
 
 Bu ifade gayet dogal duruyor (bir raslanti herhalde, ya da Schur tamamlayicisi 
 isareti ozellikle boyle secilmis),
@@ -524,7 +526,7 @@ x_2 - \mu_2
 
 (3)'teki acilimi kullanirsak, ve $E = \Sigma_{11},F=\Sigma_{12},..$ olacak sekilde,
 
-\[ = \exp 
+\[ \exp 
 \bigg\{ 
 -\frac{ 1}{2}
 \left[\begin{array}{r}
@@ -553,16 +555,89 @@ x_2 - \mu_2
 
 Acilimi tamamen yaparsak, 
 
+\[ 
+ \begin{array}{lll}
+= && \exp \bigg\{
+-\frac{1 }{2} 
+(x_1 - \mu_1 - \Sigma_{12}\Sigma_{22}^{-1} (x_2 - \mu_2))^T 
+(\Sigma/\Sigma_{22})^{-1} 
+(x_1 - \mu_1 - \Sigma_{12}\Sigma_{22}^{-1} (x_2 - \mu_2))
+\bigg\} \cdot \\
+&& \exp \bigg\{
+1\frac{ 1}{2}(x_2-\mu_2)^T\Sigma_{22}^{-1} (x_2-\mu_2)
+ \bigg\}
+\end{array}
+ \]
+
+Not: $\Sigma_{12}^T = \Sigma_{21}$. Ustte birinci $\exp$ icinde sol bolumde devrigin icindeki ifadelerden,  
+mesela $x_1^T,\mu_1^T$'den ve $\Sigma_{21}$'li ifadeden devrik islemini cekip, buyuk paranteze 
+alininca bu degisim oldu. 
+
+Simdi mesela 1. $\exp$'ye dikkat edersek, ortada $(\Sigma/\Sigma_{22})^{-1} $ var, ve bu ifadenin solunda ve saginda 
+birbirinin devrigi olan ayni terimler duruyor. Ifadenin tamami bir Normal
+dagilim. Yani sey 2. $\exp$ icin gecerli. 
+
+Isin $\exp$ tarafini halletik. Simdi $\exp$ oncesindeki kesiri (4) kullanarak
+parcalayalim, 
+
+\[ 
+\frac{ 1}{(2\pi)^{(p+q)/2} \det(\Sigma)^{1/2}}  = 
+\frac{ 1}{(2\pi)^{(p+q)/2} \bigg(\det(\Sigma/\Sigma_{22})\det(\Sigma_{22})\bigg)^{1/2}} 
+ \]
+
+\[ =
+\bigg( \frac{ 1}{(2\pi)^{p/2} \det(\Sigma/\Sigma_{22})^{1/2}} \bigg)
+\bigg( \frac{ 1}{(2\pi)^{q/2} \det(\Sigma_{22})^{1/2}} \bigg)
+ \]
+
+Bu parcalarin her birini bir $\exp$ onunde kullanabiliriz, ve ikinci $\exp$
+ifadesinin 
+
+\[ 
+\frac{ 1}{(2\pi)^{q/2} \det(\Sigma_{22})^{1/2}}
+\exp \bigg\{
+\frac{ 1}{2}(x_2-\mu_2)^T\Sigma_{22}^{-1} (x_2-\mu_2)
+ \bigg\}
+ \]
 
 
+oldugunu goruyoruz. Bu ifade $f(x_2)$ bilesen yogunlugudur! O zaman geri
+kalanlar, yani diger kesir ve birinci $\exp$ hep beraber $f(x_1|x_2)$
+yogunlugu olmalidir. Yani,
 
+\[ 
+\frac{ 1}{(2\pi)^{p/2} \det(\Sigma/\Sigma_{22})^{1/2}} 
+ \]
+\[ 
+\exp \bigg\{
+-\frac{1 }{2} 
+(x_1 - \mu_1 - \Sigma_{12}\Sigma_{22}^{-1} (x_2 - \mu_2))^T 
+(\Sigma/\Sigma_{22})^{-1} 
+(x_1 - \mu_1 - \Sigma_{12}\Sigma_{22}^{-1} (x_2 - \mu_2))
+\bigg\}
+ \]
 
+Buradan genel bir kural cikartabiliriz, 
 
+(1) $X_2$'nin bilesen yogunlugu $X_2 \sim N(\mu_2, \Sigma_{22})$
 
+(2) $X_2 = x_2$ olmak uzere $X_1$'in kosullu dagilimi 
 
+\[ X_1 | X_2 = x_2 \sim 
+N\bigg(\mu_1 + \Sigma_{12}\Sigma_{22}^{-1} (x_2 -\mu_2) \ , \
+\Sigma/\Sigma_{22} \bigg)
+ \]
 
+Hatirlarsak, $M/H = E-FH^{-1}G$, ve ve $E = \Sigma_{11},F=\Sigma_{12},..$ o
+zaman 
 
+\[ \Sigma/\Sigma_{22} = \Sigma_{11}-\Sigma_{12} \Sigma_{22}^{-1} \Sigma_{21} \]
 
+\[ X_1 | X_2 = x_2 \sim 
+N\bigg(\mu_1 + \Sigma_{12}\Sigma_{22}^{-1} (x_2 -\mu_2) \ , \
+\Sigma_{11}-\Sigma_{12} \Sigma_{22}^{-1} \Sigma_{21}
+\bigg)
+ \]
 
 
 
