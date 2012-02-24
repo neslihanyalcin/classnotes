@@ -575,7 +575,7 @@ alininca bu degisim oldu.
 
 Simdi mesela 1. $\exp$'ye dikkat edersek, ortada $(\Sigma/\Sigma_{22})^{-1} $ var, ve bu ifadenin solunda ve saginda 
 birbirinin devrigi olan ayni terimler duruyor. Ifadenin tamami bir Normal
-dagilim. Yani sey 2. $\exp$ icin gecerli. 
+dagilim. Ayni sey 2. $\exp$ icin gecerli. 
 
 Isin $\exp$ tarafini halletik. Simdi $\exp$ oncesindeki kesiri (4) kullanarak
 parcalayalim, 
@@ -590,7 +590,7 @@ parcalayalim,
 \bigg( \frac{ 1}{(2\pi)^{q/2} \det(\Sigma_{22})^{1/2}} \bigg)
  \]
 
-Bu parcalarin her birini bir $\exp$ onunde kullanabiliriz, ve ikinci $\exp$
+Bu parcalarin her birini ayri bir $\exp$ onunde kullanabiliriz, ve ikinci $\exp$
 ifadesinin 
 
 \[ 
@@ -606,7 +606,7 @@ kalanlar, yani diger kesir ve birinci $\exp$ hep beraber $f(x_1|x_2)$
 yogunlugu olmalidir. Yani,
 
 \[ 
-\frac{ 1}{(2\pi)^{p/2} \det(\Sigma/\Sigma_{22})^{1/2}} 
+\frac{ 1}{(2\pi)^{p/2} \det(\Sigma/\Sigma_{22})^{1/2}} \cdot
  \]
 \[ 
 \exp \bigg\{
@@ -628,8 +628,8 @@ N\bigg(\mu_1 + \Sigma_{12}\Sigma_{22}^{-1} (x_2 -\mu_2) \ , \
 \Sigma/\Sigma_{22} \bigg)
  \]
 
-Hatirlarsak, $M/H = E-FH^{-1}G$, ve ve $E = \Sigma_{11},F=\Sigma_{12},..$ o
-zaman 
+$\Sigma/\Sigma_{22}$ nedir? Hatirlarsak, $M/H = E-FH^{-1}G$, ve 
+$E = \Sigma_{11},F=\Sigma_{12},..$ o zaman 
 
 \[ \Sigma/\Sigma_{22} = \Sigma_{11}-\Sigma_{12} \Sigma_{22}^{-1} \Sigma_{21} \]
 
