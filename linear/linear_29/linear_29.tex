@@ -99,18 +99,96 @@ Sifir uzayi (nullspace) burada problem degil. Zorluklar neler? Matris
 simetrik olmayabilir, o zaman ozvektorleri kullanamam, cunku onlar
 ortogonal degildir.
 
+\[ A = U \Sigma V^{-1} \]
 
+$V^{-1}$'yi baska nasil yazabilirim? $V$ kare, ortogonal olacagina gore,
+$V^{-1} = V^{T}$. O zaman 
 
+\[ A = U \Sigma V^{T} \]
 
+Simdi hesabi dusunmeye baslayalim. Iki tane ayri ortogonal matris bulmam
+lazim, ama bunlarin ikisini de ayni anda bulmak istemiyorum. Bir fikir:
+oyle bir numara yapayim ki $U$ yokolsun her sey $V$ uzerinden temsil
+edilsin. 
 
+Alttaki ifade ne zaman elimizde genel dikdortgensel (kare olmayan) bir
+matris varsa karsimiza cikan bir ifade, $A^TA$. Bu matris kare, pozitif
+kesin, yani guzel ozellikleri var. O zaman ustteki formulu $A^T$ ile soldan
+carpacagiz,
 
+\[ A^T = V \Sigma^T U^{T}  \]
 
+olduguna gore,
 
+\[ A^TA = V \Sigma^T U^{T}  U \Sigma V^{T}  \]
 
+$U^TU = I$ olduguna gore
 
+\[ A^TA = V \Sigma^T \Sigma V^{T}  \]
 
+Kolaylastirmalar bitmedi. $\Sigma$ kosegen olduguna gore, $\Sigma^T\Sigma$
+kosegendeki degerlerin karesinden ibarettir. 
 
+\[ = V 
+\left[\begin{array}{rrrr}
+\sigma_1^2 &&& \\
+ & \sigma_2^2 &  & \\
+&& \ddots & \\
+&&& \sigma_r^2 
+\end{array}\right] 
+V^T
+  \]
 
+Iste, $U$'lar yokoldu. Bu son ulastigimiz formda $V$'ler nedir?
+Ozvektorlerdir! Problem mukemmel bir ozdeger / ozvektor problemine
+donustu, $Q\Lambda Q$ haline geldi. Bu kolayligi $A$ yerine $A^TA$'yi
+kullanmak sayesinde elde ettik. 
+
+Pekala bu sekilde $V$'leri elde ediyoruz, ama $U$'lari nasil elde edecegiz?
+Onlari gecici bir sure icin yokettik, ama onlar hala hesaplamamiz gereken
+buyuklukler. Onun da caresi var, $A^T$ ile soldan carpmak yerine ana
+formulu $A^T$ ile sagdan carparsak, bu sefer $V$'ler yokolur, ve yine
+benzer ozdeger / ozvektor hesabi yapariz. 
+
+Ornek icin bu hesabi yapalim. 
+
+\[ A^TA = 
+\left[\begin{array}{rr}
+4 & -3 \\ 4 & 3
+\end{array}\right]
+\left[\begin{array}{rr}
+4 & 4 \\ -3 & 3
+\end{array}\right] = 
+\left[\begin{array}{cc}
+25 & 7 \\ 7 & 25
+\end{array}\right]
+ \]
+
+Ozvektorler
+
+\[ 
+\left[\begin{array}{r}
+1 \\ 1
+\end{array}\right],
+\left[\begin{array}{r}
+1 \\ -1
+\end{array}\right]
+ \]
+
+Ozdegerler
+
+$\lambda_1=32, \lambda_2=18$. 
+
+Ozvektorleri normalize etmeli
+
+\[ 
+\left[\begin{array}{r}
+1 / \sqrt{ 2} \\ 1/ \sqrt{ 2}
+\end{array}\right],
+\left[\begin{array}{r}
+1/ \sqrt{ 2} \\ -1/ \sqrt{ 2}
+\end{array}\right]
+ \]
 
 
 
