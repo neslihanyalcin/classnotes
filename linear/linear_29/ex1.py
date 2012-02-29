@@ -1,6 +1,7 @@
 import scipy.linalg as lin
 import numpy as np
 
+print '\nA.T*A\n'
 a = np.array([[4,4],[-3,3]])
 print np.dot(a.T,a)
 
@@ -16,14 +17,13 @@ w,vl =  lin.eig(a)
 print w
 print vl
 
+print '\nVerify\n'
 a1 = np.array([[1,0],[0,1]])
 a2 = np.array([[np.sqrt(32),0],[0,np.sqrt(18)]])
 a3 = np.array([[1./np.sqrt(2),1./np.sqrt(2)],
                [1./np.sqrt(2),-1./np.sqrt(2)]])
 
 print np.dot(a1,np.dot(a2,a3))
-
-exit()
 
 print '\nReal SVD\n'
 
