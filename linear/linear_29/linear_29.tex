@@ -234,8 +234,6 @@ Simdi $U$'nun sirasi geldi. Onun icin $AA^T$ lazim.
 \end{array}\right]
  \]
 
-
-
 Raslanti oldu yukaridaki carpim kosegen cikti, iyi oldu tabii, cunku bu tur
 matrislerin ozvektorlerini, ozdegerlerini hesaplamak cok
 kolaydir. Ozvektorler, 
@@ -270,7 +268,7 @@ Neyse $U$'yu bulduk, yerine koyalim,
 }_{U}
 \underbrace{
 \left[\begin{array}{rr}
-\sqrt{ 32} &  \\  & \sqrt{ 18}
+\sqrt{ 32} & 0 \\ 0 & \sqrt{ 18}
 \end{array}\right]
 }_{\Sigma}
 \underbrace{
@@ -280,21 +278,142 @@ Neyse $U$'yu bulduk, yerine koyalim,
 }_{V^T}
  \]
 
+Ornek 
+
+Bu sefer $A$ tekil (singular) olsun, yani kertesi 1. 
+
+\[ A = \left[\begin{array}{rr}
+4 & 3 \\ 8 & 6
+\end{array}\right] \]
+
+Simdi, eger SVD islemi satir uzayi ve kolon uzayi icin ortonormal bir baz
+bulmak demek ise, $A$'nin satir uzayinda ozvektor bulmak kolay (cunku
+tekil) satir uzayi
+
+\[ 
+\left[\begin{array}{r}
+4 \\ 3
+\end{array}\right]
+ \]
+
+Ozvektor bu uzayda olmali, bu uzayda tek eleman vardir, o zaman hesap
+kolay. Tek yapmamiz gereken ustteki vektoru normalize etmek, 
+
+\[ 
+v_1 = \left[\begin{array}{r}
+.8 \\ .6
+\end{array}\right]
+ \]
+
+Peki $v_2$? $v_1$'e ortogonal olmali. 
+
+\[ 
+v_2 = \left[\begin{array}{r}
+.8 \\ -.6
+\end{array}\right]
+ \]
+
+Ayni islem $U$ icin,
+
+\[ 
+\left[\begin{array}{r}
+4 \\ 8
+\end{array}\right]
+ \]
+
+Birinci kolonu direk aldik (bu kolon ile ikinci kolon arasinda kat
+farki oldugu direk gorulmuyor ama kesirli olarak var),
+
+\[ 
+u_1 = \left[\begin{array}{r}
+1/\sqrt{ 5} \\ 2/\sqrt{ 5}
+\end{array}\right]
+ \]
+
+Yani
+
+\[ 
+\underbrace{
+\left[\begin{array}{rr}
+4 & 3 \\ 8 & 6
+\end{array}\right] 
+}_{A}
+=
+\underbrace{
+\left[\begin{array}{rr}
+1/\sqrt{ 5} &  \\ 2/\sqrt{ 5} & 
+\end{array}\right]
+}_{U}
+\underbrace{
+\left[\begin{array}{rr}
+ & 0 \\ 0 & 0
+\end{array}\right]
+}_{\Sigma}
+\underbrace{
+\left[\begin{array}{rr}
+ & \\
+ & 
+\end{array}\right]
+}_{V^T}
+ \]
+
+$\Sigma$ icinde uc sifir var, cunku $A$ tekil. Eksik deger nedir? Su
+carpimin ozdegerlerini bulalim
+
+\[ A^TA = 
+\left[\begin{array}{rr}
+4 & 8 \\ 3 & 6
+\end{array}\right] 
+\left[\begin{array}{rr}
+4 & 3 \\ 8 & 6
+\end{array}\right] =
+\left[\begin{array}{rr}
+80 & 60 \\ 60 & 45
+\end{array}\right] 
+ \]
+
+Sonuc yine tekil, ozdegerlerin biri sifir. Tum ozdegerlerin toplami matris izine
+(trace) esit, ozdegerlerden biri sifir, o zaman digeri kosegenin toplaminin
+ta kendisi, yani 125. 
+
+\[ 
+\underbrace{
+\left[\begin{array}{rr}
+4 & 3 \\ 8 & 6
+\end{array}\right] 
+}_{A}
+=
+\underbrace{
+\left[\begin{array}{rr}
+1/\sqrt{ 5} & 2/\sqrt{5} \\ 2/\sqrt{ 5} & -1/\sqrt{5}
+\end{array}\right]
+}_{U}
+\underbrace{
+\left[\begin{array}{rr}
+\sqrt{ 125} & 0 \\ 0 & 0
+\end{array}\right]
+}_{\Sigma}
+\underbrace{
+\left[\begin{array}{rr}
+.8 & -.6 \\
+.8 & .6 
+\end{array}\right]
+}_{V^T}
+ \]
 
 
+Orneklerimiz bunlar. Simdi ne yaptigimizi biraz dusunelim. $v_1,..,v_r$
+satir uzayi icin ortonormal bir bazdir. $u_1,..,u_r$ kolon uzayi icin
+ortonormal bir bazdir. Fakat tekillik var, o zaman $v_{r+1},.,v_n$ sifir
+uzayi icin ortonormal bir bazdir, ve $u_{r+1},..,u_n$ $A^T$'un sifir
+uzayi icin ortonormal bir bazdir. 
 
+SVD uzerinden oyle bazlar seciyoruz ki 
 
+\[ Av_i = \sigma_i u_i \]
 
-
-
-
-
-
-
-
-
-
-
+dogru oluyor. 
 
 
 \end{document}
+
