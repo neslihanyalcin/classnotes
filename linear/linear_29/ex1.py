@@ -21,7 +21,7 @@ print '\nVerify\n'
 a1 = np.array([[1,0],[0,1]])
 a2 = np.array([[np.sqrt(32),0],[0,np.sqrt(18)]])
 a3 = np.array([[1./np.sqrt(2),1./np.sqrt(2)],
-               [1./np.sqrt(2),-1./np.sqrt(2)]])
+               [-1./np.sqrt(2),1./np.sqrt(2)]])
 
 print np.dot(a1,np.dot(a2,a3))
 
