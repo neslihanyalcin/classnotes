@@ -141,16 +141,20 @@ V^T
 
 Iste, $U$'lar yokoldu. Bu son ulastigimiz formda $V$'ler nedir?
 Ozvektorlerdir! Problem mukemmel bir ozdeger / ozvektor problemine
-donustu, $Q\Lambda Q$ haline geldi. Bu kolayligi $A$ yerine $A^TA$'yi
-kullanmak sayesinde elde ettik. 
+donustu, yani $Q\Lambda Q$ haline geldi. Bu kolayliga, sonuca $A$ yerine $A^TA$'yi
+kullanmak sayesinde eristik.
 
-Pekala bu sekilde $V$'leri elde ediyoruz, ama $U$'lari nasil elde edecegiz?
-Onlari gecici bir sure icin yokettik, ama onlar hala hesaplamamiz gereken
-buyuklukler. Onun da caresi var, $A^T$ ile soldan carpmak yerine ana
+Pekala bu sekilde $V$'leri elde ediyoruz, ama $U$'yu nasil elde edecegiz?
+Onu gecici bir sure icin yokettik, ama $U$ hala hesaplamamiz gereken bir
+buyukluk, vektorler. Onun da caresi var, $A^T$ ile soldan carpmak yerine ana
 formulu $A^T$ ile sagdan carparsak, bu sefer $V$'ler yokolur, ve yine
-benzer ozdeger / ozvektor hesabi yapariz. 
+benzer ozdeger / ozvektor hesabina geliriz, ama bu sefer $U$ hesaplariz.
 
-Ornek icin bu hesabi yapalim. 
+\[ AA^T = U\Sigma V^TV\Sigma^TU^T \]
+
+\[  = U\Sigma \Sigma^TU^T \]
+
+Ornek icin tum bu hesaplari yapalim. 
 
 \[ A^TA = 
 \left[\begin{array}{rr}
@@ -189,6 +193,101 @@ Ozvektorleri normalize etmeli
 1/ \sqrt{ 2} \\ -1/ \sqrt{ 2}
 \end{array}\right]
  \]
+
+o zaman 
+
+\[ 
+\underbrace{
+\left[\begin{array}{rr}
+4 & -3 \\ 4 & 3
+\end{array}\right] 
+}_{A}
+=
+\underbrace{
+\left[\begin{array}{rr}
+ &  \\  & 
+\end{array}\right]
+}_{U}
+\underbrace{
+\left[\begin{array}{rr}
+\sqrt{ 32} &  \\  & \sqrt{ 18}
+\end{array}\right]
+}_{\Sigma}
+\underbrace{
+\left[\begin{array}{rr}
+1/\sqrt{ 2} & 1/\sqrt{ 2} \\ 1/\sqrt{ 2} & -1/\sqrt{ 2}
+\end{array}\right]
+}_{V^T}
+ \]
+
+Simdi $U$'nun sirasi geldi. Onun icin $AA^T$ lazim. 
+
+\[ A^TA = 
+\left[\begin{array}{rr}
+4 & 4 \\ -3 & 3
+\end{array}\right] 
+\left[\begin{array}{rr}
+4 & -3 \\ 4 & 3
+\end{array}\right] =
+\left[\begin{array}{rr}
+32 & 0 \\ 0 & 18
+\end{array}\right]
+ \]
+
+
+
+Raslanti oldu yukaridaki carpim kosegen cikti, iyi oldu tabii, cunku bu tur
+matrislerin ozvektorlerini, ozdegerlerini hesaplamak cok
+kolaydir. Ozvektorler, 
+
+\[ 
+\left[\begin{array}{r}
+1 \\ 0
+\end{array}\right],
+\left[\begin{array}{r}
+0 \\ 1
+\end{array}\right]
+ \]
+
+Ozdegerler $\lambda_1 = 32, \lambda_2 = 18$
+
+Ilginci ki yine ayni ozdegerleri elde ettim, ama sasirmamak lazim, cunku
+mesela bir $AB$ carpiminin ozdegerleri $BA$ ile aynidir. 
+
+Neyse $U$'yu bulduk, yerine koyalim, 
+
+\[ 
+\underbrace{
+\left[\begin{array}{rr}
+4 & -3 \\ 4 & 3
+\end{array}\right] 
+}_{A}
+=
+\underbrace{
+\left[\begin{array}{rr}
+1 & 0 \\ 0 & 1 
+\end{array}\right]
+}_{U}
+\underbrace{
+\left[\begin{array}{rr}
+\sqrt{ 32} &  \\  & \sqrt{ 18}
+\end{array}\right]
+}_{\Sigma}
+\underbrace{
+\left[\begin{array}{rr}
+1/\sqrt{ 2} & 1/\sqrt{ 2} \\ 1/\sqrt{ 2} & -1/\sqrt{ 2}
+\end{array}\right]
+}_{V^T}
+ \]
+
+
+
+
+
+
+
+
+
 
 
 
