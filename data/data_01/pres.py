@@ -12,6 +12,6 @@ for i in prez:
 for i in prez:
     jitter1 = random.random()*5.0
     jitter2 = random.random()*5.0
-    plt.plot(i+jitter1, 30.0+jitter2, 'gx')
+    plt.plot(i+jitter1, 30.0+jitter2, 'go')
         
 plt.show()
