@@ -394,15 +394,28 @@ Son $\beta$ formulunde yerine koyalim
 \]
 
 
-Son bir esitlik daha var, bu da $d_k = r_k$ esitligi, boylece son formul
+Son bir esitlik daha var, bu da $d_{i-1} = r_{i-1}$ esitligi, nereden
+geliyor?  $j < i-1$ icin $r_i^Tr_{j+1}$ ve $r_i^Tr_{j}$ carpimlarinin ikisi
+de sifirdir, o zaman (10) formulu
+
+\[ d_i = r_i + \beta_{i,j}d_j \]
+
+haline gelir cunku pek cok deger icin $\beta_{i,j} = 0$ olacaktir. Simdi
+usttekini bir onceki indis degerleri icin tekrar yazalim,
+
+\[ d_{i-1} = r_{i-1} + \beta_{i-1,i-2}d_{i-2} \]
+
+Yine ortogonallik sayesinde $\beta$ degeri iptal olur, ve geriye sadece 
+
+\[ d_{i-1} = r_{i-1} \]
+
+kalir. Boylece son formul
 
 \[ \beta_{i,i-1} = 
 \frac{  r_i^Tr_i  }{r_{i-1}^Tr_{i-1}}
 \]
 
-haline geliyor, ve kodlama cok temizlesiyor. Bu esitligi ispatsiz olarak
-burada veriyoruz. 
-
+haline geliyor, ve kodlama cok temizlesiyor. 
 
 \lstinputlisting[language=Python]{cg.py}
 
