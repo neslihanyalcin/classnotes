@@ -75,13 +75,13 @@ Peki hiz vektor olarak daha fazla bilgi veriyor olmasina ragmen, ben yine
 de klasik anlamda hizi, yani o tek sayiyi elde etmek istiyorsam ne yaparim?
 Hiz vektorunun buyuklugunu hesaplarim, $|\vec{v}|$. 
 
-\[ |\vec{v}| = \sqrt{ (1-cos(t))^2 + sin^2(t) } \]
+\[ |\vec{v}| = \sqrt{ (1-\cos t)^2 + \sin^2t } \]
 
 
-\[ = \sqrt{ 1-2cos(t) + cos^2(t) + sin^2(t)  } \]
+\[ = \sqrt{ 1-2\cos t + \cos^2t + \sin^2t } \]
 
 
-\[ = \sqrt{ 2-2cos(t) } \]
+\[ = \sqrt{ 2-2\cos t } \]
 
 
 Bu formule bakarak hizin nerede en fazla, en az oldugunu
@@ -121,7 +121,7 @@ Cycloid'e donelim.
 
 Turevi alalim
 
-\[ \frac{d\vec{v}}{dt} = <sin(t), cos(t)>\]
+\[ \frac{d\vec{v}}{dt} = <sin(t), \cos t>\]
 
 $t=0$ noktasinda ivme nedir? $<0,1>$. 
 
@@ -510,13 +510,13 @@ uzerinden gecildigini gosterin.
 
 a) 
 
-\[ \vec{r} = 2cos^2(t) \hat{i} + sin^2(t) \hat{j}  \]
+\[ \vec{r} = 2\cos^2t \hat{i} + \sin^2t \hat{j}  \]
 
 Cevap
 
-\[ x(t) = 2cos^2(t) \]
+\[ x(t) = 2\cos^2t \]
 
-\[ y(t) = sin^2(t) \]
+\[ y(t) = \sin^2t \]
 
 Simdi $t$ bazli denklemlerden $x,y$ bazli denklemlere gecmek istiyorsak,
 $t$'yi yoketmeliyiz, o zaman usttekini bir lineer denklem sistemi olarak
@@ -524,7 +524,7 @@ gorebiliriz. Eger ikinci denklemi 2 ile carpip toplarsak
 
 \[ x + 2y = 2 \]
 
-elde ederiz, cunku trigonometriden $cos^2(t) + sin^2(t) = 1$ oldugunu
+elde ederiz, cunku trigonometriden $\cos^2t + \sin^2t = 1$ oldugunu
 biliyoruz. Elde ettigimiz bir cizgiyi temsil eder, bu cizginin taranan
 kismi $cos$ ve $sin$'in nerelerde en buyuk olduguna baglidir. Bu iki
 fonksiyon uc noktalarda birbirinin tersi degerlere sahiptirler, biri 0 iken
@@ -537,25 +537,25 @@ Su kod olanlari animasyonlu olarak gosterecektir.
 
 b) 
 
-\[ \vec{r} = cos(2t) \hat{i} + cos(t) \hat{j}  \]
+\[ \vec{r} = \cos 2t \hat{i} + \cos t \hat{j}  \]
 
 Cevap
 
-\[ x = cos (2t) \]
+\[ x = \cos 2t \]
 
-\[ y = cos (t) \]
+\[ y = \cos t \]
 
 Bir trigonometrik esitlik soyledir
 
-\[ cos(2t) = cos^2(t) - sin^2(t)  \]
+\[ \cos 2t = \cos^2 t - \sin^2t  \]
 
-\[ = 2cos^2(t) - 1 \]
+\[ = 2 \cos^2(t) - 1 \]
 
 O zaman
 
-\[ x = 2cos^2(t) - 1  \]
+\[ x = 2 \cos^2(t) - 1  \]
 
-\[ y = cos (t) \]
+\[ y = \cos t \]
 
 Eger $y$'nin karesini alip -2 ile carparsak
 
@@ -665,7 +665,7 @@ O zaman $\vec{r}(t)$'nin turevi
 \[ \vec{v} = -4sin(t)\hat{i} + 4cos(t)\hat{j} + 3\hat{k} \]
 
 \[ |v| = \sqrt{16sin^2t + 16cos^2t  + 9} = 
-\sqrt{16(sin^2t + cos^2t) + 9} = 
+\sqrt{16(sin^2t + \cos^2t) + 9} = 
  \]
 
 \[ = \sqrt{16(1) + 9} = \sqrt{25} = 5 \]

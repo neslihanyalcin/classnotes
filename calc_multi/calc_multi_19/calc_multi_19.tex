@@ -272,8 +272,8 @@ mesela yukaridaki ornekte
 
 \[ 
 \left\{ \begin{array}{l}
-x  = sin\theta \\
-y  = sin^2\theta 
+x  = \sin\theta \\
+y  = \sin^2\theta 
 \end{array} \right.
  \]
 
@@ -383,10 +383,10 @@ Eger bu hesabi parametrizasyon ile yapsaydik?
 
 
 \[ = \int_C -(asin\theta)(-asin\theta d\theta) + 
-(acos\theta)(a cos\theta d\theta)
+(acos\theta)(a \cos\theta d\theta)
 \]
 
-\[ = \int_0^{2\pi} a^2 (sin^2\theta + cos^2\theta)d\theta \]
+\[ = \int_0^{2\pi} a^2 (sin^2\theta + \cos^2\theta)d\theta \]
 
 \[ = \int_0^{2\pi} a^2 d\theta \]
 
@@ -401,38 +401,38 @@ olsun. Su cizgi entegralini hesaplayin.
 
 Parametrizasyon icin kare toplami 1 olan formulleri bulalim. Bunlar
 
-\[ x = cos(t) \]
+\[ x = \cos t \]
 
-\[ y = sin(t) \]
+\[ y = \sin t \]
 
-\[ dx/dt = -sin(t)\]
+\[ dx/dt = -\sin t\]
 
-\[ dy/dt = cos(t) \]
+\[ dy/dt = \cos t \]
 
 \[ =
-\int_0^{2\pi} \bigg( 2cos(t) - sin(t) \bigg)(-sin(t))dt + 
-\bigg(cos(t) + 3sin(t)\bigg)cos(t) dt
+\int_0^{2\pi} \bigg( 2cos(t) - \sin t \bigg)(-\sin t )dt + 
+\bigg(\cos t + 3\sin t \bigg) \cos t dt
  \]
 
 \[ = 
 \int_0^{2\pi} \bigg( 
--2cos(t)sin(t) + sin^2(t) + 
-cos^2(t) + 3sin(t)cos(t)
+-2cos(t)\sin t + \sin^2 t + 
+cos^2(t) + 3 \sin t \cos t
 \bigg) dt
  \]
 
 \[ = 
 \int_0^{2\pi} \bigg( 
-cos(t)sin(t) + 1
+\cos t \sin t + 1
 \bigg) dt
  \]
 
-$cos(t)sin(t)$'nin entegrali nedir? Birbirinin turevi olan terimler carpim
+$\cos t \sin t$'nin entegrali nedir? Birbirinin turevi olan terimler carpim
 olarak ayni formule olunca bir numara yapmak mumkun oluyor. Sunu 
 diyebiliyoruz mesela, $u=sin(t)$ ve $du=cos(t)dt$, ve $\int u du = u^2/2$
 olacagi icin, 
 
-\[ \int cos(t)sin(t)dt = \frac{sin^2(t)}{2} \]
+\[ \int \cos t \sin t dt = \frac{sin^2(t)}{2} \]
 
 O zaman 
 

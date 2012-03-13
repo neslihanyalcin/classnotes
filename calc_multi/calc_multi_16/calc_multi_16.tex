@@ -222,34 +222,34 @@ Dis Entegral
 
 Yerine gecirme (subsitution) teknigi kullanmamiz lazim. 
 
-\[ x = sin\theta \]
+\[ x = \sin\theta \]
 
-\[ dx = cos\theta d\theta\]
+\[ dx = \cos\theta d\theta\]
 
-\[ (1-x^2)^{1/2} = cos\theta \]
+\[ (1-x^2)^{1/2} = \cos\theta \]
 
 \[ 
 \int_0^1 \frac{2}{3} (1-x^2)^{3/2} dx = 
-\int_0^{\pi/2} \frac{2}{3} cos^3\theta \ cos\theta \ d\theta = 
-\frac{2}{3} \int_0^{\pi/2} cos^4\theta d\theta
+\int_0^{\pi/2} \frac{2}{3} \cos^3\theta \cos\theta \ d\theta = 
+\frac{2}{3} \int_0^{\pi/2} \cos^4\theta d\theta
 \]
 
 En sondaki entegrali almak icin cift aci (double angle) formullerini
 kullanmak lazim. 
 
-\[ cos^2\theta = \frac{1 + cos 2\theta}{2} \]
+\[ \cos^2\theta = \frac{1 + \cos 2\theta}{2} \]
 
 O zaman 
 
 \[ = 
 \frac{2}{3} \int_0^{\pi/2} 
-\bigg( \frac{1 + cos 2\theta}{2} \bigg)^2 d\theta 
+\bigg( \frac{1 + \cos 2\theta}{2} \bigg)^2 d\theta 
 \]
 
 \[ = \frac{2}{3} \int_0^{\pi/2} (
 \frac{1}{4} + 
-\frac{1}{2}cos2\theta + 
-\frac{1}{4}cos^22\theta)d\theta
+\frac{1}{2}\cos2\theta + 
+\frac{1}{4}\cos^22\theta)d\theta
  \]
 
 Biraz arap sacina dondu, ama hesabin sonunda sonuc $\pi/8$ cikacak. 

@@ -188,7 +188,7 @@ Tabii $a,b$ sabitken $\theta$ degissin demek, ucgenin dikliginin ihlali
 demektir, cunku hem kenarlar sabit, hem aci degissin diyoruz, ama o zaman
 dik aci degismek zorundadir. Her neyse, kismi turevleri hesaplayalim. 
 
-\[ \frac{\partial A}{\partial \theta} = \frac{1}{2}ab cos(\theta) \]
+\[ \frac{\partial A}{\partial \theta} = \frac{1}{2}ab \cos\theta \]
 
 Simdiye kadar kisitlama ifadelerimi kullanmadim. 
 
@@ -210,13 +210,13 @@ Hesabi yapmanin uc degisik yolunu gorecegiz.
 
 0. Metot: $b$'yi yanliz birak (cebirsel), ve diger formule sok
 
-\[ a = b \ cos (\theta) => b = \frac{a}{cos(\theta)} = a \ sec (\theta)\]
+\[ a = b \cos \theta => b = \frac{a}{\cos\theta} = a \sec\theta\]
 
-\[ A = \frac{1}{2} \ ab \ sin(\theta) \]
+\[ A = \frac{1}{2} \ ab \sin\theta \]
 
-\[ = \frac{1}{2} \frac{a^2 sin(\theta)}{cos(\theta)} \]
+\[ = \frac{1}{2} \frac{a^2 \sin \theta}{\cos \theta} \]
 
-\[ = \frac{1}{2} a^2 tan(\theta) \]
+\[ = \frac{1}{2} a^2 \tan \theta \]
 
 O zaman 
 
@@ -237,40 +237,40 @@ Yapilacaklar sunlar
 
 - $a$'yi sabit tut, $da = 0$
 
-- kisitlama ifadesi $a = b \ cos(\theta)$
+- kisitlama ifadesi $a = b \cos\theta$
 
 Ustteki ifadenin diferansiyelini alalim
 
-\[ da = cos(\theta) db - b \ sin(\theta) d\theta \]
+\[ da = \cos \theta db - b \sin\theta d\theta \]
 
 Simdi elimizde $da,db,d\theta$'yi iliskilendiren bir ifade var. $a$'nin
 sabit oldugunu biliyoruz, o zaman $da=0$
 
-\[ 0 = cos(\theta) db - b \ sin(\theta) d\theta \]
+\[ 0 = \cos \theta db - b \sin \theta d\theta \]
 
 $db$'yi yanliz birakabiliriz
 
-\[ cos(\theta) db = b \ sin(\theta) d\theta \]
+\[ \cos\theta db = b \sin\theta d\theta \]
 
-\[ db = b \ sin(\theta) d\theta \ / \ cos(\theta) \]
+\[ db = b \sin\theta d\theta \ / \cos\theta \]
 
-\[ db = b \ tan(\theta) d\theta  \]
+\[ db = b \tan\theta d\theta  \]
 
 Boylece $b$'nin $\theta$'ya gore degisim oranini bulduk. Bu ne ise yarar?
 Ana formulu hatirlayalim, ve onun da diferansiyelini alalim
 
-\[ A = \frac{1}{2} \ ab \ sin(\theta) \]
+\[ A = \frac{1}{2} \ ab \sin\theta \]
 
-\[ dA = \frac{1}{2} \ b \ sin(\theta) da + 
-\frac{1}{2} \ a \ sin(\theta) db + 
-\frac{1}{2} \ ab \ cos(\theta)d\theta
+\[ dA = \frac{1}{2} \ b \sin\theta da + 
+\frac{1}{2} \ a \sin\theta db + 
+\frac{1}{2} \ ab \cos\theta \ d\theta
  \]
 
 $da = 0$ ise, ilk terim yokolur. 
 
 \[ dA = 
 \frac{1}{2} \ a \ sin(\theta) db + 
-\frac{1}{2} \ ab \ cos(\theta)d\theta
+\frac{1}{2} \ ab \cos \theta \ d\theta
  \]
 
 Geri kalanlarda, $db$ var, ama biz $\theta$'ya gore degisimi istiyoruz,
@@ -278,19 +278,19 @@ $db$'yi orada gormek istemiyoruz. O zaman elimizdeki $db$ formulunu buraya
 sokalim. 
 
 \[ dA =  
-\frac{1}{2} \ a \ sin(\theta) \ ( \ b \ tan(\theta) d\theta \ ) \ + 
-\frac{1}{2} \ ab \ cos(\theta)d\theta
+\frac{1}{2} \ a \sin\theta \ ( \ b \tan(\theta) d\theta \ ) \ + 
+\frac{1}{2} \ ab \cos\theta \ d\theta
 \]
 
 \[ dA =  
-\frac{1}{2} \ ab \ (sin(\theta) tan(\theta) +  cos (\theta) )d\theta
+\frac{1}{2} \ ab \ (\sin\theta \tan\theta +  \cos\theta )d\theta
 \]
 
 Trigonometriden 
 
 \[ dA =  
 \frac{1}{2} \ ab \ (
-\underbrace{sin(\theta) tan(\theta) +  cos (\theta)}_{sec(\theta)}
+\underbrace{sin(\theta) tan(\theta) +  \cos \theta}_{sec(\theta)}
 )d\theta
 \]
 

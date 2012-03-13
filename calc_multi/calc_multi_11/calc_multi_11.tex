@@ -23,40 +23,40 @@ uzerindeki sonsuz kucuk bir degisime baglayabiliyoruz.
 
 Ornek
 
-\[ y = sin^{-1}(x) \]
+\[ y = \sin^{-1} x \]
 
 Bu formulun turevini bulmak icin, soyle bir zincir takip
 edebiliriz. Usttekine tersten bakalim
 
-\[ x = sin(y) \]
+\[ x = \sin y \]
 
 O zaman
 
-\[ dx = cos(y)dy \]
+\[ dx = \cos y \ dy \]
 
 \[ 
-\frac{dy}{dx} = \frac{1}{cos(y)} = \frac{1}{\sqrt{1-x^2}}
+\frac{dy}{dx} = \frac{1}{\cos y} = \frac{1}{\sqrt{1-x^2}}
  \]
 
 Esitligin sag tarafini nasil elde ettik? Hatirlayalim
 
-\[ cos^2(y) + sin^2(y) = 1 \]
+\[ \cos^2 y + \sin^2(y) = 1 \]
 
-\[ cos (y) = \sqrt{1 - sin^2y} \]
+\[ \cos y = \sqrt{1 - \sin^2y} \]
 
-$sin^2(y)$ nedir? 
+$\sin^2(y)$ nedir? 
 
-\[ y = sin^{-1}(x) \]
+\[ y = \sin^{-1} x \]
 
-\[ sin(y) = sin(sin^{-1}(x)) \]
+\[ \sin y = \sin(\sin^{-1}x) \]
 
 Ters sinus fonksiyonunun sinusu alinirsa, geriye sadece $x$ kalir. 
 
-\[ sin(y) = x \]
+\[ \sin y = x \]
 
 O zaman
 
-\[ cos (y) = \sqrt{1 - x^2} \]
+\[ \cos y = \sqrt{1 - x^2} \]
 
 Iste bu tur $dy,dx$ iceren formulleri kullanacagiz, bu derste cok
 degiskenli ortamda bunu yapacagiz. 
@@ -193,23 +193,23 @@ Ornek
 
 \[ y = e^t \]
 
-\[ z = sin(t) \]
+\[ z = \sin t \]
 
 \[ \frac{dw}{dt} = 2xy \frac{dx}{dt} + x^2 \frac{dy}{dt} + 1 \frac{dz}{dt}\]
 
-\[ = 2te^t 1 + t^2e^t+cos(t) \]
+\[ = 2te^t 1 + t^2e^t+\cos t \]
 
-\[ = 2te^t + t^2e^t+cos(t) \]
+\[ = 2te^t + t^2e^t+\cos t \]
 
 Bu sonuca baska turlu nasil erisebilirdik? 
 
 Ana formul $w$ icine tum degiskenlerin $t$ bazinda karsilikarini gecirelim
 
-\[ w(t) = t^2e^t + sin(t) \]
+\[ w(t) = t^2e^t + \sin t \]
 
 O zaman
 
-\[ \frac{dw}{dt} = 2te^t + t^2e^t + cos(t) \]
+\[ \frac{dw}{dt} = 2te^t + t^2e^t + \cos t \]
 
 Uygulama
 
@@ -324,9 +324,9 @@ Ornek
 
 Kutupsal kordinatlarimiz varsa, degisim formulu soyledir
 
-\[ x = r cos(\theta) \]
+\[ x = r \cos \theta \]
 
-\[ y = r sin(\theta) \]
+\[ y = r \sin \theta \]
 
 \includegraphics[height=3cm]{11_1.png}
 
@@ -342,7 +342,7 @@ Sonra su hesabi yapariz
 \frac{\partial y}{\partial r}
  \]
 
-\[ = f_xcos(\theta) + f_y sin(\theta) \]
+\[ = f_x\cos \theta + f_y \sin \theta \]
 
 Bu tur numaralar sonraki derste faydali olacak. Mesela gradyan vektoru
 kismi turevlerden olusan bir vektordur. 
