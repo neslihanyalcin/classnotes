@@ -46,9 +46,9 @@ ekseni $a$ ise, y ekseni $b$ ise, o zaman bir $r$ cizgisi ve $\theta$ acisi
 uzerinden kutupsal forma gecilebilir. Buradan hareketle kompleks sayi su
 sekilde de gosterilebilir. 
 
-\[ a+bi = rcos(\theta) + irsin(\theta) \]
+\[ a+bi = r\cos(\theta) + ir\sin(\theta) \]
 
-\[ = r (cos(\theta) + isin(\theta)) \]
+\[ = r (\cos(\theta) + i\sin(\theta)) \]
 
 Tarihten bir anektod: bu formu bulan Euler bu noktada ``parantez icindekine
 $e^{i\theta}$ diyecegim'' der. Niye? Pek cok bulgu, diger matematik bu yonu
@@ -88,9 +88,9 @@ i(\sin\theta_1\cos\theta_2 + \sin\theta_2\cos\theta_1 )
 \] 
 
 Biraz karisik gibi duruyor fakat dikkat edersek, ustteki formulun gercek
-sayi kismi $cos(\theta_1 + \theta_2)$'den ibaret (trigonometrik esitliklerden biri). 
-Kompleks kismi ise $sin(\theta_1 + \theta_2)$. O zaman elde ettigimiz \[
-cos(\theta_1+\theta_2) + isin(\theta_1+\theta_2) \] 
+sayi kismi $\cos(\theta_1 + \theta_2)$'den ibaret (trigonometrik esitliklerden biri). 
+Kompleks kismi ise $\sin(\theta_1 + \theta_2)$. O zaman elde ettigimiz \[
+\cos(\theta_1+\theta_2) + i\sin(\theta_1+\theta_2) \] 
 yani $e^{i(\theta_1+\theta_2)}$'in acilimi!
 
 $e^{i\theta_1} \cdot e^{i\theta_2}$'den ise basladik, bir esitligi kullanarak, basitlestirdik, 
@@ -122,9 +122,9 @@ alarak. Turev islemi olarak $D(..)$ kullanirsak,
 
 O zaman su turevi alalim ($\theta$ yerine $t$ kullaniyoruz) 
 
-\[ \frac{d}{dt}e^{it} = \frac{d}{dt}(cos(t) + isin(t)) \]
+\[ \frac{d}{dt}e^{it} = \frac{d}{dt}(\cos(t) + i\sin(t)) \]
 
-\[ = -sin(t) + icos(t) \]
+\[ = -\sin(t) + i\cos(t) \]
 
 $i$'yi disari cekelim
 
@@ -139,7 +139,7 @@ Baslangic degerlerini dusunelim: $e^{i\cdot 0}$ neye esittir?
 
 Dikkat: Hemen $i \cdot 0 = 0$ ve $e$ uzeri $0$ esittir 1 cevabini
 vermeyelim. Bu dogru sonuctur ama tamamiyle dogru bir mantik zinciri
-degildir. Unutmayalim, $e^{i\theta}$'nin acilimi $cos(\theta) +
+degildir. Unutmayalim, $e^{i\theta}$'nin acilimi $\cos(\theta) +
 isin(\theta)$, O zaman
 
 \[ e^{i \cdot 0} = \cos(0) + i\sin(0) \]
@@ -212,14 +212,14 @@ Ustel Form ve Calculus
 Ustel formu kullanarak Calculus'taki bazi esitlikleri hatirlamanin,
 turetmenin ne kadar kolay olduguna bakalim simdi. Mesela
 
-\[ \int e^{-x}cos(x) dx \]
+\[ \int e^{-x}\cos(x) dx \]
 
 Bunu tabii ki parcali entegral kullanarak cozebilirdik. Fakat parcali
 entegrali iki kere kullanmamiz gerekirdi, biraz giriftli bir islem
 olurdu. Onun yerine kompleks sayilari hemen kullanalim. 
 
-Formule bakalim ve formuldeki $cos(x)$'i bir kompleks sayi olan $e^{ix}$'in
-$cos(..)$ bolumu olarak gorelim. O zaman $e^{-x}cos(x)$ carpimini
+Formule bakalim ve formuldeki $\cos(x)$'i bir kompleks sayi olan $e^{ix}$'in
+$\cos(..)$ bolumu olarak gorelim. O zaman $e^{-x}\cos(x)$ carpimini
 $e^{-x}Re(e^{ix}) $ olarak gorebiliriz. $Re$ tabiri bir kompleks sayinin
 ``reel bolumu'' anlamina geliyor. Hatta $e^{-x}$ zaten reel bir sayi
 olduguna gore $Re(e^{-x}e^{ix})$ sozunu de soyleyebiliriz. Entegral icin
@@ -227,7 +227,7 @@ iste bu mantigi yurutuyoruz.
 
 \[ e^{-x}e^{ix} = e^{-x + ix} = Re(e^{(-1+i)x}) \]
 
-\[ \int e^{-x}cos(x) dx = Re (\int e^{(-1+i)x} dx) \]
+\[ \int e^{-x}\cos(x) dx = Re (\int e^{(-1+i)x} dx) \]
 
 Bu isleme ``entegrali komplekslesirmek'' adi veriliyor, onumuzde olan
 tamamen reel sayili bir formulu cozmek yerine, onu sanki kompleks bir
@@ -239,7 +239,7 @@ ustel (exponential) bir sayiyi entegre etmek cok kolay!
 Bu formulun reel kismini istiyoruz, onu nasil elde ederiz? Iste kompleks
 sayilari bolebilme yetenegi simdi faydali olacak.
 
-\[  \frac{e^{(-1+i)x}}{-1+i} = \frac{1}{-1+i} e^{-x}(cos(x) + isin(x))\]
+\[  \frac{e^{(-1+i)x}}{-1+i} = \frac{1}{-1+i} e^{-x}(\cos(x) + i\sin(x))\]
 
 Bolenin eslenigi (conjugate) $-1-i$, onunla bolen ve boluneni
 carpiyoruz.
@@ -248,12 +248,12 @@ carpiyoruz.
 
 Demek ki ustteki formul
 
-\[ = \frac{-1-i}{2} e^{-x}(cos(x) + isin(x)) \]
+\[ = \frac{-1-i}{2} e^{-x}(\cos(x) + i\sin(x)) \]
 
 Bu formulun reel bolumu? $e^{-x}$ ve $1/2$ zaten reel carpimlar oldugu icin
 onlari kenara alalim simdilik. Sadece su kismin reel bolumunu bulmaliyiz.
 
-\[ = (-1-i)(cos(x) + isin(x)) \]
+\[ = (-1-i)(\cos(x) + i\sin(x)) \]
 
 Carpimi yaparken $i$ iceren terimleri atlarsak, geriye kalanlar
 
@@ -310,12 +310,12 @@ icin su acilimi kullandik:
 
 \[ e^{(a+bi)t} = e^{at} e^{bit}\]
 
-\[ = e^{at} (cos(bt) + isin(bt) \]
+\[ = e^{at} (\cos(bt) + i\sin(bt) \]
 
-\[ = e^{at}cos(bt) + e^{at} isin(bt) \]
+\[ = e^{at}\cos(bt) + e^{at} i\sin(bt) \]
 
-Reel kismi (x ekseni) hesaplarken $e^{at}cos(bt)$, hayali kismi (y ekseni)
-hesaplarken $e^{at} isin(bt)$ formulundeki $i$ haricinde geri kalan terimleri
+Reel kismi (x ekseni) hesaplarken $e^{at}\cos(bt)$, hayali kismi (y ekseni)
+hesaplarken $e^{at} i\sin(bt)$ formulundeki $i$ haricinde geri kalan terimleri
 hesapliyoruz.
 
 \lstinputlisting[language=Python]{compexp.py}
