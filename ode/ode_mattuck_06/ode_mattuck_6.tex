@@ -79,12 +79,12 @@ Diyelim ki $sin$, $cos$ iceren esitligi alip ustteki carpimin icine
 koyuyoruz.
 
 \[ 
-(cos\theta_1 + isin\theta_1) \cdot (cos\theta_1 + isin\theta_1) =
+(\cos\theta_1 + i\sin\theta_1) \cdot (\cos\theta_1 + i\sin\theta_1) =
 \] 
 
 \[  
-cos\theta_1cos\theta_2 - sin\theta_1sin\theta_2 +
-i(sin\theta_1cos\theta_2 + sin\theta_2cos\theta_1 )
+\cos\theta_1\cos\theta_2 - \sin\theta_1\sin\theta_2 +
+i(\sin\theta_1\cos\theta_2 + \sin\theta_2\cos\theta_1 )
 \] 
 
 Biraz karisik gibi duruyor fakat dikkat edersek, ustteki formulun gercek
@@ -99,7 +99,7 @@ iceren esitlik dogru bir esitlik.
 
 Simdi turevi kullanarak ayni seyi ispatlamaya ugrasalim. 
 
-\[ e^{i\theta} = cos(\theta) + isin(\theta) \]
+\[ e^{i\theta} = \cos(\theta) + i\sin(\theta) \]
 
 $e^{i\theta}$ nedir? Bir ustel fonksiyondur. Bu fonksiyona girdi olarak
 verilen bir gercek sayidir, disari cikan ise bir kompleks sayidir. Girdi
@@ -128,7 +128,7 @@ O zaman su turevi alalim ($\theta$ yerine $t$ kullaniyoruz)
 
 $i$'yi disari cekelim
 
-\[ = i \bigg( cos(t) + isin(t) \bigg) \]
+\[ = i \bigg( \cos(t) + i\sin(t) \bigg) \]
 
 Bu neye esittir? $ie^{it}$ degerine! Turevi aldik, sin, cos esitligine
 atladik, ve turevi onun uzerinden hesapladik. Daha sonra
@@ -142,7 +142,7 @@ vermeyelim. Bu dogru sonuctur ama tamamiyle dogru bir mantik zinciri
 degildir. Unutmayalim, $e^{i\theta}$'nin acilimi $cos(\theta) +
 isin(\theta)$, O zaman
 
-\[ e^{i \cdot 0} = cos(0) + isin(0) \]
+\[ e^{i \cdot 0} = \cos(0) + i\sin(0) \]
 
 $sin(0) = 0$ olduguna gore
 
@@ -193,7 +193,7 @@ mesela (ustteki ucgene dikkat), $r$'nin 5 oldugunu hesaplayabiliriz, ve
 oradan kenarlari bu tek uzunluga referans ederek acisal olarak ta
 gosterebiliriz:
 
-\[ z = 5(cos\theta + i \ sin\theta ) \]
+\[ z = 5(\cos\theta + i \sin\theta ) \]
 
 Simdi diger bir yonden, Euler Esitligi devreye girebilir. Bu esitlik
 parantez icinin $e$'nin ustu olarak gosterilebilecegini soylemistir!
@@ -257,11 +257,11 @@ onlari kenara alalim simdilik. Sadece su kismin reel bolumunu bulmaliyiz.
 
 Carpimi yaparken $i$ iceren terimleri atlarsak, geriye kalanlar
 
-\[ -cos(x) + sin(x) \]
+\[ -\cos(x) + \sin(x) \]
 
 Kenara aldigimiz reel ifadeleri geriye getirirsek, entegralin sonucu
 
-\[ \frac{e^{-x}}{2}(-cos(x) + sin(x)) \]
+\[ \frac{e^{-x}}{2}(-\cos(x) + \sin(x)) \]
 
 olacaktir. 
 

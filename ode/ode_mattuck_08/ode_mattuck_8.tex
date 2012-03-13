@@ -5,7 +5,7 @@ Ders 8
 Onceki dersi hatirlarsak iki tarafinda da $k$ olan, girdisi $cos \omega t$
 olan bir ODE uzerinde calistik. 
 
-\[ y' + ky = k cos \omega t \]
+\[ y' + ky = k \cos \omega t \]
 
 Cozmek icin problemi kompleks dunyaya getirdik
 
@@ -21,7 +21,7 @@ boylece. Bunu yaptik cunku ustel sayilarin entegralini almak kolay. Cozum
 olmustu, yani cozum sunun reel bolumu olacakti:
 
 \begin{equation}\label{8eq2}
-\frac{1}{\sqrt{1+(w/k)^2}} cos(\omega t - \phi) 
+\frac{1}{\sqrt{1+(w/k)^2}} \cos(\omega t - \phi) 
 \end{equation}
 
 Bu metotu kutupsal metot olarak nitelemistik. 
@@ -35,7 +35,7 @@ icin alti ve ustu bolenin eslenigi (conjugate) ile carpalim
 Simdi bunun reel kismini alalim. Carpimi yaparken bir yandan da hayali sayi
 kismi atiyoruz, iki islemi ayni anda yapiyoruz yani
 
-\[ \frac{1}{1+(w/k)^2} (cos \omega t + \frac{w}{k} sin \omega t )\]
+\[ \frac{1}{1+(w/k)^2} (\cos \omega t + \frac{w}{k} \sin \omega t )\]
 
 Boylece sonuca eristik. Simdi sonucu kontrol edelim, hem kutupsal hem
 kartezyen yonden gelince ayni sonuc erismemiz lazim. Bu sonuc (\ref{8eq2})
@@ -45,7 +45,7 @@ Ayni. Kontrol etmek icin bir trigonometrik esitlik (identity) kullanacagiz,
 bu tur gecisleri yapabilmek dersimiz icin cok onemli. Gecis genel formuyla
 soyle:
 
-\[ a cos \theta + b sin \theta = C cos(\theta - \phi)\]
+\[ a \cos \theta + b \sin \theta = C \cos(\theta - \phi)\]
 
 $C$ ve $\phi$ reel sayilardir. Onlarin hesabinin bir formulu var, onu
 hatirlamak yerine su resmi hatirlamak daha kolay olacaktir
@@ -58,7 +58,7 @@ Bizim ornegimiz icin
 
 Gecisi yapalim
 
-\[ \frac{1}{1+(w/k)^2} \sqrt{1+(w/k)^2} cos (\omega t - \phi) \]
+\[ \frac{1}{1+(w/k)^2} \sqrt{1+(w/k)^2} \cos (\omega t - \phi) \]
 
 \[ \phi = tan^{-1}(w/k) \]
 
@@ -75,7 +75,7 @@ terim yokolur, kare yerine 1 gelir
 
 o zaman nihai formul
 
-\[ \frac{1}{\sqrt{1+(w/k)^2}} cos (\omega t - \phi) \]
+\[ \frac{1}{\sqrt{1+(w/k)^2}} \cos (\omega t - \phi) \]
 
 ve bu formul (\ref{8eq2}) ile aynidir.
 
@@ -88,23 +88,23 @@ Vektorel olarak dusunursek
 \includegraphics[height=2cm]{8_3.png}
 
 $<a,b>$ bir vektor olarak dusunuluyor, $\hat{u}_\theta$ ise birim vektor,
-icerigi $<cos \theta, sin \theta>$. Nasil birim peki? Cunku $cos^2\theta +
+icerigi $<\cos \theta, \sin \theta>$. Nasil birim peki? Cunku $cos^2\theta +
 sin^2\theta = 1$ 
 degerini verir.
 
-Boylece $a cos \theta + b sin \theta$ formulunu iki vektorun nokta carpimi
-(dot product) olarak gorebiliriz, yani $<a,b> \cdot <cos \theta, sin
+Boylece $a \cos \theta + b \sin \theta$ formulunu iki vektorun nokta carpimi
+(dot product) olarak gorebiliriz, yani $<a,b> \cdot <\cos \theta, \sin
 \theta>$. 
 Bu formu yazinca noktasal carpimlarin diger tanimina ziplayabiliriz.
 
-\[ <a,b> \cdot <cos \theta, sin \theta> \]
+\[ <a,b> \cdot <\cos \theta, \sin \theta> \]
 
-\[ = |<a,b>| \cdot 1 \cdot cos(\theta - \phi) \]
+\[ = |<a,b>| \cdot 1 \cdot \cos(\theta - \phi) \]
 
-\[ = |<a,b>| \cdot cos(\theta - \phi) \]
+\[ = |<a,b>| \cdot \cos(\theta - \phi) \]
 
 Bu formul noktasal carpimin tanimindan ileri geliyor, $x \cdot y =
-|x|\cdot|y| \ cos \beta$, $\beta$ iki vektor arasindaki aci. $\theta -
+|x|\cdot|y| \cos \beta$, $\beta$ iki vektor arasindaki aci. $\theta -
 \phi$ cunku iki vektor arasindaki aci boyle.
 
 \includegraphics[height=2cm]{8_4.png}
@@ -115,14 +115,14 @@ gosterilen seydir. Boylece ispati tamamlamis olduk.
 
 Ispat 2
 
-Bu ispat kompleks sayilari kullanacak. $a cos \theta + b sin \theta$
+Bu ispat kompleks sayilari kullanacak. $a \cos \theta + b \sin \theta$
 formulunu, reel kismi esit olacak sekilde, alttaki sekilde temsil
 edecegiz. Stratejimiz o noktadan kutupsal forma atlamak, sonra onun reel
-kismini ilk formulumuz $a cos \theta + b sin \theta$ ile karsilastirmak
+kismini ilk formulumuz $a \cos \theta + b \sin \theta$ ile karsilastirmak
 olacak. 
 
 \begin{equation}\label{eq3}
-(a - bi) (cos \theta + i sin \theta) 
+(a - bi) (\cos \theta + i\sin \theta) 
 \end{equation}
 
 Soldaki eksi isaretinin sebebi bariz, cunku sagdaki eksi ile carpilinca
@@ -135,7 +135,7 @@ $e^{i\theta}$'dir. Hep beraber
 
 \[ = \sqrt{a^2+b^2} e^{i(\theta - \phi) }  \]
 
-Formul (\ref{eq3})'un reel kismini alirsak, $a cos \theta + b sin \theta$
+Formul (\ref{eq3})'un reel kismini alirsak, $a \cos \theta + b \sin \theta$
 elde ederiz. Ustteki son formulun reel kismi nedir? 
 
 \[ = \sqrt{a^2+b^2}e^{i(\theta - \phi)}\]
@@ -230,7 +230,7 @@ hacim / dakika, $V$ hacim, o zaman $r/V$ 1/dakika, yani $\textrm{dakika}^{-1}$ o
 
 Ornek
 
-Diyelim ki $C_e$ sinussel, $cos \omega t$. Eger $k$ cok buyuk ise, $C(t)$,
+Diyelim ki $C_e$ sinussel, $\cos \omega t$. Eger $k$ cok buyuk ise, $C(t)$,
 $C_e(t)$'yi ne kadar yakinda takip eder? Aktarma probleminden biliyoruz ki
 eger akiskanlik sabiti buyukse ic ýsý dýs ýsýyý yakindan takip
 eder. Difuzyonda ayni durum. 
