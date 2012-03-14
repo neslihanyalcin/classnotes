@@ -19,7 +19,7 @@ ve baslangic sartlari
 ki $\phi$ ve $\psi$, $x$'in herhangi bir fonksiyonu. 
 
 Her $\phi$ ve $\psi$ icin bu problemde tek bir cozum vardir, yani tek bir
-$u$ elde edilir. Mesela $\phi(x) = sin(x)$ ve $\psi(x) = 0$ ise, o zaman
+$u$ elde edilir. Mesela $\phi(x) = \sin(x)$ ve $\psi(x) = 0$ ise, o zaman
 $u(x,t) = \sin x \cos ct$. 
 
 Kontrol edelim. Cozum soyleydi:
@@ -102,31 +102,21 @@ probleminin cozumdur.
 
 Ornek
 
-\[ \phi(x) = 0, \psi(x) = cos(x) \] 
-
-ise cozum 
-
-\[ u(x,t) = \frac{1}{2c}[sin(x+ct) - sin(x-ct)] \]
-
-Trigonometrik esitlik kullanirsak, her iki terimin acilimi
-
-\[ sin(x+ct) = cos(x)sin(ct) + sin(x)cos(ct) \]
-
-\[ sin(x-ct) = -cos(x)sin(ct) + sin(x)cos(ct) \]
+\[ \phi(x) = 0, \psi(x) = \sin(x)\cos(ct) \]
 
 Ustteki formullerden 2.'yi 1.'den cikartalim, 
 
-\[ sin(x+ct) - sin(x-ct) = 2cos(x)sin(ct) \]
+\[ \sin(x+ct) - \sin(x-ct) = 2\cos(x)\sin(ct) \]
 
 $u(x,t)$ icinde yerine koyalim
 
-\[ u(x,t) = \frac{1}{c}cos(x)sin(ct) \]
+\[ u(x,t) = \frac{1}{c}\cos(x)\sin(ct) \]
 
 Cozum bu. Kontrol edersek, 
 
-\[ u_{tt} = -c cos(x)sin(ct) \]
+\[ u_{tt} = -c \cos(x)\sin(ct) \]
 
-\[ u_{xx} = -(1/c)cos(x)sin(ct) \]
+\[ u_{xx} = -(1/c)\cos(x)\sin(ct) \]
 
 boylece 
 
@@ -134,15 +124,15 @@ boylece
 
 Baslangic sartini kontrol etmek daha da kolay, ilk sart
 
-\[ u(x,0) = \frac{1}{c}cos(x)sin(c \cdot 0)  = 0\]
+\[ u(x,0) = \frac{1}{c}\cos(x)\sin(c \cdot 0)  = 0\]
 
 Ikinci sart
 
-\[ u_t(x,t) = \frac{1}{c}cos(x) \ c \ cos(ct) \]
+\[ u_t(x,t) = \frac{1}{c}\cos(x) c \cos(ct) \]
 
-\[ u_t(x,0) = \frac{1}{c}cos(x) \ c \]
+\[ u_t(x,0) = \frac{1}{c}\cos(x) c \]
 
-\[  = cos(x) \]
+\[  = \cos(x) \]
 
 
 * * * 

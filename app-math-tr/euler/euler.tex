@@ -5,7 +5,7 @@ Euler Esitligi
 Bu yazýmýzda ilginç bir eþitlik olan Euler eþitliðini iþleyeceðiz. Euler
 eþitliði þöyledir:
 
-\[ e^\theta = cos \theta + isin \theta \]
+\[ e^\theta = \cos \theta + i\sin \theta \]
 
 i sayýsý irrasyonel bir sayýdýr ve deðeri -1'in kareköküdür. 
 
@@ -30,68 +30,38 @@ bolumler toplanir. Simdi ispatin devaminda ustel kanununu kullanmadan,
 carpimi degisik bir yonden yapalim ve toplama esit cikip cikmayacagina
 bakalim:
 
-\[ e^{a}e^{b} = ( cos(a)+isin(a) ) ( cos(b)+isin(b) )\]
-
-\[ = cos(a)cos(b) - sin(a)sin(b) + i [ sin(a)cos(b) + cos(a)sin(b) ]  \]
-
-Bu formulde gercek deger olan birinci bolumun bir trigonometrik kisayol
-uzerinden cos(a+b) oldugunu biliyoruz. Hayali olan kismin da baska bir
-kisayol uzerinden isin(a+b) oldugunu biliyoruz. Ustel kanunu kullansaydik
-elimize $e^{ia}e^{ib} = e^{i(a+b)}$ sonucu gececekti ve bu sonucun acilimi
-ustteki formul ile ayni olacaktir. Demek ki Euler Esitligi dogru bir
-esitliktir.
-
-Bir diger yontem $e^\theta$, $cos(\theta)$ ve $sin(\theta)$
-fonksiyonlarýnýn Taylor açýlýmýný yapmaktir:
-
-Cos açýlýmý:
-
-\[ f(x) \approx f(a) + f'(a)(x-a) + \frac{f''(a)}{2!}(x-a)^2 + ...\]
-
-\[ \cos 0 = 1, \sin 0 = 0 \]
-
-\[ cos'(\theta) = -\sin \theta \]
-
-\[ cos''(\theta) = -cos(\theta) \]
-
-\[ cos'''(\theta) = sin(\theta) \]
-
-\[ cos'''(\theta) = cos(\theta) \]
-
-\[ cos''''(\theta) = -sin(\theta) \]
-
-\[ cos(\theta) = cos(a) + cos'(a)(x-a) + \frac{cos''(a)}{2!}(x-a)^2 \]
+\[ e^{a}e^{b} = ( \cos(\cos(a) + \cos'(a)(x-a) + \frac{\cos''(a)}{2!}(x-a)^2 \]
 
 $a=0$ icin McLaurin serisi olur
 
-\[ cos(\theta) \approx cos(0) + sin(0)(\theta - 0) +
-\frac{-cos(a)}{2!}(\theta - 0)^2 + ... \]
+\[ \cos(\theta) \approx \cos(0) + \sin(0)(\theta - 0) +
+\frac{-\cos(a)}{2!}(\theta - 0)^2 + ... \]
 
-\[ cos(\theta) = \frac{0 \cdot \theta}{1!} + \frac{-1 \cdot \theta^2}{2!} +
+\[ \cos(\theta) = \frac{0 \cdot \theta}{1!} + \frac{-1 \cdot \theta^2}{2!} +
 \frac{-1 \cdot \theta^3}{3!} + ..
  \]
 
-\[ cos(\theta) =
+\[ \cos(\theta) =
 1-\frac{\theta^2}{2!}+\frac{\theta^4}{4!}-\frac{\theta^6}{6!} + ..\]
 
 Sin acilimi
 
 \[ f(x) \approx f(a) + f'(a)(x-a) + \frac{f''(a)}{2!}(x-a)^2 + ...\]
 
-\[ cos(0) = 1, \ sin(0) = 0 \]
+\[ \cos(0) = 1, \sin(0) = 0 \]
 
-\[ sin'(\theta) = cos(\theta), \ sin''(\theta) = -sin(\theta) \]
+\[ \sin'(\theta) = cos(\theta), \sin''(\theta) = -\sin(\theta) \]
 
-\[ sin'''(\theta) = -cos(\theta), \ sin'''(\theta) = sin(\theta) \]
+\[ \sin'''(\theta) = -\cos(\theta), \sin'''(\theta) = \sin(\theta) \]
 
-\[ sin''''(\theta) = cos(\theta) \]
+\[ \sin''''(\theta) = \cos(\theta) \]
 
-\[ sin(\theta) = sin(a) + sin'(a)(x-a) + \frac{sin''(a)}{2!}(x-a)^2 \]
+\[ \sin(\theta) = \sin(a) + \sin'(a)(x-a) + \frac{\sin''(a)}{2!}(x-a)^2 \]
 
 $a = 0$ McLaurin serisi
 
-\[ sin(\theta) = sin(0) - cos(0)(\theta-0) + \frac{-sin(0)}{2!}(\theta-0)^2 +
-\frac{-cos(0)}{3!}(\theta-0)^3 + ...
+\[ \sin(\theta) = \sin(0) - \cos(0)(\theta-0) + \frac{-\sin(0)}{2!}(\theta-0)^2 +
+\frac{-\cos(0)}{3!}(\theta-0)^3 + ...
  \]
 
 \[ = 0 + \frac{1 \cdot \theta}{1!} + \frac{0 \cdot \theta^2}{2!} + \frac{-1
@@ -120,15 +90,15 @@ $a = 0$ McLaurin serisi
 
 Sin ve cos fonksiyonlarýnýn açýlýmý alt alta konulunca þöyle gözükecek...
 
-\[ sin(\theta) \approx 0 + \frac{\theta}{1!} - \frac{\theta^3}{3!} + \frac{\theta^5}{5!}\]
+\[ \sin(\theta) \approx 0 + \frac{\theta}{1!} - \frac{\theta^3}{3!} + \frac{\theta^5}{5!}\]
 
-\[ cos(\theta) \approx
+\[ \cos(\theta) \approx
 1-\frac{\theta^2}{2!}+\frac{\theta^4}{4!}-\frac{\theta^6}{6!} + ..\]
 
 Hmm... Acaba bu iki açýlýmý toplarsak, $e^\theta$'nýn tanýmýna yaklaþabilir
 miyiz? Deneyelim.
 
-\[ cos(\theta) + sin(\theta) = 1+ \frac{\theta}{1!} + \frac{\theta}{2!} -
+\[ \cos(\theta) + \sin(\theta) = 1+ \frac{\theta}{1!} + \frac{\theta}{2!} -
 \frac{\theta}{3!} - \frac{\theta}{4!} + \frac{\theta}{5!} + ..\]
 
 Olmadý. Çünkü $e^\theta$'nýn açýlýmý yukarida goruldugu gibi. 
