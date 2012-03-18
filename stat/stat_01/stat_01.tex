@@ -164,6 +164,34 @@ hesaplanmasi, kestirilmesi gerekir. Her halukarda, cogu istatistiki modelde
 rasgele degiskenler vardir, ve onlardan ayri olarak parametreler vardir. Bu
 iki kavrami birbiriyle karistirmayalim.
 
+Birbicim (Uniform) Dagilim
+
+$X$ birbicim, $Uniform(a,b)$ olarak dagilmis deriz, ve bu 
+$X \sim
+Uniform(a,b)$ olarak yazilir eger 
+
+\[ f(x)  = 
+\left\{ \begin{array}{ll}
+\frac{ 1}{b-a} & x \in [a,b] \ icin \\
+0 & digerleri
+\end{array} \right.
+ \]
+
+ise ve $a<b$ olacak sekilde. CDF hesabi olasilik egrisinin entegralini
+temel alir, birbicim dagilim bir $a,b$ arasinda $1/b-a$ yuksekliginde bir 
+dikdortgen seklinde olacagi icin, bu dikdortgendeki herhangi bir $x$
+noktasinda CDF dagilimi, yani o $x$'in baslayip sol tarafin alaninin hesabi
+basit bir dikdortgensel alan hesabidir, yani $x-a$ ile $1/b-a$'nin
+carpimidir, o zaman 
+
+\[ F(x) = 
+\left\{ \begin{array}{ll}
+0 & x < a \\
+\frac{ x-a}{b-a} & x \in [a,b] \\
+1 & x > b
+\end{array} \right.
+ \]
+
 Normal (Gaussian) Dagilim
 
 $X \sim N(\mu, \sigma^2)$ ve PDF
