@@ -4,14 +4,48 @@ Veri Analizi - Ders 1
 
 Gaussian Kontrolu
 
-Diyelim ki Gaussian dagilimina sahip oldugunu dusundugumuz  $\{ x_i\}$
+Diyelim ki Gaussian dagilimina sahip oldugunu dusundugumuz $\{ x_i\}$
 verilerimiz var. Bu verilerin Gaussian dagilimina uyup uymadigini nasil
-kontrol edecegiz? Normal bir dagilimi soyle temsil edebiliriz, 
+kontrol edecegiz? Normal bir dagilimin her veri noktasi icin soyle temsil
+edebiliriz,
 
 \[ y_i = \Phi\bigg(\frac{ x_i - \mu}{\sigma}\bigg) \]
 
 Burada $\Phi$ standart Gaussian'i temsil ediyor (detaylar icin {\em Istatistik
-Ders 1}). 
+Ders 1}). Simdi bir numara yapalim, iki tarafa ters Gaussian formulunu
+uygulayalim, yani $\Phi ^{-1} $. 
+
+\[ \Phi ^{-1}(y_i) = \Phi ^{-1}\bigg(\Phi\bigg(\frac{ x_i - \mu}{\sigma}\bigg)\bigg) \]
+
+\[ \Phi ^{-1}(y_i) = \frac{ x_i - \mu}{\sigma}\]
+
+\[  x_i = \Phi^{-1}(y_i) \sigma + \mu  \]
+
+Bu demektir ki elimizdeki verileri $\Phi^{-1}(y_i)$ bazinda grafiklersek,
+bu noktalar egimi $\sigma$, baslangici (intercept) $\mu$ olan bir duz cizgi
+olmalidir. Eger kabaca noktalar duz cizgi olusturmuyorsa, verimizin 
+Gaussian dagilima sahip olmadigina karar verebiliriz. 
+
+Ustte tarif edilen grafik,  olasilik grafigi (probability plot) olarak
+bilinir. 
+
+Ters Gaussian teorik fonksiyonunu burada vermeyecegiz, Scipy 
+\verb!scipy.stats.invgauss! hesaplar icin kullanilabilir.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 \end{document}
