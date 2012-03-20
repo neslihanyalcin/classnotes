@@ -19,3 +19,4 @@ pde/*/*.pdf
 stat/*/stat*.pdf
 linear/*/*.pdf
 func_analysis/*/*.pdf
+data/*/*.pdf
