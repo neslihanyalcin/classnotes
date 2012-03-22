@@ -51,6 +51,54 @@ Bu teknik niye isliyor? $x$'in CDF'i $x_i < x$ sartina uyan $x_i$'lerin
 orani degil midir? Yani bir siralama soz konusu ve ustteki teknik te bu
 siralamayi biz elle yapmis olduk, ve bu siralamadan gereken bilgiyi aldik. 
 
+Ozet Istatistikleri 
+
+Genellikle istatistik kitaplari hemen ortalama (mean), medyan (median) ve
+baglantili ozet istatistiklerinden (summary statistics) bahsederek ise
+girerler. Bu istatistikleri dikkatle kullanmak gerekir, cunku her turlu
+veri, her yerde gecerli degildirler. Mesela ortalama sadece tek merkezi bir
+tepesi olan (unimodal) dagilimlar icin gecerlidir. Eger bu temel varsayim
+gecerli degilse, ortalama kullanarak yapilan hesaplar bizi yanlis yollara
+goturur. Bu uyaridan sonra ortalama ve standart sapmayi (standart
+deviation) gorelim. 
+
+\[ m  = \frac{ 1}{n}\sum_i x_i \]
+
+Standart sapma veri noktalarin ``ortalamadan farkinin ortalamasini''
+verir. Tabii bazen noktalar ortalamanin altinda, bazen ustunde olacaktir,
+bizi bu negatiflik, pozitiflik ilgilendirmez, biz sadece farkla
+alakaliyiz. O yuzden her sapmanin karesini aliriz, bunlari toplayip nokta
+sayisina boleriz .
+
+\[ s^2 = \frac{ 1}{n} \sum_i (x_i - m)^2 \]
+
+Eger $m$ tanimini ustte yerine koyarsak, 
+
+\[ = \frac{ 1}{n} \sum_i x_i^2 + \frac{ 1}{n} \sum_i m^2 - \frac{ 2}{n} \sum_i x_im  \]
+
+\[ = \frac{ 1}{n} \sum_i x_i^2 + \frac{ m^2n}{n} - \frac{ 2mn}{n}m \]
+
+\[ = \frac{ 1}{n} \sum_i x_i^2 +  m^2 - 2m^2 \]
+
+\[ = \frac{ 1}{n} \sum_i x_i^2 - m^2 \]
+
+Bu olcuye varyans (variance) denir ve teorik olarak ortalamadan daha onemli
+oldugu soylenebilir. Fakat dagilimin yayilma olcusu olarak biz bu olcuyu
+oldugu gibi degil, onun karesini kullanacagiz (ki standart sapma buna
+deniyor aslinda). Niye? Cunku o zaman veri noktalarinin ve yayilma olcusunun
+birimleri birbiri ile ayni olacak. Eger veri setimiz bir alisveris
+sepetindeki malzemelerin lira cinsinden degerleri olsaydi, varyans bize
+sonucu ``kare lira'' olarak verecekti ve bunun pek anlami olmayacakti. 
+
+
+
+
+
+
+
+
+
+
 
 
 
