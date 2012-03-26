@@ -3,7 +3,6 @@ from numpy import *
 
 # z: position, w: bandwidth, xv: vector of points
 def kde( z, w, xv ):
-    print xv.shape
     return sum( exp(-0.5*((z-xv)/w)**2)/sqrt(2*pi*w**2) )
 
 d = loadtxt("pres.txt",  usecols = (1,))
