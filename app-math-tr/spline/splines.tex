@@ -1,4 +1,4 @@
-\documentclass[12pt,fleqn]{article}\usepackage{../common}
+\documentclass[12pt,fleqn]{article}\usepackage{common}
 \begin{document}
 Spline Egrileri
 
@@ -15,7 +15,7 @@ cok fazla inisli cikisli, sivri degildir.
 
 Her $i=0,..,n-1$ icin 
 
-\[ p(x) = s_i(x) = a_i + b_i(x-x_i) + c_i(x-x_i)^2 + d_i(x-x_i)^3
+\[ p(x) = p_i(x) = a_i + b_i(x-x_i) + c_i(x-x_i)^2 + d_i(x-x_i)^3
 \ \ \ \label{1}
 \]
 
@@ -58,13 +58,13 @@ Sistemi daha detayli olarak gormek gerekirse..
 
 Indisleri $i=1,..,n+1$ olarak tasarlayalim. Tum denklemleri yazarsak,
 
-\[ p_1(x) = s_1(x) = a_1 + b_1(x-x_1) + c_1(x-x_1)^2 + d_1(x-x_1)^3\]
+\[ p_1(x)  = a_1 + b_1(x-x_1) + c_1(x-x_1)^2 + d_1(x-x_1)^3\]
 
-\[ p_2(x) = s_2(x) = a_2 + b_2(x-x_2) + c_2(x-x_2)^2 + d_1(x-x_2)^3\]
+\[ p_2(x)  = a_2 + b_2(x-x_2) + c_2(x-x_2)^2 + d_1(x-x_2)^3\]
 
 \[ \vdots \]
 
-\[ p_3(x) = s_3(x) = a_3 + b_3(x-x_3) + c_3(x-x_2)^2 + d_3(x-x_2)^3\]
+\[ p_3(x)  = a_3 + b_3(x-x_3) + c_3(x-x_2)^2 + d_3(x-x_2)^3\]
 
 Uc noktali soyle bir grafik dusunelim,
 
@@ -118,8 +118,93 @@ alinamaz.
 \includegraphics[height=4cm]{spline4.png}
 
 O zaman sarti koyalim -- Fonksiyonun her noktasinda, ikinci turev surekli
-olacak. Bu cok agir / net bir sart aslinda, ve cok puruzsuz (smooth)
-fonksiyonlara sebebiyet veriyor. Simdi bunun ne demek olduguna bakalim.
+alinabilmeli. Bu cok agir / net bir sart aslinda, ve hakikaten cok puruzsuz
+(smooth) fonksiyonlara sebebiyet veriyor. Simdi bunun ne anlamina biraz
+daha derinden bakalim. Bilirsiniz futbol sahalarinin etrafinda kosu alani
+vardir. Bu alan soyledir.
+
+\includegraphics[height=4cm]{spline6.png}
+
+Ustteki duz cizgili kisim sonsuz kere turevi alinabilir bir
+fonksiyondur. Degil mi? Duz cizgi sabit bir sayidir, 1. turev sifir, ikinci
+turev yine sifir, boyle gider. Peki yari cember olan kisimlar? Ayni
+sekilde. Peki her noktada durum boyle midir? Kritik noktalar ufak yuvarlaklarla
+gosterilen yerler (altta)
+
+\includegraphics[height=4cm]{spline7.png}
+
+Bu noktalarda kac kere ``surekli turevler'' alinabilir? Cevap, sadece bir
+kere. Cunku iki kere turev alininca ne olacagina bakalim, duz kisimda
+ikinci, ucuncu, vs. turev sifir. Peki yari cember? Onun ikinci turevi sifir
+olmayan sabit bir sayi. o zaman tum fonksiyonun 2. turevini grafiklesek,
+soyle bir grafik ortaya cikardi,
+
+\includegraphics[height=2cm]{spline8.png}
+
+ve bu grafikte goruyoruz ki bir ziplama var. Bu ziplama yuzunden sureklilik
+(2. turevde) bozulmus oldu.
+
+O zaman spline duzgun, puruzsuz olsun istiyorsak, her noktada, yani
+baglanti noktalarinda, sagdaki ve soldaki parcanin birinci ve ikinci
+turevinin ayni olmasi sartini koyabiliriz, o zaman bu noktalarda
+fonksiyonun tamami iki kere surekli turevi alinabilir hale
+gelir. Parcalarin kendisi uzerinde bu sarti tanimlamaya gerek yok, cunku
+orada polinom kullanacagimizi belirttik zaten, polinomlar sonsuz kere
+surekli turevi alinabilen objelerdir. 
+
+Denklem sistemimize iki tane daha sart gerekiyor. Bu sartlar fonksiyonun
+ilk noktada ve son noktada ikinci turevinin sifir olmasi sarti
+olabilir. Her hangi yondeki bir cizgi $y = ax + b$'nin iki kere turevi
+alininca sifir gelir, yani bu sart fonksiyonumuzun son noktalarda,
+fonksiyonun ``asagi yukari ayni yonde'' olacak sekilde duz olarak devam
+etmesi anlamina geliyor. Yaklasiksal baglamda fena bir sart degil. 
+
+O zaman ana formullerimize donelim, ve mesela $p_1(x),p_2(x)$'in turevini
+alalim,
+
+\[ p_1'(x) = b_1 + 2c_1h_1 + 3d_1h_1^2 \]
+
+\[ p_2'(x) = b_2 + 2c_2h_2 + 3d_2h_2^2 \]
+
+\[ \vdots \]
+
+
+Turevleri esitleyelim $p_1'(x_2) = p_2'(x_2)$. 
+
+\[ p_1'(x_2) = b_1 + 2c_1h_1 + 3d_1h_1^2 \]
+
+\[  p_2'(x_2) = b_2 \]
+
+Ustteki niye sadece $b_2$ oldu? Cunku $x_i-x_i$ numarasi onun icin de
+gecerli, geriye sadece $b_2$ kaldi. Hepsi bir arada
+
+\[  b_1 + 2c_1h_1 + 3d_1h_1^2  = b_2 \]
+
+\[  b_2 + 2c_2h_2 + 3d_2h_2^2 = b_3 \]
+
+\[ \vdots \]
+
+\[  b_{n-1} + 2c_{n-1}h_{n-1} + 3d_{n-1}h_{n-1}^2 =  b_n \]
+
+Ikinci turevler icin benzer bir durum var, bu sefer sol taraftan $b$'ler
+yokoluyor, 
+
+\[ 2c_1 + 6d_1h_1 = 2c_2 \ \ \ \label{2} \]
+
+\[ 2c_2 + 6d_2h_2 = 2c_3 \]
+
+\[ \vdots \]
+
+\[ 2c_{n-1} + 6d_{n-1}h_{n-1} = 2c_n \]
+
+Ilk ve son ikinci turevi sifira esitlemeyi unutmayalim. Son turev
+
+\[ 2c_n + 6d_nh_n = 2c_{n+1} = 0 \]
+
+Ilk turev
+\[ p_1''(x_1) =  c_1 + \cancelto{0}{6d_1(x_1-x_1)}  = c_1 = 0\]
+
+Denklem (2)'den baslayan blogu tekrar duzenlersek, 
 
 
 
