@@ -1,14 +1,15 @@
-\documentclass[12pt,fleqn]{article}\usepackage{common}
+\documentclass[12pt,fleqn]{article}\usepackage{../common}
 \begin{document}
 Spline Egrileri
 
-Diyelim ki elimizde 4 $y_i$ noktasi var, ve bu noktalardan gecen
-yaklasiksal bir egri olusturmak istiyoruz. Spline yontemi her iki nokta
-arasini farkli bir kupsel (ucuncu derece) polinom ile temsil
-etmektir. Dikkat: farkli polinomlari toplamiyoruz, her aralikta baska bir
-polinom fonksiyonu devreye giriyor. Peki niye kupsel? Cunku kupsel bir egri
-yeterince kavis saglayabilir ve ayni zamanda cok fazla inisli cikisli
-degildir.
+Diyelim ki elimizde 4 $x_i,y_i$ noktasi var, ve bu noktalardan gecen (bu
+onemli, tum noktalardan {\em kesinlikle} gecen) yaklasiksal bir egri
+olusturmak istiyoruz. Spline yontemi her iki nokta arasini farkli bir
+kupsel (ucuncu derece) polinom ile temsil etmektir. Tekrar dikkat: tum
+noktalari temsile edebilecek farkli polinomlari toplamiyoruz, her aralikta
+baska bir polinom fonksiyonunu devreye sokuyoruz. Peki parcalar niye
+kupsel? Cunku kupsel bir egri yeterince kavis saglayabilir ve ayni zamanda
+cok fazla inisli cikisli, sivri degildir.
 
 \includegraphics[height=4cm]{spline1.png}
 
@@ -30,29 +31,32 @@ rahat. Mesela, eger $x$ icin $x_i$ degrini verirsek, ki bu $x_1$ ya da
 $x_2$ olabilirdi, o zaman parantez icinde $x_i - x_i$ sayesinde tum terimler sifir
 oluyor, geriye sadece $a_i$ kaliyor. 
 
-Parcalarin biraraya gelmesini nasil saglayacagiz? Bunun icin birkac sart
-gerekli. Once en basit olani, bir onceki parca ile bir sonraki parcanin orta
-nokta uzerinde ayni degere sahip olmasi. $i=1,..,n+1$ icin
+Parcalarin uclarinin birbirini tutmasi, ve tum seklin surekli, akiskan bir
+sekilde gozukmesi icin ise birkac kosulu bizim tanimlamamiz, ve zorlamamiz
+gerekli. Once en basit olani: bir onceki parca ile bir sonraki parca
+orta nokta uzerinde ayni degere sahip olmali. $i=1,..,n+1$ icin
 
 \[ p_i (x_{i+1}) = p_{i+1}(x_{i+1}) \]
 
-Tabii ki en basit gereklilik, her $x_i$'ye tekabul eden spline fonksiyonun
+Bir diger basit gereklilik, her $x_i$'ye tekabul eden spline fonksiyonun
 elimizdeki $y_i$ degerini vermesi,
 
 \[ p_i(x_i) = y_i \]
 
-Son parca bir istisna olusturuyor, o hem son nokta, hem de ondan bir onceki
-nokta icin gecerli olmali
+``Tum noktalardan kesinlikle gecmeli'' demistik. Son parca bir istisna
+olusturuyor, o hem son nokta, hem de ondan bir onceki nokta icin gecerli
+olmali
 
 \[ p_{n-1}(x_n) = y_n \]
 
-Teknigin isleyisini gelirsek, (1)'deki formulu ustteki gordugumuz her
-$p_i(x)$'in yerine geciriyoruz. Bunu yapinca elimize bir lineer sistem
-gececek, $4n$ tane denklem ve $4n$ tane bilinmez degiskenin oldugu bir
-denklem sistemi olacak bu, ve boyle bir sistemin cozumu vardir. 
+Genel yaklasim soyle, (1)'deki formulu ustteki gordugumuz her $p_i(x)$'in
+yerine geciririz, bunu yapinca elimize bir lineer sistem gecer, $4n$ tane
+denklem ve $4n$ tane bilinmez degiskenin oldugu bir denklem sistemi olur
+bu, ve boyle bir sistemin cozumu vardir.
 
-Simdi indisleri degistirelim, ve $i=1,..,n+1$ olarak tasarlayalim. Tum
-denklemleri yazarsak,
+Sistemi daha detayli olarak gormek gerekirse..
+
+Indisleri $i=1,..,n+1$ olarak tasarlayalim. Tum denklemleri yazarsak,
 
 \[ p_1(x) = s_1(x) = a_1 + b_1(x-x_1) + c_1(x-x_1)^2 + d_1(x-x_1)^3\]
 
@@ -74,7 +78,7 @@ noktada
 
 \[ p_1(x_2) = a_1 + b_1h_1 + c_1h_1^2 + d_1h_1^3  \]
 
-ve bu denklem $p_2(x_2) = a_2 = y_2$'ye esit. Ayrica daha once gorduk, $a_1 =
+ve bu denklem $p_2(x_2) = a_2 = y_2$'ye esit. Bir de, daha once gorduk, $a_1 =
 y_1$ 
 ise, o zaman 
 
@@ -94,8 +98,30 @@ Hepsini birarada yaziyoruz, tek basina olan $y$'yi sag tarafa aliyoruz
 
 \[ y_n + b_nh_n + c_nh_n^2 + d_nh_n^3 = y_n \]
 
-ki $h_1 \equiv x_2 - x_1$, $h_2 \equiv x_3 - x_2$ olarak tanimlandi. Yani bir tur kisaltma 
+ki $h_1 \equiv x_2 - x_1$, $h_2 \equiv x_3 - x_2$ olarak tanimladik. Yani bir tur kisaltma 
 olarak $h$ harfini kullaniyoruz. 
+
+Fakat kesintisizlik icin parcalarin uclarinin bitismesi yeterli
+degil. Mesela alttaki figur de uclari birlesik halde
+
+\includegraphics[height=4cm]{spline3.png}
+
+Demek ki ek bazi sartlar lazim. Bu ek sart ``sureklilik'' olabilir. Mesela
+alttaki ornek surekli degildir.
+
+\includegraphics[height=4cm]{spline5.png}
+
+Ya da daha iyisi, fonksiyonun her noktada ``turevi alinabilir'' olma
+sarti. Mesela altta koyu yuvarlakli gosterilen noktada fonksiyonun turevi
+alinamaz.
+
+\includegraphics[height=4cm]{spline4.png}
+
+O zaman sarti koyalim -- Fonksiyonun her noktasinda, ikinci turev surekli
+olacak. Bu cok agir / net bir sart aslinda, ve cok puruzsuz (smooth)
+fonksiyonlara sebebiyet veriyor. Simdi bunun ne demek olduguna bakalim.
+
+
 
 
 
