@@ -90,7 +90,7 @@ haline gelir. Kisaca
 
 Hepsini birarada yaziyoruz, tek basina olan $y$'yi sag tarafa aliyoruz
 
-\[ y_1 + b_1h_1 + c_1h_1^2 + d_1h_1^3 = y_2 \]
+\[ y_1 + b_1h_1 + c_1h_1^2 + d_1h_1^3 = y_2 \ \ \ \label{2} \]
 
 \[ y_2 + b_2h_2 + c_2h_2^2 + d_2h_2^3 = y_3 \]
 
@@ -178,7 +178,7 @@ Turevleri esitleyelim $p_1'(x_2) = p_2'(x_2)$.
 Ustteki niye sadece $b_2$ oldu? Cunku $x_i-x_i$ numarasi onun icin de
 gecerli, geriye sadece $b_2$ kaldi. Hepsi bir arada
 
-\[  b_1 + 2c_1h_1 + 3d_1h_1^2  = b_2 \]
+\[  b_1 + 2c_1h_1 + 3d_1h_1^2  = b_2 \ \ \ \label{3}\]
 
 \[  b_2 + 2c_2h_2 + 3d_2h_2^2 = b_3 \]
 
@@ -189,7 +189,7 @@ gecerli, geriye sadece $b_2$ kaldi. Hepsi bir arada
 Ikinci turevler icin benzer bir durum var, bu sefer sol taraftan $b$'ler
 yokoluyor, 
 
-\[ 2c_1 + 6d_1h_1 = 2c_2 \ \ \ \label{2} \]
+\[ 2c_1 + 6d_1h_1 = 2c_2 \ \ \ \label{4} \]
 
 \[ 2c_2 + 6d_2h_2 = 2c_3 \]
 
@@ -204,13 +204,18 @@ Ilk ve son ikinci turevi sifira esitlemeyi unutmayalim. Son turev
 Ilk turev
 \[ p_1''(x_1) =  c_1 + \cancelto{0}{6d_1(x_1-x_1)}  = c_1 = 0\]
 
-Denklem (2)'den baslayan blogu tekrar duzenlersek, 
+Denklem (4)'den baslayan blogu tekrar duzenlersek, 
+
+\[ d_1 = \frac{ c_2 - c_1}{3h_1} \]
+
+\[ d_2 = \frac{ c_3 - c_2}{3h_2} \]
+
+\[ \vdots \]
+
+\[ d_n = \frac{ c_{n+1} - c_n}{3h_n} \]
 
 
-
-
-
-
+Ustteki denklemleri (2) ve (3)'e geri koyarsak,
 
 
 

@@ -43,6 +43,97 @@ Eger $A^T$'nin tersini hesaplamamiz gerekiyorsa, ve $A$'nin tersini bir
 sekilde biliyorsam, onun devrigini almam yeterli. Diger bir deyisle,
 tersini alma ve devrigini alma islemleri herhangi bir sirada yapilabilir. 
 
+Eliminasyona gelelim.
+
+Onlar bir matrisi anlamanin dogru yoludur denebilir. $A = LU$
+faktorizasyonu bir matrisi en temel parcalarina ayirir. Diyelim ki $A$'dan
+basliyorum, hic satir degis tokusu yapmadan sadece eliminasyon yaparak
+ilerliyorum, ve $U$'ya erisiyorum, pivotlarimin hicbir sifir degil. Bu iki
+matris arasindaki baglanti nedir? $A$ ile $U$ nasil alakali? Simdi
+gorecegimiz uzere aradaki baglanti $L$. 
+
+Ornek
+
+\[ \stackrel{A}{
+\left[\begin{array}{rr}
+2 & 1 \\ 8 & 7
+\end{array}\right]
+}
+ \]
+
+$U$'ya yani bir ust ucgenel matrise (upper triangular matrix) erismek
+istiyorum, 1. satirin 4 katini 2. satirdan cikartirim. Bu isleme 2'den 
+1 ciktigini sembolize etmek icin $E_{21}$ adini verelim, 
+
+\[ 
+\stackrel{E_{21}}{
+\left[\begin{array}{rr}
+1 & 0 \\ -4 & 1
+\end{array}\right]
+}
+\stackrel{A}{
+\left[\begin{array}{rr}
+2 & 1 \\ 8 & 7
+\end{array}\right]
+}
+=
+\stackrel{U}{
+\left[\begin{array}{rr}
+2 & 1 \\ 0 & 3
+\end{array}\right]
+}
+ \]
+
+O zaman sunu yazarsak, 
+
+\[ 
+\stackrel{A}{
+\left[\begin{array}{rr}
+2 & 1 \\ 8 & 7
+\end{array}\right]
+}
+=
+\stackrel{L}{
+\left[\begin{array}{rr}
+ &  \\  & 
+\end{array}\right]
+}
+\stackrel{U}{
+\left[\begin{array}{rr}
+2 & 1 \\ 0 & 3
+\end{array}\right]
+}
+ \]
+
+$L$ diyen yere ne gelmeli? Basit, $E_{21}$'nin tersi gelmeli. $E_{21}A =
+U$'yu 
+$A=LU $ yapmak icin birinci formulu soldan $E_{21}$'nin tersi ile
+carparim, o zaman bana $E_{21}$'nin tersi gerekli. 
+
+Hatirlarsak, eliminasyon matrislerinin tersini almak kolaydir,
+
+\[ 
+\stackrel{A}{
+\left[\begin{array}{rr}
+2 & 1 \\ 8 & 7
+\end{array}\right]
+}
+=
+\stackrel{L}{
+\left[\begin{array}{rr}
+1 & 0 \\ 4 & 1
+\end{array}\right]
+}
+\stackrel{U}{
+\left[\begin{array}{rr}
+2 & 1 \\ 0 & 3
+\end{array}\right]
+}
+ \]
+
+$L$ alt ucgensel (\textbf{l}ower triangular) demek, $U$'nun kosegeninde
+pivotlar var, sol alt kisminda sifirlar. 
+
 
 
 
