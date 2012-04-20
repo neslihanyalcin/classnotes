@@ -265,18 +265,85 @@ isleminin karsiligi degil midirler?
 
 Bu $A$ uzerindeki islemlerin yuku. Eliminasyon islemleri yapilirken bir de
 $A$'nin yaninda tutulan ve ayni islemlerin uygulandigi bir $b$ kolonu da
-var. Onun getirdigi islem yuku $n^2$. 
+var, ayrica bu kolonu sonra geriye denklemlere sokuyoruz
+(backsubstitution). Onun getirdigi islem yuku $n^2$.
 
+Bu tartistigimiz lineer bir denklem sistemini cozmek icin kullanilan en
+temel algoritmadir. Cok onemli bir konu. 
 
+Eger satir degisimi olsaydi, ne olurdu? Pivot pozisyonunda sifir degeri
+varsa, satir degisimi yapmak sart. 
 
+Satir degisimi permutasyon oldugu zaman da devreye girer. Mesela $3 \times
+3$ baglaminda dusunursek, hicbir degisim yapmayan permutasyon matrisi birim
+matristir, yani 
 
+\[ 
+\left[\begin{array}{rrr}
+1 && \\
+ & 1 & \\
+ && 1
+\end{array}\right]
+ \]
 
+Eger 1 ile 2'yi degistirmek istesem? Bir tiyo: istedigim permutasyon,
+degistirici matrisi elde etmek icin, istedigim degisimi birim
+matrisi uzerinde gerceklestiririm, ve bu matrisi hangi diger matrisle
+carparsam gerekli satir degisimi onun uzerinde gerceklesir. 
 
+\[ P_{12} = 
+\left[\begin{array}{rrr}
+0 & 1 & 0\\
+1 & 0 & 0 \\
+0  & 0 & 1
+\end{array}\right]
+ \]
 
+\[ P_{13} = 
+\left[\begin{array}{rrr}
+0 & 0 & 1\\
+0 & 1 & 0 \\
+1  & 0 & 0
+\end{array}\right]
+ \]
 
+\[ P_{23} = 
+\left[\begin{array}{rrr}
+1 & 0 & 0\\
+0 & 0 & 1 \\
+0  & 1 & 0
+\end{array}\right]
+ \]
 
+Diger bazi matrisler, 
 
+\[  
+\left[\begin{array}{rrr}
+0 & 1 & 0\\
+0 & 0 & 1 \\
+1  & 1 & 0
+\end{array}\right]
+ \]
 
+\[  
+\left[\begin{array}{rrr}
+0 & 0 & 1\\
+1 & 0 & 0 \\
+0  & 1 & 0
+\end{array}\right]
+ \]
+ 
+Toplam 6 tane. Eger bu matrislerin ikisini birbiriyle carpsam ne olur?
+Sonuc yine ustteki liste icinde olmalidir. Tersini alirsam, yine ayni
+sekilde. Mesela $P_{12}$'nin tersi nedir? Hangi carpim bu matrisi birim
+matrisi yapar sorusunu soralim, ama zaten bu matrisi birim matrisi uzerinde
+degisim ile elde etmemis miydik? O zaman ayni degisimi bir daha yaparsak
+birim matrisi elde ederiz, yani $P_{12}$'nin tersi kendisidir. 
+
+Permutasyon matrisleri hakkinda bir gercek daha, tersi islemi devrik islemi
+ile aynidir, yani $P ^{-1}  = P ^{T} $. 
+
+$4 \times 4$ icin 24 tane permutasyon var, vs.
 
 
 \end{document}
