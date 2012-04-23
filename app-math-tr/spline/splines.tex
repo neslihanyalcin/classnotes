@@ -2,27 +2,29 @@
 \begin{document}
 Spline Egrileri
 
-Diyelim ki elimizde 4 $x_i,y_i$ noktasi var, ve bu noktalardan gecen (bu
-onemli, tum noktalardan {\em kesinlikle} gecen) yaklasiksal bir egri
-olusturmak istiyoruz. Spline yontemi her iki nokta arasini farkli bir
-kupsel (ucuncu derece) polinom ile temsil etmektir. Tekrar dikkat: tum
-noktalari temsile edebilecek farkli polinomlari toplamiyoruz, her aralikta
-baska bir polinom fonksiyonunu devreye sokuyoruz. Peki parcalar niye
-kupsel? Cunku kupsel bir egri yeterince kavis saglayabilir ve ayni zamanda
-cok fazla inisli cikisli, sivri degildir.
+Diyelim ki elimizde 4 $x_i,y_i$ noktasi var, ve bu noktalardan gecen,
+hepsinden {\em kesinlikle} gecen, yaklasiksal bir egri olusturmak
+istiyoruz. Spline yontemi her iki nokta arasini farkli bir kupsel (ucuncu
+derece) polinom ile temsil etmektir. Tekrar dikkat: tum noktalari temsile
+edebilecek farkli polinomlari toplamiyoruz, her aralikta baska bir polinom
+fonksiyonu parcasini devreye sokuyoruz. Parcalar niye kupsel olarak
+secildi? Cunku kupsel bir egri yeterince kavis saglayabilir ve ayni zamanda
+cok fazla inisli cikisli, sivri degildir, yeterince puruzsuz bir egrinin
+ortaya cikmasini saglar.
 
 \includegraphics[height=4cm]{spline1.png}
 
-Her $i=0,..,n-1$ icin 
+Her $i=0,..,n+1$ icin 
 
 \[ p(x) = p_i(x) = a_i + b_i(x-x_i) + c_i(x-x_i)^2 + d_i(x-x_i)^3
 \ \ \ \label{1}
 \]
 
 kullanalim. Noktalar $x_i$ olarak gosteriliyor, ve her noktada aktif olan
-bir $p_i$ spline olacak, o noktadan bir sonrakine kadar egriyi bu $s_i$
-tanimlayacak. Peki her spline bir kubik polinom ise niye bu kubik polinomu
-en basit sekliyle 
+bir $p_i$ spline olacak, o noktadan bir sonrakine kadar egriyi bu $p_i$
+tanimlayacak. Noktalarin sayisini $n$ yerine $n+1$ olarak aldik boylece $n$
+egri parcasi ile calismamiz mumkun olacak. Her spline bir kubik polinom ise
+niye bu kubik polinomu en basit sekliyle
 
 \[ p(x) = a_i + b_ix + c_ix^2 + d_ix^3 \]
 
@@ -44,19 +46,13 @@ elimizdeki $y_i$ degerini vermesi,
 \[ p_i(x_i) = y_i \]
 
 ``Tum noktalardan kesinlikle gecmeli'' demistik. Son parca bir istisna
-olusturuyor, o hem son nokta, hem de ondan bir onceki nokta icin gecerli
-olmali
+olusturuyor, bu son parcanin fonksiyonu hem son noktayi, hem de ondan bir
+onceki nokta icin kullanilmali, bir onceden en sona kadar ayni fonksiyon
+uzerindeyiz. 
 
-\[ p_{n-1}(x_n) = y_n \]
+\[ p_{n}(x_n) = y_{n+1} \]
 
-Genel yaklasim soyle, (1)'deki formulu ustteki gordugumuz her $p_i(x)$'in
-yerine geciririz, bunu yapinca elimize bir lineer sistem gecer, $4n$ tane
-denklem ve $4n$ tane bilinmez degiskenin oldugu bir denklem sistemi olur
-bu, ve boyle bir sistemin cozumu vardir.
-
-Sistemi daha detayli olarak gormek gerekirse..
-
-Indisleri $i=1,..,n+1$ olarak tasarlayalim. Tum denklemleri yazarsak,
+Sistemi daha detayli olarak gormek gerekirse, tum denklemleri yazalim,
 
 \[ p_1(x)  = a_1 + b_1(x-x_1) + c_1(x-x_1)^2 + d_1(x-x_1)^3\]
 
@@ -82,13 +78,9 @@ ve bu denklem $p_2(x_2) = a_2 = y_2$'ye esit. Bir de, daha once gorduk, $a_1 =
 y_1$ 
 ise, o zaman 
 
-\[ y_2 = p_1(x_2) = a_1 + b_1h_1 + c_1h_1^2 + d_1h_1^3 \]
+\[ y_2 = p_1(x_2) = y_1 + b_1h_1 + c_1h_1^2 + d_1h_1^3 \]
 
-haline gelir. Kisaca
-
-\[ y_2 =  y_1 + b_1h_1 + c_1h_1^2 + d_1h_1^3 \]
-
-Hepsini birarada yaziyoruz, tek basina olan $y$'yi sag tarafa aliyoruz
+haline gelir. Hepsini birarada yaziyoruz ($y$'yi sag tarafa aldik)
 
 \[ y_1 + b_1h_1 + c_1h_1^2 + d_1h_1^3 = y_2 \ \ \ \label{2} \]
 
@@ -98,11 +90,10 @@ Hepsini birarada yaziyoruz, tek basina olan $y$'yi sag tarafa aliyoruz
 
 \[ y_n + b_nh_n + c_nh_n^2 + d_nh_n^3 = y_n \]
 
-ki $h_1 \equiv x_2 - x_1$, $h_2 \equiv x_3 - x_2$ olarak tanimladik. Yani bir tur kisaltma 
-olarak $h$ harfini kullaniyoruz. 
-
-Fakat kesintisizlik icin parcalarin uclarinin bitismesi yeterli
-degil. Mesela alttaki figur de uclari birlesik halde
+ki $h_1 \equiv x_2 - x_1$, $h_2 \equiv x_3 - x_2$ olarak tanimladik, $h$
+harfi bir tur kisaltma olarak kullanildi. Fakat kesintisizlik icin
+parcalarin uclarinin bitismesi yeterli degil. Mesela alttaki figurun de
+uclari birlesiktir,
 
 \includegraphics[height=4cm]{spline3.png}
 
@@ -125,19 +116,20 @@ vardir. Bu alan soyledir.
 
 \includegraphics[height=4cm]{spline6.png}
 
-Ustteki duz cizgili kisim sonsuz kere turevi alinabilir bir
+Bu sekil iki ayri figurun birlesimidir aslinda, duz cizgiler ve iki tane
+yari cember. Ustteki duz cizgili kisim sonsuz kere turevi alinabilir bir
 fonksiyondur. Degil mi? Duz cizgi sabit bir sayidir, 1. turev sifir, ikinci
 turev yine sifir, boyle gider. Peki yari cember olan kisimlar? Ayni
-sekilde. Peki her noktada durum boyle midir? Kritik noktalar ufak yuvarlaklarla
-gosterilen yerler (altta)
+sekilde. Peki her noktada durum boyle midir? Kritik noktalar ufak
+yuvarlaklarla gosterilen yerler (altta)
 
 \includegraphics[height=4cm]{spline7.png}
 
 Bu noktalarda kac kere ``surekli turevler'' alinabilir? Cevap, sadece bir
 kere. Cunku iki kere turev alininca ne olacagina bakalim, duz kisimda
 ikinci, ucuncu, vs. turev sifir. Peki yari cember? Onun ikinci turevi sifir
-olmayan sabit bir sayi. o zaman tum fonksiyonun 2. turevini grafiklesek,
-soyle bir grafik ortaya cikardi,
+olmayan sabit bir sayi. O zaman fonksiyonun tamaminin (duz cizgi ve yari
+cemberin beraber) 2. turevini grafiklesek, soyle bir sekil ortaya cikardi,
 
 \includegraphics[height=2cm]{spline8.png}
 
@@ -206,7 +198,7 @@ Ilk turev
 
 Denklem (4)'den baslayan blogu tekrar duzenlersek, 
 
-\[ d_1 = \frac{ c_2 - c_1}{3h_1} \]
+\[ d_1 = \frac{ c_2 - c_1}{3h_1} \ \ \ \label{5} \]
 
 \[ d_2 = \frac{ c_3 - c_2}{3h_2} \]
 
@@ -214,8 +206,91 @@ Denklem (4)'den baslayan blogu tekrar duzenlersek,
 
 \[ d_n = \frac{ c_{n+1} - c_n}{3h_n} \]
 
-
 Ustteki denklemleri (2) ve (3)'e geri koyarsak,
+
+\[ b_1 + \frac{ c_2 + 2c_1}{3}h_1 = s_1 \ \ \ \label{7} \]
+
+\[ b_2 + \frac{ c_3 + 2c_2}{3}h_1 = s_2 \]
+
+\[ \vdots \]
+
+\[ b_n + \frac{ c_{n+1} + 2c_n}{3}h_n = s_n \]
+
+ki $s_1 \equiv \frac{y_2 - y_1}{h_1}, s_2 \equiv \frac{y_3 - y_2}{h_2}$. 
+
+(3) ifadesini alip tekrar duzenlersek, 
+
+\[  2c_1h_1 + 3d_1h_1^2  = b_2 - b_1\]
+
+$3d_1h_1$ icin baska bir ifade kullanabiliriz, eger (5)'i tekrar
+duzenlersek,
+
+\[ 3h_1d_1 = c_2 - c_1\]
+
+ve iki ustteki formule koyarsak
+
+\[  2c_1h_1 + (c_2 - c_1)h_1  = b_2 - b_1\]
+
+\[  2c_1h_1 + c_2h_1 - c_1h_1  = b_2 - b_1\]
+
+\[  c_1h_1 + c_2h_1  = b_2 - b_1\]
+
+\[  (c_1 + c_2) h_1  = b_2 - b_1\]
+
+Bu ifade tum $i$ noktalari icin gecerli, hepsi bir arada
+
+\[  (c_1 + c_2) h_1  = b_2 - b_1 \ \ \ \label{6}\]
+
+\[  (c_2 + c_3) h_2  = b_3 - b_2\]
+
+\[ \vdots \]
+
+\[  (c_{n-1} + c_n) h_{n-1}  = b_n - b_{n-1}\]
+
+(7)'deki ardi ardina gelen denklemleri birbirinden cikartip sonucu 3 ile
+carparsak, 
+
+\[ c_1h_1 + 2c_2(h_1 + h_2) + c_3h_2 = 3(s_2 - s_1) \]
+
+\[ c_2h_2 + 2c_3(h_2 + h_3) + c_4h_3 = 3(s_3 - s_2) \]
+
+\[ \vdots \]
+
+\[ c_{n-1}h_{n-1} + 2c_n(h_{n-1} + h_{n}) + c_{n+1}h_n = 3(s_n - s_{n-1}) \]
+
+Bu formuller birarada dusunulurse, bilinmeyenleri $c_2,c_3,..,c_n$ olan
+normal (ordinary) $n-1$ tane lineer denklemdirler, ve bir matris carpimi
+olarak dusunulebilirler. 
+
+$c_1h_1$ matris formunda yok cunku $c_1=0$. 
+
+\[ 
+\left[\begin{array}{cccccc}
+2(h_1+h_2) & h_2 & 0 & 0 & ... & 0 \\
+h_2 & 2(h_2+h_3) & h_3 & 0 & .. & 0  \\
+0 & h_3 & 2(h_3+h_4) & h_4 & .. & 0 \\
+0 & 0 & h_4 & 2(h_4+h_5) & ... & 0 \\
+\vdots & \vdots & \vdots & \vdots & \ddots & \vdots  \\
+0 & 0 & .. & 0 & h_{n-1} & 2(h_{n-1}+h_n) 
+\end{array}\right]
+\left[\begin{array}{r}
+c_2 \\ c_3 \\ \vdots \\ c_n
+\end{array}\right]
+ \]
+
+Bu denklem sag tarafta suna esit 
+
+\[ 
+\left[\begin{array}{r}
+3(s_2 - s_1) \\
+3(s_3 - s_2) \\
+3(s_4 - s_3) \\
+\vdots \\
+3(s_n - s_{n-1}) 
+\end{array}\right]
+ \]
+
+
 
 
 
