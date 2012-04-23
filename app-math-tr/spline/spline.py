@@ -1,13 +1,13 @@
 import numpy as np
 import scipy.linalg as lin
 
-x = np.array([4.,9.,12.,16.,22.])
+xx = np.array([4.,9.,12.,16.,22.])
 
-y = np.array([157.,41.,145.,92.,7.])
+yy = np.array([157.,41.,145.,92.,7.])
 
-h = np.diff(x)
+h = np.diff(xx)
 
-dy = np.diff(y)
+dy = np.diff(yy)
 
 s = dy / h
 
@@ -23,5 +23,6 @@ p,l,u = lin.lu(a)
 
 y = lin.solve(l,s3.T)
 
-x = lin.solve(u,y)
+c = lin.solve(u,y)
+
 

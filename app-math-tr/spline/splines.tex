@@ -290,16 +290,36 @@ Bu denklem sag tarafta suna esit
 \end{array}\right]
  \]
 
+Bir ucgen kosegen (tridiagonal) matris iki tane ikili kosegen (bidiagonal)
+matrisin carpimina esittir. LU carpanlarina ayirma islemi de (bkz Lineer
+Cebir Ders 4) bize bu matrisleri saglayacaktir. 
 
+\[ Ax = b \]
 
+su hale gelir
 
+\[ LUx = b \]
 
+Simdi eger $Ux = y$ kabul edersek, yani yeni bir degiskeni dahil edersek,
+$L$'i bulduktan sonra
 
+\[ Ly = b \]
 
+kabul edebiliriz, ve bu formulu de $y$ icin cozmek cok kolaydir. Sonra
+cozulen $y$'yi alip geriye sokma (backsubstitution) ile $x$'i buluruz, yani 
 
+\[ Ux = y \]
 
+denklemini cozeriz. 
 
+\lstinputlisting[language=Python]{test.py}
 
+Spline yontemine donersek, elimizdeki veri ve kod soyle olsun
+
+\lstinputlisting[language=Python]{spline.py}
+
+$c$'ler bulunduktan sonra $h$'lerle beraber kullanilarak $d$'ler bulunur,
+vs, ve tum spline parcalarinin katsayilari ortaya cikartilir.
 
 http://spartan.ac.brocku.ca/~jvrbik/MATH2P20/notes.pdf
 
