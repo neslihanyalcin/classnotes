@@ -10,6 +10,8 @@ print head[:,1]
 
 data =(containers[:,1], tableware[:,1], head[:,1])
 
+yticks([1, 2, 3], ['containers', 'tableware', 'head'])
+
 boxplot(data,0,'rs',0,0.75)
 
 show()

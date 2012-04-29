@@ -60,7 +60,7 @@ Sistemi daha detayli olarak gormek gerekirse, tum denklemleri yazalim,
 
 \[ \vdots \]
 
-\[ p_3(x)  = a_3 + b_3(x-x_3) + c_3(x-x_2)^2 + d_3(x-x_2)^3\]
+\[ p_n(x)  = a_n + b_n(x-x_n) + c_n(x-x_n)^2 + d_3(x-x_n)^3\]
 
 Uc noktali soyle bir grafik dusunelim,
 
@@ -90,7 +90,8 @@ haline gelir. Hepsini birarada yaziyoruz ($y$'yi sag tarafa aldik)
 
 \[ y_n + b_nh_n + c_nh_n^2 + d_nh_n^3 = y_n \]
 
-ki $h_1 \equiv x_2 - x_1$, $h_2 \equiv x_3 - x_2$ olarak tanimladik, $h$
+ki $h_1 \equiv x_2 - x_1$, $h_2 \equiv x_3 - x_2$ olarak tanimladik,
+$\equiv$ isareti ``tanimlamak (defined as)'' anlamina geliyor, $h$
 harfi bir tur kisaltma olarak kullanildi. Fakat kesintisizlik icin
 parcalarin uclarinin bitismesi yeterli degil. Mesela alttaki figurun de
 uclari birlesiktir,
@@ -111,7 +112,7 @@ alinamaz.
 O zaman sarti koyalim -- Fonksiyonun her noktasinda, ikinci turev surekli
 alinabilmeli. Bu cok agir / net bir sart aslinda, ve hakikaten cok puruzsuz
 (smooth) fonksiyonlara sebebiyet veriyor. Simdi bunun ne anlamina biraz
-daha derinden bakalim. Bilirsiniz futbol sahalarinin etrafinda kosu alani
+daha yakindan bakalim. Bilirsiniz futbol sahalarinin etrafinda kosu alani
 vardir. Bu alan soyledir.
 
 \includegraphics[height=4cm]{spline6.png}
@@ -320,6 +321,8 @@ Spline yontemine donersek, elimizdeki veri ve kod soyle olsun
 
 $c$'ler bulunduktan sonra $h$'lerle beraber kullanilarak $d$'ler bulunur,
 vs, ve tum spline parcalarinin katsayilari ortaya cikartilir.
+
+Kaynaklar
 
 http://spartan.ac.brocku.ca/~jvrbik/MATH2P20/notes.pdf
 
