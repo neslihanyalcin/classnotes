@@ -9,7 +9,7 @@ poldiv/poldiv.pdf */fundamental.pdf  \
 intexp/intexp.pdf */taylor.pdf  \
 */taylor2d.pdf eig/eig.pdf */logaritma.pdf */complexity.pdf */probsolve.pdf \
  */id3.pdf */turev.pdf */totaldiff.pdf */eigseg.pdf */rayleigh.pdf \
-exp/exp.pdf */moment.pdf */dagilimlar.pdf */buyuk.pdf */cebisev.pdf \
+exp/exp.pdf */moment.pdf */dagilimlar.pdf */buyuk.pdf */cebisev.pdf gauss/gauss.pdf \
 spline/splines.pdf */ml-tr.pdf */naive.pdf */mcmc.pdf */coal.pdf */simplex.pdf */qp.pdf \
 */svm.pdf */fem.pdf */fourier.pdf pde-wave-deriv/pde_01.pdf \
 */heat-deriv.pdf */heat.pdf */curvature.pdf \
