@@ -1,0 +1,46 @@
+\documentclass[12pt,fleqn]{article}\usepackage{../common}
+\begin{document}
+Seriler
+
+Bir guc serisi tek boyut icin 
+
+\[ f(x) = \sum _{ n=0}^{\infty} a_n (x-c)^n\]
+
+olarak gosterilir, $a_n$ katsayilari bilinmesi gereken katsayilardir. Cogu
+durumda $c=0$'dir. O zaman 
+
+\[ f(x) = \sum _{ n=0}^{\infty} a_n x_n^n = 1+x+x^2+x^3+..\]
+
+diye gider. Herhangi bir polinom herhangi bir $c$ merkezi etrafinda rahat
+bir sekilde bir guc serisi (power series) olarak temsil edilebilir
+(muhakkak bu serinin cogu katsayisi sifir degerinde olacaktir). 
+
+Unlu ustel baz $e^x$'in sayisinin acilimi, 
+
+\[ e^x = 1 + x + \frac{1}{2}x^2 + \frac{1}{6}x^3 + ... \]
+
+Ispat
+
+Hatta ispattan once, ``bu seriyi kendimiz nasil kesfedebilirdik?'' diye
+sormamiz lazim. $e^x$'in ozelligi nedir? Turevinin kendisine esit
+olmasidir. O zaman oyle bir seri dusunelim ki turevini alinca kendisine
+esiti olsun. Mesela
+
+\[ 1 + x + x^2 + x^3 + ... \]
+
+serisi ``neredeyse'' bu sarta uyuyor, cunku turevini alinca 
+
+\[ 0 + 1 + 2x + 3x^2 + ... \]
+
+Bu seri, $e^x$ acilimina benzer, ustel degerler dogru, ama katsayilar
+tam uymuyor. Onu telafi edebiliriz. $2x$'i $2$ ile, $3x^2$'i $3$ ile, vs
+bolersek, yani $n=0,1,2,..$ icin $n!$ ile bolersek, katsayilar da uyumlu
+hale gelir, yani 
+
+\[ e^x = \sum _{ n=0}^{\infty} \frac{ x^n}{n!} \]
+
+\[ \square \]
+
+http://en.wikipedia.org/wiki/Power_series
+
+\end{document}
