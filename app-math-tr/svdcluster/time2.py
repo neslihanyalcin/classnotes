@@ -4,7 +4,7 @@ from pylab import *
 
 data = np.genfromtxt("synthetic_control.data", dtype=float)
 
-# before norm
+# before norm, and take only 10 data points
 data = data[:,0:10]
 
 print data.shape
@@ -21,7 +21,7 @@ data /= np.std(data, axis=0)
 # after norm
 print data[0,:]
 
-u,s,v = lin.svd(data)
+u,s,v = lin.svd(data, full_matrices=False)
 print 'svd'
 print u.shape
 print s
