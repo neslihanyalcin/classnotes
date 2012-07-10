@@ -31,4 +31,6 @@ plot(u[:,0], u[:,1], '.')
 
 print u[:,0] < -0.025
 
+print u[:,0].shape
+
 show()
