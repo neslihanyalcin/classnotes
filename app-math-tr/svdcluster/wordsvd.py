@@ -36,7 +36,7 @@ print s.shape
 print s
 print v.shape
 
-k=KMeans(init='k-means++', k=20, n_init=10)
+k=KMeans(init='k-means++', k=25, n_init=10)
 k.fit(u[:,0:10])
 centroids = k.cluster_centers_
 labels = k.labels_
