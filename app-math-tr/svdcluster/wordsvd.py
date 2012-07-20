@@ -6,25 +6,28 @@ from sklearn.cluster import KMeans
 import itertools
 import time
 
-words = np.array(['the', 'be', 'to', 'of', 'and', 'a', 'in', 'that', 'have',
-                  'I', 'it', 'for', 'not', 'on', 'with', 'he', 'as', 'you',
-                  'do', 'at', 'this', 'but', 'his', 'by', 'from', 'they', 'we',
-                  'say', 'her', 'she', 'or', 'an', 'will', 'my', 'one', 'all',
-                  'would', 'there', 'their', 'what', 'so', 'up', 'out', 'if',
-                  'about', 'who', 'get', 'which', 'go', 'me', 'when', 'make',
-                  'can', 'like', 'time', 'no', 'just', 'him', 'know', 'take',
-                  'people', 'into', 'year', 'your', 'good', 'some', 'could',
-                  'them', 'see', 'other', 'than', 'then', 'now', 'look',
-                  'only', 'come', 'its', 'over', 'think', 'also', 'back',
-                  'after', 'use', 'two', 'how', 'our', 'work', 'first', 'well',
-                  'way', 'even', 'new', 'want', 'because', 'any', 'these',
-                  'give', 'day', 'most', 'us'])
+words = np.array(
+    ['the', 'be', 'to', 'of', 'and', 'a', 'in', 'that', 'have',
+     'I', 'it', 'for', 'not', 'on', 'with', 'he', 'as', 'you',
+     'do', 'at', 'this', 'but', 'his', 'by', 'from', 'they', 'we',
+     'say', 'her', 'she', 'or', 'an', 'will', 'my', 'one', 'all',
+     'would', 'there', 'their', 'what', 'so', 'up', 'out', 'if',
+     'about', 'who', 'get', 'which', 'go', 'me', 'when', 'make',
+     'can', 'like', 'time', 'no', 'just', 'him', 'know', 'take',
+     'people', 'into', 'year', 'your', 'good', 'some', 'could',
+     'them', 'see', 'other', 'than', 'then', 'now', 'look',
+     'only', 'come', 'its', 'over', 'think', 'also', 'back',
+     'after', 'use', 'two', 'how', 'our', 'work', 'first', 'well',
+     'way', 'even', 'new', 'want', 'because', 'any', 'these',
+     'give', 'day', 'most', 'us'])
 
 print "calculating distances..."
 
 (dim,) = words.shape
+
 f = lambda (x,y): leven.distance(x,y)
-res=np.fromiter(itertools.imap(f, itertools.product(words, words)), dtype=float)
+res=np.fromiter(itertools.imap(f, itertools.product(words, words)),
+                dtype=float)
 A = np.reshape(res,(dim,dim))
 
 print "svd..."
@@ -50,3 +53,9 @@ plt.hold(True)
 plt.plot(u[:,0], u[:,1], '.')
 plt.show()
 
+from mpl_toolkits.mplot3d import Axes3D
+fig = plt.figure()
+ax = Axes3D(fig)
+ax.plot(u[:,0], u[:,1], u[:,2],'.', zs=0,
+        zdir='z', label='zs=0, zdir=z')
+plt.show()
