@@ -4,7 +4,6 @@ import Levenshtein as leven
 import matplotlib.pyplot as plt
 from sklearn.cluster import KMeans
 import itertools
-import time
 
 words = np.array(
     ['the', 'be', 'to', 'of', 'and', 'a', 'in', 'that', 'have',
@@ -27,7 +26,7 @@ print "calculating distances..."
 
 f = lambda (x,y): leven.distance(x,y)
 res=np.fromiter(itertools.imap(f, itertools.product(words, words)),
-                dtype=float)
+                dtype=np.uint8)
 A = np.reshape(res,(dim,dim))
 
 print "svd..."
@@ -39,15 +38,22 @@ print s.shape
 print s
 print v.shape
 
+data = u[:,0:10]
 k=KMeans(init='k-means++', k=25, n_init=10)
-k.fit(u[:,0:10])
+k.fit(data)
 centroids = k.cluster_centers_
 labels = k.labels_
 print labels
 
-for i in range(np.max(labels)):
+def dist(x,y):   
+    return np.sqrt(np.sum((x-y)**2, axis=1))
+    
+print "clusters, centroid points.."
+for i,c in enumerate(centroids):
+    idx = np.argmin(dist(c,data[labels==i]))
+    print words[labels==i][idx]
     print words[labels==i]
-
+    
 plt.plot(centroids[:,0],centroids[:,1],'x')
 plt.hold(True)
 plt.plot(u[:,0], u[:,1], '.')
