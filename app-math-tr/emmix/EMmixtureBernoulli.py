@@ -36,6 +36,6 @@ def EMmixtureBernoulli(Y,K,iter,tol):
         if (i>1):
             if np.abs(L[i]-L[i-1]) < tol: break
 
-
-
+    iters = i
+    return lR,lPi,lP,L,iters
 
