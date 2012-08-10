@@ -12,12 +12,12 @@ def logsumexp(a):
 
 def EMmixtureBernoulli(Y,K,iter,tol):
     N,D=Y.shape
-    print "N,K",N,K
     OMY=1+(-1*Y) #  "One minus Y", (1-Y)
     tmp=np.random.rand(N,K)
     tmp2=np.sum(tmp,axis=1).reshape((N,1))
     tmp3=np.tile(tmp2,(1,K))
     lR=np.log(np.divide(tmp, tmp3))
+    L = []
     for i in range(iter):
         # lPi log Mixture params Kx1
 	lPi=np.tile(-1 * np.log(N),(K,1))+logsumexp(lR).T.reshape((K,1))
@@ -30,4 +30,12 @@ def EMmixtureBernoulli(Y,K,iter,tol):
 	# *** E-step        
 	lR=np.tile(lPi.T,(N,1))+np.dot(Y,lP.T) + np.dot(OMY,lOMP.T) # + const
         Z=logsumexp(lR.T)
-        exit()
+
+        lR=lR-np.tile(Z.T.reshape((N,1)),(1,K))
+        L.append(np.sum(Z))
+        if (i>1):
+            if np.abs(L[i]-L[i-1]) < tol: break
+
+
+
+
