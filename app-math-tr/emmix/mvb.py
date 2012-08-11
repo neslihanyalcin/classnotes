@@ -19,8 +19,9 @@ for attempt in range(attempts):
         Lbest=L[iters]
         itersbest=iters
 
-print lR
-print lPi
-print lP
+print lR.shape
+print lPi.shape
+print lP.shape
+print len(L)
 
     

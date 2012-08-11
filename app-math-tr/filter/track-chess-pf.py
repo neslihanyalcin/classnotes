@@ -77,7 +77,6 @@ if __name__ == "__main__":
     frame = cv.QueryFrame(capture)        
     proj_board(frame, 1, 1, 160)
     cv.ShowImage('Camera', frame)
-    k = cv.WaitKey() 
         
     while 1:        
         frame_no += 1
@@ -102,8 +101,7 @@ if __name__ == "__main__":
         cv.ShowImage('Camera', frame)
                 
         # handle events        
-        #k = cvWaitKey(40) 
-        k = cv.WaitKey() 
+        k = cv.WaitKey(40) 
         if k == "t":            
             cv.SaveImage('snap-' + str(snap_no) + '.jpg', frame)
             snap_no += 1

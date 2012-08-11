@@ -77,8 +77,8 @@ if __name__ == "__main__":
     #proj_board(frame, 1, 1, 160)
     print frame.height
     cv.ShowImage('Camera', frame)
-    cv.SaveImage('snap-00.jpg', frame)
-    k = cv.WaitKey()     
+    #cv.SaveImage('snap-00.jpg', frame)
+    #k = cv.WaitKey()     
     
     while 1:        
         frame_no += 1
@@ -108,7 +108,6 @@ if __name__ == "__main__":
                 
         # handle events        
         k = cv.WaitKey(40) 
-        #k = cv.WaitKey() 
         if k == "t":            
             cvSaveImage('cb-kf-' + str(snap_no) + '.jpg', frame)
             snap_no += 1
