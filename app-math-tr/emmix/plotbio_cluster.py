@@ -1,6 +1,7 @@
+# Multivariate gaussian, contours
+#
 import scipy.stats
 import numpy as np
-import pnorm
 import matplotlib.pyplot as plt
 data = np.loadtxt('biometric_data_simple.txt',delimiter=',')
 
