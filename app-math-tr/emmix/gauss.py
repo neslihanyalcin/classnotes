@@ -153,6 +153,4 @@ def expectation_maximization(t, nbclusters=2, nbiter=3, normalize=False,\
                     for c in xrange(nbclusters)]
     return result
 
-res = expectation_maximization(np.array([[2,3],[3,4],[5,0],[4,2],[7,2],[5,5] ] ))
-
 
