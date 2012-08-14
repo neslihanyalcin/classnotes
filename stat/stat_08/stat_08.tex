@@ -184,7 +184,7 @@ z_{nk} \{ \ln \pi_k + \ln N(x_n|\mu_k,\Sigma_k) \}
 EM (Expectation Maximization) metotu, bu olurluk fonksiyonunu baz alarak,
 $\mu,\Sigma,\pi$ bilindigi durumda etiketleri, etiketler bilindigi durumda
 $\mu,\Sigma,\pi$ degerlerini tahmin eder, bu iki bilinmeyen grup arasinda
-ozyineli (iteratif) olarak gidip gelir. Tabii konunun cok fazla detayi var,
+ozyineli (iteratif) olarak gidip gelir. Tabii konunun cok fazla detayi var [1],
 oncelikle EM'in ustteki durumda yakinsak (convergence) bir davranis
 sergiledigi bilinir, yani bir optimum vardir, va belli uc nokta sartlari
 haricinde bu degere yaklasilir. 
@@ -192,6 +192,10 @@ haricinde bu degere yaklasilir.
 \lstinputlisting[language=Python]{gauss.py}
 
 \lstinputlisting[language=Python]{gausstest.py}
+
+Ustteki kod \verb!biometric_data_simple.txt! verisi uzerinde isletildiginde
+rapor edilen $\mu,\Sigma$ degerlerini grafikleyince basta paylastigimiz
+cevrit goruntuleri cikacaktir, yani kumeleme basariyla isletilmistir.
 
 Cok Degiskenli Bernoulli Karisimi (Mixture of Multivariate Bernoulli)
 
@@ -294,6 +298,10 @@ Mixture Of Gaussians,
 
 [3] Jebara, T., Machine Learning Lecture Notes
 
-[4] Iain Murray's code on mixture of multivariate bernoullis
+[4] Iain Murray's Octave code on mixture of multivariate bernoullis
+
+[5] \verb!http://code.activestate.com/recipes/577735-expectation-maximization/download/1/!
+
+[6] Bishop, C., Pattern Recognition and Machine Learning
 
 \end{document}
