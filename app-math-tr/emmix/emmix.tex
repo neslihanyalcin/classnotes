@@ -182,7 +182,10 @@ z_{nk} \{ \ln \pi_k + \ln N(x_n|\mu_k,\Sigma_k) \}
 EM (Expectation Maximization) metotu, bu olurluk fonksiyonunu baz alarak,
 $\mu,\Sigma,\pi$ bilindigi durumda etiketleri, etiketler bilindigi durumda
 $\mu,\Sigma,\pi$ degerlerini tahmin eder, bu iki bilinmeyen grup arasinda
-ozyineli (iteratif) olarak gidip gelir. 
+ozyineli (iteratif) olarak gidip gelir. Tabii konunun cok fazla detayi var,
+oncelikle EM'in ustteki durumda yakinsak (convergence) bir davranis
+sergiledigi bilinir, yani bir optimum vardir, va belli uc nokta sartlari
+haricinde bu degere yaklasilir. 
 
 \lstinputlisting[language=Python]{gauss.py}
 
@@ -190,13 +193,105 @@ ozyineli (iteratif) olarak gidip gelir.
 
 Cok Degiskenli Bernoulli Karisimi (Mixture of Multivariate Bernoulli)
 
+Bir karisim Gaussian'lardan olustugu gibi, degisik dagilimlardan da
+mutesekkil olabilir. Mesela her biri 8x8 boyutlarda ve 64 ogeli duz bir
+vektor olarak temsil edilen, icinde ikisel (binary) veri tasiyan, yani
+siyah / beyaz olarak temsil edilen karakterleri gruplama problemini ele
+alalim.
 
 \includegraphics[height=6cm]{digits.png}
 
-\lstinputlisting[language=Python]{mvb.py}
+Bu karakterlerin hepsini \verb!bindigit.py! ile sirayla
+gorebilirsiniz. Mesela ust soldan saga dogru giderken 3 tane sifira benzer
+karakter goruyoruz, sonra yediye benzer iki goruntu goruyoruz, vs. Burada
+temsil etmemiz gereken, demek ki, bu 64 hucreli sadece 1 ve 0 degeri
+tasiyan degerleri temsil etmek. Boy ve agirlikta iki hucreli vektorde
+sadece reel sayilar vardi. Simdi 64 hucreli vektorde ikisel degerler var. 
+
+Boyle bir veriyi hangi dagilim en iyi temsil eder? Sadece tek 1 ve 0
+olsaydi, o zaman Bernoulli dagilimi kullanirdik,
+
+\[ p(x) = \alpha^x(1-\alpha)^{1-x} \]
+
+$\alpha$ bu dagilimi tanimlayan 0 ve 1 arasinda bir degerdir. 
+
+Bernoulli'leri cok degiskenli olarak kullanamaz miyiz? Kullaniriz.
+
+\[ p(x) = \prod _{ d=1}^{D} \alpha_d^{x_d}(1-\alpha_d)^{1-x_d} \]
+
+Bu durumda $x$ cok boyutlu, $D$ boyutlu bir vektor, yani $[0 \ 1 \ 1 \ 0 \
+... \ 1]$ 
+seklinde olacak. 
+
+Eger cok degiskenli Bernoulli'lerin karisimini elde etmek istiyorsak,
+$p(x|z)$ Gaussian yerine cok degiskenli Bernoulli olacak, yani
+
+\[ p(x|z) = \prod _{ d=1}^{D} \alpha_{zd}^{x_d}(1-\alpha_{zd})^{1-x_d} \]
+
+$\alpha_{zd}$, karisimdaki $z$'inci dagilimin $d$'inci hucresindeki olasilik degerini 
+verecektir. Tum karisimin dagilimi daha once oldugu gibi
+
+\[ p(x) = \sum_z  p(z)p(x|z)\]
+
+Suna dikkat etmek lazim -- karisim deyince mesela $[0 \ 1 \ 1 \ ... \ 1]$
+vektoru ile $[1 \ 0 \ 1 \ ... \ 1]$ vektorunu ``toplayip'' yeni bir vektor elde
+etmiyoruz. Bu vektorleri tum karisimin yogunlugu $p(x)$'e gecince bize bir
+olasilik degeri veriliyor. Bunun hesaplanisi, perde arkasinda teker teker
+karisimdaki tum bilesenlerin yogunluguna teker teker sormak, ve geriye bir
+cevap vermeden once agirligi kullanarak dengelemek. 
+
+Ya da uretimsel (generative) olarak olaya bakarsak, $p(x)$'in temsil ettigi
+yogunluga ``zar attirarak'' ile $[1 \ 1 \ 1 \ ... \ 0]$, $[1 \ 0 \ 0 \
+... \ 0]$ gibi vektorler 
+urettiriyor olabilirdik. Tabii ki bu uretim yogunlugun kontrolunde olarak, 
+daha olasi turden vektorlerin, daha fazla ortaya cikmasi anlamina
+gelecekti. 
+
+Uretimsel derken, her veri noktasi icin bu uretimsel algoritmanin tamami
+soyle:
+
+\begin{lstlisting}[language=Matlab,mathescape,numbers=left,xleftmargin=3.0ex]
+for $i$ = $1$ to $N$ do
+    Olasilik vektoru $\pi$ ye gore zar at
+    Sonuca  gore m $\leftarrow$ $M$ modelden bir tanesini sec
+    O modele $N(x_i|\mu_m,\Sigma_m)$ (ya da onun Bernoulli karsiligi) $x_i$ i    
+    urettir
+end
+\end{lstlisting}
+
+Altta yine EM kullanarak gruplama yapan yani etiketleri otomatik olarak
+bulan kodu sunuyoruz. En sonda \verb!np.argmax(lR.T,axis=0)! ifadesini
+goreceksiniz. \verb!lR!, \verb!NxD! boyutlu bir matristir, her veri
+noktasinin $D$ kumenin her birine olan aidiyatini olasilik degeri olarak
+tasir, \verb!argmax! ifadesi satirsal bazda bu aidiyatlarin en buyugunun
+``indisini'' dondurur, eger 3 tane kume var demissek, o zaman 
+
+\begin{verbatim}
+[1 1 1 0 2 0 2 ... ]
+\end{verbatim}
+
+gibi bir sonuc gorulecektir. Demek ki 1. nokta 1. kumeye, 4. nokta
+0. kumeye aittir. Hakikaten de basta paylastigimiz resimlere
+bakarsaniz, ilk 3 karakterin birbirine benzedigi farkedilecektir.
+
+Sonuc olarak verdigimiz bu algoritmalar idare edilmeyen (unsupervised)
+algoritmalar olarak bilinir, cunku algoritma ``kendi basina'' giderek
+noktalarin hangi kumeye ait oldugunu hesaplamaktadir. Idare edilen
+(supervised) yontemlerde oldugu gibi bir ``egitim'' ve ``test'' veri seti
+yoktur. 
 
 \lstinputlisting[language=Python]{EMmixtureBernoulli.py}
 
+\lstinputlisting[language=Python]{mvb.py}
 
+[1] Aaron A. D'Souza, Using EM To Estimate A Probablity Density With A
+Mixture Of Gaussians, 
+\verb!http://www-clmc.usc.edu/~adsouza/notes/mix_gauss.pdf!
+
+[2] Bernoulli mixture models for binary images, Alfons Juan, Enrique Vidal
+
+[3] Jebara, T., Machine Learning Lecture Notes
+
+[4] Iain Murray's code on mixture of multivariate bernoullis
 
 \end{document}
