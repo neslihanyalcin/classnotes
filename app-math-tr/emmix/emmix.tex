@@ -102,13 +102,45 @@ basina, baska hicbir parametre ona gecilmiyor, o zaman zaten tanim
 itibariyle ``ta en bastan belirli'' bir olasiliktan baska bir seye sahip
 olamaz, bu da karisim orani $\pi_z$'den baskasi degildir. 
 
+Notasyon
+
 Simdi notasyonu biraz daha berraklastiralim. Oncelikle, ozellikle Bayes
 modelleri iceren formulasyonlarda, $p(x)$, $p(z)$ gibi kullanimlar gorulur,
 fakat aslinda orada iki tane farkli yogunluk fonksiyonu (density function)
 kastedilir, $p_x(x)$ ve $p_z(z)$. Surekli $p$ kullanilan turden kullanimin
-biraz ustunkoru (sloppy) oldugu dogrudur, ama literaturu takip eden herkes
-bunun nereden geldigini bilir, sadece konuya ilk baslayanlar icin biraz kafa
-karistirici olabiliyor.
+biraz ustunkoru (sloppy) oldugu dogrudur, kimisi icin bu daha kisa yoldan
+formulasyondur, literaturu takip eden herkes bunun nereden geldigini bilir,
+sadece konuya ilk baslayanlar icin biraz kafa karistirici olabiliyor.
+
+Ayrica $p(z)$ derken $p(z=k)$ demek istiyoruz, yani 
+
+\[ p(x) = \sum _{ k=1}^{K} p(z=k)p(x | z=k) \]
+
+ki $K$ karisimdaki Gaussian sayisidir. Aynen ustte oldugu gibi etiketin
+bilindigi, ``verili'' oldugu durumda kosullu olasilik $p(x | z=k)$,
+karisimdaki Gaussian'lardan bir tanesidir, ki o da ustte $N_z(x |
+\mu_z,\sigma_z)$ 
+olarak gosterilmisti, simdi $k$ kullanirsak $N(x |
+\mu_k,\sigma_k)$ olacaktir.
+
+Iki Gaussian oldugu durumda $z$'nin 0/1 degerine sahip olup olmadigindan
+bahsettik, ya da $K$ ikiden daha buyuk oldugu durumlarda, $z = k$ olup
+olmama durumu. Aslinda bir temsili yontem daha var, $z$ rasgele degiskenini
+sadece bir hucresinde 1 ya da 0 tasiyan bir katlı terimli (multinomial)
+dagilim, yani bir vektor olarak gostermek. Yani $z = [0 \ 0 \ 1 \ .. \ 0 ]^T$
+seklinde. Bu temsili yonteme K-icinde-1 (1-of-K) temsili yontemi deniyor. O
+zaman 
+
+\[ p(z) = \prod _{ k=1}^{K}\pi_k ^{z_k} \]
+
+
+
+
+
+
+
+
+
 
 
 
