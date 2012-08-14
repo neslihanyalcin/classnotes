@@ -24,4 +24,6 @@ print lPi.shape
 print lP.shape
 print len(L)
 
+print lR
     
+print np.argmax(lR.T,axis=0)
