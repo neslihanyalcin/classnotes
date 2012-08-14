@@ -131,25 +131,62 @@ dagilim, yani bir vektor olarak gostermek. Yani $z = [0 \ 0 \ 1 \ .. \ 0 ]^T$
 seklinde. Bu temsili yonteme K-icinde-1 (1-of-K) temsili yontemi deniyor. O
 zaman 
 
-\[ p(z) = \prod _{ k=1}^{K}\pi_k ^{z_k} \]
+\[ p(z) = \prod _{ k=1}^{K}\pi_k ^{z_k} \ \ \ \label{1}\]
 
+ve
 
+\[ p(x | z) = \prod _{ k=1}^{K} N(x | \mu_k,\Sigma_k)^{z_k} 
+\ \ \ \label{2}
+\]
 
+Peki verinin log olabilirligi (log likelihood) nedir? 
 
+Bilindigi gibi olabilirlik hesap veri noktalarinin teker teker yogunluk
+fonksiyonuna gecilmesi, ve sonuclarin birbiri ile carpilmasidir, log
+olabilirlik ise onun log alinmis halidir (cunku log alininca carpimlar
+toplam haline donusur, boylece gittikce buyuyen bir sayi ile islem
+yapilabilir, oteki turlu olasilik degeri oldugu icin 1'den kucuk sayilarin
+surekli birbiri ile carpimi, nihai carpimi asiri kucultur, bu da
+bilgisayarin numerik hesap sinirlarini zorlayabilir. $X$'i tum $x$'leri
+iceren bir matrix olarak kabul edelim
 
+\[ \ln p(X|\pi,\mu,\Sigma) = \sum _{n=1}^{N} 
+\ln 
+\bigg\{
+\sum _{ k=1}^{K}
+\pi_k p(x_n | \mu_k,\Sigma_k)\
+\bigg\}
+\]
 
+Genellikle olabilirlik fonksiyonu maksimize edilerek icindeki
+parametrelerin bu maksimum noktada tasidigi degerler bulunmaya
+ugrasilir. Fakat bizim esas ilgilendigimiz ``bilinmeyen'' etiketler, o
+yuzden maksimizasyon yapmadan once bu etiketleri de bir sekilde
+olabilirligin icine dahil etmemiz lazim. (1) ve (2)'yi kullanirsak, 
 
+\[ p(X,Z | \mu,\Sigma,\pi) =
+\prod _{n=1}^{N}
+\prod _{k=1}^{K}
+\pi_k ^{z_{nk}} N(x_n|\mu_k,\Sigma_k)
+ \]
 
+Bunun log'unu alirsak
 
+\[ \ln p(X,Z | \mu,\Sigma,\pi) =
+\ln
+\sum _{n=1}^{N}
+\sum _{k=1}^{K}
+z_{nk} \{ \ln \pi_k + \ln N(x_n|\mu_k,\Sigma_k) \}
+ \]
 
+EM (Expectation Maximization) metotu, bu olurluk fonksiyonunu baz alarak,
+$\mu,\Sigma,\pi$ bilindigi durumda etiketleri, etiketler bilindigi durumda
+$\mu,\Sigma,\pi$ degerlerini tahmin eder, bu iki bilinmeyen grup arasinda
+ozyineli (iteratif) olarak gidip gelir. 
 
+\lstinputlisting[language=Python]{gauss.py}
 
-
-
-
-
-
-
+Cok Degiskenli Bernoulli Karisimi (Mixture of Multivariate Bernoulli)
 
 
 
