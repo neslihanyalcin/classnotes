@@ -146,11 +146,12 @@ Peki verinin log olabilirligi (log likelihood) nedir?
 Bilindigi gibi olabilirlik hesap veri noktalarinin teker teker yogunluk
 fonksiyonuna gecilmesi, ve sonuclarin birbiri ile carpilmasidir, log
 olabilirlik ise onun log alinmis halidir (cunku log alininca carpimlar
-toplam haline donusur, boylece gittikce buyuyen bir sayi ile islem
-yapilabilir, oteki turlu olasilik degeri oldugu icin 1'den kucuk sayilarin
-surekli birbiri ile carpimi, nihai carpimi asiri kucultur, bu da
-bilgisayarin numerik hesap sinirlarini zorlayabilir. $X$'i tum $x$'leri
-iceren bir matrix olarak kabul edelim
+toplam haline donusur, boylece mutlak (absolute) olarak gittikce buyuyen
+bir sayi ile islem yapilabilir, oteki turlu olasilik degeri oldugu icin
+1'den kucuk sayilarin surekli birbiri ile carpimi, nihai carpimi asiri
+kucultur, bu da bilgisayarin numerik hesap sinirlarini zorlayabilir. 
+
+$X$'i tum $x$'leri iceren bir matrix olarak kabul edelim
 
 \[ \ln p(X|\pi,\mu,\Sigma) = \sum _{n=1}^{N} 
 \ln 
@@ -187,7 +188,7 @@ $\mu,\Sigma,\pi$ degerlerini tahmin eder, bu iki bilinmeyen grup arasinda
 ozyineli (iteratif) olarak gidip gelir. Tabii konunun cok fazla detayi var [1],
 oncelikle EM'in ustteki durumda yakinsak (convergence) bir davranis
 sergiledigi bilinir, yani bir optimum vardir, va belli uc nokta sartlari
-haricinde bu degere yaklasilir. 
+haricinde bu degere yaklasilmasi garantidir, vs.
 
 \lstinputlisting[language=Python]{gauss.py}
 
@@ -260,7 +261,7 @@ soyle:
 for $i$ = $1$ to $N$ do
     Olasilik vektoru $\pi$ ye gore zar at
     Sonuca  gore m $\leftarrow$ $M$ modelden bir tanesini sec
-    O modele $N(x_i|\mu_m,\Sigma_m)$ (ya da onun Bernoulli karsiligi) $x_i$ i    
+    O modele $N(x_i|\mu_m,\Sigma_m)$ (ya da onun Bernoulli karsiligi) $x_i$ 
     urettir
 end
 \end{lstlisting}
@@ -285,6 +286,20 @@ algoritmalar olarak bilinir, cunku algoritma ``kendi basina'' giderek
 noktalarin hangi kumeye ait oldugunu hesaplamaktadir. Idare edilen
 (supervised) yontemlerde oldugu gibi bir ``egitim'' ve ``test'' veri seti
 yoktur. 
+
+Ne Zaman EM, Ne Zaman MCMC?
+
+Bayes Teorisi ile sofistike olasiliksal modeller olusturulabilir ve bu
+modellerin hepsi MCMC ile hesaplanabilir, cozulebilir. Peki ne zaman EM
+kullanilmali, ne zaman MCMC kullanmali.
+
+Bu noktada Makine Ogrenimi alaninda unlu bir hoca Kevin Murphy'nin sozunu
+hatirlamak iyi olabilir, demistir ki ``EM fakir adamin Bayes
+metotudur''. EM her yerde kullanilamayabilir, ama kullanilabiliyorsa cabuk
+isledigi bilinir, ve probleme uygulanmasi basittir. Probleminizde
+karisimlar var ise, etiketleme yapiliyorsa, EM ilk akla gelen yontemlerden
+biri olabilir. Tabii ki karisimlar ve diger her tur Bayes problemi MCMC ile
+de hesaplanabilir.
 
 \lstinputlisting[language=Python]{EMmixtureBernoulli.py}
 
