@@ -64,6 +64,14 @@ kullanmaktir.
 Ustteki tekniklerden en yaygin kullanilani Metropolis-Hastings
 algoritmasidir. 
 
+Sunu vurgulamak onemli, gecisleri uretmek, ``bir tur sanal Markov Matrisi''
+yaratmaktir aslinda. Ve her MCMC algoritmasi bunu farkli sekillerde
+yapabilir; mesela MH daha basit baska bir dagilim ile ana dagilim arasinda
+surekli karsilastirmalar yapar, belli araliklarda gecis yapar, digerlerinde
+yapmaz, ve bunun bir yan etkisi olarak ortaya bir Markov Zinciri cikartmis
+/ onu kullanmis olur. O gecislerin bir Markov Zinciri'ne esdeger oldugunun
+matematiksel olarak ispati da vardir.
+
 Not: Bu alandaki makalelerde bir dagilimin ``belli bir carpimsal sabite
 kadar'' bilindigi (known up to a multiplicative constant) soylenir. Bu soz
 aslinda su anlama gelir. Mesela ayriksal bir dagilimimiz var, ama bu
