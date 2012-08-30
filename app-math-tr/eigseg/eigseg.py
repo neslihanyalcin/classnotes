@@ -1,4 +1,5 @@
 import matplotlib.pyplot as plt
+import itertools
 import numpy as np
 
 Img = plt.imread("twoObj.jpg")
@@ -11,7 +12,7 @@ A = np.zeros((nn,nn))
 for i in range(nn):
     for j in range(nn):
         A[i,j]=np.exp(-((Img2[i]-Img2[j])**2))
-
+        
 V,D = np.linalg.eig(A)
 V = np.real(V)
 a = np.real(D[0])
