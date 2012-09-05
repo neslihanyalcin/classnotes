@@ -33,6 +33,10 @@ A = np.reshape(res,(dim,dim))
 af = AffinityPropagation().fit(A)
 labels = af.labels_
 
+cluster_centers_indices = af.cluster_centers_indices_
+print cluster_centers_indices
+
 unique_labels = set(labels)
 for i in unique_labels:
+    print words[cluster_centers_indices[i]]
     print words[labels==i]
