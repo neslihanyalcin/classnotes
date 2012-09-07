@@ -27,7 +27,7 @@ print "calculating distances..."
 
 f = lambda (x,y): -leven.distance(x,y)
 
-res=np.fromiter(itertools.imap(f, itertools.product(words, words)), dtype=np.uint8)
+res = np.fromiter(itertools.imap(f, itertools.product(words, words)), dtype=np.uint8)
 A = np.reshape(res,(dim,dim))
 
 af = AffinityPropagation().fit(A)
