@@ -13,7 +13,7 @@ exp/exp.pdf */moment.pdf */dagilimlar.pdf */buyuk.pdf */cebisev.pdf gauss/gauss.
 spline/splines.pdf */ml-tr.pdf */naive.pdf  */simplex.pdf */qp.pdf \
 */svm.pdf */fem.pdf */fourier.pdf pde-wave-deriv/pde_01.pdf \
 */heat-deriv.pdf */heat.pdf */curvature.pdf \
-*/level.pdf */lk.pdf */varcalc.pdf */filter.pdf */phd.pdf \
+*/level.pdf */lk.pdf */varcalc.pdf */filter.pdf ./svdcluster/svdcluster.pdf */phd.pdf \
 output ~/Dropbox/Public/skfiles/app-math-tr.pdf "
     os.system(cmd)
     exit()
