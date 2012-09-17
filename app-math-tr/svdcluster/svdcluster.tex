@@ -28,7 +28,7 @@ zaman matriste tekillik vardir, ve bu durumda $r < m$ olur, ve ortadaki $W$
 matrisi $r \times r$ oldugu icin beklenenden daha ufak boyutlarda
 olabilir. 
 
-Ayrica SVD $W$ caprazindaki ozdegerleri buyukluk sirasina gore dizer, ve
+Ayrica SVD, $W$ caprazindaki ozdegerleri buyukluk sirasina gore dizer, ve
 her ozdegere tekabul eden ozvektorler de ona gore siraya dizilmis
 olacaktir, ve SVD tamamlaninca mesela ``en buyuk 10'' ozdegere ait olan
 $CWF$ degerlerini alip, digerlerini atmayi da secebiliriz, yani kerte
@@ -52,28 +52,30 @@ halde geri verir. Ve bu yeni cizgede en fazla $r$ tane gecis noktalari
 (waystations) olusmustur, ustte bahsettigimiz eleme ile gecisler daha da
 azaltilabilir. 
 
-Bunun ustune, gecis noktalarina olan $C$'nin baglanti sekli, ek kumeleme
-basamagi tarafindan kullanilabilir. Bu ``azaltilmis'' gecisin uzerindeki
-her islem / ona yapilan her referans kumeleme icin bir ipucudur. Bunu
-gormek icin ornek zaman serilerinin SVD sonrasi elde edilen $C$ (ornekte
-\verb!u!) matrisinin ilk iki kolonunu bile grafiklemek yeterlidir.
+Simdi, bu gecis noktalarina olan $C$'nin ``baglanma sekli'', ``baglanma
+kuvveti'', ek kumeleme basamagi tarafindan kullanilabilir. Bu
+``azaltilmis'' gecisin uzerindeki her islem / ona yapilan her referans
+kumeleme icin bir ipucudur. Bunu gormek icin ornek zaman serilerinin SVD
+sonrasi elde edilen $C$ (ornekte \verb!u!) matrisinin ilk iki kolonunu bile
+grafiklemek yeterlidir.
 
 \lstinputlisting[language=Python]{time2.py}
 
 \includegraphics[height=8cm]{2d.png}
 
 Goruldugu gibi net bir sekilde iki tane kume ortaya cikti. Bu kumeler
-yazinin basindaki iki ayri zaman serisi obeklerine tekabul ediyorlar. O
-zaman serilerini ayirtetmek icin ne yapariz? Ustteki veriler uzerinde
+yazinin basindaki iki ayri zaman serisi obeklerine tekabul ediyorlar. 
+
+O zaman serilerini ayirtetmek icin ne yapariz? Ustteki veriler uzerinde
 kmeans isletebilirdik, ya da kabaca bakiyoruz, dikey olarak \verb!-0.025!
-seviyesinde bir cizgi ayirac olarak gorulebilir. Numpy filtreleme teknigi 
+seviyesinde bir cizgi ayirac olarak gorulebilir. Numpy filtreleme teknigi
 
 \begin{lstlisting}[language=Python]
 u[:,0] < -0.025
 \end{lstlisting}
 
 bize ana veri uzerinde uygulanabilecek \verb!True! ve \verb!False!
-degerleri verir, bunlari alarak ana veriyi filtreleyebiliriz,
+degerleri verir, bunlari alarak ana veriye filtrele olarak uygulariz,
 
 \begin{lstlisting}[language=Python]
 data[u[:,0] < -0.025]
@@ -103,7 +105,6 @@ cekip cikartacagiz, ve onu temsilci olarak alacagiz.
 \lstinputlisting[language=Python]{wordsvd.py}
 
 \includegraphics[height=8cm]{wordsvd.png}
-
 
 \includegraphics[height=8cm]{wordsvd3.png}
 
@@ -166,5 +167,8 @@ any
 [1] http://kdd.ics.uci.edu/databases/synthetic\_control/synthetic\_control.data.html
 
 [2] http://sayilarvekuramlar.blogspot.de/2012/07/kelime-benzerligi-levenshtein-mesafesi.html
+
+[3] Skillicorn, D., {\em Understanding Complex Datasets Data Mining with Matrix Decompositions}
+
 
 \end{document}
