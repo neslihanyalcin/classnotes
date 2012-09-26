@@ -3,15 +3,15 @@ import numpy as np
 
 data = loadtxt("dell.csv")
 
-print np.mean(data)
+np.mean(data)
 
-print np.median(data)
+np.median(data)
 
-print np.std(data)
+np.std(data)
 
-print np.mean(data)+2*np.std(data)
+np.mean(data)+2*np.std(data)
 
-print np.percentile(data, 95)
+np.percentile(data, 95)
 
 #hist(data,100)
 

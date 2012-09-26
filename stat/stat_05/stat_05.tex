@@ -66,6 +66,39 @@ sebele hangi sirada olursa olsun, toplayip, bolerek hesaplanabilecek
 ozetler daha makbuldu. Fakat artik siralama islemi kolay, ve veri setleri
 her zaman tek tepeli, simetrik olmayabiliyor. 
 
+Ornek veri seti olarak unlu \verb!dellstore2! tabanindaki satis miktarlari
+kullanirsak, 
+
+\begin{verbatim}
+In [1]: from pylab import *
+
+In [2]: import numpy as np
+
+In [3]: data = loadtxt("dell.csv")
+
+In [4]: np.mean(data)
+Out[4]: 213.94889916666668
+
+In [5]: np.median(data)
+Out[5]: 214.06
+
+In [6]: np.std(data)
+Out[6]: 125.1184819538924
+
+In [7]: np.mean(data)+2*np.std(data)
+Out[7]: 464.1858630744515
+
+In [8]: np.percentile(data, 95)
+Out[8]: 410.41150000000005
+\end{verbatim}
+
+Goruldugu gibi uc nokta hesabi icin ortalamadan iki sapma otesini
+kullanirsak, \verb!464.18!, fakat 95. yuzdeligi kullanirsak \verb!410.41!
+elde ediyoruz. Niye? Sebep ortalamanin kendisi hesaplanirken cok uc
+degerlerin toplama dahil edilmis olmasi ve bu durum, ortalamanin kendisini
+daha buyuk seviyeye dogru itiyor. Yuzdelik hesabi ise sadece sayilari
+siralayip belli bazi elemanlari otomatik olarak uc nokta olarak addediyor.
+
 Box Whisker Grafikleri
 
 Tek boyutlu bir verinin dagilimini gormek icin Box ve Whisker grafikleri
