@@ -1,9 +1,106 @@
 \documentclass[12pt,fleqn]{article}\usepackage{../common}
 \begin{document}
-%sf. 112
-%Janert 238 oku, 
-
 Ders 5
+
+Ortalama (Mean) ve Medyan (Median)
+
+Ozet Istatistikleri 
+
+Genellikle istatistik kitaplari hemen ortalama (mean), medyan (median) ve
+baglantili ozet istatistiklerinden (summary statistics) bahsederek ise
+girerler. Bu istatistikleri dikkatle kullanmak gerekir, cunku her turlu
+veri, her yerde gecerli degildirler. Mesela ortalama sadece tek merkezi bir
+tepesi olan (unimodal) dagilimlar icin gecerlidir. Eger bu temel varsayim
+gecerli degilse, ortalama kullanarak yapilan hesaplar bizi yanlis yollara
+goturur. Ayrica bir dagilimi simetrik olup olmadigi da ortalama ya da
+medyan kullanilip kullanilmamasi kararinda onemlidir. Eger simetrik, tek
+tepeli bir dagilim var ise, ortalama ve medyan birbirine yakin
+olacaktir. Fakat veri baska turde bir dagilim ise, o zaman bu iki olcut
+birbirinden cok farkli olabilir.
+
+Once ortalama ve standart sapmayi (standart deviation) gorelim.
+
+\[ m  = \frac{ 1}{n}\sum_i x_i \]
+
+Standart sapma veri noktalarin ``ortalamadan farkinin ortalamasini''
+verir. Tabii bazen noktalar ortalamanin altinda, bazen ustunde olacaktir,
+bizi bu negatiflik, pozitiflik ilgilendirmez, biz sadece farkla
+alakaliyiz. O yuzden her sapmanin karesini aliriz, bunlari toplayip nokta
+sayisina boleriz .
+
+\[ s^2 = \frac{ 1}{n} \sum_i (x_i - m)^2 \]
+
+Eger $m$ tanimini ustte yerine koyarsak, 
+
+\[ = \frac{ 1}{n} \sum_i x_i^2 + \frac{ 1}{n} \sum_i m^2 - \frac{ 2}{n} \sum_i x_im  \]
+
+\[ = \frac{ 1}{n} \sum_i x_i^2 + \frac{ m^2n}{n} - \frac{ 2mn}{n}m \]
+
+\[ = \frac{ 1}{n} \sum_i x_i^2 +  m^2 - 2m^2 \]
+
+\[ = \frac{ 1}{n} \sum_i x_i^2 - m^2 \]
+
+Bu olcuye varyans (variance) denir ve teorik olarak ortalamadan daha onemli
+oldugu soylenebilir. Fakat dagilimin yayilma olcusu olarak biz bu olcuyu
+oldugu gibi degil, onun karesini kullanacagiz (ki standart sapma buna
+deniyor aslinda). Niye? Cunku o zaman veri noktalarinin ve yayilma olcusunun
+birimleri birbiri ile ayni olacak. Eger veri setimiz bir alisveris
+sepetindeki malzemelerin lira cinsinden degerleri olsaydi, varyans bize
+sonucu ``karekok lira'' olarak verecekti ve bunun pek anlami olmayacakti. 
+
+Medyan ve Yuzdelikler (Percentile)
+
+Ustteki hesaplar sayilari toplayip, bolmek uzerinden yapildi. Medyan ve
+diger yuzdeliklerin hesabi (ki medyan 50. yuzdelige tekabul eder) icin
+eldeki tum degerleri ``siraya dizmemiz'' ve sonra 50. yuzdelik icin {\em
+  ortadakine} bakmamiz gerekiyor. Mesela eger ilk 5. yuzdeligi ariyorsak ve
+elimizde 80 tane deger var ise, bastan 4. sayiya / vektor hucresine /
+ogeye bakmamiz gerekiyor. Eger 100 eleman var ise, 5. sayiya bakmamiz
+gerekiyor, vs. 
+
+Bu siraya dizme islemi kritik. Kiyasla ortalama hesabi hangi sirada olursa
+olsun, sayilari birbirine topluyor ve sonra boluyor. Zaten ortalama ve
+sapmanin istatistikte daha cok kullanilmasinin tarihi sebebi de aslinda bu;
+bilgisayar oncesi cagda sayilari siralamak (sorting) zor bir isti. Bu
+sebele hangi sirada olursa olsun, toplayip, bolerek hesaplanabilecek
+ozetler daha makbuldu. Fakat artik siralama islemi kolay, ve veri setleri
+her zaman tek tepeli, simetrik olmayabiliyor. 
+
+Box Whisker Grafikleri
+
+Tek boyutlu bir verinin dagilimini gormek icin Box ve Whisker grafikleri
+faydali araclardir; medyan (median), dagilimin genisligini ve siradisi
+noktalari (outliers) acik sekilde gosterirler. Isim nereden geliyor? Box
+yani kutu, dagilimin agirliginin nerede oldugunu gosterir, medyanin
+sagindada ve solunda olmak uzere iki ceyregin arasindaki kisimdir, kutu
+olarak resmedilir. Whiskers kedilerin biyiklarina verilen isimdir, zaten
+grafikte birazcik biyik gibi duruyorlar. Bu uzantilar medyan noktasindan
+her iki yana kutunun iki kati kadar uzatilir sonra verideki "ondan az olan
+en buyuk" noktaya kadar geri cekilir. Tum bunlarin disinda kalan veri ise
+teker teker nokta olarak grafikte basilir. Bunlar siradisi (outlier)
+olduklari icin daha az olacaklari tahmin edilir.
+
+BW grafikleri iki veriyi dagilimsal olarak karsilastirmak icin
+birebirdir. Mesela Larsen and Marx adli arastirmacilar cok az veri iceren
+Quintus Curtius Snodgrass veri setinin degisik oldugunu ispatlamak icin bir
+suru hesap yapmislardir, bir suru matematiksel isleme girmislerdir, fakat
+basit bir BW grafigi iki setin farkliligini hemen gosterir.
+
+BW grafikleri iki veriyi dagilimsal olarak karsilastirmak icin
+birebirdir. Mesela Larsen and Marx adli arastirmacilar cok az veri iceren
+Quintus Curtius Snodgrass veri setinin degisik oldugunu ispatlamak icin bir
+suru hesap yapmislardir, bir suru matematiksel isleme girmislerdir, fakat
+basit bir BW grafigi iki setin farkliligini hemen gosterir.
+
+Python uzerinde basit bir BW grafigi 
+
+\lstinputlisting[language=Python]{box1.py}
+
+Bir diger ornek Glass veri seti uzerinde
+
+\lstinputlisting[language=Python]{box2.py}
+
+\includegraphics[height=8cm]{05_02.png}
 
 Guven Araligi (Confidence Intervals)
 
@@ -177,48 +274,11 @@ Bu teknik niye isliyor? $x$'in CDF'i $x_i < x$ sartina uyan $x_i$'lerin
 orani degil midir? Yani bir siralama soz konusu ve ustteki teknik te bu
 siralamayi biz elle yapmis olduk, ve bu siralamadan gereken bilgiyi aldik. 
 
-Ozet Istatistikleri 
-
-Genellikle istatistik kitaplari hemen ortalama (mean), medyan (median) ve
-baglantili ozet istatistiklerinden (summary statistics) bahsederek ise
-girerler. Bu istatistikleri dikkatle kullanmak gerekir, cunku her turlu
-veri, her yerde gecerli degildirler. Mesela ortalama sadece tek merkezi bir
-tepesi olan (unimodal) dagilimlar icin gecerlidir. Eger bu temel varsayim
-gecerli degilse, ortalama kullanarak yapilan hesaplar bizi yanlis yollara
-goturur. Bu uyaridan sonra ortalama ve standart sapmayi (standart
-deviation) gorelim. 
-
-\[ m  = \frac{ 1}{n}\sum_i x_i \]
-
-Standart sapma veri noktalarin ``ortalamadan farkinin ortalamasini''
-verir. Tabii bazen noktalar ortalamanin altinda, bazen ustunde olacaktir,
-bizi bu negatiflik, pozitiflik ilgilendirmez, biz sadece farkla
-alakaliyiz. O yuzden her sapmanin karesini aliriz, bunlari toplayip nokta
-sayisina boleriz .
-
-\[ s^2 = \frac{ 1}{n} \sum_i (x_i - m)^2 \]
-
-Eger $m$ tanimini ustte yerine koyarsak, 
-
-\[ = \frac{ 1}{n} \sum_i x_i^2 + \frac{ 1}{n} \sum_i m^2 - \frac{ 2}{n} \sum_i x_im  \]
-
-\[ = \frac{ 1}{n} \sum_i x_i^2 + \frac{ m^2n}{n} - \frac{ 2mn}{n}m \]
-
-\[ = \frac{ 1}{n} \sum_i x_i^2 +  m^2 - 2m^2 \]
-
-\[ = \frac{ 1}{n} \sum_i x_i^2 - m^2 \]
-
-Bu olcuye varyans (variance) denir ve teorik olarak ortalamadan daha onemli
-oldugu soylenebilir. Fakat dagilimin yayilma olcusu olarak biz bu olcuyu
-oldugu gibi degil, onun karesini kullanacagiz (ki standart sapma buna
-deniyor aslinda). Niye? Cunku o zaman veri noktalarinin ve yayilma olcusunun
-birimleri birbiri ile ayni olacak. Eger veri setimiz bir alisveris
-sepetindeki malzemelerin lira cinsinden degerleri olsaydi, varyans bize
-sonucu ``karekok lira'' olarak verecekti ve bunun pek anlami olmayacakti. 
-
 
 Kaynaklar
 
 [1] http://en.wikipedia.org/wiki/Confidence\_interval
+
+[2] Janert, P., Data Analysis with Open Source Tools
 
 \end{document}
