@@ -10,7 +10,7 @@ nex % number of examples
 T % the length / dimension of each observation
 
 O = 6; %alphabet size
-Q = 3; %hidden states
+Q = 4; %hidden states
 
 % "true" parameters
 prior0 = normalise(rand(Q,1));
