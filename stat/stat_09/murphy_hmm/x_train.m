@@ -3,11 +3,13 @@ file_in = arg_list{1};
 file_out = arg_list{2};
 
 data = load(file_in)';
-[nex,T] = size(data);
-T
-nex
 
-O = nex;
+[nex,T] = size(data);
+
+nex % number of examples
+T % the length / dimension of each observation
+
+O = 6; %alphabet size
 Q = 3; %hidden states
 
 % "true" parameters
@@ -28,7 +30,7 @@ obsmat1 = mk_stochastic(rand(Q,O));
 LL
 
 % use model to compute log likelihood
-%loglik = dhmm_logprob(data, prior2, transmat2, obsmat2)
+loglik = dhmm_logprob(data, prior2, transmat2, obsmat2)
 % log lik is slightly different than LL(end), since it is computed after the final M step
 
 disp(file_out);
