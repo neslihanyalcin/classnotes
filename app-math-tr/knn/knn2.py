@@ -11,10 +11,20 @@ def form_tree(points,node):
     print "center",center
     idx = np.argmax(dist(points,center))
     furthest = points[idx,:]
-    print furthest
+    print "c1", furthest
     idx = np.argmax(dist(points,furthest))
     furthest2 = points[idx,:]
-    print furthest2
+    print "c2", furthest2
+    dist1=dist(points,furthest)
+    dist2=dist(points,furthest2)
+    diffs = dist1-dist2
+    print "points",points
+    print diffs
+    p1 = points[diffs <= 0]
+    p2 = points[diffs > 0]
+    print "p1", p1
+    print "p2", p2
+    
 
 if __name__ == "__main__": 
     test = np.array([[3.,4.],[5.,5.],[9.,2.],[3.2,5.],[7.,5.],[8.,9.],[7.,6.],
