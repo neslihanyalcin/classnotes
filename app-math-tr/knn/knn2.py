@@ -1,3 +1,4 @@
+from matplotlib.patches import Circle
 import matplotlib.pyplot as plt
 import pprint
 import numpy as np
@@ -9,10 +10,19 @@ __rmin__ = 2
 # node: [pivot, radius, points, [child1,child2]]
 def new_node(): return  [None,None,None,[None,None]]
 
+def circle(x,rad):
+    c = Circle([x[0], x[1]], rad)
+    ax.add_patch(c)
+    plt.xlim(-10,20)
+    plt.ylim(-10,20)
+    plt.show()
+
 def form_tree(points,node):
     pivot = points[0]
     print "pivot",pivot
     radius = np.max(dist.dist(points,pivot))
+    print "radius",radius
+    circle(pivot,radius)
     node[0] = pivot
     node[1] = radius
     if len(points) <= __rmin__:
@@ -48,10 +58,13 @@ def search_tree(new_point, knn, node):
     print "node_min",node_min
        
 if __name__ == "__main__": 
-    test = np.array([[3.,4.],[5.,5.],[9.,2.],[3.2,5.],[7.,5.],
+    f = plt.figure()
+    ax = f.gca()
+    points = np.array([[3.,4.],[5.,5.],[9.,2.],[3.2,5.],[7.,5.],
                      [8.,9.],[7.,6.],[8,4],[6,2]])
+    ax.plot(points,'ko')
     tree = new_node()
-    form_tree(test,tree)
+    form_tree(points,tree)
     pp = pprint.PrettyPrinter(indent=4)
     print "\ntree"
     pp.pprint(tree)
