@@ -20,6 +20,7 @@ def plot_points(pts,color,ax):
     for x in pts: ax.plot(x[0],x[1],color)
     
 def form_tree(points,node,all_points):
+    global i
     print 'entering form tree ---'
     print "points",points
     pivot = points[0]
@@ -31,7 +32,9 @@ def form_tree(points,node,all_points):
     plot_points(all_points,'ko',ax)
     plot_points(points,'ro',ax)
     circle(pivot,radius,ax)
-    plt.show()
+    #plt.show()
+    plt.savefig('knn%s.png' % str(i))
+    i += 1
     node[0] = pivot
     node[1] = radius
     if len(points) <= __rmin__:
@@ -58,7 +61,8 @@ def form_tree(points,node,all_points):
     form_tree(p1,node[3][0],all_points)
     form_tree(p2,node[3][1],all_points)
        
-if __name__ == "__main__": 
+if __name__ == "__main__":
+    i = 0
     points = np.array([[3.,4.],[5.,5.],[9.,2.],[3.2,5.],[7.,5.],
                        [8.,9.],[7.,6.],[8,4],[6,2]])
     tree = new_node()
