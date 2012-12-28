@@ -10,19 +10,22 @@ __rmin__ = 2
 # node: [pivot, radius, points, [child1,child2]]
 def new_node(): return  [None,None,None,[None,None]]
 
-def circle(x,rad):
+def circle(x,rad,ax):
     c = Circle([x[0], x[1]], rad, color='lightgreen')
     ax.add_patch(c)
     plt.xlim(-10,20)
     plt.ylim(-10,20)
 
-def form_tree(points,node):
+def form_tree(points,node,all_points):
     pivot = points[0]
     print "pivot",pivot
     radius = np.max(dist.dist(points,pivot))
     print "radius",radius
-    ax.plot(points,'ko')
-    circle(pivot,radius)
+    f = plt.figure()
+    ax = f.gca()
+    ax.plot(points,'ro')
+    ax.plot(all_points,'ko')
+    circle(pivot,radius,ax)
     plt.show()
     node[0] = pivot
     node[1] = radius
@@ -47,26 +50,15 @@ def form_tree(points,node):
     print "points 2", p2
     node[3][0] = new_node() # left child
     node[3][1] = new_node() # right child
-    form_tree(p1,node[3][0])
-    form_tree(p2,node[3][1])
-
-# knn: [min_so_far, [points]]
-def search_tree(new_point, knn, node):
-    print "c",node[0]
-    print "r",node[1]
-    print "np", new_point    
-    node_min = dist.norm(node[0],new_point) - node[1]
-    print "node_min",node_min
+    form_tree(p1,node[3][0],all_points)
+    form_tree(p2,node[3][1],all_points)
        
 if __name__ == "__main__": 
-    f = plt.figure()
-    ax = f.gca()
     points = np.array([[3.,4.],[5.,5.],[9.,2.],[3.2,5.],[7.,5.],
                      [8.,9.],[7.,6.],[8,4],[6,2]])
     tree = new_node()
-    form_tree(points,tree)
+    form_tree(points,tree,points)
     pp = pprint.PrettyPrinter(indent=4)
     print "\ntree"
     pp.pprint(tree)
-    print search_tree(np.array([5.,5.]),[np.Inf, []], tree)
     

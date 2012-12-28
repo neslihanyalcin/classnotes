@@ -49,7 +49,11 @@ def form_tree(points,node):
 def search_tree(new_point, knn, node):
     print "c",node[0]
     print "r",node[1]
-    print "np", new_point    
+    print "np", new_point
+    # if the new pt is inside the circle, its potential minimum distance
+    # to a random point inside is zero. we can only say so much without
+    # looking at all points (and if we did, that would defeat the purpose
+    # of this algorithm)
     min_dist_new_pt_node = zero_if_neg(dist.norm(node[0],new_point) - node[1])
     print "min_dist_new_pt_node",min_dist_new_pt_node
     
