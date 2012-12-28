@@ -11,18 +11,19 @@ __rmin__ = 2
 def new_node(): return  [None,None,None,[None,None]]
 
 def circle(x,rad):
-    c = Circle([x[0], x[1]], rad)
+    c = Circle([x[0], x[1]], rad, color='lightgreen')
     ax.add_patch(c)
     plt.xlim(-10,20)
     plt.ylim(-10,20)
-    plt.show()
 
 def form_tree(points,node):
     pivot = points[0]
     print "pivot",pivot
     radius = np.max(dist.dist(points,pivot))
     print "radius",radius
+    ax.plot(points,'ko')
     circle(pivot,radius)
+    plt.show()
     node[0] = pivot
     node[1] = radius
     if len(points) <= __rmin__:
@@ -62,7 +63,6 @@ if __name__ == "__main__":
     ax = f.gca()
     points = np.array([[3.,4.],[5.,5.],[9.,2.],[3.2,5.],[7.,5.],
                      [8.,9.],[7.,6.],[8,4],[6,2]])
-    ax.plot(points,'ko')
     tree = new_node()
     form_tree(points,tree)
     pp = pprint.PrettyPrinter(indent=4)
