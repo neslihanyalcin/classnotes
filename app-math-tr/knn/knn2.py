@@ -16,15 +16,20 @@ def circle(x,rad,ax):
     plt.xlim(-10,20)
     plt.ylim(-10,20)
 
+def plot_points(pts,color,ax):
+    for x in pts: ax.plot(x[0],x[1],color)
+    
 def form_tree(points,node,all_points):
+    print 'entering form tree ---'
+    print "points",points
     pivot = points[0]
     print "pivot",pivot
     radius = np.max(dist.dist(points,pivot))
     print "radius",radius
     f = plt.figure()
     ax = f.gca()
-    ax.plot(points,'ro')
-    ax.plot(all_points,'ko')
+    plot_points(all_points,'ko',ax)
+    plot_points(points,'ro',ax)
     circle(pivot,radius,ax)
     plt.show()
     node[0] = pivot
@@ -55,7 +60,7 @@ def form_tree(points,node,all_points):
        
 if __name__ == "__main__": 
     points = np.array([[3.,4.],[5.,5.],[9.,2.],[3.2,5.],[7.,5.],
-                     [8.,9.],[7.,6.],[8,4],[6,2]])
+                       [8.,9.],[7.,6.],[8,4],[6,2]])
     tree = new_node()
     form_tree(points,tree,points)
     pp = pprint.PrettyPrinter(indent=4)
