@@ -39,13 +39,16 @@ def form_tree(points,node):
 
 # knn: [min_so_far, [points]]
 def search_tree(new_point, knn_matches, node, k):
-    print "c",node[0]
-    print "r",node[1]
+    pivot = node[0]
+    radius = node[1]
+    children = node[3]
+    print "c",pivot
+    print "r",radius
     print "np", new_point
 
     # calculate min distance between new point and pivot
     # it is direct distance minus the radius
-    min_dist_new_pt_node = dist.norm(node[0],new_point) - node[1]
+    min_dist_new_pt_node = dist.norm(pivot,new_point) - radius
     
     # if the new pt is inside the circle, its potential minimum
     # distance to a random point inside is zero (hence
@@ -53,36 +56,40 @@ def search_tree(new_point, knn_matches, node, k):
     # points (and if we did, that would defeat the purpose of this
     # algorithm)
     min_dist_new_pt_node = zero_if_neg(min_dist_new_pt_node)
-    max_dist_new_pt_node = dist.norm(node[0],new_point) + node[1]
 
+    knn_matches_out = []
+    
     # min is greater than so far
     if min_dist_new_pt_node >= knn_matches[0]:
         # nothing to do
         return knn_matches
-    elif node[3] == None: # if node is a leaf
+    elif children[0] == None and children[1] == None: # if node is a leaf
         knn_matches_out = knn_matches[:] # copy it
         for p in node[2]: # linear scan
-            if dist.norm(new_point-p) < node[1]:
+            if dist.norm(new_point,p) < radius:
                 knn_matches_out.append(p)
                 if len(knn_matches_out[1]) == k+1:
                     tmp = [dist.norm(new_point-x) for x in knn_matches_out[1]]
-                    knn_matches_out[1].remove(tmp.argmin())
+                    print "knn_matches_out[1]",knn_matches_out[1]
+                    del knn_matches_out[1][tmp.argmin()]
+                    print "knn_matches_out[1]",knn_matches_out[1]
                     knn_matches_out[0] = np.min(tmp)
 
     else:
-        dist_child_1 = dist.norm(node[3][0],new_point)
-        dist_child_2 = dist.norm(node[3][1],new_point)
+        dist_child_1 = dist.norm(children[0][0],new_point)
+        dist_child_2 = dist.norm(children[1][0],new_point)
         node1 = None; node2 = None
         if dist_child_1 < dist_child_2:
-            node1 = node[3][0]
-            node2 = node[3][1]
+            node1 = children[0]
+            node2 = children[1]
         else:
-            node1 = node[3][1]
-            node2 = node[3][0]
+            node1 = children[1]
+            node2 = children[0]
 
-        
+        knn_tmp = search_tree(new_point, knn_matches, node1, k)
+        knn_matches_out = search_tree(new_point, knn_tmp, node2, k)
             
-                    
+    return knn_matches_out
                    
 if __name__ == "__main__": 
     points = np.array([[3.,4.],[5.,5.],[9.,2.],[3.2,5.],[7.,5.],
@@ -92,5 +99,5 @@ if __name__ == "__main__":
     #pp = pprint.PrettyPrinter(indent=4)
     #print "\ntree"
     #pp.pprint(tree)
-    print search_tree(np.array([5.,5.]),[np.Inf, []], tree, k=4)
+    print "found", search_tree(np.array([5.,5.]),[np.Inf, []], tree, k=3)
     
