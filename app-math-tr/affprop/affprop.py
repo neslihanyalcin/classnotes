@@ -2,7 +2,6 @@ import numpy as np
 import scipy.linalg as lin
 import Levenshtein as leven
 import matplotlib.pyplot as plt
-from sklearn.cluster import KMeans
 from sklearn.cluster import AffinityPropagation
 import itertools
 

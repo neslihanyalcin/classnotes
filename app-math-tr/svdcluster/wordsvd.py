@@ -25,6 +25,7 @@ print "calculating distances..."
 (dim,) = words.shape
 
 f = lambda (x,y): leven.distance(x,y)
+
 res=np.fromiter(itertools.imap(f, itertools.product(words, words)),
                 dtype=np.uint8)
 A = np.reshape(res,(dim,dim))
@@ -38,7 +39,7 @@ print s.shape
 print s
 print v.shape
 
-data = u[:,0:10]
+data = u[:,0:8]
 k=KMeans(init='k-means++', k=25, n_init=10)
 k.fit(data)
 centroids = k.cluster_centers_

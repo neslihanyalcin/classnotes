@@ -13,8 +13,8 @@ def new_node(): return  [None,None,None,[None,None]]
 def circle(x,rad,ax):
     c = Circle([x[0], x[1]], rad, color='lightgreen')
     ax.add_patch(c)
-    plt.xlim(-10,20)
-    plt.ylim(-10,20)
+    plt.xlim(-5,15)
+    plt.ylim(-5,15)
 
 def plot_points(pts,color,ax):
     for x in pts: ax.plot(x[0],x[1],color)
