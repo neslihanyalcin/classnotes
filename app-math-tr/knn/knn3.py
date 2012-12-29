@@ -41,10 +41,12 @@ def form_tree(points,node):
 def search_tree(new_point, knn_matches, node, k):
     pivot = node[0]
     radius = node[1]
+    node_points = node[2]
     children = node[3]
     print "c",pivot
     print "r",radius
     print "np", new_point
+    print "beginning knn_matches", knn_matches
 
     # calculate min distance between new point and pivot
     # it is direct distance minus the radius
@@ -56,26 +58,38 @@ def search_tree(new_point, knn_matches, node, k):
     # points (and if we did, that would defeat the purpose of this
     # algorithm)
     min_dist_new_pt_node = zero_if_neg(min_dist_new_pt_node)
-
-    knn_matches_out = []
+    print "min_dist_new_pt_node",min_dist_new_pt_node
+    
+    knn_matches_out = None
     
     # min is greater than so far
     if min_dist_new_pt_node >= knn_matches[0]:
+        print 'min is greater than so far'
         # nothing to do
-        return knn_matches
-    elif children[0] == None and children[1] == None: # if node is a leaf
+    elif node_points != None: # if node is a leaf
+        print "node is a leaf"
+        print knn_matches_out
         knn_matches_out = knn_matches[:] # copy it
-        for p in node[2]: # linear scan
+        print '---',knn_matches_out
+        for p in node_points: # linear scan
+            print 'scan***', p, dist.norm(new_point,p), radius
             if dist.norm(new_point,p) < radius:
-                knn_matches_out.append(p)
+                print "before append",knn_matches_out[1]
+                print "type",type(knn_matches_out[1])
+                knn_matches_out[1].append([list(p)])
+                print "after append",knn_matches_out[1]
                 if len(knn_matches_out[1]) == k+1:
-                    tmp = [dist.norm(new_point-x) for x in knn_matches_out[1]]
-                    print "knn_matches_out[1]",knn_matches_out[1]
-                    del knn_matches_out[1][tmp.argmin()]
-                    print "knn_matches_out[1]",knn_matches_out[1]
+                    print 'if len(knn_matches_out[1]) == k+1'
+                    tmp = [dist.norm(new_point,x) for x in knn_matches_out[1]]
+                    print "tmp", tmp
+                    print "del knn_matches_out[1]",knn_matches_out[1]
+                    print "tmp.argmin()",np.argmin(tmp)
+                    del knn_matches_out[1][np.argmin(tmp)]
+                    print "del knn_matches_out[1]",knn_matches_out[1]
                     knn_matches_out[0] = np.min(tmp)
 
     else:
+        print "recurse further"
         dist_child_1 = dist.norm(children[0][0],new_point)
         dist_child_2 = dist.norm(children[1][0],new_point)
         node1 = None; node2 = None
@@ -99,5 +113,9 @@ if __name__ == "__main__":
     #pp = pprint.PrettyPrinter(indent=4)
     #print "\ntree"
     #pp.pprint(tree)
-    print "found", search_tree(np.array([5.,5.]),[np.Inf, []], tree, k=3)
+    newp = np.array([7.,7.])
+    dummyp = [100,100]
+    dummydist = dist.norm(dummyp, newp)
+    res = search_tree(newp,[dummydist, [dummyp]], tree, k=3)
+    print "done", res
     
