@@ -43,10 +43,6 @@ def search_tree(new_point, knn_matches, node, k):
     radius = node[1]
     node_points = node[2]
     children = node[3]
-    print "c",pivot
-    print "r",radius
-    print "np", new_point
-    print "beginning knn_matches", knn_matches
 
     # calculate min distance between new point and pivot
     # it is direct distance minus the radius
@@ -69,30 +65,17 @@ def search_tree(new_point, knn_matches, node, k):
         # nothing to do
         return knn_matches
     elif node_points != None: # if node is a leaf
-        print "node is a leaf"
         print knn_matches_out
         knn_matches_out = knn_matches[:] # copy it
-        print '---',knn_matches_out
         for p in node_points: # linear scan
-            print 'node points *scan*', p, dist.norm(new_point,p), radius
             if dist.norm(new_point,p) < radius:
-                print "before append",knn_matches_out[1]
-                print "type",type(knn_matches_out[1])
                 knn_matches_out[1].append([list(p)])
-                print "after append",knn_matches_out[1]
-                print "len(knn_matches_out[1])",len(knn_matches_out[1])
                 if len(knn_matches_out[1]) == k+1:
-                    print 'if len(knn_matches_out[1]) == k+1'
                     tmp = [dist.norm(new_point,x) for x in knn_matches_out[1]]
-                    print "tmp", tmp
-                    print "del knn_matches_out[1]",knn_matches_out[1]
-                    print "tmp.argmax()",np.argmax(tmp)
                     del knn_matches_out[1][np.argmax(tmp)]
-                    print "del knn_matches_out[1]",knn_matches_out[1]
                     knn_matches_out[0] = np.min(tmp)
 
     else:
-        print "recurse further"
         dist_child_1 = dist.norm(children[0][0],new_point)
         dist_child_2 = dist.norm(children[1][0],new_point)
         node1 = None; node2 = None
@@ -113,9 +96,9 @@ if __name__ == "__main__":
                      [8.,9.],[7.,6.],[8,4],[6,2]])
     tree = new_node()
     form_tree(points,tree)
-    #pp = pprint.PrettyPrinter(indent=4)
-    #print "\ntree"
-    #pp.pprint(tree)
+    pp = pprint.PrettyPrinter(indent=4)
+    print "\ntree"
+    pp.pprint(tree)
     newp = np.array([7.,7.])
     dummyp = [100,100]
     dummydist = dist.norm(dummyp, newp)
