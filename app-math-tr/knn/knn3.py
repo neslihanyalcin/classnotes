@@ -59,6 +59,7 @@ def search_tree(new_point, knn_matches, node, k):
     # algorithm)
     min_dist_new_pt_node = zero_if_neg(min_dist_new_pt_node)
     print "min_dist_new_pt_node",min_dist_new_pt_node
+    print "knn_matches[0]", knn_matches[0]
     
     knn_matches_out = None
     
@@ -66,25 +67,27 @@ def search_tree(new_point, knn_matches, node, k):
     if min_dist_new_pt_node >= knn_matches[0]:
         print 'min is greater than so far'
         # nothing to do
+        return knn_matches
     elif node_points != None: # if node is a leaf
         print "node is a leaf"
         print knn_matches_out
         knn_matches_out = knn_matches[:] # copy it
         print '---',knn_matches_out
         for p in node_points: # linear scan
-            print 'scan***', p, dist.norm(new_point,p), radius
+            print 'node points *scan*', p, dist.norm(new_point,p), radius
             if dist.norm(new_point,p) < radius:
                 print "before append",knn_matches_out[1]
                 print "type",type(knn_matches_out[1])
                 knn_matches_out[1].append([list(p)])
                 print "after append",knn_matches_out[1]
+                print "len(knn_matches_out[1])",len(knn_matches_out[1])
                 if len(knn_matches_out[1]) == k+1:
                     print 'if len(knn_matches_out[1]) == k+1'
                     tmp = [dist.norm(new_point,x) for x in knn_matches_out[1]]
                     print "tmp", tmp
                     print "del knn_matches_out[1]",knn_matches_out[1]
-                    print "tmp.argmin()",np.argmin(tmp)
-                    del knn_matches_out[1][np.argmin(tmp)]
+                    print "tmp.argmax()",np.argmax(tmp)
+                    del knn_matches_out[1][np.argmax(tmp)]
                     print "del knn_matches_out[1]",knn_matches_out[1]
                     knn_matches_out[0] = np.min(tmp)
 
@@ -116,6 +119,6 @@ if __name__ == "__main__":
     newp = np.array([7.,7.])
     dummyp = [100,100]
     dummydist = dist.norm(dummyp, newp)
-    res = search_tree(newp,[dummydist, [dummyp]], tree, k=3)
+    res = search_tree(newp,[dummydist, [dummyp]], tree, k=2)
     print "done", res
     
