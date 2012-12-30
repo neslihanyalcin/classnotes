@@ -8,7 +8,21 @@ yeni bir model ortaya cikartmaz. Algoritma soyle isler: etiketleri bilinen
 egitim verisi alinir ve bir kenarda tutulur. Yeni bir veri noktasi
 gorulunce bu veriye geri donulur ve o noktaya ``en yakin'' k tane nokta
 bulunur. Daha sonra bu noktalarin etiketlerine bakilir ve cogunlugun
-etiketi ne ise, o etiket yeni noktanin etiketi olarak kabul edilir.
+etiketi ne ise, o etiket yeni noktanin etiketi olarak kabul edilir. Mesela
+elde \verb!1! kategorisi altinda \verb![2 2]!, \verb!2! kategorisi altinda
+\verb![5 5]! var ise, yeni nokta \verb![3, 3]! icin yakinlik acisindan
+\verb![2 2]! bulunmali ve etiket olarak \verb!1! sonucu dondurulmelidir.
+
+Ustte tarif edilen basit bir ihtiyac, yontem gibi gorulebilir. Fakat yapay
+ogrenim ve yapay zeka cok boyutlarda oruntu tanima (pattern recognition)
+ile ugrasir, ve milyonlarca satirlik veri, onlarca boyut (ustteki ornekte
+2, fakat cogunlukla cok daha fazla boyut vardir) isler hakikaten
+zorlasabilir. Mesela goruntu tanimada veri \verb!M x N! boyutundaki dijital
+imajlar (genellikle duzlestirilince $M \cdot N$ boyutunda) egitim verisi,
+resimlerin kime ait oldugu etiket bilgisi olabilir. kNN bu tur multimedya,
+ve pek cok degisik cok boyutlu ortamda basarili sekilde
+calisabilmektedir. En yakin k komsunun icerigi bilgi cikarim (knowledge
+extraction) amaciyla da kullanilabilir [2].
 
 ``En yakin'' sozu bir kordinat sistemi anlamina geliyor, ve kNN, aynen
 k-Means ve diger pek cok kordinatsal ogrenme yontemi gibi eldeki cok
@@ -19,10 +33,10 @@ gibi calisabilirdi.
 Peki arama baglaminda, bir veri obegi icinden en yakin noktalari bulmanin
 en basit yolu nedir? Listeyi bastan sonra taramak (kaba kuvvet yontemi
 -brute force-) ve her listedeki nokta ile yeni nokta arasindaki mesafeyi
-teker teker hesaplayip en yakin k taneyi icinden secmek bir yontem. Bu
-basit algoritmanin yuku $O(N)$'dir. Eger tek bir nokta ariyor olsaydik,
-bu kabul edilebilir olabilirdi. Fakat genellikle bir siniflayici
-algoritmanin surekli islemesi, mesela bir online site icin gunde
+teker teker hesaplayip en yakin k taneyi icinden secmek bir yontemdir.. Bu
+basit algoritmanin yuku $O(N)$'dir. Eger tek bir nokta ariyor olsaydik, bu
+kabul edilebilir olabilirdi. Fakat genellikle bir siniflayici (classifier)
+algoritmasinin surekli islemesi, mesela bir online site icin gunde
 milyonlarca kez bazi kararlari almasi gerekebilir. Bu durumda ve $N$'in cok
 buyuk oldugu sartlarda, ustteki hiz bile yeterli olmayabilir.
 
@@ -252,6 +266,20 @@ olcutunun norm kurallarini uydugunu bildigim icin kNN yapisinin geri
 kalanini oldugu gibi kullanabilirim, cunku o yapinin gecerliligini normlar
 uzerinde gecerli ucgensel esitsizlik uzerinde ispat ettim. 
 
+Model
+
+kNN'in model kullanmayan, model yerine verinin kendisini kullanan bir
+algoritma olarak tanittik. Peki ``egitim'' evresi sonrasi ele gecen kureler
+ve agac yapisi bir nevi model olarak gorulebilir mi? 
+
+Bu onemli bir soru, ve bir bakima, evet agac yapisi sanki bir modelmis gibi
+duruyor. Fakat, mesela istatistiksel, grafiksel, yapay sinir aglari (neural
+net) baglaminda bakilirsa bu yapiya tam bir model denemez. Model bazli
+metotlarda model kurulunca veri atilir, ona bir daha bakilmaz. Fakat kNN,
+kure ve agac yapisini hala eldeki veriye erismek icin kullanmaktadir. Yani
+bir bakima veriyi ``indeksliyoruz'', ona erisimi kolaylastirip
+hizlandiriyoruz, ama ondan model cikartmiyoruz. 
+
 Agaci olusumu sirasinda kurelerin grafigi alttadir. 
 
 \includegraphics[height=7cm]{pics/knn0.png}
@@ -278,5 +306,7 @@ Kaynaklar
 
 [1] Liu, Moore, Gray, {\em New Algorithms for Efficient High Dimensional
 Non-parametric Classification}
+
+[2] Alpaydin, {\em Introduction to Machine Learning}
 
 \end{document}
