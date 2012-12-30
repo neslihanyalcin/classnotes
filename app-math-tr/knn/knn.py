@@ -94,8 +94,7 @@ if __name__ == "__main__":
     print "tree"
     pp.pprint(tree)
     newp = np.array([7.,7.])
-    dummyp = [100,100] # it should be removed immediately
-    dummydist = dist.norm(dummyp, newp)
-    res = search_tree(newp,[dummydist, [dummyp]], tree, k=2)
+    dummyp = [np.Inf,np.Inf] # it should be removed immediately
+    res = search_tree(newp,[np.Inf, [dummyp]], tree, k=2)
     print "done", res
     

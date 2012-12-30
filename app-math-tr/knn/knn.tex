@@ -30,16 +30,16 @@ Arama islemini daha hizli yapmanin yollari var. Akilli arama algoritmalari
 kullanarak egitim verilerini bir agac yapisi uzerinden tarayip erisim
 hizini $O(\log N)$'e indirmek mumkundur.
 
-Küre Agaçlarý (Ball Tree -BT-) 
+Küre Agaçlarý (Ball Tree, BT) 
 
 Bir noktanin diger noktalara yakin olup olmadiginin hesabinda yapilmasi
 gereken en pahali islem nedir? Mesafe hesabidir. BT algoritmasinin puf
 noktasi bu hesabi yapmadan, noktalara degil, noktalari kapsayan
 ``kurelere'' bakarak hiz kazandirmasidir. Noktalarin her biri yerine o
-noktalari temsil eden kurenin mihenk noktasina (pivot -bu nokta merkez de
-olabilir, herhangi bir baska nokta da-) bakilir, ve oraya olan mesafeye
-gore bir kure altindaki noktalara olabilecek en az ve en fazla uzaklik
-hemen anlasilmis olur.
+noktalari temsil eden kurenin mihenk noktasina (pivot -bu nokta kure
+icindeki noktalarin ortalamasal olarak merkezi de olabilir, herhangi bir
+baska nokta da-) bakilir, ve oraya olan mesafeye gore bir kure altindaki
+noktalara olabilecek en az ve en fazla uzaklik hemen anlasilmis olur.
 
 Mesela elimizde alttaki gibi noktalar var ve kureyi olusturduk. 
 
@@ -51,7 +51,7 @@ ucgensel esitsizlik ile anlayabiliriz.
 
 Ucgensel esitsizlik 
 
-\[ |x,y| \le |x,z| + |z,y| \]
+\[ |x-y| \le |x-z| + |z-y| \]
 
 $||$ operatoru norm operatoru anlamina gelir ve uzaklik hesabinin
 genellestirilmis halidir. Konu hakkinda daha fazla detay icin {\em
@@ -73,14 +73,17 @@ sekilden bir ucgensel esitsizlik cikartabiliriz,
 \[ |x-c| + |x-q| \ge |q-c|  \]
 
 Bunun dogru bir ifade oldugunu biliyoruz. Peki simdi yaricapi bu ise dahil
-edelim, cunku bu hesap bir kere yapilip kure seviyesinde depolanacak ve bir
-daha hesaplanmasi gerekmeyecek, algoritmayi hizlandiracak bir sey olabilir
-bu. Eger $|x-c|$ yerine yaricapi kullanirsak, esitsizlik hala gecerli olur,
+edelim, cunku yaricap hesabi bir kere yapilip kure seviyesinde depolanacak
+ve bir daha hesaplanmasi gerekmeyecek, yani algoritmayi hizlandiracak bir
+sey olabilir bu, o zaman eger $|x-c|$ yerine yaricapi kullanirsak,
+esitsizlik hala gecerli olur, sol taraf zaten buyuktu, simdi daha da buyuk
+olacak, 
 
 \[ radius + |x-q| \ge |q-c|  \]
 
-cunku radius $|x-c|$'ten kesinlikle daha buyuktur (Kure Agaclari yaricapi
-aynen boyle olmasi icin ayarlayacak). Yaricapi saga gecirelim,
+Bunu nasil boyle kesin bilebiliyoruz? Cunku BT algoritmasi radius'u
+$|x-c|$'ten kesinlikle daha buyuk olacak sekilde secer). Simdi yaricapi
+saga gecirelim,
 
 \[ |x-q| \ge |q-c| - radius \]
 
@@ -89,12 +92,10 @@ nokta $x$'e olan uzakligi, yeni noktanin mihenke olan uzakliginin yaricapi
 cikartilmis halinden {\em muhakkak} fazladir. Yani bu cikartma isleminden
 ele gecen rakam yeni noktanin $x$'e uzakligina bir ``alt sinir (lower
 bound)'' olarak kabul edilebilir. Diger tum mesafeler bu rakamdan daha
-buyuk olacaktir. 
-
-Boylece ne elde ettik? Sadece bir yeni nokta, mihenk ve yaricap kullanarak
-kuredeki ``diger tum noktalar hakkinda'' bir irdeleme yapmamiz mumkun
-olacak. Bu noktalara teker teker bakmamiz gerekmeyecek. Bunun nasil ise
-yaradigini algoritma detaylarinda gorecegiz. 
+buyuk olacaktir. Ne elde ettik? Sadece bir yeni nokta, mihenk ve yaricap
+kullanarak kuredeki ``diger tum noktalar hakkinda'' bir irdeleme yapmamiz
+mumkun olacak. Bu noktalara teker teker bakmamiz gerekmeyecek. Bunun nasil
+ise yaradigini algoritma detaylarinda gorecegiz.
 
 Benzer sekilde 
 
@@ -109,48 +110,131 @@ buyukluk olarak kalir,
 
 \[ |q-c| + radius \ge |q-x| \]
 
-ama yine daha genel ve hizli hesaplanan bir kural elde ederiz (onceki
-ifadeye benzemesi icin yer degisikligi yapalim
+Ve yine daha genel ve hizli hesaplanan bir kural elde ettik (onceki
+ifadeye benzemesi icin yer duzenlemesi yapalim)
 
 \[ |q-x| \le |q-c| + radius \]
 
 Bu ifade ne diyor? Yeni noktanin mihenke olan uzakligina yaricap
-``eklenirse'' bu uzakliktan, buyuklukten daha buyuk bir yeni nokta - kure
+``eklenirse'' bu uzakliktan, buyuklukten daha buyuk bir yeni nokta / kure
  mesafesi olamaz, kuredeki hangi nokta olursa olsun. Bu esitsizlik te bize
  bir ust sinir (upper bound) vermis oldu. 
 
 Algoritma
 
-\includegraphics[height=7cm]{alg.png}
-
-Kure Agaclari (BT) metotu once kureleri olusturmalidir. Bu kureler
-hiyerarsik sekilde planlanir, tum noktalarin icinde oldugu bir ``en ust
-kure'' vardir her kurenin iki tane cocuk kuresi olabilir. Belli bir
+Kure Agaclari (BT) metotu once kureleri, agaclari olusturmalidir. Bu
+kureler hiyerarsik sekilde planlanir, tum noktalarin icinde oldugu bir ``en
+ust kure'' vardir her kurenin iki tane cocuk kuresi olabilir. Belli bir
 (disaridan tanimlanan) minimum $r_{min}$ veri noktasina gelinceye kadar
-sadece noktalari kapsayan kureler olusturulur, kureler noktalari
-sahiplenmezler. Fakat bu $r_{min}$ sayisina erisince (artik oldukca
-alttaki) kurelerin uzerinde noktalar konur. 
+sadece noktalari geometrik olarak kapsamakla goreli kureler olusturulur,
+kureler noktalari sahiplenmezler. Fakat bu $r_{min}$ sayisina erisince
+(artik oldukca alttaki) kurelerin uzerine noktalar konacaktir.
 
-Once tek kurenin tanimina bakalim: bir kure tanimi icin eldeki veri icinden
-herhangi bir tanesi mihenk olarak kabul edilebilir. Daha sonra bu mihenkten
-diger tum noktalara olan uzaklik olculur, ve en fazla, en buyuk olan
-uzaklik yaricap olarak kabul edilir (her seyi kapsayabilmesi icin). ``Tum
-diger noktalara bakilmasi'' dedik, bundan kacinmaya calismiyor muyduk?
-Fakat dikkat, ``kure olusturulmasi'' evresindeyiz, k tane yakin nokta arama
-evresinde degiliz. Yapmaya calistigimiz aramalari hizlandirmak - egitim /
-kure olusturmasi bir kez yapilacak ve bu egitilmis kureler bir kenarda
-tutulacak ve surekli aramalar icin ardi ardina kullanilacaklar. 
+Once tek kurenin olusturulusuna bakalim. Bir kure olusumu icin eldeki veri
+icinden herhangi bir tanesi mihenk olarak kabul edilebilir. Daha sonra bu
+mihenkten diger tum noktalara olan uzaklik olculur, ve en fazla, en buyuk
+olan uzaklik yaricap olarak kabul edilir (her seyi kapsayabilmesi icin).
 
+Not: Bu arada ``tum diger noktalara bakilmasi'' dedik, bundan kacinmaya
+calismiyor muyduk?  Fakat dikkat, ``kure olusturulmasi'' evresindeyiz, k
+tane yakin nokta arama evresinde degiliz. Yapmaya calistigimiz aramalari
+hizlandirmak - egitim / kure olusturmasi bir kez yapilacak ve bu egitilmis
+kureler bir kenarda tutulacak ve surekli aramalar icin ardi ardina
+kullanilacaklar.
+
+Kureyi olusturmanin algoritmasi soyledir: verilen noktalar icinde herhangi
+birisi mihenk olarak secilir. Sonra bu noktadan en uzakta olan nokta $f_1$,
+sonra $f_1$'den en uzakta olan nokta $f_2$ secilir. Sonra tum noktalara
+teker teker bakilir ve $f_1$'e yakin olanlar bir gruba, $f_2$'ye yakin
+olanlar bir gruba ayrilir. 
+
+\lstinputlisting[language=Python]{knn.py}
 
 \lstinputlisting[language=Python]{dist.py}
 
-\lstinputlisting[language=Python]{knn.py}
+\includegraphics[height=7cm]{alg.png}
+
+Bu iki grup, o anda islemekte oldugumuz agac dugumun (node) iki cocuklari
+olacaktir. Cocuk noktalari kararlastirildiktan sonra artik sonraki asamaya
+gecilir, fonksiyon \verb!form_tree! bu cocuk noktalari alarak, ayri ayri,
+her cocuk grubu icin ozyineli (recursive) olarak kendi kendini
+cagirir. Kendi kendini cagiran \verb!form_tree!, tekrar basladiginda
+kendini yeni (bir) nokta grubu ve yeni bir dugum objesi ile basbasa bulur,
+ve hicbir seyden habersiz olarak isleme koyulur. Tabii her ozyineli cagri
+yeni dugum objesini yaratirken bir referansi ustteki ebeveyn dugume koymayi
+unutmamistir, boylece ozyineli fonksiyon dunyadan habersiz olsa bile,
+agacin en ustunden en altina kesintisiz bir baglanti zinciri hep elimizde
+olur.
+
+Not: \verb!form_tree! icinde bir numara yaptik, tum noktalarin $f_1$'e olan
+uzakligi \verb!dist1!, $f_2$'e olan uzakligi ise \verb!dist2!. Sonra
+\verb!diffs = dist1-dist2! ile bu iki uzakligi birbirinden cikartiyoruz ve
+mesela \verb!points[diffs <= 0]! ile $f_1$'e yakin olanlari buluyoruz,
+cunku bir tarafta $f_1$'e yakinlik 4 diger tarafta $f_2$'ye yakinlik 6 ise,
+4-6=-2 ie o nokta $f_1$'e yakin demektir. Ufak bir numara ile Numpy
+dilimleme (slicing) teknigini kullanabilmis olduk ve bu onemli cunku
+boylece \verb!for! dongusu yazmiyoruz, Numpy'in arka planda C ile yazilmis
+hizli rutinlerini kullaniyoruz.
+
+Arama 
+
+Ustteki imaj icinde $BallKNN$ olarak gosterilen ve bizim kodda
+\verb!search_tree! olarak anilan fonksiyon arama fonksiyonu. Aranan
+\verb!new_point!'e olan k en yakin diger veri noktalar. Disaridan verilen
+degisken \verb!knn_matches! uzerinde fonksiyon ozyineli bir sekilde arama
+yaparken ``o ana kadar bulunmus en yakin k nokta'' ve o noktalarin
+\verb!new_point!'e olan en yakin mesafesi saklanir, arama isleyisi
+sirasinda \verb!knn_matches!, \verb!knn_matches_out! surekli verilip geri
+dondurulen degiskenlerdir, Ingilizce koddaki $P^{in},P^{out}$'un
+karsiligidirlar.
+
+Arama algoritmasi soyle isler: simdi onceden olusturulmus kure
+hiyerarisisini ustten alta dogru gezmeye baslariz. Her basamakta yeni nokta
+ile o kurenin mihenkini, yaricapini kullanarak bir ``alt sinir mesafe
+hesabi'' yapariz, bu mesafe hesabinin arkasinda yatan dusunceyi yazinin
+basinda anlatmistik. Bu mesafe kure icindeki tum noktalara olan bir en az
+mesafe idi, ve eger eldeki \verb!knn_matches! uzerindeki simdiye kadar
+bulunmus mesafelerin en azindan daha az ise, o zaman bu kure ``bakmaya
+deger'' bir kuredir, ve arama algoritmasi bu kureden isleme devam
+eder. Simdiye kadar bulunmus mesafelerin en azi \verb!knn_matches! veri
+yapisi icine \verb!min_so_far! olarak saklaniyor, Ingilizce kodda
+$D_{sofar}$. 
+
+Bu irdeleme sonrasi (yani vs kuresinden yola devam karari arkasindan)
+isleme iki sekilde devam edilebilir, cunku bir kure iki turden olabilir; ya
+nihai en alt kurelerden biridir ve uzerinde gercek noktalar depolanmistir,
+ya da ara kurelerden biridir (sona gelmedik ama dogru yoldayiz, daha alta
+inmeye devam), o zaman fonksiyon yine ozyineli bir sekilde bu kurenin
+cocuklarina bakacaktir - her cocuk icin kendi kendini cagiracaktir. Ikinci
+durumda, kurede noktalar depolanmistir, artik basit lineer bir sekilde o
+tum noktalara teker teker bakilir, eldekilerden daha yakin olani alinir,
+eldeki liste sismeye baslamissa (k'den daha fazla ise) en buyuk noktalardan
+biri atilir, vs.
+
+Daha alta inmemiz gereken birinci durumda yapilan iki cagrinin bir
+ozelligine dikkat cekmek isterim. Yeni noktanin bu cocuklara olan uzakligi
+da olculuyor, ve en once, en yakin olan cocuga dogru bir ozyineleme
+yapiliyor.  Bu nokta cok onemli: niye boyle yapildi? Cunku icinde
+muhtemelen daha yakin noktalarin olabilecegi kurelere dogru gidersek,
+ozyineli cagrilarin teker teker bitip yukari dogru cikmaya baslamasi ve
+kaldiklari yerden bu sefer ikinci cocuk cagrilarini yapmaya baslamasi
+ardindan, elimizdeki \verb!knn_matches! uzerinde en yakin noktalari buyuk
+bir ihtimalle zaten bulmus olacagiz. Bu durumda ikinci cagri yapilsa bile
+tek bir alt sinir hesabi o kurede dikkate deger hicbir nokta olamayacagini
+ortaya cikaracak (cunku en iyiler zaten elimizde), ve ikinci cocuga olan
+cagrilar hic alta inmeden pat diye geri donecektir, hic asagi
+inilmeyecektir.
+
+Bu muthis bir kazanimdir: zaten bu stratejiye liteturde ``budamak
+(pruning)'' adi veriliyor, bu da cok uygun bir kelime aslinda, cunku
+agaclarla ugrasiyoruz ve bir dugum (kure) ve onun altindaki hicbir alt
+kureye ugramaktan kurtularak o dallarin tamamini bir nevi ``budamis''
+oluyoruz. Bir suru gereksiz islemden de kurtuluyoruz bu arada, ve aramayi
+hizlandiriyoruz.
 
 Kaynaklar
 
 [1] Liu, Moore, Gray, {\em New Algorithms for Efficient High Dimensional
 Non-parametric Classification}
-
-
 
 \end{document}
