@@ -1,3 +1,6 @@
+#
+# k-nearest neighbor Ball Tree algorithm in Python
+#
 import pprint
 import numpy as np
 import dist
