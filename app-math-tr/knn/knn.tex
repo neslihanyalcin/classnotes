@@ -18,11 +18,11 @@ ogrenim ve yapay zeka cok boyutlarda oruntu tanima (pattern recognition)
 ile ugrasir, ve milyonlarca satirlik veri, onlarca boyut (ustteki ornekte
 2, fakat cogunlukla cok daha fazla boyut vardir) isler hakikaten
 zorlasabilir. Mesela goruntu tanimada veri \verb!M x N! boyutundaki dijital
-imajlar (genellikle duzlestirilince $M \cdot N$ boyutunda) egitim verisi,
+imajlar (duzlestirilince $M \cdot N$ boyutunda), ve onlarin icindeki
 resimlerin kime ait oldugu etiket bilgisi olabilir. kNN bu tur multimedya,
-ve pek cok degisik cok boyutlu ortamda basarili sekilde
-calisabilmektedir. En yakin k komsunun icerigi bilgi cikarim (knowledge
-extraction) amaciyla da kullanilabilir [2].
+cok boyutlu veri ortaminda basarili sekilde calisabilmektedir. Ayrica en
+yakin k komsunun icerigi tarifsel bilgi cikarimi (knowledge extraction)
+amaciyla da kullanilabilir [2].
 
 ``En yakin'' sozu bir kordinat sistemi anlamina geliyor, ve kNN, aynen
 k-Means ve diger pek cok kordinatsal ogrenme yontemi gibi eldeki cok
@@ -32,13 +32,13 @@ gibi calisabilirdi.
 
 Peki arama baglaminda, bir veri obegi icinden en yakin noktalari bulmanin
 en basit yolu nedir? Listeyi bastan sonra taramak (kaba kuvvet yontemi
--brute force-) ve her listedeki nokta ile yeni nokta arasindaki mesafeyi
-teker teker hesaplayip en yakin k taneyi icinden secmek bir yontemdir.. Bu
-basit algoritmanin yuku $O(N)$'dir. Eger tek bir nokta ariyor olsaydik, bu
+-brute force-) listedeki her nokta ile yeni nokta arasindaki mesafeyi teker
+teker hesaplayip en yakin k taneyi icinden secerdi, bu bir yontemdir.. Bu
+basit algoritmanin yuku $O(N)$'dir. Eger tek bir nokta ariyor olsaydik,
 kabul edilebilir olabilirdi. Fakat genellikle bir siniflayici (classifier)
 algoritmasinin surekli islemesi, mesela bir online site icin gunde
 milyonlarca kez bazi kararlari almasi gerekebilir. Bu durumda ve $N$'in cok
-buyuk oldugu sartlarda, ustteki hiz bile yeterli olmayabilir.
+buyuk oldugu sartlarda, ustteki hiz bile yeterli olmayacaktir.
 
 Arama islemini daha hizli yapmanin yollari var. Akilli arama algoritmalari
 kullanarak egitim verilerini bir agac yapisi uzerinden tarayip erisim
@@ -54,6 +54,11 @@ noktalari temsil eden kurenin mihenk noktasina (pivot -bu nokta kure
 icindeki noktalarin ortalamasal olarak merkezi de olabilir, herhangi bir
 baska nokta da-) bakilir, ve oraya olan mesafeye gore bir kure altindaki
 noktalara olabilecek en az ve en fazla uzaklik hemen anlasilmis olur.
+
+Not: Kure kavrami uc boyutta anlamli tabii ki, iki boyutta bir cemberden
+bahsetmek lazim, daha yuksek boyutlarda ise merkezi ve capi olan bir
+``hiper yuzeyden'' bahsetmek lazim. Tarifi kolaylastirdigi icin cember ve
+kure tanimlarini kullaniyoruz.
 
 Mesela elimizde alttaki gibi noktalar var ve kureyi olusturduk. 
 
@@ -195,14 +200,14 @@ Ek bazi bilgiler: kurelerin sinirlari kesisebilir.
 
 Arama 
 
-Ustteki imaj icinde $BallKNN$ olarak gosterilen ve bizim kodda
+Ustte sozde program (pseudocode) $BallKNN$ olarak gosterilen ve bizim kodda
 \verb!search_tree! olarak anilan fonksiyon arama fonksiyonu. Aranan
 \verb!new_point!'e olan k en yakin diger veri noktalar. Disaridan verilen
 degisken \verb!knn_matches! uzerinde fonksiyon ozyineli bir sekilde arama
 yaparken ``o ana kadar bulunmus en yakin k nokta'' ve o noktalarin
 \verb!new_point!'e olan en yakin mesafesi saklanir, arama isleyisi
 sirasinda \verb!knn_matches!, \verb!knn_matches_out! surekli verilip geri
-dondurulen degiskenlerdir, Ingilizce koddaki $P^{in},P^{out}$'un
+dondurulen degiskenlerdir, sozde programdaki $P^{in},P^{out}$'un
 karsiligidirlar.
 
 Arama algoritmasi soyle isler: simdi onceden olusturulmus kure
@@ -214,8 +219,8 @@ mesafe idi, ve eger eldeki \verb!knn_matches! uzerindeki simdiye kadar
 bulunmus mesafelerin en azindan daha az ise, o zaman bu kure ``bakmaya
 deger'' bir kuredir, ve arama algoritmasi bu kureden isleme devam
 eder. Simdiye kadar bulunmus mesafelerin en azi \verb!knn_matches! veri
-yapisi icine \verb!min_so_far! olarak saklaniyor, Ingilizce kodda
-$D_{sofar}$. 
+yapisi icine \verb!min_so_far! olarak saklaniyor, sozde programdaki
+$D_{sofar}$.
 
 Bu irdeleme sonrasi (yani vs kuresinden yola devam karari arkasindan)
 isleme iki sekilde devam edilebilir, cunku bir kure iki turden olabilir; ya
@@ -280,6 +285,13 @@ kure ve agac yapisini hala eldeki veriye erismek icin kullanmaktadir. Yani
 bir bakima veriyi ``indeksliyoruz'', ona erisimi kolaylastirip
 hizlandiriyoruz, ama ondan model cikartmiyoruz. 
 
+Not: Verilen Python kodu ve algoritma yakin noktalari hesapliyor sadece,
+onlarin etiketlerinden hareketle yeni noktanin etiketini tahmin etme
+asamasini gerceklestirmiyor. Fakat bu son asama isin en basit tarafi,
+egitim veri yapisina eklenecek bir etiket bilgisi ve siniflama sonrasi k
+noktanin agirlikli etiketinin hesabi ile basit sekilde
+gerceklestirilebilir.
+
 Agaci olusumu sirasinda kurelerin grafigi alttadir. 
 
 \includegraphics[height=7cm]{pics/knn0.png}
@@ -307,6 +319,6 @@ Kaynaklar
 [1] Liu, Moore, Gray, {\em New Algorithms for Efficient High Dimensional
 Non-parametric Classification}
 
-[2] Alpaydin, {\em Introduction to Machine Learning}
+[2] Alpaydýn, {\em Introduction to Machine Learning}
 
 \end{document}
