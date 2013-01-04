@@ -1,0 +1,322 @@
+\documentclass[12pt,fleqn]{article}\usepackage{../common}
+\begin{document}
+Ders 8
+
+Karisimlar ve Idare Edilmeyen Kumeleme (Unsupervised Clustering)
+
+Gaussian (normal) dagilimi tek tepesi olan (unimodal) bir dagilimdir. Bu
+demektir ki eger birden fazla tepe noktasi olan bir veriyi modellemek
+istiyorsak, degisik yaklasimlar kullanmamiz gerekecektir. 
+
+Birden fazla Gaussian'i ``karistirmak (mixing)'' bu tur bir yaklasim
+olabilir. Karistirmak, karisim icindeki her Gaussian'dan gelen sonuclari
+toplamaktir, yani kelimenin tam anlamiyla her veri noktasini teker teker
+karisimdaki tum dagilimlara gecip sonuclari toplamaktir. Eger cok boyutlu
+normal dagilimlari topluyorsak, formul:
+
+\[ p(x) = \sum_z \pi_z N(x | \mu_z,\Sigma_z) \]
+
+$\pi_z$ karistirma oranlaridir (mixing proportions). Iki Gaussian oldugunu
+dusunelim, $\pi_1,\pi_2$ oranlari 0.2, 0.8 olabilir mesela (toplam her
+zaman 1 olmalidir), her nokta her Gaussian'a verildikten sonra tekabul eden
+agirlikla mesela sirayla $0.2,0.8$ ile carpilip toplanir. 
+
+Ornek olarak alttaki veriye bakalim.
+
+\includegraphics[height=6cm]{plotbio.png}
+
+Bu grafik kadinlar ve erkeklerin boy (height) ve kilolarini (weight) iceren
+bir veri setinden geliyor, veri setinde erkekler ve kadinlara ait olan
+olcumler onceden isaretlenmis / etiketlenmis (labeled), biz de bu
+isaretleri kullanarak kadinlari kirmizi erkekleri mavi ile grafikledik. Ama
+bu isaretler / etiketler verilmis olsun ya da olmasin, kavramsal olarak
+dusunursek eger bu veriye bir dagilim uydurmak (fit) istersek bir karisim
+kullanilmasi gerekli, cunku iki tepe noktasiyle daha rahat temsil
+edilecegini dusundugumuz bir durum var ortada.
+
+\includegraphics[height=6cm]{plotbio_cluster.png}
+
+Bu karisim icindeki Gaussian'lari ustteki gibi cizebilirdik (gerci ustteki
+aslinda ileride yapacagimiz net bir hesaptan bir geliyor, ona birazdan
+geliyoruz, ama ciplak gozle de bu sekil uydurulabilirdi). Modeli kontrol
+edelim, elimizde bir karisim var, nihai olasilik degeri $p(x)$'i nasil
+kullaniriz? Belli bir noktanin olasiligini hesaplamak icin bu noktayi her
+iki Gaussian'a teker teker geceriz (ornekte iki tane), ve gelen olasilik
+sonuclarini karisim oranlari ile carparak toplariz.
+
+Agirliklar sayesinde iki sey elde ediyoruz 1) karisim entegre edilince hala
+1 degeri cikiyor zaten bir dagilimin uymasi gereken sartlardan biri bu 2)
+kesisim olan bolgelerde her iki Gaussian buyuk bir deger verebilir, o zaman
+agirliklar devreye girer, ve nihai olasilik, agirliklara gore carpilip
+toplanan bir sonuc olur. Bu bolgelerde bir Gaussian'in agirliginin
+digerinden fazla olmasinin da ozel bir anlami var, demek ki o bolgede
+agirligi fazla olan Gaussian daha fazla noktaya sahip (verisel olarak), ki
+o zaman o bolgedeki bir noktanin olasiligi sorulunca, agirligi fazla olan
+Gaussian daha yuksek bir olasilik degeri geri dondurmeli.
+
+Kesisme olmayan bolgeler zaten pek onemli degil, o noktalarin olasilik
+degeri zaten agirlikla tek bir Gaussian'dan geliyor olacak, cunku diger
+Gaussian o bolge icin sifira yakin bir deger verir, ve bu sifira yakin
+deger toplamda zaten bir fark yaratmayacak.
+
+Etiketler Bilin\textbf{mi}yorsa
+
+Simdi veriyi modellemenin otesinde, biraz daha analitik, daha makine
+ogrenimi ile alakali ihtiyaclara gelelim. Eger etiketler bize onceden
+verilmemis olsaydi, hangi veri noktalarinin kadinlara, hangilerinin
+erkeklere ait oldugunu bilmeseydik o zaman ne yapardik? Bu veriyi
+grafiklerken etiketleri renkleyemezdik tabii ki, soyle bir resim
+cizebilirdik ancak,
+
+\includegraphics[height=6cm]{plotbio2.png}
+
+Fakat yine de sekil olarak iki kumeyi gorebiliyoruz. 
+
+Acaba oyle bir makine ogrenimi algoritmasi olsa da, biz bir karisim
+oldugunu tahmin edip, sonra o karisimi veriye uydururken, etiket
+degerlerini de kendiliginden tahmin etse? Bu tam bir veri madenciligi
+denemesi olurdu.
+
+Bu ise baslamadan once etiketler ile karisimlarin arasindaki baglantiyi
+gorelim. Her nokta icin bilinen / bilinmeyen etiket kavramindan,
+matematiksel olarak direk karisimlara gecis yapabilmemiz lazim.
+
+Diyelim ki her nokta icin $0/1$ degerini tasiyabilecek ``gizli'' bir $z$
+rasgele degiskeni var, o zaman $p(x)$'i su sekilde acabiliriz
+
+\[ p(x) = \sum_z p(x,z) \]
+
+Bu mantikli degil mi? Ortak dagilim $p(x,z)$ icinden $p(x)$'i cekip
+cikarmak, $p(x,z)$ icin bir bilesen (marginal) hesabi yapmak demektir, o
+zaman ortak dagilimin icindeki tum $z$ degerlerini toplamak gerekir. Devam
+edelim, Bayes Teorisi'ni kullanarak
+
+\[ = \sum_z p(x,z) = \sum_z  p(z)p(x|z) \]
+
+elde ederiz. Burada $p(z)$, yani $z$'nin 0/1 degerine ``sahip olup
+olmadiginin olasiligi'' bizi $\pi_z$'ye goturur, yani
+
+\[ \sum_z  p(z)p(x|z) = \sum_z  \pi_zN_z(x | \mu_z,\sigma_z) \]
+
+Unutmayalim, $z$ bir rasgele degisken, ve sahip oldugu olasiliga gore, her
+veri noktasi icin, 0 ya da 1 uretiyor. $p(z)$ dedigimiz zaman $z$ tek
+basina, baska hicbir parametre ona gecilmiyor, o zaman zaten tanim
+itibariyle ``ta en bastan belirli'' bir olasiliktan baska bir seye sahip
+olamaz, bu da karisim orani $\pi_z$'den baskasi degildir. 
+
+Notasyon
+
+Simdi notasyonu biraz daha berraklastiralim. Oncelikle, ozellikle Bayes
+modelleri iceren formulasyonlarda, $p(x)$, $p(z)$ gibi kullanimlar gorulur,
+fakat aslinda orada iki tane farkli yogunluk fonksiyonu (density function)
+kastedilir, $p_x(x)$ ve $p_z(z)$. Surekli $p$ kullanilan turden kullanimin
+biraz ustunkoru (sloppy) oldugu dogrudur, kimisi icin bu daha kisa yoldan
+formulasyondur, literaturu takip eden herkes bunun nereden geldigini bilir,
+sadece konuya ilk baslayanlar icin biraz kafa karistirici olabiliyor.
+
+Ayrica $p(z)$ derken $p(z=k)$ demek istiyoruz, yani 
+
+\[ p(x) = \sum _{ k=1}^{K} p(z=k)p(x | z=k) \]
+
+ki $K$ karisimdaki Gaussian sayisidir. Aynen ustte oldugu gibi etiketin
+bilindigi, ``verili'' oldugu durumda kosullu olasilik $p(x | z=k)$,
+karisimdaki Gaussian'lardan bir tanesidir, ki o da ustte $N_z(x |
+\mu_z,\sigma_z)$ 
+olarak gosterilmisti, simdi $k$ kullanirsak $N(x |
+\mu_k,\sigma_k)$ olacaktir.
+
+Iki Gaussian oldugu durumda $z$'nin 0/1 degerine sahip olup olmadigindan
+bahsettik, ya da $K$ ikiden daha buyuk oldugu durumlarda, $z = k$ olup
+olmama durumu. Aslinda bir temsili yontem daha var, $z$ rasgele degiskenini
+sadece bir hucresinde 1 ya da 0 tasiyan bir katlý terimli (multinomial)
+dagilim, yani bir vektor olarak gostermek. Yani $z = [0 \ 0 \ 1 \ .. \ 0 ]^T$
+seklinde. Bu temsili yonteme K-icinde-1 (1-of-K) temsili yontemi deniyor. O
+zaman 
+
+\[ p(z) = \prod _{ k=1}^{K}\pi_k ^{z_k} \ \ \ \label{1}\]
+
+ve
+
+\[ p(x | z) = \prod _{ k=1}^{K} N(x | \mu_k,\Sigma_k)^{z_k} 
+\ \ \ \label{2}
+\]
+
+Peki verinin log olabilirligi (log likelihood) nedir? 
+
+Bilindigi gibi olabilirlik hesap veri noktalarinin teker teker yogunluk
+fonksiyonuna gecilmesi, ve sonuclarin birbiri ile carpilmasidir, log
+olabilirlik ise onun log alinmis halidir (cunku log alininca carpimlar
+toplam haline donusur, boylece mutlak (absolute) olarak gittikce buyuyen
+bir sayi ile islem yapilabilir, oteki turlu olasilik degeri oldugu icin
+1'den kucuk sayilarin surekli birbiri ile carpimi, nihai carpimi asiri
+kucultur, bu da bilgisayarin numerik hesap sinirlarini zorlayabilir. 
+
+$X$'i tum $x$'leri iceren bir matrix olarak kabul edelim
+
+\[ \ln p(X|\pi,\mu,\Sigma) = \sum _{n=1}^{N} 
+\ln 
+\bigg\{
+\sum _{ k=1}^{K}
+\pi_k p(x_n | \mu_k,\Sigma_k)\
+\bigg\}
+\]
+
+Genellikle olabilirlik fonksiyonu maksimize edilerek icindeki
+parametrelerin bu maksimum noktada tasidigi degerler bulunmaya
+ugrasilir. Fakat bizim esas ilgilendigimiz ``bilinmeyen'' etiketler, o
+yuzden maksimizasyon yapmadan once bu etiketleri de bir sekilde
+olabilirligin icine dahil etmemiz lazim. (1) ve (2)'yi kullanirsak, 
+
+\[ p(X,Z | \mu,\Sigma,\pi) =
+\prod _{n=1}^{N}
+\prod _{k=1}^{K}
+\pi_k ^{z_{nk}} N(x_n|\mu_k,\Sigma_k)
+ \]
+
+Bunun log'unu alirsak
+
+\[ \ln p(X,Z | \mu,\Sigma,\pi) =
+\ln
+\sum _{n=1}^{N}
+\sum _{k=1}^{K}
+z_{nk} \{ \ln \pi_k + \ln N(x_n|\mu_k,\Sigma_k) \}
+ \]
+
+EM (Expectation Maximization) metotu, bu olurluk fonksiyonunu baz alarak,
+$\mu,\Sigma,\pi$ bilindigi durumda etiketleri, etiketler bilindigi durumda
+$\mu,\Sigma,\pi$ degerlerini tahmin eder, bu iki bilinmeyen grup arasinda
+ozyineli (iteratif) olarak gidip gelir. Tabii konunun cok fazla detayi var [1],
+oncelikle EM'in ustteki durumda yakinsak (convergence) bir davranis
+sergiledigi bilinir, yani bir optimum vardir, va belli uc nokta sartlari
+haricinde bu degere yaklasilmasi garantidir, vs.
+
+\lstinputlisting[language=Python]{gauss.py}
+
+\lstinputlisting[language=Python]{gausstest.py}
+
+Ustteki kod \verb!biometric_data_simple.txt! verisi uzerinde isletildiginde
+rapor edilen $\mu,\Sigma$ degerlerini grafikleyince basta paylastigimiz
+cevrit goruntuleri cikacaktir, yani kumeleme basariyla isletilmistir.
+
+Cok Degiskenli Bernoulli Karisimi (Mixture of Multivariate Bernoulli)
+
+Bir karisim Gaussian'lardan olustugu gibi, degisik dagilimlardan da
+mutesekkil olabilir. Mesela her biri 8x8 boyutlarda ve 64 ogeli duz bir
+vektor olarak temsil edilen, icinde ikisel (binary) veri tasiyan, yani
+siyah / beyaz olarak temsil edilen karakterleri gruplama problemini ele
+alalim.
+
+\includegraphics[height=6cm]{digits.png}
+
+Bu karakterlerin hepsini \verb!bindigit.py! ile sirayla
+gorebilirsiniz. Mesela ust soldan saga dogru giderken 3 tane sifira benzer
+karakter goruyoruz, sonra yediye benzer iki goruntu goruyoruz, vs. Burada
+temsil etmemiz gereken, demek ki, bu 64 hucreli sadece 1 ve 0 degeri
+tasiyan degerleri temsil etmek. Boy ve agirlikta iki hucreli vektorde
+sadece reel sayilar vardi. Simdi 64 hucreli vektorde ikisel degerler var. 
+
+Boyle bir veriyi hangi dagilim en iyi temsil eder? Sadece tek 1 ve 0
+olsaydi, o zaman Bernoulli dagilimi kullanirdik,
+
+\[ p(x) = \alpha^x(1-\alpha)^{1-x} \]
+
+$\alpha$ bu dagilimi tanimlayan 0 ve 1 arasinda bir degerdir. 
+
+Bernoulli'leri cok degiskenli olarak kullanamaz miyiz? Kullaniriz.
+
+\[ p(x) = \prod _{ d=1}^{D} \alpha_d^{x_d}(1-\alpha_d)^{1-x_d} \]
+
+Bu durumda $x$ cok boyutlu, $D$ boyutlu bir vektor, yani $[0 \ 1 \ 1 \ 0 \
+... \ 1]$ 
+seklinde olacak. 
+
+Eger cok degiskenli Bernoulli'lerin karisimini elde etmek istiyorsak,
+$p(x|z)$ Gaussian yerine cok degiskenli Bernoulli olacak, yani
+
+\[ p(x|z) = \prod _{ d=1}^{D} \alpha_{zd}^{x_d}(1-\alpha_{zd})^{1-x_d} \]
+
+$\alpha_{zd}$, karisimdaki $z$'inci dagilimin $d$'inci hucresindeki olasilik degerini 
+verecektir. Tum karisimin dagilimi daha once oldugu gibi
+
+\[ p(x) = \sum_z  p(z)p(x|z)\]
+
+Suna dikkat etmek lazim -- karisim deyince mesela $[0 \ 1 \ 1 \ ... \ 1]$
+vektoru ile $[1 \ 0 \ 1 \ ... \ 1]$ vektorunu ``toplayip'' yeni bir vektor elde
+etmiyoruz. Bu vektorleri tum karisimin yogunlugu $p(x)$'e gecince bize bir
+olasilik degeri veriliyor. Bunun hesaplanisi, perde arkasinda teker teker
+karisimdaki tum bilesenlerin yogunluguna teker teker sormak, ve geriye bir
+cevap vermeden once agirligi kullanarak dengelemek. 
+
+Ya da uretimsel (generative) olarak olaya bakarsak, $p(x)$'in temsil ettigi
+yogunluga ``zar attirarak'' ile $[1 \ 1 \ 1 \ ... \ 0]$, $[1 \ 0 \ 0 \
+... \ 0]$ gibi vektorler 
+urettiriyor olabilirdik. Tabii ki bu uretim yogunlugun kontrolunde olarak, 
+daha olasi turden vektorlerin, daha fazla ortaya cikmasi anlamina
+gelecekti. 
+
+Uretimsel derken, her veri noktasi icin bu uretimsel algoritmanin tamami
+soyle:
+
+\begin{lstlisting}[language=Matlab,mathescape,numbers=left,xleftmargin=3.0ex]
+for $i$ = $1$ to $N$ do
+    Olasilik vektoru $\pi$ ye gore zar at
+    Sonuca  gore m $\leftarrow$ $M$ modelden bir tanesini sec
+    O modele $N(x_i|\mu_m,\Sigma_m)$ (ya da onun Bernoulli karsiligi) $x_i$ 
+    urettir
+end
+\end{lstlisting}
+
+Altta yine EM kullanarak gruplama yapan yani etiketleri otomatik olarak
+bulan kodu sunuyoruz. En sonda \verb!np.argmax(lR.T,axis=0)! ifadesini
+goreceksiniz. \verb!lR!, \verb!NxD! boyutlu bir matristir, her veri
+noktasinin $D$ kumenin her birine olan aidiyatini olasilik degeri olarak
+tasir, \verb!argmax! ifadesi satirsal bazda bu aidiyatlarin en buyugunun
+``indisini'' dondurur, eger 3 tane kume var demissek, o zaman 
+
+\begin{verbatim}
+[1 1 1 0 2 0 2 ... ]
+\end{verbatim}
+
+gibi bir sonuc gorulecektir. Demek ki 1. nokta 1. kumeye, 4. nokta
+0. kumeye aittir. Hakikaten de basta paylastigimiz resimlere
+bakarsaniz, ilk 3 karakterin birbirine benzedigi farkedilecektir.
+
+Sonuc olarak verdigimiz bu algoritmalar idare edilmeyen (unsupervised)
+algoritmalar olarak bilinir, cunku algoritma ``kendi basina'' giderek
+noktalarin hangi kumeye ait oldugunu hesaplamaktadir. Idare edilen
+(supervised) yontemlerde oldugu gibi bir ``egitim'' ve ``test'' veri seti
+yoktur. 
+
+Ne Zaman EM, Ne Zaman MCMC?
+
+Bayes Teorisi ile sofistike olasiliksal modeller olusturulabilir ve bu
+modellerin hepsi MCMC ile hesaplanabilir, cozulebilir. Peki ne zaman EM
+kullanilmali, ne zaman MCMC kullanmali.
+
+Bu noktada Makine Ogrenimi alaninda unlu bir hoca Kevin Murphy'nin sozunu
+hatirlamak iyi olabilir, demistir ki ``EM fakir adamin Bayes
+metotudur''. EM her yerde kullanilamayabilir, ama kullanilabiliyorsa cabuk
+isledigi bilinir, ve probleme uygulanmasi basittir. Probleminizde
+karisimlar var ise, etiketleme yapiliyorsa, EM ilk akla gelen yontemlerden
+biri olabilir. Tabii ki karisimlar ve diger her tur Bayes problemi MCMC ile
+de hesaplanabilir.
+
+\lstinputlisting[language=Python]{EMmixtureBernoulli.py}
+
+\lstinputlisting[language=Python]{mvb.py}
+
+[1] Aaron A. D'Souza, Using EM To Estimate A Probablity Density With A
+Mixture Of Gaussians, 
+\verb!http://www-clmc.usc.edu/~adsouza/notes/mix_gauss.pdf!
+
+[2] Bernoulli mixture models for binary images, Alfons Juan, Enrique Vidal
+
+[3] Jebara, T., Machine Learning Lecture Notes
+
+[4] Iain Murray's Octave code on mixture of multivariate bernoullis
+
+[5] \verb!http://code.activestate.com/recipes/577735-expectation-maximization/download/1/!
+
+[6] Bishop, C., Pattern Recognition and Machine Learning
+
+\end{document}
