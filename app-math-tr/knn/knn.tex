@@ -231,7 +231,7 @@ cocuklarina bakacaktir - her cocuk icin kendi kendini cagiracaktir. Ikinci
 durumda, kurede noktalar depolanmistir, artik basit lineer bir sekilde o
 tum noktalara teker teker bakilir, eldekilerden daha yakin olani alinir,
 eldeki liste sismeye baslamissa (k'den daha fazla ise) en buyuk noktalardan
-biri atilir, vs.
+biri atilir [3], vs.
 
 Daha alta inmemiz gereken birinci durumda yapilan iki cagrinin bir
 ozelligine dikkat cekmek isterim. Yeni noktanin bu cocuklara olan uzakligi
@@ -312,13 +312,17 @@ Agaci olusumu sirasinda kurelerin grafigi alttadir.
 
 \includegraphics[height=7cm]{pics/knn8.png}
 
-
-
-Kaynaklar
+Kaynaklar, Notlar
 
 [1] Liu, Moore, Gray, {\em New Algorithms for Efficient High Dimensional
 Non-parametric Classification}
 
 [2] Alpaydýn, {\em Introduction to Machine Learning}
+
+[3] Silme islemi ornek kodumuzda Python \verb!del! ile
+gerceklestirildi. Eger bu islem de hizlandirilmak istenirse, en alt kure
+seviyesindeki veriler bir oncelik kuyrugu (priority queue) uzerinde
+tutulabilir, ve silme islemi hep en sondaki elemani siler, ekleme islemi
+ise yeni elemani (hep sirali olan) listede dogru yere koyar.
 
 \end{document}
