@@ -6,8 +6,8 @@ if len(sys.argv) == 1 or sys.argv[1] == 'tex':
 pfractions/pfractions.pdf ratio/ratio.pdf compos/compos.pdf \
 series/series.pdf poldiv/poldiv.pdf ./fundamental/fundamental.pdf  \
 ./cauchy/cauchy.pdf ./integral-mult/integral-mult.pdf ./lhospital/lhospital.pdf ./euler/euler.pdf \
-./intexp/intexp.pdf ./taylor/taylor.pdf  \
-./taylor2d/taylor2d.pdf ./eig/eig.pdf ./logaritma/logaritma.pdf ./complexity/complexity.pdf \
+./intexp/intexp.pdf ./taylor/taylor.pdf ./taylor2d/taylor2d.pdf ./pca/pca.pdf \
+./eig/eig.pdf ./logaritma/logaritma.pdf ./complexity/complexity.pdf \
 ./probsolve/probsolve.pdf  ./id3/id3.pdf ./knn/knn.pdf ./turev/turev.pdf \
 ./totaldiff/totaldiff.pdf ./eigseg/eigseg.pdf ./rayleigh/rayleigh.pdf exp/exp.pdf \
 ./moment/moment.pdf ./dagilimlar/dagilimlar.pdf ./buyuk/buyuk.pdf ./cebisev/cebisev.pdf \
