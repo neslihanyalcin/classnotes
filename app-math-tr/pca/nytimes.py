@@ -1,12 +1,8 @@
 from pandas import *
 import numpy as np
-import numpy.linalg as linalg
-
-nyt = read_csv ("nytimesn.csv")
-nyt2 = nyt.ix[:,2:].as_matrix()
-#means = np.mean(nyt2, axis=0)
-#meanless_nyt = nyt2 - means
-cov_nyt = np.cov(nyt2,rowvar=0)
-print cov_nyt.shape
-eigs,eigv = linalg.eig(cov_nyt)
-#eig_ind = argsort(eigs)
+import numpy.linalg as lin
+nyt = read_csv ("nytimes.csv")
+nyt = nyt.drop(["class.labels"],axis=1)
+nyt = nyt - nyt.mean(0)
+nytn = nyt.div(nyt.sum(1), axis=0)
+#u,s,v = lin.svd(nytn)
