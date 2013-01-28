@@ -118,7 +118,7 @@
 % Prevent overflowing lines due to urls and other hard-to-break entities.
 \sloppy
 
-\begin{document}
+\setlength{\parindent}{0pt}\setlength{\parskip}{8pt}\begin{document}
 
 Temel Bileşen Analizi (Principal Component Analysis -PCA-)
 PCA yontemi boyut azaltan yontemlerden biridir, takip edilmeden
@@ -209,7 +209,7 @@ noktalardan biri veri noktasi, $w$ uzerine izdusum yapilarak yeni bir
 vektoru / noktayi ortaya cikartiyor. Genel olarak ifade edersek, bir
 nokta icin
 
-$z = w^T x$
+\[z = w^T x\]
 
 Yapmaya calistigimiz varyansi maksimize etmek demistik. Ozel bir izdusum
 yonunu referans alirsak, en buyuk $Var(z_1)$'i bulacagiz. Not: Bunu
