@@ -2,7 +2,7 @@
 %% Conversion from the original notebook file:
 %% pcaperf.ipynb
 %%
-\documentclass[11pt,english]{article}
+\documentclass[11pt,english,fleqn]{article}
 
 %% This is the automatic preamble used by IPython.  Note that it does *not*
 %% include a documentclass declaration, that is added at runtime to the overall
@@ -118,7 +118,10 @@
 % Prevent overflowing lines due to urls and other hard-to-break entities.
 \sloppy
 
-\setlength{\parindent}{0pt}\setlength{\parskip}{8pt}\begin{document}
+\setlength{\mathindent}{0pt}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{8pt}
+\begin{document}
 
 SVD ile PCA Hesaplamak
 
@@ -139,39 +142,25 @@ bozabilecegi literaturde bahsedilmektedir).
 PCA ve SVD baglantisina gelelim:
 
 Biliyoruz ki SVD bir matrisi su sekilde ayristirir
-
 \[A = USV^T\]
-
 $U$ matrisi $n \times n$ dikgen (orthogonal), $V$ ise $m \times m$
 dikgen. $S$'in sadece kosegeni uzerinde degerler var ve bu $\sigma_j$
 degerleri $A$'nin tekil degerleri (singular values) olarak biliniyor.
 
 Simdi $A$ yerine $AA^T$ koyalim, yani $A$'nin kovaryans matrisinin SVD
 ayristirmasini yapalim, acaba elimize ne gececek?
-
-\[ AA^T = (USV^T)(USV^T)^T \]
-
-\[ = (USV^T)(V S^T U^T) \]
-
-\[ = U S S^T U^T \]
-
+\[ AA^T = (USV^T)(USV^T)^T \]\[ = (USV^T)(V S^T U^T) \]\[ = U S S^T U^T \]
 $S$ bir kosegen matrisi, o zaman $SS^T$ matrisi de kosegen, tek farkla
 kosegen uzerinde artik $\sigma_j^2$ degerleri var. Bu normal.
 
 $SS^T$ yerine $\Lambda$ sembolunu kullanalim, ve denklemi iki taraftan
 (ve sagdan) $U$ ile carparsak (unutmayalim $U$ ortanormal bir matris ve
 $U^T U = I$),
-
-\[ AA^TU = U \Lambda U^TU \]
-
-\[ AA^TU = U \Lambda   \]
-
+\[ AA^TU = U \Lambda U^TU \]\[ AA^TU = U \Lambda   \]
 Son ifadeye yakindan bakalim, $U$'nun tek bir kolonuna, $u_k$ diyelim,
 odaklanacak olursak, ustteki ifadeden bu sadece kolona yonelik nasil bir
 esitlik cikartabilirdik? Soyle cikartabilirdik,
-
 \[ (AA^T)u_k = \sigma^2 u_k   \]
-
 Bu ifade tanidik geliyor mu? Ozdeger / ozvektor klasik yapisina eristik.
 Ustteki esitlik sadece ve sadece eger $u_k$, $AA^T$'nin ozvektoru ve
 $\sigma^2$ onun ozdegeri ise gecerlidir. Bu esitligi tum $U$ kolonlari

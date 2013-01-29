@@ -2,7 +2,7 @@
 %% Conversion from the original notebook file:
 %% pca.ipynb
 %%
-\documentclass[11pt,english]{article}
+\documentclass[11pt,english,fleqn]{article}
 
 %% This is the automatic preamble used by IPython.  Note that it does *not*
 %% include a documentclass declaration, that is added at runtime to the overall
@@ -118,7 +118,10 @@
 % Prevent overflowing lines due to urls and other hard-to-break entities.
 \sloppy
 
-\setlength{\parindent}{0pt}\setlength{\parskip}{8pt}\begin{document}
+\setlength{\mathindent}{0pt}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{8pt}
+\begin{document}
 
 Temel Bileşen Analizi (Principal Component Analysis -PCA-)
 PCA yontemi boyut azaltan yontemlerden biridir, takip edilmeden
@@ -208,9 +211,7 @@ gibi bir goruntuden bahsediyoruz. Hayali bir $w$ kullandik, ve
 noktalardan biri veri noktasi, $w$ uzerine izdusum yapilarak yeni bir
 vektoru / noktayi ortaya cikartiyor. Genel olarak ifade edersek, bir
 nokta icin
-
 \[z = w^T x\]
-
 Yapmaya calistigimiz varyansi maksimize etmek demistik. Ozel bir izdusum
 yonunu referans alirsak, en buyuk $Var(z_1)$'i bulacagiz. Not: Bunu
 soyler soylemez $x$'i ve $z$'yi rasgele degiskenler olarak gordugumuzu
@@ -224,11 +225,7 @@ eger $x$, $N(\mu,\Sigma)$ gibi cok boyutlu normal dagilimdan geliyorsa,
 ki $\mu$ ortalama ve $\Sigma$ kovaryanstir, $w^Tx$ nedir?
 
 Bu yeni ``seyin'' beklentisi ve varyansina bakalim,
-
-\[ E[w^Tx] = w^T E[x] = w^T \mu \]
-
-\[ Var(w^Tx)  = w^T Var(x) w = w^T \Sigma w\]
-
+\[ E[w^Tx] = w^T E[x] = w^T \mu \]\[ Var(w^Tx)  = w^T Var(x) w = w^T \Sigma w\]
 Ustteki sonuclarin boyutlarina dikkat: $w^T \mu$ durumunda
 $1 \times N \cdot N \times 1 = 1 \times 1$ , $w^T \Sigma w$ durumunda
 ise $1 \times N \cdot N \times N \cdot N \times 1 = 1 \times 1$. Iki
@@ -253,26 +250,16 @@ Boylece optimizasyon $w$'nin buyuklugu uzerinde taklalar atmayacak,
 sadece yon bulmak ile ilgilenecek, iyi, zaten biz $w$'nin yonu ile
 ilgileniyoruz. Aradigimiz ifadeyi yazalim, ve ek siniri Lagrange ifadesi
 olarak ekleyelim, ve yeni bir $L$ ortaya cikartalim,
-
 \[ L(w_1,\lambda) =  w_1^T \Sigma w_1  - \lambda(w_1^T w_1 - 1) \]
-
 Niye eksiden sonraki terim o sekilde eklendi? O terim oyle sekilde
 secildi ki, $\partial L / \partial \lambda = 0$ alininca $w_1^Tw_1 = 1$
 geri gelsin / ortaya ciksin {[}2, sf 340{]}, bu Lagrange'in dahice
 bulusu. Bunu kontrol edebilirsiniz, $\lambda$ 'ya gore turev alirken
 $w_1$ sabit olarak yokolur, parantez icindeki ifadeler kalir ve sifira
 esitlenince orijinal kisitlama ifadesi geri gelir. Simdi
-
 \[ \max\limits_{w_1} L(w_1,\lambda) \]
-
 Turevi $w_1$'e gore alirsak, ve sifira esitlersek,
-
-\[ 2w_1 \Sigma - 2 \lambda w_1 = 0 \]
-
-\[ 2w_1 \Sigma = 2 \lambda w_1 \]
-
-\[ \Sigma w_1  = \lambda w_1 \]
-
+\[ 2w_1 \Sigma - 2 \lambda w_1 = 0 \]\[ 2w_1 \Sigma = 2 \lambda w_1 \]\[ \Sigma w_1  = \lambda w_1 \]
 Ustteki ifade ozdeger, ozvektor ana formulune benzemiyor mu? Evet. Eger
 $w_1$, $\Sigma$'nin ozvektoru ise ve esitligin sagindaki $\lambda$ ona
 tekabul eden ozdeger ise, bu esitlik dogru olacaktir.
@@ -281,11 +268,9 @@ Peki hangi ozdeger / ozvektor maksimal degeri verir? Unutmayalim,
 maksimize etmeye calistigimiz sey $w_1^T \Sigma w_1$ idi
 
 Eger $\Sigma w_1 = \lambda w_1$ yerine koyarsak
-
 \[ w_1^T \lambda w_1 =  \lambda w_1^T  w_1 = \lambda \]
-
-Cunku \$ w\_1\^{}T w\$'nin 1 olacagi sartini koymustuk. Neyse, maksimize
-etmeye calistigimiz deger $\lambda$ cikti, o zaman en buyuk $\lambda$
+Cunku $w_1^T w$'nin 1 olacagi sartini koymustuk. Neyse, maksimize etmeye
+calistigimiz deger $\lambda$ cikti, o zaman en buyuk $\lambda$
 kullanirsak, en maksimal varyansi elde ederiz, bu da en buyuk ozdegerin
 ta kendisidir.
 
