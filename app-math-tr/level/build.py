@@ -1,9 +1,7 @@
 import os, sys
 
 if len(sys.argv) == 1 or sys.argv[1] == 'tex':
-    os.system("pdflatex level.tex")
-    os.system("evince level.pdf")
-    exit()        
-if sys.argv[1] == 'zip':
-    os.system("zip ~/Dropbox/Public/skfiles/level-set-edge.zip level.pdf level.tex *.m *.py *.bmp pics/*")
-
+    os.system("python /home/burak/Downloads/nbconvert/nbconvert.py level2.ipynb -f latex")
+    os.system("pdflatex level2.tex")
+    os.system("evince level2.pdf")
+    exit()
