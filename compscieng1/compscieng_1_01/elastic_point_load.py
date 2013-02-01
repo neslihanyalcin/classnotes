@@ -1,6 +1,3 @@
-import sys
-sys.path.append('/home/burak/Downloads')
-
 from KineticsKit import *
 from visual import vector
 
