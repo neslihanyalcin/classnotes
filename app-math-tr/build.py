@@ -10,7 +10,7 @@ series/series.pdf poldiv/poldiv.pdf ./fundamental/fundamental.pdf  \
  ./pca/pcaperf.pdf ./eig/eig.pdf ./logaritma/logaritma.pdf ./complexity/complexity.pdf \
 ./probsolve/probsolve.pdf  ./id3/id3.pdf ./knn/knn.pdf ./turev/turev.pdf \
 ./totaldiff/totaldiff.pdf ./eigseg/eigseg.pdf ./rayleigh/rayleigh.pdf exp/exp.pdf \
-./moment/moment.pdf ./dagilimlar/dagilimlar.pdf ./buyuk/buyuk.pdf ./cebisev/cebisev.pdf \
+./moment/moment.pdf ./dagilimlar/dagilimlar2.pdf ./buyuk/buyuk.pdf ./cebisev/cebisev.pdf \
 spline/splines.pdf ./ml-tr/ml-tr.pdf ./naive/naive.pdf ./simplex/simplex.pdf \
 ./qp/qp.pdf ./svm/svm.pdf ./fem/fem.pdf ./fourier/fourier.pdf \
 pde-wave-deriv/pde_01.pdf ./heat-deriv/heat-deriv.pdf ./heat/heat.pdf \
