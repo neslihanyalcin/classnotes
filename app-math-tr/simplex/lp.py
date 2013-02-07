@@ -1,7 +1,8 @@
 '''
-Translated from Octave code at: http://www.ecs.shimane-u.ac.jp/~kyoshida/lpeng.htm
-and placed under MIT licence by Enzo Michelangeli with permission explicitly
-granted by the original author, Prof. Kazunobu Yoshida  
+Translated from Octave code at:
+http://www.ecs.shimane-u.ac.jp/~kyoshida/lpeng.htm and placed under
+MIT licence by Enzo Michelangeli with permission explicitly granted by
+the original author, Prof. Kazunobu Yoshida
 
 -----------------------------------------------------------------------------
 Copyright (c) 2010, Kazunobu Yoshida, Shimane University, and Enzo Michelangeli, 
