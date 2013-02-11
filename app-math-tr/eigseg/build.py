@@ -1,11 +1,7 @@
 import os, sys
 
 if len(sys.argv) == 1 or sys.argv[1] == 'tex':
-    os.system("pdflatex eigseg.tex")
-    os.system("evince eigseg.pdf")
+    os.system("python /home/burak/Downloads/nbconvert/nbconvert.py eigseg2.ipynb -f latex")
+    os.system("pdflatex eigseg2.tex")
+    os.system("evince eigseg2.pdf")
     exit()
-
-if sys.argv[1] == 'zip':
-    os.system("zip ~/Dropbox/Public/skfiles/eigseg.zip eigseg.pdf eigseg.tex eigseg.py *.jpg *.png build.py")
-    
-    
