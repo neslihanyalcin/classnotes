@@ -11,7 +11,7 @@ series/series.pdf poldiv/poldiv.pdf ./fundamental/fundamental.pdf  \
 ./probsolve/probsolve.pdf  ./id3/id3.pdf ./knn/knn.pdf ./turev/turev.pdf \
 ./totaldiff/totaldiff.pdf ./eigseg/eigseg.pdf ./rayleigh/rayleigh.pdf exp/exp.pdf \
 ./moment/moment.pdf ./dagilimlar/dagilimlar2.pdf ./buyuk/buyuk.pdf ./cebisev/cebisev.pdf \
-spline/splines.pdf ./ml-tr/ml-tr.pdf ./naive/naive2.pdf ./simplex/simplex.pdf \
+spline/spline2.pdf ./ml-tr/ml-tr.pdf ./naive/naive2.pdf ./simplex/simplex.pdf \
 ./qp/qp.pdf ./svm/svm.pdf ./fem/fem.pdf ./fourier/fourier.pdf \
 pde-wave-deriv/pde_01.pdf ./heat-deriv/heat-deriv.pdf ./heat/heat.pdf \
 ./curvature/curvature.pdf ./level/level2.pdf ./lk/lk.pdf ./varcalc/varcalc.pdf \
