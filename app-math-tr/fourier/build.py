@@ -1,13 +1,7 @@
 import os, sys
 
-import os, sys
-
 if len(sys.argv) == 1 or sys.argv[1] == 'tex':
-    os.system("pdflatex fourier.tex")
-    os.system("evince fourier.pdf")
+    os.system("python /home/burak/Downloads/nbconvert/nbconvert.py fourier2.ipynb -f latex")
+    os.system("pdflatex fourier2.tex")
+    os.system("evince fourier2.pdf")
     exit()
-    
-if sys.argv[1] == 'zip':
-    os.system("zip ~/Dropbox/Public/skfiles/fourier.zip build.py fourier-fn.png fourier.pdf fourier.py fourier.tex sunspots.dat sunspots-fourier.png")
-    
-    
