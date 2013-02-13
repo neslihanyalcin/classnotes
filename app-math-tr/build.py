@@ -14,7 +14,7 @@ series/series.pdf poldiv/poldiv.pdf ./fundamental/fundamental.pdf  \
 spline/spline2.pdf ./ml-tr/ml-tr.pdf ./naive/naive2.pdf ./simplex/simplex.pdf \
 ./qp/qp.pdf ./svm/svm.pdf ./fem/fem.pdf ./fourier/fourier2.pdf \
 pde-wave-deriv/pde_01.pdf ./heat-deriv/heat-deriv.pdf ./heat/heat2.pdf \
-./curvature/curvature.pdf ./level/level2.pdf ./lk/lk.pdf ./varcalc/varcalc.pdf \
+./curvature/curvature.pdf ./level/level2.pdf ./lk/lk2.pdf ./varcalc/varcalc.pdf \
 ./filter/filter.pdf ./svdcluster/svdcluster2.pdf  ./svdrecom/svdrecom.pdf \
 ./regularization/regular.pdf ./phd/phd.pdf \
 output ~/Dropbox/Public/skfiles/app-math-tr.pdf "
