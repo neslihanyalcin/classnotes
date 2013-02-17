@@ -123,7 +123,7 @@
 \setlength{\parskip}{8pt}
 \begin{document}
 
-Karisimlar ve Idare Edilmeyen Kumeleme (Unsupervised Clustering)
+Dagilim Karisimlari ve Idaresiz Kumeleme (Unsupervised Clustering)
 
 Gaussian (normal) dagilimi tek tepesi olan (unimodal) bir dagilimdir. Bu
 demektir ki eger birden fazla tepe noktasi olan bir veriyi modellemek
@@ -739,23 +739,12 @@ for attempt in range(attempts):
         Lbest=L[iters]
         itersbest=iters
 
-print lR.shape
-print lPi.shape
-print lP.shape
-print len(L)
-
 # show class labels
 labels =  np.argmax(lR.T,axis=0)
 labels
 \end{lstlisting}
 \end{codeinput}
 \begin{codeoutput}
-\begin{verbatim}
-(100, 3)
-(3, 1)
-(3, 64)
-20
-\end{verbatim}
 \begin{verbatim}
 array([2, 2, 2, 1, 0, 1, 0, 2, 1, 0, 1, 1, 0, 1, 2, 2, 2, 1, 2, 1, 1, 2, 2,
        1, 2, 1, 2, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 1, 1, 2, 2, 2, 2, 2, 1,
@@ -765,6 +754,13 @@ array([2, 2, 2, 1, 0, 1, 0, 2, 1, 0, 1, 1, 0, 1, 2, 2, 2, 1, 2, 1, 1, 2, 2,
 \end{verbatim}
 \end{codeoutput}
 \end{codecell}
+Elde edilen sonuclara gore, ve paylastigimiz say resimlerindeki siraya
+bakarsak, mesela ilk uc sayi imajini birbirine benziyor olmasi lazim.
+Yine ayni sirada gidersek Daha sonra 4. ve 6. sayilarin birbirine
+benziyor olmasi lazim, ve 8. imajin ilk uc imaja benziyor olmasi lazim,
+vs.~Resimlere bakinca bunun hakikaten boyle oldugunu goruyoruz. Demek ki
+kumeleme basariyla gerceklestirilmis.
+
 {[}1{]} Aaron A. D'Souza, Using EM To Estimate A Probablity Density With
 A Mixture Of Gaussians,
 http://www-clmc.usc.edu/\ensuremath{\sim}adsouza/notes/mix\_gauss.pdf
