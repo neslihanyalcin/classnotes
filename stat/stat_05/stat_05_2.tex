@@ -191,20 +191,11 @@ data = np.loadtxt("dell.csv")
 \begin{codecell}
 \begin{codeinput}
 \begin{lstlisting}
-plt.hist(data,20)
+plt.hist(data,40)
+plt.show()
 \end{lstlisting}
 \end{codeinput}
 \begin{codeoutput}
-\begin{verbatim}
-([array([0, 0, 0, 2, 0, 0, 1, 0, 1, 0, 0, 0, 1, 1, 2, 1, 3, 0, 0, 1]),
-  array([1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 2, 3, 2, 0, 0, 0, 0, 0, 0]),
-  array([1, 0, 0, 0, 0, 0, 4, 4, 8, 6, 0, 2, 0, 0, 0, 1, 0, 0, 1, 2])],
- array([ 1.51115 ,  1.511777,  1.512404,  1.513031,  1.513658,  1.514285,
-        1.514912,  1.515539,  1.516166,  1.516793,  1.51742 ,  1.518047,
-        1.518674,  1.519301,  1.519928,  1.520555,  1.521182,  1.521809,
-        1.522436,  1.523063,  1.52369 ]),
- <a list of 3 Lists of Patches objects>)
-\end{verbatim}
 \begin{center}
 \includegraphics[width=0.7\textwidth]{stat_05_2_files/stat_05_2_fig_00.png}
 \par
@@ -315,21 +306,12 @@ center = ones(25) * 50
 flier_high = rand(10) * 100 + 100
 flier_low = rand(10) * -100
 data =concatenate((spread, center, flier_high, flier_low), 0)
+plt.boxplot(data)
+plt.show()
 
-boxplot(data)
 \end{lstlisting}
 \end{codeinput}
 \begin{codeoutput}
-\begin{verbatim}
-{'boxes': [<matplotlib.lines.Line2D at 0xa2e25ac>],
- 'caps': [<matplotlib.lines.Line2D at 0xa2dcd8c>,
-  <matplotlib.lines.Line2D at 0xa2dcf6c>],
- 'fliers': [<matplotlib.lines.Line2D at 0xa2e2dac>,
-  <matplotlib.lines.Line2D at 0xa2e2f6c>],
- 'medians': [<matplotlib.lines.Line2D at 0xa2e29ac>],
- 'whiskers': [<matplotlib.lines.Line2D at 0xa2dc56c>,
-  <matplotlib.lines.Line2D at 0xa2dc96c>]}
-\end{verbatim}
 \begin{center}
 \includegraphics[width=0.7\textwidth]{stat_05_2_files/stat_05_2_fig_01.png}
 \par
@@ -350,9 +332,11 @@ print head[:,1]
 
 data =(containers[:,1], tableware[:,1], head[:,1])
 
-yticks([1, 2, 3], ['containers', 'tableware', 'head'])
+plt.yticks([1, 2, 3], ['containers', 'tableware', 'head'])
 
-boxplot(data,0,'rs',0,0.75)
+plt.boxplot(data,0,'rs',0,0.75)
+plt.show()
+
 \end{lstlisting}
 \end{codeinput}
 \begin{codeoutput}
@@ -361,32 +345,6 @@ boxplot(data,0,'rs',0,0.75)
   1.51719  1.51683  1.51545  1.51556  1.51727  1.51531  1.51609  1.51508
   1.51653  1.51514  1.51658  1.51617  1.51732  1.51645  1.51831  1.5164
   1.51623  1.51685  1.52065  1.51651  1.51711]
-\end{verbatim}
-\begin{verbatim}
-{'boxes': [<matplotlib.lines.Line2D at 0xa4dbf8c>,
-  <matplotlib.lines.Line2D at 0xa5e6f8c>,
-  <matplotlib.lines.Line2D at 0xa5f0f8c>],
- 'caps': [<matplotlib.lines.Line2D at 0xa4db98c>,
-  <matplotlib.lines.Line2D at 0xa4dbd8c>,
-  <matplotlib.lines.Line2D at 0xa5e69ac>,
-  <matplotlib.lines.Line2D at 0xa5e6d8c>,
-  <matplotlib.lines.Line2D at 0xa5f09ac>,
-  <matplotlib.lines.Line2D at 0xa5f0d8c>],
- 'fliers': [<matplotlib.lines.Line2D at 0xa4e09cc>,
-  <matplotlib.lines.Line2D at 0xa4e0d8c>,
-  <matplotlib.lines.Line2D at 0xa5ea9cc>,
-  <matplotlib.lines.Line2D at 0xa5ead8c>,
-  <matplotlib.lines.Line2D at 0xa5f69cc>,
-  <matplotlib.lines.Line2D at 0xa5f6d8c>],
- 'medians': [<matplotlib.lines.Line2D at 0xa4e05cc>,
-  <matplotlib.lines.Line2D at 0xa5ea5cc>,
-  <matplotlib.lines.Line2D at 0xa5f65cc>],
- 'whiskers': [<matplotlib.lines.Line2D at 0xa4db14c>,
-  <matplotlib.lines.Line2D at 0xa4db54c>,
-  <matplotlib.lines.Line2D at 0xa4e0f6c>,
-  <matplotlib.lines.Line2D at 0xa5e658c>,
-  <matplotlib.lines.Line2D at 0xa5eaf6c>,
-  <matplotlib.lines.Line2D at 0xa5f058c>]}
 \end{verbatim}
 \begin{center}
 \includegraphics[width=0.7\textwidth]{stat_05_2_files/stat_05_2_fig_02.png}
