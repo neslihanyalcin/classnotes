@@ -31,7 +31,7 @@ def coal(n,x,init,a1,a2,b1,b2):
         # sample
         zz = z / sum(z)
         k = w_choice(zz)
-        print float(theta), float(lam), float(k)
+    print float(theta), float(lam), float(k)
         
 if __name__ == "__main__":
         
