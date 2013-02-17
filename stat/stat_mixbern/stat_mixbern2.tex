@@ -745,8 +745,8 @@ print lP.shape
 print len(L)
 
 # show class labels
-print np.argmax(lR.T,axis=0)
-
+labels =  np.argmax(lR.T,axis=0)
+labels
 \end{lstlisting}
 \end{codeinput}
 \begin{codeoutput}
@@ -754,10 +754,14 @@ print np.argmax(lR.T,axis=0)
 (100, 3)
 (3, 1)
 (3, 64)
-17
-[0 0 0 1 2 1 2 0 1 2 1 1 2 1 0 0 0 1 0 1 1 0 0 1 0 1 0 1 1 1 1 1 0 0 0 0 0
- 0 1 1 0 0 0 0 0 1 2 0 0 1 2 2 1 2 1 1 1 0 0 1 1 1 1 1 0 1 0 0 2 1 2 1 0 1
- 2 2 0 1 1 1 2 0 1 0 2 0 0 1 1 0 0 2 0 2 1 2 0 1 0 2]
+20
+\end{verbatim}
+\begin{verbatim}
+array([2, 2, 2, 1, 0, 1, 0, 2, 1, 0, 1, 1, 0, 1, 2, 2, 2, 1, 2, 1, 1, 2, 2,
+       1, 2, 1, 2, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 1, 1, 2, 2, 2, 2, 2, 1,
+       0, 2, 2, 1, 0, 0, 1, 0, 1, 1, 1, 2, 2, 1, 1, 1, 1, 1, 2, 1, 2, 2, 0,
+       1, 0, 1, 2, 1, 0, 0, 2, 1, 1, 1, 0, 2, 1, 2, 0, 2, 2, 1, 1, 2, 2, 0,
+       2, 0, 1, 0, 2, 1, 2, 0])
 \end{verbatim}
 \end{codeoutput}
 \end{codecell}
