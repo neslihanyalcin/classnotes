@@ -499,10 +499,10 @@ I(dist / 100.):arsenic    -0.1789      0.102     -1.748      0.080        -0.379
 \end{codeoutput}
 \end{codecell}
 Sonuca gore etkilesimin katsayisi negatif ve istatistiki olarak anlamli
-(significant). Bu katsayinin degisim uzerindeki etkisini nicesel olarak
-hemen bakar bakmaz anlayamiyor olsak bile, niteliksel olarak etkisi
-sezgilerimiz ile uyusuyor. Uzaklik degisimde negatif etkili, ama bu
-negatif etki yuksek arsenik seviyesi devreye girince azaliyor. Diger
+(significant) {[}3{]}. Bu katsayinin degisim uzerindeki etkisini nicesel
+olarak hemen bakar bakmaz anlayamiyor olsak bile, niteliksel olarak
+etkisi sezgilerimiz ile uyusuyor. Uzaklik degisimde negatif etkili, ama
+bu negatif etki yuksek arsenik seviyesi devreye girince azaliyor. Diger
 yandan arsenik seviyesinin degisimde pozitif etkisi var, ama o etki en
 yakin kuyu mesafesi arttikca azaliyor.
 
@@ -645,9 +645,9 @@ Kutulanmis artik grafiklerine bakinca arsenik degiskeninde biraz gayri
 lineerlik goruyoruz, cunku noktalarin dagilimi cok fazla belli bir
 bolgede. Dikkat edelim, model nasil dusuk arsenigi gercekte oldugundan
 daha fazla olacagini tahmin etmis (overestimate), ayrica yuksek arsenigi
-gercekte oldugundan daha az olacagini tahmin etmis. Bu bize arsenik
-degiskeni uzerinde belki de log transformasyonu gibi bir seyler
-yapmamizin gerektiginin isareti.
+gercekte oldugundan daha az olacagini tahmin etmis (underestimate). Bu
+bize arsenik degiskeni uzerinde belki de log transformasyonu gibi bir
+seyler yapmamizin gerektiginin isareti.
 
 Bu degisimi de direk formul icinde yapabiliriz.
 
@@ -721,7 +721,7 @@ plt.xlabel('Distance (bin avg.)')
 \end{center}
 \end{codeoutput}
 \end{codecell}
-\subsubsection{Model error rates}
+\subsubsection{Model hata oranlari}
 
 \texttt{pred\_table()} cagrisi bize bu modelin ``kafa karisikligi
 matrisini (confusion matrix)'' veriyor. Bu matrisi kullanarak
@@ -758,5 +758,15 @@ Null Error Rate:  42%
 {[}2{]}
 http://nbviewer.ipython.org/urls/raw.github.com/carljv/Will\_it\_Python/\\
 master/ARM/ch5/arsenic\_wells\_switching.ipynb
+
+{[}3{]} Eger bir katsayi degerinin sifirdan uzakligi Std. Hatanin
+(Error) iki katindan fazla ise katsayi istatistiki olarak anlamli /
+degerli (significant) demektir ve kullanilabilir. Tabii burada biraz
+daha ek irdeleme gerekebilir; mesela kisilerin arabalarinin beygir
+gucunu kazandiklari maasa baglayan bir regresyon, beygir gucu katsayisi
+icin beygir basina \$10 ve std. hata \$2 vermisse bu istatistiki olarak
+onemli, ama pratikte onemsizdir. Benzer sekilde eger beygir katsayisi
+icin \$10,000 ve std. hata \$10,000 bulmussak, bu istatistiki olarak
+onemsiz, ama pratikte onemlidir.
 
 \end{document}
