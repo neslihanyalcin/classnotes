@@ -1,0 +1,10 @@
+\BOOKMARK [1][-]{section.1}{Banglades'te su kuyusu degisiminin lojistik modeli}{}
+\BOOKMARK [2][-]{subsection.1.1}{Model 1: Guvenli su kuyusuna uzaklik}{section.1}
+\BOOKMARK [2][-]{subsection.1.2}{Model 2: Guvenli kuyuya olan uzaklik ve kendi kuyusunun arsenik seviyesi}{section.1}
+\BOOKMARK [3][-]{subsubsection.1.2.1}{Bilesen \(marginal\) etkiler}{subsection.1.2}
+\BOOKMARK [3][-]{subsubsection.1.2.2}{Siniflarin ayirilabilirligi}{subsection.1.2}
+\BOOKMARK [2][-]{subsection.1.3}{Model 3: Etkilesim eklemek}{section.1}
+\BOOKMARK [2][-]{subsection.1.4}{Model 4: Egitim seviyesi ve ek bazi etkilesimler, ve degiskenleri ortalamak}{section.1}
+\BOOKMARK [3][-]{subsubsection.1.4.1}{Modelin basarisini irdelemek: Kutulanmis Kalinti grafikleri \(Binned Residual plots\)}{subsection.1.4}
+\BOOKMARK [2][-]{subsection.1.5}{Model 5: arsenigi log olceklemek}{section.1}
+\BOOKMARK [3][-]{subsubsection.1.5.1}{Model error rates}{subsection.1.5}
