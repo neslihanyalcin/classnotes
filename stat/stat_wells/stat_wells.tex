@@ -724,7 +724,7 @@ plt.xlabel('Distance (bin avg.)')
 \subsubsection{Model hata oranlari}
 
 \texttt{pred\_table()} cagrisi bize bu modelin ``kafa karisikligi
-matrisini (confusion matrix)'' veriyor. Bu matrisi kullanarak
+matrisini (confusion matrix)'' veriyor {[}4{]}. Bu matrisi kullanarak
 modelimizin hata oranini hesaplayabiliriz.
 
 Sonra bu sonucu, en fazla verilen cevabi herkesin cevabiymis gibi
@@ -756,17 +756,22 @@ Null Error Rate:  42%
 {[}1{]} https://patsy.readthedocs.org/en/v0.1.0/formulas.html
 
 {[}2{]}
-http://nbviewer.ipython.org/urls/raw.github.com/carljv/Will\_it\_Python/\\
-master/ARM/ch5/arsenic\_wells\_switching.ipynb
+http://nbviewer.ipython.org/urls/raw.github.com/carljv/Will\_it\_Python/master/ARM/ch5/arsenic\_wells\_switching.ipynb
 
 {[}3{]} Eger bir katsayi degerinin sifirdan uzakligi Std. Hatanin
 (Error) iki katindan fazla ise katsayi istatistiki olarak anlamli /
 degerli (significant) demektir ve kullanilabilir. Tabii burada biraz
 daha ek irdeleme gerekebilir; mesela kisilerin arabalarinin beygir
 gucunu kazandiklari maasa baglayan bir regresyon, beygir gucu katsayisi
-icin beygir basina \$10 ve std. hata \$2 vermisse bu istatistiki olarak
-onemli, ama pratikte onemsizdir. Benzer sekilde eger beygir katsayisi
-icin \$10,000 ve std. hata \$10,000 bulmussak, bu istatistiki olarak
-onemsiz, ama pratikte onemlidir.
+icin beygir basina 10 Eur ve std. hata 2 Eur vermisse bu istatistiki
+olarak onemli, ama pratikte onemsizdir. Benzer sekilde eger beygir
+katsayisi icin 10,000 Eur ve std. hata 10,000 Eur bulmussak, bu
+istatistiki olarak onemsiz, ama pratikte onemlidir.
+
+{[}4{]} Kafa karisikligi matrisi siniflandirma hatalarini verir, ve her
+turlu hata kombinasyonunu icerir, mesela iki sinif icin, gercekte 0 ama
+1 tahmin hatalari, gercekte 1 ama 0 hatalari vs.~Bu matrisin satirlar
+gercek veri, kolonlari tahminleri icerir. Tabii ki kosegendeki sayilar
+dogru tahmin oranlaridir.
 
 \end{document}
