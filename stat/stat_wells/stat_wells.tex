@@ -544,8 +544,8 @@ Optimization terminated successfully.
 Dep. Variable:                 switch   No. Observations:                 3020
 Model:                          Logit   Df Residuals:                     3013
 Method:                           MLE   Df Model:                            6
-Date:                Sat, 22 Dec 2012   Pseudo R-squ.:                 0.05497
-Time:                        13:05:35   Log-Likelihood:                -1945.9
+Date:                Tue, 19 Feb 2013   Pseudo R-squ.:                 0.05497
+Time:                        15:36:35   Log-Likelihood:                -1945.9
 converged:                       True   LL-Null:                       -2059.0
                                         LLR p-value:                 4.588e-46
 ===============================================================================================================
@@ -559,6 +559,9 @@ center(I(dist / 100.)):center(arsenic)         -0.1177      0.104     -1.137    
 center(I(dist / 100.)):center(I(educ / 4.))     0.3227      0.107      3.026      0.002         0.114     0.532
 center(arsenic):center(I(educ / 4.))            0.0722      0.044      1.647      0.100        -0.014     0.158
 ===============================================================================================================
+\end{verbatim}
+\begin{verbatim}
+
 \end{verbatim}
 \end{codeoutput}
 \end{codecell}
@@ -639,6 +642,9 @@ plt.xlabel('Distance (bin avg.)')
 \end{center}
 \end{codeoutput}
 \end{codecell}
+Ustteki kutulama sirasinda kullanilan qcut islemlerin icin en altta ek
+bolumune bakin
+
 \subsection{Model 5: arsenigi log olceklemek}
 
 Kutulanmis artik grafiklerine bakinca arsenik degiskeninde biraz gayri
@@ -753,6 +759,130 @@ Null Error Rate:  42%
 \end{verbatim}
 \end{codeoutput}
 \end{codecell}
+\subsection{Ek: qcut}
+
+Yukaridaki qcut kullanimini ozetlemek gerekirse; arsenik degiskeni icin
+mesela dagilim bolgeleri (n-tile) uzerinden bir atama yapacagiz, once
+DataFrame yaratalim,
+
+\begin{codecell}
+\begin{codeinput}
+\begin{lstlisting}
+resid_df = DataFrame({'var': df['arsenic'], 'resid': model4.resid})
+resid_df[:10]
+
+\end{lstlisting}
+\end{codeinput}
+\begin{codeoutput}
+\begin{verbatim}
+       resid   var
+1   0.842596  2.36
+2   1.281417  0.71
+3  -1.613751  2.07
+4   0.996195  1.15
+5   1.005102  1.10
+6   0.592056  3.90
+7   0.941372  2.97
+8   0.640139  3.24
+9   0.886626  3.28
+10  1.130149  2.52
+\end{verbatim}
+\end{codeoutput}
+\end{codecell}
+Simdi 40 tane dagilim bolgesi yaratalim
+
+\begin{codecell}
+\begin{codeinput}
+\begin{lstlisting}
+qcut(df['arsenic'], 40)
+\end{lstlisting}
+\end{codeinput}
+\begin{codeoutput}
+\begin{verbatim}
+Categorical: arsenic
+array([(2.327, 2.47], (0.68, 0.71], (1.953, 2.07], ..., [0.51, 0.53],
+       (0.62, 0.64], (0.64, 0.68]], dtype=object)
+Levels (40): Index([[0.51, 0.53], (0.53, 0.56], (0.56, 0.59],
+                    (0.59, 0.62], (0.62, 0.64], (0.64, 0.68],
+                    (0.68, 0.71], (0.71, 0.75], (0.75, 0.78],
+                    (0.78, 0.82], (0.82, 0.86], (0.86, 0.9], (0.9, 0.95],
+                    (0.95, 1.0065], (1.0065, 1.0513], (1.0513, 1.1],
+                    (1.1, 1.15], (1.15, 1.2], (1.2, 1.25], (1.25, 1.3],
+                    (1.3, 1.36], (1.36, 1.42], (1.42, 1.49],
+                    (1.49, 1.57], (1.57, 1.66], (1.66, 1.76],
+                    (1.76, 1.858], (1.858, 1.953], (1.953, 2.07],
+                    (2.07, 2.2], (2.2, 2.327], (2.327, 2.47],
+                    (2.47, 2.61], (2.61, 2.81], (2.81, 2.98],
+                    (2.98, 3.21], (3.21, 3.42], (3.42, 3.791],
+                    (3.791, 4.475], (4.475, 9.65]], dtype=object)
+\end{verbatim}
+\end{codeoutput}
+\end{codecell}
+Goruldugu gibi bolgeler bir obje aslinda ve icinde levels diye bir
+degiskeni var. Ayrica labels diye bir degisken de var,
+
+\begin{codecell}
+\begin{codeinput}
+\begin{lstlisting}
+qcut(df['arsenic'], 40).labels
+
+\end{lstlisting}
+\end{codeinput}
+\begin{codeoutput}
+\begin{verbatim}
+array([31,  6, 28, ...,  0,  4,  5])
+\end{verbatim}
+\end{codeoutput}
+\end{codecell}
+Ki bu degisken icinde hangi noktanin hangi olasilik bolgesine ait
+oldugunun atamasi var. Mesela 2. nokta 6. bolgeye aitmis, bu bolge
+hangisi?
+
+\begin{codecell}
+\begin{codeinput}
+\begin{lstlisting}
+qcut(df['arsenic'], 40).levels[6]
+\end{lstlisting}
+\end{codeinput}
+\begin{codeoutput}
+\begin{verbatim}
+'(0.68, 0.71]'
+\end{verbatim}
+\end{codeoutput}
+\end{codecell}
+Simdi soyle bir atama yaparsak, yani qcut sonucunu direk oldugu gibi
+resid\_df icine atarsak, qcut icindeki levels, resid\_df uzerindeki
+index (sira) ile uyumlandirilacaktir, ve her var icin dogru olan qcut
+sonucu atanmis olacaktir!
+
+\begin{codecell}
+\begin{codeinput}
+\begin{lstlisting}
+resid_df['bins'] = qcut(df['arsenic'], 40)
+resid_df[:10]
+\end{lstlisting}
+\end{codeinput}
+\begin{codeoutput}
+\begin{verbatim}
+       resid   var            bins
+1   0.842596  2.36   (2.327, 2.47]
+2   1.281417  0.71    (0.68, 0.71]
+3  -1.613751  2.07   (1.953, 2.07]
+4   0.996195  1.15     (1.1, 1.15]
+5   1.005102  1.10   (1.0513, 1.1]
+6   0.592056  3.90  (3.791, 4.475]
+7   0.941372  2.97    (2.81, 2.98]
+8   0.640139  3.24    (3.21, 3.42]
+9   0.886626  3.28    (3.21, 3.42]
+10  1.130149  2.52    (2.47, 2.61]
+\end{verbatim}
+\end{codeoutput}
+\end{codecell}
+Ustte hakikaten bakiyoruz ki 2. nokta var=0.71 dogru aralik olan (0.68,
+0.71{]} ile eslesmis.
+
+Kaynaklar
+
 {[}1{]} https://patsy.readthedocs.org/en/v0.1.0/formulas.html
 
 {[}2{]}
