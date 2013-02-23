@@ -1,11 +1,7 @@
 import os, sys
 
 if len(sys.argv) == 1 or sys.argv[1] == 'tex':
-    os.system("pdflatex fem.tex")
-    os.system("evince fem.pdf")
+    os.system("python /home/burak/Downloads/nbconvert/nbconvert.py fem2.ipynb -f latex")
+    os.system("pdflatex fem2.tex")
+    os.system("evince fem2.pdf")
     exit()
-
-if sys.argv[1] == 'zip':
-    os.system("zip ~/Dropbox/Public/skfiles/fem.zip fem_hat.png fem.py fem.tex fem.pdf build.py")
-    
-    
