@@ -132,6 +132,8 @@ cite75\_99.txt ve apat63\_99.txt
 
 http://www.nber.org/patents/
 
+Referans verisine bakarsak,
+
 \begin{codecell}
 \begin{codeinput}
 \begin{lstlisting}
@@ -153,18 +155,11 @@ http://www.nber.org/patents/
 \end{verbatim}
 \end{codeoutput}
 \end{codecell}
+Detayli patent verisine bakalim
+
 \begin{codecell}
 \begin{codeinput}
 \begin{lstlisting}
-!head -1 $HOME/Downloads/apat63_99.txt > $HOME/Downloads/apat63_99_sampled.txt
-!cat $HOME/Downloads/apat63_99.txt | perl -n -e 'print if (rand() < .05)' >> $HOME/Downloads/apat63_99_sampled.txt
-\end{lstlisting}
-\end{codeinput}
-\end{codecell}
-\begin{codecell}
-\begin{codeinput}
-\begin{lstlisting}
-!chmod a+r $HOME/Downloads/apat63_99.txt
 !head -10 $HOME/Downloads/apat63_99.txt
 \end{lstlisting}
 \end{codeinput}
@@ -182,6 +177,26 @@ http://www.nber.org/patents/
 3070809,1963,1096,,"US","AZ",,1,,4,6,65,,0,,,,,,,,,
 \end{verbatim}
 \end{codeoutput}
+\end{codecell}
+Simdi patent detay verisinden bir orneklem (sample) alalim. Daha ufak
+bir veri kumesiyle calismak ilk basta faydali olabilir, gelistirme test
+etme surecini hizlandirir.
+
+\begin{codecell}
+\begin{codeinput}
+\begin{lstlisting}
+!chmod a+r $HOME/Downloads/apat63_99.txt
+!head -1 $HOME/Downloads/apat63_99.txt > $HOME/Downloads/apat63_99_sampled.txt
+!cat $HOME/Downloads/apat63_99.txt | perl -n -e 'print if (rand() < .05)' >> $HOME/Downloads/apat63_99_sampled.txt
+\end{lstlisting}
+\end{codeinput}
+\end{codecell}
+\begin{codecell}
+\begin{codeinput}
+\begin{lstlisting}
+Hadoop baslatalim
+\end{lstlisting}
+\end{codeinput}
 \end{codecell}
 \begin{codecell}
 \begin{codeinput}
@@ -256,6 +271,11 @@ copyFromLocal: Target /user/hduser/patent/apat63_99_sampled.txt already exists
 \end{verbatim}
 \end{codeoutput}
 \end{codecell}
+Amacimiz patent verisindeki ulke (country) kodunu kullanarak her ulke
+basina ortalama ne kadar patent uretildigini hesaplamak.
+Esleme-Indirgeme (Map-Reduce) dongusunde esleme kismini yapacak program
+asagida.
+
 \begin{codecell}
 \begin{codeinput}
 \begin{lstlisting}
@@ -283,6 +303,12 @@ df.to_csv(sys.stdout,sep="\t",index=False,header=False)
 \end{lstlisting}
 \end{codeinput}
 \end{codecell}
+Indirgeyici yazmadan once, bu noktada, programimizi iki sekilde
+isletelim. Bu sekillerden birisi hic indirgeyici olmadan, ikincisi
+IdentityReducer denen kendisine gecilen veriyi oldugu gibi disari atan
+(ama yine de ortaa bir indirgeyici oldugu icin sonradan bazi islemlerin
+yine de yapilacagi) bir ortamda test yapmak.
+
 \begin{codecell}
 \begin{codeinput}
 \begin{lstlisting}
@@ -326,7 +352,6 @@ packageJobJar: [/app/hadoop/tmp/hadoop-unjar2555196345671652661/] [] /tmp/stream
 \begin{codeinput}
 \begin{lstlisting}
 !ssh localhost -l hduser /home/hduser/Downloads/hadoop*/bin/hadoop dfs  -copyToLocal output /tmp/
-
 \end{lstlisting}
 \end{codeinput}
 \end{codecell}
@@ -334,7 +359,6 @@ packageJobJar: [/app/hadoop/tmp/hadoop-unjar2555196345671652661/] [] /tmp/stream
 \begin{codeinput}
 \begin{lstlisting}
 !head -30 /tmp/output/part-00000
-
 \end{lstlisting}
 \end{codeinput}
 \begin{codeoutput}
@@ -371,6 +395,13 @@ US	8.0
 US	6.0
 \end{verbatim}
 \end{codeoutput}
+\end{codecell}
+\begin{codecell}
+\begin{codeinput}
+\begin{lstlisting}
+Simdi <code>IdentityReducer</code> uzerinden. 
+\end{lstlisting}
+\end{codeinput}
 \end{codecell}
 \begin{codecell}
 \begin{codeinput}
