@@ -191,13 +191,8 @@ etme surecini hizlandirir.
 \end{lstlisting}
 \end{codeinput}
 \end{codecell}
-\begin{codecell}
-\begin{codeinput}
-\begin{lstlisting}
 Hadoop baslatalim
-\end{lstlisting}
-\end{codeinput}
-\end{codecell}
+
 \begin{codecell}
 \begin{codeinput}
 \begin{lstlisting}
@@ -262,7 +257,7 @@ Found 2 items
 \begin{codecell}
 \begin{codeinput}
 \begin{lstlisting}
-!ssh localhost -l hduser /home/hduser/Downloads/hadoop*/bin/hadoop dfs -copyFromLocal /home/burak/Downloads/apat63_99_sampled.txt /user/hduser/patent/apat63_99_sampled.txt
+!ssh localhost -l hduser /home/hduser/Downloads/hadoop*/bin/hadoop dfs -copyFromLocal $HOME/Downloads/apat63_99_sampled.txt /user/hduser/patent/apat63_99_sampled.txt
 \end{lstlisting}
 \end{codeinput}
 \begin{codeoutput}
@@ -294,6 +289,15 @@ df.to_csv(sys.stdout,sep="\t",index=False,header=False)
 \end{verbatim}
 \end{codeoutput}
 \end{codecell}
+Indirgeyici yazmadan once programimizi iki sekilde test edelim. Bu
+sekillerden birisi hic indirgeyici olmadan, ikincisi IdentityReducer
+denen kendisine gecilen veriyi oldugu gibi disari atan (ama yine de
+ortada bir indirgeyici oldugu icin sonradan bazi islemlerin yine de
+yapilacagi) seklinde.
+
+Bu iki kullanim Hadoop kodlarinda hata bulma / temizleme icin faydali
+olabiliyor.
+
 \begin{codecell}
 \begin{codeinput}
 \begin{lstlisting}
@@ -303,12 +307,6 @@ df.to_csv(sys.stdout,sep="\t",index=False,header=False)
 \end{lstlisting}
 \end{codeinput}
 \end{codecell}
-Indirgeyici yazmadan once programimizi iki sekilde test edelim. Bu
-sekillerden birisi hic indirgeyici olmadan, ikincisi IdentityReducer
-denen kendisine gecilen veriyi oldugu gibi disari atan (ama yine de
-ortaa bir indirgeyici oldugu icin sonradan bazi islemlerin yine de
-yapilacagi) seklinde.
-
 \begin{codecell}
 \begin{codeinput}
 \begin{lstlisting}
@@ -358,53 +356,38 @@ packageJobJar: [/app/hadoop/tmp/hadoop-unjar2555196345671652661/] [] /tmp/stream
 \begin{codecell}
 \begin{codeinput}
 \begin{lstlisting}
-!head -30 /tmp/output/part-00000
+!head -20 /tmp/output/part-00000
 \end{lstlisting}
 \end{codeinput}
 \begin{codeoutput}
 \begin{verbatim}
-FR	12.0
-US	5.0
-US	1.0
-US	4.0
-US	4.0
-US	21.0
-US	4.0
-US	8.0
-US	7.0
-US	11.0
-DE	12.0
-US	30.0
-US	14.0
-US	11.0
-US	5.0
-JP	21.0
-US	23.0
-US	5.0
-CH	14.0
-DE	11.0
-US	4.0
-US	14.0
-US	4.0
-US	1.0
-US	4.0
-IT	3.0
-US	1.0
-US	7.0
-US	8.0
-US	6.0
+AD	14.0
+AE	15.4
+AG	13.25
+AI	10.0
+AM	18.0
+AN	9.625
+AR	9.188990825688073
+AT	10.683988393563704
+AU	12.291563832174107
+AW	15.5
+AZ	11.0
+BB	11.0
+BE	11.945544554455445
+BG	4.9899497487437188
+BH	6.5
+BM	10.076923076923077
+BN	9.0
+BO	11.75
+BR	9.358426966292134
+BS	15.778846153846153
 \end{verbatim}
 \end{codeoutput}
 \end{codecell}
-\begin{codecell}
-\begin{codeinput}
-\begin{lstlisting}
-Ustteki sonucta goruyoruz ki anahtarlar uretilmis, ama ciktilar
-anahtara gore siralanmamislar. Hatta ustteki sira girdi sirasiyla
-tipatip ayni. Simdi <code>IdentityReducer</code> uzerinden.
-\end{lstlisting}
-\end{codeinput}
-\end{codecell}
+Ustteki sonucta goruyoruz ki anahtarlar uretilmis, ama ciktilar anahtara
+gore siralanmamislar. Hatta ustteki sira girdi sirasiyla tipatip ayni.
+Simdi IdentityReducer uzerinden.
+
 \begin{codecell}
 \begin{codeinput}
 \begin{lstlisting}
@@ -452,15 +435,10 @@ packageJobJar: [/app/hadoop/tmp/hadoop-unjar2314287838929839696/] [] /tmp/stream
 \begin{codecell}
 \begin{codeinput}
 \begin{lstlisting}
+!ssh localhost -l hduser rm -rf /tmp/output
 !ssh localhost -l hduser /home/hduser/Downloads/hadoop*/bin/hadoop dfs  -copyToLocal output /tmp/
 \end{lstlisting}
 \end{codeinput}
-\begin{codeoutput}
-\begin{verbatim}
-13/02/24 17:59:51 INFO hdfs.DFSClient: No node available for block: blk_-1575974087486179659_1352 file=/user/hduser/output/_logs/history/job_201302241611_0012_1361719827201_hduser_streamjob5013687273729997973.jar
-13/02/24 17:59:51 INFO hdfs.DFSClient: Could not obtain block blk_-1575974087486179659_1352 from any node: java.io.IOException: No live nodes contain current block. Will get new block locations from namenode and retry...
-\end{verbatim}
-\end{codeoutput}
 \end{codecell}
 \begin{codecell}
 \begin{codeinput}
@@ -485,6 +463,9 @@ US	11.0
 \end{codecell}
 Ustteki sonucta anahtarlarin siralanmis oldugunu goruyoruz.
 
+Simdi bir indirgeyici (reducer) ekleyelim. Bu indirgeyici ulke bazindaki
+veriler uzerinen ortalama alacak.
+
 \begin{codecell}
 \begin{codeinput}
 \begin{lstlisting}
@@ -503,6 +484,8 @@ grouped.to_csv(sys.stdout,sep="\t",header=False)
 \end{verbatim}
 \end{codeoutput}
 \end{codecell}
+Eger indirgeyiciyi direk isletirsek (Hadoop disindan)
+
 \begin{codecell}
 \begin{codeinput}
 \begin{lstlisting}
@@ -524,6 +507,8 @@ ZA	11.170212765957446
 \end{verbatim}
 \end{codeoutput}
 \end{codecell}
+Bu kodu hduser'in bulabilecegi bir yere koyuyoruz.
+
 \begin{codecell}
 \begin{codeinput}
 \begin{lstlisting}
@@ -538,7 +523,6 @@ ZA	11.170212765957446
 \begin{lstlisting}
 !ssh localhost -l hduser /home/hduser/Downloads/hadoop*/bin/hadoop dfs -rmr /user/hduser/output
 !ssh localhost -l hduser /home/hduser/Downloads/hadoop*/bin/hadoop  jar /home/hduser/Downloads/hadoop*/contrib/streaming/hadoop-*streaming*.jar -input patent/apat63_99_sampled.txt  -output output  -mapper /tmp/mapper.py -reducer /tmp/reducer.py -numReduceTasks 1 
-
 \end{lstlisting}
 \end{codeinput}
 \begin{codeoutput}
@@ -581,37 +565,117 @@ packageJobJar: [/app/hadoop/tmp/hadoop-unjar3358838375062006941/] [] /tmp/stream
 \begin{codecell}
 \begin{codeinput}
 \begin{lstlisting}
+!ssh localhost -l hduser rm -rf /tmp/output
 !ssh localhost -l hduser /home/hduser/Downloads/hadoop*/bin/hadoop dfs  -copyToLocal output /tmp/
+\end{lstlisting}
+\end{codeinput}
+\end{codecell}
+Ve sonuc altta oldugu gibi
 
+\begin{codecell}
+\begin{codeinput}
+\begin{lstlisting}
+!head -10 /tmp/output/part-00000
 \end{lstlisting}
 \end{codeinput}
 \begin{codeoutput}
 \begin{verbatim}
-copyToLocal: Target /tmp/output/_SUCCESS already exists
+AE	12.0
+AG	24.0
+AN	15.0
+AR	10.359999999999999
+AT	11.077306733167083
+AU	12.789029535864978
+BE	11.442748091603054
+BG	4.5
+BM	8.0
+BO	25.0
+\end{verbatim}
+\end{codeoutput}
+\end{codecell}
+Tabii bu sonuclar bir orneklem uzerinden alindi. Tum veriyi islemek icin
+
+\begin{codecell}
+\begin{codeinput}
+\begin{lstlisting}
+!ssh localhost -l hduser /home/hduser/Downloads/hadoop*/bin/hadoop dfs -copyFromLocal $HOME/Downloads/apat63_99.txt /user/hduser/patent/apat63_99.txt
+\end{lstlisting}
+\end{codeinput}
+\end{codecell}
+\begin{codecell}
+\begin{codeinput}
+\begin{lstlisting}
+!ssh localhost -l hduser /home/hduser/Downloads/hadoop*/bin/hadoop dfs -rmr /user/hduser/output
+!ssh localhost -l hduser /home/hduser/Downloads/hadoop*/bin/hadoop  jar /home/hduser/Downloads/hadoop*/contrib/streaming/hadoop-*streaming*.jar -input patent/apat63_99.txt  -output output  -mapper /tmp/mapper.py -reducer /tmp/reducer.py -numReduceTasks 1 
+\end{lstlisting}
+\end{codeinput}
+\begin{codeoutput}
+\begin{verbatim}
+Deleted hdfs://localhost:54310/user/hduser/output
+\end{verbatim}
+\begin{verbatim}
+packageJobJar: [/app/hadoop/tmp/hadoop-unjar938213738183646678/] [] /tmp/streamjob7433279407208888397.jar tmpDir=null
+\end{verbatim}
+\begin{verbatim}
+13/02/24 23:50:12 INFO util.NativeCodeLoader: Loaded the native-hadoop library
+13/02/24 23:50:12 WARN snappy.LoadSnappy: Snappy native library not loaded
+13/02/24 23:50:12 INFO mapred.FileInputFormat: Total input paths to process : 1
+\end{verbatim}
+\begin{verbatim}
+13/02/24 23:50:12 INFO streaming.StreamJob: getLocalDirs(): [/app/hadoop/tmp/mapred/local]
+13/02/24 23:50:12 INFO streaming.StreamJob: Running job: job_201302241759_0006
+13/02/24 23:50:12 INFO streaming.StreamJob: To kill this job, run:
+13/02/24 23:50:12 INFO streaming.StreamJob: /home/hduser/Downloads/hadoop-1.0.4/libexec/../bin/hadoop job  -Dmapred.job.tracker=localhost:54311 -kill job_201302241759_0006
+13/02/24 23:50:12 INFO streaming.StreamJob: Tracking URL: http://localhost:50030/jobdetails.jsp?jobid=job_201302241759_0006
+\end{verbatim}
+\begin{verbatim}
+13/02/24 23:50:13 INFO streaming.StreamJob:  map 0%  reduce 0%
+\end{verbatim}
+\begin{verbatim}
+13/02/24 23:50:28 INFO streaming.StreamJob:  map 50%  reduce 0%
+\end{verbatim}
+\begin{verbatim}
+13/02/24 23:50:40 INFO streaming.StreamJob:  map 75%  reduce 8%
+\end{verbatim}
+\begin{verbatim}
+13/02/24 23:50:52 INFO streaming.StreamJob:  map 100%  reduce 8%
+\end{verbatim}
+\begin{verbatim}
+13/02/24 23:50:55 INFO streaming.StreamJob:  map 100%  reduce 25%
+\end{verbatim}
+\begin{verbatim}
+13/02/24 23:51:04 INFO streaming.StreamJob:  map 100%  reduce 100%
+\end{verbatim}
+\begin{verbatim}
+13/02/24 23:51:17 INFO streaming.StreamJob: Job complete: job_201302241759_0006
+13/02/24 23:51:17 INFO streaming.StreamJob: Output: output
 \end{verbatim}
 \end{codeoutput}
 \end{codecell}
 \begin{codecell}
 \begin{codeinput}
 \begin{lstlisting}
-!head -10 /tmp/output/part-00001
-
+!ssh localhost -l hduser rm -rf /tmp/output
+!ssh localhost -l hduser /home/hduser/Downloads/hadoop*/bin/hadoop dfs  -copyToLocal output /tmp/
+\end{lstlisting}
+\end{codeinput}
+\end{codecell}
+\begin{codecell}
+\begin{codeinput}
+\begin{lstlisting}
+!head -7 /tmp/output/part-00000
 \end{lstlisting}
 \end{codeinput}
 \begin{codeoutput}
 \begin{verbatim}
-JP	8.0
-JP	1.0
-US	34.0
-US	19.0
-JP	2.0
-US	4.0
-US	43.0
-GB	6.0
-US	14.0
-GB	1.0
+AD	14.0
+AE	15.4
+AG	13.25
+AI	10.0
+AM	18.0
+AN	9.625
+AR	9.188990825688073
 \end{verbatim}
 \end{codeoutput}
 \end{codecell}
-
 \end{document}
