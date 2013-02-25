@@ -306,8 +306,7 @@ uzerinde grafiklersek (kirmizi noktalar)
 \begin{lstlisting}
 scatter(data[:,0],data[:,1])
 plt.hold(True)
-for x in c[1]:
-    plot(x[0],x[1],'rd')
+for x in c[1]: plot(x[0],x[1],'rd')
     
 \end{lstlisting}
 \end{codeinput}
@@ -319,7 +318,7 @@ for x in c[1]:
 \end{codeoutput}
 \end{codecell}
 Goruldugu gibi 5 tane kume icin ustteki merkezler bulundu. Fena degil.
-Eger 10 dersekf
+Eger 10 dersek
 
 \begin{codecell}
 \begin{codeinput}
@@ -327,8 +326,7 @@ Eger 10 dersekf
 c = kmeans(data,k=10)
 scatter(data[:,0],data[:,1])
 plt.hold(True)
-for x in c[1]:
-    plot(x[0],x[1],'rd')
+for x in c[1]: plot(x[0],x[1],'rd')
 \end{lstlisting}
 \end{codeinput}
 \begin{codeoutput}
