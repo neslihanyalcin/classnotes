@@ -128,7 +128,8 @@ Hadoop ile Patent Verisi Islemek
 75-99 yillari arasinda hangi patentin hangi hangi patentlere referans
 verdigi ve patentler hakkinda detayli verileri Hadoop ile isleyecegiz.
 Veriler alttaki baglantidan alinabilir, gerekli dosyalar Dosyalar
-cite75\_99.txt ve apat63\_99.txt
+cite75\_99.txt ve apat63\_99.txt. Bu dosyalari acip biz \$HOME/Downloads
+altina koyduk.
 
 http://www.nber.org/patents/
 
@@ -155,7 +156,8 @@ Referans verisine bakarsak,
 \end{verbatim}
 \end{codeoutput}
 \end{codecell}
-Detayli patent verisine bakalim
+Bu veri, hangi patentin hangi diger patenti kullandigini ``tek'' patent
+bazinda gostermekte. Detayli patent verisine bakalim
 
 \begin{codecell}
 \begin{codeinput}
@@ -293,10 +295,8 @@ Indirgeyici yazmadan once programimizi iki sekilde test edelim. Bu
 sekillerden birisi hic indirgeyici olmadan, ikincisi IdentityReducer
 denen kendisine gecilen veriyi oldugu gibi disari atan (ama yine de
 ortada bir indirgeyici oldugu icin sonradan bazi islemlerin yine de
-yapilacagi) seklinde.
-
-Bu iki kullanim Hadoop kodlarinda hata bulma / temizleme icin faydali
-olabiliyor.
+yapildigi) seklinde. Bu iki kullanim Hadoop kodlarinda hata bulma /
+temizleme icin faydali olabiliyor.
 
 \begin{codecell}
 \begin{codeinput}
@@ -350,12 +350,6 @@ packageJobJar: [/app/hadoop/tmp/hadoop-unjar2555196345671652661/] [] /tmp/stream
 \begin{codeinput}
 \begin{lstlisting}
 !ssh localhost -l hduser /home/hduser/Downloads/hadoop*/bin/hadoop dfs  -copyToLocal output /tmp/
-\end{lstlisting}
-\end{codeinput}
-\end{codecell}
-\begin{codecell}
-\begin{codeinput}
-\begin{lstlisting}
 !head -20 /tmp/output/part-00000
 \end{lstlisting}
 \end{codeinput}
@@ -437,12 +431,6 @@ packageJobJar: [/app/hadoop/tmp/hadoop-unjar2314287838929839696/] [] /tmp/stream
 \begin{lstlisting}
 !ssh localhost -l hduser rm -rf /tmp/output
 !ssh localhost -l hduser /home/hduser/Downloads/hadoop*/bin/hadoop dfs  -copyToLocal output /tmp/
-\end{lstlisting}
-\end{codeinput}
-\end{codecell}
-\begin{codecell}
-\begin{codeinput}
-\begin{lstlisting}
 !head -10 /tmp/output/part-00000
 \end{lstlisting}
 \end{codeinput}
