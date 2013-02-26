@@ -155,7 +155,7 @@ atayamayiz, atama olmadan kume merkezlerini hesaplayamayiz.
 Bu probleme pratik bir cozum ilk basta kume merkezlerini tahmin
 etmektir. Yani merkezleri rasgele bir sekilde hesaplamak. Pratikte bu
 yontem cok iyi isliyor. Tabii bu rasgelelik yuzunden K-means'in dogru
-sonuca yaklasiksallasi (convergence) garanti degildir, ama gercek dunya
+sonuca yaklasmasi (convergence) garanti degildir, ama gercek dunya
 uygulamalarinda cogunlukla kullanisli kumeler bulunur. Bu potansiyel
 problemlerden kacinmak icin k-means pek cok kez isletilebilir (her
 seferinde yeni rasgele baslangiclarla yani) ve ayni sonuca ulasilip
@@ -164,7 +164,26 @@ ulasilmadigi kontrol edilebilir.
 Pek en iyi k nasil bulunur? Burada da yapay ogrenim literaturunde pek
 cok yaklasim vardir {[}1{]}, veriyi pek cok parcaya bolup, farkli k kume
 sayisi icin kumeleme yapmak ve capraz saglama (cross-validation)
-kullanmak, vs.
+kullanmak, vs. Ya da Canopy Kumelemesi denen bir teknik K-Means'den once
+isletilerek kume sayisi k ve merkezleri bulunur (Canopy bu hesabi iyi
+yapan bir tekniktir), boylece rasgele merkez secmekten kurtulunur, isin
+geri kalani K-Means ile halledilir.
+
+K-Means EM algoritmasinin bir turevi olarak kabul edilebilir, EM
+kumeleri bir Gaussian (ya da Gaussian karisimi) gibi gorur, ve her
+basamakta bu dagilimlarin merkezini, hem de kovaryansini hesaplar. Yani
+kumenin ``sekli'' de EM tarafindan saptanir. Ayrica EM her noktanin tum
+kumelere olan uyeliklerini ``hafif (soft)'' olarak hesaplar (bir
+olasilik olcutu uzerinden), fakat K-Means icin bu atama nihai (hard
+membership). Nokta ya bir kumeye aittir, ya da degildir.
+
+EM'in belli sartlarda yaklasiksalligi icin matematiksel ispat var.
+K-Means akilli tahmin yaparak (heuristic) calisan bir algoritma olarak
+biliniyor. Sonuca yaklasmasi bu sebeple garanti degildir, ama daha once
+belirttigimiz gibi pratikte faydalidir. Bir suru alternatif kumeleme
+yontemi olmasina ragmen hala K-Means'den vazgecilemiyor! Burada bir
+etken de K-Means'in cok rahat paralelize edilebilmesi. Bu konu baska bir
+yazida islenecek.
 
 Ornek test verisi altta
 
@@ -174,6 +193,7 @@ Ornek test verisi altta
 from pandas import *
 data = read_csv("synthetic.txt",names=['a','b'],sep="   ")
 print data.shape
+data = np.array(data)
 \end{lstlisting}
 \end{codeinput}
 \begin{codeoutput}
@@ -185,7 +205,6 @@ print data.shape
 \begin{codecell}
 \begin{codeinput}
 \begin{lstlisting}
-data = np.array(data)
 scatter(data[:,0],data[:,1])
 \end{lstlisting}
 \end{codeinput}
@@ -365,6 +384,8 @@ it: 22, num. changes: 0
 \end{center}
 \end{codeoutput}
 \end{codecell}
+Bazi ek notlar
+
 {[}1{]}
 http://en.wikipedia.org/wiki/Determining\_the\_number\_of\_clusters\_in\_a\_data\_set
 
