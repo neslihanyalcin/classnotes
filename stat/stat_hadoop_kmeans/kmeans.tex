@@ -169,22 +169,24 @@ Image(filename='kmeans-diag.png')
 \end{codecell}
 Simdi Hadoop ile ilgili bazi lojistik konulara gelelim:
 
-Eger esleme seviyesinde en yakin kumeyi bulmak istiyorsak, o zaman (ilk
-basta rasgele bile olsa) kume merkezlerinin bilgisi tum makinalarin
-erisebilecegi bir yerde olmali. Biz bu veriyi HDFS uzerinde tutmaya
-karar verdik, dosya ismi bilinen (well-known) bir yerde olacak,
+Eger esleme safhasinda her nokta icin en yakin kumeyi bulmak istiyorsak,
+o zaman (ilk basta rasgele bile olsa) kume merkezlerinin bilgisi tum
+makinalarin erisebilecegi bir yerde olmali. Biz bu veriyi HDFS uzerinde
+tutmaya karar verdik, dosya ismi bilinen (well-known) bir yerde olacak,
 /tmp/centers.csv.
 
-K-Means tek bir esle-indirge isletimi ile bitmeyecek, bu algoritma
-dongulu / ozyineli (iterative) bir algoritma, 5,10,20 kez islemesi
-gerekebilir. Her dongu sonunda yeni kume merkezleri hesaplanacak, bu
-merkezler eski /tmp/centers.csv yerini alacak ve islem tekrar
-baslayacak.
+Paralel K-Means icin tek bir esle-indirge isletimi yeterli degil, bu
+algoritma dongulu / ozyineli (iterative) bir algoritma, 5,10,20 kez
+islemesi gerekebilir. Her dongu (indirgeme) sonunda yeni kume merkezleri
+hesaplanacak, bu merkezler eski /tmp/centers.csv yerini alacak ve islem
+tekrar baslayacak.
 
 Dongu sonundaki merkez bilgisi indirgeyicinin ciktisidir ve bu cikti
 output/part-00000 dosyasi icinde. Unutmayalim, indirgeyicinin ciktisi
 demek, tum indirgeyici makinalardan gelen anahtarlarin (ozetleme
 ardindan) birlestirilmesi sonrasinda demek.
+
+Simdi ham veriyi gosterelim, ve Hadoop'u baslatalim.
 
 \begin{codecell}
 \begin{codeinput}
@@ -247,6 +249,12 @@ localhost: starting tasktracker, logging to /home/hduser/Downloads/hadoop-1.0.4/
 \end{verbatim}
 \end{codeoutput}
 \end{codecell}
+Gerekli merkez verisinin tutulacagi yer /tmp demistik. Bu ismi ozellikle
+sectik cunku hem yerel, komut satirindan (Hadoop olmadan) calisirken
+rahat kullanilabilecek bir dizin olsun istedik. Bu dizini HDFS uzerinde
+yaratalim (unutmayalim, HDFS demek ayri bir alem demek, pur Unix
+komutlarimiz bile oraya erisemiyor)
+
 \begin{codecell}
 \begin{codeinput}
 \begin{lstlisting}
@@ -315,6 +323,14 @@ df.to_csv(sys.stdout, sep='\t',index=False, cols=['cluster','coord'],
 \end{verbatim}
 \end{codeoutput}
 \end{codecell}
+Ustte comb ile kordinat verisini birlestirerek tek kolon haline
+getirdik, cunku anahtar deger formunda veri uretmemiz gerekiyor, ve TAB
+ayraci sadece tek anahtar ve tek deger ayrimi yapabilir, ve sadece bir
+tane ayrac olabilir. Bu sebeple iki boyutlu veri oldugu icin iki sayi
+olan deger, yani kordinat : uzerinden birlestirilerek tek bir deger
+haline getirildi. Tabii indirgeci bu veriyi alinca bu islemin tersini
+yapmasi lazim.
+
 \begin{codecell}
 \begin{codeinput}
 \begin{lstlisting}
@@ -381,7 +397,14 @@ for i in range(10):
 \end{lstlisting}
 \end{codeinput}
 \end{codecell}
-K-Means'i 10 kere islettikten sonra elde edilen sonuclari artik HDFS'ten
+Ustte K-Means'i 10 kere islettigimizi goruyoruz. Eger istenirse (hatta
+daha iyi olur) dongu bir while icine konur ve bitis icin ``stabilite
+sarti'' aranir. Stabilite yeni kume merkezinin eskisinden ``cok fazla
+degisik olup olmadigi'' sartidir, degisim yoksa artik sonucu bulmusuz
+demektir, daha fazla donguye gerek kalmayacaktir. Biz donguyu 10 kere
+donguyu islettik, (bu problem icin) yeterli oldu.
+
+K-Means isini bitirdikten sonra elde edilen sonuclari artik HDFS'ten
 yerel dizinimize alabiliriz. Nihai kume merkezleri output/part-00000
 icinde. Bu merkezleri alip, ham veri uzerinde kirmizi nokta olarak
 gosteriyoruz.
