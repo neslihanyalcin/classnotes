@@ -16,5 +16,5 @@ def closest(x):
     return np.argmin(d)
 
 df = pd.read_csv(sys.stdin,header=None,sep="   ")
-df['closest'] = df.apply(closest,axis=1)
-print df[:20]
+df['cluster'] = df.apply(closest,axis=1)
+df.to_csv(sys.stdout, sep='\t',index=False, cols=['cluster',0,1])
