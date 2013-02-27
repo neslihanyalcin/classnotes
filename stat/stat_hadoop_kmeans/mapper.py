@@ -15,6 +15,9 @@ def closest(x):
     d = dist(np.array(centers)[:,1:3],np.array(x))
     return np.argmin(d)
 
+comb = lambda x: str(x[0])+":"+str(x[1])
+
 df = pd.read_csv(sys.stdin,header=None,sep="   ")
 df['cluster'] = df.apply(closest,axis=1)
-df.to_csv(sys.stdout, sep='\t',index=False, cols=['cluster',0,1])
+df['coord'] = df.apply(comb,axis=1)
+df.to_csv(sys.stdout, sep='\t',index=False, cols=['cluster','coord'])
