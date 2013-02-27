@@ -359,6 +359,10 @@ df2.to_csv(sys.stdout, sep=',',header=None)
 \end{verbatim}
 \end{codeoutput}
 \end{codecell}
+Alttaki blokta merkezleri rasgele seciyoruz. Bunun icin veri icinden
+rasgele 10 tane (k kadar) nokta cekip cikartik. Bu rasgele sayi uretimi
+ile de yapilabilirdi.
+
 \begin{codecell}
 \begin{codeinput}
 \begin{lstlisting}
@@ -372,6 +376,11 @@ centers.to_csv("/tmp/centers.csv",header=None)
 \end{lstlisting}
 \end{codeinput}
 \end{codecell}
+Simdi K-Means'i isleten kosturucu (runner) program. Bu program esleme,
+indirgeme safhalarini cagiracak, ve indirgeyici sonrasi ciktiyi alip
+yeni kume merkezi yapacak, bunun gibi idari / temizlik islerini
+halledecek.
+
 \begin{codecell}
 \begin{codeinput}
 \begin{lstlisting}
@@ -386,6 +395,7 @@ os.system("chmod a+x /tmp/reducer.py")
 hp_cmd = "ssh localhost -l hduser /home/hduser/Downloads/hadoop*/bin/hadoop"
 streaming_cmd = "/home/hduser/Downloads/hadoop*/contrib/streaming/hadoop-*streaming*.jar"
 
+# Ilk seferde merkez verisini HDFS'e yerel dizinden gonder
 os.system("%s dfs -rm /user/hduser/centers.csv" % hp_cmd)
 os.system("%s dfs -copyFromLocal /tmp/centers.csv /user/hduser" % hp_cmd)
 
@@ -442,5 +452,9 @@ plt.plot(df2.ix[:,1],df2.ix[:,2],'rd')
 \end{center}
 \end{codeoutput}
 \end{codecell}
+Sonuclar fena degil! Iste bu metotla terabayt olceginde, devasa bir
+veriyi 20-30 makinaya dagitarak parca parca isleyip kumelemeniz
+mumkundur. Endustride son zamanlarda habire duyulan Buyuk Veri (Big
+Data) olayi iste bu.
 
 \end{document}
