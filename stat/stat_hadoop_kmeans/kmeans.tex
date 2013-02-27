@@ -123,22 +123,81 @@
 \setlength{\parskip}{8pt}
 \begin{document}
 
-\subsection{Hadoop ve KMeans}
+Paralel KMeans, Hadoop
 
-Some text goes here
+K-Means algoritmasini nasil paralel sekilde isletiriz? Ozellikle Hadoop
+gibi bir Esle-Indirge (Map-Reduce) ortamini dusunelim. Veri cok buyuk
+olcekte olabilir ve bu veriler birden fazla makinaya bolunecektir.
+Esle-Indirge kavraminda esleme safhasinda ``anahtar uretiriz'', ve sonra
+indirgeme safhasinda Hadoop sistemi oyle kurmustur ki ayni anahtarlarlar
+tek bir makinaya gonderilir, ve bu nihai asamada artik anahtar bazinda
+indirgeme (ozetleme) yapilir.
+
+Paralel K-Means icin anahtar nedir?
+
+Anahtar, mesela kume olabilir. Yani kume 1, kume 2 gibi kume isaretleri
+/ sayilari anahtar olarak kullanilabilirler.
+
+Peki anahtar ile eslenecek ``deger'' nedir?
+
+Oyle bir deger ariyoruz ki ust uste konulabilecek bir sey olmali, cunku
+EI sisteminin kuvveti burada, anahtarlar farkli noktalarda
+uretilebiliyor, sonra tek noktada ust uste konuyor, o zaman degerler
+oyle uretilmeli ki bu ust uste koyma, ozetleme islemi yapilabilsin.
+
+Ust uste konabilecek sey kumeye (anahtar) ait olan veri noktasi
+olabilir. Normal K-Means'i hatirlarsak, her nokta icin o noktaya en
+yakin kumeyi buluyordu sonra, atama islemi bitince, her kumenin
+altindaki noktalarin toparlayip, onlarin ortalamasini alarak yeni kume
+merkezini hesapliyordu. Bu ortalama islemi ust uste konabilecek bir sey,
+yani farkli makinalarda kume-nokta eslemelerini uretirsek, indirgeme
+asamasinda o anahtar icin tum degerleri toplayip, nokta sayisina boleriz
+ve yeni kume merkezini elde ederiz.
+
+\begin{codecell}
+\begin{codeinput}
+\begin{lstlisting}
+from IPython.display import Image
+Image(filename='kmeans-diag.png')
+\end{lstlisting}
+\end{codeinput}
+\begin{codeoutput}
+\begin{verbatim}
+<IPython.core.display.Image at 0xc5db98c>
+\end{verbatim}
+\end{codeoutput}
+\end{codecell}
+Simdi Hadoop ile ilgili bazi lojistik konulara gelelim:
+
+Eger esleme seviyesinde en yakin kumeyi bulmak istiyorsak, o zaman (ilk
+basta rasgele bile olsa) kume merkezlerinin bilgisi tum makinalarin
+erisebilecegi bir yerde olmali. Biz bu veriyi HDFS uzerinde tutmaya
+karar verdik, dosya ismi bilinen (well-known) bir yerde olacak,
+/tmp/centers.csv.
+
+K-Means tek bir esle-indirge isletimi ile bitmeyecek, bu algoritma
+dongulu / ozyineli (iterative) bir algoritma, 5,10,20 kez islemesi
+gerekebilir. Her dongu sonunda yeni kume merkezleri hesaplanacak, bu
+merkezler eski /tmp/centers.csv yerini alacak ve islem tekrar
+baslayacak.
+
+Dongu sonundaki merkez bilgisi indirgeyicinin ciktisidir ve bu cikti
+output/part-00000 dosyasi icinde. Unutmayalim, indirgeyicinin ciktisi
+demek, tum indirgeyici makinalardan gelen anahtarlarin (ozetleme
+ardindan) birlestirilmesi sonrasinda demek.
 
 \begin{codecell}
 \begin{codeinput}
 \begin{lstlisting}
 from pandas import *
-df = read_csv("synthetic.txt",names=['a','b'],sep="   ")
-scatter(df['a'],df['b'])
+df1 = read_csv("synthetic.txt",sep="   ")
+plt.scatter(df1.ix[:,0],df1.ix[:,1])
 
 \end{lstlisting}
 \end{codeinput}
 \begin{codeoutput}
 \begin{verbatim}
-<matplotlib.collections.PathCollection at 0xa6f320c>
+<matplotlib.collections.PathCollection at 0xc051e8c>
 \end{verbatim}
 \begin{center}
 \includegraphics[width=0.7\textwidth]{kmeans_files/kmeans_fig_00.png}
@@ -149,6 +208,7 @@ scatter(df['a'],df['b'])
 \begin{codecell}
 \begin{codeinput}
 \begin{lstlisting}
+
 !ssh localhost -l hduser /home/hduser/Downloads/hadoop*/bin/stop-all.sh
 !ssh localhost -l hduser /home/hduser/Downloads/hadoop*/bin/start-all.sh
 
@@ -156,19 +216,19 @@ scatter(df['a'],df['b'])
 \end{codeinput}
 \begin{codeoutput}
 \begin{verbatim}
-no jobtracker to stop
+stopping jobtracker
 \end{verbatim}
 \begin{verbatim}
-localhost: no tasktracker to stop
+localhost: stopping tasktracker
 \end{verbatim}
 \begin{verbatim}
-no namenode to stop
+stopping namenode
 \end{verbatim}
 \begin{verbatim}
-localhost: no datanode to stop
+localhost: stopping datanode
 \end{verbatim}
 \begin{verbatim}
-localhost: no secondarynamenode to stop
+localhost: stopping secondarynamenode
 \end{verbatim}
 \begin{verbatim}
 starting namenode, logging to /home/hduser/Downloads/hadoop-1.0.4/libexec/../logs/hadoop-hduser-namenode-burak-Aspire-S3.out
@@ -224,50 +284,6 @@ copyFromLocal: Target /user/hduser/synthetic.txt already exists
 \begin{codecell}
 \begin{codeinput}
 \begin{lstlisting}
-!cp mapper.py /tmp/
-!chmod a+r /tmp/mapper.py
-!chmod a+x /tmp/mapper.py
-!ssh localhost -l hduser /home/hduser/Downloads/hadoop*/bin/hadoop dfs -rmr /user/hduser/output
-
-
-\end{lstlisting}
-\end{codeinput}
-\begin{codeoutput}
-\begin{verbatim}
-Deleted hdfs://localhost:54310/user/hduser/output
-\end{verbatim}
-\begin{verbatim}
-packageJobJar: [/app/hadoop/tmp/hadoop-unjar4901234381683438453/] [] /tmp/streamjob8733192798849770485.jar tmpDir=null
-\end{verbatim}
-\begin{verbatim}
-13/02/27 01:00:48 INFO util.NativeCodeLoader: Loaded the native-hadoop library
-13/02/27 01:00:48 WARN snappy.LoadSnappy: Snappy native library not loaded
-13/02/27 01:00:48 INFO mapred.FileInputFormat: Total input paths to process : 1
-\end{verbatim}
-\begin{verbatim}
-13/02/27 01:00:48 INFO streaming.StreamJob: getLocalDirs(): [/app/hadoop/tmp/mapred/local]
-13/02/27 01:00:48 INFO streaming.StreamJob: Running job: job_201302270038_0001
-13/02/27 01:00:48 INFO streaming.StreamJob: To kill this job, run:
-13/02/27 01:00:48 INFO streaming.StreamJob: /home/hduser/Downloads/hadoop-1.0.4/libexec/../bin/hadoop job  -Dmapred.job.tracker=localhost:54311 -kill job_201302270038_0001
-13/02/27 01:00:48 INFO streaming.StreamJob: Tracking URL: http://localhost:50030/jobdetails.jsp?jobid=job_201302270038_0001
-\end{verbatim}
-\begin{verbatim}
-13/02/27 01:00:49 INFO streaming.StreamJob:  map 0%  reduce 0%
-\end{verbatim}
-\begin{verbatim}
-13/02/27 01:01:37 INFO streaming.StreamJob:  map 100%  reduce 100%
-13/02/27 01:01:37 INFO streaming.StreamJob: To kill this job, run:
-13/02/27 01:01:37 INFO streaming.StreamJob: /home/hduser/Downloads/hadoop-1.0.4/libexec/../bin/hadoop job  -Dmapred.job.tracker=localhost:54311 -kill job_201302270038_0001
-13/02/27 01:01:37 INFO streaming.StreamJob: Tracking URL: http://localhost:50030/jobdetails.jsp?jobid=job_201302270038_0001
-13/02/27 01:01:37 ERROR streaming.StreamJob: Job not successful. Error: # of failed Map Tasks exceeded allowed limit. FailedCount: 1. LastFailedTask: task_201302270038_0001_m_000000
-13/02/27 01:01:37 INFO streaming.StreamJob: killJob...
-Streaming Command Failed!
-\end{verbatim}
-\end{codeoutput}
-\end{codecell}
-\begin{codecell}
-\begin{codeinput}
-\begin{lstlisting}
 print open("mapper.py").read()
 \end{lstlisting}
 \end{codeinput}
@@ -281,7 +297,6 @@ os.environ['MPLCONFIGDIR']='/tmp'
 import pandas as pd
 
 centers = pd.read_csv("/tmp/centers.csv",header=None,sep=",")
-print centers[:4]
 
 def dist(vect,x):
     return np.fromiter(itertools.imap(np.linalg.norm, vect-x),dtype=np.float)
@@ -290,9 +305,41 @@ def closest(x):
     d = dist(np.array(centers)[:,1:3],np.array(x))
     return np.argmin(d)
 
+comb = lambda x: str(x[0])+":"+str(x[1])
+
 df = pd.read_csv(sys.stdin,header=None,sep="   ")
-df['closest'] = df.apply(closest,axis=1)
-print df[:20]
+df['cluster'] = df.apply(closest,axis=1)
+df['coord'] = df.apply(comb,axis=1)
+df.to_csv(sys.stdout, sep='\t',index=False, cols=['cluster','coord'],
+          header=None)
+\end{verbatim}
+\end{codeoutput}
+\end{codecell}
+\begin{codecell}
+\begin{codeinput}
+\begin{lstlisting}
+print open("reducer.py").read()
+\end{lstlisting}
+\end{codeinput}
+\begin{codeoutput}
+\begin{verbatim}
+#!/usr/bin/python
+import os,sys,itertools
+import numpy as np
+from numpy import linalg as la
+os.environ['MPLCONFIGDIR']='/tmp' 
+import pandas as pd
+
+def coords(x):
+    return np.array(str(x).split(":"),dtype=np.float64)
+
+def my_mean(x):
+    return pd.Series(np.mean(x['coord_new']),index=['cluster','coord'])
+
+df = pd.read_csv(sys.stdin,sep="\t",names=['cluster','coord'])
+df['coord_new'] = df['coord'].apply(coords)
+df2 = df.groupby('cluster').apply(my_mean)
+df2.to_csv(sys.stdout, sep=',',header=None)
 \end{verbatim}
 \end{codeoutput}
 \end{codecell}
@@ -303,53 +350,73 @@ import os,sys,itertools
 from numpy import linalg as la
 import pandas as pd
 k = 10
-df = read_csv("synthetic.txt",names=['a','b'],sep="   ")
+df = read_csv("synthetic.txt",header=None,sep="   ")
 centers = df.take(np.random.permutation(len(df))[:k])
 centers.to_csv("/tmp/centers.csv",header=None)
-
+\end{lstlisting}
+\end{codeinput}
+\end{codecell}
+\begin{codecell}
+\begin{codeinput}
+\begin{lstlisting}
 os.system("cp mapper.py /tmp/")
 os.system("chmod a+r /tmp/mapper.py")
 os.system("chmod a+x /tmp/mapper.py")
 
-os.system("ssh localhost -l hduser /home/hduser/Downloads/hadoop*/bin/hadoop dfs -rm /user/hduser/centers.csv")
-os.system("ssh localhost -l hduser /home/hduser/Downloads/hadoop*/bin/hadoop dfs -copyFromLocal /tmp/centers.csv /user/hduser")
-os.system("ssh localhost -l hduser /home/hduser/Downloads/hadoop*/bin/hadoop dfs -cat /user/hduser/centers.csv")
+os.system("cp reducer.py /tmp/")
+os.system("chmod a+r /tmp/reducer.py")
+os.system("chmod a+x /tmp/reducer.py")
 
-centers = pd.read_csv("/tmp/centers.csv",header=None,sep=",")
-print centers[:4]
+hp_cmd = "ssh localhost -l hduser /home/hduser/Downloads/hadoop*/bin/hadoop"
+streaming_cmd = "/home/hduser/Downloads/hadoop*/contrib/streaming/hadoop-*streaming*.jar"
 
-os.system("ssh localhost -l hduser /home/hduser/Downloads/hadoop*/bin/hadoop dfs -rmr /user/hduser/output")
-os.system("ssh localhost -l hduser /home/hduser/Downloads/hadoop*/bin/hadoop  jar /home/hduser/Downloads/hadoop*/contrib/streaming/hadoop-*streaming*.jar -input patent/apat63_99_sampled.txt  -output output  -mapper /tmp/mapper.py -numReduceTasks 0 ")
+os.system("%s dfs -rm /user/hduser/centers.csv" % hp_cmd)
+os.system("%s dfs -copyFromLocal /tmp/centers.csv /user/hduser" % hp_cmd)
 
+for i in range(10):
+    os.system("%s dfs -rmr /user/hduser/output" % hp_cmd)
+    os.system("%s jar %s -input synthetic.txt -output output -mapper /tmp/mapper.py -reducer /tmp/reducer.py -numReduceTasks 1" % (hp_cmd,streaming_cmd))
+    os.system("%s dfs -cp /user/hduser/output/part-00000 /user/hduser/centers.csv" % hp_cmd) 
+
+\end{lstlisting}
+\end{codeinput}
+\end{codecell}
+K-Means'i 10 kere islettikten sonra elde edilen sonuclari artik HDFS'ten
+yerel dizinimize alabiliriz. Nihai kume merkezleri output/part-00000
+icinde. Bu merkezleri alip, ham veri uzerinde kirmizi nokta olarak
+gosteriyoruz.
+
+\begin{codecell}
+\begin{codeinput}
+\begin{lstlisting}
+os.system("ssh localhost -l hduser rm /tmp/part-00000")
+os.system("ssh localhost -l hduser /home/hduser/Downloads/hadoop*/bin/hadoop dfs -copyToLocal /user/hduser/output/part-00000 /tmp/") # 
 \end{lstlisting}
 \end{codeinput}
 \begin{codeoutput}
 \begin{verbatim}
-0      1      2
-0  2145  28810  55914
-1  2687   9657  50553
-2  2091  30265  59751
-3  1830  37166  58232
-\end{verbatim}
-\begin{verbatim}
-1024
+0
 \end{verbatim}
 \end{codeoutput}
 \end{codecell}
 \begin{codecell}
 \begin{codeinput}
 \begin{lstlisting}
-xfrom IPython.core.display import HTML
-def css_styling():
-    styles = open("../../custom.css", "r").read()
-    return HTML(styles)
-css_styling()
+df1 = read_csv("synthetic.txt",sep="   ")
+plt.scatter(df1.ix[:,0],df1.ix[:,1])
+plt.hold(True)
+df2 = read_csv("/tmp/part-00000",header=None,index_col=0)
+plt.plot(df2.ix[:,1],df2.ix[:,2],'rd')
 \end{lstlisting}
 \end{codeinput}
 \begin{codeoutput}
 \begin{verbatim}
-<IPython.core.display.HTML at 0xa34402c>
+[<matplotlib.lines.Line2D at 0xb14cf4c>]
 \end{verbatim}
+\begin{center}
+\includegraphics[width=0.7\textwidth]{kmeans_files/kmeans_fig_01.png}
+\par
+\end{center}
 \end{codeoutput}
 \end{codecell}
 
