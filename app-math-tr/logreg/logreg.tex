@@ -125,16 +125,14 @@
 
 Lojistik Regresyon
 
-Lojistik regresyon normal regresyonun $\theta^T x$ olarak hesapladigi
-agirliklari ek bir filtre fonksiyonundan gecirerek onlari 0/1 degerleri
-baglaminda bir olasiliga esler. Yani elimizdeki veri pek cok boyutta
-veri noktalari ve o noktalarin 0 ya da 1 olarak bir ``etiketi''
-olacaktir.
-
-Lojistik regresyon egitimi sonrasi elimize gecen $\theta$'lar,
-katsayilarimizdir, artik bu katsayilari tahmin yapmak icin
-kullanabiliriz. Filtre fonksiyonu icin kullanilan bir fonksiyon sigmoid
-fonksiyonudur.
+Lojistik regresyon normal regresyonun $\theta^T x$ olarak kullandigi
+agirliklar / katsayilar ve veri carpimini ek bir filtre fonksiyonundan
+gecirerek onlari 0/1 degerleri baglaminda bir olasiliga esler. Yani
+elimizdeki veri pek cok boyutta veri noktalari ve o noktalarin 0 ya da 1
+olarak bir ``etiketi'' olacaktir. Lojistik regresyon egitimi sonrasi
+elimize gecen $\theta$'lar, katsayilarimizdir, artik bu katsayilari
+tahmin yapmak icin kullanabiliriz. Filtre fonksiyonu icin kullanilan bir
+fonksiyon sigmoid fonksiyonudur.
 
 Sigmoid fonksiyonu
 \[ \frac{e^{x}}{1+e^{x}} \]
@@ -143,10 +141,10 @@ $x$ degeri gecersek, bu deger ne kadar buyuk olursa olsun, bolendeki
 deger her zaman bolunenden 1 daha fazla olacaktir bu da fonksiyonun
 sonucunun 1'den her zaman kucuk olmasini garantiler. Cok kucuk $x$
 degerleri icin bolum sonucu biraz daha buyuk olacaktir tabii, vs.~Daha
-temiz bir ifade icin bolen ve boluneni \$ e\^{}\{-x\}\$ ile carpalim,
+temiz bir ifade icin bolen ve boluneni $e^{-x}$ ile carpalim,
 \[ \frac{e^{x}e^{-x}}{e^{-x}+e^{x}e^{-x}} \]\[ g(x) = \frac{1}{1+e^{-x}} \]
 Sigmoid fonksiyonun ``-sonsuzluk ile +sonsuzluk arasindaki degerleri 0
-ve 1 arasina esledigi (map) / indirgedigi'' sozu de litaraturde
+ve 1 arasina esledigi / indirgedigi (map)'' ifadesi de litaraturde
 mevcuttur.
 
 \begin{codecell}
@@ -162,7 +160,7 @@ plot(x,sigmoid(x))
 \end{codeinput}
 \begin{codeoutput}
 \begin{verbatim}
-[<matplotlib.lines.Line2D at 0xadfea6c>]
+[<matplotlib.lines.Line2D at 0xafd074c>]
 \end{verbatim}
 \begin{center}
 \includegraphics[width=0.7\textwidth]{logreg_files/logreg_fig_00.png}
@@ -170,7 +168,8 @@ plot(x,sigmoid(x))
 \end{center}
 \end{codeoutput}
 \end{codecell}
-Peki ustteki fonksiyon bir olasilik fonksiyonu olabilir mi?
+Peki ustteki fonksiyon bir olasilik fonksiyonu olabilir mi? Entegralini
+alalim,
 
 \begin{codecell}
 \begin{codeinput}
@@ -213,18 +212,20 @@ Demek ki fonksiyon bir olasilik dagilimi olamaz, cunku egri altindaki
 alan sonsuz buyuklugunde. Aslinda bu fonksiyonun kumulatif dagilim
 fonksiyonu (cumulative distribution function -CDF-) ozellikleri vardir,
 yani kendisi degil ama turevi bir olasilik fonksiyonu olarak
-kullanilabilir. Bu durumda $g$'nin 0 ile 1 arasinda olmasi da dagilim
-altindaki alanin en fazla 1 olabilmesi durumunu ortaya cikarir ki bu CDF
-tanimina uygundur.
+kullanilabilir (bu konumuz disinda).
+
+CDF durumunda $g$'nin 0 ile 1 arasinda olmasi da dagilim altindaki
+alanin en fazla 1 olabilmesi durumunu ortaya cikarir ki bu CDF tanimina
+uygundur.
 
 Simdi elimizde olabilecek $k$ tane degisken ve bu degiskenlerin
 bilinmeyen katsayilari icin 0 ve 1'e eslenecek bir regresyon
 olusturalim. Diyelim ki katsayilar $\theta_0,..,\theta_k$. Bu
-katsayilari degiskenler ile carpip toplayarak $h(x)$'e verelim, ve
-verideki etiketlere gore (0/1) cikip cikmayacagi katsayilara bagli
-olacak $h(x)$ sonucu ile eldeki veriler arasinda bir baglanti
-olusturmaya ugrasalim. Bu modele gore eger $\theta$'yi ne kadar iyi
-secersek, eldeki veriye o kadar yaklasmis olacagiz.
+katsayilari degiskenler ile carpip toplayarak $h(x)$'e verelim, (0/1)
+cikip cikmayacagi katsayilara bagli olacak, verideki etiketler ile
+$h(x)$ sonucu arasinda bir baglanti bize katsayilari verebilir. Bu
+modele gore eger $\theta$'yi ne kadar iyi secersek, eldeki veriye o
+kadar yaklasmis olacagiz.
 \[ h_\theta(x) = g(\theta^T x) = \frac{1}{1+e^{-\theta^T x}} \]
 ``Veriye olabildigince yaklasmak icin en iyi $\alpha$'yi bulmak'' sozu
 bize maksimum olurluk (maximum likelihood) hesabini hatirlatmali. Bu
@@ -240,7 +241,8 @@ Not: Olasilik degerleri (buyuk $P(\cdot)$ ile), CDF fonksiyonlari
 gibi alansal hesaplar CDF uzerinden gerceklestirilebildigini
 hatirlayalim.
 
-Hepsi bir arada olacak sekilde yanyana koyarsak,
+Hepsi bir arada olacak sekilde yanyana koyarsak ve sonuca, $y$'ye, ne
+kadar yaklasip yaklasamadigimizin olcumunu de eklersek,
 \[p(y | x;\theta) = (h_\theta(x))^y (1-h_\theta(x))^{1-y}\]
 Olurluk icin tum veri noktalarini teker teker bu fonksiyona gecip
 sonuclarini carpacagiz (ve verilerin birinden bagimsiz olarak
@@ -252,7 +254,9 @@ Eger log'unu alirsak carpimlar toplama donusur, isimiz daha rahatlasir,
      y^i \log( (h_\theta(x^i)) ) +
      (1-{y^i}) \log( (1-h_\theta(x^i)) )
 \]
-Daha fazla ilerlemeden once bir esitlik ve bir turev gostermemiz
+Iste bu ifadenin maksimize edilmesi gerekiyor.
+
+Ama daha fazla ilerlemeden once bir esitlik ve bir turev gostermemiz
 gerekiyor. Once esitlik
 \[ 1-g(z) = g(-z) \]
 Ispat
@@ -281,7 +285,7 @@ edilebilir, ya da $g(z)$ ve $1-g(z)$,
  = g(z)(1-g(z))
  \]\[ \Box \]
 Artik olurluk denklemine donebiliriz. Olurlugu nasil maksimize ederiz?
-Gradyan inisi (gradient descent) kullanilabilir. Eger olurluk
+Gradyan cikisi (gradient ascent) kullanilabilir. Eger olurluk
 $l(\theta)$'nin en maksimal oldugu noktadaki $\theta$'yi bulmak
 istiyorsak (dikkat sadece olurlugun en maksimal noktasini aramiyoruz, o
 noktadaki $\theta$'yi ariyoruz), o zaman bir $\theta$ ile baslariz, ve
@@ -291,11 +295,11 @@ Ustteki formul niye isler? Cunku gradyan $\nabla_\theta l(\theta)$, yani
 $l(\theta)$'nin gradyani her zaman fonksiyon artisinin en fazla oldugu
 yonu gosterir. Demek ki o yone adim atmak, yani $l(\theta)$'a verilen
 $\theta$'yi o yonde degistirmek (degisim tabii ki $\theta$ bazinda,
-$\theta$'nin degisimi), bizi fonksiyonun bir sonraki maksimum noktasina
+$\theta$'nin degisimi), bizi fonksiyonun bir sonraki noktasina
 yaklastiracaktir. Sabit $\alpha$ bir tek sayi sadece, atilan adimin
 (hangi yonde olursa olsun) olcegini azaltip / arttirabilmek icin
 disaridan eklenir. Adim yonu vektor, bu sabit bir tek sayi. Carpimlari
-vektoru azaltir ya da cogaltir.
+vektoru azaltir ya da cogaltir {[}3{]}.
 
 Simdi $\nabla_\theta l(\theta)$ turetmemiz gerekiyor.
 
@@ -446,7 +450,7 @@ gradyan inisi yapti ve optimal $\theta$ degerlerini, yani regresyon
 agirliklarini (weights) hesapladi. Sonra bu agirliklari bir ayrac olarak
 ustte grafikledi. Ayracin oldukca iyi degerler buldugu belli oluyor.
 
-Rasgele Gradyan Inisi (Stochastic Gradient Descent)
+Rasgele Gradyan Cikisi (Stochastic Gradient Ascent)
 
 Acaba $\theta$'yi guncellerken daha az veri kullanmak mumkun mu? Yani
 yon hesabi icin surekli tum veriyi kullanmasak olmaz mi?
@@ -458,7 +462,7 @@ olacaktir.
 
 Kodlama acisindan, $\theta$ guncellemesi icin buldugumuz formulu tek
 nokta bazinda da vermistik. O zaman o tek noktayi sirayla alip
-guncellersek, otomatik olarak yeni bir sekilde gradyan inisi yapmis
+guncellersek, otomatik olarak yeni bir sekilde gradyan cikisi yapmis
 oluruz.
 
 \begin{codecell}
@@ -506,7 +510,7 @@ degerler cok fazla uc noktalar arasinda gidip geliyor. Ayrica veri
 noktalarini sirayla isliyoruz, veri tabii ki rasgele bir sekilde
 siralanmis olabilir, ama siralanmamissa, o zaman algoritmaya raslantisal
 noktalari vermek icin kod icinde zar atmamiz lazim. Metotun ismi
-``rasgele (stochastic)'' gradyan inisi, bu rasgelelik onemli. 2.
+``rasgele (stochastic)'' gradyan cikisi, bu rasgelelik onemli. 2.
 problemi duzeltmek icin yapilacak belli, 1. problem icin $\alpha$ degeri
 her dongude belli oranda kucultulerek (yani $\alpha$ artik sabit degil)
 sonuca yaklasirken oradan buraya savrulmasini engellemis olacagiz. Yeni
@@ -539,7 +543,7 @@ theta.T
 \end{codeinput}
 \begin{codeoutput}
 \begin{verbatim}
-array([[ 12.77073946,   1.18168291,  -1.77399691]])
+array([[ 12.99254269,   0.96527827,  -1.6941379 ]])
 \end{verbatim}
 \end{codeoutput}
 \end{codecell}
@@ -560,10 +564,47 @@ plot_theta(theta)
 Sonuc cok iyi, ayrica daha az islemle bu noktaya eristik, yani daha az
 islem ve daha hizli bir sekilde sonuca ulasmis olduk.
 
+Tahmin (Prediction)
+
+Elde edilen agirliklari tahmin icin nasil kullaniriz? Bu agirliklari
+alip, yeni veri noktasi ile carpip sonuclari sigmoid'den gecirdigimiz
+zaman bu noktanin ``1 etiketi olma olasiligini'' hesaplamis olacagiz.
+Ornek (diyelim ki mevcut veri noktasi icinden bir veriyi, -mesela 15.
+nokta- sanki yeniymis gibi sectik)
+
+\begin{codecell}
+\begin{codeinput}
+\begin{lstlisting}
+pt = df.ix[15,['intercept','x','y']]
+print sigmoid(dot(array(pt), theta)), 
+print "label =",labels[15]
+\end{lstlisting}
+\end{codeinput}
+\begin{codeoutput}
+\begin{verbatim}
+[ 0.99998631] label = 1
+\end{verbatim}
+\end{codeoutput}
+\end{codecell}
+Oldukca yuksek bir olasilik cikti, ve hakikaten de o noktanin gercek
+degeri 1 imis.
+
 Kaynaklar
 
-http://cs229.stanford.edu/notes/cs229-notes1.pdf
+{[}1{]} http://cs229.stanford.edu/notes/cs229-notes1.pdf
 
-Harrington, P. \emph{Machine Learning in Action}
+{[}2{]} Harrington, P. \emph{Machine Learning in Action}
+
+{[}3{]} Bu sekilde azar azar sonuca yaklasmaya ugrasmak tabii ki her
+fonksiyon icin gecerli degildir, cunku eger fonksiyonda ``yerel
+maksimumlar'' var ise, gradyan cikisi bu noktalarda takilip kalabilir
+(ne de olsa bu noktalarda da birinci turev sifirlanir). Gradyan
+metotunun kullanmadan once fonksiyonumuzun tek (global) bir maksimumu
+olup olmadigini dusunmemiz gerekir. Fakat sanliyiz ki olurluk fonksiyonu
+tam da boyle bir fonksiyondur (sans degil tabii, bu ozelligi sebebiyle
+secildi). Fonksiyon icbukeydir (concave), yani tek bir tepe noktasi
+vardir. Bir soru daha: olurlugun icbukey oldugunu nasil anladik?
+Fonksiyona bakarak pat diye bunu soylemek mumkun, degiskenlerde polinom
+baglaminda kupsellik yok, ayrica $\log$, $\exp$ icbukeyligi bozmuyor.
 
 \end{document}
