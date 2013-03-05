@@ -125,54 +125,25 @@
 
 Lojistik Regresyon
 
-\begin{codecell}
-\begin{codeinput}
-\begin{lstlisting}
-from pandas import *
-df = read_csv("testSet.txt",sep='\t',names=['x','y','labels'],header=None)
-df['intercept']=1.0
-data = df[['intercept','x','y']]
-labels = df['labels']
-print data[:10]
-print labels[:10]
+Lojistik regresyon normal regresyonun $\theta^T x$ olarak hesapladigi
+agirliklari ek bir filtre fonksiyonundan gecirerek onlari 0/1 degerleri
+baglaminda bir olasiliga esler. Yani elimizdeki veri pek cok boyutta
+veri noktalari ve o noktalarin 0 ya da 1 olarak bir ``etiketi''
+olacaktir.
 
-\end{lstlisting}
-\end{codeinput}
-\begin{codeoutput}
-\begin{verbatim}
-intercept         x          y
-0          1 -0.017612  14.053064
-1          1 -1.395634   4.662541
-2          1 -0.752157   6.538620
-3          1 -1.322371   7.152853
-4          1  0.423363  11.054677
-5          1  0.406704   7.067335
-6          1  0.667394  12.741452
-7          1 -2.460150   6.866805
-8          1  0.569411   9.548755
-9          1 -0.026632  10.427743
-0    0
-1    1
-2    0
-3    0
-4    0
-5    1
-6    0
-7    1
-8    0
-9    0
-Name: labels
-\end{verbatim}
-\end{codeoutput}
-\end{codecell}
+Lojistik regresyon egitimi sonrasi elimize gecen $\theta$'lar,
+katsayilarimizdir, artik bu katsayilari tahmin yapmak icin
+kullanabiliriz. Filtre fonksiyonu icin kullanilan bir fonksiyon sigmoid
+fonksiyonudur.
+
 Sigmoid fonksiyonu
 \[ \frac{e^{x}}{1+e^{x}} \]
-Fonksiyon oyle hazirlanmis ki, ne kadar buyuk olursa olsun ne zaman bir
-$x$ degeri gecersek, bolendeki deger her zaman bolunenden 1 daha fazla
-olacaktir bu da fonksiyonun sonucunun 1'den her zaman kucuk olmasini
-garantiler. Cok kucuk $x$ degerleri icin bolum sonucu biraz daha buyuk
-olacaktir tabii, vs.~Daha temiz bir ifade icin bolen ve boluneni \$
-e\^{}\{-x\}\$ ile carpalim,
+Sezgisel olarak bakarsak, fonksiyon oyle bir durumda ki, ne zaman bir
+$x$ degeri gecersek, bu deger ne kadar buyuk olursa olsun, bolendeki
+deger her zaman bolunenden 1 daha fazla olacaktir bu da fonksiyonun
+sonucunun 1'den her zaman kucuk olmasini garantiler. Cok kucuk $x$
+degerleri icin bolum sonucu biraz daha buyuk olacaktir tabii, vs.~Daha
+temiz bir ifade icin bolen ve boluneni \$ e\^{}\{-x\}\$ ile carpalim,
 \[ \frac{e^{x}e^{-x}}{e^{-x}+e^{x}e^{-x}} \]\[ g(x) = \frac{1}{1+e^{-x}} \]
 Sigmoid fonksiyonun ``-sonsuzluk ile +sonsuzluk arasindaki degerleri 0
 ve 1 arasina esledigi (map) / indirgedigi'' sozu de litaraturde
@@ -266,7 +237,8 @@ Simdi olasiliklari dusunelim
 \[ P(y=1 | x;\theta) = h_\theta(x) \]\[ P(y=0 | x;\theta) = 1 - h_\theta(x) \]
 Not: Olasilik degerleri (buyuk $P(\cdot)$ ile), CDF fonksiyonlari
 (dagilim olmasa da) olurluk hesabinda kullanilabilir. Bu arada $P(X<x)$
-gibi alansal hesaplar CDF uzerinden gerceklestirilebiliyor.
+gibi alansal hesaplar CDF uzerinden gerceklestirilebildigini
+hatirlayalim.
 
 Hepsi bir arada olacak sekilde yanyana koyarsak,
 \[p(y | x;\theta) = (h_\theta(x))^y (1-h_\theta(x))^{1-y}\]
@@ -282,9 +254,13 @@ Eger log'unu alirsak carpimlar toplama donusur, isimiz daha rahatlasir,
 \]
 Daha fazla ilerlemeden once bir esitlik ve bir turev gostermemiz
 gerekiyor. Once esitlik
-\[ 1-g(z) = g(-z) \]\[ 1-\frac{1}{1+e^{-z}}  = \frac{1+e^{-z}-1}{1+e^{-z}}\]\[ \frac{e^{-z}}{1+e^{-z}} = \frac{1}{1+e^{z}}\]
+\[ 1-g(z) = g(-z) \]
+Ispat
+\[ 1-\frac{1}{1+e^{-z}}  = \frac{1+e^{-z}-1}{1+e^{-z}}\]\[ \frac{e^{-z}}{1+e^{-z}} = \frac{1}{1+e^{z}}\]
 Hakikaten son esitligin sag tarafina bakarsak, $g(-z)$'yi elde
-ettigimizi goruyoruz. Simdi tureve gelelim,
+ettigimizi goruyoruz.
+\[ \Box \]
+Simdi tureve gelelim,
 \[
 g'(z) = \frac{d}{dz} \frac{ 1}{1+ e^{ -z}} =
 \frac{1}{(1+ e^{-z})^2} (e^{-z}) 
@@ -303,7 +279,7 @@ Carpimda iki bolum var, bolumler $g(z)$ ve $g(-z)$ olarak temsil
 edilebilir, ya da $g(z)$ ve $1-g(z)$,
 \[
  = g(z)(1-g(z))
- \]
+ \]\[ \Box \]
 Artik olurluk denklemine donebiliriz. Olurlugu nasil maksimize ederiz?
 Gradyan inisi (gradient descent) kullanilabilir. Eger olurluk
 $l(\theta)$'nin en maksimal oldugu noktadaki $\theta$'yi bulmak
@@ -334,14 +310,13 @@ y
 (1-y) 
 \frac{\frac{\partial }{\partial \theta_j}g(\theta^Tx) }{1-g(\theta^Tx)} 
 \]\[ 
-=
-\bigg(
+= \big(
 y 
 \frac{1}{g(\theta^Tx)} 
 -
 (1-y) 
 \frac{1}{1-g(\theta^Tx)} 
-\bigg)
+\big)
 \frac{\partial }{\partial \theta_j}g(\theta^Tx)
 \]
 Simdi en sagdaki kismi acalim,
@@ -380,9 +355,40 @@ yani
 \]\[
 = (y - h_\theta(x))x_j
 \]
-Iste $\nabla_\theta l(\theta)$ icin ne kullanacagimizi bulduk. O zaman,
-ve her $i$ veri noktasi icin
+Iste $\nabla_\theta l(\theta)$ icin ne kullanacagimizi bulduk. O zaman
+\[ \theta_{yeni} = \theta_{eski} + \alpha (y - h_\theta(x))x_j \]
+Her $i$ veri noktasi icin
 \[ \theta_{yeni} = \theta_{eski} + \alpha (y^{i} - h_\theta(x^{i}))x^{i}_j \]
+Veriye bakalim, ve kodu isletelim,
+
+\begin{codecell}
+\begin{codeinput}
+\begin{lstlisting}
+from pandas import *
+df = read_csv("testSet.txt",sep='\t',names=['x','y','labels'],header=None)
+df['intercept']=1.0
+data = df[['intercept','x','y']]
+labels = df['labels']
+df[['x','y','labels']][:10]
+
+\end{lstlisting}
+\end{codeinput}
+\begin{codeoutput}
+\begin{verbatim}
+          x          y  labels
+0 -0.017612  14.053064       0
+1 -1.395634   4.662541       1
+2 -0.752157   6.538620       0
+3 -1.322371   7.152853       0
+4  0.423363  11.054677       0
+5  0.406704   7.067335       1
+6  0.667394  12.741452       0
+7 -2.460150   6.866805       1
+8  0.569411   9.548755       0
+9 -0.026632  10.427743       0
+\end{verbatim}
+\end{codeoutput}
+\end{codecell}
 \begin{codecell}
 \begin{codeinput}
 \begin{lstlisting}
@@ -442,12 +448,24 @@ ustte grafikledi. Ayracin oldukca iyi degerler buldugu belli oluyor.
 
 Rasgele Gradyan Inisi (Stochastic Gradient Descent)
 
+Acaba $\theta$'yi guncellerken daha az veri kullanmak mumkun mu? Yani
+yon hesabi icin surekli tum veriyi kullanmasak olmaz mi?
+
+Olabilir. Guncellemeyi sadece tek bir veri noktasi kullanarak
+yapabiliriz. Yine gradyani degistirmis oluruz, sadece azar azar degisim
+olur, fakat belki de bu sekilde sonuca daha cabuk ulasmak mumkun
+olacaktir.
+
+Kodlama acisindan, $\theta$ guncellemesi icin buldugumuz formulu tek
+nokta bazinda da vermistik. O zaman o tek noktayi sirayla alip
+guncellersek, otomatik olarak yeni bir sekilde gradyan inisi yapmis
+oluruz.
+
 \begin{codecell}
 \begin{codeinput}
 \begin{lstlisting}
 def stoc_grad_ascent0(data_mat, label_mat):
     m,n = data_mat.shape
-    print m,n
     label_mat=label_mat.reshape((m,1))
     alpha = 0.01
     theta = ones((n,1))
@@ -460,14 +478,9 @@ def stoc_grad_ascent0(data_mat, label_mat):
 
 theta = np.array(stoc_grad_ascent0(array(data),array(labels).T ))
 theta.T
-
-
 \end{lstlisting}
 \end{codeinput}
 \begin{codeoutput}
-\begin{verbatim}
-100 3
-\end{verbatim}
 \begin{verbatim}
 array([[ 1.01702007,  0.85914348, -0.36579921]])
 \end{verbatim}
@@ -487,6 +500,18 @@ plot_theta(theta)
 \end{center}
 \end{codeoutput}
 \end{codecell}
+Neredeyse isimiz tamamlandi. Ustteki grafik pek iyi bir ayrac
+gostermedi. Niye? Problem cok fazla salinim (oscillation) var, yani
+degerler cok fazla uc noktalar arasinda gidip geliyor. Ayrica veri
+noktalarini sirayla isliyoruz, veri tabii ki rasgele bir sekilde
+siralanmis olabilir, ama siralanmamissa, o zaman algoritmaya raslantisal
+noktalari vermek icin kod icinde zar atmamiz lazim. Metotun ismi
+``rasgele (stochastic)'' gradyan inisi, bu rasgelelik onemli. 2.
+problemi duzeltmek icin yapilacak belli, 1. problem icin $\alpha$ degeri
+her dongude belli oranda kucultulerek (yani $\alpha$ artik sabit degil)
+sonuca yaklasirken oradan buraya savrulmasini engellemis olacagiz. Yeni
+kod altta,
+
 \begin{codecell}
 \begin{codeinput}
 \begin{lstlisting}
@@ -514,7 +539,7 @@ theta.T
 \end{codeinput}
 \begin{codeoutput}
 \begin{verbatim}
-array([[ 14.36959353,   1.24940793,  -1.84689592]])
+array([[ 12.77073946,   1.18168291,  -1.77399691]])
 \end{verbatim}
 \end{codeoutput}
 \end{codecell}
@@ -532,5 +557,13 @@ plot_theta(theta)
 \end{center}
 \end{codeoutput}
 \end{codecell}
+Sonuc cok iyi, ayrica daha az islemle bu noktaya eristik, yani daha az
+islem ve daha hizli bir sekilde sonuca ulasmis olduk.
+
+Kaynaklar
+
+http://cs229.stanford.edu/notes/cs229-notes1.pdf
+
+Harrington, P. \emph{Machine Learning in Action}
 
 \end{document}
