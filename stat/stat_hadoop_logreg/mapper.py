@@ -12,7 +12,7 @@ def stoc_grad_ascent0(data_mat, label_mat):
     m,n = data_mat.shape
     label_mat=label_mat.reshape((m,1))
     theta = np.ones((n,1))
-    alpha = 0.1
+    alpha = 0.001
     for i in range(m):
         h = sigmoid(np.sum(np.dot(data_mat[i],theta)))
         error = label_mat[i] - h
