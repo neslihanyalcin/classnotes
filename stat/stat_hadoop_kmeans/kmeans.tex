@@ -163,7 +163,7 @@ Image(filename='kmeans-diag.png')
 \end{codeinput}
 \begin{codeoutput}
 \begin{verbatim}
-<IPython.core.display.Image at 0xc5db98c>
+<IPython.core.display.Image at 0xa84e4ac>
 \end{verbatim}
 \end{codeoutput}
 \end{codecell}
@@ -199,7 +199,7 @@ plt.scatter(df1.ix[:,0],df1.ix[:,1])
 \end{codeinput}
 \begin{codeoutput}
 \begin{verbatim}
-<matplotlib.collections.PathCollection at 0xc051e8c>
+<matplotlib.collections.PathCollection at 0x9dbd6cc>
 \end{verbatim}
 \begin{center}
 \includegraphics[width=0.7\textwidth]{kmeans_files/kmeans_fig_00.png}
@@ -347,15 +347,13 @@ os.environ['MPLCONFIGDIR']='/tmp'
 import pandas as pd
 
 def coords(x):
-    return np.array(str(x).split(":"),dtype=np.float64)
-
-def my_mean(x):
-    return pd.Series(np.mean(x['coord_new']),index=['cluster','coord'])
+    return pd.Series(np.array(str(x).split(":"),dtype=np.float64))
 
 df = pd.read_csv(sys.stdin,sep="\t",names=['cluster','coord'])
-df['coord_new'] = df['coord'].apply(coords)
-df2 = df.groupby('cluster').apply(my_mean)
-df2.to_csv(sys.stdout, sep=',',header=None)
+df2 = df['coord'].apply(coords)
+df3 = df.combine_first(df2)
+df4 = df3.groupby('cluster').mean()
+df4.to_csv(sys.stdout, sep=',',header=None)
 \end{verbatim}
 \end{codeoutput}
 \end{codecell}
@@ -375,6 +373,30 @@ centers = df.take(np.random.permutation(len(df))[:k])
 centers.to_csv("/tmp/centers.csv",header=None)
 \end{lstlisting}
 \end{codeinput}
+\end{codecell}
+Komut satirindan tek makina icin Hadoop'suz isletelim,
+
+\begin{codecell}
+\begin{codeinput}
+\begin{lstlisting}
+!cat synthetic.txt | python mapper.py | python reducer.py
+
+\end{lstlisting}
+\end{codeinput}
+\begin{codeoutput}
+\begin{verbatim}
+0.0,36718.08528428094,49564.140468227422
+1.0,25959.254408060453,60455.123425692698
+2.0,55249.026666666665,48112.053333333337
+3.0,35568.968944099382,37459.291925465841
+4.0,23859.836363636365,55127.80909090909
+5.0,24622.733695652172,45459.809782608696
+6.0,58702.199999999997,59040.274285714288
+7.0,52774.160493827163,42663.596707818928
+8.0,10195.186832740214,55198.960854092526
+9.0,60974.952380952382,49307.349206349209
+\end{verbatim}
+\end{codeoutput}
 \end{codecell}
 Simdi K-Means'i isleten kosturucu (runner) program. Bu program esleme,
 indirgeme safhalarini cagiracak, ve indirgeyici sonrasi ciktiyi alip
@@ -444,7 +466,7 @@ plt.plot(df2.ix[:,1],df2.ix[:,2],'rd')
 \end{codeinput}
 \begin{codeoutput}
 \begin{verbatim}
-[<matplotlib.lines.Line2D at 0xb14cf4c>]
+[<matplotlib.lines.Line2D at 0x9f2d2cc>]
 \end{verbatim}
 \begin{center}
 \includegraphics[width=0.7\textwidth]{kmeans_files/kmeans_fig_01.png}

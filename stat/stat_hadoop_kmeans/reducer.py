@@ -6,12 +6,10 @@ os.environ['MPLCONFIGDIR']='/tmp'
 import pandas as pd
 
 def coords(x):
-    return np.array(str(x).split(":"),dtype=np.float64)
-
-def my_mean(x):
-    return pd.Series(np.mean(x['coord_new']),index=['cluster','coord'])
+    return pd.Series(np.array(str(x).split(":"),dtype=np.float64))
 
 df = pd.read_csv(sys.stdin,sep="\t",names=['cluster','coord'])
-df['coord_new'] = df['coord'].apply(coords)
-df2 = df.groupby('cluster').apply(my_mean)
-df2.to_csv(sys.stdout, sep=',',header=None)
+df2 = df['coord'].apply(coords)
+df3 = df.combine_first(df2)
+df4 = df3.groupby('cluster').mean()
+df4.to_csv(sys.stdout, sep=',',header=None)
