@@ -12,4 +12,4 @@ for line in lines:
 df = pandas.DataFrame(d,columns=['id','class'])
 df2 = pandas.DataFrame(features)
 df3 = df.combine_first(df2)
-df3.to_csv("test.data.csv",index=False)
+df3.to_csv("/home/burak/test.data.csv",index=False)
