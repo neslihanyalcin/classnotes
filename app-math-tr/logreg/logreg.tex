@@ -202,6 +202,15 @@ plot(x,sigmoid(x))
 \end{center}
 \end{codeoutput}
 \end{codecell}
+Ustteki grafige bakinca katsayilarla carpim, toplam ardindan sonucun
+niye bu fonksiyona verildigini anlamak mumkun. Sigmoid'in 0 seviyesinden
+1 seviyesine ziplayisi oldukca hizli ve $x$ kordinati baglaminda (ve
+0.5'ten kucuk $y$'ye eslenen) sifir oncesi bolgesi, ayni sekilde sifir
+sonrasi (ve 0.5'ten buyuk $y$'ye eslenen) bolgesi oldukca buyuk. Yani bu
+fonksiyonu secmekle veriye katsayilarla carpilip 0 ya da 1 bolgesi
+altina dusmesi icin oldukca genis bir sans veriyoruz. Boylece veriyi iki
+parcaya ayirmak icin sansimizi arttirmis oluyoruz.
+
 Peki sigmoid fonksiyonu bir olasilik fonksiyonu (dagilimi) olarak
 kullanilabilir mi? Entegralini alalim, ve -/+ sonsuzluklar uzerinden
 alan hesabi yapalim, sonucun 1 cikmasi gerekli,
