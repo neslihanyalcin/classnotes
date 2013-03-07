@@ -7,7 +7,7 @@ if len(sys.argv) == 1 or sys.argv[1] == 'tex':
     stat_mcmc/stat_mcmc.pdf stat_coal/stat_coal2.pdf \
     stat_mixbern/stat_mixbern2.pdf stat_wells/stat_wells.pdf \
     stat_hadoop_patent/patent.pdf stat_hadoop_kmeans/kmeans.pdf \
-    stat_normtable/stat_normtable.pdf \
+    stat_hadoop_logreg/stat_hadoop_logreg.pdf stat_normtable/stat_normtable.pdf \
     output ~/Dropbox/Public/skfiles/stat.pdf
     """)
     exit()
