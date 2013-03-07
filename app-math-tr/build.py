@@ -16,7 +16,7 @@ spline/spline2.pdf ./ml-tr/ml-tr.pdf ./logreg/logreg.pdf ./kmeans/kmeans.pdf ./n
 pde-wave-deriv/pde_01.pdf ./heat-deriv/heat-deriv.pdf ./heat/heat2.pdf \
 ./curvature/curvature.pdf ./level/level2.pdf ./lk/lk2.pdf ./varcalc/varcalc.pdf \
 ./filter/filter.pdf ./svdcluster/svdcluster2.pdf  ./svdrecom/svdrecom.pdf \
-./regularization/regular.pdf ./phd/phd.pdf \
+./regularization/regular.pdf ./mixbern/stat_mixbern2.pdf ./phd/phd.pdf \
 output ~/Dropbox/Public/skfiles/app-math-tr.pdf "
     os.system(cmd)
     exit()
