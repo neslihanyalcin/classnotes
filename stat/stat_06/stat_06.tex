@@ -125,13 +125,205 @@
 
 Ders 5 - Hipotez Testleri (Hypothesis Testing)
 
-Bir hipotez testi, sonucta sadece iki sonuc verebilecek bir sorudur; bu
+Hipotez testi (bir veriye dayanarak) farzedilen bir parametreyi bir
+sabit degerle karsilastirmak, ya da iki parametreyi birbiriyle
+karsilastirmak icin kullanilir.
+
+Bir hipotez testi, sonucta sadece iki cevap verebilecek bir sorudur; bu
 sonuclar ``reddetmek'' ya da ``reddetmemek'' olabilir. Dikkat: bu
 sonuclardan biri ``kabul etmek'' degil, bir istatistiki hipotezi kabul
 etmek mumkun degildir. Tek soyleyebildigimiz ``bir hipotezi reddetmek
-icin elimizde yeterli veri olmadigini'' soylemektir. Yani
+icin elimizde yeterli veri olmadigini'' soylemektir. Ama
 reddedebiliyorsak, bu sonucta daha bir kesinlik vardir.
 
+Tek Orneklem t Testi (One-sample t test)
+
+Bu test verinin Normal dagilimdan geldigini farzeder, tek orneklem
+durumunda elde $x_1,...,x_n$ verisi vardir, ve bu veri $N(\mu,\Sigma)$
+dagilimindan gelmistir ve test etmek istedigimiz hipotez / karsilastirma
+$\mu = \mu_0$.
+
+\begin{codecell}
+\begin{codeinput}
+\begin{lstlisting}
+import numpy as np
+from scipy.stats import ttest_1samp, wilcoxon, ttest_ind
+import pandas as pd
+\end{lstlisting}
+\end{codeinput}
+\end{codecell}
+\begin{codecell}
+\begin{codeinput}
+\begin{lstlisting}
+daily_intake = np.array([5260,5470,5640,6180,6390,6515, 6805,7515,7515,8230,8770])
+df = pd.DataFrame(daily_intake)
+df.describe()
+\end{lstlisting}
+\end{codeinput}
+\begin{codeoutput}
+\begin{verbatim}
+                 0
+count    11.000000
+mean   6753.636364
+std    1142.123222
+min    5260.000000
+25%    5910.000000
+50%    6515.000000
+75%    7515.000000
+max    8770.000000
+\end{verbatim}
+\end{codeoutput}
+\end{codecell}
+\begin{codecell}
+\begin{codeinput}
+\begin{lstlisting}
+t_statistic, p_value = ttest_1samp(daily_intake, 7725)
+print "one-sample t-test", p_value
+\end{lstlisting}
+\end{codeinput}
+\begin{codeoutput}
+\begin{verbatim}
+one-sample t-test 0.0181372351761
+\end{verbatim}
+\end{codeoutput}
+\end{codecell}
+Sonuc p\_value 0.05'ten kucuk cikti yani yuzde 5 onemliligini
+(significance) baz aldik bu durumda veri hipotezden onemli derecede
+(significantly) uzakta. Demek ki ortalamanin 7725 oldugu hipotezini
+reddetmemiz gerekiyor.
+
+Testi iki orneklemli kullanalim, gruplar 0/1 degerleri ile isaretlendi,
+ve test etmek istedigimiz iki grubun ortalamasinin (mean) ayni oldugu
+hipotezini test etmek. t-test bu arada varyansin ayni oldugunu farzeder.
+
+\begin{codecell}
+\begin{codeinput}
+\begin{lstlisting}
+energ = np.array([
+[9.21, 0],
+[7.53, 1],
+[7.48, 1],
+[8.08, 1],
+[8.09, 1],
+[10.15, 1],
+[8.40, 1],
+[10.88, 1],
+[6.13, 1],
+[7.90, 1],
+[11.51, 0],
+[12.79, 0],
+[7.05, 1],
+[11.85, 0],
+[9.97, 0],
+[7.48, 1],
+[8.79, 0],
+[9.69, 0],
+[9.68, 0],
+[7.58, 1],
+[9.19, 0],
+[8.11, 1]])
+group1 = energ[energ[:, 1] == 0][:, 0]
+group2 = energ[energ[:, 1] == 1][:, 0]
+t_statistic, p_value = ttest_ind(group1, group2)
+print "two-sample t-test", p_value
+\end{lstlisting}
+\end{codeinput}
+\begin{codeoutput}
+\begin{verbatim}
+two-sample t-test 0.00079899821117
+\end{verbatim}
+\end{codeoutput}
+\end{codecell}
+$p-value < 0.05$ yani iki grubun ortalamasi ayni degildir. Ayni oldugu
+hipotezi reddedildi.
+
+Eslemeli t-Test (Paired t-test)
+
+Eslemeli testler ayni deneysel birimin olcumu alindigi zaman
+kullanilabilir, yani olcum alinan ayni grupta, deney sonrasi deneyin
+etki edip etmedigi test edilebilir. Bunun icin ayni olcum deney sonrasi
+bir daha alinir ve ``farklarin ortalamasinin sifir oldugu'' hipotezi
+test edilebilir. Altta bir grup hastanin deney oncesi ve sonrasi ne
+kadar yiyecek tukettigi listelenmis.
+
+\begin{codecell}
+\begin{codeinput}
+\begin{lstlisting}
+intake = np.array([
+[5260, 3910],
+[5470, 4220],
+[5640, 3885],
+[6180, 5160],
+[6390, 5645],
+[6515, 4680],
+[6805, 5265],
+[7515, 5975],
+[7515, 6790],
+[8230, 6900],
+[8770, 7335],
+])
+pre = intake[:, 0]
+post = intake[:, 1]
+t_statistic, p_value = ttest_1samp(post - pre, 0)
+print "paired t-test", p_value
+\end{lstlisting}
+\end{codeinput}
+\begin{codeoutput}
+\begin{verbatim}
+paired t-test 3.05902094293e-07
+\end{verbatim}
+\end{codeoutput}
+\end{codecell}
+Wilcoxon isaretli-sirali testi (Wilcoxon signed-rank test)
+
+t Testleri Normal dagilima gore sapmalari yakalamak acisindan, ozellikle
+buyuk orneklemler var ise, oldukca saglamdir. Fakat bazen verinin Normal
+dagilimdan geldigi faraziyesini yapmak istemeyebiliriz. Bu durumda
+\emph{dagilimdan bagimsiz metotlar} daha uygundur, bu tur metotlar icin
+verinin yerine cogunlukla onun sira istatistiklerini (order statistics)
+kullanir.
+
+Tek orneklemli Wilcoxon testi icin prosedur $\mu_0$'i tum veriden
+cikartmak ve geri kalan (farklari) isaretine bakmadan numerik degerine
+gore siralamak, ve bu sira degerini bir kenara yazmak. Daha sonra geri
+donup bu sefer cikartma islemi sonucunun isaretine bakmak, ve eksi
+isareti tasiyan sira degerlerini toplamak, ayni islemi arti isareti icin
+yapmak, ve eksi toplami arti toplamindan cikartmak. Sonucta elimize bir
+istatistik $W$ gelecek. Bu test istatistigi aslinda $1..n$ tane sayi
+icinden herhangi birini $1/2$ olasiligiyla secmek, ve sonuclari
+toplamaya tekabul etmektedir. Ve bu sonuc yine 0.05 ile karsilastirilir.
+
+\begin{codecell}
+\begin{codeinput}
+\begin{lstlisting}
+z_statistic, p_value = wilcoxon(daily_intake - 7725)
+print "one-sample wilcoxon-test", p_value
+
+\end{lstlisting}
+\end{codeinput}
+\begin{codeoutput}
+\begin{verbatim}
+one-sample wilcoxon-test 0.0279991628713
+\end{verbatim}
+\end{codeoutput}
+\end{codecell}
+Hipotezi yine reddettik.
+
+Ustte yaptigimiz eslemeli t-testi simdi Wilcoxon testi ile yapalim,
+
+\begin{codecell}
+\begin{codeinput}
+\begin{lstlisting}
+z_statistic, p_value = wilcoxon(post - pre)
+print "paired wilcoxon-test", p_value
+\end{lstlisting}
+\end{codeinput}
+\begin{codeoutput}
+\begin{verbatim}
+paired wilcoxon-test 0.00463608893545
+\end{verbatim}
+\end{codeoutput}
+\end{codecell}
 Kaynaklar
 
 https://gist.github.com/mblondel/1761714
