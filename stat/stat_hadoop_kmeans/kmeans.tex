@@ -171,14 +171,15 @@ Simdi Hadoop ile ilgili bazi lojistik konulara gelelim:
 
 Eger esleme safhasinda her nokta icin en yakin kumeyi bulmak istiyorsak,
 o zaman (ilk basta rasgele bile olsa) kume merkezlerinin bilgisi tum
-makinalarin erisebilecegi bir yerde olmali. Biz bu veriyi HDFS uzerinde
-tutmaya karar verdik, dosya ismi bilinen (well-known) bir yerde olacak,
-/tmp/centers.csv.
+makinalarin erisebilecegi bir yerde olmali. Biz bu veriyi, centers.csv
+adli dosyayi HDFS uzerinde tutmaya karar verdik, dosya ismi -archives
+ile Hadoop'a gecilecek ve bu sekilde gecilen dosya isimlerine isleyen
+script ile ayni dizindeymis gibi erisilebilir.
 
 Paralel K-Means icin tek bir esle-indirge isletimi yeterli degil, bu
 algoritma dongulu / ozyineli (iterative) bir algoritma, 5,10,20 kez
 islemesi gerekebilir. Her dongu (indirgeme) sonunda yeni kume merkezleri
-hesaplanacak, bu merkezler eski /tmp/centers.csv yerini alacak ve islem
+hesaplanacak, bu merkezler eski centers.csv yerini alacak ve islem
 tekrar baslayacak.
 
 Dongu sonundaki merkez bilgisi indirgeyicinin ciktisidir ve bu cikti
@@ -199,7 +200,7 @@ plt.scatter(df1.ix[:,0],df1.ix[:,1])
 \end{codeinput}
 \begin{codeoutput}
 \begin{verbatim}
-<matplotlib.collections.PathCollection at 0xafa270c>
+<matplotlib.collections.PathCollection at 0xa4f23cc>
 \end{verbatim}
 \begin{center}
 \includegraphics[width=0.7\textwidth]{kmeans_files/kmeans_fig_00.png}
@@ -258,33 +259,6 @@ komutlarimiz bile oraya erisemiyor)
 \begin{codecell}
 \begin{codeinput}
 \begin{lstlisting}
-!ssh localhost -l hduser /home/hduser/Downloads/hadoop*/bin/hadoop dfs -mkdir /tmp/
-\end{lstlisting}
-\end{codeinput}
-\begin{codeoutput}
-\begin{verbatim}
-mkdir: cannot create directory /tmp/: File exists
-\end{verbatim}
-\end{codeoutput}
-\end{codecell}
-\begin{codecell}
-\begin{codeinput}
-\begin{lstlisting}
-!ssh localhost -l hduser /home/hduser/Downloads/hadoop*/bin/hadoop dfs -ls /
-\end{lstlisting}
-\end{codeinput}
-\begin{codeoutput}
-\begin{verbatim}
-Found 3 items
-drwxr-xr-x   - hduser supergroup          0 2013-02-25 17:23 /app
-drwxr-xr-x   - hduser supergroup          0 2013-02-26 12:49 /tmp
-drwxr-xr-x   - hduser supergroup          0 2013-02-26 11:45 /user
-\end{verbatim}
-\end{codeoutput}
-\end{codecell}
-\begin{codecell}
-\begin{codeinput}
-\begin{lstlisting}
 !ssh localhost -l hduser /home/hduser/Downloads/hadoop*/bin/hadoop dfs -copyFromLocal $HOME/Documents/classnotes/stat/stat_hadoop_kmeans/synthetic.txt /user/hduser
 \end{lstlisting}
 \end{codeinput}
@@ -309,7 +283,7 @@ from numpy import linalg as la
 os.environ['MPLCONFIGDIR']='/tmp' 
 import pandas as pd
 
-centers = pd.read_csv("/tmp/centers.csv",header=None,sep=",")
+centers = pd.read_csv("centers.csv",header=None,sep=",")
 
 def dist(vect,x):
     return np.fromiter(itertools.imap(np.linalg.norm, vect-x),dtype=np.float)
@@ -362,9 +336,12 @@ df4.to_csv(sys.stdout, sep=',',header=None)
 \end{verbatim}
 \end{codeoutput}
 \end{codecell}
-Alttaki blokta merkezleri rasgele seciyoruz. Bunun icin veri icinden
-rasgele 15 tane (k kadar) nokta cekip cikartik. Bu rasgele sayi uretimi
-ile de yapilabilirdi.
+Alttaki blokta merkezleri rasgele veri noktalari uzerinden seciyoruz,
+yani veri icinden rasgele 15 tane (k kadar) nokta cekip cikartik, onlari
+baslangic merkezi yaptik. Bu salt rasgele sayi uretimi ile de
+yapilabilirdi.
+
+Komut satirindan tek makina icin Hadoop'suz isletelim,
 
 \begin{codecell}
 \begin{codeinput}
@@ -375,18 +352,11 @@ import pandas as pd
 k = 15
 df = read_csv("synthetic.txt",header=None,sep="   ")
 centers = df.take(np.random.permutation(len(df))[:k])
-centers.to_csv("/tmp/centers.csv",header=None)
-\end{lstlisting}
-\end{codeinput}
-\end{codecell}
-Komut satirindan tek makina icin Hadoop'suz isletelim,
-
-\begin{codecell}
-\begin{codeinput}
-\begin{lstlisting}
+centers.to_csv("centers.csv",header=None)
 for i in range(20):
-    os.system("cat synthetic.txt | python mapper.py | python reducer.py > /tmp/centers2.csv")
-    os.system("mv /tmp/centers2.csv /tmp/centers.csv")
+    os.system("cat synthetic.txt | python mapper.py | python reducer.py > centers2.csv")
+    os.system("cp centers2.csv centers.csv")
+    os.system("cp centers2.csv /tmp/centers-local-%i.csv" % i)
 
 \end{lstlisting}
 \end{codeinput}
@@ -394,17 +364,18 @@ for i in range(20):
 \begin{codecell}
 \begin{codeinput}
 \begin{lstlisting}
+i = 19
 df1 = read_csv("synthetic.txt",sep="   ")
 plt.scatter(df1.ix[:,0],df1.ix[:,1])
 plt.hold(True)
-df2 = read_csv("/tmp/centers.csv",header=None,index_col=0)
+df2 = read_csv("/tmp/centers-local-%d.csv" % i,header=None,index_col=0)
 plt.plot(df2.ix[:,1],df2.ix[:,2],'rd')
 
 \end{lstlisting}
 \end{codeinput}
 \begin{codeoutput}
 \begin{verbatim}
-[<matplotlib.lines.Line2D at 0xb1ff8cc>]
+[<matplotlib.lines.Line2D at 0xa9657cc>]
 \end{verbatim}
 \begin{center}
 \includegraphics[width=0.7\textwidth]{kmeans_files/kmeans_fig_01.png}
@@ -420,6 +391,7 @@ islerini halledecek.
 \begin{codecell}
 \begin{codeinput}
 \begin{lstlisting}
+import os
 os.system("cp mapper.py /tmp/")
 os.system("chmod a+r /tmp/mapper.py")
 os.system("chmod a+x /tmp/mapper.py")
@@ -428,17 +400,24 @@ os.system("cp reducer.py /tmp/")
 os.system("chmod a+r /tmp/reducer.py")
 os.system("chmod a+x /tmp/reducer.py")
 
+k = 15
+df = read_csv("synthetic.txt",header=None,sep="   ")
+centers = df.take(np.random.permutation(len(df))[:k])
+os.system("rm /tmp/centers.csv")
+os.system("ssh localhost -l hduser rm /tmp/centers.csv")
+centers.to_csv("/tmp/centers.csv",header=None)
+
 hp_cmd = "ssh localhost -l hduser /home/hduser/Downloads/hadoop*/bin/hadoop"
 streaming_cmd = "/home/hduser/Downloads/hadoop*/contrib/streaming/hadoop-*streaming*.jar"
-
-# Ilk seferde merkez verisini HDFS'e yerel dizinden gonder
-os.system("%s dfs -rm /user/hduser/centers.csv" % hp_cmd)
-os.system("%s dfs -copyFromLocal /tmp/centers.csv /user/hduser" % hp_cmd)
+os.system("ssh localhost -l hduser rm /tmp/centers-*-out.csv")
 
 for i in range(20):
     os.system("%s dfs -rmr /user/hduser/output" % hp_cmd)
-    os.system("%s jar %s -input synthetic.txt -output output -mapper /tmp/mapper.py -reducer /tmp/reducer.py -numReduceTasks 1" % (hp_cmd,streaming_cmd))
-    os.system("%s dfs -cp /user/hduser/output/part-00000 /user/hduser/centers.csv" % hp_cmd) 
+    os.system("%s jar %s -files /tmp/centers.csv -input synthetic.txt -output output -mapper /tmp/mapper.py -reducer /tmp/reducer.py -numReduceTasks 1" % (hp_cmd,streaming_cmd))
+    os.system("%s dfs -copyToLocal /user/hduser/output/part-00000 /tmp/centers-%d-out.csv" % (hp_cmd,i) )
+    os.system("ssh localhost -l hduser rm /tmp/centers.csv")
+    os.system("rm /tmp/centers.csv")
+    os.system("%s dfs -copyToLocal /user/hduser/output/part-00000 /tmp/centers.csv" % (hp_cmd) )
 
 \end{lstlisting}
 \end{codeinput}
@@ -451,36 +430,24 @@ demektir, daha fazla donguye gerek kalmayacaktir. Biz donguyu 20 kere
 donguyu islettik, (bu problem icin) yeterli oldu.
 
 K-Means isini bitirdikten sonra elde edilen sonuclari artik HDFS'ten
-yerel dizinimize alabiliriz. Nihai kume merkezleri output/part-00000
+yerel dizinimize alabiliriz. Nihai kume merkezleri /tmp/centers-..
 icinde. Bu merkezleri alip, ham veri uzerinde kirmizi nokta olarak
 gosteriyoruz.
 
 \begin{codecell}
 \begin{codeinput}
 \begin{lstlisting}
-os.system("ssh localhost -l hduser rm /tmp/part-00000")
-os.system("ssh localhost -l hduser /home/hduser/Downloads/hadoop*/bin/hadoop dfs -copyToLocal /user/hduser/output/part-00000 /tmp/") # 
-\end{lstlisting}
-\end{codeinput}
-\begin{codeoutput}
-\begin{verbatim}
-0
-\end{verbatim}
-\end{codeoutput}
-\end{codecell}
-\begin{codecell}
-\begin{codeinput}
-\begin{lstlisting}
+i = 19
 df1 = read_csv("synthetic.txt",sep="   ")
 plt.scatter(df1.ix[:,0],df1.ix[:,1])
 plt.hold(True)
-df2 = read_csv("/tmp/part-00000",header=None,index_col=0)
+df2 = read_csv("/tmp/centers-%d-out.csv" % i,header=None,index_col=0)
 plt.plot(df2.ix[:,1],df2.ix[:,2],'rd')
 \end{lstlisting}
 \end{codeinput}
 \begin{codeoutput}
 \begin{verbatim}
-[<matplotlib.lines.Line2D at 0xb369d6c>]
+[<matplotlib.lines.Line2D at 0xa6a5aec>]
 \end{verbatim}
 \begin{center}
 \includegraphics[width=0.7\textwidth]{kmeans_files/kmeans_fig_02.png}
