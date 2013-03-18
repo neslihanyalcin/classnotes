@@ -199,7 +199,7 @@ plt.scatter(df1.ix[:,0],df1.ix[:,1])
 \end{codeinput}
 \begin{codeoutput}
 \begin{verbatim}
-<matplotlib.collections.PathCollection at 0x9dbd6cc>
+<matplotlib.collections.PathCollection at 0xafa270c>
 \end{verbatim}
 \begin{center}
 \includegraphics[width=0.7\textwidth]{kmeans_files/kmeans_fig_00.png}
@@ -218,19 +218,19 @@ plt.scatter(df1.ix[:,0],df1.ix[:,1])
 \end{codeinput}
 \begin{codeoutput}
 \begin{verbatim}
-stopping jobtracker
+no jobtracker to stop
 \end{verbatim}
 \begin{verbatim}
-localhost: stopping tasktracker
+localhost: no tasktracker to stop
 \end{verbatim}
 \begin{verbatim}
-stopping namenode
+no namenode to stop
 \end{verbatim}
 \begin{verbatim}
-localhost: stopping datanode
+localhost: no datanode to stop
 \end{verbatim}
 \begin{verbatim}
-localhost: stopping secondarynamenode
+localhost: no secondarynamenode to stop
 \end{verbatim}
 \begin{verbatim}
 starting namenode, logging to /home/hduser/Downloads/hadoop-1.0.4/libexec/../logs/hadoop-hduser-namenode-burak-Aspire-S3.out
@@ -261,6 +261,11 @@ komutlarimiz bile oraya erisemiyor)
 !ssh localhost -l hduser /home/hduser/Downloads/hadoop*/bin/hadoop dfs -mkdir /tmp/
 \end{lstlisting}
 \end{codeinput}
+\begin{codeoutput}
+\begin{verbatim}
+mkdir: cannot create directory /tmp/: File exists
+\end{verbatim}
+\end{codeoutput}
 \end{codecell}
 \begin{codecell}
 \begin{codeinput}
@@ -358,7 +363,7 @@ df4.to_csv(sys.stdout, sep=',',header=None)
 \end{codeoutput}
 \end{codecell}
 Alttaki blokta merkezleri rasgele seciyoruz. Bunun icin veri icinden
-rasgele 10 tane (k kadar) nokta cekip cikartik. Bu rasgele sayi uretimi
+rasgele 15 tane (k kadar) nokta cekip cikartik. Bu rasgele sayi uretimi
 ile de yapilabilirdi.
 
 \begin{codecell}
@@ -367,7 +372,7 @@ ile de yapilabilirdi.
 import os,sys,itertools
 from numpy import linalg as la
 import pandas as pd
-k = 10
+k = 15
 df = read_csv("synthetic.txt",header=None,sep="   ")
 centers = df.take(np.random.permutation(len(df))[:k])
 centers.to_csv("/tmp/centers.csv",header=None)
@@ -379,29 +384,38 @@ Komut satirindan tek makina icin Hadoop'suz isletelim,
 \begin{codecell}
 \begin{codeinput}
 \begin{lstlisting}
-!cat synthetic.txt | python mapper.py | python reducer.py
+for i in range(20):
+    os.system("cat synthetic.txt | python mapper.py | python reducer.py > /tmp/centers2.csv")
+    os.system("mv /tmp/centers2.csv /tmp/centers.csv")
+
+\end{lstlisting}
+\end{codeinput}
+\end{codecell}
+\begin{codecell}
+\begin{codeinput}
+\begin{lstlisting}
+df1 = read_csv("synthetic.txt",sep="   ")
+plt.scatter(df1.ix[:,0],df1.ix[:,1])
+plt.hold(True)
+df2 = read_csv("/tmp/centers.csv",header=None,index_col=0)
+plt.plot(df2.ix[:,1],df2.ix[:,2],'rd')
 
 \end{lstlisting}
 \end{codeinput}
 \begin{codeoutput}
 \begin{verbatim}
-0.0,36718.08528428094,49564.140468227422
-1.0,25959.254408060453,60455.123425692698
-2.0,55249.026666666665,48112.053333333337
-3.0,35568.968944099382,37459.291925465841
-4.0,23859.836363636365,55127.80909090909
-5.0,24622.733695652172,45459.809782608696
-6.0,58702.199999999997,59040.274285714288
-7.0,52774.160493827163,42663.596707818928
-8.0,10195.186832740214,55198.960854092526
-9.0,60974.952380952382,49307.349206349209
+[<matplotlib.lines.Line2D at 0xb1ff8cc>]
 \end{verbatim}
+\begin{center}
+\includegraphics[width=0.7\textwidth]{kmeans_files/kmeans_fig_01.png}
+\par
+\end{center}
 \end{codeoutput}
 \end{codecell}
-Simdi K-Means'i isleten kosturucu (runner) program. Bu program esleme,
-indirgeme safhalarini cagiracak, ve indirgeyici sonrasi ciktiyi alip
-yeni kume merkezi yapacak, bunun gibi idari / temizlik islerini
-halledecek.
+Simdi K-Means'i Hadoop'tan isleten kosturucu (runner) program. Bu
+program esleme, indirgeme safhalarini cagiracak, ve indirgeyici sonrasi
+ciktiyi alip yeni kume merkezi yapacak, bunun gibi idari / temizlik
+islerini halledecek.
 
 \begin{codecell}
 \begin{codeinput}
@@ -421,7 +435,7 @@ streaming_cmd = "/home/hduser/Downloads/hadoop*/contrib/streaming/hadoop-*stream
 os.system("%s dfs -rm /user/hduser/centers.csv" % hp_cmd)
 os.system("%s dfs -copyFromLocal /tmp/centers.csv /user/hduser" % hp_cmd)
 
-for i in range(10):
+for i in range(20):
     os.system("%s dfs -rmr /user/hduser/output" % hp_cmd)
     os.system("%s jar %s -input synthetic.txt -output output -mapper /tmp/mapper.py -reducer /tmp/reducer.py -numReduceTasks 1" % (hp_cmd,streaming_cmd))
     os.system("%s dfs -cp /user/hduser/output/part-00000 /user/hduser/centers.csv" % hp_cmd) 
@@ -429,11 +443,11 @@ for i in range(10):
 \end{lstlisting}
 \end{codeinput}
 \end{codecell}
-Ustte K-Means'i 10 kere islettigimizi goruyoruz. Eger istenirse (hatta
+Ustte K-Means'i 20 kere islettigimizi goruyoruz. Eger istenirse (hatta
 daha iyi olur) dongu bir while icine konur ve bitis icin ``stabilite
 sarti'' aranir. Stabilite yeni kume merkezinin eskisinden ``cok fazla
 degisik olup olmadigi'' sartidir, degisim yoksa artik sonucu bulmusuz
-demektir, daha fazla donguye gerek kalmayacaktir. Biz donguyu 10 kere
+demektir, daha fazla donguye gerek kalmayacaktir. Biz donguyu 20 kere
 donguyu islettik, (bu problem icin) yeterli oldu.
 
 K-Means isini bitirdikten sonra elde edilen sonuclari artik HDFS'ten
@@ -466,15 +480,15 @@ plt.plot(df2.ix[:,1],df2.ix[:,2],'rd')
 \end{codeinput}
 \begin{codeoutput}
 \begin{verbatim}
-[<matplotlib.lines.Line2D at 0x9f2d2cc>]
+[<matplotlib.lines.Line2D at 0xb369d6c>]
 \end{verbatim}
 \begin{center}
-\includegraphics[width=0.7\textwidth]{kmeans_files/kmeans_fig_01.png}
+\includegraphics[width=0.7\textwidth]{kmeans_files/kmeans_fig_02.png}
 \par
 \end{center}
 \end{codeoutput}
 \end{codecell}
-Sonuclar fena degil! Iste bu metotla terabayt olceginde, devasa bir
+Sonuclar fena degil. Iste bu metotla terabayt olceginde, devasa bir
 veriyi 20-30 makinaya dagitarak parca parca isleyip kumelemeniz
 mumkundur. Endustride son zamanlarda habire duyulan Buyuk Veri (Big
 Data) olayi iste bu.
