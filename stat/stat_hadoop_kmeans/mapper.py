@@ -5,7 +5,7 @@ from numpy import linalg as la
 os.environ['MPLCONFIGDIR']='/tmp' 
 import pandas as pd
 
-centers = pd.read_csv("/tmp/centers.csv",header=None,sep=",")
+centers = pd.read_csv("centers.csv",header=None,sep=",")
 
 def dist(vect,x):
     return np.fromiter(itertools.imap(np.linalg.norm, vect-x),dtype=np.float)
