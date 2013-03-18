@@ -125,6 +125,14 @@
 
 Ortalama Kaydirma ile Kumeleme (Mean Shift Clustering)
 
+Kumeleme yapmak icin bir metot daha: Ortalama Kaydirma metotu. Bu
+metodun mesela K-Means'den farki kume sayisinin onceden belirtilmeye
+ihtiyaci olmamasidir, kume sayisi otomatik olarak metot tarafindan
+saptanir.
+
+``Kume'' olarak saptanan aslinda veri icindeki tum yogunluk bolgelerinin
+merkezleridir, yani alttaki resmin sag kismindaki bolgeler.
+
 \begin{codecell}
 \begin{codeinput}
 \begin{lstlisting}
@@ -141,6 +149,21 @@ im=imread("dist.png"); imshow(im)
 \end{center}
 \end{codeoutput}
 \end{codecell}
+Baslangic neresidir? Baslangic tum noktalardir, yani her noktadan
+baslanarak
+
+\begin{enumerate}[1.]
+\item
+  O nokta etrafinda (yeterince buyuk) bir pencere tanimla
+\item
+  Bu pencere icine dusen tum noktalari hesaba katarak bir ortalama yer
+  hesapla
+\item
+  Pencereyi yeni ortalama noktayi merkezine alacak sekilde kaydir
+\end{enumerate}
+Metotun ismi buradan geliyor, cunku pencere yeni ortalamaya dogru
+``kaydiriliyor''.
+
 \begin{codecell}
 \begin{codeinput}
 \begin{lstlisting}
