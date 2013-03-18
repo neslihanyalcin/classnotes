@@ -127,8 +127,8 @@ Ortalama Kaydirma ile Kumeleme (Mean Shift Clustering)
 
 Kumeleme yapmak icin bir metot daha: Ortalama Kaydirma metotu. Bu
 metodun mesela K-Means'den farki kume sayisinin onceden belirtilmeye
-ihtiyaci olmamasidir, kume sayisi otomatik olarak metot tarafindan
-saptanir.
+ihtiyaci ol\textbf{ma}masidir, kume sayisi otomatik olarak metot
+tarafindan saptanir.
 
 ``Kume'' olarak saptanan aslinda veri icindeki tum yogunluk bolgelerinin
 merkezleridir, yani alttaki resmin sag kismindaki bolgeler.
@@ -162,7 +162,10 @@ baslanarak
   Pencereyi yeni ortalama noktayi merkezine alacak sekilde kaydir
 \end{enumerate}
 Metotun ismi buradan geliyor, cunku pencere yeni ortalamaya dogru
-``kaydiriliyor''.
+``kaydiriliyor''. Altta bir noktadan baslanarak yapilan hareketi
+goruyoruz. Kaymanin saga dogru olmasi mantikli cunku tek pencere icinden
+bakinca bile yogunlugun ``sag tarafa dogru'' oldugu gorulmekte. Yontemin
+puf noktasi burada.
 
 \begin{codecell}
 \begin{codeinput}
@@ -266,11 +269,58 @@ im=imread("mean_7.png"); imshow(im)
 \end{center}
 \end{codeoutput}
 \end{codecell}
+Fakat metodu anlatan kaynaklarda pek bahsedilmeyen bir konu var, o da
+pencere icindeki diger noktalarin kume aidiyeti ve pencere ilerlerken o
+pencerenin altinda olan ve olmus tum noktalarin ``bakilmis'' yani
+``islenmis'' olarak addedilmesi ve bir daha ele alinmamasi. Mesela
+alttaki resimde sol ust kisimdaki herhangi bir noktadan (cogul)
+baslamissak, o bolgedeki diger noktalar da herhalde benzer pencerelerin
+altina dusecekler, ve yavas yavas, yeni ortalamalar sayesinde o
+pencereyi asagi dogru itecekler, ve soldaki yogunluk merkezini
+bulacagiz. Ayni sey sag tarafa da olacak. O sebeple pencere altina dusen
+nokta artik ayri bir sekilde baslangic olarak islenmiyor.
+
+Bir diger konu: ya yogunluk merkezine cok yakin bir noktadan /
+noktalardan baslamissak?
+
+O zaman ilerleme o baslangic noktasi icin aninda bitecek, cunku hemen
+yogunluk merkezine gelmis olacagiz. Diger yonlerden gelen pencereler de
+ayni yere gelecekler tabii, o zaman ayni / yakin yogunluk merkezlerini
+ayni kume olarak kabul etmemiz gerekir. Bu ``ayni kume irdelemesi''
+sayisal hesaplama acisindan ufak farklar gosterebilir tabii, ve bu ufak
+farki gozonune alarak ``kume birlestirme'' mantigini da eklemek
+gerekiyor.
+
+Ortalama Kaydirma sisteminde pencere buyuklugu kullanici tarafindan
+tanimlanir. Fakat bu secimin cok ``hassas'' bir ayar olmadigini gorduk
+(ki bu iyi bir sey), yani pencere buyuklugunde yapilan ufak degisimlerin
+bulunan kume sayisi, ve kalitesinde buyuk degisimler yaratmiyor.
+
+\begin{codecell}
+\begin{codeinput}
+\begin{lstlisting}
+im=imread("start.png"); imshow(im)
+
+\end{lstlisting}
+\end{codeinput}
+\begin{codeoutput}
+\begin{verbatim}
+<matplotlib.image.AxesImage at 0x9af0f2c>
+\end{verbatim}
+\begin{center}
+\includegraphics[width=0.7\textwidth]{meanshift_files/meanshift_fig_07.png}
+\par
+\end{center}
+\end{codeoutput}
+\end{codecell}
+Altta ornek veri ve kodu bulabilirsiniz. Metot kume sayisi 17'yi
+otomatik olarak buluyor.
+
 \begin{codecell}
 \begin{codeinput}
 \begin{lstlisting}
 from pandas import *
-data = read_csv("synthetic.txt",names=['a','b'],sep="   ")
+data = read_csv("synthetic.txt",header=None,sep="   ")
 print data.shape
 data = np.array(data)
 \end{lstlisting}
@@ -289,10 +339,10 @@ scatter(data[:,0],data[:,1])
 \end{codeinput}
 \begin{codeoutput}
 \begin{verbatim}
-<matplotlib.collections.PathCollection at 0x9f85d6c>
+<matplotlib.collections.PathCollection at 0x9fb632c>
 \end{verbatim}
 \begin{center}
-\includegraphics[width=0.7\textwidth]{meanshift_files/meanshift_fig_07.png}
+\includegraphics[width=0.7\textwidth]{meanshift_files/meanshift_fig_08.png}
 \par
 \end{center}
 \end{codeoutput}
@@ -394,8 +444,6 @@ def mean_shift(dataPts, bandWidth):
     data2cluster = asarray( clusterVotes ).argmax(0)                
 
     return clustCent, data2cluster
-
-
 \end{lstlisting}
 \end{codeinput}
 \end{codecell}
@@ -423,10 +471,10 @@ print sorted( asarray( clustCent ).squeeze().tolist() )
 data points: [[ 1  2  3  9  9  9 10]
  [ 1  2  3  9  9  9 10]]
 bandwidth: 2
-cluster centers: [[1.5, 1.5], [2.5, 2.5], [9.25, 9.25]]
-data2cluster: [2 0 0 1 1 1 1]
-3
-[[1.5, 1.5], [2.5, 2.5], [9.25, 9.25]]
+cluster centers: [[2.0, 2.0], [9.25, 9.25]]
+data2cluster: [1 1 1 0 0 0 0]
+2
+[[2.0, 2.0], [9.25, 9.25]]
 \end{verbatim}
 \end{codeoutput}
 \end{codecell}
@@ -454,11 +502,11 @@ print asarray(clustCent).shape
 \end{codeinput}
 \begin{codeoutput}
 \begin{verbatim}
-[[ 36612.3541253   47646.45712961]
- [ 51485.64457831  49092.07831325]
- [ 44379.26285714  46182.84571429]
- [ 58673.90322581  59703.51612903]
- [ 17186.66049383  54836.2345679 ]
+[[ 23699.95483871  45459.8       ]
+ [ 51577.72222222  49152.9691358 ]
+ [ 36875.68540055  47307.43779413]
+ [ 10569.30463576  60602.27152318]
+ [ 19721.95906433  60651.1871345 ]
  [ 32502.45283019  59820.74339623]]
 (17, 2)
 \end{verbatim}
@@ -475,10 +523,47 @@ for x in asarray(clustCent): plot(x[0],x[1],'rd')
 \end{codeinput}
 \begin{codeoutput}
 \begin{center}
-\includegraphics[width=0.7\textwidth]{meanshift_files/meanshift_fig_08.png}
+\includegraphics[width=0.7\textwidth]{meanshift_files/meanshift_fig_09.png}
 \par
 \end{center}
 \end{codeoutput}
 \end{codecell}
+Teorik Konular
+
+Bu metota teorik bir yapiya oturtmak icin onu yazinin ilk basindaki
+resimde oldugu gibi gormek gerekiyor, yani mesela o ilk resmin sagindaki
+2 boyuttaki veri dagilimi (ki ayriksal, sayisal), 3 boyuttaki surekli
+(continuous) bir baska dagilimin yansimasi sanki, ki o zaman 2 boyuttaki
+yogunluk bolgeleri surekli dagilimdaki tepe noktalarini temsil
+ediyorlar, ve biz o surekli versiyondaki tepe noktalarini bulmaliyiz.
+Fakat kumeleme isleminin elinde sadece 2 boyuttaki veriler var, o zaman
+surekli dagilimi bir sekilde yaratmak lazim.
+
+Bunu yapmak icin problem / veri once bir Cekirdek Yogunluk Kestirimi
+(Kernel Density Estimation -KDE-) problemi gibi goruluyor, ki her nokta
+uzerine bir cekirdek fonksiyonu koyularak ve onlarin toplamim alinarak
+sayisal dagilim puruzsuz bir hale getiriliyor. Ortalama Kaydirma icin
+gerekli kayma ``yonu'' ise iste bu yeni surekli fonksiyonun gradyanidir
+deniyor, ve gradyan yerel tepe noktasini gosterdigi icin o yone yapilan
+hareket bizi yavas yavas tepeye goturecektir. Bu hareketin yerel
+tepeleri bulacagi, ve tum yontemin nihai olarak sonuca yaklasacagi
+(convergence) matematiksel olarak ispat edilebilir.
+
+Tum dagilim fonksiyonunun icbukey olup olmadigi onemli degil (ki mesela
+lojistik regresyonda bu onemliydi), cunku nihai tepe noktasini degil,
+birkac yerel tepe noktasindan birini (hatta hepsini) bulmakla
+ilgileniyoruz. Gradyan bizi bu noktaya tasiyacaktir.
+
+Kaynaklar
+
+http://www.serc.iisc.ernet.in/\ensuremath{\sim}venky/SE263/slides/Mean-Shift-Theory.pdf
+
+http://saravananthirumuruganathan.wordpress.com/2010/04/01/introduction-to-mean-shift-algorithm/
+
+http://www.cse.yorku.ca/\ensuremath{\sim}kosta/CompVis\_Notes/mean\_shift.pdf
+
+http://homepages.inf.ed.ac.uk/rbf/CVonline/LOCAL\_COPIES/TUZEL1/MeanShift.pdf
+
+http://yotamgingold.com/code/MeanShiftCluster.py
 
 \end{document}
