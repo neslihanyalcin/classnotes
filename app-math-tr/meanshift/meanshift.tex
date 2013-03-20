@@ -269,19 +269,8 @@ im=imread("mean_7.png"); imshow(im)
 \end{center}
 \end{codeoutput}
 \end{codecell}
-Fakat metodu anlatan kaynaklarda pek bahsedilmeyen bir konu var, o da
-pencere icindeki diger noktalarin kume aidiyeti ve pencere ilerlerken o
-pencerenin altinda olan ve olmus tum noktalarin ``bakilmis'' yani
-``islenmis'' olarak addedilmesi ve bir daha ele alinmamasi. Mesela
-alttaki resimde sol ust kisimdaki herhangi bir noktadan baslamissak, o
-bolgedeki diger noktalar da herhalde benzer pencerelerin altina
-dusecekler, ve yavas yavas, yeni ortalamalar sayesinde o pencereyi asagi
-dogru itecekler, ve soldaki yogunluk merkezini bulacagiz. Ayni sey sag
-tarafa da olacak. O sebeple pencere altina dusen nokta artik ayri bir
-sekilde baslangic olarak islenmiyor.
-
-Bir diger konu: ya yogunluk merkezine cok yakin bir noktadan /
-noktalardan baslamissak?
+Eger yogunluk merkezine cok yakin bir noktadan / noktalardan baslamissak
+ne olur?
 
 O zaman ilerleme o baslangic noktasi icin aninda bitecek, cunku hemen
 yogunluk merkezine gelmis olacagiz. Diger yonlerden gelen pencereler de
@@ -292,9 +281,15 @@ farki gozonune alarak ``kume birlestirme'' mantigini da eklemek
 gerekiyor.
 
 Ortalama Kaydirma sisteminde pencere buyuklugu kullanici tarafindan
-tanimlanir. Fakat bu secimin cok ``hassas'' bir ayar olmadigini gorduk
-(ki bu iyi bir sey), yani pencere buyuklugunde yapilan ufak degisimlerin
-bulunan kume sayisi, ve kalitesinde buyuk degisimler yaratmiyor.
+tanimlanir. Optimal pencere buyuklugunu nasil buluruz? Deneme yanilma
+yontemi, verinin tarifsel istatistiklerine kestirme bir hesap (estimate)
+etmek, ya da kullanicinin ayni istatistiklere bakarak tahminde
+bulunmasi. Birkac farkli pencere buyuklugu de denenebilir. Bu konu
+literaturde (Ing. bandwidth selection) adi atlinda uzun uzadiya
+tartisilmaktadir. Fakat evet, kullanici tarafindan tanimli bu
+parametrenin bir anlamda bu metotun bir zayifligi oldugu soylenebilir.
+KMeans kume sayisini istiyordu, bu metot ta pencere buyuklugunu istiyor.
+Hangi metotun ne zaman uygun oldugunu anlamak tecrube gerektiriyor.
 
 \begin{codecell}
 \begin{codeinput}
@@ -313,8 +308,10 @@ im=imread("start.png"); imshow(im)
 \end{center}
 \end{codeoutput}
 \end{codecell}
-Altta ornek veri ve kodu bulabilirsiniz. Metot kume sayisi 17'yi
-otomatik olarak buluyor.
+Altta ornek veri ve kodu bulabilirsiniz (kod scikit-learn adli
+kutuphaneden alinmistir). Metot kume sayisi 17'yi otomatik olarak
+buluyor. Alternatif bir kod meanshift\_alternative.py dosyasinda
+bulunabilir.
 
 \begin{codecell}
 \begin{codeinput}
@@ -339,7 +336,7 @@ scatter(data[:,0],data[:,1])
 \end{codeinput}
 \begin{codeoutput}
 \begin{verbatim}
-<matplotlib.collections.PathCollection at 0x9fb632c>
+<matplotlib.collections.PathCollection at 0xa0b7e0c>
 \end{verbatim}
 \begin{center}
 \includegraphics[width=0.7\textwidth]{meanshift_files/meanshift_fig_08.png}
@@ -350,165 +347,81 @@ scatter(data[:,0],data[:,1])
 \begin{codecell}
 \begin{codeinput}
 \begin{lstlisting}
-from numpy import *
-from numpy import linalg as la
+import numpy as np
+from sklearn.neighbors import NearestNeighbors
+from sklearn.utils import extmath
 
-def mean_shift(dataPts, bandWidth):
-    dataPts = asarray( dataPts )
-    bandWidth = float( bandWidth )
-    plotFlag = False    
+def mean_shift(X, bandwidth=None, max_iterations=300):
     
-    numDim, numPts = dataPts.shape
-    numClust        = 0
-    bandSq          = bandWidth**2
-    initPtInds      = arange( numPts )
-    #biggest size in each dimension 
-    maxPos          = dataPts.max(0)
-    #smallest size in each dimension                       
-    minPos          = dataPts.min(0)
-    #bounding box size
-    boundBox        = maxPos-minPos
-    #indicator of size of data space        
-    sizeSpace       = la.norm(boundBox)
-    #when mean has converged
-    stopThresh      = 1e-3*bandWidth
-    #center of clust
-    clustCent       = []
-    #track if a points been seen already
-    beenVisitedFlag = zeros( numPts, dtype = uint8 )
-    #number of points to possibly use as initilization points
-    numInitPts      = numPts
-    #used to resolve conflicts on cluster membership
-    clusterVotes    = []
-    
-    while numInitPts:
-        
-        rand = random.rand()
-        #pick a random seed point
-        tempInd         = int(floor( (numInitPts-1e-6)*rand ))
-        #use this point as start of mean
-        stInd           = initPtInds[ tempInd ]               
-        # intilize mean to this points location
-        myMean          = dataPts[ :, stInd ]                 
-        # points that will get added to this cluster                 
-        myMembers       = []                                   
-        #used to resolve conflicts on cluster membership
-        thisClusterVotes    = zeros( numPts, dtype = uint16 )  
-        
-        while True:   
-            #dist squared from mean to all points still active            
-            sqDistToAll = (( myMean[:,newaxis] - dataPts )**2).sum(0)
-            #points within bandWidth
-            inInds      = where(sqDistToAll < bandSq)
-            #add a vote for all the in points belonging to this cluster
-            thisClusterVotes[ inInds ] = thisClusterVotes[ inInds ]+1 
-            
-            #save the old mean                        
-            myOldMean   = myMean
-            #compute the new mean
-            myMean      = mean( dataPts[ :, inInds[0] ], 1 )
-            #add any point within bandWidth to the cluster
-            myMembers.extend( inInds[0] )                   
-            #mark that these points have been visited
-            beenVisitedFlag[myMembers] = 1                  
-                        
-            if la.norm(myMean-myOldMean) < stopThresh:                
-                #check for merge posibilities
-                mergeWith = None
-                for cN in xrange( numClust ):
-                    #distance from possible new clust max to old clust max
-                    distToOther = la.norm( myMean - clustCent[ cN ] )    
-                    #if its within bandwidth/2 merge new and old
-                    if distToOther < bandWidth/2:                    
-                        mergeWith = cN
-                        break
+    seeds = X
+    n_samples, n_features = X.shape
+    stop_thresh = 1e-3 * bandwidth  # when mean has converged
+    center_intensity_dict = {}
+    nbrs = NearestNeighbors(radius=bandwidth).fit(X)
 
-                # something to merge                                
-                if mergeWith is not None:
-                    #record the max as the mean of the two merged (I know biased twoards new ones)
-                    clustCent[ mergeWith ] = 0.5*( myMean + clustCent[ mergeWith ] )
-                    #add these votes to the merged cluster
-                    clusterVotes[ mergeWith ]    += thisClusterVotes   
-                else:
-                    #increment clusters
-                    numClust                    = numClust+1
-                    #record the mean  
-                    clustCent.append( myMean )
-                    clusterVotes.append( thisClusterVotes )
-    
+    # For each seed, climb gradient until convergence or max_iterations
+    for my_mean in seeds:
+        completed_iterations = 0
+        while True:
+            # Find mean of points within bandwidth
+            i_nbrs = nbrs.radius_neighbors([my_mean], bandwidth,
+                                           return_distance=False)[0]
+            points_within = X[i_nbrs]
+            if len(points_within) == 0:
+                break  # Depending on seeding strategy this condition may occur
+            my_old_mean = my_mean  # save the old mean
+            my_mean = np.mean(points_within, axis=0)
+            # If converged or at max_iterations, addS the cluster
+            if (extmath.norm(my_mean - my_old_mean) < stop_thresh or
+                    completed_iterations == max_iterations):
+                center_intensity_dict[tuple(my_mean)] = len(points_within)
                 break
-        
-        initPtInds      = where(beenVisitedFlag == 0)[0]
-        numInitPts      = len(initPtInds)              
+            completed_iterations += 1
+
+    # POST PROCESSING: remove near duplicate points
+    # If the distance between two kernels is less than the bandwidth,
+    # then we have to remove one because it is a duplicate. Remove the
+    # one with fewer points.
+    sorted_by_intensity = sorted(center_intensity_dict.items(),
+                                 key=lambda tup: tup[1], reverse=True)
+    sorted_centers = np.array([tup[0] for tup in sorted_by_intensity])
+    unique = np.ones(len(sorted_centers), dtype=np.bool)
+    nbrs = NearestNeighbors(radius=bandwidth).fit(sorted_centers)
+    for i, center in enumerate(sorted_centers):
+        if unique[i]:
+            neighbor_idxs = nbrs.radius_neighbors([center],
+                                                  return_distance=False)[0]
+            unique[neighbor_idxs] = 0
+            unique[i] = 1  # leave the current point as unique
+    cluster_centers = sorted_centers[unique]
+
+    # ASSIGN LABELS: a point belongs to the cluster that it is closest to
+    nbrs = NearestNeighbors(n_neighbors=1).fit(cluster_centers)
+    labels = np.zeros(n_samples, dtype=np.int)
+    distances, idxs = nbrs.kneighbors(X)
+    labels = idxs.flatten()
     
-    data2cluster = asarray( clusterVotes ).argmax(0)                
-
-    return clustCent, data2cluster
+    return cluster_centers, labels
 \end{lstlisting}
 \end{codeinput}
 \end{codecell}
 \begin{codecell}
 \begin{codeinput}
 \begin{lstlisting}
-dataPts = asarray([[1,1],[2,2],[3,3],[9,9],[9,9],[9,9],[10,10]]).T
-print dataPts
-print dataPts.shape
-bandwidth = 2
-print 'data points:', dataPts
-print 'bandwidth:', bandwidth
-clustCent, data2cluster = mean_shift(dataPts, 2)
-print 'cluster centers:', sorted( asarray( clustCent ).squeeze().tolist() )
-print 'data2cluster:', data2cluster
-print len( clustCent )
-print sorted( asarray( clustCent ).squeeze().tolist() )
-\end{lstlisting}
-\end{codeinput}
-\begin{codeoutput}
-\begin{verbatim}
-[[ 1  2  3  9  9  9 10]
- [ 1  2  3  9  9  9 10]]
-(2, 7)
-data points: [[ 1  2  3  9  9  9 10]
- [ 1  2  3  9  9  9 10]]
-bandwidth: 2
-cluster centers: [[2.0, 2.0], [9.25, 9.25]]
-data2cluster: [1 1 1 0 0 0 0]
-2
-[[2.0, 2.0], [9.25, 9.25]]
-\end{verbatim}
-\end{codeoutput}
-\end{codecell}
-\begin{codecell}
-\begin{codeinput}
-\begin{lstlisting}
-print asarray(data.T)[:30]
-clustCent, data2cluster = mean_shift(asarray(data.T), 5000)
-\end{lstlisting}
-\end{codeinput}
-\begin{codeoutput}
-\begin{verbatim}
-[[54620 52694 53253 ...,  8828  8879 10002]
- [43523 42750 43024 ..., 59102 59244 61399]]
-\end{verbatim}
-\end{codeoutput}
-\end{codecell}
-\begin{codecell}
-\begin{codeinput}
-\begin{lstlisting}
-print asarray(clustCent)[:6]
-print asarray(clustCent).shape
+cluster_centers, labels = mean_shift(np.array(data), 4000)
 
 \end{lstlisting}
 \end{codeinput}
+\end{codecell}
+\begin{codecell}
+\begin{codeinput}
+\begin{lstlisting}
+print len(cluster_centers)
+\end{lstlisting}
+\end{codeinput}
 \begin{codeoutput}
 \begin{verbatim}
-[[ 23699.95483871  45459.8       ]
- [ 51577.72222222  49152.9691358 ]
- [ 36875.68540055  47307.43779413]
- [ 10569.30463576  60602.27152318]
- [ 19721.95906433  60651.1871345 ]
- [ 32502.45283019  59820.74339623]]
-(17, 2)
+17
 \end{verbatim}
 \end{codeoutput}
 \end{codecell}
@@ -517,7 +430,7 @@ print asarray(clustCent).shape
 \begin{lstlisting}
 scatter(data[:,0],data[:,1])
 plt.hold(True)
-for x in asarray(clustCent): plot(x[0],x[1],'rd')
+for x in asarray(cluster_centers): plot(x[0],x[1],'rd')
 
 \end{lstlisting}
 \end{codeinput}
@@ -563,6 +476,8 @@ http://saravananthirumuruganathan.wordpress.com/2010/04/01/introduction-to-mean-
 http://www.cse.yorku.ca/\ensuremath{\sim}kosta/CompVis\_Notes/mean\_shift.pdf
 
 http://homepages.inf.ed.ac.uk/rbf/CVonline/LOCAL\_COPIES/TUZEL1/MeanShift.pdf
+
+Scikit-Learn Kodlari
 
 http://yotamgingold.com/code/MeanShiftCluster.py
 
