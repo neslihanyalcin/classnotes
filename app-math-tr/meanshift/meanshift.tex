@@ -310,8 +310,18 @@ im=imread("start.png"); imshow(im)
 \end{codecell}
 Altta ornek veri ve kodu bulabilirsiniz (kod scikit-learn adli
 kutuphaneden alinmistir). Metot kume sayisi 17'yi otomatik olarak
-buluyor. Alternatif bir kod meanshift\_alternative.py dosyasinda
-bulunabilir.
+buluyor.
+
+Alternatif bir kod meanshift\_alternative.py dosyasinda bulunabilir, bu
+kod pencereler kaydirirken onlarin uzerinden gectigi noktalari
+``sahiplenen'' turden bir kod. Yani {[}encere hareketini durdurdugunda
+hem kume merkezini hem de o kumenin altindaki noktalari bulmus oluyoruz.
+Tabii sonraki pencereler bazi noktalari onceki kumelerden calabilirler.
+Neyse, islemin normal isleyisine gore bir sonraki pencere secilecektir
+ve bu pencere ``geriye kalan noktalar'' uzerinden islem yapacaktir.
+Beklenir ki, islem ilerledikce islenmesi gereken noktalar azalacaktir ve
+yontemin bu sebeple klasik yonteme gore daha hizli isleyecegi tahmin
+edilebilir. Hakikaten de boyledir.
 
 \begin{codecell}
 \begin{codeinput}
@@ -457,15 +467,16 @@ Bunu yapmak icin problem / veri once bir Cekirdek Yogunluk Kestirimi
 uzerine bir cekirdek fonksiyonu koyularak ve onlarin toplamim alinarak
 sayisal dagilim puruzsuz bir hale getiriliyor. Ortalama Kaydirma icin
 gerekli kayma ``yonu'' ise iste bu yeni surekli fonksiyonun gradyanidir
-deniyor, ve gradyan yerel tepe noktasini gosterdigi icin o yone yapilan
-hareket bizi yavas yavas tepeye goturecektir. Bu hareketin yerel
+deniyor (elimizde bir surekli fonksiyon oldugu icin turev rahatlikla
+alabiliyoruz), ve gradyan yerel tepe noktasini gosterdigi icin o yone
+yapilan hareket bizi yavas yavas tepeye goturecektir. Bu hareketin yerel
 tepeleri bulacagi, ve tum yontemin nihai olarak sonuca yaklasacagi
 (convergence) matematiksel olarak ispat edilebilir.
 
-Tum dagilim fonksiyonunun icbukey olup olmadigi onemli degil (ki mesela
-lojistik regresyonda bu onemliydi), cunku nihai tepe noktasini degil,
-birkac yerel tepe noktasindan birini (hatta hepsini) bulmakla
-ilgileniyoruz. Gradyan bizi bu noktaya tasiyacaktir.
+KDE ile elde edilen teorik dagilim fonksiyonunun icbukey olup olmadigi
+onemli degil (ki mesela lojistik regresyonda bu onemliydi), cunku nihai
+tepe noktasini degil, birkac yerel tepe noktasindan birini (hatta
+hepsini) bulmakla ilgileniyoruz. Gradyan bizi bu noktaya tasiyacaktir.
 
 Kaynaklar
 
