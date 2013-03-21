@@ -1,23 +1,25 @@
 #!/usr/bin/python
+import pandas as pd
 import os,sys,itertools
 import numpy as np
-from numpy import linalg as la
 os.environ['MPLCONFIGDIR']='/tmp' 
-import pandas as pd
+from sklearn.neighbors import NearestNeighbors
 
-centers = pd.read_csv("/tmp/centers.csv",header=None,sep=",")
+def coords(x):
+    return pd.Series(np.array(str(x).split(":"),dtype=np.float64))
 
-def dist(vect,x):
-    return np.fromiter(itertools.imap(np.linalg.norm, vect-x),dtype=np.float)
+bandwidth = 2000
+stop_thresh = 1e-3 * bandwidth 
 
-def closest(x):
-    d = dist(np.array(centers)[:,1:3],np.array(x))
-    return np.argmin(d)
+df = pd.read_csv(sys.stdin,na_values='',header=None,
+                 names=['window','center','members'],sep="\t")
 
-comb = lambda x: str(x[0])+":"+str(x[1])
-
-df = pd.read_csv(sys.stdin,header=None,sep="   ")
-df['cluster'] = df.apply(closest,axis=1)
-df['coord'] = df.apply(comb,axis=1)
-df.to_csv(sys.stdout, sep='\t',index=False, cols=['cluster','coord'],
-          header=None)
+X = np.array(df['center'].apply(coords))
+nbrs = NearestNeighbors(radius=bandwidth).fit(X)
+print len(X)
+for my_mean in X:
+    print my_mean
+    i_nbrs = nbrs.radius_neighbors([my_mean],
+                                   bandwidth, return_distance=False)[0]
+    points_within = X[i_nbrs]    
+    break
