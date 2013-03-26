@@ -394,9 +394,76 @@ iki farkli log toplamini hesaplatiyoruz. Bu iki toplami birbiri ile
 karsilastiriyoruz, hangi toplam daha buyukse, dokumanin o yazardan
 gelmesi daha olasidir, ve o secimimiz o yazar olur.
 
+Anahtarlama (Hashing) Numarasi
+
+Ustteki kodda bir problem var, dokumani temsil eden ve icinde 1 ya da 0
+hucreli ozellik vektorunu (feature vector) olusturmak icin tum
+kelimelerin ne oldugunu bilmeliyiz. Yani veriyi bir kere bastan sonra
+tarayarak bir sozluk olusturmaliyiz (ki oyle yapmaya mecbur kaldik) ve
+ancak ondan sonra her dokuman icin hangi kelimenin olup olmadigini
+saptamaya ve onu kodlamaya baslayabiliriz. Halbuki belgelere bakar
+bakmaz, teker teker giderken bile hemen bir ozellik vektoru
+olusturabilseydik daha iyi olmaz miydi?
+
+Bunu basarmak icin anahtarlama numarasini kullanmamiz lazim. Bilindigi
+gibi temel yazilim bilime gore bir kelimeyi temsil eden bir anahtar
+(hash) uretebiliriz, ki bu hash degeri bir sayidir. Elimizde bir
+``sayi'' olmasi bize faydali olur yarar, bu sayinin en fazla kac
+olabileceginden hareketle (hatta bu sayiya bir limit koyarak) ozellik
+vektorumuzun boyutunu onceden saptamis oluruz. Sonra kelimeye bakariz,
+hash uretiriz, sonuc mesela 230 geldi, o zaman ozellik vektorundeki
+230'uncu kolonun degerini 1 yapariz.
+
+\begin{codecell}
+\begin{codeinput}
+\begin{lstlisting}
+d_input = dict()
+
+def add_word(word):
+    hashed_token = hash(word) % 127
+    d_input[hashed_token] = d_input.setdefault(hashed_token, 0) + 1
+
+add_word("obama")
+d_input
+    
+\end{lstlisting}
+\end{codeinput}
+\begin{codeoutput}
+\begin{verbatim}
+{28: 1}
+\end{verbatim}
+\end{codeoutput}
+\end{codecell}
+\begin{codecell}
+\begin{codeinput}
+\begin{lstlisting}
+add_word("politics")
+d_input
+
+\end{lstlisting}
+\end{codeinput}
+\begin{codeoutput}
+\begin{verbatim}
+{28: 1, 123: 1}
+\end{verbatim}
+\end{codeoutput}
+\end{codecell}
+Ustteki kodda bunun ornegini goruyoruz. Hash sonrasi mod uyguladik
+(yuzde isareti ile) ve hash sonucunu en fazla 127 olacak sekilde
+sinirladik. Sozluk (dictionary) yavas yavas buyuyebiliyor.
+
+Potansiyel problemler ne olabilir? Hashing mukemmel degildir, carpisma
+(collision) olmasi mumkundur yani nadiren farkli kelimelerin ayni
+numaraya eslenebilmesi durumu. Bu problemleri iyi bir anahtarlama
+algoritmasi kullanarak, mod edilen sayiyi buyuk tutarak cozmek
+mumkundur, ya da bu tur nadir carpismalar ``kabul edilir hata'' olarak
+addedilebilir.
+
 Kaynaklar
 
 Jebara, T., Columbia U., \emph{COMS 4771 Machine Learning} Lecture
 Notes, Lecture 7
+
+http://scikit-learn.org/dev/modules/feature\_extraction.html
 
 \end{document}
