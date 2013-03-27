@@ -353,6 +353,9 @@ def test(image1,image2):
     plt.imshow(im1, cmap='gray')
     plt.hold(True)
     plt.plot(x,y,'+r');
+    # 3 ile carptik cunku vektor degisimi iyi hesaplandi ama
+    # grafikleme icin cok ufakti, ikinci yesil nokta iyi gozuksun
+    # diye onu biraz buyuttuk
     plt.plot(x+u*3,y+v*3,'og')
 
 test("flow1-bw-0.png","dleft.png")
@@ -413,6 +416,13 @@ Boylece ayni denkleme erismis olduk. Bu aslinda normal, birinci
 dereceden Taylor acilimi ile tam diferansiyel denklemi (ve Zincirleme
 Kanununu) birbiriyle cok yakindan alakasi var.
 
+Ufak Piksel Degisimleri
+
+Konu hakkinda bir nokta daha su; Lucas-Kanade yontemi 1. derece Taylor
+acilimi kulladigi icin ufak piksel degisimleri icin gecerlidir, cunku
+Taylor acilimi yerel bir noktaya cok yakin bolgelerde bir fonksiyona
+yakin sonuclar verir. Bu da aklimizda bulunsun.
+
 Kaynaklar
 
 R. Collins Ders Notlari,
@@ -420,6 +430,6 @@ www.cse.psu.edu/\ensuremath{\sim}rcollins/CSE486
 
 Khurram Hassan-Shafique, CAP 5415 Lecture Notes, Spring 2003
 
-http://dl.dropbox.com/u/1570604/skfiles/campy/chessb-left.avi
+http://web.yonsei.ac.kr/jksuhr/articles/Kanade-Lucas-Tomasi\%20Tracker.pdf
 
 \end{document}
