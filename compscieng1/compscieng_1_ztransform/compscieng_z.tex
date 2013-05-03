@@ -125,11 +125,6 @@
 
 Ek - z Transform
 
-Bu konuya Strang hocanin dersinde kismen deginiliyor, fakat cok kapsamli
-olarak islenmiyor. Bu yaziyi kendi basinam, baska bir baslik altinda
-yayinlayabilirdik, fakat kavramsal olarak ait oldugu yer bu ders, o
-sebeple buraya koyduk.
-
 z Transform, Laplace Transformunun ayriksal dunyadaki karsiligidir,
 transform edilen surekli fonksiyon $f(t)$ degil, ayriksal, bir vektor
 olarak gorulebilecek $x(n)$'dir. z Transform
@@ -227,11 +222,12 @@ Eger yaygin z Transformlarin tablosuna bakarsak, $|z|>0.85$ icin ustteki
 formulun ters z Transformunun
 \[ h(n) = Z^{-1} [Y(z)] = 0.85^nu(n) \]
 oldugunu ogreniyoruz, ve $u(n)$ soyle
-\[ u(n) = 
-\left\{ \begin{array}{ll}
-1, & n \ge 0\\
-0, & n < 0
-\end{array} \right.
+\[
+u(n) = 
+\begin{cases}
+1, & \textrm{ eger } n \ge 0 \\ 
+0, & \textrm{ eger } n < 0
+\end{cases} 
  \]
 Dikkat edilirse ters z Transform tablosunda $y$ dgil $h$ bazli sonuclar
 gosteriliyor, $h$ fonksiyonlari vurus cevabi (impulse response)
@@ -245,7 +241,7 @@ Kodlama
 Dusunelim ki (3) ile tarif edilen farklilik denklemi bir sirketin patent
 portfoyunu temsil ediyor.
 
-Bu sirket, her sene portfoyu $y(n)$`e, $x(n)$ kadar yeni patent ekliyor,
+Bu sirket, her sene portfoyu $y(n)$'e, $x(n)$ kadar yeni patent ekliyor,
 ama her sene ayni zamanda elindeki patentlerin yuzde 15'i ``eskiyor'',
 yani zamanlari dolarak portfoyunden cikiyor. Bu eksiltme islemini bir
 onceki $y(n)$'i 0.85 ile carparak temsil ediyoruz.
