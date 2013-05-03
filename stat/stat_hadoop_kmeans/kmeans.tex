@@ -157,14 +157,18 @@ ve yeni kume merkezini elde ederiz.
 \begin{codecell}
 \begin{codeinput}
 \begin{lstlisting}
-from IPython.display import Image
-Image(filename='kmeans-diag.png')
+figure(figsize=(9,9))
+im=imread('kmeans-diag.png'); imshow(im)
 \end{lstlisting}
 \end{codeinput}
 \begin{codeoutput}
 \begin{verbatim}
-<IPython.core.display.Image at 0xa84e4ac>
+<matplotlib.image.AxesImage at 0x2b25d90>
 \end{verbatim}
+\begin{center}
+\includegraphics[width=0.7\textwidth]{kmeans_files/kmeans_fig_00.png}
+\par
+\end{center}
 \end{codeoutput}
 \end{codecell}
 Simdi Hadoop ile ilgili bazi lojistik konulara gelelim:
@@ -203,7 +207,7 @@ plt.scatter(df1.ix[:,0],df1.ix[:,1])
 <matplotlib.collections.PathCollection at 0xa4f23cc>
 \end{verbatim}
 \begin{center}
-\includegraphics[width=0.7\textwidth]{kmeans_files/kmeans_fig_00.png}
+\includegraphics[width=0.7\textwidth]{kmeans_files/kmeans_fig_01.png}
 \par
 \end{center}
 \end{codeoutput}
@@ -378,7 +382,7 @@ plt.plot(df2.ix[:,1],df2.ix[:,2],'rd')
 [<matplotlib.lines.Line2D at 0xa9657cc>]
 \end{verbatim}
 \begin{center}
-\includegraphics[width=0.7\textwidth]{kmeans_files/kmeans_fig_01.png}
+\includegraphics[width=0.7\textwidth]{kmeans_files/kmeans_fig_02.png}
 \par
 \end{center}
 \end{codeoutput}
@@ -450,7 +454,7 @@ plt.plot(df2.ix[:,1],df2.ix[:,2],'rd')
 [<matplotlib.lines.Line2D at 0xa6a5aec>]
 \end{verbatim}
 \begin{center}
-\includegraphics[width=0.7\textwidth]{kmeans_files/kmeans_fig_02.png}
+\includegraphics[width=0.7\textwidth]{kmeans_files/kmeans_fig_03.png}
 \par
 \end{center}
 \end{codeoutput}
