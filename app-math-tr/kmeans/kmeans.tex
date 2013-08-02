@@ -207,7 +207,7 @@ scatter(data[:,0],data[:,1])
 \end{codeinput}
 \begin{codeoutput}
 \begin{verbatim}
-<matplotlib.collections.PathCollection at 0xa371b8c>
+<matplotlib.collections.PathCollection at 0x490d850>
 \end{verbatim}
 \begin{center}
 \includegraphics[width=0.7\textwidth]{kmeans_files/kmeans_fig_00.png}
@@ -218,96 +218,48 @@ scatter(data[:,0],data[:,1])
 \begin{codecell}
 \begin{codeinput}
 \begin{lstlisting}
-def find_nearest(X,mu):
-    nexamples = X.shape[0]
-    k = mu.shape[0]
-    
-    Xmu = dot(X,mu.T)
-    xx = sum(X*X,axis=1)
-    mm = sum(mu*mu, axis=1)
-    
-    cl = empty(nexamples,dtype=int)
-    dists = inf * ones(nexamples)
-    for i in range(k):
-        new_dist = - 2*Xmu[:,i] + mm[i]
-        change = new_dist < dists
-        if sum(change)>0:
-            cl[change] = [i for j in range(sum(change))]
-            dists[change] = new_dist[change]
-    return cl
+def euc_to_clusters(x,y):
+    return np.sqrt(np.sum((x-y)**2, axis=1))
 
-def kmeans(X, k=5, niter=100):
-    nexamples,nfeatures = X.shape
-    
-    # intialize with a random clustering
-    random.seed(1) # seed random number generator for reproducibility
-    cl = random_integers(0,k,nexamples)
-    cl_old = cl
-    
-    # allocate means
-    mu = np.empty((k,nfeatures))
-    
-    it = 0
-    while True:
-        # compute means
-        for i in range(k):
-            mu[i,:] = np.mean(X[cl==i,:],axis=0)
-        
-        # assign examples to clusters
-        cl = find_nearest(X, mu)
-        
-        # compute difference in assignments
-        nchanges = sum(cl != cl_old)
-        print 'it: %d, num. changes: %d' % (it, nchanges)
-        if nchanges == 0 or it == niter:
-            break
-        
-        cl_old = cl
-        it += 1
-    return cl, mu
+class KMeans():
+    def __init__(self,k,iter):
+        self.k = k
+        self.iter = iter
+    def fit(self,X):
+        # her veri noktasi icin rasgele kume merkezi ata
+        self.labels_ = np.array([random.randint(0,self.k-1) for i in range(X.shape[0])])
+        self.centers_ = np.zeros((self.k,X.shape[1]))
+        for i in range(self.iter):
+            # yeni kume merkezleri uret
+            for j in range(self.k):
+                # eger kume j icinde hic nokta yoksa, ortalama (mean)
+                # hesabi yapma, cunku o zaman nan degeri geliyor, ve
+                # hesabin geri kalani bozuluyor.
+                if len(X[self.labels_ == j]) == 0: continue
+                center = np.mean(X[self.labels_ == j],axis=0)
+                self.centers_[j,:] = center
+            # her nokta icin kume merkezlerine gore kume atamasi yap
+            self.labels_ = []
+            for point in X:
+                c = np.argmin(euc_to_clusters(self.centers_, point))
+                self.labels_.append(int(c))
+
+            self.labels_ = np.array(self.labels_)
+
 \end{lstlisting}
 \end{codeinput}
 \end{codecell}
 \begin{codecell}
 \begin{codeinput}
 \begin{lstlisting}
-c = kmeans(data)
+cf = KMeans(k=5,iter=20)
+cf.fit(data)
+cf.labels_
 \end{lstlisting}
 \end{codeinput}
 \begin{codeoutput}
 \begin{verbatim}
-it: 0, num. changes: 2490
-it: 1, num. changes: 561
-it: 2, num. changes: 277
-it: 3, num. changes: 142
-it: 4, num. changes: 50
-it: 5, num. changes: 32
-it: 6, num. changes: 35
-it: 7, num. changes: 33
-it: 8, num. changes: 24
-it: 9, num. changes: 13
-it: 10, num. changes: 6
-it: 11, num. changes: 2
-\end{verbatim}
-\begin{verbatim}
-it: 12, num. changes: 0
-\end{verbatim}
-\end{codeoutput}
-\end{codecell}
-\begin{codecell}
-\begin{codeinput}
-\begin{lstlisting}
-c
-\end{lstlisting}
-\end{codeinput}
-\begin{codeoutput}
-\begin{verbatim}
-(array([4, 4, 4, ..., 1, 1, 1]),
- array([[ 31006.2193159 ,  58653.75251509],
-       [ 12247.38927098,  56210.74828061],
-       [ 38859.46193772,  44285.88408304],
-       [ 27194.63636364,  45613.61279461],
-       [ 57107.29855716,  47792.74694784]]))
+array([2, 2, 2, ..., 3, 3, 3])
 \end{verbatim}
 \end{codeoutput}
 \end{codecell}
@@ -322,7 +274,7 @@ uzerinde grafiklersek (kirmizi noktalar)
 \begin{lstlisting}
 scatter(data[:,0],data[:,1])
 plt.hold(True)
-for x in c[1]: plot(x[0],x[1],'rd')
+for x in cf.centers_: plot(x[0],x[1],'rd')
     
 \end{lstlisting}
 \end{codeinput}
@@ -339,48 +291,238 @@ Eger 10 dersek
 \begin{codecell}
 \begin{codeinput}
 \begin{lstlisting}
-c = kmeans(data,k=10)
+cf = KMeans(k=15,iter=20)
+cf.fit(data)
 scatter(data[:,0],data[:,1])
 plt.hold(True)
-for x in c[1]: plot(x[0],x[1],'rd')
+for x in cf.centers_: plot(x[0],x[1],'rd')
 \end{lstlisting}
 \end{codeinput}
 \begin{codeoutput}
-\begin{verbatim}
-it: 0, num. changes: 2683
-it: 1, num. changes: 706
-it: 2, num. changes: 648
-it: 3, num. changes: 262
-it: 4, num. changes: 152
-it: 5, num. changes: 133
-it: 6, num. changes: 132
-it: 7, num. changes: 118
-it: 8, num. changes: 90
-\end{verbatim}
-\begin{verbatim}
-it: 9, num. changes: 71
-it: 10, num. changes: 40
-it: 11, num. changes: 20
-it: 12, num. changes: 12
-it: 13, num. changes: 15
-it: 14, num. changes: 11
-it: 15, num. changes: 10
-it: 16, num. changes: 9
-it: 17, num. changes: 7
-\end{verbatim}
-\begin{verbatim}
-it: 18, num. changes: 6
-it: 19, num. changes: 4
-it: 20, num. changes: 6
-it: 21, num. changes: 4
-it: 22, num. changes: 0
-\end{verbatim}
 \begin{center}
 \includegraphics[width=0.7\textwidth]{kmeans_files/kmeans_fig_02.png}
 \par
 \end{center}
 \end{codeoutput}
 \end{codecell}
+\subsection{Kategorik ve Numerik Iceren Karisik Veriler}
+
+Bazen verimiz hem kategorik hem de numerik degerler iceriyor olabilir,
+KMeans yeni kume merkezlerini hesaplarken ortalama operasyonu kullandigi
+icin sadece numerik veriler uzerinde calisabilir (kategorik verilerin
+nasil ortalamasini alalim ki?). Bu durumda ne yapacagiz?
+
+Bir secenek su olabilir, kategorik her kolonu her degisik degeri bir
+yeni kolona tekabul edecek sekilde saga dogru acariz, ve o degerin yeni
+kolonuna 1 degeri digerlerine 0 degeri veririz. Bu kodlamaya 1-in-q
+kodlamasi, ya da Ingilizce one-hot encoding ismi veriliyor.
+
+Ornek olarak UCI veri bankasindan Avustralya Kredi Verisine bakalim:
+
+\begin{codecell}
+\begin{codeinput}
+\begin{lstlisting}
+import pandas as pd
+df = pd.read_csv("crx.csv")
+df[:2]
+\end{lstlisting}
+\end{codeinput}
+\begin{codeoutput}
+\begin{verbatim}
+  A1     A2    A3 A4 A5 A6 A7    A8 A9 A10  A11 A12 A13    A14  A15 A16
+0  b  30.83  0.00  u  g  w  v  1.25  t   t    1   f   g  00202    0   +
+1  a  58.67  4.46  u  g  q  h  3.04  t   t    6   f   g  00043  560   +
+\end{verbatim}
+\end{codeoutput}
+\end{codecell}
+Bu veride A1, A2, gibi kolon isimleri var, kategorik olanlarda `g',`w'
+gibi degerler goruluyor. Bu kolonlari degistirmek icin
+
+\begin{codecell}
+\begin{codeinput}
+\begin{lstlisting}
+from sklearn.feature_extraction import DictVectorizer
+def one_hot_dataframe(data, cols, replace=False):
+    """ Takes a dataframe and a list of columns that need to be encoded.
+        Returns a 3-tuple comprising the data, the vectorized data,
+        and the fitted vectorizor.
+    """
+    vec = DictVectorizer()
+    mkdict = lambda row: dict((col, row[col]) for col in cols)
+    vecData = pd.DataFrame(vec.fit_transform(data[cols].apply(mkdict, axis=1)).toarray())
+    vecData.columns = vec.get_feature_names()
+    vecData.index = data.index
+    if replace is True:
+        data = data.drop(cols, axis=1)
+        data = data.join(vecData)
+    return (data, vecData, vec)
+
+df2, _, _ = one_hot_dataframe(df, ['A1','A4','A5','A6','A7','A9','A10','A12','A13'], replace=True)
+df2.ix[0]
+\end{lstlisting}
+\end{codeinput}
+\begin{codeoutput}
+\begin{verbatim}
+A2        30.83
+A3         0.00
+A8         1.25
+A11        1.00
+A14      202.00
+A15        0.00
+A16        1.00
+A10=f      0.00
+A10=t      1.00
+A12=f      1.00
+A12=t      0.00
+A13=g      1.00
+A13=p      0.00
+A13=s      0.00
+A1=a       0.00
+A1=b       1.00
+A4=l       0.00
+A4=u       1.00
+A4=y       0.00
+A5=g       1.00
+A5=gg      0.00
+A5=p       0.00
+A6=aa      0.00
+A6=c       0.00
+A6=cc      0.00
+A6=d       0.00
+A6=e       0.00
+A6=ff      0.00
+A6=i       0.00
+A6=j       0.00
+A6=k       0.00
+A6=m       0.00
+A6=q       0.00
+A6=r       0.00
+A6=w       1.00
+A6=x       0.00
+A7=bb      0.00
+A7=dd      0.00
+A7=ff      0.00
+A7=h       0.00
+A7=j       0.00
+A7=n       0.00
+A7=o       0.00
+A7=v       1.00
+A7=z       0.00
+A9=f       0.00
+A9=t       1.00
+Name: 0, dtype: float64
+\end{verbatim}
+\end{codeoutput}
+\end{codecell}
+Islem sonucunda A12=f mesela icin 1 verilmis, ama A12=t (ve diger her
+mumkun deger icin yani) 0 degeri verilmis. Boylece kategorik veriyi
+sayisal hale cevirmis olduk.
+
+Fakat isimiz bitti mi? Hayir. Simdi KMeans bu tur veriyle acaba duzgun
+calisir miydi onu kendimize soralim. Icinde pek cok 0, bazen 1 iceren
+veri satirlari arasinda uzaklik hesabi yapmak ise yarar mi?
+
+Yapay Ogrenim literaturunde bu tur veriler uzerinde kosinus benzerligi
+(cosine similarity) kullanmak daha yaygindir. Bu konuyu SVD, Toplu
+Tavsiye yazinda daha gorebilirsiniz. Kosinus benzerligi bize 0 ile 1
+arasinda bir deger dondurur. Benzerligi uzakliga cevirmek icin basit bir
+sekilde 1-benzerlik formulunu kullanabiliriz.
+
+O zaman karisik veriler uzerinde KMeans kullanmak icin sunu yapariz,
+verinin en bastan numerik olan kismi icin Oklit uzakligi, diger kalan
+kismi icin kosinus uzakligi kullaniriz.
+
+\begin{codecell}
+\begin{codeinput}
+\begin{lstlisting}
+import numpy as np
+import pandas as pd, os
+import scipy.sparse as sps
+import numpy, random
+
+def cos_dist(inA,inB):
+    num = float(np.dot(inA.T,inB))
+    denom = la.norm(inA)*la.norm(inB)
+    sim = 0.5+0.5*(num/denom)
+    return 1. - sim
+
+def mixed_to_clusters(vect,x,euc_n):
+    weight1 = 1.
+    weight2 = 1.
+    res1 = euc_to_clusters(vect[:,0:euc_n],x[0:euc_n])
+    res2 = map(lambda y: cos_dist(x[euc_n:],y), vect[:,euc_n:])
+    res = np.array(res1)*weight1 + np.array(res2)*weight2
+    return res
+
+class MixedKMeans():
+    def __init__(self,k,iter,euc_n):
+        self.k = k
+        self.iter = iter
+        self.euc_n = euc_n
+    def fit(self,X,iter=10):
+        self.labels_ = np.array([random.randint(0,self.k-1) for i in range(X.shape[0])])
+        self.centers_ = np.zeros((self.k,X.shape[1]))
+        for i in range(self.iter):
+            for j in range(self.k):
+                if len(X[self.labels_ == j]) == 0: continue
+                center = np.mean(X[self.labels_ == j],axis=0)
+                self.centers_[j,:] = center
+            self.labels_ = []
+            for point in X:
+                c = np.argmin(mixed_to_clusters(self.centers_, point, self.euc_n))
+                self.labels_.append(int(c))
+
+            self.labels_ = np.array(self.labels_)
+
+\end{lstlisting}
+\end{codeinput}
+\end{codecell}
+\begin{codecell}
+\begin{codeinput}
+\begin{lstlisting}
+df = pd.read_csv("crx.csv",sep=',',na_values=['?'])
+df = df.dropna()
+
+df['A16'] = df['A16'].str.replace('+','1')
+df['A16'] = df['A16'].str.replace('-','0')
+df['A16'] = df['A16'].astype(int)
+
+df2, _, _ = one_hot_dataframe(df, ['A1','A4','A5','A6','A7','A9','A10','A12','A13'], replace=True)
+df2 = df2.drop('A16',axis=1)
+
+df2 = np.array(df2)
+df2 -= np.mean(df2, axis=0)
+df2 /= np.std(df2, axis=0)
+
+cf = MixedKMeans(2,euc_n=6,iter=10)
+cf.fit(df2)
+
+labels_true = np.array(df['A16'])
+labels_pred = cf.labels_
+match = np.sum((labels_true == labels_pred).astype(int))
+print float(match)/len(df)   
+\end{lstlisting}
+\end{codeinput}
+\begin{codeoutput}
+\begin{verbatim}
+0.728943338438
+\end{verbatim}
+\end{codeoutput}
+\end{codecell}
+Bu veri icinde iki tane kume vardi, kumeler A16 kolonunda + ya da -
+olarak isaretli. Tabii kumeleme takip edilmeyen (unsupervised) bir Yapay
+Ogrenim metotududur, hangi noktanin hangi kumeye ait oldugunu onceden
+bilmeyiz, ornek veri seti uzerinde kontrol amacli bu isaretlere
+bakiyoruz. Ustteki sonuca gore yuzde 73 oraninda bir basariyla dogru
+kumeyi bulabilmisiz.
+
+Parametre olarak gecilen euc\_n degiskeni her veri noktasi icin ``ilk
+kac noktanin numerik'' oldugunu belirtiyor. Boylece uzaklik fonksiyonu
+sadece o kisimda Oklit uzakligi kullaniyor. Peki numerik degerler niye
+hep basta? Bunun sebebi one\_hot\_dataframe cagrisinin yeni kolonlari
+yaratirken eskileri silmesi ve eklenen yeni kolonlarin hep en sona
+konmasi, boylece en bastakiler hep numerik kolon oluyor!
+
 Bazi ek notlar
 
 {[}1{]}
