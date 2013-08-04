@@ -208,7 +208,7 @@ scatter(data[:,0],data[:,1])
 \end{codeinput}
 \begin{codeoutput}
 \begin{verbatim}
-<matplotlib.collections.PathCollection at 0x490d850>
+<matplotlib.collections.PathCollection at 0x358d390>
 \end{verbatim}
 \begin{center}
 \includegraphics[width=0.7\textwidth]{kmeans_files/kmeans_fig_00.png}
@@ -260,7 +260,7 @@ cf.labels_
 \end{codeinput}
 \begin{codeoutput}
 \begin{verbatim}
-array([2, 2, 2, ..., 3, 3, 3])
+array([1, 1, 1, ..., 0, 0, 0])
 \end{verbatim}
 \end{codeoutput}
 \end{codecell}
@@ -275,6 +275,7 @@ uzerinde grafiklersek (kirmizi noktalar)
 \begin{lstlisting}
 scatter(data[:,0],data[:,1])
 plt.hold(True)
+plt.ylim([30000,70000])
 for x in cf.centers_: plot(x[0],x[1],'rd')
     
 \end{lstlisting}
@@ -295,6 +296,7 @@ Eger 10 dersek
 cf = KMeans(k=15,iter=20)
 cf.fit(data)
 scatter(data[:,0],data[:,1])
+plt.ylim([30000,70000])
 plt.hold(True)
 for x in cf.centers_: plot(x[0],x[1],'rd')
 \end{lstlisting}
@@ -316,7 +318,8 @@ nasil ortalamasini alalim ki?). Bu durumda ne yapacagiz?
 Bir secenek su olabilir, kategorik her kolonu her degisik degeri bir
 yeni kolona tekabul edecek sekilde saga dogru acariz, ve o degerin yeni
 kolonuna 1 degeri digerlerine 0 degeri veririz. Bu kodlamaya 1-in-q
-kodlamasi, ya da Ingilizce one-hot encoding ismi veriliyor.
+kodlamasi, 1-in-n kodlamasi, ya da Ingilizce one-hot encoding ismi
+veriliyor.
 
 Ornek olarak UCI veri bankasindan Avustralya Kredi Verisine bakalim:
 
@@ -471,7 +474,7 @@ class MixedKMeans():
                 self.centers_[j,:] = center
             self.labels_ = []
             for point in X:
-                c = np.argmin(mixed_to_clusters(self.centers_, point, self.euc_n,weights=[1.,3.]))
+                c = np.argmin(mixed_to_clusters(self.centers_, point, self.euc_n,self.weights))
                 self.labels_.append(int(c))
 
             self.labels_ = np.array(self.labels_)
@@ -493,6 +496,8 @@ df2, _, _ = one_hot_dataframe(df, ['A1','A4','A5','A6','A7','A9','A10','A12','A1
 df2 = df2.drop('A16',axis=1)
 
 df2 = np.array(df2)
+
+# veriyi normalize et, ortalama cikar ve standart sapmaya bol
 df2 -= np.mean(df2, axis=0)
 df2 /= np.std(df2, axis=0)
 
@@ -507,7 +512,7 @@ print float(match)/len(df)
 \end{codeinput}
 \begin{codeoutput}
 \begin{verbatim}
-0.816232771822
+0.814701378254
 \end{verbatim}
 \end{codeoutput}
 \end{codecell}
@@ -536,6 +541,16 @@ agirlik vermis oluruz (cunku kategorik verileri 3 kat daha
 deneme / yanilma, tecrube ile bulunmali, veri setine gore degisik
 olacaklardir.
 
+Normalize Etmek
+
+Ustteki ornekte veriyi 1-in-n kodlamasiyla cevirdikten sonra bir de
+normalize ettik, yani her kolon bazinda o kolonun ortalamasini o
+kolondaki tum degerlerden cikarttik ve standart sapmaya bolduk, boylece
+her kolonu 0 etrafinda ortalayip onun iki tarafina dusebilecek -/+
+degerleri kucultuyoruz. Bu veriyi bir tur ``sekle sokma'' islemidir, ne
+zaman kullanilacagi tecrubeyle ortaya cikar, mesela ustteki karisik
+veride bunun isleyebilecegini tahmin ettik.
+
 Kume sayisini bulmak
 
 KMeans'e kume sayisinin onceden verilmis olmasi gerekiyor, ve bu sayiyi,
@@ -552,7 +567,7 @@ goruruz:
 \begin{codeinput}
 \begin{lstlisting}
 import scipy.linalg as lin
-u,s,vt=lin.svd(df2)
+u,s,vt=lin.svd(df2) # normalize edilmis veri uzerinde
 plt.plot(u[:,0], u[:,1],'.')
 
 \end{lstlisting}
