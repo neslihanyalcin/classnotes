@@ -429,13 +429,14 @@ veri satirlari arasinda uzaklik hesabi yapmak ise yarar mi?
 
 Yapay Ogrenim literaturunde bu tur veriler uzerinde kosinus benzerligi
 (cosine similarity) kullanmak daha yaygindir. Bu konuyu SVD, Toplu
-Tavsiye yazinda daha gorebilirsiniz. Kosinus benzerligi bize 0 ile 1
-arasinda bir deger dondurur. Benzerligi uzakliga cevirmek icin basit bir
-sekilde 1-benzerlik formulunu kullanabiliriz.
+Tavsiye yazisinda daha iyi gorebilirsiniz. Kosinus benzerligi bize 0 ile
+1 arasinda bir deger dondurur. Benzerligi uzakliga cevirmek icin basit
+bir sekilde 1-benzerlik formulunu kullanabiliriz.
 
-O zaman karisik veriler uzerinde KMeans kullanmak icin sunu yapariz,
-verinin en bastan numerik olan kismi icin Oklit uzakligi, diger kalan
-kismi icin kosinus uzakligi kullaniriz.
+O zaman karisik veriler uzerinde KMeans kullanmak icin, verinin en
+bastan numerik olan kismi icin Oklit uzakligi, diger kalan kismi icin
+kosinus uzakligi kullanabiliriz. Her iki kisimdan elde edilen uzaklik
+degerlerini toplariz.
 
 \begin{codecell}
 \begin{codeinput}
@@ -517,10 +518,11 @@ print float(match)/len(df)
 \end{codeoutput}
 \end{codecell}
 Bu veri icinde iki tane kume vardi, kumeler A16 kolonunda + ya da -
-olarak isaretli. Tabii kumeleme takip edilmeyen (unsupervised) bir Yapay
+olarak isaretli. Kumeleme takip edilmeyen (unsupervised) bir Yapay
 Ogrenim metotududur, hangi noktanin hangi kumeye ait oldugunu onceden
-bilmeyiz, ornek veri seti uzerinde kontrol amacli bu isaretlere
-bakiyoruz. Ustteki sonuca gore yuzde 81 oraninda bir basariyla dogru
+bilmeyiz, ornek veri setini kullanirken bu isaretleri gormemezlikten
+geliyoruz, sadece kontrol amacli olarak sonradan bu isaretlere
+bakiyoruz. Ve ustteki kod ile yuzde 81 oraninda bir basariyla dogru
 kumeyi bulabilmisiz.
 
 Parametre olarak gecilen euc\_n degiskeni her veri noktasi icin ``ilk
@@ -528,17 +530,20 @@ kac noktanin numerik'' oldugunu belirtiyor. Boylece uzaklik fonksiyonu
 sadece o kisimda Oklit uzakligi kullaniyor. Peki numerik degerler niye
 hep basta? Bunun sebebi one\_hot\_dataframe cagrisinin yeni kolonlari
 yaratirken eskileri silmesi ve eklenen yeni kolonlarin hep en sona
-konmasi, boylece en bastakiler hep numerik kolon oluyor!
+konmasi, boylece en bastakiler hep numerik kolon olacak!
 
 Agirliklar
 
 Oklit ve kosinus uzakliklarini birbirine toplarken, birine digerinden
 daha fazla agirlik vermek mumkun, belki de bir veri seti icin numerik
-veriler kategorik olanlardan daha onemli, bu durumda agirliklari, mesela
-ustte 1'e 3 olarak tanimladik, Oklit uzakligina 3 kat daha fazla onem /
-agirlik vermis oluruz (cunku kategorik verileri 3 kat daha
-``fazlalastiriyoruz'', ``uzaklastiriyoruz''). Bu agirliklar tahmin,
-deneme / yanilma, tecrube ile bulunmali, veri setine gore degisik
+veriler kategorik olanlardan daha onemli olabilir, bu durumda
+agirliklari, mesela ustte 1'e 3 olarak tanimladik, Oklit uzakligina 3
+kat daha fazla onem / agirlik vermis oluruz cunku kategorik verileri 3
+kat daha ``fazlalastiriyoruz'', ``uzaklastiriyoruz''. Tabi bu konuya
+degisik bir acidan gormek te mumkun, eger kategorik kismin sayilari
+numerik olanlar ile ayni olcekte degilse, carparak her iki kismi
+esitlemis oldugumuz da soylenebilir. Her neyse - agirliklarin ne oldugu
+tahmin, deneme / yanilma ile bulunabilir, her veri setine gore degisik
 olacaklardir.
 
 Normalize Etmek
@@ -553,15 +558,15 @@ veride bunun isleyebilecegini tahmin ettik.
 
 Kume sayisini bulmak
 
-KMeans'e kume sayisinin onceden verilmis olmasi gerekiyor, ve bu sayiyi,
-metot takip edilmeyen metot oldugu icin, bastan bilmiyoruz. Bu sayiyi
-bir sekilde bulmanin yolu olamaz mi?
+KMeans'e kume sayisinin onceden verilmis olmasi gerekiyor, ve bu sayiyi
+KMeans baglaminda bastan bilmiyoruz. Bu sayiyi bir sekilde bulmanin yolu
+olamaz mi?
 
-Eger boyut azaltma teknigi SVD'yi kullanirsak, bu mumkun olabilir. SVD
-sonrasi elimize azaltilmis bir veri gececek, ve bu veride en basta olan
-kolonlar en onemli olanlardir, ve bu kolonlari, mesela ilk ikisini
-alarak ekrana basabiliriz. Avustralya Kredi setinde bunu yaparsak sunu
-goruruz:
+Boyut azaltma teknigi SVD yardimci olabilir. SVD sonrasi gelen matrisin
+``onemli'' kolonlarina daha azaltilmis bir veri seti elde edebiliriz, bu
+veride en basta olan kolonlar en onemli olanlardir, ve bu kolonlari,
+mesela ilk ikisini alarak ekrana basabiliriz. Avustralya Kredi setinde
+bunu yaparsak sunu goruruz:
 
 \begin{codecell}
 \begin{codeinput}
