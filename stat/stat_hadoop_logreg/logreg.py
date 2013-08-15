@@ -2,29 +2,29 @@ from mrjob.job import MRJob
 from mrjob.protocol import PickleProtocol
 import numpy as np
 
-def sigmoid(arr):
-    return 1.0/(1+np.exp(-arr))
-
-def stoc_grad_ascent0(data_mat, label, theta):
-    n  = 1
-    m = len(data_mat)
-    alpha = 0.001
-    for j in range(m):
-        h = sigmoid(np.dot(data_mat,theta)[0])
-        theta[j] = theta[j] + alpha * data_mat[j] * (label - h)
-    return theta
-
 class MRLogisticRegression(MRJob):
     INTERNAL_PROTOCOL = PickleProtocol
     def __init__(self, *args, **kwargs):
         super(MRLogisticRegression, self).__init__(*args, **kwargs)
-        self.theta = np.ones((3,1))
+        self.n  = 1
+        self.m = 3
+        self.theta = np.ones((self.m,1))
+
+    def sigmoid(self, arr):
+        return 1.0/(1+np.exp(-arr))
+
+    def stoc_grad_ascent0(self, data_mat, label, theta):
+        alpha = 0.001
+        for j in range(self.m):
+            h = self.sigmoid(np.dot(data_mat,theta)[0])
+            theta[j] = theta[j] + alpha * data_mat[j] * (label - h)
+        return theta
         
     def mapper(self, key, line):        
         tokens = map(np.float,line.split('\t'))
         data = np.append(1.0,np.array(tokens[:-1]))
         label = np.array(tokens[-1])
-        theta = stoc_grad_ascent0(data, label, self.theta)
+        theta = self.stoc_grad_ascent0(data, label, self.theta)
         yield ('key1', theta)
                 
     def reducer(self, key, tokens):
