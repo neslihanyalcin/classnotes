@@ -7,7 +7,7 @@ if len(sys.argv) == 1 or sys.argv[1] == 'tex':
     stat_06/stat_06.pdf stat_mcmc/stat_mcmc.pdf stat_coal/stat_coal2.pdf \
     stat_pandas/div.pdf stat_pandas_ratings/ratings.pdf \
     stat_wells/stat_wells.pdf stat_hadoop_patent/patent.pdf \
-    stat_hadoop_kmeans/kmeans.pdf stat_hadoop_logreg/stat_hadoop_logreg.pdf \
+    stat_hadoop_kmeans/kmeans.pdf stat_hadoop_logreg/stat_hadoop_logreg2.pdf \
     stat_normtable/stat_normtable.pdf \
     output ~/Dropbox/Public/skfiles/stat.pdf
     """)
@@ -17,7 +17,7 @@ if sys.argv[1] == 'all':
     for a in sorted(glob.glob("stat*")):
         print a
         os.chdir(a)
-        os.system("pdflatex stat*.tex")    
+        os.system("pdflatex *.tex")    
         os.chdir("..")
     
     

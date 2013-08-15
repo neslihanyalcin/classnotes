@@ -1,5 +1,6 @@
 '''
-Logistic regression for map/reduce written for MRJob. 
+Logistic regression for map/reduce written for MRJob,
+uses stochastic gradient descent.
 '''
 from mrjob.job import MRJob
 from mrjob.protocol import PickleProtocol
