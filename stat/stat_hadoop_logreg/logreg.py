@@ -18,8 +18,7 @@ class MRLogisticRegression(MRJob):
     INTERNAL_PROTOCOL = PickleProtocol
     def __init__(self, *args, **kwargs):
         super(MRLogisticRegression, self).__init__(*args, **kwargs)
-        #self.theta = np.ones((3,1))
-        self.theta = np.array([[1.96503066,-0.11019418,-0.04416265]]).T
+        self.theta = np.ones((3,1))
         
     def mapper(self, key, line):        
         tokens = map(np.float,line.split('\t'))
