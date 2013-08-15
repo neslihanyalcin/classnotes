@@ -18,8 +18,7 @@ class MRLogisticRegression(MRJob):
         return 1.0/(1+np.exp(-arr))
 
     def stoc_grad_ascent0(self, data_mat, label, theta):
-        #alpha = 0.003
-        alpha = 0.001
+        alpha = 0.002
         for j in range(self.m):
             h = self.sigmoid(np.dot(data_mat,theta)[0])
             theta[j] = theta[j] + alpha * data_mat[j] * (label - h)
