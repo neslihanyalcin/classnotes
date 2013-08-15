@@ -13,7 +13,6 @@ class MRLogisticRegression(MRJob):
         self.n  = 1
         self.m = 3
         self.theta = 2 * np.ones((self.m,1))
-        #self.key = str(thread.get_ident()) + "-" + str(os.getpid())
 
     def sigmoid(self, arr):
         return 1.0/(1+np.exp(-arr))
