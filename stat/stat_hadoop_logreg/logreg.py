@@ -1,3 +1,6 @@
+'''
+Logistic regression for map/reduce written for MRJob. 
+'''
 from mrjob.job import MRJob
 from mrjob.protocol import PickleProtocol
 import numpy as np
