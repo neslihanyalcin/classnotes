@@ -9,17 +9,20 @@ import os, thread
 
 class MRLogisticRegression(MRJob):
     INTERNAL_PROTOCOL = PickleProtocol
+    
     def __init__(self, *args, **kwargs):
         super(MRLogisticRegression, self).__init__(*args, **kwargs)
         self.n  = 1
         self.m = 3
-        self.theta = 2 * np.ones((self.m,1))
+        self.count = 0
+        self.theta = np.ones((self.m,1))
+        self.final_theta = np.zeros((self.m,self.n))
 
     def sigmoid(self, arr):
         return 1.0/(1+np.exp(-arr))
 
     def stoc_grad_ascent0(self, data_mat, label, theta):
-        alpha = 0.002
+        alpha = 0.005
         for j in range(self.m):
             h = self.sigmoid(np.dot(data_mat,theta)[0])
             theta[j] = theta[j] + alpha * data_mat[j] * (label - h)
@@ -35,11 +38,10 @@ class MRLogisticRegression(MRJob):
         yield ("key1", self.theta)
                 
     def reducer(self, key, tokens):
-        theta = None
         for val in tokens:
-            if theta != None: theta = (theta + val) / 2.
-            else: theta = val.copy()
-        yield('result',str(theta))
+            self.final_theta += val
+            self.count += 1
+        yield('result',str(self.final_theta / self.count))
         
 if __name__ == '__main__':
     MRLogisticRegression.run()
