@@ -22,10 +22,10 @@ class MRLogisticRegression(MRJob):
         return 1.0/(1+np.exp(-arr))
 
     def stoc_grad_ascent0(self, data_mat, label, theta):
-        alpha = 0.005
-        for j in range(self.m):
-            h = self.sigmoid(np.dot(data_mat,theta)[0])
-            theta[j] = theta[j] + alpha * data_mat[j] * (label - h)
+        alpha = 0.01
+        h = self.sigmoid(np.dot(data_mat,theta))
+        theta = theta.T + (alpha * data_mat * (label - h))
+        theta = theta.reshape((self.m,self.n))
         return theta
         
     def mapper(self, key, line):        
