@@ -133,26 +133,27 @@ indirgeme safhasinda Hadoop sistemi oyle kurmustur ki ayni anahtarlarlar
 tek bir makinaya gonderilir, ve bu nihai asamada artik anahtar bazinda
 indirgeme (ozetleme) yapilir.
 
-Paralel K-Means icin anahtar nedir?
-
-Anahtar, mesela kume olabilir. Yani kume 1, kume 2 gibi kume isaretleri
-/ sayilari anahtar olarak kullanilabilirler.
+Paralel K-Means icin anahtar nedir? Anahtar, mesela kume olabilir. Yani
+kume 1, kume 2 gibi kume isaretleri / sayilari anahtar olarak
+kullanilabilirler.
 
 Peki anahtar ile eslenecek ``deger'' nedir?
 
-Oyle bir deger ariyoruz ki ust uste konulabilecek bir sey olmali, cunku
-EI sisteminin kuvveti burada, anahtarlar farkli noktalarda
-uretilebiliyor, sonra tek noktada ust uste konuyor, o zaman degerler
-oyle uretilmeli ki bu ust uste koyma, ozetleme islemi yapilabilsin.
+Oyle bir deger ariyoruz ki ust uste konulabilecek bir sey olmali, EI
+sisteminin kuvveti burada, anahtarlar farkli noktalarda uretilebiliyor,
+sonra tek noktada ust uste konuyor, o zaman degerler oyle uretilmeli ki
+bu ust uste koyma, ozetleme islemi yapilabilsin.
 
 Ust uste konabilecek sey kumeye (anahtar) ait olan veri noktasi
-olabilir. Normal K-Means'i hatirlarsak, her nokta icin o noktaya en
-yakin kumeyi buluyordu sonra, atama islemi bitince, her kumenin
-altindaki noktalarin toparlayip, onlarin ortalamasini alarak yeni kume
-merkezini hesapliyordu. Bu ortalama islemi ust uste konabilecek bir sey,
-yani farkli makinalarda kume-nokta eslemelerini uretirsek, indirgeme
-asamasinda o anahtar icin tum degerleri toplayip, nokta sayisina boleriz
-ve yeni kume merkezini elde ederiz.
+olabilir, yani basbasyagi veri noktasinin kendisi deger olabilir. Normal
+K-Means'i hatirlarsak, her nokta icin o noktaya en yakin kumeyi
+buluyordu ve sonra, atama islemi bitince, her kumenin altindaki
+noktalarin toparlayip, onlarin ortalamasini alarak yeni kume merkezini
+hesapliyordu. Bu ortalama islemi ust uste konabilecek bir sey, cunku
+toplama oyle bir islem, ve / yani farkli makinalarda kume-nokta,
+eslemelerini uretirsek, indirgeme asamasinda o anahtar icin tum
+degerleri toplayip, nokta sayisina boleriz ve yeni kume merkezini elde
+ederiz.
 
 \begin{codecell}
 \begin{codeinput}
@@ -176,9 +177,9 @@ Simdi Hadoop ile ilgili bazi lojistik konulara gelelim:
 Eger esleme safhasinda her nokta icin en yakin kumeyi bulmak istiyorsak,
 o zaman (ilk basta rasgele bile olsa) kume merkezlerinin bilgisi tum
 makinalarin erisebilecegi bir yerde olmali. Biz bu veriyi, centers.csv
-adli dosyayi HDFS uzerinde tutmaya karar verdik, dosya ismi -archives
-ile Hadoop'a gecilecek ve bu sekilde gecilen dosya isimlerine isleyen
-script ile ayni dizindeymis gibi erisilebilir.
+adli bir dosyaya koymaya karar verdik, bu dosya tek makina ortaminda
+bilinen bir dizinde (mesela /tmp), cok makinali ortamda ise HDFS
+uzerinde herkesin erisebilecegi bir yerde olmali.
 
 Paralel K-Means icin tek bir esle-indirge isletimi yeterli degil, bu
 algoritma dongulu / ozyineli (iterative) bir algoritma, 5,10,20 kez
@@ -186,12 +187,7 @@ islemesi gerekebilir. Her dongu (indirgeme) sonunda yeni kume merkezleri
 hesaplanacak, bu merkezler eski centers.csv yerini alacak ve islem
 tekrar baslayacak.
 
-Dongu sonundaki merkez bilgisi indirgeyicinin ciktisidir ve bu cikti
-output/part-00000 dosyasi icinde. Unutmayalim, indirgeyicinin ciktisi
-demek, tum indirgeyici makinalardan gelen anahtarlarin (ozetleme
-ardindan) birlestirilmesi sonrasinda demek.
-
-Simdi ham veriyi gosterelim, ve Hadoop'u baslatalim.
+Simdi ham veriyi gosterelim,
 
 \begin{codecell}
 \begin{codeinput}
@@ -204,7 +200,7 @@ plt.scatter(df1.ix[:,0],df1.ix[:,1])
 \end{codeinput}
 \begin{codeoutput}
 \begin{verbatim}
-<matplotlib.collections.PathCollection at 0xa4f23cc>
+<matplotlib.collections.PathCollection at 0xb3ea22c>
 \end{verbatim}
 \begin{center}
 \includegraphics[width=0.7\textwidth]{kmeans_files/kmeans_fig_01.png}
@@ -215,250 +211,106 @@ plt.scatter(df1.ix[:,0],df1.ix[:,1])
 \begin{codecell}
 \begin{codeinput}
 \begin{lstlisting}
-
-!ssh localhost -l hduser /home/hduser/Downloads/hadoop*/bin/stop-all.sh
-!ssh localhost -l hduser /home/hduser/Downloads/hadoop*/bin/start-all.sh
-
+print open("kmeans.py").read()
 \end{lstlisting}
 \end{codeinput}
 \begin{codeoutput}
 \begin{verbatim}
-no jobtracker to stop
-\end{verbatim}
-\begin{verbatim}
-localhost: no tasktracker to stop
-\end{verbatim}
-\begin{verbatim}
-no namenode to stop
-\end{verbatim}
-\begin{verbatim}
-localhost: no datanode to stop
-\end{verbatim}
-\begin{verbatim}
-localhost: no secondarynamenode to stop
-\end{verbatim}
-\begin{verbatim}
-starting namenode, logging to /home/hduser/Downloads/hadoop-1.0.4/libexec/../logs/hadoop-hduser-namenode-burak-Aspire-S3.out
-\end{verbatim}
-\begin{verbatim}
-localhost: starting datanode, logging to /home/hduser/Downloads/hadoop-1.0.4/libexec/../logs/hadoop-hduser-datanode-burak-Aspire-S3.out
-\end{verbatim}
-\begin{verbatim}
-localhost: starting secondarynamenode, logging to /home/hduser/Downloads/hadoop-1.0.4/libexec/../logs/hadoop-hduser-secondarynamenode-burak-Aspire-S3.out
-\end{verbatim}
-\begin{verbatim}
-starting jobtracker, logging to /home/hduser/Downloads/hadoop-1.0.4/libexec/../logs/hadoop-hduser-jobtracker-burak-Aspire-S3.out
-\end{verbatim}
-\begin{verbatim}
-localhost: starting tasktracker, logging to /home/hduser/Downloads/hadoop-1.0.4/libexec/../logs/hadoop-hduser-tasktracker-burak-Aspire-S3.out
-\end{verbatim}
-\end{codeoutput}
-\end{codecell}
-Gerekli merkez verisinin tutulacagi yer /tmp demistik. Bu ismi ozellikle
-sectik cunku hem yerel, komut satirindan (Hadoop olmadan) calisirken
-rahat kullanilabilecek bir dizin olsun istedik. Bu dizini HDFS uzerinde
-yaratalim (unutmayalim, HDFS demek ayri bir alem demek, pur Unix
-komutlarimiz bile oraya erisemiyor)
-
-\begin{codecell}
-\begin{codeinput}
-\begin{lstlisting}
-!ssh localhost -l hduser /home/hduser/Downloads/hadoop*/bin/hadoop dfs -copyFromLocal $HOME/Documents/classnotes/stat/stat_hadoop_kmeans/synthetic.txt /user/hduser
-\end{lstlisting}
-\end{codeinput}
-\begin{codeoutput}
-\begin{verbatim}
-copyFromLocal: Target /user/hduser/synthetic.txt already exists
-\end{verbatim}
-\end{codeoutput}
-\end{codecell}
-\begin{codecell}
-\begin{codeinput}
-\begin{lstlisting}
-print open("mapper.py").read()
-\end{lstlisting}
-\end{codeinput}
-\begin{codeoutput}
-\begin{verbatim}
-#!/usr/bin/python
-import os,sys,itertools
-import numpy as np
-from numpy import linalg as la
-os.environ['MPLCONFIGDIR']='/tmp' 
+from mrjob.job import MRJob
+from mrjob.protocol import PickleProtocol
+import numpy as np, sys
 import pandas as pd
+import os, random
 
-centers = pd.read_csv("centers.csv",header=None,sep=",")
+def euc_to_clusters(x,y):
+    return np.sqrt(np.sum((x-y)**2, axis=1))
 
-def dist(vect,x):
-    return np.fromiter(itertools.imap(np.linalg.norm, vect-x),dtype=np.float)
-
-def closest(x):
-    d = dist(np.array(centers)[:,1:3],np.array(x))
-    return np.argmin(d)
-
-comb = lambda x: str(x[0])+":"+str(x[1])
-
-df = pd.read_csv(sys.stdin,header=None,sep="   ")
-df['cluster'] = df.apply(closest,axis=1)
-df['coord'] = df.apply(comb,axis=1)
-df.to_csv(sys.stdout, sep='\t',index=False, cols=['cluster','coord'],
-          header=None)
+class MRKMeans(MRJob):
+    INTERNAL_PROTOCOL = PickleProtocol
+    
+    def __init__(self, *args, **kwargs):
+        super(MRKMeans, self).__init__(*args, **kwargs)
+        self.centers_ = pd.read_csv("/tmp/centers.csv",header=None,sep="   ")
+        self.k = 15
+        
+    def mapper(self, key, line):
+        point = np.array(map(np.float,line.split('   ')))
+        c = np.argmin(euc_to_clusters(np.array(self.centers_), point))
+        yield(c, point)
+                        
+    def reducer(self, key, tokens):
+        new_centers = np.zeros((1,2))
+        counts = 0
+        for val in tokens:
+            new_centers += val
+            counts += 1
+        yield('final', (key, new_centers[0] / counts))
+        
+    def reduce_all_centers(self, key, values):
+        new_centers = np.zeros((self.k,2))
+        self.f=open("/tmp/centers.csv","w")
+        for (cluster,val) in values:
+            print cluster, val
+            new_centers[cluster] = val
+        for row in new_centers:
+            self.f.write("   ".join(map(str,row)))
+            self.f.write("\n")
+        self.f.close()
+        
+    def steps(self):
+        return [self.mr(mapper=self.mapper,reducer=self.reducer),
+                self.mr(reducer=self.reduce_all_centers)]
+    
+if __name__ == '__main__':
+    for i in range(15): MRKMeans.run()
 \end{verbatim}
 \end{codeoutput}
 \end{codecell}
-Ustte comb ile kordinat verisini birlestirerek tek kolon haline
-getirdik, cunku anahtar deger formunda veri uretmemiz gerekiyor, ve TAB
-ayraci sadece tek anahtar ve tek deger ayrimi yapabilir, ve sadece bir
-tane ayrac olabilir. Bu sebeple iki boyutlu veri oldugu icin iki sayi
-olan deger, yani kordinat : uzerinden birlestirilerek tek bir deger
-haline getirildi. Tabii indirgeci bu veriyi alinca bu islemin tersini
-yapmasi lazim.
-
-\begin{codecell}
-\begin{codeinput}
-\begin{lstlisting}
-print open("reducer.py").read()
-\end{lstlisting}
-\end{codeinput}
-\begin{codeoutput}
-\begin{verbatim}
-#!/usr/bin/python
-import os,sys,itertools
-import numpy as np
-from numpy import linalg as la
-os.environ['MPLCONFIGDIR']='/tmp' 
-import pandas as pd
-
-def coords(x):
-    return pd.Series(np.array(str(x).split(":"),dtype=np.float64))
-
-df = pd.read_csv(sys.stdin,sep="\t",names=['cluster','coord'])
-df2 = df['coord'].apply(coords)
-df3 = df.combine_first(df2)
-df4 = df3.groupby('cluster').mean()
-df4.to_csv(sys.stdout, sep=',',header=None)
-\end{verbatim}
-\end{codeoutput}
-\end{codecell}
-Alttaki blokta merkezleri rasgele veri noktalari uzerinden seciyoruz,
-yani veri icinden rasgele 15 tane (k kadar) nokta cekip cikartik, onlari
-baslangic merkezi yaptik. Bu salt rasgele sayi uretimi ile de
-yapilabilirdi.
+reduce\_all\_centers cagrisi tum indirgeyiciler her kume icin yeni orta
+noktayi hesaplayip onu yayinladiktan (emit) sonra, tum yeni merkezlerin
+gelecegi yer.
 
 Komut satirindan tek makina icin Hadoop'suz isletelim,
 
 \begin{codecell}
 \begin{codeinput}
 \begin{lstlisting}
-import os,sys,itertools
-from numpy import linalg as la
-import pandas as pd
-k = 15
-df = read_csv("synthetic.txt",header=None,sep="   ")
-centers = df.take(np.random.permutation(len(df))[:k])
-centers.to_csv("centers.csv",header=None)
-for i in range(20):
-    os.system("cat synthetic.txt | python mapper.py | python reducer.py > centers2.csv")
-    os.system("cp centers2.csv centers.csv")
-    os.system("cp centers2.csv /tmp/centers-local-%i.csv" % i)
-
+!sort --random-sort synthetic.txt > /tmp/synthetic.txt
+!head -15 /tmp/synthetic.txt > /tmp/centers.csv
+!python kmeans.py synthetic.txt
 \end{lstlisting}
 \end{codeinput}
 \end{codecell}
 \begin{codecell}
 \begin{codeinput}
 \begin{lstlisting}
-i = 19
-df1 = read_csv("synthetic.txt",sep="   ")
+import pandas as pd
+df1 = pd.read_csv("synthetic.txt",sep="   ",header=None)
 plt.scatter(df1.ix[:,0],df1.ix[:,1])
 plt.hold(True)
-df2 = read_csv("/tmp/centers-local-%d.csv" % i,header=None,index_col=0)
-plt.plot(df2.ix[:,1],df2.ix[:,2],'rd')
-
+df2 = pd.read_csv("/tmp/centers.csv", sep="   ", header=None)
+plt.plot(df2.ix[:,0],df2.ix[:,1],'rd')
+plt.show()
 \end{lstlisting}
 \end{codeinput}
 \begin{codeoutput}
-\begin{verbatim}
-[<matplotlib.lines.Line2D at 0xa9657cc>]
-\end{verbatim}
 \begin{center}
 \includegraphics[width=0.7\textwidth]{kmeans_files/kmeans_fig_02.png}
 \par
 \end{center}
 \end{codeoutput}
 \end{codecell}
-Simdi K-Means'i Hadoop'tan isleten kosturucu (runner) program. Bu
-program esleme, indirgeme safhalarini cagiracak, ve indirgeyici sonrasi
-ciktiyi alip yeni kume merkezi yapacak, bunun gibi idari / temizlik
-islerini halledecek.
+K-Means'i 20 kere islettik. Eger istenirse (hatta daha iyi olur) dongu
+bir while icine konur ve bitis icin ``stabilite sarti'' aranir.
+Stabilite yeni kume merkezinin eskisinden ``cok fazla degisik olup
+olmadigi'' sartidir, degisim yoksa artik sonucu bulmusuz demektir, daha
+fazla donguye gerek kalmayacaktir. Biz donguyu 20 kere donguyu islettik,
+(bu problem icin) yeterli oldu.
 
-\begin{codecell}
-\begin{codeinput}
-\begin{lstlisting}
-import os
-os.system("cp mapper.py /tmp/")
-os.system("chmod a+r /tmp/mapper.py")
-os.system("chmod a+x /tmp/mapper.py")
+K-Means isini bitirdikten sonra elde edilen sonuclari okuyabiliriz.
+Nihai kume merkezleri /tmp/centers.csv icinde. Bu merkezleri alip, ham
+veri uzerinde kirmizi nokta olarak gosteriyoruz.
 
-os.system("cp reducer.py /tmp/")
-os.system("chmod a+r /tmp/reducer.py")
-os.system("chmod a+x /tmp/reducer.py")
-
-k = 15
-df = read_csv("synthetic.txt",header=None,sep="   ")
-centers = df.take(np.random.permutation(len(df))[:k])
-os.system("rm /tmp/centers.csv")
-os.system("ssh localhost -l hduser rm /tmp/centers.csv")
-centers.to_csv("/tmp/centers.csv",header=None)
-
-hp_cmd = "ssh localhost -l hduser /home/hduser/Downloads/hadoop*/bin/hadoop"
-streaming_cmd = "/home/hduser/Downloads/hadoop*/contrib/streaming/hadoop-*streaming*.jar"
-os.system("ssh localhost -l hduser rm /tmp/centers-*-out.csv")
-
-for i in range(20):
-    os.system("%s dfs -rmr /user/hduser/output" % hp_cmd)
-    os.system("%s jar %s -files /tmp/centers.csv -input synthetic.txt -output output -mapper /tmp/mapper.py -reducer /tmp/reducer.py -numReduceTasks 1" % (hp_cmd,streaming_cmd))
-    os.system("%s dfs -copyToLocal /user/hduser/output/part-00000 /tmp/centers-%d-out.csv" % (hp_cmd,i) )
-    os.system("ssh localhost -l hduser rm /tmp/centers.csv")
-    os.system("rm /tmp/centers.csv")
-    os.system("%s dfs -copyToLocal /user/hduser/output/part-00000 /tmp/centers.csv" % (hp_cmd) )
-
-\end{lstlisting}
-\end{codeinput}
-\end{codecell}
-Ustte K-Means'i 20 kere islettigimizi goruyoruz. Eger istenirse (hatta
-daha iyi olur) dongu bir while icine konur ve bitis icin ``stabilite
-sarti'' aranir. Stabilite yeni kume merkezinin eskisinden ``cok fazla
-degisik olup olmadigi'' sartidir, degisim yoksa artik sonucu bulmusuz
-demektir, daha fazla donguye gerek kalmayacaktir. Biz donguyu 20 kere
-donguyu islettik, (bu problem icin) yeterli oldu.
-
-K-Means isini bitirdikten sonra elde edilen sonuclari artik HDFS'ten
-yerel dizinimize alabiliriz. Nihai kume merkezleri /tmp/centers-..
-icinde. Bu merkezleri alip, ham veri uzerinde kirmizi nokta olarak
-gosteriyoruz.
-
-\begin{codecell}
-\begin{codeinput}
-\begin{lstlisting}
-i = 19
-df1 = read_csv("synthetic.txt",sep="   ")
-plt.scatter(df1.ix[:,0],df1.ix[:,1])
-plt.hold(True)
-df2 = read_csv("/tmp/centers-%d-out.csv" % i,header=None,index_col=0)
-plt.plot(df2.ix[:,1],df2.ix[:,2],'rd')
-\end{lstlisting}
-\end{codeinput}
-\begin{codeoutput}
-\begin{verbatim}
-[<matplotlib.lines.Line2D at 0xa6a5aec>]
-\end{verbatim}
-\begin{center}
-\includegraphics[width=0.7\textwidth]{kmeans_files/kmeans_fig_03.png}
-\par
-\end{center}
-\end{codeoutput}
-\end{codecell}
 Sonuclar fena degil. Iste bu metotla terabayt olceginde, devasa bir
 veriyi 20-30 makinaya dagitarak parca parca isleyip kumelemeniz
 mumkundur. Endustride son zamanlarda habire duyulan Buyuk Veri (Big
