@@ -44,6 +44,5 @@ class MRKMeans(MRJob):
                 self.mr(reducer=self.reduce_all_centers)]
     
 if __name__ == '__main__':
-    for i in range(20): MRKMeans.run()
-    #MRKMeans.run()
+    for i in range(15): MRKMeans.run()
 
