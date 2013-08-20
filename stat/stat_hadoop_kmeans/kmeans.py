@@ -13,6 +13,7 @@ class MRKMeans(MRJob):
     def __init__(self, *args, **kwargs):
         super(MRKMeans, self).__init__(*args, **kwargs)
         self.centers_ = pd.read_csv("/tmp/centers.csv",header=None,sep="   ")
+        self.k = 15
         
     def mapper(self, key, line):
         point = np.array(map(np.float,line.split('   ')))
@@ -25,12 +26,16 @@ class MRKMeans(MRJob):
         for val in tokens:
             new_centers += val
             counts += 1
-        yield('final', new_centers[0] / counts)
+        yield('final', (key, new_centers[0] / counts))
         
     def reduce_all_centers(self, key, values):
+        new_centers = np.zeros((self.k,2))
         self.f=open("/tmp/centers.csv","w")
-        for val in values:
-            self.f.write("   ".join(map(str,val)))
+        for (cluster,val) in values:
+            print cluster, val
+            new_centers[cluster] = val
+        for row in new_centers:
+            self.f.write("   ".join(map(str,row)))
             self.f.write("\n")
         self.f.close()
         
@@ -40,4 +45,5 @@ class MRKMeans(MRJob):
     
 if __name__ == '__main__':
     for i in range(20): MRKMeans.run()
+    #MRKMeans.run()
 
