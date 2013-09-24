@@ -3,7 +3,7 @@ import os, sys, glob
 if len(sys.argv) == 1 or sys.argv[1] == 'tex':
     cmd = "pdftk ./cover/cover.pdf ./model/model.pdf ./bases/bases.pdf \
 ./karesel/karesel.pdf ./quotient/quotient.pdf ./invtrig/invtrig.pdf \
-./pfractions/pfractions.pdf ratio/ratio.pdf compos/compos.pdf \
+./pfractions/pfractions.pdf matmult/matmult.pdf ratio/ratio.pdf compos/compos.pdf \
 ./series/series.pdf poldiv/poldiv.pdf ./fundamental/fundamental.pdf  \
 ./cauchy/cauchy.pdf ./integral-mult/integral-mult.pdf ./lhospital/lhospital.pdf ./euler/euler.pdf \
 ./intexp/intexp.pdf ./taylor/taylor.pdf ./taylor2d/taylor2d.pdf ./pca/pca.pdf \
