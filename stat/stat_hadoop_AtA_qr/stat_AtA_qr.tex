@@ -375,8 +375,6 @@ Karsilastirmak icin ayni islemi tek bir script icinde yapalim,
 \begin{codecell}
 \begin{codeinput}
 \begin{lstlisting}
-import numpy.linalg as lin
-
 A = np.loadtxt('A_matrix')
 np.dot(A.T,A)
 
@@ -398,6 +396,7 @@ Simdi bu sonuc uzerinde Cholesky yapalim
 \begin{codecell}
 \begin{codeinput}
 \begin{lstlisting}
+import numpy.linalg as lin
 lin.cholesky(np.dot(A.T,A))
 \end{lstlisting}
 \end{codeinput}
