@@ -10,7 +10,7 @@ print "chol on AtA", lin.cholesky(AtA)
 q,r = lin.qr(A)
 print "qr on A", r.T
 
-x = np.array([[3, 4, 5, 6],[3, 4, 5, 2],[3, 4, 5, 6],[3, 4, 5, 2]])
-print 'Ax',         
-print np.dot(A,x)
+B = np.array([[3, 4, 5, 6],[3, 4, 5, 2],[3, 4, 5, 6],[3, 4, 5, 2]])
+print 'AB',         
+print np.dot(A,B)
 
