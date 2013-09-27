@@ -433,6 +433,22 @@ sonuc acisindan farketmiyor.
 \subsubsection{Q}
 
 
+\begin{codecell}
+\begin{codeinput}
+\begin{lstlisting}
+imshow(imread('qr.png'))
+\end{lstlisting}
+\end{codeinput}
+\begin{codeoutput}
+\begin{verbatim}
+<matplotlib.image.AxesImage at 0x2dffc90>
+\end{verbatim}
+\begin{center}
+\includegraphics[width=0.7\textwidth]{stat_AtA_qr_files/stat_AtA_qr_fig_01.png}
+\par
+\end{center}
+\end{codeoutput}
+\end{codecell}
 Q hesabi icin biraz daha takla atmak lazim,
 \[A = QR\]\[AR^{-1} = QRR^{-1} \]\[Q = AR^{-1} \]
 Demek ki $R$'i elde ettikten sonra onu tersine cevirip (inverse) $A$ ile
@@ -639,20 +655,43 @@ degerleri olan bir matristir. Daha fazla detay icin Lineer Cebir Ders
 \[ QR =  U \Sigma V^T \]\[ R = Q^T U \Sigma V^T \]
 Bu son formuled $Q^TU$ formulu, iki ortogonal matrisin carpimidir.
 Lineer Cebir kurallarina gore iki ortogonal matrisin carpimi bir diger
-ortogonal matristir. Bu yeni ortogonal matrise $U_1$ adi verelim, o
+ortogonal matristir. Bu yeni ortogonal matrise $U_R$ adi verelim, o
 zaman
-\[ R = U_1 \Sigma V^T \]
+\[ R = U_R \Sigma V^T \]
 Bu son formul bize bir seyler soyluyor. $R$'nin SVD uzerinden
 ayristirilabilecegini soyluyor ve bu ayristirma sonrasi ele gecen
-$U_1,V^T$ ve $\Sigma$ kosegen matrisleridir! Bu cok onemli bir sonuc. Bu
+$U_R,V^T$ ve $\Sigma$ kosegen matrisleridir! Bu cok onemli bir sonuc. Bu
 ayristirmanin sonucu $A$'nin ki ile birbirine cok benziyor, tek fark $U$
 ile $U_1$. Bu iki matris arasindaki gecis soyle:
-\[ U_1 = Q^T U \]\[ U = QU_1 \]
+\[ U_R = Q^T U \]\[ U = QU_R \]
+\begin{codecell}
+\begin{codeinput}
+\begin{lstlisting}
+imshow(imread('ur.png'))
+\end{lstlisting}
+\end{codeinput}
+\begin{codeoutput}
+\begin{verbatim}
+<matplotlib.image.AxesImage at 0x2dc64d0>
+\end{verbatim}
+\begin{center}
+\includegraphics[width=0.7\textwidth]{stat_AtA_qr_files/stat_AtA_qr_fig_02.png}
+\par
+\end{center}
+\end{codeoutput}
+\end{codecell}
 Bu demektir ki eger $R$ uzerinde kutuphanemizin svd cagrisini
 kullanirsak (ki $R$ nispeten ufak oldugu icin bu ucuz olur) ele gecen
-$U_1$'i alip, $Q$ ile carparsak, $A$ ayristirmasinin $U$'sunu elde
+$U_R$'i alip, $Q$ ile carparsak, $A$ ayristirmasinin $U$'sunu elde
 ederiz! $Q$ ile carpim esle/indirge uzerinden yapilabilir, fakat basit
 bir carpim islemi oldugu icin paralelize edilmesi kolaydir (ustteki
 mrjob script'inde yaptigimiz gibi).
+
+Kaynaklar
+
+Benson, A., Tall-and-skinny Matrix Computations in MapReduce
+
+Constantine, P. G., Gleich, D. F. , Tall and Skinny QR factorizations in
+MapReduce architectures
 
 \end{document}
