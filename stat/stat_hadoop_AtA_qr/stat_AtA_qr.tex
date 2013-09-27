@@ -123,7 +123,7 @@
 \setlength{\parskip}{8pt}
 \begin{document}
 
-\section{Paralel Matris Çarpımı, Ax, ve QR}
+\section{Paralel Matris Çarpımı, Ax, QR ve SVD}
 
 Matris Çarpımı adli yazi tek makinali ortamda matris carpiminin nasil
 yapilacagini, ve nasil gorulecebilegini anlatti. Satir bakis acisi,
@@ -627,5 +627,32 @@ Sonuclar birebir ayni.
 
 Ustteki teknikleri kullanarak artik devasa boyutlarda satiri olan bir
 $A$ matrisi uzerinde artik QR hesabi yapabilirsiniz.
+
+\subsection{SVD}
+
+Peki $QR$ sonuclarini kullanarak SVD sonuclarini alabilir miyiz? SVD
+bize ne verir?
+\[ A = U \Sigma V^T \]
+$U$ ve $V^T$ ortogonal matrislerdir, $\Sigma$ sadece kosegeni boyunca
+degerleri olan bir matristir. Daha fazla detay icin Lineer Cebir Ders
+29'a bakabilirsiniz. Simdi $A = QR$ yerine koyalim,
+\[ QR =  U \Sigma V^T \]\[ R = Q^T U \Sigma V^T \]
+Bu son formuled $Q^TU$ formulu, iki ortogonal matrisin carpimidir.
+Lineer Cebir kurallarina gore iki ortogonal matrisin carpimi bir diger
+ortogonal matristir. Bu yeni ortogonal matrise $U_1$ adi verelim, o
+zaman
+\[ R = U_1 \Sigma V^T \]
+Bu son formul bize bir seyler soyluyor. $R$'nin SVD uzerinden
+ayristirilabilecegini soyluyor ve bu ayristirma sonrasi ele gecen
+$U_1,V^T$ ve $\Sigma$ kosegen matrisleridir! Bu cok onemli bir sonuc. Bu
+ayristirmanin sonucu $A$'nin ki ile birbirine cok benziyor, tek fark $U$
+ile $U_1$. Bu iki matris arasindaki gecis soyle:
+\[ U_1 = Q^T U \]\[ U = QU_1 \]
+Bu demektir ki eger $R$ uzerinde kutuphanemizin svd cagrisini
+kullanirsak (ki $R$ nispeten ufak oldugu icin bu ucuz olur) ele gecen
+$U_1$'i alip, $Q$ ile carparsak, $A$ ayristirmasinin $U$'sunu elde
+ederiz! $Q$ ile carpim esle/indirge uzerinden yapilabilir, fakat basit
+bir carpim islemi oldugu icin paralelize edilmesi kolaydir (ustteki
+mrjob script'inde yaptigimiz gibi).
 
 \end{document}
