@@ -687,43 +687,6 @@ ederiz! $Q$ ile carpim esle/indirge uzerinden yapilabilir, fakat basit
 bir carpim islemi oldugu icin paralelize edilmesi kolaydir (ustteki
 mrjob script'inde yaptigimiz gibi).
 
-\subsubsection{Yansitmak}
-
-Peki son olarak, eger $m \times n$ durumunda $n$ bile cok buyukse ne
-yapacagiz? Bu durumda $A$ matrisini daha ufak bir boyuta ``yansitmak
-(project)'' bir cozum olabilir. Eger bu daha az olan boyut ``yeterince
-yuksek'' ise (ki burada ``yeterince'' ifadesi verinin icerigine
-baglidir), o zaman veri noktalari arasindaki mesafelerin pek degismedigi
-matematiksel olarak ispatlanmistir {[}3,4{]}. Eger elimizde 10 milyar
-satir, 1 milyar kolon var ise, $k = 100$ secebiliriz, ve bundan sonra
-ustte gosterilen Cholesky ve SVD cagrilari $n \times n$,
-$100 \times 100$ uzerinden yapilacaktir, ve bu herhangi bir bilgisayarin
-idare edebilecegi bir boyuttur. Rasgele matris olusturmak ve yansitma
-yapma ornegi altta.
-
-\begin{codecell}
-\begin{codeinput}
-\begin{lstlisting}
-import numpy.random as rand
-
-n = 4; k = 2
-
-Omega = rand.randn(n,k)
-
-A = np.loadtxt('A_matrix')
-
-Y = np.dot(A, Omega)
-
-print "Y", Y.shape
-
-\end{lstlisting}
-\end{codeinput}
-\begin{codeoutput}
-\begin{verbatim}
-Y (17, 2)
-\end{verbatim}
-\end{codeoutput}
-\end{codecell}
 Kaynaklar
 
 {[}1{]} Benson, A., Tall-and-skinny Matrix Computations in MapReduce
@@ -733,8 +696,5 @@ factorizations in MapReduce architectures
 
 {[}3{]} Dasgupta, S., Gupta, A., An Elementary Proof of a Theorem of
 Johnson and Lindenstrauss
-
-{[}4{]} Bingham, E., Mannila, H., Random projection in dimensionality
-reduction: Applications to image and text data
 
 \end{document}
