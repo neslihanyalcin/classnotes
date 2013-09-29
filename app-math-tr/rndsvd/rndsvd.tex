@@ -165,11 +165,18 @@ menzilden ``geriye giderek'' onun bazini ortaya cikarabiliriz.
 Unutmayalim, yeni matris $A$'nin boyutu azaldi, artik elimizde
 $m \times k$ boyutunda bir matris var.
 \[ Y = QR \]
-ile $Q$ matrisini elde ederiz. Bu guzel bir sonuc.
-
-Devam edelim, buradan aldigimiz $Q$ ile
+ile $Q$ matrisini elde ederiz. Bu guzel bir sonuc. Simdi ustteki \$
+QQ\^{}TA = A \$ ifadesine geri donelim,
 \[ \tilde{A} = QQ^TA \]
-carpimini yapariz. Bu yaklasiksal $\tilde{A}$ uzerinde SVD
+Eger
+\[Q^TA = B\]
+dersek,
+\[ \tilde{A} \approx QB \]
+seklinde yeni bir ayristirma elde ederiz. Ayrica bu $A$'ya yaklasiksal
+olarak ulasmanin baska bir yoludur da. Elimide $B$ ve $Q$ var ise (ki
+var, cunku $B$ rasgele izdusumden geldi, $Q$ bunun uzerinde $QR$
+ayristirmasi sonrasi elde edildi), bu iki matrisin carpimi bize
+yaklasiksal $A$'yi verecektir. Bu yaklasiksal $\tilde{A}$ uzerinde SVD
 gerceklestirmek te mumkundur. Yeni matrisin boyutlari $k \times n$
 olacaktir.
 
