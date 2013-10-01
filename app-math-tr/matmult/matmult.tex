@@ -123,7 +123,7 @@
 \setlength{\parskip}{8pt}
 \begin{document}
 
-\section{Matris Carpimi}
+\section{Matris Çarpımı}
 
 Matrix carpiminin tarifini lise derslerinden hatirlayabiliriz. Sol el
 sol taraftaki matriste bir satir boyunca, sag el sagdaki matris uzerinde
@@ -147,6 +147,8 @@ carpim
 0 \\
 \end{bmatrix}
 \]
+\subsubsection{Noktasal Çarpım Bakışı}
+
 Bu carpimi bir kac sekilde gorebiliriz. Eger ustte tarif edilen gibi
 gorduysek,
 \[
@@ -162,6 +164,8 @@ gorduysek,
 7 \\
 \end{bmatrix}
 \]
+\subsubsection{Kolonsal Kombinasyon Bakışı}
+
 Fakat matris carpimina bakmanin bir yolu daha var, hatta bu bakis
 acisinin daha onemli bile oldugu soylenebilir, o da $A$'nin kolonlarinin
 kombine edilerek saga sonuc olarak gecilmesi bakisidir. Buna gore
@@ -234,6 +238,56 @@ matris ile
 Yani bu durumda sagdaki $B$ icindeki her kolonu bir ayri $x$ gibi gorup,
 onun olusturdugu carpim sonucunu, sonuc matrisindeki ayri bir kolona
 yazilmis gibi dusunebiliriz.
+
+\subsubsection{Satırsal Bakış}
+
+Diyelim ki
+\[
+\begin{bmatrix}
+2 & 3
+\end{bmatrix}
+\begin{bmatrix}
+1 & 2 & 0\\
+5 & -1 & 0
+\end{bmatrix}
+\]
+carpimina bakiyoruz. Satirsal bakisa gore soldaki her satirin ogesi,
+birer birer sagdaki satirlari tamamen carpar, bu carpilmis satirlari
+birbiriyle toplar ve yeni bir satir olusturur. Yani
+\[
+2
+\begin{bmatrix}
+1 & 2 & 0
+\end{bmatrix}
++
+2
+\begin{bmatrix}
+5 & -1 & 0
+\end{bmatrix}
+=
+\begin{bmatrix}
+13 & 2 & 0
+\end{bmatrix}
+\]
+Soldaki her satir icin bu islem tekrarlanir, yani solda bir satir daha
+olsaydi,
+\[
+\begin{bmatrix}
+2 & 3 \\
+2 & 3 
+\end{bmatrix}
+\begin{bmatrix}
+1 & 2 & 0\\
+5 & -1 & 0
+\end{bmatrix}
+=
+\begin{bmatrix}
+13 & 2 & 0\\
+13 & 2 & 0
+\end{bmatrix}
+\]
+olacakti. Tabii soldaki ikinci satir degerleri ayni oldugu icin sagda da
+ayni yeni satir yazildi.
 
 Kaynaklar
 
