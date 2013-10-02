@@ -15,12 +15,9 @@ class MRProj(MRJob):
         line_vals = map(np.float,line.split())
         result = np.zeros(self.k)
         for j,val in enumerate(line_vals):
-            tmp = np.zeros(self.k)
             for i in range(self.k):
                 random.seed(int(j + i))
-                rnd = random.gauss(0,1)
-                tmp[i] += rnd*line_vals[j]
-            result += tmp
+                result[i] += val*random.gauss(0,1)
         yield (None,",".join(map(str,result)))
             
 if __name__ == '__main__':

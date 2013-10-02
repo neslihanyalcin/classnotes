@@ -8,7 +8,8 @@ if len(sys.argv) == 1 or sys.argv[1] == 'tex':
     stat_pandas/div.pdf stat_pandas_ratings/ratings.pdf \
     stat_wells/stat_wells.pdf stat_hadoop_patent/patent.pdf \
     stat_hadoop_kmeans/kmeans.pdf stat_hadoop_logreg/stat_hadoop_logreg2.pdf \
-    stat_hadoop_AtA_qr/stat_AtA_qr.pdf stat_normtable/stat_normtable.pdf \
+    stat_hadoop_AtA_qr/stat_AtA_qr.pdf stat_hadoop_rand_proj/stat_hadoop_rand_proj.pdf \
+    stat_normtable/stat_normtable.pdf \
     output ~/Dropbox/Public/skfiles/stat.pdf
     """)
     exit()

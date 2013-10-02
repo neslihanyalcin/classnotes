@@ -142,10 +142,11 @@ de buyuk olabilmesine ragmen en azindan $n$ tane veri noktasini tek bir
 makinada isleyebilecegimiz.
 
 Satir bakisina donersek, bu carpim gorusune gore soldaki her satir icin,
-o satirdaki bir ogei sagda ona tekabul eden $n \times k$ boyutundaki
-matrisin satiriyla carpip, sonuc olan ``carpilmis'' satirlari birbiriyle
-topluyoruz. Bu Hadoop veri isleme mentalitesine uygun cunku her
-seferinde $A$'nin tek bir satirina bakiyoruz.
+o satirdaki bir ogeyi sagda ona tekabul eden $n \times k$ boyutundaki
+matrisin satiriyla (yani her gelen satirin 5. ogesi sagdaki matrisin 5
+satirin tamami ile) carpip, sonuc olan ``carpilmis'' satirlari
+birbiriyle topluyoruz. Bu Hadoop veri isleme mentalitesine uygun cunku
+her seferinde $A$'nin tek bir satirina bakiyoruz.
 
 Sagdaki rasgele sayilar iceren matris kritik. Biz bu matrisi bellekte
 tutmamaya karar verdik, cunku $n$ sayisi da buyuk olabilir, her ne kadar
@@ -170,20 +171,20 @@ imshow(imread("proj.png"))
 \end{codecell}
 Eger bellekte tutmuyorsak rasgele matrisin degerlerini her seferinde
 tekrar uretmek gerekir. Hiz acisindan performans cok kotu olmayacaktir,
-cunku rasgele sayi uretimi toplama, carpam, $\mod$ gibi direk
+cunku rasgele sayi uretimi toplama, carpma, $mod$ gibi direk
 matematiksel hesaplar ile yapilir.
 
 Fakat burada onemli bir diger konu sudur: her $A$ satiri icin ayni
 rasgele matrisi arka arkaya uretebilmeliyiz.
 
-Bu problemin en basit cozumu rasgele sayi uretimin tohum (seed)
+Bu problemin en basit cozumu rasgele sayi uretimi icin tohum (seed)
 kullanimidir. Eger tohum kullanilmazsa, Python random paketindeki
 uretici cagrilar gunun zamanina gore bir tohum kullanirlar, ve boylece
 her cagri degisik bir sayi uretir. Fakat rasgele sayi uretimini, ``her
 seferinde ayni sekilde'' yaptirmanin yolu vardir, bunun icin tohum
 disaridan set edilir ve boylece ayni tohumdan baslayan rasgele sayi
 uretim zinciri hep ayni olur. Rasgele sayi uretimi deterministik bir
-algoritmadir, zaten literaturde ``yari rasgele sayi uretimi
+algoritmadir, zaten literaturde bu islem ``yari rasgele sayi uretimi
 (pseudorandom number generation)'' olarak gecer.
 
 \begin{codecell}
@@ -191,14 +192,16 @@ algoritmadir, zaten literaturde ``yari rasgele sayi uretimi
 \begin{lstlisting}
 import random
 
-# tohumsuz
+# tohumsuz, bu kod her seferinde degisik sayi uretir
+print random.gauss(0,1), random.gauss(0,1)
 print random.gauss(0,1), random.gauss(0,1)
 
 \end{lstlisting}
 \end{codeinput}
 \begin{codeoutput}
 \begin{verbatim}
--0.806712157554 -2.08335799199
+-0.111385434078 -0.921948609235
+1.43737370538 -0.299564009187
 \end{verbatim}
 \end{codeoutput}
 \end{codecell}
@@ -230,7 +233,7 @@ Tohum degeri ne olacak? Bu deger mesela $n \times k$ boyutundaki rasgele
 matris icin indis degerleri yanyana koyularak uretilebilir, mesela 111.
 satir ve 2. kolon icin 1112 tohum degeri kullanilir, ve bu tohumla tek
 bir rasgele sayi uretilir, (111,2) hucresine konulur ve sonraki indis
-icin baska bir tohum kullanilir.
+icin yeni bir tohum kullanilir.
 
 Ust uste cakismalar olabilir tabii ki, mesela 11. satir 12. kolon da
 ustteki tohumla ayni sonucu getirir, ama bu tur nadir cakismalar o kadar
@@ -265,12 +268,9 @@ class MRProj(MRJob):
         line_vals = map(np.float,line.split())
         result = np.zeros(self.k)
         for j,val in enumerate(line_vals):
-            tmp = np.zeros(self.k)
             for i in range(self.k):
                 random.seed(int(j + i))
-                rnd = random.gauss(0,1)
-                tmp[i] += rnd*line_vals[j]
-            result += tmp
+                result[i] += val*random.gauss(0,1)
         yield (None,",".join(map(str,result)))
             
 if __name__ == '__main__':
@@ -278,14 +278,16 @@ if __name__ == '__main__':
 \end{verbatim}
 \end{codeoutput}
 \end{codecell}
-Tek bir esle cagrisi var, cunku carpim islemi oldukca basit indirgeme
+Tek bir esle cagrisi var, cunku carpim islemi oldukca basit, indirgeme
 islemine gerek yok.
 
 Satirlar icin anahtar kullanmiyoruz, yani verinin paralel islenirken
 nasil yuk dagitimi yapildigina gore sonuc matrisinin sirasi ana matrisin
-sirasina uymayabilir. Fakat satir sirasi bizim icin cogunlukla onemli
-olmuyor (kolon sirasi onemli), her satir digerinden ayri bir veri
-noktasi oldugu icin sadece o satirin ne olduguna bakiyoruz.
+satir sirasina uymayabilir. Fakat satir sirasi bizim icin cogunlukla
+onemli olmuyor (kolon sirasi onemli), her satir digerinden ayri bir
+verini temsil eder cogunlukla. Eger zamansal bir boyut var ise, o bilgi
+ayri bir kolon (mesela tarih, zaman damgasi -timestamp-) olarak veride
+bulunurdu.
 
 \begin{codecell}
 \begin{codeinput}
@@ -296,17 +298,15 @@ noktasi oldugu icin sadece o satirin ne olduguna bakiyoruz.
 \begin{codeoutput}
 \begin{verbatim}
 using configs in /home/burak/.mrjob.conf
+creating tmp directory /tmp/mrproj.burak.20131002.173222.276299
 \end{verbatim}
 \begin{verbatim}
-creating tmp directory /tmp/mrproj.burak.20131002.093859.441194
-writing to /tmp/mrproj.burak.20131002.093859.441194/step-0-mapper_part-00000
-\end{verbatim}
-\begin{verbatim}
+writing to /tmp/mrproj.burak.20131002.173222.276299/step-0-mapper_part-00000
 Counters from step 1:
   (no counters found)
-Moving /tmp/mrproj.burak.20131002.093859.441194/step-0-mapper_part-00000 -> /tmp/mrproj.burak.20131002.093859.441194/output/part-00000
-Streaming final output from /tmp/mrproj.burak.20131002.093859.441194/output
-removing tmp directory /tmp/mrproj.burak.20131002.093859.441194
+Moving /tmp/mrproj.burak.20131002.173222.276299/step-0-mapper_part-00000 -> /tmp/mrproj.burak.20131002.173222.276299/output/part-00000
+Streaming final output from /tmp/mrproj.burak.20131002.173222.276299/output
+removing tmp directory /tmp/mrproj.burak.20131002.173222.276299
 \end{verbatim}
 \end{codeoutput}
 \end{codecell}
@@ -331,4 +331,112 @@ removing tmp directory /tmp/mrproj.burak.20131002.093859.441194
 \end{verbatim}
 \end{codeoutput}
 \end{codecell}
+Performans Iyilestirmeleri
+
+Ustteki kod daha hizli olabilir. Diyelim ki $n$'in milyonlarda oldugu
+sartlari da hizli bir sekilde isleyebilmek istiyoruz. Fakat bu noktada
+kendimize su soruyu sormamiz gerekir: hangi sartlarda $n$ milyonlari
+bulacaktir?
+
+Buyuk bir ihtimalle bu durum eger bolca kategorik veri boyutu var ise
+ortaya cikar. Kategorik verileri bildigimiz gibi 1-in-n, ya da one-hot
+kodlama (encoding) ile temsil ediyoruz, bu demektir ki 1000 tane farkli
+deger icerebilen tek bir kolon, 1000 tane yeni kolon haline geliyor.
+Bazi boyutlarin (mesela web sayfa ismi, URL degeri) tasiyan veri
+setlerinde tekil (unique) degerlerin milyonlar hatta milyara
+varabilecegini dusunursek asiri yuksek $n$ rakamlarinin nereden
+geldigini anlariz.
+
+Ama bunun bize ek bir faydasi var: 1-in-n kodlamasi var ise, bu her
+satirda cok fazla sifir olacak demektir, ve icinde cok sifiri olan
+vektorleri / matrisleri seyrek matrisler ile cok rahat sekilde temsil
+edebiliriz.
+
+\begin{codecell}
+\begin{codeinput}
+\begin{lstlisting}
+print(open("mrprojs.py").read())
+\end{lstlisting}
+\end{codeinput}
+\begin{codeoutput}
+\begin{verbatim}
+from mrjob.job import MRJob
+from mrjob.protocol import PickleProtocol, RawValueProtocol
+import numpy as np, sys, itertools
+from scipy import sparse
+import random
+
+class MRProj(MRJob):
+    INTERNAL_PROTOCOL = PickleProtocol
+    OUTPUT_PROTOCOL = RawValueProtocol
+    
+    def __init__(self, *args, **kwargs):
+        super(MRProj, self).__init__(*args, **kwargs)
+        self.k = 3
+        
+    def mapper(self, key, line):
+        line_vals = map(np.float,line.split())
+        line_sps = sparse.coo_matrix(line_vals,shape=(1,len(line_vals)))
+        result = np.zeros(self.k)
+        for xx,j,v in itertools.izip(line_sps.row, line_sps.col, line_sps.data):
+            for i in range(self.k):
+                random.seed(int(j + i))
+                result[i] += v*random.gauss(0,1)
+        yield (None,",".join(map(str,result)))
+            
+if __name__ == '__main__':
+    MRProj.run()
+\end{verbatim}
+\end{codeoutput}
+\end{codecell}
+Ustteki kodda her satiri okur okumaz hemen onu bir seyrek matrise
+ceviriyoruz. Simdi en kritik numara: itertools.izip cagrisi ile bu
+seyrek matrisin sadece sifir olmayan degerlerini ziyaret ediyoruz. Eger
+1000 tane kolon var ise, ama bu 1000 kolonun 20 tanesi dolu ise, bu 50
+kat bir performans iyilestirmesi saglayacak demektir (bu arada seyrek
+verilerde yuzde 2 doluluk gayet normal bir rakamdir). Sadece dolu
+hucreleri ziyaret ediyoruz, ayrica izip bu dolu hucrelerin indis
+degerlerini de bize geri getiriyor, biz de bu degerleri seed icin
+onceden oldugu gibi kullaniyoruz.
+
+Sonuclara bakalim:
+
+\begin{codecell}
+\begin{codeinput}
+\begin{lstlisting}
+!python mrprojs.py A_matrix > /tmp/out
+!head -10 /tmp/out
+
+\end{lstlisting}
+\end{codeinput}
+\begin{codeoutput}
+\begin{verbatim}
+using configs in /home/burak/.mrjob.conf
+creating tmp directory /tmp/mrprojs.burak.20131002.173847.485554
+writing to /tmp/mrprojs.burak.20131002.173847.485554/step-0-mapper_part-00000
+\end{verbatim}
+\begin{verbatim}
+Counters from step 1:
+  (no counters found)
+Moving /tmp/mrprojs.burak.20131002.173847.485554/step-0-mapper_part-00000 -> /tmp/mrprojs.burak.20131002.173847.485554/output/part-00000
+Streaming final output from /tmp/mrprojs.burak.20131002.173847.485554/output
+removing tmp directory /tmp/mrprojs.burak.20131002.173847.485554
+\end{verbatim}
+\begin{verbatim}
+20.2369671373,13.9358970644,0.524561578258
+19.8581349841,13.7724732852,5.23992858318
+27.6790861925,18.8833585029,-1.56199395804
+9.3255498646,7.52383094482,2.58977793605
+27.3677257439,33.0438553532,18.4819155509
+27.6790861925,18.8833585029,-1.56199395804
+9.3255498646,7.52383094482,2.58977793605
+27.3677257439,33.0438553532,18.4819155509
+27.6790861925,18.8833585029,-1.56199395804
+9.3255498646,7.52383094482,2.58977793605
+\end{verbatim}
+\end{codeoutput}
+\end{codecell}
+Daha onceki sonuclar ile ayni (rasgelelik var ama seed degerleri
+degismedi, o sebeple ayni sonucu aldik, bu iyi).
+
 \end{document}
