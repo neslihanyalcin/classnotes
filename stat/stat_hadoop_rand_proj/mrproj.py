@@ -21,7 +21,7 @@ class MRProj(MRJob):
                 rnd = random.gauss(0,1)
                 tmp[i] += rnd*line_vals[j]
             result += tmp
-            yield (None,",".join(map(str,result)))
+        yield (None,",".join(map(str,result)))
             
 if __name__ == '__main__':
     MRProj.run()
