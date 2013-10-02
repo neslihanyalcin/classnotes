@@ -439,4 +439,61 @@ removing tmp directory /tmp/mrprojs.burak.20131002.173847.485554
 Daha onceki sonuclar ile ayni (rasgelelik var ama seed degerleri
 degismedi, o sebeple ayni sonucu aldik, bu iyi).
 
+Bir kontrol daha var, eger rasgelelik bazli yansitma iyi yapildiysa, $A$
+matrisini izdusumunu aldiktan daha once anlattigimiz teknik ile SVD
+hesabini cok rahat bir sekilde yapabilmeliyiz. Bunun icin izdusumunu
+/tmp/Y icine yazacagiz, ve ardindan daha onceki QR bazli teknikle SVD
+hesabini yapacagiz. Ardindan pur SVD ile $A$'yi isleyecegiz ve sonuc $U$
+matrisindeki en buyuk iki tekilsel (singular) degeri her iki teknikten
+alip ekranda grafikleyecegiz.
+
+\begin{codecell}
+\begin{codeinput}
+\begin{lstlisting}
+!python mrprojs.py A_matrix > /tmp/Y
+
+import numpy as np
+import numpy.linalg as lin
+import matplotlib.pyplot as plt
+
+n = 4; k = 3
+A = np.loadtxt('A_matrix')
+Y = np.loadtxt("/tmp/Y",delimiter=',')
+
+Q, xx = lin.qr(Y)
+B = np.dot(Q.T,A)
+Uhat, Sigma, V = lin.svd(B)
+U = np.dot(Q, Uhat)
+
+plt.plot(U[:,0],U[:,1],'r+')
+plt.hold(True)
+
+U, Sigma, V = lin.svd(A);
+plt.plot(U[:,0],U[:,1],'bx')
+
+plt.show()
+
+\end{lstlisting}
+\end{codeinput}
+\begin{codeoutput}
+\begin{verbatim}
+using configs in /home/burak/.mrjob.conf
+creating tmp directory /tmp/mrprojs.burak.20131002.185301.111949
+writing to /tmp/mrprojs.burak.20131002.185301.111949/step-0-mapper_part-00000
+\end{verbatim}
+\begin{verbatim}
+Counters from step 1:
+  (no counters found)
+Moving /tmp/mrprojs.burak.20131002.185301.111949/step-0-mapper_part-00000 -> /tmp/mrprojs.burak.20131002.185301.111949/output/part-00000
+Streaming final output from /tmp/mrprojs.burak.20131002.185301.111949/output
+removing tmp directory /tmp/mrprojs.burak.20131002.185301.111949
+\end{verbatim}
+\begin{center}
+\includegraphics[width=0.7\textwidth]{stat_hadoop_rand_proj_files/stat_hadoop_rand_proj_fig_01.png}
+\par
+\end{center}
+\end{codeoutput}
+\end{codecell}
+Sonuclar mukemmel.
+
 \end{document}
