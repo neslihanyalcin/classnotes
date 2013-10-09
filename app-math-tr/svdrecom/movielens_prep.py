@@ -37,4 +37,4 @@ df2 = pd.read_csv("/tmp/out6.csv",sep=';')
 
 df3 = pd.merge(df1,df2)
 
-df3.to_csv("/tmp/movielens2.csv",sep=';',index=None)
+df3.to_csv("/tmp/movielens1.csv",sep=';',index=None)
