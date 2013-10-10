@@ -1,10 +1,12 @@
 from mrjob.job import MRJob
 from mrjob.protocol import PickleProtocol, RawValueProtocol
+from mrjob.protocol import PickleProtocol, RawProtocol
 import numpy as np, sys
 import numpy.linalg as lin
 
 class MRR(MRJob):
     INTERNAL_PROTOCOL = PickleProtocol
+    INPUT_PROTOCOL = RawProtocol
     OUTPUT_PROTOCOL = RawValueProtocol
     
     def __init__(self, *args, **kwargs):
@@ -15,6 +17,7 @@ class MRR(MRJob):
         self.A_sum = np.zeros((self.n,self.n))
         
     def mapper(self, key, line):
+        line = line.replace('"','')
         line_vals = map(np.float,line.split(','))
         self.data.append(line_vals)
         if len(self.data) == self.buffer_size:

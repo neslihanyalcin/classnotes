@@ -1,12 +1,13 @@
 from mrjob.job import MRJob
-from mrjob.protocol import PickleProtocol, RawValueProtocol
+from mrjob.protocol import PickleProtocol
+from mrjob.protocol import RawValueProtocol
+from mrjob.protocol import RawProtocol
 import numpy as np, sys, itertools
 from scipy import sparse
 import random
 
 class MRProj(MRJob):
     INTERNAL_PROTOCOL = PickleProtocol
-    OUTPUT_PROTOCOL = RawValueProtocol
     
     def __init__(self, *args, **kwargs):
         super(MRProj, self).__init__(*args, **kwargs)
@@ -22,7 +23,7 @@ class MRProj(MRJob):
             for i in range(self.k):
                 random.seed(int(j + i))
                 result[i] += v*random.gauss(0,1)
-        yield (None,",".join(map(str,result)))
+        yield (key,",".join(map(str,result)))
             
 if __name__ == '__main__':
     MRProj.run()
