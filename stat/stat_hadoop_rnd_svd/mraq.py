@@ -8,28 +8,17 @@ import random
 
 class MRAtQ(MRJob):
     INTERNAL_PROTOCOL = PickleProtocol
-    INPUT_PROTOCOL = RawValueProtocol
+    INPUT_PROTOCOL = RawProtocol
     
     def __init__(self, *args, **kwargs):
         super(MRAtQ, self).__init__(*args, **kwargs)
-
-    def mapper(self, key, line):
-        line_vals = None
-        if '\t' not in line: 
-            line_vals = map(lambda x: float(x or 0), line.split(';'))
-            #print len(line_vals)
-            yield(key, line_vals)
-        else:
-            tmp = line.replace('"','').split('\t')
-            line_vals = map(lambda x: float(x or 0), tmp[1].split(';'))
-            #print len(line_vals)
-            yield(tmp[0], line_vals)
         
-#    def reducer(self, key, value):
-#        l = list(value)
-#        print len(l[0]), len(l[1])
-#        for i,val in enumerate(value):
-#            print i, key, "-", val
+    def reducer(self, key, value):
+        for i,line in enumerate(value):
+            line = line.replace('"','')
+            #print line
+            line_vals = map(lambda x: float(x or 0), line.split(';'))
+            print key, len(line_vals)
 
 #    def steps(self):
 #        return [
