@@ -18,7 +18,7 @@ class MRR(MRJob):
         
     def mapper(self, key, line):
         line = line.replace('"','')
-        line_vals = map(np.float,line.split(','))
+        line_vals = map(np.float,line.split(';'))
         self.data.append(line_vals)
         if len(self.data) == self.buffer_size:
             mult = np.dot(np.array(self.data).T,np.array(self.data))
@@ -38,7 +38,7 @@ class MRR(MRJob):
     
     def reducer_final(self):
         for x in lin.cholesky(self.A_sum).T:            
-            yield (None," ".join(map(str,x)))
+            yield (None,";".join(map(str,x)))
         
 if __name__ == '__main__':
     MRR.run()

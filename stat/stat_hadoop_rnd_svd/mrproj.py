@@ -23,7 +23,7 @@ class MRProj(MRJob):
             for i in range(self.k):
                 random.seed(int(j + i))
                 result[i] += v*random.gauss(0,1)
-        yield (key,",".join(map(str,result)))
+        yield (key,";".join(map(str,result)))
             
 if __name__ == '__main__':
     MRProj.run()

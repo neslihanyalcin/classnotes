@@ -11,14 +11,14 @@ class MRUR(MRJob):
     
     def __init__(self, *args, **kwargs):
         super(MRUR, self).__init__(*args, **kwargs)
-        Ur,x,x = lin.svd(np.loadtxt('R'))
+        Ur,x,x = lin.svd(np.loadtxt('R',delimiter=';'))
         self.Ur = Ur
         self.data = []
         self.buffer_size = 4
         
     def mapper(self, key, line):
         line = line.replace('"','')
-        line_vals = map(np.float,line.split(','))
+        line_vals = map(np.float,line.split(';'))
         self.data.append(line_vals)
         if len(self.data) == self.buffer_size:
             mult = np.dot(self.data,self.Ur)

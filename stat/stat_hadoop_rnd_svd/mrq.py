@@ -13,13 +13,13 @@ class MRQ(MRJob):
     
     def __init__(self, *args, **kwargs):
         super(MRQ, self).__init__(*args, **kwargs)
-        self.R_inv = lin.inv(np.loadtxt('R'))
+        self.R_inv = lin.inv(np.loadtxt('R',delimiter=';'))
         
     def mapper(self, key, line):
         line = line.replace('"','')
-        line_vals = map(np.float,line.split(','))
+        line_vals = map(np.float,line.split(';'))
         mult = np.dot(line_vals,self.R_inv)
-        yield (float(key),",".join(map(str,mult)))
+        yield (float(key),";".join(map(str,mult)))
         
 if __name__ == '__main__':
     MRQ.run()
