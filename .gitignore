@@ -20,3 +20,6 @@ stat/*/stat*.pdf
 linear/*/*.pdf
 func_analysis/*/*.pdf
 data/*/*.pdf
+stat/stat_hadoop_rnd_svd/U
+stat/stat_hadoop_rnd_svd/Q
+stat/stat_hadoop_rnd_svd/R
