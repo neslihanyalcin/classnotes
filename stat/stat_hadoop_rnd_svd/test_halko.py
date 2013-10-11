@@ -11,22 +11,24 @@ BT (30, 5)V (5, 5) Uhat (5, 5)
 U (70, 5)
 '''
 
-k = 5
-df = pd.read_csv("w1.csv",sep=';')
+k = 7
+df = pd.read_csv("w1.csv",sep=';',header=None)
 A = np.array(df)[:,1:]
-print A.shape
+print "A",A.shape
 
 # randomized SVD
 
 Omega = rand.randn(A.shape[1],k)
 
 Y = np.dot(A, Omega) 
-np.savetxt('w3_halko.dat',Y,fmt='%.2f')
+#np.savetxt('w3_halko.dat',Y,fmt='%.2f')
 print "Y", Y.shape
 
 Q, R = lin.qr(Y) 
+#np.savetxt('q_halko.dat',Q,fmt='%.2f')
 
-BT = np.dot(A.T, Q)
+#BT = np.dot(A.T, Q)
+BT = np.loadtxt('/home/burak/BT.dat',delimiter=';')
 
 print "Q", Q.shape
 print "BT", BT.shape
@@ -38,7 +40,7 @@ Uhat = V.T
 print "Uhat", Uhat.shape
 
 U = np.dot(Q, Uhat) 
-np.savetxt('U_final_halko.dat',U,fmt='%.2f')
+#np.savetxt('U_final_halko.dat',U,fmt='%.2f')
 
 print "U", U.shape
 

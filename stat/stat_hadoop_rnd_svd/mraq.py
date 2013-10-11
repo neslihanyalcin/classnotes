@@ -12,7 +12,7 @@ class MRAtQ(MRJob):
     
     def __init__(self, *args, **kwargs):
         super(MRAtQ, self).__init__(*args, **kwargs)
-        self.n = 7
+        self.n = 2
 
     def reducer(self, key, value):
         v = []
