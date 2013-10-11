@@ -11,9 +11,13 @@ class MRQ(MRJob):
     INTERNAL_PROTOCOL = PickleProtocol
     INPUT_PROTOCOL = RawProtocol
     
+    def configure_options(self):
+        super(MRQ, self).configure_options()
+        self.add_file_option('--R')
+        
     def __init__(self, *args, **kwargs):
         super(MRQ, self).__init__(*args, **kwargs)
-        self.R_inv = lin.inv(np.loadtxt('R',delimiter=';'))
+        self.R_inv = lin.inv(np.loadtxt(self.options.R,delimiter=';'))
         
     def mapper(self, key, line):
         line = line.replace('"','')

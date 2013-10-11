@@ -9,7 +9,6 @@ import random
 class MRAtQ(MRJob):
     INTERNAL_PROTOCOL = PickleProtocol
     INPUT_PROTOCOL = RawProtocol
-    #OUTPUT_PROTOCOL = RawValueProtocol
     
     def __init__(self, *args, **kwargs):
         super(MRAtQ, self).__init__(*args, **kwargs)
@@ -33,7 +32,6 @@ class MRAtQ(MRJob):
     def reduce_sum(self, key, value):
         mat_sum = np.zeros((1,7))
         for val in value: mat_sum += val
-        #print key, ";".join(map(str,mat_sum[0]))
         yield (float(key), ";".join(map(str,mat_sum[0])))
             
     def steps(self):

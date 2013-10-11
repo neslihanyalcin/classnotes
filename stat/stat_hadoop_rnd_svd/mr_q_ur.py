@@ -9,9 +9,13 @@ class MRUR(MRJob):
     INPUT_PROTOCOL = RawProtocol
     OUTPUT_PROTOCOL = RawValueProtocol
     
+    def configure_options(self):
+        super(MRUR, self).configure_options()
+        self.add_file_option('--R')
+        
     def __init__(self, *args, **kwargs):
         super(MRUR, self).__init__(*args, **kwargs)
-        Ur,x,x = lin.svd(np.loadtxt('R',delimiter=';'))
+        Ur,x,x = lin.svd(np.loadtxt(self.options.R,delimiter=';'))
         self.Ur = Ur
         self.data = []
         self.buffer_size = 4
