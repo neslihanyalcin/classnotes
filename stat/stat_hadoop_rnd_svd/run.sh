@@ -4,4 +4,4 @@
 #python mrr.py ~/Downloads/movielens2.csv  > R
 #python mrq.py ~/Downloads/movielens2.csv --file R > Q
 #python mr_q_ur.py Q --file R > U
-python mraq.py ~/Downloads/movielens1-small1.csv Q 
+python mraq.py ~/Downloads/movielens1-small1.csv Q > U_final
