@@ -1,4 +1,7 @@
-# Pure Halko
+'''
+Read mrjob output and run SVD on the original data, overlay
+plots
+'''
 import numpy as np
 import numpy.random as rand
 import numpy.linalg as lin

@@ -6,6 +6,10 @@ import numpy as np, sys, itertools
 from scipy import sparse
 import random
 
+'''
+Random projection of matrix A. We key in seed generation to i,j
+indexes so we dont have to store the random matrix itself.
+'''
 class MRProj(MRJob):
     INTERNAL_PROTOCOL = PickleProtocol
     INPUT_PROTOCOL = RawProtocol

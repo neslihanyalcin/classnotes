@@ -6,6 +6,9 @@ import numpy as np, sys
 from scipy import sparse
 import random
 
+'''
+We feed two files into this job, A and Q we calculate AtQ
+'''
 class MRAtQ(MRJob):
     INTERNAL_PROTOCOL = PickleProtocol
     INPUT_PROTOCOL = RawProtocol
@@ -14,6 +17,10 @@ class MRAtQ(MRJob):
         super(MRAtQ, self).__init__(*args, **kwargs)
         self.n = 7
 
+    '''
+    No mapper only reducer. W/out mapper two lines with same key
+    will end up in same reducer.
+    '''
     def reducer(self, key, value):
         left = None; right = None
         v = []
@@ -32,6 +39,10 @@ class MRAtQ(MRJob):
             mult = v*right
             yield j, mult.todense()[0]
 
+    '''
+    Again no mapper one reducer, to sum up all i \elem n
+    vectors that were multiplied above
+    '''
     def reduce_sum(self, key, value):
         mat_sum = np.zeros((1,self.n))
         for val in value: mat_sum += val

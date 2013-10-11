@@ -4,6 +4,9 @@ from mrjob.protocol import PickleProtocol, RawProtocol
 import numpy as np, sys
 import numpy.linalg as lin
 
+'''
+Calculate AtA then Cholesky to get R
+'''
 class MRR(MRJob):
     INTERNAL_PROTOCOL = PickleProtocol
     INPUT_PROTOCOL = RawProtocol
