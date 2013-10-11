@@ -7,4 +7,3 @@ print a.shape
 print b.shape
 
 print np.dot(a.T,b)
-

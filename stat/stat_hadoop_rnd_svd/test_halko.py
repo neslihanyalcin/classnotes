@@ -25,10 +25,11 @@ Y = np.dot(A, Omega)
 print "Y", Y.shape
 
 Q, R = lin.qr(Y) 
+Q = np.loadtxt('/home/burak/Q.dat',delimiter=';')
 #np.savetxt('q_halko.dat',Q,fmt='%.2f')
 
-#BT = np.dot(A.T, Q)
-BT = np.loadtxt('/home/burak/BT.dat',delimiter=';')
+BT = np.dot(A.T, Q)
+#BT = np.loadtxt('/home/burak/BT.dat',delimiter=';')
 
 print "Q", Q.shape
 print "BT", BT.shape
