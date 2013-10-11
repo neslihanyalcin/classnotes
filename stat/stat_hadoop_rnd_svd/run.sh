@@ -6,5 +6,4 @@
 #python mr_q_ur.py Q.dat --file R.dat > U.dat
 #python mraq.py ~/Downloads/movielens1-small1.csv Q.dat > BT.dat
 #python mrr.py BT.dat  > R_BT.dat
-#python mrq.py BT.dat --R=R_BT.dat --file R_BT.dat > Q_BT.dat
-python mr_q_ur.py Q_BT.dat --R=R_BT.dat --file R_BT.dat > U_hat.dat
+#python svd_vt.py R_BT.dat U_hat.dat
