@@ -14,7 +14,7 @@ class MRUHat(MRJob):
         self.add_file_option('--R')
         
     def __init__(self, *args, **kwargs):
-        super(MRUR, self).__init__(*args, **kwargs)
+        super(MRUHat, self).__init__(*args, **kwargs)
         x,x,VT = lin.svd(np.loadtxt(self.options.R,delimiter=';'))
         self.Uhat = VT.T
         self.data = []
@@ -31,5 +31,5 @@ class MRUHat(MRJob):
                 yield (key,",".join(map(str,x)))
         
 if __name__ == '__main__':
-    MRUR.run()
+    MRUHat.run()
 
