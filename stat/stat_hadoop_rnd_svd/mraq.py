@@ -7,7 +7,7 @@ from scipy import sparse
 import random
 
 '''
-We feed two files into this job, A and Q we calculate AtQ
+We feed two files into this job, A and Q, then we calculate AtQ
 '''
 class MRAtQ(MRJob):
     INTERNAL_PROTOCOL = PickleProtocol
@@ -21,8 +21,9 @@ class MRAtQ(MRJob):
         super(MRAtQ, self).__init__(*args, **kwargs)
 
     '''
-    No mapper only reducer. W/out mapper two lines with same key
-    will end up in same reducer.
+    No mapper, only reducer in the first step. W/out mapper, two lines
+    (and there are only two lines, per key -one from A one from Q-)
+    with same key will end up in same reducer.
     '''
     def reducer(self, key, value):
         left = None; right = None
@@ -38,13 +39,15 @@ class MRAtQ(MRJob):
         left = sparse.coo_matrix(left)
         right = sparse.coo_matrix(right)
         
+        # iterate only non-zero elements in the bigger (left) vector
         for i,j,v in zip(left.row, left.col, left.data):
             mult = v*right
             yield j, mult.todense()[0]
 
     '''
-    Again no mapper one reducer, to sum up all i \elem n
-    vectors that were multiplied above
+    In the second step, again no mapper one reducer, there is a sum,
+    for all ith \elem n vectors that were multiplied in the previous
+    step
     '''
     def reduce_sum(self, key, value):
         mat_sum = np.zeros((1,int(self.options.n)))
