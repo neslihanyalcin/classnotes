@@ -12,7 +12,7 @@ class MRProj(MRJob):
     
     def __init__(self, *args, **kwargs):
         super(MRProj, self).__init__(*args, **kwargs)
-        self.k = 5
+        self.k = 7
 
     def mapper(self, key, line):
         line_vals = map(lambda x: float(x or 0), line.split(';'))
@@ -21,8 +21,10 @@ class MRProj(MRJob):
         result = np.zeros(self.k)
         for xx,j,v in itertools.izip(line_sps.row, line_sps.col, line_sps.data):
             for i in range(self.k):
-                random.seed(int(j + i))
-                result[i] += v*random.gauss(0,1)
+                #random.seed(int(j + i))
+                #result[i] += v*random.gauss(0,1)
+                np.random.seed(int(j + i))
+                result[i] += v * np.random.randn()
         yield (float(key), ";".join(map(str,result)))
             
 if __name__ == '__main__':

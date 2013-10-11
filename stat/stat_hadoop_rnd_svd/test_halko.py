@@ -6,25 +6,22 @@ import matplotlib.pyplot as plt
 import pandas as pd
 
 '''
-(70, 30)
-Y (70, 5)
-Q (70, 5)
-BT (30, 5)
-V (5, 5)
-Uhat (5, 5)
+(70, 30) Y (70, 5) Q (70, 5)
+BT (30, 5)V (5, 5) Uhat (5, 5)
 U (70, 5)
 '''
 
-n = 30; k = 5
+k = 5
 df = pd.read_csv("w1.csv",sep=';')
 A = np.array(df)[:,1:]
 print A.shape
 
 # randomized SVD
 
-Omega = rand.randn(n,k)
+Omega = rand.randn(A.shape[1],k)
 
 Y = np.dot(A, Omega) 
+np.savetxt('w3_halko.dat',Y,fmt='%.2f')
 print "Y", Y.shape
 
 Q, R = lin.qr(Y) 
@@ -34,13 +31,14 @@ BT = np.dot(A.T, Q)
 print "Q", Q.shape
 print "BT", BT.shape
 
-Uhat, Sigma, V = lin.svd(BT)
+x, x, V = lin.svd(BT)
 print 'V', V.shape
 Uhat = V.T 
 
 print "Uhat", Uhat.shape
 
 U = np.dot(Q, Uhat) 
+np.savetxt('U_final_halko.dat',U,fmt='%.2f')
 
 print "U", U.shape
 
