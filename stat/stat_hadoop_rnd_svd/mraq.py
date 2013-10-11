@@ -12,6 +12,7 @@ class MRAtQ(MRJob):
     
     def __init__(self, *args, **kwargs):
         super(MRAtQ, self).__init__(*args, **kwargs)
+        self.n = 5
 
     def reducer(self, key, value):
         v = []
@@ -30,7 +31,7 @@ class MRAtQ(MRJob):
             yield j, mult.todense()[0]
 
     def reduce_sum(self, key, value):
-        mat_sum = np.zeros((1,7))
+        mat_sum = np.zeros((1,self.n))
         for val in value: mat_sum += val
         yield (float(key), ";".join(map(str,mat_sum[0])))
             

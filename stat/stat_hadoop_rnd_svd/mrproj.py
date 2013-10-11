@@ -11,7 +11,7 @@ class MRProj(MRJob):
     
     def __init__(self, *args, **kwargs):
         super(MRProj, self).__init__(*args, **kwargs)
-        self.k = 7
+        self.k = 5
 
     def mapper(self, key, line):
         line_vals = map(lambda x: float(x or 0), line.split(';'))

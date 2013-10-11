@@ -12,7 +12,7 @@ class MRR(MRJob):
     def __init__(self, *args, **kwargs):
         super(MRR, self).__init__(*args, **kwargs)
         self.buffer_size = 4
-        self.n = 7
+        self.n = 5
         self.data = []
         self.A_sum = np.zeros((self.n,self.n))
         
