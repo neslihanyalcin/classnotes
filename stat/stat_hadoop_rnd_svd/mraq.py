@@ -46,7 +46,7 @@ class MRAtQ(MRJob):
     def reduce_sum(self, key, value):
         mat_sum = np.zeros((1,self.n))
         for val in value: mat_sum += val
-        yield (float(key), ";".join(map(str,mat_sum[0])))
+        yield (int(key), ";".join(map(str,mat_sum[0])))
             
     def steps(self):
         return [
