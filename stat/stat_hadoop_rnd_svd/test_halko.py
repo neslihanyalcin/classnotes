@@ -29,6 +29,7 @@ Q = np.loadtxt('/home/burak/Q.dat',delimiter=';')
 #np.savetxt('q_halko.dat',Q,fmt='%.2f')
 
 BT = np.dot(A.T, Q)
+print BT
 #BT = np.loadtxt('/home/burak/BT.dat',delimiter=';')
 
 print "Q", Q.shape

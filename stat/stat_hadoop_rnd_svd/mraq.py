@@ -15,15 +15,19 @@ class MRAtQ(MRJob):
         self.n = 7
 
     def reducer(self, key, value):
+        left = None; right = None
         v = []
         for i,line in enumerate(value):
             line = line.replace('"','')
             line_vals = map(lambda x: float(x or 0), line.split(';'))
             v.append(np.array(line_vals))
-
-        left = v[np.argmax(map(len, v))]
+                        
+        if len(v[0]) == self.n: left = v[1]; right = v[0]
+        if len(v[1]) == self.n: left = v[0]; right = v[1]
+        
+        #left = v[np.argmax(map(len, v))]
         left = sparse.coo_matrix(left)
-        right = v[np.argmin(map(len, v))]
+        #right = v[np.argmin(map(len, v))]
         right = sparse.coo_matrix(right)
         
         for i,j,v in zip(left.row, left.col, left.data):
