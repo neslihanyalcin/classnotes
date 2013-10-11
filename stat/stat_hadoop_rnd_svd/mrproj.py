@@ -14,17 +14,20 @@ class MRProj(MRJob):
     INTERNAL_PROTOCOL = PickleProtocol
     INPUT_PROTOCOL = RawProtocol
     
+    def configure_options(self):
+        super(MRProj, self).configure_options()
+        self.add_file_option('--k')
+        
     def __init__(self, *args, **kwargs):
         super(MRProj, self).__init__(*args, **kwargs)
-        self.k = 7
 
     def mapper(self, key, line):
         line_vals = map(lambda x: float(x or 0), line.split(';'))
         line_vals = line_vals[1:]
         line_sps = sparse.coo_matrix(line_vals,shape=(1,len(line_vals)))
-        result = np.zeros(self.k)
+        result = np.zeros(int(self.options.k))
         for xx,j,v in itertools.izip(line_sps.row, line_sps.col, line_sps.data):
-            for i in range(self.k):
+            for i in range(int(self.options.k)):
                 np.random.seed(int(j + i))
                 result[i] += v * np.random.randn()
         yield (int(key), ";".join(map(str,result)))
