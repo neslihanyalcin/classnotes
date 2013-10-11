@@ -26,7 +26,7 @@ print "BT", BT.shape
 
 x, x, V = lin.svd(BT)
 print 'V', V.shape
-Uhat = V.T 
+Uhat = V.T # because B=USV', B'=VSU' for U of B we need V'
 
 print "Uhat", Uhat.shape
 

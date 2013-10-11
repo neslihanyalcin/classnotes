@@ -16,7 +16,7 @@ class MRUHat(MRJob):
     def __init__(self, *args, **kwargs):
         super(MRUHat, self).__init__(*args, **kwargs)
         U,S,VT = lin.svd(np.loadtxt(self.options.R,delimiter=';'))
-        self.Uhat = VT.T
+        self.Uhat = VT.T  # because B=USV', B'=VSU' for U of B we need V'
         self.data = []
         self.buffer_size = 4
         
