@@ -12,12 +12,15 @@ class MRR(MRJob):
     INPUT_PROTOCOL = RawProtocol
     OUTPUT_PROTOCOL = RawValueProtocol
     
+    def configure_options(self):
+        super(MRR, self).configure_options()
+        self.add_file_option('--n')
+        
     def __init__(self, *args, **kwargs):
         super(MRR, self).__init__(*args, **kwargs)
         self.buffer_size = 4
-        self.n = 7
         self.data = []
-        self.A_sum = np.zeros((self.n,self.n))
+        self.A_sum = np.zeros((int(self.options.n),int(self.options.n)))
         
     def mapper(self, key, line):
         line = line.replace('"','')
