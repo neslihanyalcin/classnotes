@@ -30,7 +30,9 @@ class MRProj(MRJob):
             for i in range(int(self.options.k)):
                 np.random.seed(int(j + i))
                 result[i] += v * np.random.randn()
+                
         yield (int(key), ";".join(map(str,result)))
+        
             
 if __name__ == '__main__':
     MRProj.run()
