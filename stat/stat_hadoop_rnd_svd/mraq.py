@@ -26,16 +26,15 @@ class MRAtQ(MRJob):
     with same key will end up in same reducer.
     '''
     def reducer(self, key, value):
-        ### wasting too much time here TBD
         left = None; right = None
-        for i,line in enumerate(value):
+        for i,line in enumerate(value):            
             line = line.replace('"','')
             line_vals = map(lambda x: float(x or 0), line.split(';'))
             if len(line_vals) == int(self.options.n):
                 right = sparse.coo_matrix(line_vals)
             else:
                 left = sparse.coo_matrix(line_vals)
-                    
+        
         # iterate only non-zero elements in the bigger (left) vector
         for i,j,v in zip(left.row, left.col, left.data):
             mult = v*right
