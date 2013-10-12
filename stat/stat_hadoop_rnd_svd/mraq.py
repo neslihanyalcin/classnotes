@@ -27,19 +27,19 @@ class MRAtQ(MRJob):
     '''
     def reducer(self, key, value):
         left = None; right = None
-        v = []
         for i,line in enumerate(value):
             line = line.replace('"','')
             line_vals = map(lambda x: float(x or 0), line.split(';'))
-            v.append(np.array(line_vals))
-                        
-        if len(v[0]) == int(self.options.n): left = v[1]; right = v[0]
-        if len(v[1]) == int(self.options.n): left = v[0]; right = v[1]
-
+            if len(line_vals) == int(self.options.n):
+                right = np.array(line_vals)
+            else:
+                left = np.array(line_vals)
+            
         left = sparse.coo_matrix(left)
         right = sparse.coo_matrix(right)
         
         # iterate only non-zero elements in the bigger (left) vector
+        mult = np.dot(left.T,right)
         for i,j,v in zip(left.row, left.col, left.data):
             mult = v*right
             yield j, mult.todense()[0]
