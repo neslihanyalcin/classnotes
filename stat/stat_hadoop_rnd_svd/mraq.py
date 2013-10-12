@@ -32,13 +32,10 @@ class MRAtQ(MRJob):
             line = line.replace('"','')
             line_vals = map(lambda x: float(x or 0), line.split(';'))
             if len(line_vals) == int(self.options.n):
-                right = np.array(line_vals)
+                right = sparse.coo_matrix(line_vals)
             else:
-                left = np.array(line_vals)
-            
-        left = sparse.coo_matrix(left)
-        right = sparse.coo_matrix(right)
-        
+                left = sparse.coo_matrix(line_vals)
+                    
         # iterate only non-zero elements in the bigger (left) vector
         for i,j,v in zip(left.row, left.col, left.data):
             mult = v*right
