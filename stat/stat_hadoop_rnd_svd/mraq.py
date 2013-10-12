@@ -26,6 +26,7 @@ class MRAtQ(MRJob):
     with same key will end up in same reducer.
     '''
     def reducer(self, key, value):
+        ### wasting too much time here TBD
         left = None; right = None
         for i,line in enumerate(value):
             line = line.replace('"','')
@@ -39,7 +40,6 @@ class MRAtQ(MRJob):
         right = sparse.coo_matrix(right)
         
         # iterate only non-zero elements in the bigger (left) vector
-        mult = np.dot(left.T,right)
         for i,j,v in zip(left.row, left.col, left.data):
             mult = v*right
             yield j, mult.todense()[0]
