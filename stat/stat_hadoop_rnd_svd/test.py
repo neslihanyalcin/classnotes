@@ -9,7 +9,7 @@ import matplotlib.pyplot as plt
 import pandas as pd
 
 U = np.loadtxt('U_final.dat',delimiter=',')
-plt.plot(U[:,0],U[:,1],'r+')
+plt.plot(U[:,0],-U[:,1],'r+')
 plt.hold(True)
         
 df = pd.read_csv("w1.csv",sep=';')

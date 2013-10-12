@@ -2,6 +2,7 @@ DIM=7
 #python tabify.py /home/burak/Downloads/movielens2.csv A.dat
 python tabify.py w1.csv A.dat
 python mrproj.py A.dat --k=$DIM > Y.dat
+python mrproj.py A.dat --k=$DIM 
 python mrr.py Y.dat  --n=$DIM > R.dat # cholesky R
 python mrq.py Y.dat --R=R.dat --file R.dat > Q.dat 
 python mraq.py A.dat Q.dat --n=$DIM > BT.dat
