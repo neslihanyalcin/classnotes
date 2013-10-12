@@ -39,7 +39,7 @@ class MRAtQ(MRJob):
         # iterate only non-zero elements in the bigger (left) vector
         for i,j,v in zip(left.row, left.col, left.data):
             mult = v*right
-            yield j, mult.todense()[0]
+            yield j, mult
 
     '''
     In the second step, again no mapper one reducer, there is a sum,
@@ -48,7 +48,7 @@ class MRAtQ(MRJob):
     '''
     def reduce_sum(self, key, value):
         mat_sum = np.zeros((1,int(self.options.n)))
-        for val in value: mat_sum += val
+        for val in value: mat_sum += val.todense()[0]
         yield (int(key), ";".join(map(str,mat_sum[0])))
             
     def steps(self):
