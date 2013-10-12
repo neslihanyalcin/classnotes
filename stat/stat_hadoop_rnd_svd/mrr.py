@@ -14,13 +14,13 @@ class MRR(MRJob):
     
     def configure_options(self):
         super(MRR, self).configure_options()
-        self.add_file_option('--n')
+        self.add_passthrough_option('--k')
         
     def __init__(self, *args, **kwargs):
         super(MRR, self).__init__(*args, **kwargs)
         self.buffer_size = 4
         self.data = []
-        self.A_sum = np.zeros((int(self.options.n),int(self.options.n)))
+        self.A_sum = np.zeros((int(self.options.k),int(self.options.k)))
         
     def mapper(self, key, line):
         line = line.replace('"','')

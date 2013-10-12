@@ -16,7 +16,7 @@ class MRProj(MRJob):
     
     def configure_options(self):
         super(MRProj, self).configure_options()
-        self.add_file_option('--k')
+        self.add_passthrough_option('--k')
         
     def __init__(self, *args, **kwargs):
         super(MRProj, self).__init__(*args, **kwargs)

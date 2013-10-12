@@ -15,7 +15,7 @@ class MRAtQ(MRJob):
     
     def configure_options(self):
         super(MRAtQ, self).configure_options()
-        self.add_file_option('--n')
+        self.add_passthrough_option('--k')
         
     def __init__(self, *args, **kwargs):
         super(MRAtQ, self).__init__(*args, **kwargs)
@@ -30,7 +30,7 @@ class MRAtQ(MRJob):
         for i,line in enumerate(value):            
             line = line.replace('"','')
             line_vals = map(lambda x: float(x or 0), line.split(';'))
-            if len(line_vals) == int(self.options.n):
+            if len(line_vals) == int(self.options.k):
                 right = sparse.coo_matrix(line_vals)
             else:
                 left = sparse.coo_matrix(line_vals)
@@ -46,7 +46,7 @@ class MRAtQ(MRJob):
     step
     '''
     def reduce_sum(self, key, value):
-        mat_sum = np.zeros((1,int(self.options.n)))
+        mat_sum = np.zeros((1,int(self.options.k)))
         for val in value: mat_sum += val.todense()[0]
         yield (int(key), ";".join(map(str,mat_sum[0])))
             

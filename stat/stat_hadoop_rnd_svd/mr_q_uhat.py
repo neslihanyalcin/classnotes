@@ -11,7 +11,7 @@ class MRUHat(MRJob):
     
     def configure_options(self):
         super(MRUHat, self).configure_options()
-        self.add_file_option('--R')
+        self.add_passthrough_option('--R')
         
     def __init__(self, *args, **kwargs):
         super(MRUHat, self).__init__(*args, **kwargs)
