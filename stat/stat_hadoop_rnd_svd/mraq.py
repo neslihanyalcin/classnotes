@@ -1,5 +1,6 @@
 from mrjob.job import MRJob
 from mrjob.protocol import PickleProtocol
+from mrjob.protocol import ReprProtocol
 from mrjob.protocol import RawProtocol
 from mrjob.protocol import RawValueProtocol
 import numpy as np, sys
@@ -11,6 +12,7 @@ We feed two files into this job, A and Q, then we calculate AtQ
 '''
 class MRAtQ(MRJob):
     INTERNAL_PROTOCOL = PickleProtocol
+    #INTERNAL_PROTOCOL = ReprProtocol
     INPUT_PROTOCOL = RawProtocol
     
     def configure_options(self):
@@ -31,7 +33,7 @@ class MRAtQ(MRJob):
             line = line.replace('"','')
             line_vals = map(lambda x: float(x or 0), line.split(';'))
             if len(line_vals) == int(self.options.k):
-                right = sparse.coo_matrix(line_vals)
+                right = np.array(line_vals)
             else:
                 left = sparse.coo_matrix(line_vals)
         
@@ -47,7 +49,7 @@ class MRAtQ(MRJob):
     '''
     def reduce_sum(self, key, value):
         mat_sum = np.zeros((1,int(self.options.k)))
-        for val in value: mat_sum += val.todense()[0]
+        for val in value: mat_sum += val
         yield (int(key), ";".join(map(str,mat_sum[0])))
             
     def steps(self):
