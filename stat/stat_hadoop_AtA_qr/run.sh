@@ -2,6 +2,6 @@
 #python Ax.py A_matrix --runner=local
 #hadoop fsck / -delete
 
-python AtB.py A_matrix1 B_matrix1 --runner=local
+python AtB.py A_matrix1 B_matrix1 --k=2
 
 #python mraq.py A_matrix1 B_matrix1 > AtB_test_out.dat
