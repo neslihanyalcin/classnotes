@@ -1,6 +1,5 @@
 from mrjob.job import MRJob
 from mrjob.protocol import PickleProtocol
-from mrjob.protocol import ReprProtocol
 from mrjob.protocol import RawProtocol
 from mrjob.protocol import RawValueProtocol
 import numpy as np, sys
@@ -8,11 +7,12 @@ from scipy import sparse
 import random
 
 '''
-We feed two files into this job, A and Q, then we calculate AtQ
+We feed two files into this job, A and Q, then we calculate the matrix
+multiplication A transpose Q (AtQ) where A and Q have m rows (large),
+n and k rows (large and small respectively). 
 '''
 class MRAtQ(MRJob):
     INTERNAL_PROTOCOL = PickleProtocol
-    #INTERNAL_PROTOCOL = ReprProtocol
     INPUT_PROTOCOL = RawProtocol
     
     def configure_options(self):
