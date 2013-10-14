@@ -18,11 +18,11 @@ for line in sys.stdin.readlines():
     line = line.rstrip()
     m = re.search(r'(\d+)\:',line)
     if m:
-        if movie_id: print str(movie_id) + "\t" + ",".join(ratings)
+        if movie_id: print str(movie_id) + "\t" + ";".join(ratings)
         movie_id = int(m.group(1))
         ratings = []
     else: 
         tokens = line.split(",")
         ratings.append(tokens[0] + ":" + tokens[1])
     
-print str(movie_id) + "\t" + ",".join(ratings)
+print str(movie_id) + "\t" + ";".join(ratings)

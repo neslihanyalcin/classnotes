@@ -19,13 +19,13 @@ class MRTr(MRJob):
         super(MRTr, self).__init__(*args, **kwargs)
 
     def mapper(self, key, line):
-        tokens = line.split(",")
+        tokens = line.split(";")
         for tok in tokens:
             tmp = tok.split(":")
             yield int(tmp[0]), str(key)+":"+tmp[1]
 
     def reducer(self, key, values):
-        yield key, ",".join(values)
+        yield key, ";".join(values)
         
 if __name__ == '__main__':
     MRTr.run()
