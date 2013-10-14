@@ -1,7 +1,7 @@
 DIM=7
 N=17770
 DIR=/home/burak/Downloads/netflix/download
-python run.py test
+rm $DIR/netflix1_reorg.csv; python run.py test
 python transpose.py $DIR/netflix1_reorg.csv > $DIR/A.dat
 python ../mrproj.py $DIR/A.dat --k=$DIM --n=$N > $DIR/Y.dat
 python ../mrr.py $DIR/Y.dat  --k=$DIM > R.dat # cholesky R

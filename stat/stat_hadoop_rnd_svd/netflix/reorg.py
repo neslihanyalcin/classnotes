@@ -5,7 +5,7 @@ convert the file from
 movieId:
 user,rating,date
 
-format into
+into
 
 movieId \tab   user1:rating, user2:rating, ...
 '''
