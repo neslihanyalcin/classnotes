@@ -4,7 +4,7 @@ from mrjob.protocol import RawValueProtocol
 from mrjob.protocol import RawProtocol
 import numpy as np, sys, itertools
 from scipy import sparse
-import random
+import random, mrc
 
 '''
 Random projection of matrix A. We key in seed generation to i,j
@@ -17,14 +17,13 @@ class MRProj(MRJob):
     def configure_options(self):
         super(MRProj, self).configure_options()
         self.add_passthrough_option('--k')
+        self.add_passthrough_option('--n')
         
     def __init__(self, *args, **kwargs):
         super(MRProj, self).__init__(*args, **kwargs)
 
     def mapper(self, key, line):
-        line_vals = map(lambda x: float(x or 0), line.split(';'))
-        line_vals = line_vals[1:]
-        line_sps = sparse.coo_matrix(line_vals,shape=(1,len(line_vals)))
+        line_sps = mrc.line_to_coo(line, int(self.options.n))
         result = np.zeros(int(self.options.k))
         for xx,j,v in itertools.izip(line_sps.row, line_sps.col, line_sps.data):
             np.random.seed(j)

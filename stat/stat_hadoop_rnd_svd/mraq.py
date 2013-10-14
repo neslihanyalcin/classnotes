@@ -4,7 +4,7 @@ from mrjob.protocol import RawProtocol
 from mrjob.protocol import RawValueProtocol
 import numpy as np, sys
 from scipy import sparse
-import random
+import random, mrc
 
 '''
 We feed two files into this job, A and Q, then we calculate the matrix
@@ -18,6 +18,7 @@ class MRAtQ(MRJob):
     def configure_options(self):
         super(MRAtQ, self).configure_options()
         self.add_passthrough_option('--k')
+        self.add_passthrough_option('--n')
         
     def __init__(self, *args, **kwargs):
         super(MRAtQ, self).__init__(*args, **kwargs)
@@ -29,13 +30,13 @@ class MRAtQ(MRJob):
     '''
     def reducer(self, key, value):
         left = None; right = None
-        for i,line in enumerate(value):            
-            line = line.replace('"','')
-            line_vals = map(lambda x: float(x or 0), line.split(';'))
-            if len(line_vals) == int(self.options.k):
-                right = np.array(line_vals)
+        for i,line in enumerate(value):
+            if ':' in line:
+                left = mrc.line_to_coo(line, int(self.options.n))
             else:
-                left = sparse.coo_matrix(line_vals)
+                line = line.replace('"','')
+                line_vals = map(lambda x: float(x or 0), line.split(';'))
+                right = np.array(line_vals)
         
         # iterate only non-zero elements in the bigger (left) vector
         for i,j,v in zip(left.row, left.col, left.data):
