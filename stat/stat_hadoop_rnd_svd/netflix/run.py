@@ -7,4 +7,4 @@ for i,f in enumerate(glob.glob("/home/burak/Downloads/netflix/download/training_
     # quit after few lines if options passed is 'test'
     # we can create a smaller dataset this way
     # otherwise whole netflix data is processed
-    if len(sys.argv) > 1 and sys.argv[1] == 'test' and i == 3: break
+    if len(sys.argv) > 1 and sys.argv[1] == 'test' and i == 20: break
