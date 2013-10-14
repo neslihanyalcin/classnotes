@@ -10,7 +10,6 @@ def line_to_coo(line, dim):
     tokens = line.split(",")
     line_sps = sparse.lil_matrix((1,dim))
     for tok in tokens:
-        tmp = tok.split(":")
-        line_sps[ 0,int(tmp[0]) ] = float(tmp[1])
+        tmp = tok.split(":"); line_sps[ 0,int(tmp[0]) ] = float(tmp[1])
     return line_sps.tocoo()
     
