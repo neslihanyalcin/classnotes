@@ -7,9 +7,8 @@ from scipy import sparse
 import random
 
 '''
-Change format from movieId \tab user1:rating format into
-
-user1 \tab movie1:rating, movie2:rating, ..
+Change format from "movieId \tab user1:rating" format into
+"user1 \tab movie1:rating, movie2:rating, .."
 
 '''
 class MRTr(MRJob):
