@@ -1,0 +1,38 @@
+\documentclass[11pt]{article} 
+
+\usepackage[latin5]{inputenc}
+\usepackage{amsmath}
+\usepackage{examplep}
+\usepackage{graphicx}
+
+\begin{document}
+\title{SVD Factorization for Tall and Fat Matrices on Map/Reduce Architectures}
+\author{Burak Bayramlý}
+\date{October 15, 2013}
+
+\maketitle
+
+\begin{abstract}
+  We demonstrate an implementation for a SVD factorization scheme combining
+  well/known randomized projection techniques. We incorporate previously
+  implemented map/reduce solutions in order to compute various steps of
+  this procedure such as QR factorizations. We structure the problem in a
+  way it is reduced to local Cholesky factorization on k by k matrices
+  greatly reducing the complexity of the problem.
+\end{abstract}
+
+\section{Introduction}
+
+
+
+\begin{thebibliography}{1}
+
+\bibitem{thrun}
+N.~Halko, \emph{Randomized methods for computing low-rank approximations of matrices}
+
+\bibitem{gleich}
+Gleich, Benson, Demmel, \emph{Direct QR factorizations for tall-and-skinny matrices in MapReduce architectures}
+
+\end{thebibliography}
+
+\end{document}
