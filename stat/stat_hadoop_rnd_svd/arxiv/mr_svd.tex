@@ -89,8 +89,29 @@ Then form the matrix
 
 $$ U = Q \hat{U} $$
 
-As \cite{halko} shows $U$ is approximately close the real $U$ of $A = U
-\Sigma V^T$. 
+The main idea based on
+
+$$ A = QQ^T A $$
+
+if replace $Q$ which comes from random projection $Y$, 
+
+$$ A \approx \tilde{Q}\tilde{Q}^T A $$
+
+$Q$ and $R$ of the random projection are close to that of $A$. In the
+multiplication above $R$ is called $B$ where $B = \tilde{Q}^T A $, and,
+
+$$ A \approx \tilde{Q}B $$
+
+then, as in \cite{gleich}, we can take SVD of $B$ and apply the same
+transition rules to obtain an approximate $U$ of $A$.
+
+The reason the approximate works has to do with the fact that projecting
+points to a random subspace preserves distances between points, or in
+detail, projecting the n-point subset onto a random subspace of $O(\log
+n/\epsilon^2)$ dimensions only changes the interpoint distances by $(1 \pm
+\epsilon)$ with positive probability \cite{gupta}. It is also said that $Y$
+is a good representation of the span of $A$. 
+
 
 \begin{thebibliography}{1}
 
@@ -99,6 +120,9 @@ Gleich, Benson, Demmel, \emph{Direct QR factorizations for tall-and-skinny matri
 
 \bibitem{halko}
 N.~Halko, \emph{Randomized methods for computing low-rank approximations of matrices}
+
+\bibitem{gupta}
+S.~Dangupta, A.~Gupta \emph{An Elementary Proof of a Theorem of Johnson and Lindenstrauss}
 
 \end{thebibliography}
 
