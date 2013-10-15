@@ -13,25 +13,92 @@
 \maketitle
 
 \begin{abstract}
-  We demonstrate an implementation for a SVD factorization scheme combining
-  well/known randomized projection techniques. We incorporate previously
-  implemented map/reduce solutions in order to compute various steps of
-  this procedure such as QR factorizations. We structure the problem in a
-  way it is reduced to local Cholesky factorization on k by k matrices
-  greatly reducing the complexity of the problem.
+  We demonstrate an implementation for an approximate rank-k SVD
+  factorization combining well-known randomized projection techniques with
+  previously implemented map/reduce solutions in order to compute various
+  steps of this procedure, such as local QR and local SVD implementations
+  that can run on a single machine. We structure the problem in a way
+  reduces to single machine Cholesky and SVD factorizations on $k \times k$
+  matrices, thereby greatly easing the computability of the problem.
 \end{abstract}
 
 \section{Introduction}
 
+\cite{gleich} presents many excellent techniques for utilizing map/reduce
+architectures to compute QR and SVD for the so-called tall-and-skinny
+matrices. The ideas are based on the fact that QR factorization can be
+turned into an $A^TA$ computation problem which is easy to compute using
+map/reduce. First idea is,
 
+$$ A^TA = (QR)^T(QR) = R^TQ^TQR = R^TR $$
+
+Then, we take a look at Cholesky factorization of an $n \times n$ symmetric
+positive definite matrix which is
+
+$$ A = LL^T $$
+
+where $L$ is an $n \times n$ lower triangular matrix.  R is upper
+triangular. Then if we factorize $A$ into $L$ and $L^T$, and $LL^T = RR^T$,
+we have a method of calculating QR using Cholesky factorization on
+$A^TA$. The key observation here is that after $A^TA$ computation is
+completed we will have an $n \times n$ matrix and if $A$ is ``skinny'' then
+$n$ is relatively small (in the thousands), and Cholesky decomposition can
+be executed on this small matrix on a single computer. We can calculate
+SVD based on QR. SVD decomposition is represented as
+
+$$ A = U \Sigma V^T $$
+
+Expand it with $A = QR$
+
+$$ QR =  U \Sigma V^T $$
+
+$$ R =  Q^T U \Sigma V^T $$
+
+Let's call $\tilde{U} = Q^T U$
+
+$$ R =  \tilde{U} \Sigma V^T $$
+
+This means if we run a local SVD on $R$ (we just calculated above with
+Cholesky) which is an $n \times n$ matrix, we will have calculated
+$\tilde{U}$, and the real $\Sigma$, and real $V^T$. Hence we have a
+map/reduce way of calculating QR and SVD on $m \times n$ matrices where $n$
+is small.
+
+\subsection{Approximate rank-k SVD}
+
+Computing SVD with large $n$ which are ``fat'' that might have columns in
+the billions would require reducing the dimensionality of the problem. According
+to \cite{halko}, one way to achieve is through random projection. First we
+draw an $n \times k$ Gaussian random matrix $\Omega$. Then we calculate
+
+$$ Y = A \Omega $$
+
+We perform QR decomposition on $Y$
+
+$$ Y = QR $$
+
+Then form $k \times n$ matrix
+
+$$ B = Q^T A $$
+
+Then we can calculate SVD on this small matrix
+
+$$ B = \hat{U} \Sigma V^T $$
+
+Then form the matrix 
+
+$$ U = Q \hat{U} $$
+
+As \cite{halko} shows $U$ is approximately close the real $U$ of $A = U
+\Sigma V^T$. 
 
 \begin{thebibliography}{1}
 
-\bibitem{thrun}
-N.~Halko, \emph{Randomized methods for computing low-rank approximations of matrices}
-
 \bibitem{gleich}
 Gleich, Benson, Demmel, \emph{Direct QR factorizations for tall-and-skinny matrices in MapReduce architectures}
+
+\bibitem{halko}
+N.~Halko, \emph{Randomized methods for computing low-rank approximations of matrices}
 
 \end{thebibliography}
 
