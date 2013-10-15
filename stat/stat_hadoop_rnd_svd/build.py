@@ -4,3 +4,5 @@ if sys.argv[1] == 'zip':
     os.system("zip %s/Downloads/mr_rnd_svd_0.2.zip *.py *.csv *matrix* " % os.environ['HOME'])
 if sys.argv[1] == 'send':
     os.system("scp -r * burak@host2:/home/burak/stat_hadoop_rnd_svd")
+if sys.argv[1] == 'sfile':
+    os.system("scp -r /home/burak/Downloads/netflix burak@host2:/home/burak/Downloads")
