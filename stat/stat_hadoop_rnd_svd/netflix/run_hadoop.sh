@@ -1,6 +1,4 @@
-date
-
-python netflix/transpose.py  hdfs:///user//netflix1_reorg.csv --output hdfs:///user/A.dat --no-output -r hadoop 
+#python netflix/transpose.py  hdfs:///user//netflix1_reorg.csv --output hdfs:///user/A.dat --no-output -r hadoop 
 
 hadoop dfs -rmr hdfs:///user/Y.dat
 
