@@ -163,6 +163,28 @@ that column. Sparsity is handled through this format, if an id for a column
 does not appear in a row of A, it is assumed to be zero. The resulting $Y$
 matrix has dimensions $m \times k$.
 
+\begin{algorithm}[H]
+  \DontPrintSemicolon  
+  \SetKwInOut{Input}{input}
+  \SetKwInOut{Output}{output}
+  \SetKwProg{map}{function}{}{}
+  \Input{Y}
+  \Output{R}
+  \map{MAP{(key $k$, val $a$)}}{
+    Tokenize $value$ and pick out id value pairs\;
+    result $\leftarrow$ zeros(1,$k$)\;
+    \For{$i,row$ in enumerate($a^Ta$)}{
+      \Emit{i, row}
+    }
+  }
+  \SetKwProg{reduce}{function}{}{}
+  \reduce{REDUCE{(key, value)}}{
+    \Emit (k,sum(<$v_j^k$)\;}
+  \SetKwProg{reduce}{function}{}{}
+  \reduce{FINAL LOCAL REDUCE {(key, value)}}{
+    \Emit (k,sum(<$v_j^k$)\;}
+  \caption{$A^TA$ Cholesky Job}
+\end{algorithm} 
 
 
 \begin{thebibliography}{1}
