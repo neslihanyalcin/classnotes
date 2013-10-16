@@ -4,7 +4,6 @@ from mrjob.protocol import RawValueProtocol
 from mrjob.protocol import RawProtocol
 import numpy as np, sys, itertools
 from scipy import sparse
-import UserString
 
 def line_to_coo(line, dim):
     tokens = line.split(";")
