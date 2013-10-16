@@ -5,6 +5,7 @@ from mrjob.protocol import RawValueProtocol
 import numpy as np, sys
 from scipy import sparse
 import random, mrc
+import UserString
 
 '''
 We feed two files into this job, A and Q, then we calculate the matrix
@@ -34,7 +35,8 @@ class MRAtQ(MRJob):
             if ':' in line:
                 left = mrc.line_to_coo(line, int(self.options.n))
             else:
-                line = line.replace('"','')
+                line = UserString.MutableString(line)
+                line[-1] = ''; line[0] = ''
                 line_vals = map(lambda x: float(x or 0), line.split(';'))
                 right = np.array(line_vals)
         

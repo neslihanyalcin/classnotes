@@ -1,6 +1,6 @@
 DIM=7
-N=30
-#N=3730
+#N=30
+N=3730
 #python prepare.py /home/burak/Downloads/movielens_small/movielens2.csv A.dat
 python prepare.py w1.csv A.dat 
 python mrproj.py A.dat --k=$DIM --n=$N --file mrc.py --runner=local > Y.dat
