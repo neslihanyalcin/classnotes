@@ -151,8 +151,7 @@ job.
   }
   \SetKwProg{reduce}{function}{}{}
   \reduce{REDUCE{(key, value)}}{
-    noop\;
-    \KwRet\;}
+    noop\;}
   \caption{Random Projection Job}
 \end{algorithm} 
 
@@ -171,8 +170,6 @@ matrix has dimensions $m \times k$.
   \Input{Y}
   \Output{R}
   \map{MAP{(key $k$, val $a$)}}{
-    Tokenize $value$ and pick out id value pairs\;
-    result $\leftarrow$ zeros(1,$k$)\;
     \For{$i,row$ in enumerate($a^Ta$)}{
       \Emit{i, row}
     }
@@ -182,7 +179,8 @@ matrix has dimensions $m \times k$.
     \Emit (k,sum(<$v_j^k$)\;}
   \SetKwProg{reduce}{function}{}{}
   \reduce{FINAL LOCAL REDUCE {(key, value)}}{
-    \Emit (k,sum(<$v_j^k$)\;}
+    result $\leftarrow$ Cholesky($A_{sum}$)\;
+    \Emit (.., result)\;}
   \caption{$A^TA$ Cholesky Job}
 \end{algorithm} 
 
