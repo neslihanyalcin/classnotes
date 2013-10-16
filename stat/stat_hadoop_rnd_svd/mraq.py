@@ -7,6 +7,11 @@ from scipy import sparse
 import random, mrc
 import UserString
 
+'''
+We feed two files into this job, A and Q, then we calculate the matrix
+multiplication A transpose Q (AtQ) where A and Q have m rows (large),
+n and k rows (large and small respectively). 
+'''
 class MRAtQ(MRJob):
     INTERNAL_PROTOCOL = PickleProtocol
     INPUT_PROTOCOL = RawProtocol
@@ -19,20 +24,43 @@ class MRAtQ(MRJob):
     def __init__(self, *args, **kwargs):
         super(MRAtQ, self).__init__(*args, **kwargs)
 
-    def mapper(self, key, value):
-        tokens = value.split('\t')
-        Q = tokens[0].replace('"','')
-        A = tokens[2]
-        Q = map(lambda x: float(x or 0), Q.split(';'))
-        A = mrc.line_to_coo(A, int(self.options.n))
-        # iterate only non-zero elements of A
-        for i,j,v in zip(A.row, A.col, A.data):
-            yield j, v*Q
-
+    '''
+    No mapper, only reducer in the first step. W/out mapper, two lines
+    (and there are only two lines, per key -one from A one from Q-)
+    with same key will end up in same reducer.
+    '''
     def reducer(self, key, value):
+        left = None; right = None
+        for i,line in enumerate(value):
+            if ':' in line:
+                left = mrc.line_to_coo(line, int(self.options.n))
+            else:
+                line = UserString.MutableString(line)
+                line[-1] = ''; line[0] = ''
+                line_vals = map(lambda x: float(x or 0), line.split(';'))
+                right = np.array(line_vals)
+        
+        # iterate only non-zero elements in the bigger (left) vector
+        for i,j,v in zip(left.row, left.col, left.data):
+            mult = v*right
+            yield j, mult
+
+    '''
+    In the second step, again no mapper one reducer, there is a sum,
+    for all ith \elem n vectors that were multiplied in the previous
+    step
+    '''
+    def reduce_sum(self, key, value):
         mat_sum = np.zeros((1,int(self.options.k)))
         for val in value: mat_sum += val
         yield (int(key), ";".join(map(str,mat_sum[0])))
+            
+    def steps(self):
+        return [
+            self.mr(reducer=self.reducer),
+            self.mr(reducer=self.reduce_sum)
+        ]
+
             
 if __name__ == '__main__':
     MRAtQ.run()
