@@ -4,22 +4,21 @@
 \usepackage{amsmath}
 \usepackage{examplep}
 \usepackage{graphicx}
+\usepackage[ruled]{algorithm2e}
 
 \begin{document}
-\title{SVD Factorization for Tall and Fat Matrices on Map/Reduce Architectures}
-\author{Burak Bayramlý}
-\date{October 15, 2013}
+\title{SVD Factorization for Tall-and-fat Matrices on Map/Reduce
+  Architectures} \author{Burak Bayramlý} \date{October 15, 2013}
 
 \maketitle
 
 \begin{abstract}
   We demonstrate an implementation for an approximate rank-k SVD
   factorization combining well-known randomized projection techniques with
-  previously implemented map/reduce solutions in order to compute various
-  steps of this procedure, such as local QR and local SVD implementations
-  that can run on a single machine. We structure the problem in a way
-  reduces to single machine Cholesky and SVD factorizations on $k \times k$
-  matrices, thereby greatly easing the computability of the problem.
+  previously implemented map/reduce solutions in order to compute steps of
+  the randomized procedure, such QR and SVD. We structure the problem in a
+  way reduces to single machine Cholesky and SVD factorizations on $k
+  \times k$ matrices, greatly easing the computability of the problem.
 \end{abstract}
 
 \section{Introduction}
@@ -27,28 +26,29 @@
 \cite{gleich} presents many excellent techniques for utilizing map/reduce
 architectures to compute QR and SVD for the so-called tall-and-skinny
 matrices. The ideas are based on the fact that QR factorization can be
-turned into an $A^TA$ computation problem which is easy to compute using
-map/reduce. First idea is,
+turned into an $A^TA$ computation problem which in turn reduces to a
+Cholesky decomposition performed on a single machine. First idea is,
 
 $$ A^TA = (QR)^T(QR) = R^TQ^TQR = R^TR $$
 
-Then, we take a look at Cholesky factorization of an $n \times n$ symmetric
-positive definite matrix which is
+Since Cholesky factorization of an $n \times n$ symmetric positive definite
+matrix is
 
 $$ A = LL^T $$
 
-where $L$ is an $n \times n$ lower triangular matrix.  R is upper
-triangular. Then if we factorize $A$ into $L$ and $L^T$, and $LL^T = RR^T$,
-we have a method of calculating QR using Cholesky factorization on
-$A^TA$. The key observation here is that after $A^TA$ computation is
-completed we will have an $n \times n$ matrix and if $A$ is ``skinny'' then
-$n$ is relatively small (in the thousands), and Cholesky decomposition can
-be executed on this small matrix on a single computer. We can calculate
-SVD based on QR. SVD decomposition is represented as
+where $L$ is an $n \times n$ lower triangular matrix., and R is upper
+triangular, then we can conclude if we factorize $A$ into $L$ and $L^T$,
+this implies $LL^T = RR^T$, we have a method of calculating QR using
+Cholesky factorization on $A^TA$. The key observation here is that after
+$A^TA$ computation is completed we have an $n \times n$ matrix and if $A$
+is ``skinny'' then $n$ is relatively small (in the thousands), and Cholesky
+decomposition can be executed on an small $n \times n$ matrix on a single
+computer. Calculating SVD is an additional step, based on QR. SVD
+decomposition is represented as
 
 $$ A = U \Sigma V^T $$
 
-Expand it with $A = QR$
+If we expand it with $A = QR$
 
 $$ QR =  U \Sigma V^T $$
 
@@ -60,16 +60,18 @@ $$ R =  \tilde{U} \Sigma V^T $$
 
 This means if we run a local SVD on $R$ (we just calculated above with
 Cholesky) which is an $n \times n$ matrix, we will have calculated
-$\tilde{U}$, and the real $\Sigma$, and real $V^T$. Hence we have a
+$\tilde{U}$, the real $\Sigma$, and real $V^T$. Hence we have a
 map/reduce way of calculating QR and SVD on $m \times n$ matrices where $n$
 is small.
 
 \subsection{Approximate rank-k SVD}
 
-Computing SVD with large $n$ which are ``fat'' that might have columns in
-the billions would require reducing the dimensionality of the problem. According
-to \cite{halko}, one way to achieve is through random projection. First we
-draw an $n \times k$ Gaussian random matrix $\Omega$. Then we calculate
+Switching gears, we look at another method for calculating SVD. The
+motivation is computing SVD if $n$ is large, creating a ``fat'' matrix
+which might have columns in the billions would require reducing the
+dimensionality of the problem. According to \cite{halko}, one way to
+achieve is through random projection. First we draw an $n \times k$
+Gaussian random matrix $\Omega$. Then we calculate
 
 $$ Y = A \Omega $$
 
@@ -89,7 +91,7 @@ Then form the matrix
 
 $$ U = Q \hat{U} $$
 
-The main idea based on
+The main idea is based on
 
 $$ A = QQ^T A $$
 
@@ -97,7 +99,7 @@ if replace $Q$ which comes from random projection $Y$,
 
 $$ A \approx \tilde{Q}\tilde{Q}^T A $$
 
-$Q$ and $R$ of the random projection are close to that of $A$. In the
+$Q$ and $R$ of the projection are close to that of $A$. In the
 multiplication above $R$ is called $B$ where $B = \tilde{Q}^T A $, and,
 
 $$ A \approx \tilde{Q}B $$
@@ -105,13 +107,41 @@ $$ A \approx \tilde{Q}B $$
 then, as in \cite{gleich}, we can take SVD of $B$ and apply the same
 transition rules to obtain an approximate $U$ of $A$.
 
-The reason the approximate works has to do with the fact that projecting
-points to a random subspace preserves distances between points, or in
-detail, projecting the n-point subset onto a random subspace of $O(\log
+This approximate works because of the fact that projecting points to a
+random subspace preserves distances between points, or in detail,
+projecting the n-point subset onto a random subspace of $O(\log
 n/\epsilon^2)$ dimensions only changes the interpoint distances by $(1 \pm
 \epsilon)$ with positive probability \cite{gupta}. It is also said that $Y$
-is a good representation of the span of $A$. 
+is a good representation of the span of $A$.
 
+\subsection{Final Method}
+
+Our final implementation performs approximate k-rank SVD by using QR and
+SVD methods presented by Gleich, adding new map/reduce jobs when needed
+such as for random projection, or calculating $A^TQ$. Below we outline each
+map/reduce job.
+
+\begin{algorithm}[htp]
+  \DontPrintSemicolon  
+  \SetKwProg{map}{function}{}{}
+  \map{MAP{(key, value)}}{
+    xxx\;
+    \KwRet\;}
+  \SetKwProg{reduce}{function}{}{}
+  \reduce{REDUCE{(key, value)}}{
+    xxx\;
+    \KwRet\;}
+  \caption{Random Projection Job}
+\end{algorithm} 
+
+\begin{algorithm}
+\Begin{
+  \For{each $row \in A$}{
+    Tokenize $row$ and pick out id value pairs
+  }
+}
+\caption{Random Projection Job}
+\end{algorithm}
 
 \begin{thebibliography}{1}
 
