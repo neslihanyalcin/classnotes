@@ -184,10 +184,10 @@ matrix has dimensions $m \times k$.
   \caption{$A^TA$ Cholesky Job}
 \end{algorithm} 
 
-The \verb!FINAL_LOCAL_REDUCE! step is a function provided in most
-map/reduce frameworks, it is a central point that collects the output of
-all reducers, naturally a single machine which makes it ideal to execute
-the final Cholesky call on a $k \times k$ matrix. The output is $R$.
+The FINAL\_LOCAL\_REDUCE step is a function provided in most map/reduce
+frameworks, it is a central point that collects the output of all reducers,
+naturally a single machine which makes it ideal to execute the final
+Cholesky call on a $k \times k$ matrix. The output is $R$.
 
 \begin{algorithm}[H]
   \DontPrintSemicolon  
@@ -237,12 +237,29 @@ multiplication.
   }
   \SetKwProg{reducesum}{function}{}{}
   \reducesum{REDUCESUM {(key, value)}}{
-    alsjflaksdf\;
+    result $\leftarrow$ zeros(1,$k$) \;
+    \For{$row$ in $value$}{
+      result $\leftarrow$ result + $row$
+     }
+     \Emit{key, result}
   }
   \caption{$A^TQ$ Job}
 \end{algorithm} 
 
+The job above takes $A$ and $Q$ matrices at the same time. Both of these
+matrices are based on the same key (line number, of preexisting id) and we
+need to join them first. If a mapper is a pass-through mapper, in other
+words if it does not exist, it is assumed to simply re-emit the key and
+value, which will, indirectly force matching rows with the same id from $A$
+and $Q$ to be sent to the first reducer. Then for each unique id, the first
+reducer gets exactly two rows. This is an indirect way of performing a join
+in map/reduce environment.
 
+Then in the reducer we deduce if the row is a $Q$ row or an $A$ row. We
+need this information because we will iterate cells of $A$ one by one,
+which is assumed to be sparse. In this iteration for each $j^{th}$ non-zero
+cell of $A$, we multiply the cell's value with the row from $Q$ and emit
+the multiplication result with key $j$.
 
 \begin{thebibliography}{1}
 
