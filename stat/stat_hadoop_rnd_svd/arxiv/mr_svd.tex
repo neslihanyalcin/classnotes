@@ -176,13 +176,72 @@ matrix has dimensions $m \times k$.
   }
   \SetKwProg{reduce}{function}{}{}
   \reduce{REDUCE{(key, value)}}{
-    \Emit (k,sum(<$v_j^k$)\;}
+    \Emit (k,sum($<v_j^k>$)\;}
   \SetKwProg{reduce}{function}{}{}
   \reduce{FINAL LOCAL REDUCE {(key, value)}}{
     result $\leftarrow$ Cholesky($A_{sum}$)\;
-    \Emit (.., result)\;}
+    \Emit (result)\;}
   \caption{$A^TA$ Cholesky Job}
 \end{algorithm} 
+
+The \verb!FINAL_LOCAL_REDUCE! step is a function provided in most
+map/reduce frameworks, it is a central point that collects the output of
+all reducers, naturally a single machine which makes it ideal to execute
+the final Cholesky call on a $k \times k$ matrix. The output is $R$.
+
+\begin{algorithm}[H]
+  \DontPrintSemicolon  
+  \SetKwInOut{Input}{input}
+  \SetKwInOut{Output}{output}
+  \SetKwProg{map}{function}{}{}
+  \SetKwProg{initialize}{function}{}{}
+  \Input{Y,R}
+  \Output{Q}
+  \initialize{INIT{()}}{ 
+    $R_{inv} = R^{-1}$ 
+  }
+  \map{MAP{(key, value)}}{
+    \For{$row$ in $Y$}{
+      \Emit{(key, $row \cdot R_{inv}$)}
+    }
+  }
+  \caption{$Q$ Job}
+\end{algorithm} 
+
+There is no reducer in the Q Job, it is a very simple job, it merely
+computes multiplication between row of $Y$ and a local matrix $R$. Matrix
+$R$ is very small, $k \times k$, hence it can be kept locally in every
+node. The $INIT$ function is used to store the inverse of $R$ locally, once
+the mapper is initialized, it will always use the same $R^{-1}$ for every
+multiplication. 
+
+\begin{algorithm}[H]
+  \DontPrintSemicolon  
+  \SetKwInOut{Input}{input}
+  \SetKwInOut{Output}{output}
+  \Input{A,Q}
+  \Output{$B^T$}
+  \SetKwProg{reduce}{function}{}{}
+  \reduce{REDUCE {(key, value)}}{
+    \For{$row$ in $value$}{
+      \If{$row$ is from $A$}{ 
+        $left=row$
+      }
+      \If{$row$ is from $Q$}{ 
+        $right=row$
+      }
+    }
+    \For{nonzero $j^{th}$ $cell$ in $left$}{
+      \Emit{$j$, $left[j] \cdot right$ }
+    }
+  }
+  \SetKwProg{reducesum}{function}{}{}
+  \reducesum{REDUCESUM {(key, value)}}{
+    alsjflaksdf\;
+  }
+  \caption{$A^TQ$ Job}
+\end{algorithm} 
+
 
 
 \begin{thebibliography}{1}

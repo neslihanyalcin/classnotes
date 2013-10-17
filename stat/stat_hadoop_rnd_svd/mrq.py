@@ -14,7 +14,7 @@ class MRQ(MRJob):
     def configure_options(self):
         super(MRQ, self).configure_options()
         self.add_passthrough_option('--R')
-        
+                
     def __init__(self, *args, **kwargs):
         super(MRQ, self).__init__(*args, **kwargs)
         self.R_inv = lin.inv(np.loadtxt(self.options.R,delimiter=';'))
