@@ -7,7 +7,7 @@ from scipy import sparse
 import random, mrc
 
 '''
-Random projection of matrix A. We key in seed generation to i,j
+Random projection of matrix A. We key in seed generation to j
 indexes so we dont have to store the random matrix itself.
 '''
 class MRProj(MRJob):

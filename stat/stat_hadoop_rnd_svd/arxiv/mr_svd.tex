@@ -28,10 +28,9 @@
 
 \cite{gleich} presents many excellent techniques for utilizing map/reduce
 architectures to compute QR and SVD for the so-called tall-and-skinny
-matrices. The idea is based on the fact that QR factorization can be turned
-into an $A^TA$ computation problem computer in parallel, en masse using
-map/reduce, and through this to a Cholesky decomposition performed on a
-single machine. Since
+matrices. QR factorization is turned into an $A^TA$ computation problem to
+be computed in parallel using map/reduce, and its key element the Cholesky
+decomposition, can be performed on a single machine. Since
 
 $$ A^TA = (QR)^T(QR) = R^TQ^TQR = R^TR $$
 
@@ -45,11 +44,12 @@ triangular, we can conclude if we factorize $A$ into $L$ and $L^T$, this
 implies $LL^T = RR^T$, we have a method of calculating $R$ of QR using
 Cholesky factorization on $A^TA$. The key observation here is $A^TA$
 computation results an $n \times n$ matrix and if $A$ is ``skinny'' then
-$n$ is relatively small (in the thousands), and Cholesky decomposition can
-be executed on a small $n \times n$ matrix on a single
-computer. $Q$ is computed simply as $Q = AR^{-1}$. This again is relatively
-cheap because R is $n \times n$, the inverse is computed locallly, matrix
-multiplication with $A$ can be performed through map/reduce.
+$n$ is relatively small (in the thousands), then Cholesky decomposition can
+be executed on a small $n \times n$ matrix on a single computer utilizing
+an already available function in a scientific computing library. $Q$ is
+computed simply as $Q = AR^{-1}$. This again is relatively cheap because R
+is $n \times n$, the inverse is computed locallly, matrix multiplication
+with $A$ can be performed through map/reduce.
 
 SVD is an additional step. SVD decomposition is 
 
@@ -124,12 +124,11 @@ is a good representation of the span of $A$.
 
 \subsection{Combining Both Methods}
 
-What if $n$ is also very large? In this case local Cholesky or SVD
-computations would take a long time as well. Our idea was using approximate
-k-rank SVD where $k << n$, before map/reduce based QR and SVD methods
-presented in section~\ref{intro}, in order to reduce dimension. This way,
-we are again able to work with small matrices, locally, $k \times k$ this
-time on which Cholesky, SVD can be performed in a speedy manner. Below we
+Our idea was using approximate k-rank SVD calculation steps where $k << n$,
+and using map/reduce based QR and SVD methods to implement those steps. By
+utilizing random projection, we would be able to work in a smaller
+dimension which would translate to local Cholesky, and SVD calls on $k
+\times k$ matrices that can be performed in a speedy manner. Below we
 outline each map/reduce job.
 
 \vspace{1em}
@@ -296,8 +295,8 @@ becomes
 $$ B^T = V\Sigma U^T $$
 
 In other words, in order to obtain $U$ of $B$, we need to take
-$(U_{BT}^T)^T$ from the SVD of $B^T$. That usage can be seen in the job
-below:
+$(U_{BT}^T)^T$ from the SVD of $B^T$. This is how $A^TA$ Cholesky Job is
+called, this time with $B^T$ as its input data.
 
 \vspace{1em}
 

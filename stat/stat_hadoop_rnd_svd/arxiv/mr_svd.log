@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2013.9.21)  18 OCT 2013 08:50
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2013.9.21)  19 OCT 2013 01:40
 entering extended mode
  %&-line parsing enabled.
 **mr_svd.tex
@@ -336,7 +336,7 @@ o Cholesky
 [1
 
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] [2] [3]
-Overfull \hbox (28.3016pt too wide) in paragraph at lines 195--200
+Overfull \hbox (28.3016pt too wide) in paragraph at lines 194--199
 []\OT1/cmr/m/n/10.95 The FI-NAL[]LOCAL[]REDUCE step is a func-tion pro-vided in
  most map/reduce
  []
@@ -361,9 +361,9 @@ amsfonts/cm/cmr8.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/c
 msy10.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmsy8.pfb></
 usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/share/t
 exmf-texlive/fonts/type1/public/amsfonts/cm/cmtt10.pfb>
-Output written on mr_svd.pdf (8 pages, 184821 bytes).
+Output written on mr_svd.pdf (8 pages, 184405 bytes).
 PDF statistics:
- 124 PDF objects out of 1000 (max. 8388607)
+ 123 PDF objects out of 1000 (max. 8388607)
  30 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 
