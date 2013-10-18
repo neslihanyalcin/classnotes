@@ -9,8 +9,8 @@
 \usepackage[bookmarks=false]{hyperref}
 
 \begin{document}
-\title{SVD Factorization for tall-and-fat matrices on map/reduce
-  architectures} \author{Burak Bayramlý} \date{October 15, 2013}
+\title{SVD Factorization for Tall-and-fat Matrices on Map/Reduce
+  Architectures} \author{Burak Bayramlý} \date{October 15, 2013}
 
 \maketitle
 
@@ -157,6 +157,8 @@ outline each map/reduce job.
   \caption{Random Projection Job}
 \end{algorithm} 
 
+\vspace{1em}
+
 Each value of $A$ will arrive to the algorithm as a key and value pair. Key
 is line number or other identifier per row of $A$. Value is a collection of
 id value pairs where id is column id this time, and value is the value for
@@ -188,6 +190,8 @@ matrix has dimensions $m \times k$.
   \caption{$A^TA$ Cholesky Job}
 \end{algorithm} 
 
+\vspace{1em}
+
 The FINAL\_LOCAL\_REDUCE step is a function provided in most map/reduce
 frameworks, it is a central point that collects the output of all reducers,
 naturally a single machine which makes it ideal to execute the final
@@ -214,6 +218,8 @@ $R$.
   }
   \caption{$Q$ Job}
 \end{algorithm} 
+
+\vspace{1em}
 
 There is no reducer in the Q Job, it is a very simple procedure, it merely
 computes multiplication between row of $Y$ and a local matrix $R$. Matrix
@@ -254,6 +260,8 @@ multiplication.
   }
   \caption{$A^TQ$ Job}
 \end{algorithm} 
+
+\vspace{1em}
 
 The job above takes $A$ and $Q$ matrices at the same time. Both of these
 matrices are based on the same key (line number, or other pre-existing id)
@@ -312,7 +320,7 @@ below:
   \caption{$Q\tilde{U}$ Job}
 \end{algorithm} 
 
-
+\vspace{1em}
 
 The order of execution for everything is as follows: 
 
@@ -330,18 +338,29 @@ The order of execution for everything is as follows:
 \end{algorithm} 
 
 
-
-\subsection{Conclusion}
+\subsection{Discussion}
 
 We performed few experiments on the Netflix challange dataset which has 17K
-columns, 700K rows with \%1 non-zero values. The implementation was coded
-on Hadoop through mrjob framework. SVD calculation on the full dataset with
-$k=7$ on a single notebook computer running on two cores took ~2
-hours. Numbers reported by \cite{kurucz} for Lanczos SVD on the same
-dataset reports runtimes ranging from 2 to 7 hours. The added benefit of
-our algorithm is that it can scale horizontally, and linearly proportional
-to the number of nodes in a cluster. All code relevant for this paper can
-be found at \url{https://github.com/burakbayramli/classnotes/tree/master/stat/stat_hadoop_rnd_svd}
+columns, 700K rows with \%1 non-zero values. The implementation was
+programmed on Hadoop through mrjob framework, and SVD calculation on the
+full dataset with $k=7$ on a single notebook computer running on two cores
+took ~2 hours. Numbers reported by \cite{kurucz} for Lanczos SVD on the
+same dataset reports runtimes ranging from 2 to 7 hours. The added benefit
+of our algorithm is that it can scale horizontally proportional to the
+number of nodes in a cluster. All code relevant for this paper can be here
+\url{https://github.com/burakbayramli/classnotes/tree/master/stat/stat_hadoop_rnd_svd}
+The ideal testing environment for the code is a multi-node cluster
+comprised of desktop level machines with fast network and disk access. 
+
+There are only two passes necessary on the full dataset, and three passes
+on $m$ rows but with reduced $k$ dimensions this time.  Perhaps
+predictably, the procedure spends most of its time at $A^TQ$ Job. This step
+performs not only a join between $A$ and $Q$, it also emits $k$ cells per
+non-zero value of $A$'s rows, then creates partial sums these $k$ vectors
+creating $n \times k$ result. If for simplicity we assume $k$ non-zero
+cells in each $A$ row, the complexity of this step would be
+$O(mk)$ indicating that system, disk level improvements can greatly
+decrease the number shared above. 
 
 
 \begin{thebibliography}{1}

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2013.9.21)  18 OCT 2013 06:20
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2013.9.21)  18 OCT 2013 08:50
 entering extended mode
  %&-line parsing enabled.
 **mr_svd.tex
@@ -336,34 +336,34 @@ o Cholesky
 [1
 
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] [2] [3]
-Overfull \hbox (28.3016pt too wide) in paragraph at lines 191--196
+Overfull \hbox (28.3016pt too wide) in paragraph at lines 195--200
 []\OT1/cmr/m/n/10.95 The FI-NAL[]LOCAL[]REDUCE step is a func-tion pro-vided in
  most map/reduce
  []
 
-[4] [5] [6] [7] (./mr_svd.aux) ) 
+[4] [5] [6] [7] [8] (./mr_svd.aux) ) 
 Here is how much of TeX's memory you used:
- 6641 strings out of 495061
- 96026 string characters out of 1182621
+ 6642 strings out of 495061
+ 96032 string characters out of 1182621
  193352 words of memory out of 3000000
  9723 multiletter control sequences out of 15000+50000
  10985 words of font info for 40 fonts, out of 3000000 for 9000
  28 hyphenation exceptions out of 8191
  38i,16n,26p,313b,428s stack positions out of 5000i,500n,10000p,200000b,50000s
-</usr/share/texmf-texlive/fonts/type1/public/am
-sfonts/cm/cmbx10.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/c
-mbx12.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmmi10.pfb><
-/usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/t
-exmf-texlive/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texmf-texlive
-/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texmf-texlive/fonts/type1
-/public/amsfonts/cm/cmr17.pfb></usr/share/texmf-texlive/fonts/type1/public/amsf
-onts/cm/cmr8.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmsy1
-0.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/
-share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/share/texmf
--texlive/fonts/type1/public/amsfonts/cm/cmtt10.pfb>
-Output written on mr_svd.pdf (7 pages, 182703 bytes).
+</usr/share/texmf-texlive/fonts/type1/publi
+c/amsfonts/cm/cmbx10.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/
+cm/cmbx12.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmmi10.p
+fb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/sha
+re/texmf-texlive/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texmf-tex
+live/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texmf-texlive/fonts/t
+ype1/public/amsfonts/cm/cmr17.pfb></usr/share/texmf-texlive/fonts/type1/public/
+amsfonts/cm/cmr8.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/c
+msy10.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmsy8.pfb></
+usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/share/t
+exmf-texlive/fonts/type1/public/amsfonts/cm/cmtt10.pfb>
+Output written on mr_svd.pdf (8 pages, 184821 bytes).
 PDF statistics:
- 120 PDF objects out of 1000 (max. 8388607)
- 29 named destinations out of 1000 (max. 500000)
+ 124 PDF objects out of 1000 (max. 8388607)
+ 30 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 
