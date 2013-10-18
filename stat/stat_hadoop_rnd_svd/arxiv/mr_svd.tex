@@ -9,7 +9,7 @@
 \usepackage[bookmarks=false]{hyperref}
 
 \begin{document}
-\title{SVD Factorization for tall-and-fat mkatrices on Map/Reduce
+\title{SVD Factorization for tall-and-fat matrices on map/reduce
   architectures} \author{Burak Bayramlý} \date{October 15, 2013}
 
 \maketitle
@@ -336,14 +336,13 @@ The order of execution for everything is as follows:
 We performed few experiments on the Netflix challange dataset which has 17K
 columns, 700K rows with \%1 non-zero values. The implementation was coded
 on Hadoop through mrjob framework. SVD calculation on the full dataset with
-$k=7$ on single notebook computer running on two cores took ~4
+$k=7$ on a single notebook computer running on two cores took ~2
 hours. Numbers reported by \cite{kurucz} for Lanczos SVD on the same
 dataset reports runtimes ranging from 2 to 7 hours. The added benefit of
 our algorithm is that it can scale horizontally, and linearly proportional
 to the number of nodes in a cluster. All code relevant for this paper can
 be found at \url{https://github.com/burakbayramli/classnotes/tree/master/stat/stat_hadoop_rnd_svd}
-Ideal testing environment our code is multi-node Hadoop environment
-comprised of machines with fast disk and network access. 
+
 
 \begin{thebibliography}{1}
 
