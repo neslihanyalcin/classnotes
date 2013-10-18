@@ -28,7 +28,7 @@ class MRProj(MRJob):
         for xx,j,v in itertools.izip(line_sps.row, line_sps.col, line_sps.data):
             np.random.seed(j)
             result += v*np.random.randn(int(self.options.k))
-        yield long(key), ";".join(map(str,result))
+        yield long(key), ";".join(map(lambda x: str(np.round(x,3)),result))
         
             
 if __name__ == '__main__':

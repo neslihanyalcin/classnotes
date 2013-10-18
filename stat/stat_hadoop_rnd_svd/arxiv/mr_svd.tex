@@ -6,10 +6,11 @@
 \usepackage{graphicx}
 \usepackage[ruled]{algorithm2e}
 \SetKw{Emit}{emit}
+\usepackage[bookmarks=false]{hyperref}
 
 \begin{document}
-\title{SVD Factorization for Tall-and-fat Matrices on Map/Reduce
-  Architectures} \author{Burak Bayramlý} \date{October 15, 2013}
+\title{SVD Factorization for tall-and-fat mkatrices on Map/Reduce
+  architectures} \author{Burak Bayramlý} \date{October 15, 2013}
 
 \maketitle
 
@@ -88,7 +89,7 @@ $$ Y = QR $$
 
 Then form $k \times n$ matrix
 
-$$ B = Q^T A $$
+$$ B = Q^T A \label{bt} $$
 
 Then we can calculate SVD on this small matrix
 
@@ -126,11 +127,12 @@ is a good representation of the span of $A$.
 What if $n$ is also very large? In this case local Cholesky or SVD
 computations would take a long time as well. Our idea was using approximate
 k-rank SVD where $k << n$, before map/reduce based QR and SVD methods
-presented in section~\ref{intro}, to reduce dimension before using
-map/reduce methods presented in Section~\ref{intro}, this way, we are again
-able to work with small matrices locally, $k \times k$ this time on which
-Cholesky, SVD can be performed. Below we outline each map/reduce
-job. 
+presented in section~\ref{intro}, in order to reduce dimension. This way,
+we are again able to work with small matrices, locally, $k \times k$ this
+time on which Cholesky, SVD can be performed in a speedy manner. Below we
+outline each map/reduce job.
+
+\vspace{1em}
 
 \begin{algorithm}[H]
   \DontPrintSemicolon  
@@ -162,6 +164,8 @@ that column. Sparsity is handled through this format, if an id for a column
 does not appear in a row of A, it is assumed to be zero. The resulting $Y$
 matrix has dimensions $m \times k$.
 
+\vspace{1em}
+
 \begin{algorithm}[H]
   \DontPrintSemicolon  
   \SetKwInOut{Input}{input}
@@ -187,7 +191,10 @@ matrix has dimensions $m \times k$.
 The FINAL\_LOCAL\_REDUCE step is a function provided in most map/reduce
 frameworks, it is a central point that collects the output of all reducers,
 naturally a single machine which makes it ideal to execute the final
-Cholesky call on a $k \times k$ matrix. The output is $R$.
+Cholesky call on by now a very small ($k \times k$) matrix. The output is
+$R$.
+
+\vspace{1em}
 
 \begin{algorithm}[H]
   \DontPrintSemicolon  
@@ -208,12 +215,14 @@ Cholesky call on a $k \times k$ matrix. The output is $R$.
   \caption{$Q$ Job}
 \end{algorithm} 
 
-There is no reducer in the Q Job, it is a very simple job, it merely
+There is no reducer in the Q Job, it is a very simple procedure, it merely
 computes multiplication between row of $Y$ and a local matrix $R$. Matrix
 $R$ is very small, $k \times k$, hence it can be kept locally in every
 node. The $INIT$ function is used to store the inverse of $R$ locally, once
 the mapper is initialized, it will always use the same $R^{-1}$ for every
 multiplication. 
+
+\vspace{1em}
 
 \begin{algorithm}[H]
   \DontPrintSemicolon  
@@ -247,30 +256,113 @@ multiplication.
 \end{algorithm} 
 
 The job above takes $A$ and $Q$ matrices at the same time. Both of these
-matrices are based on the same key (line number, of preexisting id) and we
-need to join them first. If a mapper is a pass-through mapper, in other
-words if it does not exist, it is assumed to simply re-emit the key and
-value, which will, indirectly force matching rows with the same id from $A$
-and $Q$ to be sent to the first reducer. Then for each unique id, the first
-reducer gets exactly two rows. This is an indirect way of performing a join
-in map/reduce environment.
+matrices are based on the same key (line number, or other pre-existing id)
+and we need to join them first. If a mapper is a pass-through mapper, in
+other words if it does not exist, it is assumed to simply re-emit the key
+and value, which will, indirectly force matching rows with the same id from
+$A$ and $Q$ to be sent to the first reducer. Then for each unique id, the
+first reducer gets exactly two rows. This is an indirect way of performing
+a join in map/reduce environment.
 
-Then in the reducer we deduce if the row is a $Q$ row or an $A$ row. We
-need this information because we will iterate cells of $A$ one by one,
-which is assumed to be sparse. In this iteration for each $j^{th}$ non-zero
-cell of $A$, we multiply the cell's value with the row from $Q$ and emit
-the multiplication result with key $j$.
+Once we have these two rows we need to deduce if the row is a $Q$ row or an
+$A$ row. We need this information because which row we iterate depends on
+it. We prefer to iterate cells of $A$ one by one, which is assumed to be
+sparse, and multiply the entire row of $Q$. Then for each $j^{th}$ non-zero
+cell of $A$, we multiply this value with the row from $Q$ and emit the
+multiplication result with key $j$.
+
+This job's formula in \ref{bt} is described $Q^TA$. For implementation
+purposes we changed this formula into
+
+$$ B^T = A^TQ $$
+
+because as output we needed to have a $n \times k$ matrix instead of a $k
+\times n$ one, which would allow us to use map/reduce SVD that translates
+into a local Cholesky and SVD on $k \times k$ matrices. Since we take SVD
+of $B^T$ instead of $B$, that changes the output as well, 
+
+$$ B = U\Sigma V^T $$
+
+becomes
+
+$$ B^T = V\Sigma U^T $$
+
+In other words, in order to obtain $U$ of $B$, we need to take
+$(U_{BT}^T)^T$ from the SVD of $B^T$. That usage can be seen in the job
+below:
+
+\vspace{1em}
+
+\begin{algorithm}[H]
+  \DontPrintSemicolon  
+  \SetKwInOut{Input}{input}
+  \SetKwInOut{Output}{output}
+  \SetKwProg{map}{function}{}{}
+  \SetKwProg{initialize}{function}{}{}
+  \Input{Q,R}
+  \Output{U}
+  \initialize{INIT{()}}{ 
+    $\tilde{U}$ = svd of $R$ 
+  }
+  \map{MAP{(key, value)}}{
+    \For{$row$ in $Q$}{
+      \Emit{(key, $row \cdot \tilde{U}$)}
+    }
+  }
+  \caption{$Q\tilde{U}$ Job}
+\end{algorithm} 
+
+
+
+The order of execution for everything is as follows: 
+
+\vspace{1em}
+
+\begin{algorithm}[H]
+  \DontPrintSemicolon  
+  Y = Random Projection Job (A)\;
+  $R_{Y}$ = $A^TA$ Cholesky Job(Y)\;
+  $Q_{Y}$ = Q Job\;
+  $B^T$ = $A^TQ$ Job\;
+  $R_{BT}$ = $A^TA$ Cholesky Job($B^T$)\;
+  $U$ = $Q\tilde{U}$ Job($R_{BT},Q$)\;
+  \caption{Map/Reduce SVD}
+\end{algorithm} 
+
+
+
+\subsection{Conclusion}
+
+We performed few experiments on the Netflix challange dataset which has 17K
+columns, 700K rows with \%1 non-zero values. The implementation was coded
+on Hadoop through mrjob framework. SVD calculation on the full dataset with
+$k=7$ on single notebook computer running on two cores took ~4
+hours. Numbers reported by \cite{kurucz} for Lanczos SVD on the same
+dataset reports runtimes ranging from 2 to 7 hours. The added benefit of
+our algorithm is that it can scale horizontally, and linearly proportional
+to the number of nodes in a cluster. All code relevant for this paper can
+be found at \url{https://github.com/burakbayramli/classnotes/tree/master/stat/stat_hadoop_rnd_svd}
+Ideal testing environment our code is multi-node Hadoop environment
+comprised of machines with fast disk and network access. 
 
 \begin{thebibliography}{1}
 
 \bibitem{gleich}
-Gleich, Benson, Demmel, \emph{Direct QR factorizations for tall-and-skinny matrices in MapReduce architectures}
+Gleich, Benson, Demmel, \emph{Direct QR factorizations for tall-and-skinny
+  matrices in MapReduce architectures}, {\tt arXiv:1301.1071 [cs.DC]}, 2013
 
 \bibitem{halko}
-N.~Halko, \emph{Randomized methods for computing low-rank approximations of matrices}
+N.~Halko, \emph{Randomized methods for computing low-rank approximations of
+  matrices}, University of Colorado, Boulder, 2010
 
 \bibitem{gupta}
-S.~Dangupta, A.~Gupta \emph{An Elementary Proof of a Theorem of Johnson and Lindenstrauss}
+S.~Dangupta, A.~Gupta \emph{An Elementary Proof of a Theorem of Johnson and
+  Lindenstrauss}, Wiley Periodicals, 2002
+
+\bibitem{kurucz}
+M.~Kurucz, A. A.~Benczúr, K.~Csalogány, \emph{Methods for large scale SVD with
+missing values}, ACM, 2007
+
 
 \end{thebibliography}
 

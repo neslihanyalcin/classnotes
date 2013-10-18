@@ -23,7 +23,7 @@ class MRQ(MRJob):
         line = line.replace('"','')
         line_vals = map(np.float,line.split(';'))
         mult = np.dot(line_vals,self.R_inv)
-        yield (int(key),";".join(map(str,mult)))
+        yield (int(key),";".join(map(lambda x: str(np.round(x,3)),mult) ))
         
 if __name__ == '__main__':
     MRQ.run()

@@ -2,6 +2,8 @@ from mrjob.job import MRJob
 from mrjob.protocol import PickleProtocol
 from mrjob.protocol import RawProtocol
 from mrjob.protocol import RawValueProtocol
+from mrjob.protocol import JSONProtocol
+from mrjob.protocol import ReprProtocol
 import numpy as np, sys
 from scipy import sparse
 import random, mrc
@@ -31,17 +33,17 @@ class MRAtQ(MRJob):
     def reducer(self, key, value):
         left = None; right = None
         for i,line in enumerate(value):
+            line = line.replace('"','')
             if ':' in line:
                 left = mrc.line_to_coo(line, int(self.options.n))
             else:
-                line = line.replace('"','')
-                line_vals = map(lambda x: float(x or 0), line.split(';'))
+                line_vals = map(lambda x: np.float(x), line.split(';'))
                 right = np.array(line_vals)
         
         # iterate only non-zero elements in the bigger (left) vector
         for i,j,v in zip(left.row, left.col, left.data):
             mult = v*right
-            yield j, mult
+            yield j, np.round(mult,3)
 
     '''
     In the second step, again no mapper one reducer, there is a sum,
@@ -51,7 +53,7 @@ class MRAtQ(MRJob):
     def reduce_sum(self, key, value):
         mat_sum = np.zeros((1,int(self.options.k)))
         for val in value: mat_sum += val
-        yield (int(key), ";".join(map(str,mat_sum[0])))
+        yield (int(key), ";".join(map(lambda x: str(np.round(x,3)),mat_sum[0]) ))
             
     def steps(self):
         return [

@@ -12,6 +12,7 @@ print "A",A.shape
 
 # randomized SVD
 
+rand.seed(1000)
 Omega = rand.randn(A.shape[1],k)
 
 Y = np.dot(A, Omega) 
@@ -34,13 +35,13 @@ U = np.dot(Q, Uhat)
 
 print "U", U.shape
 
-plt.plot(U[:,0],-U[:,1],'r+')
+plt.plot(U[:,0],U[:,1],'r+')
 
 plt.hold(True)
         
 # compare with real SVD
 
 U, Sigma, V = lin.svd(A);
-plt.plot(U[:,0],U[:,1],'bx')
+plt.plot(U[:,0],-U[:,1],'bx')
 
 plt.show()

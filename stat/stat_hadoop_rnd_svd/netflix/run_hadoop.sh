@@ -12,7 +12,7 @@ python mrq.py hdfs:///user/Y.dat -r hadoop --R=R.dat --file R.dat  --output hdfs
 
 hadoop dfs -rmr hdfs:///user/BT.dat
 
-python mraq.py hdfs:///user/A.dat hdfs:///user/Q.dat --output hdfs:///user/BT.dat --no-output --file mrc.py -r hadoop --k=7 --n=17771
+python mraq.py hdfs:///user/A.dat hdfs:///user/Q.dat --output hdfs:///user/BT.dat --no-output --file mrc.py -r hadoop --k=7 --n=17771 --jobconf=mapred.map.tasks=3 --jobconf=mapred.reduce.tasks=3 
 
 python mrr.py hdfs:///user/BT.dat  -r hadoop  --k=7  > R_BT.dat
 

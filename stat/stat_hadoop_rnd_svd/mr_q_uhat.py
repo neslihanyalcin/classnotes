@@ -27,8 +27,8 @@ class MRUHat(MRJob):
         if len(self.data) == self.buffer_size:
             mult = np.dot(self.data,self.Uhat)
             self.data = []
-            for x in mult:
-                yield (key,",".join(map(str,x)))
+            for row in mult:
+                yield (key,",".join(map(lambda x: str(np.round(x,3)),row) ))
         
 if __name__ == '__main__':
     MRUHat.run()
