@@ -42,8 +42,8 @@ class MRAtQ(MRJob):
         
         # iterate only non-zero elements in the bigger (left) vector
         for i,j,v in zip(left.row, left.col, left.data):
-            mult = v*right
-            yield j, np.round(mult,3)
+            mult = np.round(v*right,3)
+            yield j, mult
 
     '''
     In the second step, again no mapper one reducer, there is a sum,
