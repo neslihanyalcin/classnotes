@@ -342,15 +342,14 @@ The order of execution for everything is as follows:
 We performed few experiments on the Movielens 1M dataset which has 1
 million ratings from 6000 users on 4000 movies. The implementation was
 programmed on Hadoop through mrjob framework, and SVD calculation on the
-full dataset with $k=7$ on a single notebook computer took 1.5
-minutes. Sparse SVD from Scipy numeric library on the same dataset is much
-faster, however map/reduce environment incrues certain costs during its
-start-up and preparation phases for its jobs, plus writing, reading to and
-from disks due to the record-by-record processing nature of Hadoop can
-cause a slower performance. However, exactly for the same reasons a
-map/reduce algorithm can scale horizontally, processing records in the
-billions, proportional to the number of nodes in a cluster. All code
-relevant for this paper can be here
+full dataset with $k=7$ on a single notebook computer took 1 minutes. Scipy
+SVD calculation on the same dataset is much faster, however, map/reduce
+environment incrues certain costs during its start-up and preparation
+phases for its jobs, as well as outputting, reading to and from disks due
+to the record-by-record processing nature of Hadoop can introduce
+latencies. However, exactly for the same reasons a map/reduce algorithm can
+scale horizontally, processing records in the billions proportional to the
+number of nodes in a cluster. All code relevant for this paper can be here
 \url{https://github.com/burakbayramli/classnotes/tree/master/stat/stat_hadoop_rnd_svd}
 
 There are only two passes necessary on the full dataset, and three passes
@@ -362,7 +361,6 @@ creating $n \times k$ result. If for simplicity we assume $k$ non-zero
 cells in each $A$ row, the complexity of this step would be $O(mk)$
 indicating that system, disk level improvements can greatly decrease the
 performance number shared above.
-
 
 \begin{thebibliography}{1}
 

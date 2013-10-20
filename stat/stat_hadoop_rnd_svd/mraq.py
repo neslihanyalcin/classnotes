@@ -6,7 +6,7 @@ from mrjob.protocol import JSONProtocol
 from mrjob.protocol import ReprProtocol
 import numpy as np, sys
 from scipy import sparse
-import random, mrc
+import random, mrc, proto
 
 '''
 We feed two files into this job, A and Q, then we calculate the matrix
@@ -15,6 +15,7 @@ n and k rows (large and small respectively).
 '''
 class MRAtQ(MRJob):
     INTERNAL_PROTOCOL = PickleProtocol
+    #INTERNAL_PROTOCOL = proto.StructProtocol
     INPUT_PROTOCOL = RawProtocol
     
     def configure_options(self):
@@ -40,7 +41,8 @@ class MRAtQ(MRJob):
         
         # iterate only non-zero elements in the bigger (left) vector
         for i,j,v in zip(left.row, left.col, left.data):
-            yield j, ";".join(map(str,np.round(v*right,3)))
+            out = ";".join(map(str,np.round(v*right,3)))
+            yield long(j), out
 
     '''
     In the second step, again no mapper one reducer, there is a sum,

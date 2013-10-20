@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2013.9.21)  20 OCT 2013 16:16
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2013.9.21)  20 OCT 2013 22:37
 entering extended mode
  %&-line parsing enabled.
 **mr_svd.tex
@@ -361,7 +361,7 @@ amsfonts/cm/cmr8.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/c
 msy10.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmsy8.pfb></
 usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/share/t
 exmf-texlive/fonts/type1/public/amsfonts/cm/cmtt10.pfb>
-Output written on mr_svd.pdf (8 pages, 183728 bytes).
+Output written on mr_svd.pdf (8 pages, 183703 bytes).
 PDF statistics:
  122 PDF objects out of 1000 (max. 8388607)
  30 named destinations out of 1000 (max. 500000)
