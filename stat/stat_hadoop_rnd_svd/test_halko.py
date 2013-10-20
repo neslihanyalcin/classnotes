@@ -1,4 +1,5 @@
 # Pure Halko
+# randomized SVD
 import numpy as np
 import numpy.random as rand
 import numpy.linalg as lin
@@ -9,8 +10,6 @@ k = 7
 df = pd.read_csv("w1.csv",sep=';',header=None)
 A = np.array(df)[:,1:]
 print "A",A.shape
-
-# randomized SVD
 
 rand.seed(1000)
 Omega = rand.randn(A.shape[1],k)
