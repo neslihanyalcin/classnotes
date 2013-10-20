@@ -342,7 +342,7 @@ The order of execution for everything is as follows:
 We performed few experiments on the Movielens 1M dataset which has 1
 million ratings from 6000 users on 4000 movies. The implementation was
 programmed on Hadoop through mrjob framework, and SVD calculation on the
-full dataset with $k=7$ on a single notebook computer took ~8
+full dataset with $k=7$ on a single notebook computer took ~6
 minutes. Sparse SVD from Scipy numeric library on the same dataset is much
 faster, however map/reduce environment incrues certain costs during its
 start-up and preparation phases for its jobs, plus writing, reading to and
