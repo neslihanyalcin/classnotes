@@ -25,6 +25,11 @@ class MRAtQ(MRJob):
     def __init__(self, *args, **kwargs):
         super(MRAtQ, self).__init__(*args, **kwargs)
 
+    '''
+    Almost a pass-through, no-op mapper - all it does is recognize an
+    A row and turn it into a sparse matrix, and the Q row, making it a
+    regular numpy array.
+    '''
     def mapper(self, key, line):
         line = line.replace('"','')
         if ':' in line:
@@ -34,9 +39,8 @@ class MRAtQ(MRJob):
             yield key, np.array(line_vals)
                     
     '''
-    No mapper, only reducer in the first step. W/out mapper, two lines
-    (and there are only two lines, per key -one from A one from Q-)
-    with same key will end up in same reducer.
+    Two lines per key -one from A one from Q- with same key will arrive
+    in the same reducer.
     '''
     def reducer(self, key, value):
         left = None; right = None

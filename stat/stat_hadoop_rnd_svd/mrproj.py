@@ -23,6 +23,7 @@ class MRProj(MRJob):
         super(MRProj, self).__init__(*args, **kwargs)
 
     def mapper(self, key, line):
+        line = line.replace('"','')
         line_sps = mrc.line_to_coo(line, int(self.options.n))
         result = np.zeros(int(self.options.k))
         for xx,j,v in itertools.izip(line_sps.row, line_sps.col, line_sps.data):
