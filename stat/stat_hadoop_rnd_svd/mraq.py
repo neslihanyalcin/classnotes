@@ -25,6 +25,14 @@ class MRAtQ(MRJob):
     def __init__(self, *args, **kwargs):
         super(MRAtQ, self).__init__(*args, **kwargs)
 
+    def mapper(self, key, line):
+        line = line.replace('"','')
+        if ':' in line:
+            yield key, mrc.line_to_coo(line, int(self.options.n))
+        else:
+            line_vals = map(lambda x: np.float(x), line.split(';'))
+            yield key, np.array(line_vals)
+                    
     '''
     No mapper, only reducer in the first step. W/out mapper, two lines
     (and there are only two lines, per key -one from A one from Q-)
@@ -32,18 +40,15 @@ class MRAtQ(MRJob):
     '''
     def reducer(self, key, value):
         left = None; right = None
-        for i,line in enumerate(value):
-            line = line.replace('"','')
-            if ':' in line:
-                left = mrc.line_to_coo(line, int(self.options.n))
+        for val in value:
+            if isinstance(val, sparse.coo.coo_matrix):
+                left = val
             else:
-                line_vals = map(lambda x: np.float(x), line.split(';'))
-                right = np.array(line_vals)
+                right = val
         
         # iterate only non-zero elements in the bigger (left) vector
         for i,j,v in zip(left.row, left.col, left.data):
-            mult = np.round(v*right,3)
-            yield j, mult
+            yield j, ";".join(map(str,np.round(v*right,3)))
 
     '''
     In the second step, again no mapper one reducer, there is a sum,
@@ -52,11 +57,14 @@ class MRAtQ(MRJob):
     '''
     def reduce_sum(self, key, value):
         mat_sum = np.zeros((1,int(self.options.k)))
-        for val in value: mat_sum += val
+        for val in value:
+            val = np.fromstring(val, sep=';')
+            mat_sum += val
         yield (int(key), ";".join(map(lambda x: str(np.round(x,3)),mat_sum[0]) ))
             
     def steps(self):
         return [
+            self.mr(mapper=self.mapper),
             self.mr(reducer=self.reducer),
             self.mr(reducer=self.reduce_sum)
         ]
