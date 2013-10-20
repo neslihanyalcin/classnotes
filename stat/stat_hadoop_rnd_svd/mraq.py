@@ -24,31 +24,19 @@ class MRAtQ(MRJob):
         
     def __init__(self, *args, **kwargs):
         super(MRAtQ, self).__init__(*args, **kwargs)
-
-    '''
-    Almost a pass-through, no-op mapper - all it does is recognize an
-    A row and turn it into a sparse matrix, and the Q row, making it a
-    regular numpy array.
-    '''
-    def mapper(self, key, line):
-        line = line.replace('"','')
-        if ':' in line:
-            yield key, mrc.line_to_coo(line, int(self.options.n))
-        else:
-            line_vals = map(lambda x: np.float(x), line.split(';'))
-            yield key, np.array(line_vals)
                     
     '''
     Two lines per key -one from A one from Q- with same key will arrive
     in the same reducer.
     '''
-    def reducer(self, key, value):
+    def reducer(self, key, two_lines):
         left = None; right = None
-        for val in value:
-            if isinstance(val, sparse.coo.coo_matrix):
-                left = val
+        for line in two_lines:
+            line = line.replace('"','')
+            if ':' in line:
+                left = mrc.line_to_coo(line, int(self.options.n))
             else:
-                right = val
+                right = np.array(map(lambda x: np.float(x), line.split(';')))
         
         # iterate only non-zero elements in the bigger (left) vector
         for i,j,v in zip(left.row, left.col, left.data):
@@ -68,7 +56,6 @@ class MRAtQ(MRJob):
             
     def steps(self):
         return [
-            self.mr(mapper=self.mapper),
             self.mr(reducer=self.reducer),
             self.mr(reducer=self.reduce_sum)
         ]
