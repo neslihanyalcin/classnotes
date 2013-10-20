@@ -9,7 +9,7 @@
 \usepackage[bookmarks=false]{hyperref}
 
 \begin{document}
-\title{SVD Factorization for Tall-and-fat Matrices on Map/Reduce
+\title{SVD Factorization for Tall-and-Fat Matrices on Map/Reduce
   Architectures} \author{Burak Bayramlý} \date{October 15, 2013}
 
 \maketitle
@@ -339,17 +339,19 @@ The order of execution for everything is as follows:
 
 \subsection{Discussion}
 
-We performed few experiments on the Netflix challange dataset which has 17K
-columns, 700K rows with \%1 non-zero values. The implementation was
+We performed few experiments on the Movielens 1M dataset which has 1
+million ratings from 6000 users on 4000 movies. The implementation was
 programmed on Hadoop through mrjob framework, and SVD calculation on the
-full dataset with $k=7$ on a single notebook computer running on two cores
-took ~2 hours. Numbers reported by \cite{kurucz} for Lanczos SVD on the
-same dataset reports runtimes ranging from 2 to 7 hours. The added benefit
-of our algorithm is that it can scale horizontally proportional to the
-number of nodes in a cluster. All code relevant for this paper can be here
+full dataset with $k=7$ on a single notebook computer took ~8
+minutes. Sparse SVD from Scipy numeric library on the same dataset is much
+faster, however map/reduce environment incrues certain costs during its
+start-up and preparation phases for its jobs, plus writing, reading to and
+from disks due to the record-by-record processing nature of Hadoop can
+cause a slower performance. However, exactly for the same reasons a
+map/reduce algorithm can scale horizontally, processing records in the
+billions, proportional to the number of nodes in a cluster. All code
+relevant for this paper can be here
 \url{https://github.com/burakbayramli/classnotes/tree/master/stat/stat_hadoop_rnd_svd}
-The ideal testing environment for the code is a multi-node cluster
-comprised of desktop level machines with fast network and disk access. 
 
 There are only two passes necessary on the full dataset, and three passes
 on $m$ rows but with reduced $k$ dimensions this time.  Perhaps
@@ -357,9 +359,9 @@ predictably, the procedure spends most of its time at $A^TQ$ Job. This step
 performs not only a join between $A$ and $Q$, it also emits $k$ cells per
 non-zero value of $A$'s rows, then creates partial sums these $k$ vectors
 creating $n \times k$ result. If for simplicity we assume $k$ non-zero
-cells in each $A$ row, the complexity of this step would be
-$O(mk)$ indicating that system, disk level improvements can greatly
-decrease the number shared above. 
+cells in each $A$ row, the complexity of this step would be $O(mk)$
+indicating that system, disk level improvements can greatly decrease the
+performance number shared above.
 
 
 \begin{thebibliography}{1}
