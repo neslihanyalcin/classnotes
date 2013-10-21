@@ -1,7 +1,7 @@
 import os, sys
 
 if sys.argv[1] == 'zip':
-    os.system("zip %s/Downloads/mr_rnd_svd_0.3.zip arxiv/* netflix/* *.py *.csv *matrix* " % os.environ['HOME'])
+    os.system("zip %s/Downloads/mr_rnd_svd_0.6.zip arxiv/* netflix/* *.py *.csv *matrix* " % os.environ['HOME'])
 if sys.argv[1] == 'send':
     os.system("scp -r * hduser@host2:/home/hduser/stat_hadoop_rnd_svd")
 if sys.argv[1] == 'send-local':

@@ -1,10 +1,10 @@
-# 6
+# 4
 #  local:
 #    base_tmp_dir: /mnt/ram
 # medium, 45 sec
 date
 DIM=7
-#N=30
+N=30
 N=3730
 #N=17771
 python prepare.py /home/burak/Downloads/movielens2.csv A.dat # large
