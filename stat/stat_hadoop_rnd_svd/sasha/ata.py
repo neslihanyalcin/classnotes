@@ -30,7 +30,6 @@ class AtA(job.SashaJob):
 
     def mapper_final(self):        
         if len(self.data) > 0:
-            print 'left over in final'
             mult = np.dot(np.array(self.data).T,np.array(self.data))
             for i, val in enumerate(mult):
                 yield str(i), ";".join(map(lambda x: str(np.round(x,3)),val))
