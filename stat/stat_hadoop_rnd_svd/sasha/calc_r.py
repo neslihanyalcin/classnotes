@@ -12,8 +12,8 @@ class CalcR(job.SashaJob):
     def __init__(self):
         job.SashaJob.__init__(self)
         self.buffer_size = 4
-        self.data = []
-        self.A_sum = np.zeros((proj.K,proj.K))
+        self.data = [] # buffer for mapper
+        self.row_sum = np.zeros((1,proj.K)) # reducer 
             
     def mapper(self, key, line):
         line_vals = map(np.float,line.split(';'))
@@ -23,7 +23,6 @@ class CalcR(job.SashaJob):
             self.data = []
             for i, val in enumerate(mult):
                 val = ";".join(map(lambda x: str(np.round(x,3)),val))
-                print val
                 yield str(i), val
 
     def mapper_final(self):        
@@ -31,23 +30,14 @@ class CalcR(job.SashaJob):
             mult = np.dot(np.array(self.data).T,np.array(self.data))
             for i, val in enumerate(mult):
                 val = ";".join(map(lambda x: str(np.round(x,3)),val))
-                print val
                 yield str(i), val
 
     def reducer(self, token):
         token = map(np.float,token.split(';'))
-        #print "reducer", token
-        #print "self.reducer_key", self.reducer_key
-        #print "self.reducer_key", self.reducer_key
-        #print self.A_sum[self.reducer_key,:]
-        self.A_sum[int(self.reducer_key),:] += token
-        #print "after self.A_sum[self.reducer_key,:]", self.A_sum[self.reducer_key,:]
-        #print "self.A_sum", self.A_sum
+        self.row_sum += token
             
     def result(self):
-        print "result sum", self.A_sum
-        for row in lin.cholesky(self.A_sum).T:            
-            yield (None,";".join(map(lambda x: str(np.round(x,3)),row) ))
+        yield ";".join(map(lambda x: str(np.round(x,3)), self.row_sum))
 
                 
 if __name__ == "__main__":    
