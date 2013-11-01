@@ -26,20 +26,20 @@ class AtA(job.SashaJob):
             mult = np.dot(np.array(self.data).T,np.array(self.data))
             self.data = []
             for i, val in enumerate(mult):
-                yield str(i), ";".join(map(lambda x: str(np.round(x,8)),val))
+                yield str(i), ";".join(map(lambda x: str(np.round(x,3)),val))
 
     def mapper_final(self):        
         if len(self.data) > 0:
             print 'left over in final'
             mult = np.dot(np.array(self.data).T,np.array(self.data))
             for i, val in enumerate(mult):
-                yield str(i), ";".join(map(lambda x: str(np.round(x,8)),val))
+                yield str(i), ";".join(map(lambda x: str(np.round(x,3)),val))
 
     def reducer(self, row):
         self.row_sum += np.array(map(np.float,row.split(';')))
             
     def result(self):
-        yield ";".join(map(lambda x: str(np.round(x,8)), self.row_sum))
+        yield ";".join(map(lambda x: str(np.round(x,3)), self.row_sum))
 
                 
 if __name__ == "__main__":    

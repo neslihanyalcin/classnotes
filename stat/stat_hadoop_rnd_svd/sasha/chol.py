@@ -11,7 +11,7 @@ for x in fin.readlines():
     arr.append(map(np.float,row.split(';')))
     
 res =  np.array(arr)
-print res.shape; print res
-print lin.det(res)
-print lin.cholesky(res)
-    
+c = lin.cholesky(res)
+
+np.savetxt(sys.argv[2], c)
+
