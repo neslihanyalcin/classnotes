@@ -7,13 +7,13 @@ import numpy.linalg as lin
 '''
 Calculate AtA then Cholesky to get R
 '''
-class CalcR(job.SashaJob):
+class AtA(job.SashaJob):
     
     def __init__(self):
         job.SashaJob.__init__(self)
         self.buffer_size = 4
         self.data = [] # buffer for mapper
-        self.row_sum = np.zeros((1,proj.K)) # reducer 
+        self.row_sum = np.zeros(proj.K) # reducer 
             
     def mapper(self, key, line):
         line_vals = map(np.float,line.split(';'))
@@ -32,13 +32,12 @@ class CalcR(job.SashaJob):
                 val = ";".join(map(lambda x: str(np.round(x,3)),val))
                 yield str(i), val
 
-    def reducer(self, token):
-        token = map(np.float,token.split(';'))
-        self.row_sum += token
+    def reducer(self, row):
+        self.row_sum += map(np.float,row.split(';'))
             
     def result(self):
         yield ";".join(map(lambda x: str(np.round(x,3)), self.row_sum))
 
                 
 if __name__ == "__main__":    
-    CalcR.run()
+    AtA.run()
