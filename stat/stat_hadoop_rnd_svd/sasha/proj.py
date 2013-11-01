@@ -3,11 +3,12 @@ import numpy as np, sys, itertools
 from scipy import sparse
 import random, re, sys
 
-def line_to_coo(line, dim):
-    tokens = line.split(";")
+def key_val_to_coo(line, dim):
     line_sps = sparse.lil_matrix((1,dim))
+    tokens = line.split(";")
     for tok in tokens:
-        tmp = tok.split(":"); line_sps[ 0,long(tmp[0]) ] = np.float(tmp[1])
+        [id,val] = tok.split(":")
+        line_sps[0,long(id)] = np.float(val)
     return line_sps.tocoo()
 
 N = 30
@@ -19,10 +20,11 @@ class MRProj(job.SashaJob):
         job.SashaJob.__init__(self)
             
     def mapper(self, key, line):
-        line_sps = line_to_coo(line, N)
+        line_sps = key_val_to_coo(line, N)
         result = np.zeros(K)
         for xx,j,v in itertools.izip(line_sps.row, line_sps.col, line_sps.data):
-            np.random.seed(j); result += v*np.random.randn(K)
+            np.random.seed(j)
+            result += v*np.random.randn(K) 
         yield key, ";".join(map(lambda x: str(np.round(x,3)),result))
         
 if __name__ == "__main__":    
