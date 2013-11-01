@@ -1,4 +1,7 @@
-from sasha import job
+'''
+Read context of input file, run Cholesky on the contents
+output the result in another file
+'''
 import numpy as np, sys, itertools
 from scipy import sparse
 import random, re, sys, proj
@@ -14,4 +17,3 @@ res =  np.array(arr)
 c = lin.cholesky(res)
 
 np.savetxt(sys.argv[2], c, delimiter=';')
-

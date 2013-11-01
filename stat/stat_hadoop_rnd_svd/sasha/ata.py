@@ -6,11 +6,7 @@ import numpy.linalg as lin
 
 
 K = proj.K
-#K = 3
 
-'''
-Calculate AtA then Cholesky to get R
-'''
 class AtA(job.SashaJob):
     
     def __init__(self):
