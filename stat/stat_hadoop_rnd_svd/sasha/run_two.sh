@@ -1,7 +1,7 @@
 DIR1=/home/burak/Downloads/sasha/node1/
 DIR2=/home/burak/Downloads/sasha/node2/
 RESPONSE=tcp://localhost:5040
-CONF=local
+CONF=local2
 split ../A.dat -n l/2; mv xaa $DIR1/A.dat; mv xab $DIR2/A.dat
 python proj.py $CONF -i A.dat -o Y.dat  -r $RESPONSE
 python ata.py $CONF -i Y.dat -o YtY.dat -r $RESPONSE
