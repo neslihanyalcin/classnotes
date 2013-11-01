@@ -4,16 +4,13 @@ from scipy import sparse
 import random, re, sys, proj
 import numpy.linalg as lin
 
-
-K = proj.K
-
 class AtA(job.SashaJob):
     
     def __init__(self):
         job.SashaJob.__init__(self)
         self.buffer_size = 6
         self.data = [] # buffer for mapper
-        self.row_sum = np.zeros(K) # reducer 
+        self.row_sum = np.zeros(proj.K) # reducer 
             
     def mapper(self, key, line):
         line_vals = map(np.float,line.split(';'))
