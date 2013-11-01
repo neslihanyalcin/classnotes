@@ -23,8 +23,12 @@ class MRProj(job.SashaJob):
         line_sps = key_val_to_coo(line, N)
         result = np.zeros(K)
         for xx,j,v in itertools.izip(line_sps.row, line_sps.col, line_sps.data):
-            np.random.seed(j)
-            result += v*np.random.randn(K) 
+            #np.random.seed(j)
+            #result += v*np.random.randn(K)
+            for i in range(K):
+                random.seed(int(j + i))
+                result[i] += v*random.gauss(0,1)
+            
         yield key, ";".join(map(lambda x: str(np.round(x,3)),result))
         
 if __name__ == "__main__":    

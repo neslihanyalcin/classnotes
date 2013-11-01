@@ -12,5 +12,6 @@ for x in fin.readlines():
     
 res =  np.array(arr)
 print res.shape; print res
+print lin.det(res)
 print lin.cholesky(res)
     
