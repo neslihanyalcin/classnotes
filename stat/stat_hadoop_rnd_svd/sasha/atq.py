@@ -20,15 +20,15 @@ class AtQ(job.SashaJob):
         right = np.array(map(np.float,q.split(';')))
         # iterate only non-zero elements in the bigger (left) vector
         for i,j,v in zip(left.row, left.col, left.data):
-            out = ";".join(map(str,np.round(v*right,3)))
+            out = ";".join(map(str,v*right))
             yield str(j), out
 
     def reducer(self, val):
-        val = np.fromstring(val, sep=';')
+        val = np.array(map(np.float,val.split(';')))
         self.mat_sum += np.array(val)
 
     def result(self):
-        yield ";".join(map(lambda x: str(np.round(x,3)),self.mat_sum))
+        yield ";".join(map(lambda x: str(x),self.mat_sum))
 
         
 if __name__ == "__main__":    
