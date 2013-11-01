@@ -28,7 +28,7 @@ class AtQ(job.SashaJob):
         self.mat_sum += np.array(val)
 
     def result(self):
-        yield self.reducer_key, ";".join(map(lambda x: str(np.round(x,3)),self.mat_sum))
+        yield ";".join(map(lambda x: str(np.round(x,3)),self.mat_sum))
 
         
 if __name__ == "__main__":    
