@@ -12,6 +12,7 @@ class AtQ(job.SashaJob):
     
     def __init__(self):
         job.SashaJob.__init__(self)
+        self.mat_sum = np.zeros(proj.K)
         
     def mapper(self, id, line):
         [a, q] = line.split("|")
@@ -21,6 +22,14 @@ class AtQ(job.SashaJob):
         for i,j,v in zip(left.row, left.col, left.data):
             out = ";".join(map(str,np.round(v*right,3)))
             yield str(j), out
-                        
+
+    def reducer(self, val):
+        val = np.fromstring(val, sep=';')
+        self.mat_sum += np.array(val)
+
+    def result(self):
+        yield self.reducer_key, ";".join(map(lambda x: str(np.round(x,3)),self.mat_sum))
+
+        
 if __name__ == "__main__":    
     AtQ.run()
