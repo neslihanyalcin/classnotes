@@ -43,7 +43,7 @@ class MRR(MRJob):
             self.A_sum[i,:] += np.array(val)        
     
     def reducer_final(self):
-        for row in self.A_sum:
+        for row in lin.cholesky(self.A_sum).T:            
             yield (None,";".join(map(lambda x: str(np.round(x,3)),row) ))
         
 if __name__ == '__main__':
