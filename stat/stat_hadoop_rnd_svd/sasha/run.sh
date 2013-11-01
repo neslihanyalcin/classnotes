@@ -9,4 +9,4 @@ CONF=local
 #python chol.py YtY_sorted.dat /tmp/R.dat
 #python a_inv_r.py $CONF -i Y.dat -o Q.dat  -f /tmp/R.dat -r $RESPONSE
 #python join.py $CONF -i A.dat,Q.dat -o AQ.dat -r $RESPONSE
-python a_t_q.py $CONF -i AQ.dat -o AtQ.dat -r $RESPONSE
+python atq.py $CONF -i AQ.dat -o AtQ.dat -r $RESPONSE

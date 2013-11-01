@@ -16,11 +16,11 @@ class AtQ(job.SashaJob):
     def mapper(self, id, line):
         [a, q] = line.split("|")
         left = proj.key_val_to_coo(a, proj.N)
-        right = proj.key_val_to_coo(a, proj.K).todense()
+        right = np.array(map(np.float,q.split(';')))
         # iterate only non-zero elements in the bigger (left) vector
         for i,j,v in zip(left.row, left.col, left.data):
             out = ";".join(map(str,np.round(v*right,3)))
-            yield j, out
+            yield str(j), out
                         
 if __name__ == "__main__":    
     AtQ.run()
