@@ -44,7 +44,7 @@ class MRR(MRJob):
     
     def reducer_final(self):
         for row in self.A_sum:
-            yield (i,";".join(map(lambda x: str(np.round(x,3)),row) ))
+            yield (None,";".join(map(lambda x: str(np.round(x,3)),row) ))
         
 if __name__ == '__main__':
     MRR.run()
