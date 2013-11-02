@@ -12,7 +12,7 @@ fin = open("/home/burak/Downloads/sasha/node1/U_final.dat")
 arr = []
 for x in fin.readlines():
     [id,row] = x.strip().split('\t')
-    arr.append(map(np.float,row.split(',')))
+    arr.append(map(np.float,row.split(';')))
     
 U = np.array(arr)
 plt.plot(U[:,0],U[:,1],'r+')
