@@ -25,9 +25,7 @@ class MRProj(job.SashaJob):
         for xx,j,v in itertools.izip(line_sps.row, line_sps.col, line_sps.data):
             np.random.seed(j)
             result += v*np.random.randn(K) 
-#            random.seed(j)
-#            result += v * np.array([random.gauss(0,1) for ii in range(K)]) * 1e-10
-        yield key, ";".join(map(lambda x: str(x),result))
+        yield key, ";".join(map(lambda x: str(np.round(x,3)),result))
         
 if __name__ == "__main__":    
     MRProj.run()

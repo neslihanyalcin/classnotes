@@ -16,4 +16,4 @@ for x in fin.readlines():
 res =  np.array(arr)
 c = lin.cholesky(res)
 
-np.savetxt(sys.argv[2], c, delimiter=';')
+np.savetxt(sys.argv[2], c.T, delimiter=';')

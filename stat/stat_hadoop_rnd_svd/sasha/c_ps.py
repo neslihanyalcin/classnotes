@@ -15,7 +15,7 @@ for x in fin.readlines():
     arr.append(map(np.float,row.split(';')))
     
 U = np.array(arr)
-plt.plot(U[:,0],U[:,1],'r+')
+plt.plot(-U[:,0],U[:,1],'r+')
 plt.hold(True)
         
 df = pd.read_csv("../w1.csv",sep=';')
