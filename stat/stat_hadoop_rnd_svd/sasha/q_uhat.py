@@ -20,7 +20,7 @@ class QUHat(job.SashaJob):
             mult = np.dot(self.data,self.Uhat)
             self.data = []
             for row in mult:
-                yield key, ";".join(map(lambda x: str(x),row))
+                yield key, ";".join(map(lambda x: str(np.round(x,3)),row))
         
 if __name__ == "__main__":    
     QUHat.run()
