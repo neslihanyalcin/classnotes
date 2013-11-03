@@ -20,6 +20,6 @@ stat/*/stat*.pdf
 linear/*/*.pdf
 func_analysis/*/*.pdf
 data/*/*.pdf
-stat/stat_hadoop_rnd_svd/*.dat
-stat/stat_hadoop_rnd_svd/netflix/*.dat
-stat/stat_hadoop_rnd_svd/sasha/*.dat
+stat/*/*.dat
+stat/*/*/*.dat
+stat/*/*/*/*.dat
