@@ -14,7 +14,7 @@ def key_val_to_coo(line, dim):
         line_sps[0,long(id)] = np.float(val)
     return line_sps.tocoo()
 
-class MRProj(job.SashaJob):
+class Proj(job.SashaJob):
     
     def __init__(self):
         job.SashaJob.__init__(self)
@@ -28,4 +28,4 @@ class MRProj(job.SashaJob):
         yield key, ";".join(map(lambda x: str(np.round(x,3)),result))
         
 if __name__ == "__main__":    
-    MRProj.run()
+    Proj.run()
