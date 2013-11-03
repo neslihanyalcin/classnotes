@@ -12,7 +12,7 @@ class AtQ(job.SashaJob):
     
     def __init__(self):
         job.SashaJob.__init__(self)
-        self.mat_sum = np.zeros(proj.K)
+        self.mat_sum = np.zeros(proj.K) # for reducer
         
     def mapper(self, id, line):
         [a, q] = line.split("|")
