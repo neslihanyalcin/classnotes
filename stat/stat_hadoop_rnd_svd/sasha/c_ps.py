@@ -8,7 +8,8 @@ import numpy.linalg as lin
 import matplotlib.pyplot as plt
 import pandas as pd
 
-fin = open("/home/burak/Downloads/sasha/node1/U_final.dat")
+#fin = open("/home/burak/Downloads/sasha/node1/U_final.dat")
+fin = open("/tmp/U_final.dat")
 arr = []
 for x in fin.readlines():
     [id,row] = x.strip().split('\t')
