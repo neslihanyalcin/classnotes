@@ -3,15 +3,14 @@ import numpy as np, sys, itertools
 from scipy import sparse
 import random, re, sys
 
-N = 30; K = 7
-#N = 3730; K = 7
+#N = 30; K = 7
+N = 3730; K = 7
 
 def key_val_to_coo(line, dim):
     line_sps = sparse.lil_matrix((1,dim))
-    tokens = line.split(";")
-    for tok in tokens:
-        [id,val] = tok.split(":")
-        line_sps[0,long(id)] = np.float(val)
+    ids = re.findall("(\d+):(\d+)",line)
+    def f(x): line_sps[0,long(x[0])] = np.float(x[1])
+    map(f, ids)
     return line_sps.tocoo()
 
 class Proj(job.SashaJob):
