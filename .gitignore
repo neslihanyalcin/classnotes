@@ -9,6 +9,7 @@ ode/Elementary*
 */*/_region*
 */*/*.log
 */*/*.pyc
+*/*/*/*.pyc
 */*/*.aux
 */CompSci_Strang.djvu
 calc_multi/*/*.pdf
