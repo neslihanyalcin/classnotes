@@ -6,7 +6,7 @@ from mrjob.protocol import JSONProtocol
 from mrjob.protocol import ReprProtocol
 import numpy as np, sys
 from scipy import sparse
-import random, mrc, proto
+import random, mrc
 
 '''
 We feed two files into this job, A and Q, then we calculate the matrix
