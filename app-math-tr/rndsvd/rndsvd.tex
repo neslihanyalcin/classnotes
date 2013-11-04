@@ -180,50 +180,69 @@ yaklasiksal $A$'yi verecektir. Bu yaklasiksal $\tilde{A}$ uzerinde SVD
 gerceklestirmek te mumkundur. Yeni matrisin boyutlari $k \times n$
 olacaktir.
 
-Test olarak IRIS veri seti uzerinde
+Test olarak suradaki {[}3{]} veri seti uzerinde
 
 \begin{codecell}
 \begin{codeinput}
 \begin{lstlisting}
+import numpy as np
 import numpy.random as rand
 import numpy.linalg as lin
+import matplotlib.pyplot as plt
 import pandas as pd
 
-df = pd.read_csv("iris.csv",sep=',')
+k = 7
+df = pd.read_csv("w1.dat",sep=';',header=None)
+A = np.array(df)[:,1:]
+print "A",A.shape
 
-A = np.array(df)[:,0:4]
+rand.seed(1000)
+Omega = rand.randn(A.shape[1],k)
 
-n = 4; k = 3
+Y = np.dot(A, Omega) 
+print "Y", Y.shape
 
-Omega = rand.randn(n,k)
+Q, R = lin.qr(Y) 
 
-# Rasgele SVD
+BT = np.dot(A.T, Q)
 
-Y = np.dot(A, Omega)
+print "Q", Q.shape
+print "BT", BT.shape
 
-Q, R = lin.qr(Y)
+x, x, V = lin.svd(BT)
+print 'V', V.shape
+Uhat = V.T # because B=USV', B'=VSU' for U of B we need V'
 
-B = np.dot(Q.T, A)
+print "Uhat", Uhat.shape
 
-Uhat, Sigma, V = lin.svd(B)
+U = np.dot(Q, Uhat) 
 
-U = np.dot(Q, Uhat)
+print "U", U.shape
 
 plt.plot(U[:,0],U[:,1],'r+')
 
 plt.hold(True)
-
-# Direk A uzerinde SVD
+        
+# compare with real SVD
 
 U, Sigma, V = lin.svd(A);
-
-plt.plot(U[:,0],U[:,1],'bx')
+plt.plot(U[:,0],-U[:,1],'bx')
 
 plt.show()
+
 
 \end{lstlisting}
 \end{codeinput}
 \begin{codeoutput}
+\begin{verbatim}
+A (71, 30)
+Y (71, 7)
+Q (71, 7)
+BT (30, 7)
+V (7, 7)
+Uhat (7, 7)
+U (71, 7)
+\end{verbatim}
 \begin{center}
 \includegraphics[width=0.7\textwidth]{rndsvd_files/rndsvd_fig_00.png}
 \par
@@ -235,6 +254,16 @@ ile gosterildi. 4 boyutu 3 boyuta izdusum yaptik, ve ardindan ek bazi
 operasyonlar sonrasi SVD aldik. Sonuc goruldugu gibi oldukca birbirine
 yakin.
 
+\subsubsection{\$ B = Q\^{}TA \$ Yerine}
+
+Bu carpimin yerine soyle baska bir carpim kullanmak ta mumkun.
+
+Soyle dusunelim
+\[ Y = QR \]\[ YR^{-1} = Q \]
+Daha onceden hatirlarsak
+\[ B = Q^TA \]
+Simdi $Q$ yerine usttekini gecirelim
+\[ B = (YR^{-1})^T A \]\[ B^T = A^T YR^{-1} \]
 Kaynaklar
 
 {[}1{]} Halko, N., Randomized methods for computing low-rank
@@ -242,5 +271,7 @@ approximations of matrices
 
 {[}2{]} Gupta, A., Dasgupta, S., An Elementary Proof of a Theorem of
 Johnson and Lindenstrauss
+
+{[}3{]} http://archive.ics.uci.edu/ml/datasets/Breast+Cancer
 
 \end{document}

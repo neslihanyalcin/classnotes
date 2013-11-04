@@ -3,8 +3,8 @@ import numpy as np, sys, itertools
 import scipy.sparse as sps
 import random, re, sys
 
-#N = 30; K = 7
-N = 3730; K = 7
+N = 30; K = 7
+#N = 3730; K = 7
 
 def key_val_to_coo(line, dim):
     line_sps = sps.lil_matrix((1,dim))
