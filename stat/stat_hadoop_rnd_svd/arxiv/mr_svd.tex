@@ -233,24 +233,18 @@ multiplication.
   \DontPrintSemicolon  
   \SetKwInOut{Input}{input}
   \SetKwInOut{Output}{output}
-  \Input{A,Q}
+  \Input{AQ}
   \Output{$B^T$}
-  \SetKwProg{reduce}{function}{}{}
-  \reduce{REDUCE {(key, value)}}{
-    \For{$row$ in $value$}{
-      \If{$row$ is from $A$}{ 
-        $left=row$
-      }
-      \If{$row$ is from $Q$}{ 
-        $right=row$
-      }
-    }
+  \SetKwProg{map}{function}{}{}
+  \map{MAP {(key, value)}}{    
+    $left=row$ from $A$ \;
+    $right=row$ from $Q$ \;
     \For{nonzero $j^{th}$ $cell$ in $left$}{
       \Emit{$j$, $left[j] \cdot right$ }
     }
   }
-  \SetKwProg{reducesum}{function}{}{}
-  \reducesum{REDUCESUM {(key, value)}}{
+  \SetKwProg{reduce}{function}{}{}
+  \reduce{REDUCE {(key, value)}}{
     result $\leftarrow$ zeros(1,$k$) \;
     \For{$row$ in $value$}{
       result $\leftarrow$ result + $row$
@@ -262,21 +256,12 @@ multiplication.
 
 \vspace{1em}
 
-The job above takes $A$ and $Q$ matrices at the same time. Both of these
-matrices are based on the same key (line number, or other pre-existing id)
-and we need to join them first. If a mapper is a pass-through mapper, in
-other words if it does not exist, it is assumed to simply re-emit the key
-and value, which will, indirectly force matching rows with the same id from
-$A$ and $Q$ to be sent to the first reducer. Then for each unique id, the
-first reducer gets exactly two rows. This is an indirect way of performing
-a join in map/reduce environment.
-
-Once we have these two rows we need to deduce if the row is a $Q$ row or an
-$A$ row. We need this information because which row we iterate depends on
-it. We prefer to iterate cells of $A$ one by one, which is assumed to be
-sparse, and multiply the entire row of $Q$. Then for each $j^{th}$ non-zero
-cell of $A$, we multiply this value with the row from $Q$ and emit the
-multiplication result with key $j$.
+The job above takes an $AQ$ matrix which is assumed to be a join between
+$A$ and $Q$, per row, based on key. We split the row and deduce the $A$
+part and the $Q$ part, then iterate cells of $A$ one by one, which is
+assumed to be sparse, and multiply the entire row of $Q$. Then for each
+$j^{th}$ non-zero cell of $A$, we multiply this value with the row from $Q$
+and emit the multiplication result with key $j$.
 
 This job's formula in \ref{bt} is described $Q^TA$. For implementation
 purposes we changed this formula into
@@ -341,16 +326,16 @@ The order of execution for everything is as follows:
 
 We performed few experiments on the Movielens 1M dataset which has 1
 million ratings from 6000 users on 4000 movies. The implementation was
-programmed on Hadoop through mrjob framework, and SVD calculation on the
-full dataset with $k=7$ on a single notebook computer took 1 minutes. Scipy
-SVD calculation on the same dataset is much faster, however, map/reduce
-environment incrues certain costs during its start-up and preparation
-phases for its jobs, as well as outputting, reading to and from disks due
-to the record-by-record processing nature of Hadoop can introduce
-latencies. However, exactly for the same reasons a map/reduce algorithm can
-scale horizontally, processing records in the billions proportional to the
-number of nodes in a cluster. All code relevant for this paper can be found
-here
+programmed on Sasha distributed framework for in-memory map/reduce jobs,
+and SVD calculation on the full dataset with $k=7$ on a single notebook
+computer took 1 minutes. Scipy SVD calculation on the same dataset is much
+faster, however, map/reduce environment incrues certain costs during its
+start-up and preparation phases for its jobs, as well as outputting,
+reading to and from disks due to the record-by-record processing nature of
+Hadoop can introduce latencies. However, exactly for the same reasons a
+map/reduce algorithm can scale horizontally, processing records in the
+billions proportional to the number of nodes in a cluster. All code
+relevant for this paper can be found here
 \url{https://github.com/burakbayramli/classnotes/tree/master/stat/stat_hadoop_rnd_svd}
 
 There are only two passes necessary on the full dataset, and three passes
