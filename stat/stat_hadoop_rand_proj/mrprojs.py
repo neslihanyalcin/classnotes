@@ -17,7 +17,7 @@ class MRProj(MRJob):
         line_sps = sparse.coo_matrix(line_vals,shape=(1,len(line_vals)))
         result = np.zeros(self.k)
         for xx,j,v in itertools.izip(line_sps.row, line_sps.col, line_sps.data):
-            random.seed(j)
+            np.random.seed(j)
             result += v*np.random.randn(self.k)
         yield (None,",".join(map(str,result)))
             

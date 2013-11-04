@@ -18,17 +18,20 @@ class MRProj(MRJob):
         super(MRProj, self).configure_options()
         self.add_passthrough_option('--k')
         self.add_passthrough_option('--n')
+        self.randoms = {}
         
     def __init__(self, *args, **kwargs):
         super(MRProj, self).__init__(*args, **kwargs)
 
     def mapper(self, key, line):
         line = line.replace('"','')
-        line_sps = mrc.line_to_coo(line, int(self.options.n))
+        line_sps = mrc.key_val_to_coo(line, int(self.options.n))
         result = np.zeros(int(self.options.k))
         for xx,j,v in itertools.izip(line_sps.row, line_sps.col, line_sps.data):
-            np.random.seed(j)
-            result += v*np.random.randn(int(self.options.k))
+            if j not in self.randoms: 
+                np.random.seed(j)
+                self.randoms[j] = np.random.randn(int(self.options.k)) 
+            result += v*self.randoms[j]
         yield long(key), ";".join(map(lambda x: str(np.round(x,3)),result))
         
             

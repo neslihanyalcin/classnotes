@@ -169,19 +169,21 @@ imshow(imread("proj.png"))
 \end{center}
 \end{codeoutput}
 \end{codecell}
-Eger bellekte tutmuyorsak rasgele matrisin degerlerini her seferinde
-tekrar uretmek gerekir. Hiz acisindan performans cok kotu olmayacaktir,
-cunku rasgele sayi uretimi toplama, carpma, $mod$ gibi direk
-matematiksel hesaplar ile yapilir.
+Eger bellekte tutmuyorsak rasgele matrisin degerlerini (sadece
+ilgilendigimiz oge icin, tum matrisi degil) her seferinde tekrar uretmek
+gerekir. Hiz acisindan performans cok kotu olmayacaktir, cunku rasgele
+sayi uretimi toplama, carpma, $mod$ gibi direk matematiksel hesaplar ile
+yapilir.
 
 Fakat burada onemli bir diger konu sudur: her $A$ satiri icin ayni
-rasgele matrisi arka arkaya uretebilmeliyiz.
+rasgele matris (ogelerini) ayni sekilde uretebilmeliyiz.
 
 Bu problemin en basit cozumu rasgele sayi uretimi icin tohum (seed)
 kullanimidir. Eger tohum kullanilmazsa, Python random paketindeki
 uretici cagrilar gunun zamanina gore bir tohum kullanirlar, ve boylece
-her cagri degisik bir sayi uretir. Fakat rasgele sayi uretimini, ``her
-seferinde ayni sekilde'' yaptirmanin yolu vardir, bunun icin tohum
+her cagri degisik bir sayi uretmis olur (cunku komut isletildigi her
+seferinde gunun zamani degisiktir). Fakat rasgele sayi uretimini, ``her
+seferinde ayni sekilde'' yaptirmanin yolku vardir, bunun icin tohum
 disaridan set edilir ve boylece ayni tohumdan baslayan rasgele sayi
 uretim zinciri hep ayni olur. Rasgele sayi uretimi deterministik bir
 algoritmadir, zaten literaturde bu islem ``yari rasgele sayi uretimi
@@ -209,7 +211,6 @@ print random.gauss(0,1), random.gauss(0,1)
 \begin{codeinput}
 \begin{lstlisting}
 # tohumlu
-
 random.seed(100000)
 print random.gauss(0,1), random.gauss(0,1)
 random.seed(100000)
@@ -224,18 +225,17 @@ print random.gauss(0,1), random.gauss(0,1)
 \end{verbatim}
 \end{codeoutput}
 \end{codecell}
-Ustteki kodda ayni tohumu verince arka arkaya uretilen iki (ya da daha
-fazla) ``rasgele'' sayinin hep ayni oldugunu goruyoruz.
+Ustteki kodda ayni tohumu verince arka arkaya uretilen iki (daha fazla
+da olabilirdi) ``rasgele'' sayinin hep ayni oldugunu goruyoruz.
 
-Rasgele matrise donersek, eger bu matrisin her veri satiri icin hucre
-degerlerinin ayni sekilde uretilmesini istiyorsak, tohum kullanmaliyiz.
-Tohum degeri ne olacak? Bu deger mesela $n \times k$ boyutundaki rasgele
-matris icin indis degerleri yanyana koyularak uretilebilir, mesela 111.
-satir ve 2. kolon icin 1112 tohum degeri kullanilir, ve bu tohumla tek
-bir rasgele sayi uretilir, (111,2) hucresine konulur ve sonraki indis
-icin yeni bir tohum kullanilir.
-
-Ust uste cakismalar olabilir tabii ki, mesela 11. satir 12. kolon da
+Rasgele ``matrise'' donersek, eger bu matrisin her $A$ veri satiri icin
+hucre degerlerinin ayni sekilde uretilmesini istiyorsak, tohum
+kullanmaliyiz. Tohum degeri ne olacak? Bu deger mesela $n \times k$
+boyutundaki rasgele matris icin indis degerleri yanyana koyularak
+uretilebilir, mesela 111. satir ve 2. kolon icin 1112 tohum degeri
+kullanilir, ve bu tohumla tek bir rasgele sayi uretilir, (111,2)
+hucresine konulur ve sonraki indis icin yeni bir tohum kullanilir. Evet
+ust uste cakismalar olabilir tabii ki, mesela 11. satir 12. kolon da
 ustteki tohumla ayni sonucu getirir, ama bu tur nadir cakismalar o kadar
 onemli degil, sonucta rasgele sayilarla ugrasiyoruz, ``yeterince
 raslantisal olmalari'' kafi.
@@ -281,13 +281,14 @@ if __name__ == '__main__':
 Tek bir esle cagrisi var, cunku carpim islemi oldukca basit, indirgeme
 islemine gerek yok.
 
-Satirlar icin anahtar kullanmiyoruz, yani verinin paralel islenirken
-nasil yuk dagitimi yapildigina gore sonuc matrisinin sirasi ana matrisin
-satir sirasina uymayabilir. Fakat satir sirasi bizim icin cogunlukla
-onemli olmuyor (kolon sirasi onemli), her satir digerinden ayri bir
-verini temsil eder cogunlukla. Eger zamansal bir boyut var ise, o bilgi
-ayri bir kolon (mesela tarih, zaman damgasi -timestamp-) olarak veride
-bulunurdu.
+Cikti icin yield ile yayinladigimiz (emit) satirlarda anahtar
+kullanmiyoruz, yani verinin paralel islenirken nasil yuk dagitimi
+yapildigina gore sonuc matrisinin sirasi ana matrisin satir sirasina
+uymayabilir. Fakat satir sirasi bizim icin cogunlukla onemli olmuyor
+(kolon sirasi onemli), cunku genelde, her satir, digerinden ayri /
+bagimsiz bir veri olcumunu temsil eder cogunlukla. Eger zamansal bir
+boyut var ise, bazi seyler arka arkaya islenmeliyse, o bilgi ayri bir
+kolon (mesela tarih, zaman damgasi -timestamp-) olarak veride bulunurdu.
 
 \begin{codecell}
 \begin{codeinput}
@@ -379,9 +380,8 @@ class MRProj(MRJob):
         line_sps = sparse.coo_matrix(line_vals,shape=(1,len(line_vals)))
         result = np.zeros(self.k)
         for xx,j,v in itertools.izip(line_sps.row, line_sps.col, line_sps.data):
-            for i in range(self.k):
-                random.seed(int(j + i))
-                result[i] += v*random.gauss(0,1)
+            np.random.seed(j)
+            result += v*np.random.randn(self.k)
         yield (None,",".join(map(str,result)))
             
 if __name__ == '__main__':
@@ -397,7 +397,9 @@ kat bir performans iyilestirmesi saglayacak demektir (bu arada seyrek
 verilerde yuzde 2 doluluk gayet normal bir rakamdir). Sadece dolu
 hucreleri ziyaret ediyoruz, ayrica izip bu dolu hucrelerin indis
 degerlerini de bize geri getiriyor, biz de bu degerleri seed icin
-onceden oldugu gibi kullaniyoruz.
+onceden oldugu gibi kullaniyoruz. Bir diger ilerleme $K$ tane rasgele
+sayiyi bir kerede uretiyoruz, ve tohum ayarlamasini bir kere, dis dongu
+basinda gerceklestiriyoruz.
 
 Sonuclara bakalim:
 
@@ -412,27 +414,27 @@ Sonuclara bakalim:
 \begin{codeoutput}
 \begin{verbatim}
 using configs in /home/burak/.mrjob.conf
-creating tmp directory /tmp/mrprojs.burak.20131002.173847.485554
-writing to /tmp/mrprojs.burak.20131002.173847.485554/step-0-mapper_part-00000
+creating tmp directory /tmp/mrprojs.burak.20131104.083708.890659
+writing to /tmp/mrprojs.burak.20131104.083708.890659/step-0-mapper_part-00000
 \end{verbatim}
 \begin{verbatim}
 Counters from step 1:
   (no counters found)
-Moving /tmp/mrprojs.burak.20131002.173847.485554/step-0-mapper_part-00000 -> /tmp/mrprojs.burak.20131002.173847.485554/output/part-00000
-Streaming final output from /tmp/mrprojs.burak.20131002.173847.485554/output
-removing tmp directory /tmp/mrprojs.burak.20131002.173847.485554
+Moving /tmp/mrprojs.burak.20131104.083708.890659/step-0-mapper_part-00000 -> /tmp/mrprojs.burak.20131104.083708.890659/output/part-00000
+Streaming final output from /tmp/mrprojs.burak.20131104.083708.890659/output
+removing tmp directory /tmp/mrprojs.burak.20131104.083708.890659
 \end{verbatim}
 \begin{verbatim}
-20.2369671373,13.9358970644,0.524561578258
-19.8581349841,13.7724732852,5.23992858318
-27.6790861925,18.8833585029,-1.56199395804
-9.3255498646,7.52383094482,2.58977793605
-27.3677257439,33.0438553532,18.4819155509
-27.6790861925,18.8833585029,-1.56199395804
-9.3255498646,7.52383094482,2.58977793605
-27.3677257439,33.0438553532,18.4819155509
-27.6790861925,18.8833585029,-1.56199395804
-9.3255498646,7.52383094482,2.58977793605
+20.4375200961,1.09117093744,-9.27846872665
+13.2830062024,-0.654868464606,-9.66445859893
+26.4299520755,0.628144156713,-14.4142094864
+9.52053667131,0.337287636006,-3.17826479151
+34.6111912648,-0.763663777689,-2.06399979621
+26.4299520755,0.628144156713,-14.4142094864
+9.52053667131,0.337287636006,-3.17826479151
+34.6111912648,-0.763663777689,-2.06399979621
+26.4299520755,0.628144156713,-14.4142094864
+9.52053667131,0.337287636006,-3.17826479151
 \end{verbatim}
 \end{codeoutput}
 \end{codecell}
@@ -478,15 +480,15 @@ plt.show()
 \begin{codeoutput}
 \begin{verbatim}
 using configs in /home/burak/.mrjob.conf
-creating tmp directory /tmp/mrprojs.burak.20131002.185301.111949
-writing to /tmp/mrprojs.burak.20131002.185301.111949/step-0-mapper_part-00000
+creating tmp directory /tmp/mrprojs.burak.20131104.083713.982603
+writing to /tmp/mrprojs.burak.20131104.083713.982603/step-0-mapper_part-00000
 \end{verbatim}
 \begin{verbatim}
 Counters from step 1:
   (no counters found)
-Moving /tmp/mrprojs.burak.20131002.185301.111949/step-0-mapper_part-00000 -> /tmp/mrprojs.burak.20131002.185301.111949/output/part-00000
-Streaming final output from /tmp/mrprojs.burak.20131002.185301.111949/output
-removing tmp directory /tmp/mrprojs.burak.20131002.185301.111949
+Moving /tmp/mrprojs.burak.20131104.083713.982603/step-0-mapper_part-00000 -> /tmp/mrprojs.burak.20131104.083713.982603/output/part-00000
+Streaming final output from /tmp/mrprojs.burak.20131104.083713.982603/output
+removing tmp directory /tmp/mrprojs.burak.20131104.083713.982603
 \end{verbatim}
 \begin{center}
 \includegraphics[width=0.7\textwidth]{stat_hadoop_rand_proj_files/stat_hadoop_rand_proj_fig_01.png}
@@ -494,6 +496,6 @@ removing tmp directory /tmp/mrprojs.burak.20131002.185301.111949
 \end{center}
 \end{codeoutput}
 \end{codecell}
-Sonuclar mukemmel.
+Sonuclar fena degil.
 
 \end{document}
