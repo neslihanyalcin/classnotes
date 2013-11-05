@@ -1,7 +1,6 @@
 from sasha import job
 import numpy as np, sys, itertools
-from scipy import sparse
-import random, re, sys, proj
+import random, re, sys
 import numpy.linalg as lin
 
 '''
@@ -17,10 +16,11 @@ class AtQ(job.SashaJob):
         
     def mapper(self, id, line):
         [a, q] = line.split("|")
-        left = proj.key_val_to_coo(a, proj.N)
+        left = re.findall("(\d+):(\d+)",a)
         right = np.array(map(np.float,q.split(';')))
         # iterate only non-zero elements in the bigger (left) vector
-        for i,j,v in zip(left.row, left.col, left.data):
+        for j,(id,v) in enumerate(left):
+            j = int(j); v = float(v)
             if j in self.dict:
                 self.dict[j] += v*right
             else:

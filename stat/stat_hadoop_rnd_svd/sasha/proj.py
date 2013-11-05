@@ -1,6 +1,5 @@
 from sasha import job
 import numpy as np, sys, itertools
-import scipy.sparse as sps
 import random, re, sys
 
 #N = 30; K = 7
