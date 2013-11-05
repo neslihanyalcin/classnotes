@@ -14,18 +14,21 @@ class AtQ(job.SashaJob):
         self.mat_sum = np.zeros(proj.K) # for reducer
         self.dict = {}
         
-    def mapper(self, id, line):
-        [a, q] = line.split("|")
-        left = re.findall("(\d+):(\d+)",a)
-        right = np.array(map(np.float,q.split(';')))
-        # iterate only non-zero elements in the bigger (left) vector
-        for j,(id,v) in enumerate(left):
-            j = int(j); v = float(v)
-            if j in self.dict:
-                self.dict[j] += v*right
-            else:
-                self.dict[j] = v*right
-        yield None, None
+    def mapper(self, id, line):        
+        res = line.split("|");
+        if len(res) != 2: yield None, None
+        else: 
+            [a, q] = res            
+            left = re.findall("(\d+):(\d+)",a)
+            right = np.array(map(np.float,q.split(';')))
+            # iterate only non-zero elements in the bigger (left) vector
+            for j,(id,v) in enumerate(left):
+                j = int(j); v = float(v)
+                if j in self.dict:
+                    self.dict[j] += v*right
+                else:
+                    self.dict[j] = v*right
+            yield None, None
         
     def mapper_final(self):
         for j in self.dict.keys():
