@@ -11,6 +11,7 @@ RESPONSE=tcp://localhost:5040
 # data file
 
 #python $HOME/Documents/sasha/servers.py split-copy $CONF /home/burak/Downloads/netflix/download/A_netflix.dat A.dat
+cp ../A.dat $HOME/Downloads/sasha/node1/A.dat
 #python $HOME/Documents/sasha/servers.py split-copy $CONF ../A.dat A.dat
 
 # processing

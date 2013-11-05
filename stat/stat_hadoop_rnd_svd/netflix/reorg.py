@@ -6,7 +6,6 @@ movieId:
 user,rating,date
 
 into
-
 movieId \tab   user1:rating, user2:rating, ...
 '''
 

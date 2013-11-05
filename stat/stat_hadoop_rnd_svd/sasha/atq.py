@@ -1,6 +1,6 @@
 from sasha import job
 import numpy as np, sys, itertools
-import random, re, sys
+import random, re, sys, proj
 import numpy.linalg as lin
 
 '''
