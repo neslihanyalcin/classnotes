@@ -13,7 +13,7 @@ class AInvR(job.SashaJob):
     def mapper(self, key, line):
         line_vals = map(np.float,line.split(';'))
         mult = np.dot(line_vals,self.R_inv)
-        yield key, ";".join(map(lambda x: str(x),mult))
+        yield key, ";".join(map(lambda x: str(np.round(x,3)),mult))
         
 if __name__ == "__main__":    
     AInvR.run()
