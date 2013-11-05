@@ -17,7 +17,10 @@ class Join(job.SashaJob):
         if self.left and self.right: is_complete = True
             
     def result(self):
-        yield self.left + "|" + self.right
+        if not self.left and not self.right: 
+            yield self.left + "|" + self.right
+        else:
+            yield None
 
                 
 if __name__ == "__main__":    

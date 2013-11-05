@@ -24,9 +24,9 @@ RESPONSE=tcp://host3:5040
 # python $HOME/Documents/sasha/servers.py pull-combine $CONF YtY.dat
 # sort /tmp/YtY.dat > /tmp/YtY_sorted.dat # sort the results by key
 # python chol.py /tmp/YtY_sorted.dat /tmp/R.dat
-python a_inv_r.py $CONF -i Y.dat -o Q.dat  -f /tmp/R.dat -r $RESPONSE
+# python a_inv_r.py $CONF -i Y.dat -o Q.dat  -f /tmp/R.dat -r $RESPONSE
 # python join.py $CONF -i A.dat,Q.dat -o AQ.dat -r $RESPONSE
-# python atq.py $CONF -i AQ.dat -o BT.dat -r $RESPONSE
+python atq.py $CONF -i AQ.dat -o BT.dat -r $RESPONSE
 # python ata.py $CONF -i BT.dat -o BTB.dat -r $RESPONSE
 # python $HOME/Documents/sasha/servers.py pull-combine $CONF BTB.dat
 # sort -h /tmp/BTB.dat > /tmp/BTB_sorted.dat
