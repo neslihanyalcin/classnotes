@@ -3,10 +3,10 @@ date
 #CONF=cluster2
 #RESPONSE=tcp://chost1:5040
 
-#CONF=cluster1
+#CONF=cluster3
 #RESPONSE=tcp://host3:5040
 
-CONF=local
+CONF=local2
 RESPONSE=tcp://localhost:5040
 
 #rm /tmp/x-*
@@ -14,16 +14,18 @@ RESPONSE=tcp://localhost:5040
 # data file
 
 #python $HOME/Documents/sasha/servers.py split-copy $CONF /home/burak/Downloads/netflix/download/A_netflix.dat A.dat
-cp ../A.dat $HOME/Downloads/sasha/node1/A.dat
+#cp ../A.dat $HOME/Downloads/sasha/node1/A.dat
 #python $HOME/Documents/sasha/servers.py split-copy $CONF ../A.dat A.dat
+#head -4000 /home/burak/Downloads/netflix/download/A_netflix.dat > /tmp/net_small.dat
+#python $HOME/Documents/sasha/servers.py split-copy $CONF /tmp/net_small.dat A.dat
 
 # processing
 
-python proj.py $CONF -i A.dat -o Y.dat  -r $RESPONSE
-python ata.py $CONF -i Y.dat -o YtY.dat -r $RESPONSE
-python $HOME/Documents/sasha/servers.py pull-combine $CONF YtY.dat
-sort /tmp/YtY.dat > /tmp/YtY_sorted.dat # sort the results by key
-python chol.py /tmp/YtY_sorted.dat /tmp/R.dat
+#python proj.py $CONF -i A.dat -o Y.dat  -r $RESPONSE
+#python ata.py $CONF -i Y.dat -o YtY.dat -r $RESPONSE
+#python $HOME/Documents/sasha/servers.py pull-combine $CONF YtY.dat
+#sort /tmp/YtY.dat > /tmp/YtY_sorted.dat # sort the results by key
+#python chol.py /tmp/YtY_sorted.dat /tmp/R.dat
 python a_inv_r.py $CONF -i Y.dat -o Q.dat  -f /tmp/R.dat -r $RESPONSE
 python join.py $CONF -i A.dat,Q.dat -o AQ.dat -r $RESPONSE
 python atq.py $CONF -i AQ.dat -o BT.dat -r $RESPONSE
