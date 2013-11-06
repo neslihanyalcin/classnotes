@@ -15,20 +15,16 @@ class AtQ(job.SashaJob):
         self.dict = {}
         
     def mapper(self, id, line):
-        #print "id", id, "line", line
-        try: 
-            [a,q] = line.split("|");
-            left = re.findall("(\d+):(\d+)",a)
-            right = np.array(map(np.float,q.split(';')))
-            # iterate only non-zero elements in the bigger (left) vector
-            for j,(id,v) in enumerate(left):
-                j = int(j); v = float(v)
-                if j in self.dict:
-                    self.dict[j] += v*right
-                else:
-                    self.dict[j] = v*right
-        except Exception, e:
-            print "*********error", e, id, line                    
+        [a,q] = line.split("|");
+        left = re.findall("(\d+):(\d+)",a)
+        right = np.array(map(np.float,q.split(';')))
+        # iterate only non-zero elements in the bigger (left) vector
+        for id,v in left:
+            j = id; v = float(v)
+            if j in self.dict:
+                self.dict[j] += v*right
+            else:
+                self.dict[j] = v*right
         yield None, None
         
     def mapper_final(self):

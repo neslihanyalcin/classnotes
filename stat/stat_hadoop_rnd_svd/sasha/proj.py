@@ -15,11 +15,10 @@ class Proj(job.SashaJob):
     def mapper(self, key, line):
         line_sps = re.findall("(\d+):(\d+)",line)
         result = np.zeros(K)
-        for j,(id,val) in enumerate(line_sps):
-            j = int(j); val = float(val)
+        for id,val in line_sps:
+            j = int(id); val = float(val)
             if j not in self.randoms: 
-                np.random.seed(j)
-                self.randoms[j] = np.random.randn(K) 
+                np.random.seed(j); self.randoms[j] = np.random.randn(K) 
             result += val * self.randoms[j]
         yield key, ";".join(map(lambda x: str(np.round(x,3)),result))
                     
