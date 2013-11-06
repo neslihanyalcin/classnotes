@@ -10,7 +10,7 @@ import scipy.sparse.linalg as slin
 import matplotlib.pyplot as plt
 import pandas as pd
 
-print 'please wait.. this might take few seconds.."
+print "please wait.. this might take few seconds.."
 
 fin = open("/tmp/U_final.dat")
 arr = []
