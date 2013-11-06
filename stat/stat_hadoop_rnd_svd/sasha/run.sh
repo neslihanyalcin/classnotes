@@ -9,7 +9,9 @@ date
 CONF=local2
 RESPONSE=tcp://localhost:5040
 
-#rm /tmp/x-*
+# cleanup
+# rm /tmp/x-*
+# find $HOME/Downloads/sasha/ -name '*' | xargs rm
 
 #
 # data file
@@ -25,8 +27,8 @@ RESPONSE=tcp://localhost:5040
 # python $HOME/Documents/sasha/servers.py split-copy $CONF ../A.dat A.dat
 
 # netflix small
-# head -4000 /home/burak/Downloads/netflix/download/A_netflix.dat > /tmp/net_small.dat
-# python $HOME/Documents/sasha/servers.py split-copy $CONF /tmp/net_small.dat A.dat
+head -10000 /home/burak/Downloads/netflix/download/A_netflix.dat > /tmp/net_small.dat
+python $HOME/Documents/sasha/servers.py split-copy $CONF /tmp/net_small.dat A.dat
 
 # 
 # processing
