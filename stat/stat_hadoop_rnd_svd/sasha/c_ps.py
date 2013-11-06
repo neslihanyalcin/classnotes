@@ -1,6 +1,5 @@
 '''
-Read mrjob output and run SVD on the original data, overlay
-plots
+Read sasha output and run SVD on the original data, overlay plots
 '''
 import numpy as np
 import numpy.random as rand

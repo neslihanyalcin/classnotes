@@ -6,7 +6,7 @@ date
 #CONF=cluster3
 #RESPONSE=tcp://host3:5040
 
-CONF=local
+CONF=local2
 RESPONSE=tcp://localhost:5040
 
 # cleanup
@@ -21,10 +21,13 @@ RESPONSE=tcp://localhost:5040
 # python $HOME/Documents/sasha/servers.py split-copy $CONF /home/burak/Downloads/netflix/download/A_netflix.dat A.dat
 
 # one server, small
-cp ../A.dat $HOME/Downloads/sasha/node1/A.dat
+# cp ../A.dat $HOME/Downloads/sasha/node1/A.dat
 
 # two server small
 # python $HOME/Documents/sasha/servers.py split-copy $CONF ../A.dat A.dat
+
+# two server movielens
+# python $HOME/Documents/sasha/servers.py split-copy $CONF $HOME/Downloads/movielens_withids.csv A.dat
 
 # netflix small
 #head -10000 /home/burak/Downloads/netflix/download/A_netflix.dat > /tmp/net_small.dat
