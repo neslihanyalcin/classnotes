@@ -11,15 +11,26 @@ RESPONSE=tcp://localhost:5040
 
 #rm /tmp/x-*
 
+#
 # data file
+#
 
-#python $HOME/Documents/sasha/servers.py split-copy $CONF /home/burak/Downloads/netflix/download/A_netflix.dat A.dat
-#cp ../A.dat $HOME/Downloads/sasha/node1/A.dat
-#python $HOME/Documents/sasha/servers.py split-copy $CONF ../A.dat A.dat
-#head -4000 /home/burak/Downloads/netflix/download/A_netflix.dat > /tmp/net_small.dat
-#python $HOME/Documents/sasha/servers.py split-copy $CONF /tmp/net_small.dat A.dat
+# big netflix
+# python $HOME/Documents/sasha/servers.py split-copy $CONF /home/burak/Downloads/netflix/download/A_netflix.dat A.dat
 
+# one server, small
+# cp ../A.dat $HOME/Downloads/sasha/node1/A.dat
+
+# two server small
+# python $HOME/Documents/sasha/servers.py split-copy $CONF ../A.dat A.dat
+
+# netflix small
+# head -4000 /home/burak/Downloads/netflix/download/A_netflix.dat > /tmp/net_small.dat
+# python $HOME/Documents/sasha/servers.py split-copy $CONF /tmp/net_small.dat A.dat
+
+# 
 # processing
+#
 
 python proj.py $CONF -i A.dat -o Y.dat  -r $RESPONSE
 python ata.py $CONF -i Y.dat -o YtY.dat -r $RESPONSE
