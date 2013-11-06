@@ -125,8 +125,8 @@
 
 SVD, Toplu Tavsiye (Collaborative Filtering)
 
-Diyelim ki Star Trek (ST) dizini ne kadar begendigini herkes sezonlara
-gore isaretliyor. Bu veriyi altta bulabilirsiniz.
+Diyelim ki Star Trek (ST) dizisini ne kadar begendigini 4 tane kullanici
+sezonlara gore isaretlemis. Bu ornek veriyi alttaki gibi gosterelim.
 
 \begin{codecell}
 \begin{codeinput}
@@ -158,12 +158,16 @@ S6    5    4     5     5
 \end{verbatim}
 \end{codeoutput}
 \end{codecell}
-Veriye gore Tom, 3. sezonu 4 seviyesinde sevmis. 0 degeri o sezonun
-seyredilmedigini gosteriyor. Toplu Tavsiye algoritmalari verideki diger
-kisilerin bir urunu, diziyi, vs.~ne kadar begendiginin verisinin diger
-``benzer'' kisilere tavsiye olarak sunulmasidir, ya da ondan once, bir
-kisinin daha almadigi urunu, seyretmedigi sezonu, dinlemedigi muzigi ne
-kadar ``begeneceginin'' tahmin edilmesidir.
+Veriye gore Tom, ST dizisinin 3. sezonunu 4 seviyesinde sevmis. 0 degeri
+o sezonun seyredilmedigini gosteriyor.
+
+Toplu Tavsiye algoritmalari verideki diger kisilerin bir urunu, diziyi,
+vs.~ne kadar begendiginin verisinin diger ``benzer'' kisilere tavsiye
+olarak sunabilir, ya da ondan once, bir kisinin daha almadigi urunu,
+seyretmedigi sezonu, dinlemedigi muzigi ne kadar ``begeneceginin''
+tahmin eder. Kaggle sitesi uzerinden yapilan unlu Netflix yarismasinin
+amaci buydu - ayrica tahmin edilen ve gercek begeni notunun hata payinin
+hesabi icin RMSE hesabi kullanilmisti.
 
 Peki benzerligin kriteri nedir, ve benzerlik nelerin arasinda olculur?
 
@@ -180,8 +184,9 @@ tavsiye edilebilir.
 Urun ya da kisi bazinda olsun, benzerligi hesaplamanin da farkli yollari
 var. Genel olarak benzerlik olcutunun 0 ile 1 arasinda degisen bir sayi
 olmasini tercih ediyoruz ve tum ayarlari ona gore yapiyoruz. Diyelim ki
-ki elimizde $A,B$ vektorleri var, ve bu vektorlerin icinde begeni
-notlari var. Benzerlik cesitleri soyle:
+ki elimizde begeni notlarini tasiyan $A,B$ vektorleri var (baska veri
+turu de tasiyor olabilir tabii), ve bu vektorlerin icinde begeni notlari
+var. Benzerlik cesitleri soyle:
 
 Oklit Benzerligi (Euclidian Similarity)
 
@@ -275,10 +280,12 @@ Evet. SVD yontemi burada da isimize yarar.
 \[ A = USV  \]
 elde edecegimiz icin, ve $S$ icindeki en buyuk degerlere tekabul eden
 $U,V$ degerleri siralanmis olarak geldigi icin $U,V$'nin en bastaki
-degerlerini almak bize ``en onemli'' bloklari verir. $U$'nun mesela en
-onemli iki kolonu bize iki boyuttaki sezon kumelerini verebilir, $V$'nin
-en onemli iki (en ust) satiri bize iki boyutta bir kisi kumesi
-verebilir.
+degerlerini almak bize ``en onemli'' bloklari verir. Bu en onemli kolon
+ya da satirlari alarak azaltilmis bir boyut icinde benzerlik hesabi
+yapmak islemlerimizi hizlandirir. Bu azaltilmis boyutta kumeleme
+algoritmalarini devreye sokabiliriz; $U$'nun mesela en onemli iki kolonu
+bize iki boyuttaki sezon kumelerini verebilir, $V$'nin en onemli iki (en
+ust) satiri bize iki boyutta bir kisi kumesi verebilir.
 
 O zaman begeni matrisi uzerinde SVD uygulayalim,
 
@@ -342,9 +349,10 @@ olusturdugunu, Ben ve Fred'in de kisi bazinda ayri bir kume oldugunu
 gosterdi.
 
 Azaltilmis boyutlari nasil kullaniriz? Yeni bir kisiyi (mesela Bob) ele
-alinca, bu kisinin verisini oncelikle azaltilmis boyuta ``indirgemek''
-gerekiyor. Cunku artik islem yaptigimiz boyut orasi. Peki bu indirgemeyi
-nasil yapariz? SVD genel formulunu hatirlarsak,
+alinca, bu kisinin verisini oncelikle aynen diger verilerin indirgendigi
+gibi azaltilmis boyuta ``indirgememiz'' gerekiyor. Cunku artik islem
+yaptigimiz boyut orasi. Peki bu indirgemeyi nasil yapariz? SVD genel
+formulunu hatirlarsak,
 \[ A = USV \]
 Azaltilmis ortamda
 \[ A = U_k S_k V_k \]
@@ -420,8 +428,13 @@ array([-0.37752201, -0.08020351])
 \end{verbatim}
 \end{codeoutput}
 \end{codecell}
-Simdi kosinus benzerligi kullanarak bu izdusumlenmis yeni vektorun hangi
-diger vektorlere benzedigini bulalim.
+Ustte eye ve Sigma ile ufak bir takla attik, bunun sebebi svd
+cagrisindan gelen Sigma sonucunun bir vektor olmasi ama ustteki islem
+icin kosegen bir ``matrise'' ihtiyacimiz olmasi. Eger birim (identity)
+matrisini alip onu Sigma ile carparsak, bu kosegen matrisi elde ederiz.
+
+Simdi mesela kosinus benzerligi kullanarak bu izdusumlenmis yeni
+vektorun hangi diger vektorlere benzedigini bulalim.
 
 \begin{codecell}
 \begin{codeinput}
@@ -440,10 +453,48 @@ Fred 0.977685793579
 \end{verbatim}
 \end{codeoutput}
 \end{codecell}
-Bu sonuca gore yeni kullanici Bob en cok Ben ve Fred'e benziyor. Bu iki
-kullanicinin yuksek not verdigi ama Bob'un hic not vermedigi sezonlari
-alip Bob'a tavsiye olarak sunabiliriz!
+Sonuca gore yeni kullanici Bob, en cok Ben ve Fred'e benziyor. Sonuca
+eristik! Artik bu iki kullanicinin yuksek not verdigi ama Bob'un hic not
+vermedigi sezonlari alip Bob'a tavsiye olarak sunabiliriz.
 
+Movielens Verisi
+
+\begin{codecell}
+\begin{codeinput}
+\begin{lstlisting}
+import pandas as pd
+df = pd.read_csv("/home/burak/Downloads/movielens1.csv",sep=';')
+import scipy.sparse as sps
+df = df.fillna(0)
+dfs = sps.coo_matrix(np.array(df.ix[:,1:]))
+\end{lstlisting}
+\end{codeinput}
+\end{codecell}
+\begin{codecell}
+\begin{codeinput}
+\begin{lstlisting}
+import scipy.linalg as lin
+import scipy.sparse.linalg as slin
+U,S,V=slin.svds(dfs,k=7)
+\end{lstlisting}
+\end{codeinput}
+\end{codecell}
+\begin{codecell}
+\begin{codeinput}
+\begin{lstlisting}
+plot(U[:,0], U[:,1],'.')
+\end{lstlisting}
+\end{codeinput}
+\begin{codeoutput}
+\begin{verbatim}
+[<matplotlib.lines.Line2D at 0xc9f2c10>]
+\end{verbatim}
+\begin{center}
+\includegraphics[width=0.7\textwidth]{svdrecom_files/svdrecom_fig_01.png}
+\par
+\end{center}
+\end{codeoutput}
+\end{codecell}
 Kaynaklar
 
 http://www.igvita.com/2007/01/15/svd-recommendation-system-in-ruby/
