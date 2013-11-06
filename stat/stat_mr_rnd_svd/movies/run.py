@@ -1,6 +1,6 @@
 import os, sys, glob
 
-fout = "/home/burak/Downloads/netflix/download/netflix1_reorg.csv"
+fout = "%s/Downloads/netflix/download/netflix1_reorg.csv" % os.environ['HOME']
 for i,f in enumerate(glob.glob("/home/burak/Downloads/netflix/download/training_set/*")):
     cmd = "cat %s | python reorg.py >> %s" % (f,fout)
     os.system(cmd)

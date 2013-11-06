@@ -2,9 +2,7 @@ from sasha import job
 import numpy as np, sys, itertools
 import random, re, sys
 
-#N = 30; K = 7
-N = 3730; K = 7
-#N = 17771; K = 7
+K = 7
     
 class Proj(job.SashaJob):
         

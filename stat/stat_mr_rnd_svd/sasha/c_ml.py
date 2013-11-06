@@ -5,7 +5,6 @@ plots
 import scipy.sparse as sps
 import numpy as np
 import numpy.random as rand
-import numpy.linalg as lin
 import scipy.sparse.linalg as slin
 import matplotlib.pyplot as plt
 import pandas as pd
@@ -23,7 +22,7 @@ plt.plot(-U[:,0],U[:,1],'o')
 plt.hold(True)
         
 df = pd.read_csv("/home/burak/Downloads/movielens1.csv",sep=';')
-df = df.fillna(0)
+df = df.fillna(0) # force sparsity
 dfs = sps.coo_matrix(np.array(df.ix[:,1:]))
 
 U,S,V=slin.svds(dfs,k=7)
