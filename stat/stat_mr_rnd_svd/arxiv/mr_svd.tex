@@ -329,12 +329,13 @@ million from over 480,000 customers on 17770 movies. The implementation was
 programmed on Sasha distributed framework \cite{bayramli1}, and SVD
 calculation on the full dataset with $k=7$ on two notebook computers,
 utilizing in total 6 cores took 20 minutes. Scipy SVD calculation on the
-same dataset is much faster, however, map/reduce environment is a streaming
-environment which needs to process in record-by-record basis. Fortunately
-exactly for the same reasons a map/reduce algorithm can scale horizontally,
-being able to process records in the billions proportional to the number of
-nodes in a cluster whereas single machine algorithm would not. All code
-relevant for this paper can be found here \cite{bayramli2}.
+same dataset is much faster, however, we need to stress our algorithms are
+prepared for cases where $N$ is very large, i.e. in the billions. As such,
+for example during projection we did not simple create and pre-store a $n
+\times k$ random matrix and multiply multiple rows of $A$ with this
+matrix. This would certainly be possible for Netflix data where $n$ is
+relatively small, but would not work well in cases where $A$ is ``fat''.
+All code relevant for this paper can be found here \cite{bayramli2}.
 
 There are only two passes necessary on the full dataset, and three passes
 on $m$ rows but with reduced $k$ dimensions this time.  Perhaps
