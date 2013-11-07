@@ -5,7 +5,7 @@ that has user_id tab seperated, and all non-null ratings are in the
 '''
 import pandas as pd, re
 
-fin = open ("%s/Downloads/movielens1.csv" % os.environ['HOME'])
+fin = open ("%s/Downloads/movielens.csv" % os.environ['HOME'])
 header = fin.readline() # skip
 for j,line in enumerate(fin.readlines()):
     line = re.findall("(.*?);",line)

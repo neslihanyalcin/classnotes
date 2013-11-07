@@ -35,4 +35,4 @@ df1 = pd.read_csv("/tmp/out4.csv",sep=';')
 df2 = pd.read_csv("/tmp/out6.csv",sep=';')
 df3 = pd.merge(df1,df2)
 
-df3.to_csv("%s/Downloads/movielens1.csv" % os.environ['HOME'],sep=';',index=None)
+df3.to_csv("%s/Downloads/movielens.csv" % os.environ['HOME'],sep=';',index=None)
