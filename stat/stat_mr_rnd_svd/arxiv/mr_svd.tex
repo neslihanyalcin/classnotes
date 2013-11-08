@@ -75,8 +75,8 @@ matrices where $n$ is small.
 \subsection{Approximate rank-k SVD}
 
 Switching gears, we look at another method for calculating SVD. The
-motivation is computing SVD if $n$ is large, creating a ``fat'' matrix
-which might have columns in the billions would require reducing the
+motivation is while computing SVD, if $n$ is large, creating a ``fat''
+matrix which might have columns in the billions would require reducing the
 dimensionality of the problem. According to \cite{halko}, one way to
 achieve is through random projection. First we draw an $n \times k$
 Gaussian random matrix $\Omega$. Then we calculate
@@ -263,7 +263,7 @@ assumed to be sparse, and multiply the entire row of $Q$. Then for each
 $j^{th}$ non-zero cell of $A$, we multiply this value with the row from $Q$
 and emit the multiplication result with key $j$.
 
-This job's formula in \ref{bt} is described $Q^TA$. For implementation
+The $Q^TA$ job's formula can be seen at \ref{bt}. For implementation
 purposes we changed this formula into
 
 $$ B^T = A^TQ $$
@@ -331,7 +331,7 @@ calculation on the full dataset with $k=7$ on two notebook computers,
 utilizing in total 6 cores took 20 minutes. Scipy SVD calculation on the
 same dataset is much faster, however, we need to stress our algorithms are
 prepared for cases where $N$ is very large, i.e. in the billions. As such,
-for example during projection we did not simple create and pre-store a $n
+for example during projection we did not simply create and pre-store a $n
 \times k$ random matrix and multiply multiple rows of $A$ with this
 matrix. This would certainly be possible for Netflix data where $n$ is
 relatively small, but would not work well in cases where $A$ is ``fat''.
