@@ -457,48 +457,232 @@ Sonuca gore yeni kullanici Bob, en cok Ben ve Fred'e benziyor. Sonuca
 eristik! Artik bu iki kullanicinin yuksek not verdigi ama Bob'un hic not
 vermedigi sezonlari alip Bob'a tavsiye olarak sunabiliriz.
 
-Movielens Verisi
+\subsection{Movielens 1M Verisi}
+
+Bu veri seti 6000 kullanici tarafindan yaklasik 4000 tane filme verilen
+not / derece (rating) verisini iceriyor, 1 milyon tane not verilmis,
+yani 4000 * 6000 = 24 milyon olasilik icinde sadece 1 milyon veri
+noktasi dolu. Bu oldukca seyrek bir matris demektir.
+
+Verinin ham hali diger ders notlarini da iceren ust dizinlerde var,
+veriyi SVD ile kullanilir hale getirmek icin movielens\_prep.py adli
+script kullanilir. Islem bitince movielens.csv adli bir dosya script'te
+gorulen yere yazilacak. Bu dosyada olmayan derecelendirmeler bos
+olacaktir . Bu bosluklari sifirlarsak, scipy seyrek matrisi o noktalari
+atlayacaktir. Ardindan bu seyrek matris uzerinde SVD isletilebilir.
 
 \begin{codecell}
 \begin{codeinput}
 \begin{lstlisting}
-import pandas as pd
-df = pd.read_csv("/home/burak/Downloads/movielens1.csv",sep=';')
-import scipy.sparse as sps
-df = df.fillna(0)
-dfs = sps.coo_matrix(np.array(df.ix[:,1:]))
-\end{lstlisting}
-\end{codeinput}
-\end{codecell}
-\begin{codecell}
-\begin{codeinput}
-\begin{lstlisting}
-import scipy.linalg as lin
-import scipy.sparse.linalg as slin
-U,S,V=slin.svds(dfs,k=7)
-\end{lstlisting}
-\end{codeinput}
-\end{codecell}
-\begin{codecell}
-\begin{codeinput}
-\begin{lstlisting}
-plot(U[:,0], U[:,1],'.')
+import pandas as pd, os
+df = pd.read_csv("%s/Downloads/movielens.csv" % os.environ['HOME'],sep=';')
+print df.shape
+df = df.ix[:,1:] # id kolonunu atla
+df = df.ix[:,:3700] # sadece filmleri 
+movie_avg_rating = np.array(df.mean(axis=0))
+df = np.array(df)
+print df.shape
+
 \end{lstlisting}
 \end{codeinput}
 \begin{codeoutput}
 \begin{verbatim}
-[<matplotlib.lines.Line2D at 0xc9f2c10>]
+(6040, 3731)
+(6040, 3700)
 \end{verbatim}
-\begin{center}
-\includegraphics[width=0.7\textwidth]{svdrecom_files/svdrecom_fig_01.png}
-\par
-\end{center}
+\begin{verbatim}
+
+\end{verbatim}
 \end{codeoutput}
 \end{codecell}
+Birlestirici script kullanicilarin demografik bilgisini de matrise
+ekliyor. Biz ustte basitlestirme amacli bu kismi hafizada tekrar
+cikarttik, ama isteyen olursa bu ek ile de ilginc ek analizler
+yapilabilir.
+
+Veriyle calisma seklimiz soyle olacak: gercek dunya sartlarini yakinen
+taklit edebilmek amaciyla rasgele bazi veri notlari sececegiz, ve bu
+notlari, nereden geldigini bir kenara yazip SVD'ye vermeden once
+matristen silecegiz.
+
+\begin{codecell}
+\begin{codeinput}
+\begin{lstlisting}
+import scipy.sparse as sps
+nonzero_idx = []; df_train = df.copy()
+np.random.seed(0)
+while True:
+    i = np.random.randint(0, df.shape[0])
+    j = np.random.randint(0, df.shape[1])
+    if not np.isnan(df[i,j]):
+        nonzero_idx.append([i,j]); df_train[i,j] = 0.
+        if len(nonzero_idx) == 200: break # 200 nokta sec
+
+df_train[np.isnan(df_train)] = 0.0
+dfs_train = sps.coo_matrix(df_train)
+
+for ii,(i,j) in enumerate(nonzero_idx):
+    print i,j,df[i, j]
+    if ii == 10: break 
+\end{lstlisting}
+\end{codeinput}
+\begin{codeoutput}
+\begin{verbatim}
+659 3219 4.0
+6001 1316 4.0
+201 2431 3.0
+307 1104 4.0
+5995 3341 3.0
+5566 136 4.0
+4040 573 3.0
+3291 2867 5.0
+816 3166 5.0
+3821 2711 4.0
+3441 2274 5.0
+\end{verbatim}
+\end{codeoutput}
+\end{codecell}
+Ustte secilen verilerden birkacinin i,j kordinatlari ve derece verisi
+goruluyor. Bu verileri alirken yerlerine sifir degeri koyduk, boylece
+coo\_matris ile seyrek matris yaratirken o sifirlar hafizaya
+alinmayacak.
+
+Artik bu matris uzerinde SVD isletebiliriz, hatta seyrek ortamda
+calismasi icin ozel yazilmis seyrek SVD kullanacagiz.
+
+\begin{codecell}
+\begin{codeinput}
+\begin{lstlisting}
+import scipy.sparse.linalg as slin
+import scipy.linalg as la
+U,Sigma,VT=slin.svds(dfs_train,k=10)
+\end{lstlisting}
+\end{codeinput}
+\end{codecell}
+Bu is bittikten sonra elimizde U matrisi var. Bu matrisi soyle
+kullanacagiz. Veriden cektigimiz test noktalarini simdi algoritmamiza
+verecegiz ve derecelendirme verisini tahmin ettirecegiz. Sonra
+bildigimiz gercek deger ile bu tahmini karsilastiracagiz. Karsilastirma
+icin RMSE adli bir olcut kullanilacak, yani tahmin ve gercek deger
+farkinin kareleri alip toplanacak, sonuc test nokta sayisina bolunup
+karekoku alinacak. Bu tavsiye sistemleri (recommendation engines) icin
+iyi bilinen bir tekniktir, Netflix yarismasinda da mesela bu olcut
+kullanilmistir.
+
+Tahmin icin bize bir kullanici ve film sorulacak. Algoritmamiza gore U
+matrisi icinde bu kullaniciya en yakin diger kullaniciyi bulacagiz. Bunu
+daha hizli bir sekilde yapabilecegiz cunku SVD ile boyut azaltmasi
+yaptik, ve daha az kolonu baz alarak karsilastirma yapabiliriz.
+Benzerlik olcutu icin yazinin basindaki alternatiflere bakabilirsiniz,
+biz simdilik Oklit (euclid) benzerligi kullandik.
+
+Kodlama acisindan U'nin i'inci satirini diger tum U'lari ile yanyana
+getirip benzerlik hesabi yaptik, bu tur isler icin map bicilmis kaftan.
+Pythonic kodlama stili zaten daha az for dongusu kullanmayi, daha
+fonksiyonel kodlama yapilmasini ozendiriyor.
+
+Bazi puf noktalar: benzerlikler olculurken i'inci veri kendisi ile
+yanyana gelir dogal olarak ve tabii ki ``aynen'' benzer sonucunu rapor
+eder, bunu engellemek icin (cunku tekrar i'inci kullaniciyi degil, baska
+bir kullaniciyi bulmak istiyoruz), i'nin kendisine olan mesafesini yapay
+olarak cok buyuk negatif bir sayiya (-100) set ederiz.
+
+Ayni sekilde benzerlik hesaplari yapildiktan sonra o hesaplarin
+uzerinden bir daha geceriz ve j'inci urune oy vermemis tum
+kullanicilarin benzerlik hesabini yine yapay olarak -100'e set ederiz.
+Cunku o kullanicilarla da ilgilenmiyoruz. Aradigimiz urune oy vermis
+olan kullanicilarla ilgileniyoruz.
+
+O diger kullanici bulunduktan sonra o kullanicinin aradigimiz verdigi
+urune atadigi dereceyi tahminimiz olarak kullaniyoruz. Altta 10 ornek
+uzerinde sonuclar gorulebilir.
+
+\begin{codecell}
+\begin{codeinput}
+\begin{lstlisting}
+__top_k__ = 6
+
+def euclid(inA,inB):
+    return 1.0/(1.0 + la.norm(inA - inB))
+    
+def find_sim(i,U,j):
+    sims = np.array(map(lambda x: euclid(x, U[i,:__top_k__]), U[:,:__top_k__]))
+    # kendi kendine benzerligi en kotu yap
+    sims[i] = -100
+    # eger kullanici o urune oy vermemisse, benzerligi yine kotulestir
+    for i,v in enumerate(sims):
+        if df_train[i,j] == 0: sims[i] = -100
+    return np.argmax(sims)
+
+rmse = 0; n = 0
+for ii,(i,j) in enumerate(nonzero_idx):
+    isim = find_sim(i,U,j)
+    rmse += (df_train[isim, j] - df[i, j])**2
+    n += 1
+    print i, 'kullanici', 'icin en yakin kisi', isim, ',urun',j, 'icin oyu', df[isim, j], ', gercek oy', df[i, j]
+    if ii == 10: break
+
+print "rmse", np.sqrt(rmse / n)
+    
+\end{lstlisting}
+\end{codeinput}
+\begin{codeoutput}
+\begin{verbatim}
+659 kullanici icin en yakin kisi 3704 ,urun 3219 icin oyu 4.0 , gercek oy 4.0
+6001
+\end{verbatim}
+\begin{verbatim}
+kullanici icin en yakin kisi 4801 ,urun 1316 icin oyu 5.0 , gercek oy 4.0
+201
+\end{verbatim}
+\begin{verbatim}
+kullanici icin en yakin kisi 2495 ,urun 2431 icin oyu 4.0 , gercek oy 3.0
+307
+\end{verbatim}
+\begin{verbatim}
+kullanici icin en yakin kisi 5160 ,urun 1104 icin oyu 5.0 , gercek oy 4.0
+5995
+\end{verbatim}
+\begin{verbatim}
+kullanici icin en yakin kisi 2528 ,urun 3341 icin oyu 5.0 , gercek oy 3.0
+5566
+\end{verbatim}
+\begin{verbatim}
+kullanici icin en yakin kisi 2488 ,urun 136 icin oyu 4.0 , gercek oy 4.0
+4040
+\end{verbatim}
+\begin{verbatim}
+kullanici icin en yakin kisi 3310 ,urun 573 icin oyu 3.0 , gercek oy 3.0
+3291
+\end{verbatim}
+\begin{verbatim}
+kullanici icin en yakin kisi 5871 ,urun 2867 icin oyu 4.0 , gercek oy 5.0
+816
+\end{verbatim}
+\begin{verbatim}
+kullanici icin en yakin kisi 1368 ,urun 3166 icin oyu 3.0 , gercek oy 5.0
+3821
+\end{verbatim}
+\begin{verbatim}
+kullanici icin en yakin kisi 1691 ,urun 2711 icin oyu 5.0 , gercek oy 4.0
+3441
+\end{verbatim}
+\begin{verbatim}
+kullanici icin en yakin kisi 535 ,urun 2274 icin oyu 5.0 , gercek oy 5.0
+rmse 1.08711461301
+\end{verbatim}
+\end{codeoutput}
+\end{codecell}
+Bu alanda RMSE 0.9 civari cok iyidir, ustte seed ile oynayarak verinin
+degisik kisimlarindan test ornekleri cekip cikarabilirsiniz. Ustte biz
+200 icinden 10'ununu kontrol ettik, tamamina bakilabilir.
+
 Kaynaklar
 
 http://www.igvita.com/2007/01/15/svd-recommendation-system-in-ruby/
 
 Harrington, P., Machine Learning in Action
+
+http://stats.stackexchange.com/questions/31096/how-do-i-use-the-svd-in-collaborative-filtering
 
 \end{document}
