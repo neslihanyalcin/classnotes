@@ -125,62 +125,43 @@
 
 \section{Rasgele İzdüşümü (Random Projection) ile SVD}
 
-Bir matrisin rasgele izdusumunu almak, yani onu rasgele bir sayilardan
-olusan bir matris ile sagdan carpmak bize ne kazandirir? Elde edilen
-yeni matrisin ozellikleri nedir?
+Eger ana matrisimiz $A$'nin cok fazla kolonu var ise bunu bir sekilde
+azaltmanin yollarini arayabiliriz. {[}1{]}'e gore bunu yapmanin
+yollarindan biri rasgele izdusum hesabidir. Ilk once $n \times k$
+boyutunda bir Gaussian rasgele matris $\Omega$ uretiriz. Ardindan
+\[ Y = A\Omega \]
+hesaplanir. Bu $Y$ uzerinde QR ayristirmasi yapariz, ve elde edilen $Q$
+ile
+\[ B = Q^T A \]
+hesabini yapariz. Ardindan bu matris uzerinde SVD ayristirmasi yapariz,
+\[ B = \hat{U}\Sigma V^T \]
+ve
+\[ U = Q\hat{U} \]
+matrisini hesaplariz. Ana fikir suradan geliyor,
+\[ A = QQ^TA \]
+ki bu standart bir cebir numarasi olurdu, $Q$ yerine rasgele izdusumdan
+gelen yaklasiksal $Q$'yu kullanabiliriz, o zaman
+\[ A \approx \tilde{Q}\tilde{Q}^TA \]
+olacaktir. Yani izdusumden gelen $Q,R$ gercek versiyona yakin. Ustteki
+carpimda $R$ yerine $B$ harfi kullaniyoruz, ki $B = \tilde{Q}^T A$
+oluyor, yani
+\[ A \approx \tilde{Q}B \]
+ya da
+\[ B \approx \tilde{Q}^T A \].
 
-Suradaki {[}1{]} arastirmaya gore bu yeni matristeki satirlar (veri
-noktalarimiz yani) arasindaki mesafeler fazla degismemektedir. Burada
-``fazla'' olarak niteledigimiz {[}1{]}'de daha detayli olarak isleniyor.
-Yapay Ogrenim baglaminda rasgele izdusumun bize kazandirdigi en onemli
-fayda ana matris $A$ uzerinde boyut kucultme yapabilmemizdir. Diyelim ki
-$m \times n$ boyutundaki $A$'yi $n \times k$ boyutunda bir rasgele
-matris $\Omega$ ile carptigimiz zaman elde ettigimiz $m \times k$
-boyutunda yeni bir matris. Eger $n$ milyarlar boyutunda ise, bizim
-tanimladigimiz bir $k$ uzerinden matris boyutunu (kolonlari) 100 ya da
-1000'e indirebilmis oluyoruz.
+O zaman Istatistik notlarimiz altindaki \emph{Paralel Matris Carpımı,
+Ax, QR ve SVD} yazisinda oldugu gibi $B$'nin SVD'sini alarak yaklasiksal
+bir $U$ elde etmek mumkun olacaktir.
 
-Literaturde hedeflenenin $|| A - \tilde{A} || < \epsilon$
+Bu yaklasiksal metot isler cunku noktalari yaklasiksal bir altuzaya
+yansittiktan sonra elde edilen yeni noktalarin arasindaki mesafelerin
+fazla bozulmadan muhafaza edildigi soylenir, daha detayli soylemek
+gerekirse, n-boyutlu verileri $O(\log n / \epsilon^2)$ boyutundaki bir
+rasgele altuzaya yansitmak, pozitif olasilikla, yeni noktalarin
+arasindaki mesafeleri sadece $1 \pm \epsilon$ olcusunde degistirir
+{[}2{]}. $Y$'nin, $A$'nin ``menzilini'' iyi temsil ettigi de soylenir.
 
-yani A'dan onun yaklasiksal benzeri cikartilinca bu farkin normunun cok
-ufak $\epsilon$ olmasinin amaclandigi gorulecektir. $\tilde{A}$'yi elde
-etmek icin su mantigi uygulayalim
-\[ A = QR \]\[ Q^TA = R \]\[ QQ^TA = QR \]\[ QQ^TA = A \]
-Simdi eger $Q$ yaklasiksal olarak bulunmus, ve daha dusuk boyutta ise,
-otomatik olarak ustteki $A$ da yaklasiksal olacaktir.
-
-Bunun icin bir rasgele matris yaratilir, bu matrisin her ogesinin bir 0
-merkezli 1 standart sapmali Gaussian'dan orneklenebilir, sonra bu matris
-$A$ ile carpilir
-\[ Y  = A\Omega \]
-Ortaya cikan $Y$'nin $A$'nin ``menzilini (range)'' yaklasiksal olarak
-temsil ettigi de soylenir, bu mantiklidir, cunku bir matrisin menzilinin
-ne oldugunu dusunursek, onun tum kolonlarinin her turlu carpilip
-toplanmasinin olusturdugu uzay bu menzildir. Simdi kolonsal carpim
-gorusunu kullanirsak, $A$'yi bir baska rasgele matris ile sagdan
-carpmak, evet, yaklasiksal olarak onun kolonlarini degisik
-kombinasyonlarda, birbirleriyle toplamak anlamina gelecektir, ortaya
-cikan yeni matris te $A$'nin menzilini kismen temsil edebilir. Simdi bu
-menzilden ``geriye giderek'' onun bazini ortaya cikarabiliriz.
-Unutmayalim, yeni matris $A$'nin boyutu azaldi, artik elimizde
-$m \times k$ boyutunda bir matris var.
-\[ Y = QR \]
-ile $Q$ matrisini elde ederiz. Bu guzel bir sonuc. Simdi ustteki
-$QQ^TA = A$ ifadesine geri donelim,
-\[ \tilde{A} = QQ^TA \]
-Eger
-\[Q^TA = B\]
-dersek,
-\[ \tilde{A} \approx QB \]
-seklinde yeni bir ayristirma elde ederiz. Ayrica bu $A$'ya yaklasiksal
-olarak ulasmanin baska bir yoludur da. Elimide $B$ ve $Q$ var ise (ki
-var, cunku $B$ rasgele izdusumden geldi, $Q$ bunun uzerinde $QR$
-ayristirmasi sonrasi elde edildi), bu iki matrisin carpimi bize
-yaklasiksal $A$'yi verecektir. Bu yaklasiksal $\tilde{A}$ uzerinde SVD
-gerceklestirmek te mumkundur. Yeni matrisin boyutlari $k \times n$
-olacaktir.
-
-Test olarak suradaki {[}3{]} veri seti uzerinde
+Test olarak suradaki {[}3{]} veri seti uzerinde gorelim:
 
 \begin{codecell}
 \begin{codeinput}
@@ -191,27 +172,33 @@ import numpy.linalg as lin
 import matplotlib.pyplot as plt
 import pandas as pd
 
-k = 7
+k = 7 # izdusum uzayinin boyutlari
 df = pd.read_csv("w1.dat",sep=';',header=None)
 A = np.array(df)[:,1:]
+
 print "A",A.shape
 
 rand.seed(1000)
+
 Omega = rand.randn(A.shape[1],k)
 
 Y = np.dot(A, Omega) 
+
 print "Y", Y.shape
 
 Q, R = lin.qr(Y) 
 
+# niye devrigi ile is yaptigimizi altta anlatiyoruz
 BT = np.dot(A.T, Q)
 
 print "Q", Q.shape
 print "BT", BT.shape
 
 x, x, V = lin.svd(BT)
+
 print 'V', V.shape
-Uhat = V.T # because B=USV', B'=VSU' for U of B we need V'
+
+Uhat = V.T # cunku B=USV', B'=VSU' U of B icin V' lazim
 
 print "Uhat", Uhat.shape
 
@@ -249,21 +236,20 @@ U (71, 7)
 \end{center}
 \end{codeoutput}
 \end{codecell}
-Rasgele izdusum sonrasi SVD noktalari kirmizi, direk SVD noktalari mavi
-ile gosterildi. 4 boyutu 3 boyuta izdusum yaptik, ve ardindan ek bazi
-operasyonlar sonrasi SVD aldik. Sonuc goruldugu gibi oldukca birbirine
-yakin.
+Kodlama acisindan, ya da buyuk veri baglaminda baska amaclar icin
+{[}4{]} $B = Q^T A$ yerine $B^T = A^T Q$ hesabi yapmak istenilebilir.
+Niye? Cunku cikti olarak $n \times k$ matrisi istiyor olabiliriz,
+$k \times n$ matrisi istemiyoruz, yani cok olanin satirlar olmasini
+istiyoruz, kolonlar olmasini istemiyoruz.
 
-\subsubsection{\$ B = Q\^{}TA \$ Yerine}
+O zaman, elde edilen $B^T$ ise, $B$ uzerinde degil $B^T$ uzerinde SVD
+alacagiz demektir, bu da sonuclari birazcik degistirir, yani
+\[ B = U\Sigma V^T \]\[ B^T = V\Sigma U^T \]
+haline gelir. Yani $B$'nin $U$'sunu elde etmek icin $B^T$'nin SVD'si
+sonrasinda ele gecen sonucta $(U_{BT}^T)^T$ yapmak gerekir. Her seyin
+hafizada yapildigi durumda bu fark yaratmaz, fakat ``ilerisi icin'',
+yani esle / indirge ortamlari icin akilda tutmak faydali olur.
 
-Bu carpimin yerine soyle baska bir carpim kullanmak ta mumkun.
-
-Soyle dusunelim
-\[ Y = QR \]\[ YR^{-1} = Q \]
-Daha onceden hatirlarsak
-\[ B = Q^TA \]
-Simdi $Q$ yerine usttekini gecirelim
-\[ B = (YR^{-1})^T A \]\[ B^T = A^T YR^{-1} \]
 Kaynaklar
 
 {[}1{]} Halko, N., Randomized methods for computing low-rank
@@ -273,5 +259,7 @@ approximations of matrices
 Johnson and Lindenstrauss
 
 {[}3{]} http://archive.ics.uci.edu/ml/datasets/Breast+Cancer
+
+{[}4{]} http://arxiv.org/abs/1310.4664
 
 \end{document}
