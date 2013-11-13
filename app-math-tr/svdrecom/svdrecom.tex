@@ -123,7 +123,7 @@
 \setlength{\parskip}{8pt}
 \begin{document}
 
-SVD, Toplu Tavsiye (Collaborative Filtering)
+\subsection{SVD, Toplu Tavsiye (Collaborative Filtering)}
 
 Diyelim ki Star Trek (ST) dizisini ne kadar begendigini 4 tane kullanici
 sezonlara gore isaretlemis. Bu ornek veriyi alttaki gibi gosterelim.
@@ -164,9 +164,9 @@ o sezonun seyredilmedigini gosteriyor.
 Toplu Tavsiye algoritmalari verideki diger kisilerin bir urunu, diziyi,
 vs.~ne kadar begendiginin verisinin diger ``benzer'' kisilere tavsiye
 olarak sunabilir, ya da ondan once, bir kisinin daha almadigi urunu,
-seyretmedigi sezonu, dinlemedigi muzigi ne kadar ``begeneceginin''
-tahmin eder. Kaggle sitesi uzerinden yapilan unlu Netflix yarismasinin
-amaci buydu - ayrica tahmin edilen ve gercek begeni notunun hata payinin
+seyretmedigi sezonu, dinlemedigi muzigi ne kadar ``begenecegini'' tahmin
+eder. Kaggle sitesi uzerinden yapilan unlu Netflix yarismasinin amaci
+buydu - ayrica tahmin edilen ve gercek begeni notunun hata payinin
 hesabi icin RMSE hesabi kullanilmisti.
 
 Peki benzerligin kriteri nedir, ve benzerlik nelerin arasinda olculur?
@@ -481,12 +481,14 @@ not / derece (rating) verisini iceriyor, 1 milyon tane not verilmis,
 yani 4000 * 6000 = 24 milyon olasilik icinde sadece 1 milyon veri
 noktasi dolu. Bu oldukca seyrek bir matris demektir.
 
-Verinin ham hali diger ders notlarini da iceren ust dizinlerde var,
-veriyi SVD ile kullanilir hale getirmek icin movielens\_prep.py adli
-script kullanilir. Islem bitince movielens.csv adli bir dosya script'te
-gorulen yere yazilacak. Bu dosyada olmayan derecelendirmeler bos
-olacaktir . Bu bosluklari sifirlarsak, scipy seyrek matrisi o noktalari
-atlayacaktir. Ardindan bu seyrek matris uzerinde SVD isletilebilir.
+Verinin ham hali diger ders notlarimizi iceren ust dizinlerde var,
+veriyi SVD ile kullanilir hale getirmek icin bu dizindeki
+movielens\_prep.py adli script kullanilir. Islem bitince movielens.csv
+adli bir dosya script'te gorulen yere yazilacak. Bu dosyada olmayan
+derecelendirmeler, verilmemis notlar bos olacaktir. Bu bosluklari
+sifirlarsak, scipy seyrek matrisi o noktalari atlar. Ardindan bu seyrek
+matris uzerinde seyrek SVD isletilebilir. Bu normal SVD'den daha hizli
+isleyecektir.
 
 Tavsiye kodlamamiz icin yazinin basinda anlatilan teknigi kullanacagiz,
 film verisi uzerinde boyut azaltilmasi yapilacak, benzer kullanici
@@ -497,8 +499,8 @@ Veriyi egitim ve test olarak iki parcaya bolecegiz. SVD egitim bolumu
 uzerinde isletilecek.
 
 Bu baglamda, onemli bir diger konu eksik veri noktalarinin SVD
-sonuclarini etkileyip etkilemeyecegi. Sonucta eksik yerler nan, oradan
-sifir yapilip ardindan seyrek matris kodlamasi uzerinden ``atlaniyor''
+sonuclarini nasil etkileyecegi. Sonucta eksik yerler nan, oradan sifir
+yapilip ardindan seyrek matris kodlamasi uzerinden ``atlaniyor''
 olabilir, fakat bu degerler atlaniyor (yani hizli isleniyor,
 depolaniyor) olsa bile, onlarin sifir olmasinin bir anlami yok mudur?
 Evet vardir. Not bakimindan sifir da bir not'tur, ve bu sebeple
@@ -511,7 +513,12 @@ Bunu yapmanin yollarindan biri her film icin bir ortalama not degeri
 hesaplamak, ve bu ortalama degeri o filme verilen tum not degerlerinden
 cikartmaktir. Bu isleme ``sifir cevresinde merkezlemek'' ismi de
 verilir, hakikaten mesela film j icin ortalama 3 ise, 5 degeri 2, 3
-degeri sifir, 2 degeri -1 olacaktir.
+degeri sifir, 2 degeri -1 haline gelecektir. Bu bir ilerlemedir cunku
+ortalama 3 degeri zaten bizim icin ``onemsiz'' bir degerdir, tavsiye
+problemi baglaminda bizim en cok ilgilendigimiz sevilen filmler, ve
+sevilmeyen filmler. Bu degerler sirasiyla arti ve eksi degerlere
+donusecekler, ve SVD bu farkliligi matematiksel olarak kullanabilme
+yetenegine sahip.
 
 Altta Pandas mean cagrisi ile bu islemin yapildigini goruyoruz, dikkat,
 Pandas dataframe icinde nan degerleri olacaktir, ve Pandas bu degerleri
@@ -564,19 +571,18 @@ Sigma = np.diag(Sigma)
 \end{verbatim}
 \end{codeoutput}
 \end{codecell}
-Altta test verisi uzerinde satir satir ilerliyoruz, ve her satir (ayni
-test kullanicisi) film film ilerliyoruz, onlara teker teker bakiyoruz.
-Ilk once ``verilmis bir not'' ariyoruz (cogunlukla not verilmemis oluyor
-cunku), buldugumuz zaman artik elimizde test edebilecegimiz bir sey var,
-o notu ``sifirlayip'' vektorun geri kalanini azaltilmis boyuta
-yansitiyoruz, ve sonra o boyuttaki tum diger $U$ vektorleri icinde arama
-yapiyoruz, en yakin diger kullaniciyi buluyoruz ve onun filme verdigi
-notu tahminimiz olarak kullaniyoruz.
+Altta test verisi uzerinde satir satir ilerliyoruz, ve her satir (test
+kullanicisi) icinde film film ilerliyoruz. ``Verilmis bir not'' ariyoruz
+(cogunlukla not verilmemis oluyor cunku), ve buldugumuz zaman artik
+elimizde test edebilecegimiz bir sey var, o notu ``sifirlayip'' vektorun
+geri kalanini azaltilmis boyuta yansitiyoruz, ve sonra o boyuttaki tum
+diger $U$ vektorleri icinde arama yapiyoruz, en yakin diger kullaniciyi
+buluyoruz ve onun bu filme verdigi notu tahminimiz olarak kullaniyoruz.
 
-Alttaki kodda, basitlestirme amacli olarak, eger bulunan diger kullanici
-o filme not vermemisse, o filmi atliyoruz. Gercek dunya sartlarinda o
-filme not vermis ve hala yakin olan (en yakin olmasa da) baska bir
-kullanici bulup onun notu kullanilabilir.
+Altta eger bulunan diger kullanici o filme not vermemisse, basitlestirme
+amacli olarak, o filmi atladik. Gercek dunya sartlarinda filme not
+vermis ve yakin olan (en yakin olmasa da) ikinci, ucuncu kullanicilar
+bulunup onun notu kullanilabilir.
 
 \begin{codecell}
 \begin{codeinput}
@@ -610,8 +616,8 @@ for i,test_row in enumerate(df_test):
 	print i, 'icin en yakin', isim, 'urun',j, 'icin oy', est, 'gercek', real
         rmse += (real-est)**2
         n += 1
-	break
-    if i == 20: break
+	break # her kullanici icin tek film test et
+    if i == 20: break # 20 kullanici test et
 
 print "rmse", np.sqrt(rmse / n)
 \end{lstlisting}
