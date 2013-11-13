@@ -231,6 +231,11 @@ def cos_sim(inA,inB):
 
 \end{lstlisting}
 \end{codeinput}
+\begin{codeoutput}
+\begin{verbatim}
+
+\end{verbatim}
+\end{codeoutput}
 \end{codecell}
 \begin{codecell}
 \begin{codeinput}
@@ -293,25 +298,25 @@ O zaman begeni matrisi uzerinde SVD uygulayalim,
 \begin{codeinput}
 \begin{lstlisting}
 from numpy.linalg import linalg as la
-U,Sigma,VT=la.svd(data)
+U,Sigma,V=la.svd(data, full_matrices=False)
 print data.shape
-print U.shape
+print U.shape, Sigma.shape, V.shape
 u = U[:,:2]
-v=VT[:2,:].T
-print u
-print v
-print u.shape, v.shape
+vt=V[:2,:].T
+print 'u', u
+print 'vt', vt
+print u.shape, vt.shape
 \end{lstlisting}
 \end{codeinput}
 \begin{codeoutput}
 \begin{verbatim}
 (4, 6)
-(4, 4)
-[[-0.57098887 -0.22279713]
+(4, 4) (4,) (4, 6)
+u [[-0.57098887 -0.22279713]
  [-0.4274751  -0.51723555]
  [-0.38459931  0.82462029]
  [-0.58593526  0.05319973]]
-[[-0.44721867 -0.53728743]
+vt [[-0.44721867 -0.53728743]
  [-0.35861531  0.24605053]
  [-0.29246336 -0.40329582]
  [-0.20779151  0.67004393]
@@ -337,8 +342,8 @@ def label_points(d,xx,yy,style):
 
 plot(u[:,0],u[:,1],'r.')
 label_points(data.index, u[:, 0], u[:, 1],style=(-10, 30))
-plot(v[:,0],v[:,1],'b.')
-label_points(data.columns, v[:, 0], v[:, 1],style=(20, 20))
+plot(v.T[:,0],v.T[:,1],'b.')
+label_points(data.columns, vt[:, 0], vt[:, 1],style=(20, 20))
 
 
 \end{lstlisting}
@@ -362,20 +367,23 @@ formulunu hatirlarsak,
 \[ A = USV \]
 Azaltilmis ortamda
 \[ A = U_k S_k V_k \]
-Diyelim ki gitmek istedigimiz nokta azaltilmis $V$, o zaman $V_k$'yi tek
+Diyelim ki gitmek istedigimiz nokta azaltilmis $U$, o zaman $U_k$'yi tek
 basina birakalim,
-\[ U_k^{-1}A = U_k^{-1}USV_k \]
-$U_k,V_k$ matrisleri ortonormal, o zaman $U_k^{-1}U_k = I$ olacak, yani
+\[ A V_k^{-1} = U_k S V_k V_k^{-1} \]
+$U_k,V_k$ matrisleri ortonormal, o zaman $V_k^{-1}V_k = I$ olacak, yani
 yokolacak
-\[ U_k^{-1}A = SV_k  \]\[ S^{-1}U_k^{-1}A = V_k \]
+\[ A V_k^{-1} = U_k S  \]
+Benzer sekilde
+\[  A V_k^{-1} S^{-1} = U_k \]
 Cok fazla ters alma islemi var, her iki tarafin devrigini alalim
-\[ A^T(U_k^{-1})^T(S^{-1})^T = V_k^T \]
-$U_k^{-1}=U_k^T$ o zaman devrigin devrigini almis oluyoruz, tekrar basa
-donuyoruz, $U_k$ degismeden kaliyor
-\[ A^TU_k(S^{-1})^T = V_k^T \]
+\[ (S^{-1})^T (V_k^{-1})^T A^T = U_k^T \]
+$V_k^{-1} = V_k^T$ o zaman ustteki formul devrigin devrigini almak
+demektir, yani tekrar basa donmus oluyoruz, demek ki $V_k$ degismeden
+kaliyor
+\[ (S^{-1})^T V_k A^T = U_k^T \]
 $S$ ise kosegen matris, onun tersi yine kosegen, kosegen matrisin
 devrigi yine kendisi
-\[ A^TU_kS^{-1} = V_k^T \]
+\[ S^{-1} V_k A^T = U_k^T \]
 Bazi kod ispatlari, $u$'nun ortonormal olmasi:
 
 \begin{codecell}
@@ -426,7 +434,7 @@ O zaman
 print bob.T.shape
 print u.shape
 S_k = np.eye(2)*Sigma[:2]
-bob_2d = np.dot(np.dot(la.inv(S_k),v.T),bob.T)
+bob_2d = np.dot(np.dot(la.inv(S_k),vt.T),bob.T)
 print bob_2d
 \end{lstlisting}
 \end{codeinput}
@@ -451,7 +459,6 @@ vektorun hangi diger vektorlere benzedigini bulalim.
 \begin{lstlisting}
 for i,user in enumerate(u):
    print data.index[i],cos_sim(user,bob_2d)
-
 \end{lstlisting}
 \end{codeinput}
 \begin{codeoutput}
@@ -481,6 +488,36 @@ gorulen yere yazilacak. Bu dosyada olmayan derecelendirmeler bos
 olacaktir . Bu bosluklari sifirlarsak, scipy seyrek matrisi o noktalari
 atlayacaktir. Ardindan bu seyrek matris uzerinde SVD isletilebilir.
 
+Tavsiye kodlamamiz icin yazinin basinda anlatilan teknigi kullanacagiz,
+film verisi uzerinde boyut azaltilmasi yapilacak, benzer kullanici
+bulunacak, ve herhangi bir yeni kullanici / film kombinasyonu icin bu
+diger benzer kullanicinin o filme verdigi not baz alinacak.
+
+Veriyi egitim ve test olarak iki parcaya bolecegiz. SVD egitim bolumu
+uzerinde isletilecek.
+
+Bu baglamda, onemli bir diger konu eksik veri noktalarinin SVD
+sonuclarini etkileyip etkilemeyecegi. Sonucta eksik yerler nan, oradan
+sifir yapilip ardindan seyrek matris kodlamasi uzerinden ``atlaniyor''
+olabilir, fakat bu degerler atlaniyor (yani hizli isleniyor,
+depolaniyor) olsa bile, onlarin sifir olmasinin bir anlami yok mudur?
+Evet vardir. Not bakimindan sifir da bir not'tur, ve bu sebeple
+sonuclari istenmeyen bicimde etkileyebilir.
+
+O zaman mevcut veriyi oyle bir degistirelim ki verilmemis notlar, yani
+sifir degerleri sonucu fazla degistirmesin.
+
+Bunu yapmanin yollarindan biri her film icin bir ortalama not degeri
+hesaplamak, ve bu ortalama degeri o filme verilen tum not degerlerinden
+cikartmaktir. Bu isleme ``sifir cevresinde merkezlemek'' ismi de
+verilir, hakikaten mesela film j icin ortalama 3 ise, 5 degeri 2, 3
+degeri sifir, 2 degeri -1 olacaktir.
+
+Altta Pandas mean cagrisi ile bu islemin yapildigini goruyoruz, dikkat,
+Pandas dataframe icinde nan degerleri olacaktir, ve Pandas bu degerleri
+atlamasi gerektigini bilir, yani bu degerler ortalamaya etki etmez.
+Ardindan merkezleme islemi egitim verisi uzerinde uygulaniyor.
+
 \begin{codecell}
 \begin{codeinput}
 \begin{lstlisting}
@@ -491,8 +528,8 @@ df = pd.read_csv("%s/Downloads/movielens.csv" % os.environ['HOME'],sep=';')
 print df.shape
 df = df.ix[:,1:] # id kolonunu atla
 df = df.ix[:,:3700] # sadece filmleri al
-df_train = df.ix[:5000,:]
-df_test = df.ix[5001:,:]
+df_train = df.copy().ix[:5000,:]
+df_test = df.copy().ix[5001:,:]
 df_train[np.isnan(df_train)] = 0.0
 movie_avg_rating = np.array(df_train.mean(axis=0))
 df_train = df_train - movie_avg_rating
@@ -503,6 +540,14 @@ df_test = np.array(df_test)
 
 print df_train.shape
 print df_test.shape
+
+__top_k__ = 10
+import scipy.sparse.linalg as slin
+import scipy.linalg as la
+U,Sigma,V=slin.svds(dfs_train,k=__top_k__)
+print U.shape, Sigma.shape, V.shape
+Sigma = np.diag(Sigma)
+
 \end{lstlisting}
 \end{codeinput}
 \begin{codeoutput}
@@ -512,20 +557,27 @@ print df_test.shape
 \end{verbatim}
 \begin{verbatim}
 (1039, 3700)
+(5001, 10)
+\end{verbatim}
+\begin{verbatim}
+(10,) (10, 3700)
 \end{verbatim}
 \end{codeoutput}
 \end{codecell}
-\begin{codecell}
-\begin{codeinput}
-\begin{lstlisting}
-__top_k__ = 10
-import scipy.sparse.linalg as slin
-import scipy.linalg as la
-U,Sigma,VT=slin.svds(dfs_train,k=__top_k__)
-Sigma = np.diag(Sigma)
-\end{lstlisting}
-\end{codeinput}
-\end{codecell}
+Altta test verisi uzerinde satir satir ilerliyoruz, ve her satir (ayni
+test kullanicisi) film film ilerliyoruz, onlara teker teker bakiyoruz.
+Ilk once ``verilmis bir not'' ariyoruz (cogunlukla not verilmemis oluyor
+cunku), buldugumuz zaman artik elimizde test edebilecegimiz bir sey var,
+o notu ``sifirlayip'' vektorun geri kalanini azaltilmis boyuta
+yansitiyoruz, ve sonra o boyuttaki tum diger $U$ vektorleri icinde arama
+yapiyoruz, en yakin diger kullaniciyi buluyoruz ve onun filme verdigi
+notu tahminimiz olarak kullaniyoruz.
+
+Alttaki kodda, basitlestirme amacli olarak, eger bulunan diger kullanici
+o filme not vermemisse, o filmi atliyoruz. Gercek dunya sartlarinda o
+filme not vermis ve hala yakin olan (en yakin olmasa da) baska bir
+kullanici bulup onun notu kullanilabilir.
+
 \begin{codecell}
 \begin{codeinput}
 \begin{lstlisting}
@@ -540,17 +592,22 @@ for i,test_row in enumerate(df_test):
         curr[j] = np.nan
         curr[np.isnan(curr)] = 0.
 
-	proj_row = np.dot(np.dot(la.inv(Sigma),VT),curr)
+	proj_row = np.dot(np.dot(la.inv(Sigma),V),curr)
 
 	sims = np.array(map(lambda x: euclid(x, proj_row), U[:,:__top_k__]))
 	isim = np.argmax(sims)
 
-	if df_train[isim, j]+movie_avg_rating[j] == 0: continue
+	# eger bulunan kullanici o filme not vermemisse atla
+	if np.isnan(df.ix[isim, j]): continue
 
+	# egitim verisinde notlar sifir etrafinda ortalanmis, tekrar
+	# normal haline dondur
 	est = df_train[isim, j]+movie_avg_rating[j]
+
+	# gercek not
 	real = df_test[i, j]
 
-	print i, 'icin en yakin', isim, ',urun',j, 'icin oy', est, 'gercek', real
+	print i, 'icin en yakin', isim, 'urun',j, 'icin oy', est, 'gercek', real
         rmse += (real-est)**2
         n += 1
 	break
@@ -561,97 +618,105 @@ print "rmse", np.sqrt(rmse / n)
 \end{codeinput}
 \begin{codeoutput}
 \begin{verbatim}
-0 icin en yakin 1903 ,urun 144 icin oy 5.0 gercek 5.0
+0 icin en yakin 1903 urun 144 icin oy 5.0 gercek 5.0
 1
 \end{verbatim}
 \begin{verbatim}
-icin en yakin 239 ,urun 144 icin oy 5.0 gercek 5.0
+icin en yakin 239 urun 144 icin oy 5.0 gercek 5.0
 2
 \end{verbatim}
 \begin{verbatim}
-icin en yakin 2045 ,urun 844 icin oy 4.0 gercek 4.0
+icin en yakin 2045 urun 844 icin oy 4.0 gercek 4.0
 3
 \end{verbatim}
 \begin{verbatim}
-icin en yakin 4636 ,urun 0 icin oy 3.0 gercek 4.0
+icin en yakin 4636 urun 0 icin oy 3.0 gercek 4.0
 4
 \end{verbatim}
 \begin{verbatim}
-icin en yakin 139 ,urun 845 icin oy 4.0 gercek 5.0
+icin en yakin 139 urun 845 icin oy 4.0 gercek 5.0
 5
 \end{verbatim}
 \begin{verbatim}
-icin en yakin 427 ,urun 1107 icin oy 4.0 gercek 5.0
+icin en yakin 427 urun 1107 icin oy 4.0 gercek 5.0
 6
 \end{verbatim}
 \begin{verbatim}
-icin en yakin 3620 ,urun 31 icin oy 4.0 gercek 4.0
+icin en yakin 3620 urun 31 icin oy 4.0 gercek 4.0
 7
 \end{verbatim}
 \begin{verbatim}
-icin en yakin 1870 ,urun 0 icin oy 4.0 gercek 3.0
+icin en yakin 1870 urun 0 icin oy 4.0 gercek 3.0
 8
 \end{verbatim}
 \begin{verbatim}
-icin en yakin 4816 ,urun 106 icin oy 5.0 gercek 5.0
+icin en yakin 4816 urun 106 icin oy 5.0 gercek 5.0
 9
 \end{verbatim}
 \begin{verbatim}
-icin en yakin 3511 ,urun 0 icin oy 3.0 gercek 4.0
+icin en yakin 3511 urun 0 icin oy 3.0 gercek 4.0
 10
 \end{verbatim}
 \begin{verbatim}
-icin en yakin 3973 ,urun 1212 icin oy 5.0 gercek 4.0
+icin en yakin 3973 urun 1212 icin oy 5.0 gercek 4.0
 11
 \end{verbatim}
 \begin{verbatim}
-icin en yakin 2554 ,urun 287 icin oy 4.0 gercek 5.0
+icin en yakin 2554 urun 287 icin oy 4.0 gercek 5.0
 12
 \end{verbatim}
 \begin{verbatim}
-icin en yakin 4733 ,urun 31 icin oy 4.0 gercek 3.0
+icin en yakin 4733 urun 31 icin oy 4.0 gercek 3.0
 13
 \end{verbatim}
 \begin{verbatim}
-icin en yakin 2339 ,urun 9 icin oy 4.0 gercek 3.0
+icin en yakin 2339 urun 9 icin oy 4.0 gercek 3.0
 14
 \end{verbatim}
 \begin{verbatim}
-icin en yakin 3036 ,urun 10 icin oy 4.0 gercek 3.0
+icin en yakin 3036 urun 10 icin oy 4.0 gercek 3.0
 15
 \end{verbatim}
 \begin{verbatim}
-icin en yakin 2748 ,urun 253 icin oy 5.0 gercek 5.0
+icin en yakin 2748 urun 253 icin oy 5.0 gercek 5.0
 16
 \end{verbatim}
 \begin{verbatim}
-icin en yakin 450 ,urun 16 icin oy 4.0 gercek 4.0
+icin en yakin 450 urun 16 icin oy 4.0 gercek 4.0
 17
 \end{verbatim}
 \begin{verbatim}
-icin en yakin 1133 ,urun 9 icin oy 5.0 gercek 2.0
+icin en yakin 1133 urun 9 icin oy 5.0 gercek 2.0
 18
 \end{verbatim}
 \begin{verbatim}
-icin en yakin 3037 ,urun 253 icin oy 5.0 gercek 4.0
+icin en yakin 3037 urun 253 icin oy 5.0 gercek 4.0
 19
 \end{verbatim}
 \begin{verbatim}
-icin en yakin 1266 ,urun 107 icin oy 3.0 gercek 3.0
+icin en yakin 1266 urun 107 icin oy 3.0 gercek 3.0
 20
 \end{verbatim}
 \begin{verbatim}
-icin en yakin 537 ,urun 253 icin oy 5.0 gercek 5.0
+icin en yakin 537 urun 253 icin oy 5.0 gercek 5.0
 rmse 0.975900072949
 \end{verbatim}
 \end{codeoutput}
 \end{codecell}
+Sonuc fena degil. Tavsiye programlarinda RMSE 0.9 civari iyi olarak
+bilinir, Netflix yarismasinda {[}4{]} mesela kazanan algoritma RMSE
+0.85'e erismistir.
+
 Kaynaklar
 
+{[}1{]}
 http://www.igvita.com/2007/01/15/svd-recommendation-system-in-ruby/
 
-Harrington, P., Machine Learning in Action
+{[}2{]} Harrington, P., Machine Learning in Action
 
+{[}3{]}
 http://stats.stackexchange.com/questions/31096/how-do-i-use-the-svd-in-collaborative-filtering
+
+{[}4{]}
 
 \end{document}
