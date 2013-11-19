@@ -30,18 +30,19 @@
 architectures to compute QR and SVD for the so-called tall-and-skinny
 matrices. QR factorization is turned into an $A^TA$ computation problem to
 be computed in parallel using map/reduce, and its key element the Cholesky
-decomposition, can be performed on a single machine. Since
+decomposition, can be performed on a single machine. Let's use $C = A^TA$
+and, since
 
-$$ A^TA = (QR)^T(QR) = R^TQ^TQR = R^TR $$
+$$ C = A^TA = (QR)^T(QR) = R^TQ^TQR = R^TR $$
 
 and because Cholesky factorization of an $n \times n$ symmetric positive
 definite matrix is
 
-$$ A = LL^T $$
+$$ C = LL^T $$
 
 where $L$ is an $n \times n$ lower triangular matrix, and R is upper
-triangular, we can conclude if we factorize $A$ into $L$ and $L^T$, this
-implies $LL^T = RR^T$, we have a method of calculating $R$ of QR using
+triangular, we can conclude if we factorize $C$ into $L$ and $L^T$, this
+implies $C = LL^T = RR^T$, we have a method of calculating $R$ of QR using
 Cholesky factorization on $A^TA$. The key observation here is $A^TA$
 computation results an $n \times n$ matrix and if $A$ is ``skinny'' then
 $n$ is relatively small (in the thousands), then Cholesky decomposition can

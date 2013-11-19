@@ -138,34 +138,28 @@ Nasil? QR ayristirmasi kolonlarin hepsi bilindigi gibi birbirine dik
 triangular) bir $R$ matrisi olusturur. Ayristirmanin $A^TA$ ile
 baglantisi nedir? Eger $A$ yerine onun ayristirmasini $QR$ koyarsak,
 \[
-A^TA = (QR)^T (QR) = R^T Q^T QR
+C = A^TA = (QR)^T (QR) = R^T Q^T QR
 \]
 Tum $Q$ vektorleri birbirine dik, ve birim vektorler ise, $Q^T Q$ birim
 matrisi $I$ olur. O zaman
 \[
-R^T Q^T QR = R^T R
+C = R^T Q^T QR = R^T R
 \]
 Yani
 \[
-A^TA = R^TR
+C = R^TR
 \]
-Bu muthis bir sonuc. Demek ki $A^TA$ carpimini yaptigimiz anda, bir
-yandan $R^TR$ carpim sonucunu da hesaplamis oluyoruz.
-
 Peki $A^TA$ hesaplayip (boylece $R^TR$'yi elde edince) onun icinden
-$R$'yi nasil cekip cikartiriz?
-
-Simdi Cholesky ayristirmasi kullanmanin zamani. Cholesky ayristirmasi
-(herhangi bir $A$ matrisi uzerinde)
-\[A = LL^T\]
+$R$'yi nasil cekip cikartiriz? Simdi Cholesky ayristirmasi kullanmanin
+zamani. Cholesky ayristirmasi (herhangi bir simetrik pozitif kesin $C$
+matrisi uzerinde)
+\[C = LL^T\]
 olarak bilinir, yani bir matris alt ucgensel (lower triangular -ki L
 harfi oradan geliyor-) $L$ matrisine ve onun devrigi olan ust ucgensel
 $L^T$'nin carpimina ayristirilir. Elimizde $R^TR$ var, ve ona benzer
 $LL^T$ var, $R$ bilindigi gibi ust ucgensel, $L$ alt ucgensel, $L^T$ ve
-$R$ birbirine esit demek ki.
-
-Yani $A^TA$ uzerinde numerik hesap kutuphenimzin Cholesky cagrisi
-kullanmak bize $QR$'in $R$'sini verir.
+$R$ birbirine esit demek ki. Yani $A^TA$ uzerinde numerik hesap
+kutuphenimzin Cholesky cagrisi kullanmak bize $QR$'in $R$'sini verir.
 
 Su anda akla su soru gelebilir: madem kutuphane cagrisi yaptik, niye $A$
 uzerinde kutuphenimizin $QR$ cagrisini kullanmiyoruz?
