@@ -1,6 +1,11 @@
 \documentclass[12pt,fleqn]{article}\usepackage{../common}
 \begin{document}
-Kosulsal Rasgele Alanlar (Conditional Random Fields - CRF)
+\textbf{Log Lineer Modeller ve Kosulsal Rasgele Alanlar (Log Linear Models and
+Conditional Random Fields)}
+
+Ders 2
+
+Charles Elkan ders notlari
 
 Kosulsal Olurluk (Conditional Likelihood)
 
@@ -38,6 +43,33 @@ zamaninda $y$ olmayacak, fakat $x$ hep olacak. Yani $y$'nin modellenmesi
 mecburi, cunku ``genelleyerek'' onun ne oldugunu bulacagiz, ama $x$ hep
 verili.
 
+Kosulsal Olurluk Maksimum Olurluk Prensibi
+
+Egitim verisi $<x_1,y_1>,...,<x_n,y_n>$ icin, $\theta$'yi soyle sec
+
+$$ \hat{\theta} =  \arg\max_{\theta} \prod _{i=1}^{n} p(y_i | x_i;\theta) $$
+
+Normal maksimum olurlukta bilindigi gibi olasiliklarin carpimi maksimize
+edilir, burada maksimize ettigimiz ``kosulsal'' olasiliklarin carpimi. 
+
+Burada onemli bir soru su: bildigimiz gibi maksimum olurluk hesabi her veri
+noktasinin bir digerinden bagimsiz oldugunu farzeder [cunku her olurluk
+hesabini bir diger ile carpiyoruz, baska ek carpim, toplama, vs
+yapmiyoruz], bu faraziye dogru bir faraziye midir? Bu soru ve ona verilecek
+cevap cok onemli. Evet, eger egitim noktalari birbirinden bagimsiz degilse
+maksimum olurluk kullanmamaliyiz. Bagimsizligi da iyi tanimlamak gerekiyor
+tabii, eger ustteki durumda $x_i$ {\em verildikten sonra} $y_i$'larin
+birbirinden bagimsiz olmasi yeterli.
+
+Bu model klasik Istatistik'te cokca kullanilan bir yaklasimdir, hatta
+lineer regresyon'un temeli ustteki faraziyedir. 
+
+$$ y = \alpha + \bar{\beta}\bar{x} + N(0,\sigma^2) $$
+
+Bu standart lineer regresyon modeli, ve bu modelde her $y$ ona tekabul eden
+$x$'e bagli, bu sayede $x$'ler biliniyorsa $y$'ler birbirinden kosulsal
+olarak bagimsiz hale geliyor, boylece $x$'ler birbirine bagimli olsa bile
+$\alpha$ ve $\beta$'nin bulunmasi mumkun oluyor. 
 
 
 
