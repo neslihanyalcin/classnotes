@@ -87,9 +87,22 @@ $$ p = p(y | x;\alpha,\beta) $$
 
 modeli vardir ve $y$ degerleri sadece 0 ve 1 olabilir. Tahmin edilen
 olasilik ise $y$'nin 1 olma olasiligidir. Bu model Rasgele Gradyan Cikisi
-ile egitilir (detaylar icin {\em Lojistik Regresyon} notlarimiza
-bakabilirsiniz.
+ile egitilir [detaylar icin {\em Lojistik Regresyon} notlarimiza
+bakabilirsiniz].
 
+$$ log \frac{p}{1-p} = \alpha + \sum_j \beta_j x_j $$
+
+
+\includegraphics[height=4cm]{crf_2.png}
+
+$p$ log sansinin monotonik bir fonksiyonu ve log sans $p$'nin monotonik bir
+fonksiyonu. Yani ustteki esitligin lineer bir fonksiyon olan sag tarafi ne
+kadar buyurse olasilik, yani log sans o kadar buyuyecektir. Bu buyume
+durumu mesela $\beta_j$ katsayisiniz veri analizi baglaminda yorumlanabilir
+hale getirir. 
+
+
+Esitigin sag tarafi 
 
 
 \end{document}
