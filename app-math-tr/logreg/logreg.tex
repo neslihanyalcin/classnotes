@@ -256,11 +256,10 @@ Demek ki fonksiyon bir olasilik dagilimi olamaz, cunku egri altindaki
 alan sonsuz buyuklugunde. Aslinda bu fonksiyonun kumulatif dagilim
 fonksiyonu (cumulative distribution function -CDF-) ozellikleri vardir,
 yani kendisi degil ama turevi bir olasilik fonksiyonu olarak
-kullanilabilir (bu konumuz disinda).
-
-Her neyse, sigmoid'in bir CDF gibi hareket ettigini $g$'nin 0 ile 1
-arasinda olmasindan da anliyoruz, sonucta CDF alan demektir (yogunlugun
-entegrali) ve en ust degeri 1 demektir, ki bu CDF tanimina uygundur.
+kullanilabilir (bu konumuz disinda). Her neyse, sigmoid'in bir CDF gibi
+hareket ettigini $g$'nin 0 ile 1 arasinda olmasindan da anliyoruz,
+sonucta CDF alan demektir (yogunlugun entegrali) ve en ust degeri 1
+demektir, ki bu CDF tanimina uygundur.
 
 Simdi elimizde olabilecek $k$ tane degisken ve bu degiskenlerin
 bilinmeyen katsayilari icin 0 ve 1'e eslenecek bir regresyon
@@ -333,6 +332,18 @@ edilebilir, ya da $g(z)$ ve $1-g(z)$,
 \[
  = g(z)(1-g(z))
  \]\[ \Box \]
+Bu baglamda ilginc bir diger denklem log sansi (log odds) denklemidir.
+Eger ilk bastaki denklemi dusunursek,
+\[ p = P(y=1|x;\theta) = g(z) = \frac{e^{z}}{1+e^{z}}  \]
+Bu denklem 1 olma olasiligini hesapliyor. Temiz bir denklem log sansi
+olabilir ki bu denklem olma olasiligini olmama olasiligina boler ve log
+alir.
+\[ \log \bigg( \frac{p}{1-p} \bigg)\]
+olarak gosterilir. Simdi biraz daha cambazlik, $1 - g(z) = g(-z)$
+demistik, ve $g(-z)$'nin de ne oldugunu biliyoruz $\frac{1}{1+e^{z}}$,
+log sansini bu sekilde yazalim, $\frac{1}{1+e^{z}}$ ile bolelim daha
+dogrusu $1+e^{z}$ ile carpalim ve log alalim,
+\[ \log \bigg( \frac{e^{z}}{1+e^{z}} 1+e^{z}  \bigg) = \log(e^{z}) = z = \theta^Tx\]
 Artik olurluk denklemine donebiliriz. Olurlugu nasil maksimize ederiz?
 Gradyan cikisi (gradient ascent) kullanilabilir. Eger olurluk
 $l(\theta)$'nin en maksimal oldugu noktadaki $\theta$'yi bulmak

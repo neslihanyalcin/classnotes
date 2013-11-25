@@ -71,6 +71,25 @@ $x$'e bagli, bu sayede $x$'ler biliniyorsa $y$'ler birbirinden kosulsal
 olarak bagimsiz hale geliyor, boylece $x$'ler birbirine bagimli olsa bile
 $\alpha$ ve $\beta$'nin bulunmasi mumkun oluyor. 
 
+\includegraphics[height=4cm]{crf_1.png}
+
+Ustteki resimde egitim noktalari (training points) mavi olsun, test
+noktalari yesil olsun (hemen altinda). Bazi Yapay Ogrenim yaklasimlari
+diyebilir ki egitim $x$'lerinin dagilimi test $x$'lerinin dagilimindan
+farkli, bu veri seti ogrenilemez (yani genellenemez, modellenemez). Fakat
+klasik Istatistik buna bakar ve der ki $x$'lerin verildigi durumda $y$'ler
+bagimsizdir, bu sekilde bir kosulsal model ogrenilebilir.
+
+Lojistik Regresyon da bu sekilde isler (LR, Log Lineer modellerin ozel bir
+halidir, Kosulsal Rasgele Alanlar ayni sekilde). Burada da ogrenilen bir 
+
+$$ p = p(y | x;\alpha,\beta) $$
+
+modeli vardir ve $y$ degerleri sadece 0 ve 1 olabilir. Tahmin edilen
+olasilik ise $y$'nin 1 olma olasiligidir. Bu model Rasgele Gradyan Cikisi
+ile egitilir (detaylar icin {\em Lojistik Regresyon} notlarimiza
+bakabilirsiniz.
+
 
 
 \end{document}
