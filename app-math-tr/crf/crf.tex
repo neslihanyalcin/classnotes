@@ -103,9 +103,55 @@ yorumlanabilir hale getirir. Diyelim ki $\beta_4$ katsayisi pozitif, o
 zaman diger sartlarin onemli olmadigi / esit oldugu durumda (with all else
 being equal) $x_4$ ne kadar buyurse 1 olma olasiligi o kadar artar. 
 
-Lojistik modellerin onemli avantajlari var, ki bu avantajlar log lineer
-modellere de sirayet etmistir (bu iyi), 
+Lojistik modellerin onemli bazi avantajlari var, ki bu avantajlar log
+lineer modellere de sirayet ediyor (bu iyi). 
 
-[35:52]
+1) Degiskenler arasi ilinti (correlation) probleme yol acmaz: Bu fayda
+aslinda daha once belirttigimiz $x$'lerin birbirine bagimli olabilmesi ile
+alakali. Bagimsizlik onsarti aranmadigi icin istedigimiz kadar $x$'i
+problemin uzerine atabiliriz, egitici algoritma bunlardan cikartabildigi
+kadar iyi bir model bulacaktir.
+
+Kiyasla mesela Naive Bayes boyle degildir, eger bir NB siniflayicisini
+egitiyorsak, ve ogelerin (feature) arasinda ilinti var ise, siniflayicinin
+dogrulugu (accuracy) azalabilir.
+
+2) ``1 olma olasiligini'', yani ``bir sayisal skoru'', elde ediyoruz, bu
+sadece 1/0 degerinden daha fazla bir bilgi demektir, tercih edilir.
+
+3) Bu skor, anlami olan olasiliksal degerlerdir: Sonucta SVM
+siniflayicilari da $-\infty$ ve $+\infty$ degerler dondururler, ve bu
+degerler siralama (ranking) amacli kullanilabilir, fakat olasilik
+matematigi acisindan anlami olan bir degerin olmasi bundan bile
+iyidir. Naive Bayes 0 ve 1 arasinda deger dondurebilir, fakat bu degerlerin
+de olasiliksal olarak aslinda anlami yoktur, pratikte goruldugu uzere bu
+degerler cok uc noktalarda, ya sifira cok yakin, ya bir'e cok
+yakin. Literaturde NB skorlarinin ``iyi kalibre edilmis olmadigi''
+soyleniyor. 
+
+$X_1,...,X_n$ test ornekleri ve tahmin edilen olasiliklar $P(Y=1 | x_i) =
+v_i$
+olsun. Diyelim ki $s = \sum_i v_i$ ve $t$ sayisi $1,..,n$ tane ogenin
+icinden $y = 1$ degerini tasiyan ogelerin sayisi olsun. Ornek, elimizde 100
+tane egitim noktasi var, bunlarin 60'i 1 degerinde. Bu durumda $s$ yaklasik
+60 olacaktir (rasgele gurultuyu hesaba katarsak tabii), yani  $E[t] =
+s$ 
+denebilecektir ve bu sadece eger olasiliklar iyi kalibre edilmisse
+soylenebilir.
+
+4) Dengesiz egitim verisi kullanilabilir: pek cok egitim setinde mesela 1
+degeri tasiyan degerleri 0 degeri tasiyanlardan cok daha fazla. Lojistik
+regresyon bu tur veriyle rahatca calisabilir.
+ 
+Ders 3
+
+Lojistik regresyon icin log olurlugun (LCL) turevini almak lazim. Once
+basitlestirme amacli $\alpha = \beta_o$, ve $x_0 = 1$. O zaman
+
+$$ \sum_{j=0}^{d} \beta_j x_j $$ 
+
+Simdi bulmak istedigim her $j$ icin $\frac{d}{d\beta_j} LCL$.
+
+
 
 \end{document}
