@@ -2,7 +2,7 @@
 \begin{document}
 Kosulsal Rasgele Alanlar (Conditional Random Fields - CRF)
 
-Kosulsal Olurluk
+Kosulsal Olurluk (Conditional Likelihood)
 
 Diyelim ki elimizde egitim verisi olarak ikili $<x,y>$ veri noktalari
 var. O zaman $y$'nin $x$'e kosulsal olarak bagli (conditional on) bir
@@ -11,7 +11,32 @@ dagilimi oldugunu soyleyebiliriz.
 $$ y \sim f(x;\theta) $$
 
 Yani her $x$ icin farkli bir $y$ dagilimi ortaya cikabilir. Ve tum bu
-farkli dagilimlarin ortak noktasi $\theta$ parametresidir.
+farkli dagilimlarin ortak noktasi $\theta$ parametresidir. Kosulsal
+olasilik yani soyle yazilabilir, 
+
+$$ P(Y=y | X=x;\theta) $$
+
+Usttekiler $Y$ icin bir model ortaya koydu, peki elimizde $X$'in dagilimi
+icin bir olasilik modelimiz var mi? Cevap hayir. Niye? Dusunelim, $p(y,x)$
+nedir ?
+
+$$ p(x,y) = p(x)p(y|x) $$
+
+Ustte $p(y|x)$'i tanimlayacak ($\theta$ uzerinden) bir olasilik demeti /
+ailesi tanimladik, fakat elimizde $p(x)$ dagilimini verecek bir model
+yok, o zaman $p(x,y)$'yi tanimlayacak bir model de yok.
+
+Fakat bu dunyanin sonu degil. Belki de Makine Ogrenimi bransinin bir
+slogani su olmali: ``Ogrenmen gerekmeyen seyi ogrenme''. Ustteki ornekte
+$p(y|x)$'i ogrenebiliriz, ama $p(x)$'i illa ogrenmemiz gerekir mi?
+
+Siniflayici (classifier) ve takip edilen (supervised) ogrenim durumunu
+dusunursek, bize egitim amacli olarak $<x,y>$ ikili veri noktalari
+saglanacak. $x$ kaynak veri, $y$ tahmin edilecek (ya da basta egitim hedefi
+olan) etiket olacak. $y$ icin bir model ortaya cikartiyoruz, cunku test
+zamaninda $y$ olmayacak, fakat $x$ hep olacak. Yani $y$'nin modellenmesi
+mecburi, cunku ``genelleyerek'' onun ne oldugunu bulacagiz, ama $x$ hep
+verili.
 
 
 
