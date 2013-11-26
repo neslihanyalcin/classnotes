@@ -178,10 +178,12 @@ Biliyoruz ki
 
 $$ 
 \frac{d}{d\beta_j}\log p = \frac{1}{p}\frac{d}{d\beta_j} p
+\ \ \ (1)
 $$
 
 $$ 
 \frac{d}{d\beta_j}\log (1-p) = \frac{1}{1-p}(-1)\frac{d}{d\beta_j} p
+\ \ \ (2)
 $$
 
 Ustteki son iki formulun her ikisinde de $d/d\beta_j p$ kismi olduguna dikkat.
@@ -202,11 +204,35 @@ $$ \frac{ d}{d\beta_j}p = (-1)(1+e)^{-2} \frac{ d}{d\beta_j}e $$
 
 $$ = (-1)(1+e)^{-2} (e) \frac{ d}{d\beta_j}(x_j) $$
 
-$$ \frac{ 1}{1+e} \frac{ e}{1+e}x_j = p(1-p)x_j$$
+$$ = \frac{ 1}{1+e} \frac{ e}{1+e}x_j = p(1-p)x_j$$
+
 
 Son ifade kodlama icin oldukca uygun, $d/d\beta_j p$ hesabini yine icinde
-$p$ iceren bir ifadeye bagladik, ayrica $x_j$ ile bir baglanti da
-var. 
+$p$ iceren bir ifadeye bagladik, ayrica turev $x_j$ ile orantili. 
+
+Bu hesapla aslinda (1) icindeki $d/d\beta_j p$ kismini hesaplamis
+olduk. Eger yerine koyarsak, 
+
+$$ 
+\frac{d}{d\beta_j}\log p = \frac{1}{p}p(1-p)x_j 
+$$
+
+$p$'ler iptal olur
+
+$$ 
+= (1-p)x_j 
+$$
+
+Ayni sekilde (2) icin 
+
+$$ 
+\frac{d}{d\beta_j}\log (1-p) = \frac{1}{1-p}(-1) p(1-p)x_j 
+$$
+
+$$ 
+ =  -px_j 
+$$
+
 
 
 
