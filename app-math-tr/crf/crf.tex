@@ -1,7 +1,7 @@
 \documentclass[12pt,fleqn]{article}\usepackage{../common}
 \begin{document}
 \textbf{Log Lineer Modeller ve Kosulsal Rasgele Alanlar (Log Linear Models and
-Conditional Random Fields)}
+Conditional Random Fields -CRF-)}
 
 Ders 2
 
@@ -81,7 +81,7 @@ klasik Istatistik buna bakar ve der ki $x$'lerin verildigi durumda $y$'ler
 bagimsizdir, bu sekilde bir kosulsal model ogrenilebilir.
 
 Lojistik Regresyon ayni sekilde isler (lojistik regresyon, log lineer
-modellerin ozel bir halidir, Kosulsal Rasgele Alanlar ayni sekilde). Burada
+modellerin ozel bir halidir, CRF'ler ayni sekilde). Burada
 da ogrenilen bir
 
 $$ p = p(y | x;\alpha,\beta) $$
@@ -383,8 +383,8 @@ numerik deger uretmem gerekiyor. Kume olarak
 $$ F_J: \mathbb{X} \times \mathbb{Y} \to \mathbb{R} $$
 
 Eger $ F_j(x,y) > 0 $ ve $w_i > 0$ ise, o zaman $F_j(x,y) = 0$'a kiyasla
-$p(y|x;w)$ artar. Sezgisel olarak tarif edersek ozellik fonksiyonun
-soyledigi sudur, eger agirlik pozitif ise ozellik fonksiyonunun degeri ne
+$p(y|x;w)$ artar. Sezgisel olarak tarif edersek ozellik fonksiyonun (OF)
+soyledigi sudur, eger agirlik pozitif ise OF'in degeri ne
 kadar buyurse elimizdeki $y$, $x$ ile o kadar ``uyumludur'' (tabii ki belli
 bir ozellik yani $j$ icin). Negatif ilinti bunun tam tersi olurdu. 
 
@@ -396,9 +396,8 @@ sonuc geri getirebilecek sekilde secilmelidir.
 Kelime ornegine geri donersek, bir $F$ soyle olabilir, 
 
 $ F_{15}(x,y) =$ ``eger ikinci kelimenin bas harfi buyuk ve ikinci etiket
-isim (noun)''. Ozellik fonksiyonlari reel degerlidir. Bunun ozel durumu 0/1
-degeri veren ozellik fonksiyonlaridir. Biraz onceki ornek mesela 0/1
-donduruyor.
+isim (noun)''. OF'ler reel degerlidir. Bunun ozel durumu 0/1 degeri veren
+OF'lerdir. Biraz onceki ornek mesela 0/1 donduruyor.
 
 Ya da $F_{14}(x,y)$ diyelim ki soyle ``ilk kelimenin bas harfi buyuk, ve
 ilk etiket bir isim''. Tahmin edebiliriz ki egitim setimizde ilk
@@ -410,22 +409,59 @@ Dedigimiz gibi $F$ reel degeri olabilir, mesela
 $$ F_{16}(x,y) = lengh(y) - lengh(x) $$
 
 yani bu fonksiyonda $x$'nin uzunlugunu $y$'nin uzunlugundan
-cikartiyoruz. Bu ne ise yarar? Diyelim ki otomatik tercume yapmasi icin
-bir yapay ogrenim programi yaziyoruz, $x,y$ egitim noktalari birbirinin
+cikartiyoruz. Bu ne ise yarar? Diyelim ki otomatik tercume yapmasi icin bir
+yapay ogrenim programi yaziyoruz, $x,y$ egitim noktalari birbirinin
 tercumesi olan Ingilizce/Fransizca cumleler. Cogunlukla Fransizca cumleler
 tekabul ettikleri Ingilizce cumlelerden cok daha uzun oluyorlar, yani
 ustteki cikarma cogunlukla pozitif sonuc verecek. Degisik bir acidan
 bakarsak, pozitif bir sonuc, bir tercumenin dogru oldugu yonunde bir isaret
-olarak kabul edilebilir, ve ustteki ozellik fonksiyonu uzerinden egitim
-algoritmasi bunu kullanir. Egitim sonrasi $w_{16}$ pozitif bir agirlik
-alacaktir. 
+olarak kabul edilebilir, ve ustteki OF uzerinden egitim algoritmasi bunu
+kullanir. Egitim sonrasi $w_{16}$ pozitif bir agirlik alacaktir.
 
-Bir log lineer modelde (buna kosulsal rasgele alanlar dahil) ilk yapilan is
-probleminiz icin onemli olan ozellik fonksiyonlarini ortaya cikartmak. 
+Bir log lineer modelde (buna CRF'ler de dahil) ilk yapilan is probleminiz
+icin onemli olan OF'leri ortaya cikartmak.
 
-27:33
+$F$ tanimlamanin degisik bir baska yolu:
 
+$a(x)$ bir fonksiyon olsun. Her $v \in \mathbb{Y}$ icin
 
+$$ F_j(x,y) = a(x) I(y=v)$$
+
+tanimlayalim. 
+
+$$ p(y|x;w) = \frac{\exp \sum_j w_j F_j (x,y)}{Z} $$
+
+Simdi lineer zincirli CRF konusuna bakalim. Yine $x \in \mathbb{X}$ ve $y
+\in \mathbb{Y}$.  
+$x$ bir girdi zinciri, $y$ bir cikti zinciri ve en basit
+durumda $x$ ile ayni uzunlukta. Konusma bolumlerini etiketlemek bu
+kategoriye dahil, ama bir diger uygulama kelimeyi arasina eksi isaretleri
+koyarak bolme (hyphenation). 
+
+Mesela girdi $x=$''beloved'', cikti $y=$''00100000'' cunku bu kelime
+``be-loved'' olarak bolunur. 
+
+Bu uygulama icin bir OF 
+
+$$ F_j(x,y) = \frac{kac \ tane \ 1 \ var}{x \ uzunlugu} $$
+
+$x=$''beloved'', cikti $y=$''00100000'' icin sonuc $1/7$ olurdu.
+
+Lineer zincir CRF icin hangi OF'lerin bazi sinirlari var. 
+
+$$ F_j (\bar{x},\bar{y}) = \sum_i f_j(y_{i-1}y_i\bar{x} i) $$
+
+ki sembol uzeri duz cizgiyi ($\bar{x}$ gibi) bu sefer bir sirali veri
+temsil etmek icin kullaniyorum)
+
+Mesela
+
+$$ f_{18} =   f_j(y_{i-1}y_i\bar{x} i) = " i=2, y_{i-1} = 0, y_i = 1,
+x_1x_2 = "as" "$$
+
+Mesela ``async'' kelimesi ``a-sync'' olarak bolumebilir, ve egitim setinde
+``async'' ile ``$y=$01...'' gelirse ustteki OF bu bolunmeyi odullendirir /
+ogrenir. 
 
 
 
