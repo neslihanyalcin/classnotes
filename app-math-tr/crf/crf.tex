@@ -80,8 +80,9 @@ farkli, bu veri seti ogrenilemez (yani genellenemez, modellenemez). Fakat
 klasik Istatistik buna bakar ve der ki $x$'lerin verildigi durumda $y$'ler
 bagimsizdir, bu sekilde bir kosulsal model ogrenilebilir.
 
-Lojistik Regresyon da bu sekilde isler (LR, Log Lineer modellerin ozel bir
-halidir, Kosulsal Rasgele Alanlar ayni sekilde). Burada da ogrenilen bir 
+Lojistik Regresyon ayni sekilde isler (lojistik regresyon, log lineer
+modellerin ozel bir halidir, Kosulsal Rasgele Alanlar ayni sekilde). Burada
+da ogrenilen bir
 
 $$ p = p(y | x;\alpha,\beta) $$
 
@@ -92,16 +93,15 @@ bakabilirsiniz].
 
 $$ log \frac{p}{1-p} = \alpha + \sum_j \beta_j x_j $$
 
-
 \includegraphics[height=4cm]{crf_2.png}
 
 $p$ log sansinin monotonik bir fonksiyonudur, ve ters yonden bakarsak, log
 sans $p$'nin monotonik bir fonksiyonudur. Yani lineer bir fonksiyon (sag
 taraf) ne kadar buyurse, olasilik / log sans o kadar buyuyecektir. Bu
-buyume durumu mesela $\beta_j$ katsayisiniz veri analizi baglaminda
+buyume durumu mesela $\beta_j$ katsayisini veri analizi baglaminda
 yorumlanabilir hale getirir. Diyelim ki $\beta_4$ katsayisi pozitif, o
-zaman diger sartlarin onemli olmadigi / esit oldugu durumda (with all else
-being equal) $x_4$ ne kadar buyurse 1 olma olasiligi o kadar artar. 
+zaman diger tum sartlarin esit oldugu durumda (with all else being equal)
+$x_4$ ne kadar buyurse 1 olma olasiligi o kadar artar.
 
 Lojistik modellerin onemli bazi avantajlari var, ki bu avantajlar log
 lineer modellere de sirayet ediyor (bu iyi). 
@@ -116,18 +116,18 @@ Kiyasla mesela Naive Bayes boyle degildir, eger bir NB siniflayicisini
 egitiyorsak, ve ogelerin (feature) arasinda ilinti var ise, siniflayicinin
 dogrulugu (accuracy) azalabilir.
 
-2) ``1 olma olasiligini'', yani ``bir sayisal skoru'', elde ediyoruz, bu
-sadece 1/0 degerinden daha fazla bir bilgi demektir, tercih edilir.
+2) LR ile ``1 olma olasiligini'', yani ``bir sayisal skoru'', elde
+ediyoruz, bu sadece 1/0 degerinden daha fazla bir bilgi demektir.
 
-3) Bu skor, anlami olan olasiliksal degerlerdir: Sonucta SVM
-siniflayicilari da $-\infty$ ve $+\infty$ degerler dondururler, ve bu
-degerler siralama (ranking) amacli kullanilabilir, fakat olasilik
+3) Bu skor, anlami olan bir olasiliksal degerdir: Sonucta SVM
+siniflayicilari da $-\infty$ ve $+\infty$ arasinda degerler dondururler, ve
+bu degerler siralama (ranking) amacli kullanilabilir, fakat olasilik
 matematigi acisindan anlami olan bir degerin olmasi bundan bile
 iyidir. Naive Bayes 0 ve 1 arasinda deger dondurebilir, fakat bu degerlerin
-de olasiliksal olarak aslinda anlami yoktur, pratikte goruldugu uzere bu
-degerler cok uc noktalarda, ya sifira cok yakin, ya bir'e cok
+de olasiliksal olarak aslinda anlami yoktur, pratikte goruldu ki bu
+degerler cok uc noktalarda, ya sifira cok yakin, ya bire cok
 yakin. Literaturde NB skorlarinin ``iyi kalibre edilmis olmadigi''
-soyleniyor. 
+soylenir.
 
 $X_1,...,X_n$ test ornekleri ve tahmin edilen olasiliklar $P(Y=1 | x_i) =
 v_i$
@@ -146,11 +146,13 @@ regresyon bu tur veriyle rahatca calisabilir.
 Ders 3
 
 Lojistik regresyon icin log olurlugun (LCL) turevini almak lazim. Once
-basitlestirme amacli $\alpha = \beta_o$, ve $x_0 = 1$. O zaman
+basitlestirme amacli $\alpha = \beta_o$, ve $x_0 = 1$. O zaman log sansin
+eski hali (altta esitligin sol tarafi) soyle yazilabilir (sag taraf), daha
+derli toplu bir formul olur,
 
-$$ \sum_{j=0}^{d} \beta_j x_j $$ 
+$$ \alpha + \sum_j \beta_j x_j  = \sum_{j=0}^{d} \beta_j x_j $$ 
 
-Simdi bulmak istedigim her $j$ icin $\frac{d}{d\beta_j} LCL$.
+Bulmak istedigim her $j$ icin $\frac{d}{d\beta_j} LCL$ lazim
 
 $$ 
 \frac{d}{d\beta_j} LCL = 
@@ -182,7 +184,7 @@ $$
 \frac{d}{d\beta_j}\log (1-p) = \frac{1}{1-p}(-1)\frac{d}{d\beta_j} p
 $$
 
-Ustteki son iki formulde $d/d\beta_j p$ kismi olduguna dikkat.
+Ustteki son iki formulun her ikisinde de $d/d\beta_j p$ kismi olduguna dikkat.
 
 Notasyon
 
@@ -202,9 +204,9 @@ $$ = (-1)(1+e)^{-2} (e) \frac{ d}{d\beta_j}(x_j) $$
 
 $$ \frac{ 1}{1+e} \frac{ e}{1+e}x_j = p(1-p)x_j$$
 
-Ustteki ifade kodlama icin oldukca uygun, $d/d\beta_j p$ hesabini yine
-icinde $p$ iceren bir ifadeye bagladik, ayrica $x_j$ ile bir baglanti da
-var. Fakat kodlama ve hesap acisindan ustteki ifade oldukca temiz. 
+Son ifade kodlama icin oldukca uygun, $d/d\beta_j p$ hesabini yine icinde
+$p$ iceren bir ifadeye bagladik, ayrica $x_j$ ile bir baglanti da
+var. 
 
 
 
