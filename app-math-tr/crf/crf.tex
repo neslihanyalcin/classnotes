@@ -254,6 +254,81 @@ kullanirsam, ki zaten 1'in olup olmamasi $y_i$'nin 1 olup olmamasina bagli,
 tek bir terimde isi halledebilirim. $y_i=1$ oldugu zaman ustteki ifade
 $1-p_i$ olacaktir, olmadigi zaman $-p_i$ olacaktir. 
 
+Eristigimiz sonucu analiz etmemiz gerekirse, nihai formul gayet basit ve
+temiz cikti. 
+
+[24:10] kalibrasyonla alakali bir yorum
+
+Rasgele Gradyan Cikisi (Stochastic Gradient Ascent)
+
+Fikir: turevi egitim noktasi basina hesapla, ve modeli hemen guncelle. 
+
+Egitim noktalari $<x,y>$ olarak gelsinler. Her nokta icin, ve her $\beta_j$
+icin
+
+$$ \frac{d}{d\beta_j}p(y|x;\beta) = g_j$$ hesapla. 
+
+$$ \beta_j := \beta_j + \alpha g_j $$
+
+Gradyanin ne oldugunu hatirlayalim, bir fonksiyonun maksimumuna ``dogru''
+olan bir gidis yonunu gosterir, ve bu gidis yonu o fonksiyonu olusturan
+degiskenlerin (parcali turevleri) uzerinden belirtilir. O zaman elimizdeki
+gradyan o ic degiskenlerin maksimum yondeki degisim seklini bize tarif
+eder. 
+
+Algoritmanin tamami: alttaki formul icin
+
+$$ \frac{d}{d\beta_j}p(y|\bar{x};\bar{\beta}) = (y-p)x_j $$
+
+Her $x$ icin
+
+- O anki modele gore $p$'yi hesapla
+
+- Her $j = 0,..,d$ icin
+
+\ \ \ - $ \beta_j := \beta_j + \alpha \underbrace{ (y-p) x_j}_{kismi \ turev} $ hesapla
+  
+Peki metotun ismindeki ``rasgele (stochastic)'' tanimi nereden geliyor? Iyi
+bir soru bu cunku metotta rasgele sayi uretimi gibi seyler
+gormuyoruz. Cevap, metot yine de rasgele, cunku her noktayi ayri ayri
+isliyoruz, ve bu noktalarin egitim algoritmasini gelisi bir nevi ``veriyi
+orneklemek'' gibi sanki, ek olarak veriyi egitime almadan once rasgele
+sekilde karistirmak ta iyi olabilir. 
+
+Bazi Tavsiyeler (Heuristics)
+
+1) Her ozellik (feature) $x_j$'i olceklemek, yani ayni ortalama (mean) ve
+varyansa sahip olacak sekilde tekrar ayarlamak. Yani mesela 0 ile 100
+arasinda olabilecek ``yas'' gibi bir ozelligi, 0 ve 1 arasinda degisen
+ozellikler ile ayni ortalama ve varyansa sahip olacak sekilde
+ayarlamak. Bunun sebebi guncelleme hesabindaki $\lambda$'nin tek bir sabit
+olmasi, ve bu sabit her $j$ icin aynidir, o sebeple $\lambda$'nin her ogeye
+``ayni sekilde'' uygulanabilmesi icin ogelerin birbirine yakin olmasi
+iyidir. Ek olarak, genellikle egitim verisinde 0 ile 1 arasinda ikisel
+turden ogeler vardir, o sebeple bu sekilde olmayan diger ogeleri 0 ve 1
+arasinda cekmek daha uygun ve kolay olur.
+
+2) Veriyi rasgele sekilde siralamak. Terminoloji: egitim veri seti
+uzerinden bir gecis yapmak bir ``cag'' (epoch) olarak bilinir. 
+
+3) $\lambda$'yi deneme / yanilma yontemi ile bulun (bu sabiti bulmanin
+sistemik bir yontemi yok). Belki verinin icinden alinan daha ufak bir
+orneklem uzerinde bu deneme / yanilma islemi yapilabilir.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
