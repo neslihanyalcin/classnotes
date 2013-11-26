@@ -344,14 +344,35 @@ deger vardir, mesela $y \in {1,2,3}$ olabilir, 3 sinifli bir cikti
 yani. Bazen cikti gercek sayi (real number) olabilir, ama yine de tek bir
 $y$ degeri vardir. Ustteki durum boyle degildir. Potansiyel olarak $y$'nin
 buyuklugu $x$ ile birebir ayni bile olmayabilir. Bu tur bir karisik
-eslemeden bahsediyoruz. 
+eslemeden bahsediyoruz.  Tek sinirlamamiz $\mathbb{Y}$'nin sonlu (finite)
+olmasi.
 
+Model soyle (notasyonu biraz degistirdik, $\beta$ yerine $w$ kullaniyoruz
+mesela, $w$ modelin ``agirliklarini (weights)'' temsil ediyor. 
 
+$$ p(y|x;w) = 
+\frac{\exp \big[ \sum_{j} w_j F_j (x,y) \big]}{Z(x,w)}
+$$
 
+Yakindan bakarsak model LR modeline benziyor. Bir lineer fonksiyonun
+$\exp$'si aliniyor ve bu deger olasilik hesabinda kullaniliyor. Ileride
+zaten gorecegiz ki LR ustteki yaklasimin bir ``ozel durumu'', yani ustteki
+model daha genel bir tanim. 
 
+Aklimiza bircok soru geliyor herhalde, mesela ``$Z$ nedir?'' ya da ``$F_j$
+nasil hesaplanir?'' gibi. $Z$ soyle tanimlanir
 
+$$ Z(x,w) = \sum_{y'} \exp \big[ \sum_j w_j F_j(x,y') \big] $$
 
+Tum $y'$'lere bakiliyor, yani tum mumkun $\mathbb{Y}$ degerleri teker teker
+$y'$ uzerinden toplamda kullaniliyor. $\mathbb{Y}$'nin sonlu olma
+faraziyesi burada onemli hale geliyor, toplami sonsuz bir kume uzerinden
+yapamayiz. 
 
+$Z$ normalizasyon icin kullaniliyor, cunku olasilik teorisinde eger
+elimizde coklu bir hedef var ise, bu hedeflere olan olasilik degerlerinin
+toplami 1 olmalidir. $Z$ iste bunu garantiler, bu sebeple bolen
+(denominator) bolumun (nominator) toplami olmalidir. 
 
 
 
