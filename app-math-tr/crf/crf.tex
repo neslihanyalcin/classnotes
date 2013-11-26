@@ -315,13 +315,36 @@ uzerinden bir gecis yapmak bir ``cag'' (epoch) olarak bilinir.
 sistemik bir yontemi yok). Belki verinin icinden alinan daha ufak bir
 orneklem uzerinde bu deneme / yanilma islemi yapilabilir.
 
+4) Deneme yanilma islemini soyle yapabilirsiniz: buyuk bir $\lambda$ ile
+ise baslarsiniz, ve her cagda $\lambda$ degerini azaltabilirsiniz (mesela
+her cag sonunda $1/2$ ile carparak).
 
+Ders 4
 
+Log Lineer Modeller
 
+Bu modeller lojistik regresyonun yapiya sahip (structured) girdiler ve
+ciktilar icin genellenmis halidir. Lojistik regresyonda girdi $\bar{x} \in
+\mathbb{R}^d$ ve 
+cikti $y \in {0,1}$ idi, yani cikti ikiseldi. Fakat biz bundan daha genel makine
+ogrenimi problemlerini cozmek istiyoruz, yani istedigimiz $x \in \mathbb{X}$, ki
+$\mathbb{X}$ herhangi bir uzay olabilmeli, ve $y \in \mathbb{Y}$ ki $\mathbb{Y}$ ayni sekilde herhangi bir 
+uzay olabilmeli. 
 
+Mesela $x$ bir cumle olabilmeli, diyelim ki $x$ = ``he sat on the mat'',
+tercumesi ``adam paspasin uzerinde oturdu''. Buna karsilik olan $y$ ise
+mesela soyle olabilmeli, $y$ = ``pronoun verb article noun'', yani her
+kelimenin hangi gramer ogesi oldugunu gosteren bir ibare. Mesela ``sat''
+yani oturmak bir fiil (verb), $y$ icinde gelen egitim verisinde bunlar
+olabilmeli (ustteki ornekte ikinci oge yani), sadece 0/1 degerleri degil.
 
-
-
+Bu tabii ki takip edilen (supervised) bir egitim sekli olacak. Fakat dikkat
+bazi makine ogrenimi uygulamalarinda ``cok siniftan gelen'' ama tek bir
+deger vardir, mesela $y \in {1,2,3}$ olabilir, 3 sinifli bir cikti
+yani. Bazen cikti gercek sayi (real number) olabilir, ama yine de tek bir
+$y$ degeri vardir. Ustteki durum boyle degildir. Potansiyel olarak $y$'nin
+buyuklugu $x$ ile birebir ayni bile olmayabilir. Bu tur bir karisik
+eslemeden bahsediyoruz. 
 
 
 
