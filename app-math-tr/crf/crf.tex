@@ -152,6 +152,67 @@ $$ \sum_{j=0}^{d} \beta_j x_j $$
 
 Simdi bulmak istedigim her $j$ icin $\frac{d}{d\beta_j} LCL$.
 
+$$ 
+\frac{d}{d\beta_j} LCL = 
+\sum _{i:y_i=1} \frac{d}{d\beta_j} \log p(1|..)
++ \sum _{i:y_i=0} \frac{d}{d\beta_j} \log p(0|..)
+$$
+
+Eger ustteki bir bolumu $p$ digerine $1-p$ dersem, yani soyle
+
+$$ 
+= \sum _{i:y_i=1} \frac{d}{d\beta_j} \underbrace{\log p(1|..)}_{p}
++ \sum _{i:y_i=0} \frac{d}{d\beta_j} \underbrace{\log p(0|..)}_{1-p}
+$$
+
+O zaman 
+
+
+$$ 
+= \sum _{i:y_i=1} \frac{d}{d\beta_j}\log p
++ \sum _{i:y_i=0} \frac{d}{d\beta_j} \log (1-p)
+$$
+Biliyoruz ki
+
+$$ 
+\frac{d}{d\beta_j}\log p = \frac{1}{p}\frac{d}{d\beta_j} p
+$$
+
+$$ 
+\frac{d}{d\beta_j}\log (1-p) = \frac{1}{1-p}(-1)\frac{d}{d\beta_j} p
+$$
+
+Ustteki son iki formulde $d/d\beta_j p$ kismi olduguna dikkat.
+
+Notasyon
+
+$$ e = \exp \big[ - \sum_{j=0}^n \beta_jx_j \big] $$
+
+$$ p = \frac{ 1}{1+e} $$
+
+$$ 1-p = \frac{ 1+e-1}{1+e} = \frac{ e}{1+e} $$
+
+Simdi  $d/d\beta_j p$'e donelim, ve $p$'nin ustteki gibi oldugundan
+hareketle,
+
+$$ \frac{ d}{d\beta_j}p = (-1)(1+e)^{-2} \frac{ d}{d\beta_j}e $$
+
+
+$$ = (-1)(1+e)^{-2} (e) \frac{ d}{d\beta_j}(x_j) $$
+
+$$ \frac{ 1}{1+e} \frac{ e}{1+e}x_j = p(1-p)x_j$$
+
+Ustteki ifade kodlama icin oldukca uygun, $d/d\beta_j p$ hesabini yine
+icinde $p$ iceren bir ifadeye bagladik, ayrica $x_j$ ile bir baglanti da
+var. Fakat kodlama ve hesap acisindan ustteki ifade oldukca temiz. 
+
+
+
+
+
+
+
+
 
 
 \end{document}
