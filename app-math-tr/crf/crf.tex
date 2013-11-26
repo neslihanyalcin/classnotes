@@ -335,8 +335,9 @@ Mesela $x$ bir cumle olabilmeli, diyelim ki $x$ = ``he sat on the mat'',
 tercumesi ``adam paspasin uzerinde oturdu''. Buna karsilik olan $y$ ise
 mesela soyle olabilmeli, $y$ = ``pronoun verb article noun'', yani her
 kelimenin hangi gramer ogesi oldugunu gosteren bir ibare. Mesela ``sat''
-yani oturmak bir fiil (verb), $y$ icinde gelen egitim verisinde bunlar
-olabilmeli (ustteki ornekte ikinci oge yani), sadece 0/1 degerleri degil.
+yani oturmak, bir fiil (verb), ``mat'' paspas, bir isim (noun), ve $y$
+icinde gelen egitim verisinde bunlar olabilmeli (ustteki ornekte ikinci
+oge), sadece 0/1 degerleri degil.
 
 Bu tabii ki takip edilen (supervised) bir egitim sekli olacak. Fakat dikkat
 bazi makine ogrenimi uygulamalarinda ``cok siniftan gelen'' ama tek bir
@@ -373,6 +374,71 @@ $Z$ normalizasyon icin kullaniliyor, cunku olasilik teorisinde eger
 elimizde coklu bir hedef var ise, bu hedeflere olan olasilik degerlerinin
 toplami 1 olmalidir. $Z$ iste bunu garantiler, bu sebeple bolen
 (denominator) bolumun (nominator) toplami olmalidir. 
+
+Her $F_j(x,y)$ bir ozellik fonksiyonudur (feature function). Niye? Cunku
+elimdeki $x$'ler illa bir vektor olmayabilir, yani $x_j$ ``vektorunu'' alip
+$w_j$ ``vektoru'' ile carpamam, bu sebeple once bir fonksiyon ile bir
+numerik deger uretmem gerekiyor. Kume olarak
+
+$$ F_J: \mathbb{X} \times \mathbb{Y} \to \mathbb{R} $$
+
+Eger $ F_j(x,y) > 0 $ ve $w_i > 0$ ise, o zaman $F_j(x,y) = 0$'a kiyasla
+$p(y|x;w)$ artar. Sezgisel olarak tarif edersek ozellik fonksiyonun
+soyledigi sudur, eger agirlik pozitif ise ozellik fonksiyonunun degeri ne
+kadar buyurse elimizdeki $y$, $x$ ile o kadar ``uyumludur'' (tabii ki belli
+bir ozellik yani $j$ icin). Negatif ilinti bunun tam tersi olurdu. 
+
+Egitim $w_j$ agirliklarini bulmamizi saglar. $F$ onceden tanimlidir (yani
+egitime bile baslamadan once), bu fonksiyonun ne olacagi
+``secilir''. Secilirken tabii ki $x,y$ arasindaki ilintiye gore fazla / az
+sonuc geri getirebilecek sekilde secilmelidir. 
+
+Kelime ornegine geri donersek, bir $F$ soyle olabilir, 
+
+$ F_{15}(x,y) =$ ``eger ikinci kelimenin bas harfi buyuk ve ikinci etiket
+isim (noun)''. Ozellik fonksiyonlari reel degerlidir. Bunun ozel durumu 0/1
+degeri veren ozellik fonksiyonlaridir. Biraz onceki ornek mesela 0/1
+donduruyor.
+
+Ya da $F_{14}(x,y)$ diyelim ki soyle ``ilk kelimenin bas harfi buyuk, ve
+ilk etiket bir isim''. Tahmin edebiliriz ki egitim setimizde ilk
+kelimesinin bas harfi buyuk {\em olan} ama o kelimesi isim olmayan pek cok
+ornek olacaktir. Bu durumda $w_{14}$ kucuk olur. 
+
+Dedigimiz gibi $F$ reel degeri olabilir, mesela
+
+$$ F_{16}(x,y) = lengh(y) - lengh(x) $$
+
+yani bu fonksiyonda $x$'nin uzunlugunu $y$'nin uzunlugundan
+cikartiyoruz. Bu ne ise yarar? Diyelim ki otomatik tercume yapmasi icin
+bir yapay ogrenim programi yaziyoruz, $x,y$ egitim noktalari birbirinin
+tercumesi olan Ingilizce/Fransizca cumleler. Cogunlukla Fransizca cumleler
+tekabul ettikleri Ingilizce cumlelerden cok daha uzun oluyorlar, yani
+ustteki cikarma cogunlukla pozitif sonuc verecek. Degisik bir acidan
+bakarsak, pozitif bir sonuc, bir tercumenin dogru oldugu yonunde bir isaret
+olarak kabul edilebilir, ve ustteki ozellik fonksiyonu uzerinden egitim
+algoritmasi bunu kullanir. Egitim sonrasi $w_{16}$ pozitif bir agirlik
+alacaktir. 
+
+Bir log lineer modelde (buna kosulsal rasgele alanlar dahil) ilk yapilan is
+probleminiz icin onemli olan ozellik fonksiyonlarini ortaya cikartmak. 
+
+27:33
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
