@@ -560,6 +560,8 @@ Yani iki ana problem var, bir de egitim algoritmasi var, ki bu aynen
 lojistik regresyon orneginde oldugu gibi rasgele gradyan cikisi uzerinden
 olacak, bu 3 algoritmayi simdi sunacagiz. 
 
+Algoritma 1
+
 Once,
 
 $$ \hat{y} = \arg\max_{\bar{y}}  \sum_j w_j F_j(\bar{x},\bar{y})$$
@@ -577,7 +579,7 @@ Toplam islemlerinin sirasini degistirelim,
 
 $$ = \arg\max_{\bar{y}}  \sum_i  \sum_j w_j f_j(y_{i-1}y_i \bar{x} i )$$
 Icerideki toplama $g_i(y_{i-1}y_i)$ ismi verelim, boylece her $i$ icin
-degisik bri $g$ fonksiyonuna sahip oluyorum. 
+degisik bir $g$ fonksiyonuna sahip oluyorum. 
 
 $$  = \arg\max_{\bar{y}}  \sum_i  g_i(y_{i-1}y_i) $$
 
@@ -649,15 +651,35 @@ $g$ matrislerini hesaplamak icin $O(nm^2d)$ demistik, bu  $O(nm^2)$'ten
 daha buyuktur / ona baskindir, ve $O$ aritmetigine gore daha buyuk olan 
 kullanilir. 
 
+Bu algoritma dinamik programlamanin ozel bir halidir, bazen ona Viterbi
+algoritmasi ismi de verilir. Bilindigi gibi Viterbi algoritmasi Gizli
+Markov Modelleri (Hidden Markov Models) yapisini dekode etmek icin
+kullaniliyor. CRF'lerin HMM'e kismen baglantisi oldugu dusunulurse, Viterbi
+algoritmasinin burada da ortaya cikmasi sasirtici degil. 
+
+Algoritma 2
+
+Sunu hesapla
+
+$$Z(\bar{x},w) = \sum_{y'} \exp 
+\underbrace{\sum_j w_j F_j(\bar{x},\bar{y})}_{g}
+$$
+
+Icerideki toplama $g_i$ demistik, 
+
+$$ g = \sum_i g_i(y_{i-1}y_i) $$
+Yani
 
 
+$$Z(\bar{x},w) = \sum_{y'} \exp 
+\sum_i g_i(y_{i-1}y_i) 
+$$
+Bir toplamin $\exp$'si, $\exp$'lerin carpimi haline donusur, yani $\exp$
+toplamdan ``iceri'' nufuz eder, 
 
-
-
-
-
-
-
+$$
+ = \sum_{y'} \prod_i \exp  g_i(y_{i-1}y_i) 
+$$
 
 
 
