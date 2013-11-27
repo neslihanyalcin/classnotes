@@ -586,14 +586,79 @@ etiketleme probleminde belki 20 degerden birini alabilirler. $\bar{x},\bar{w}$ z
 sabit (egitim verisi icindeler, ya da sabit olarak goruluyorlar). Bu 
 durumda $g$'yi temsil etmek icin nasil bir veri yapisi kullanmaliyim? Cunku
 bilgisayar bilim yapiyoruz, ve bilgisayar bilimde veri yapilari vardir. 
-Bize gereken belli $y_{i-1},y_i$ kombinasyonu icin bir $g$ degeri dondurulmesi, ve bu
-sonucu bir yerde depolayabilmek.
+Bize gereken belli $y_{i-1},y_i$ kombinasyonu icin bir $g$ degeri
+dondurulmesi, ve bu sonucu bir yerde depolayabilmek.
 
 Gereken yapi basit bir matris olabilir. Diyelim ki $m$ farkli $y$ degeri
-var ise, $m^2$ hucresi olan bir matris isimizi gorur.
+var ise, $m^2$ hucresi olan bir matris isimizi gorur. Her $g_i$ icin ayri
+bir $m^2$ matrisi olacak tabii ki. $n$ tane matris, $d$ deger var ise 
+islem zamani $O(m^2nd)$. 
 
 Algoritmamda ilk yapacagim is mumkun $g$ degerlerini onceden hesaplayip
-(precompute) bir yerde depolu olarak tutmak / hazir etmek.
+(precompute) bir yerde depolu olarak tutmak / hazir etmek. 
+
+Tanim
+
+$Skor(y_1,...,y_k) = \sum _{i=1}^{k} g_i(y_{i-1} y_i)$
+
+Amacimiz oyle bir $y$ siralamasi (sequence) bulmak ki bu siranin skoru 
+en yuksek olsun. 
+
+$U(k)$ = en iyi siralama $y_1,...,y_k$'nin skoru
+
+$U(k,v)$ = $y_k=v$ olma sartiyla en iyi siralama $y_1,...,y_k$'nin skoru
+
+Amacim $U(n+1, BITIS)$'i bulmak. Mumkun etiketlere BASLA, BITIS adli iki
+yeni deger ekledik, bu bazi formulleri kolaslastiracak. Bu tanim aslinda
+$\arg\max$ ile bulmaya calistigim seyin bir bolumj aslinda, sadece amacimi
+bu sekilde tekrar tanimladim. Tekrar belirtmek gerekirse, 
+
+$$U(k,v) = \max_{y_1,y_{k-1}}  [ \sum _{ i=1}^{k-1}  g_i(y_{i-1}y_i) +  g_k(y_k,v) ]$$
+
+Ilginc bolume geldik. Ustteki tanimi ozyineli olarak tanimlarsak, 
+
+$$ U(k,v) = \max_{y_{k-1}} [ U({k-1},y_{k-1}) + g_k(y_{k-1},v)]  $$
+
+Bu ozyineli fonksiyonun avantaji nedir? Aslinda bir onceki formule gore cok
+daha cetrefil duruyor. Avantaj surada, dinamik programlama (dynamic
+programming) tekniklerini kullanarak bir dongu icinde ustteki ozyineli
+hesabi yapmak mumkun. Simdi teker teker bakalim,
+
+$y_0 = BASLA$
+
+$U(1,v) = \max_{y_0} [ U(0,y_o) + g_1(y_0,v)]$
+
+Bu ilk basamakta aslinda bir maksimizasyon yok, o zaman 
+
+$ = g(BASLA,v)$
+
+yeterli. 
+
+Ama ikinci basamakta isler zorlasiyor, 
+
+$U(2,v) = \max_{y_1} [ U(1,y_1) + g_2(y_1,v) ]$
+
+Fakat esitligin sag tarafindaki $U$ hesabini bir onceki basamakta
+hesapladim ve depoladim, onu hemen kullanabilirim. Bu hesabin yuku nedir? 
+Her mumkun $v$ degerine ($m$ tane) bakmam lazim, ve bu islem sirasinda her
+$y_1$ mumkun degeri (yine $m$ tane) irdelemem lazim. Yani $O(m^2)$. 
+
+Bu islemi $U(n+1, BITIS)$'e kadar yapmam lazim. Toplam yuk $O(nm^2)$. 
+
+$g$ matrislerini hesaplamak icin $O(nm^2d)$ demistik, bu  $O(nm^2)$'ten
+daha buyuktur / ona baskindir, ve $O$ aritmetigine gore daha buyuk olan 
+kullanilir. 
+
+
+
+
+
+
+
+
+
+
+
 
 
 
