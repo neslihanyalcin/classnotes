@@ -495,15 +495,66 @@ Cevap: eger sadece ikili eslere bakiyorsak, kombinasyon hesabi
 $C(10,2) =
 45$ sonucunu verir. Bu fena bir sayi degil.
 
+Ayrica verinin seyrekligi bize hangi kombinasyonlarin dahil edilip
+edilmeyecegi yonunde yardimci olabilir. 
+
+Soru: cok sinifli problemler[ lojistik regresyonu gelistirerek cozulemez
+mi?  Cevap: boyle bir yaklasim var, buna multinom lojistik regresyon
+deniyor. Fakat bu yaklasimin log lineer modellerin ozel bir hali oldugunu
+belirtmek isterim, yani makine ogrenimi dunyasinin aktif olarak arastirdigi
+alan artik burasi, multinom lojistik regresyon asildi. Zaten log lineer
+modeller ile cok etiketli problemleri de cozebiliyorsunuz.
+
+Ders 5
+
+Soru: biraz once sadece $y$'ler arasinda bir OF tanimlayabildigimizi
+gorduk. Peki sadece $x$'ler arasinda OF tanimlamak faydali olur muydu?
+Cevap: Formulu tekrar hatirlayalim,
+
+$$ p(y|x;w) = \frac{\exp \sum_j w_j F_j (x,y)}{Z(x,w)} $$
+
+OF'nin gorevi hangi $y$'lerin daha yuksek olasiligi oldugunu
+belirtmek. Eger sadece $x$ var ise, bu durumda bolum ve bolendeki degerler
+birbirini iptal ederdi. Her $y$ icin ayni $x$ ``katkisi'' olurdu ve bunun
+siniflayiciya hicbir faydasi olmazdi. 
+
+[8:00-18:00 atlandi]
+
+Cozdugumuz problemler su formatta
+
+$$ p(\bar{y}|\bar{x};w) = \frac{\exp \sum_j w_j F_j (\bar{x},y)}{Z(\bar{x},w)} $$
 
 
+Tahmin etmek icin 
 
+$$ \hat{y} = \arg\max_{y}  \exp \sum_j w_j F_j(\bar{x},y)$$
+Bir $\bar{y}$ tahmin etmek icin bu modellerden birini kullanacaksak, $
+p(\bar{y}|\bar{x};w)$ 
+formulune $\bar{x}$'i koyariz, ve elde edilen dagilimda hangi $\bar{y}$'nin
+olasiligi  daha yuksekse onu seceriz. Daha yuksek olasiliga sahip olan 
+$\bar{y}$, $p(\bar{y}|\bar{x};w)$ formulunde bolumu daha yuksek olandir. Bolen her $\bar{y}$ 
+icin sabit / ayni.
 
+Aslinda $\exp$'ye ihtiyac yok, cunku $\exp$ monotonik bir fonksiyon, yani
+sadece su kullanilabilir,
 
+$$ \hat{y} = \arg\max_{y}  \sum_j w_j F_j(\bar{x},y)$$
 
+En olasi $y$'yi bulmak icin $Z$'nin gerekmedigine de dikkat, cunku bu sabit
+tum secenekler icin ayni.
 
+Burada tahmin etmek baglaminda zor olan sey, en yuksek $y$'yi bulmak
+icin tum $y$'lere teker teker bakmaya mecbur olmamiz. Bu bakma islemi
+cok zaman alabilir, o zaman bu problemi bir sekilde cozmem lazim. 
 
+Diger problem, tum olasiliklarin 1'e toplanabilmesini saglayan normalize
+sabitinin hesabi, yani $Z(\bar{x},w) = \sum_{y'}\exp [ \sum_j w_j F_j(\bar{x},\bar{y})
+]$, ki eger olasilik 
+degeri hesaplayacaksak bu sabit gerekli. 
 
+Yani iki ana problem var, bir de egitim algoritmasi var, ki bu aynen
+lojistik regresyon orneginde oldugu gibi rasgele gradyan cikisi uzerinden
+olacak, bu 3 algoritmayi simdi sunacagiz. 
 
 
 
