@@ -7,6 +7,10 @@ Ders 2
 
 Charles Elkan ders notlari
 
+Elkan'in makine ogrenimi konusuna bakisi ilginc, ona gore makine ogrenimi
+bir bilgisayar bilim (computer science) konusudur, mesela altta islenen
+maksimum olurluk bilgisayar bilimdir. 
+
 Kosulsal Olurluk (Conditional Likelihood)
 
 Diyelim ki elimizde egitim verisi olarak ikili $<x,y>$ veri noktalari
@@ -555,6 +559,44 @@ degeri hesaplayacaksak bu sabit gerekli.
 Yani iki ana problem var, bir de egitim algoritmasi var, ki bu aynen
 lojistik regresyon orneginde oldugu gibi rasgele gradyan cikisi uzerinden
 olacak, bu 3 algoritmayi simdi sunacagiz. 
+
+Once,
+
+$$ \hat{y} = \arg\max_{\bar{y}}  \sum_j w_j F_j(\bar{x},\bar{y})$$
+
+Bu hesabi polinom zamanda (polynomial time) yapmak istiyoruz. Tanimi biraz
+degistirelim, 
+
+$$ = \arg\max_{\bar{y}}  \sum_j w_j \sum_i f_j(y_{i-1}y_i \bar{x} i )$$
+$j$ tum ozellikler, $i$ $x,y$ ``boyunca'' ilerleyen indisler. Ustteki ibare
+tek bir egitim veri noktasi icin yapiliyor, yani $i$ degisik veri
+noktalarini indislemiyor (genellikle oyle olur, o yuzden belirtmek
+istedik). 
+
+Toplam islemlerinin sirasini degistirelim, 
+
+$$ = \arg\max_{\bar{y}}  \sum_i  \sum_j w_j f_j(y_{i-1}y_i \bar{x} i )$$
+Icerideki toplama $g_i(y_{i-1}y_i)$ ismi verelim, boylece her $i$ icin
+degisik bri $g$ fonksiyonuna sahip oluyorum. 
+
+$$  = \arg\max_{\bar{y}}  \sum_i  g_i(y_{i-1}y_i) $$
+
+$y_{i-1},y_i$ kelime bolme probleminde iki degerden birini alabilir. Cumle
+etiketleme probleminde belki 20 degerden birini alabilirler. $\bar{x},\bar{w}$ zaten 
+sabit (egitim verisi icindeler, ya da sabit olarak goruluyorlar). Bu 
+durumda $g$'yi temsil etmek icin nasil bir veri yapisi kullanmaliyim? Cunku
+bilgisayar bilim yapiyoruz, ve bilgisayar bilimde veri yapilari vardir. 
+Bize gereken belli $y_{i-1},y_i$ kombinasyonu icin bir $g$ degeri dondurulmesi, ve bu
+sonucu bir yerde depolayabilmek.
+
+Gereken yapi basit bir matris olabilir. Diyelim ki $m$ farkli $y$ degeri
+var ise, $m^2$ hucresi olan bir matris isimizi gorur.
+
+Algoritmamda ilk yapacagim is mumkun $g$ degerlerini onceden hesaplayip
+(precompute) bir yerde depolu olarak tutmak / hazir etmek.
+
+
+
 
 
 
