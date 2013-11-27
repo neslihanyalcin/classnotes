@@ -671,23 +671,33 @@ $$ g = \sum_i g_i(y_{i-1}y_i) $$
 Yani
 
 
-$$Z(\bar{x},w) = \sum_{y'} \exp 
+$$Z(\bar{x},w) = 
+\sum_{\bar{y}} \exp 
 \sum_i g_i(y_{i-1}y_i) 
 $$
 Bir toplamin $\exp$'si, $\exp$'lerin carpimi haline donusur, yani $\exp$
 toplamdan ``iceri'' nufuz eder, 
 
 $$
- = \sum_{y'} \prod_i \exp  g_i(y_{i-1}y_i) 
+ = \sum_{\bar{y}} \prod_i \exp  g_i(y_{i-1}y_i) 
 $$
 
+$t=1,..,n+1$ icin sunu tanimlayalim,
 
+$M_t(u,v) = \exp g_t(u,v)$
 
+$M_t$ asagi yukari $g$ ile ayni sey, her degisik $g$ fonsiyonu icin degisik
+bir matris var, bu matris hucrelerinin $\exp$'sinin alinmis hali $M_t$ matrisi.
 
+$M_1(u,v)$ sadece $u=BASLA$ icin gecerli. 
 
+$M_{n+1}(u,v)$ sadece $b=BITIS$ icin gecerli. 
 
+$M_{12} = M_1M_2$ yani matris carpimi. 
 
+$M_{12}(BASLA,w)$'yu dusunelim, bu bize tek bir hucre degeri verir. 
 
+6:30
 
 
 
