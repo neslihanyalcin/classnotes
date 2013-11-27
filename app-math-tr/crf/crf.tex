@@ -463,6 +463,42 @@ Mesela ``async'' kelimesi ``a-sync'' olarak bolumebilir, ve egitim setinde
 ``async'' ile ``$y=$01...'' gelirse ustteki OF bu bolunmeyi odullendirir /
 ogrenir. 
 
+Simdi CRF olmayan bir Lineer Model'e bakalim, 
+
+Mesela cok etiketli takip edilen ogrenim. ``Cok etiketli'' ne demektir?
+Dikkat, ``cok sinifli (multi label)'' degil, yani tek ogenin iki veya daha
+fazla deger arasindan birini secmesinden bahsetmiyoruz. Birde fazla etiket
+alabilmekten bahsediyoruz, mesela bir Internet sayfasi, bir veya daha fazla
+kategoriye ayni anda ait olabilir, mesela hem Spor, hem Is Dunyasi. Diyelim
+ki 10 mumkun etiket var, bir dokuman kac degisik sekilde etiketlenebilir?
+
+$2^{10} = 1024$ sekilde (bu sayi, hesap bir kumenin kac degisik sekilde alt
+kumesi olabilir hesabini yansitiyor ayni zamanda, yani siralama onemli
+olmadan belli sayida ogenin kac degisik sekilde alt kumeleri olabilir
+sorusu). Bu buyuk bir rakam. Ve bu kadar cok olasilik var ise, egitim
+verisi tum kombinasyonlar icin ornek veri icermeyebilir. Fakat muhakkak
+algoritmamizin bu kombinasyonlari tahmin edebilmesini tercih ederiz.
+
+Cozum? 10 degisik siniflayici kurarark bu problemi cozebiliriz (ayri ayri,
+tek basina tek sinifa bakilinca yeterli veri cikar herhalde), fakat bu
+sekilde ``siniflararasi'' iliskileri yakalayamayiz. Log lineer model
+yaklasiminda oyle bir ikisel (binary) OF yaratirsiniz ki, mesela,
+
+$$F_{19}(x,y) = "Spor \in y, Is \ Dunyasi \in y" $$ 
+
+Dikkat edersek OF sadece $y$'ye bakiyor. Bu OF'yi iceren algoritma
+egitilince ustteki OF icin bir pozitif agirlik ogrenilebilecektir. 
+
+Soru: bir anlamda problemin yerini degistirmis olmuyor muyuz? Mesela
+ustteki sekilde bu sefer her turlu kombinasyon icin OF'mi yaratacagiz?
+Cevap: eger sadece ikili eslere bakiyorsak, kombinasyon hesabi 
+$C(10,2) =
+45$ sonucunu verir. Bu fena bir sayi degil.
+
+
+
+
+
 
 
 
