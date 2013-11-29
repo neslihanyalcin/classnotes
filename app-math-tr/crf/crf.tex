@@ -728,18 +728,20 @@ oluyorum. Ve boyle devam edersem, yani tum matrisleri birbiriyle carparsam
 ve $BASLA, BITIS$ degerlerine bakarsam, 
 
 $$ 
-M_{123...n+1} (BASLA, BITIS) =  \sum_{y_1,...,y_n} 
-\exp [
-(g_1(BASLA,y_1) + g_2(y_1,y_2) + ... + g_3(y_2,y_3) + g_{n+1}  (y_n, BITIS)
+M_{123...n+1} (BASLA, BITIS) =  
+$$
+$$
+\sum_{y_1,...,y_n}  \exp [
+(g_1(BASLA,y_1) + g_2(y_1,y_2) + g_3(y_2,y_3) + ... + g_{n+1}  (y_n, BITIS)
 ]
 $$
 
 Bu ifade parcalara ayirma (partition) fonsiyonu icin tam ihtiyacim olan
 sey. Daha once Viterbi algoritmasindan bahsettik, hatta bu algoritma
-dinamik programlama kategorisine girer dedik, ustteki algoritma aslinda bir
-matris carpimi sadece. Daha genel olarak ustteki algoritma ileri-geri
-(forward-backward) algoritmasinin bir turevi, bu algoritmalar bildigimiz
-gibi HMM'lerde sikca kullaniliyorlar. 
+dinamik programlama kategorisine girer dedik, ustteki algoritma dinamik
+programlama bile sayilmaz, aslinda bir matris carpimi sadece. Daha genel
+olarak ustteki algoritma ileri-geri (forward-backward) algoritmasinin bir
+turevi, bu algoritmalar bildigimiz gibi HMM'lerde sikca kullaniliyorlar.
 
 Bu iki algoritma CRF'ler icin gerekli. Simdi CRF'leri nasil egitecegimizi
 gorelim. 
@@ -749,7 +751,7 @@ Egitim
 Maksimizasyon icin rasgele gradyan cikisi kullanacagiz. 
 
 $$ 
-y|x;w) = \frac{\exp \sum_j w_j F_j(x,y)  }{Z(x;w)}
+p(y|x;w) = \frac{\exp \sum_j w_j F_j(x,y)  }{Z(x;w)}
 $$
 
 adyan cikisi icin ustteki formulun turevini alabilmeliyiz. Once
@@ -812,14 +814,54 @@ esittir.
 $$ = \sum_{y'} F_j (x,y') p(y' | x;w)$$ 
 
 Ilginc durum burada ortaya cikiyor, cunku ustteki ayni zamanda bir beklenti
-(expectation) tanimi gibi. Tum $F_j$ degerlerini o degerlerin olasiliklari
-ile carpip toplarsak bir beklenti elde etmez miyiz? Evet. O zaman 
+(expectation) tanimi degil mi? Tum $F_j$ degerlerini o degerlerin
+olasiliklari ile carpip toplarsak bir beklenti elde etmez miyiz? Evet. O
+zaman beklenti tanimini kullanabiliriz,
 
 $$\frac{\partial}{\partial w_j} \log p = F_j(x,y) - E[F_j(x,y') ] $$
 
 ki $y'$ soyle bir dagilimi takip ediyor, 
 
 $$ y' \sim p(y'|x;w) $$
+
+Soru: $\frac{\partial}{\partial w_j} \log p = ?$ Yani bu turev ne zaman sifira esittir? 
+
+Cevap: Turevin acilimina bakinca mesela, $F_j=0$ olunca mi? Hayir, cunku OF
+sifir olsa bile beklenti kismi sifir olmayabilir. O zaman soyle soylemek
+gerekir, eger tum $y'$ icin $F_j(x,y') - 0$ ise, o zaman turev sifir olur. 
+
+Cogunlukla $F_j(x,y) = a(x)I(y=v)$. Hatirlarsak bu yontem bir ozelligi (ki
+$(a(x)$ ile temsil ediliyor), her mumkun $v$ degeri icin bir OF'ye
+cevirmenin yolu idi (tek $x$'e bagli OF olamaz).
+
+O zaman sunu da soyleyebiliriz, eger $a(x) = 0$ ise, her $y$ icin $F_j(x,y)
+= 0$ 
+demektir. 
+
+Bu bilginin faydasi sudur, veride seyreklik var ise, lojistik regresyon
+bunlari atlamayi bilir. Demek ki ayni sekilde kosulsal lineer modeller de
+bu ozellikleri atlayabilir. Eger bir ozellik $a(x)=0$ ise, o ozellik
+agirlik guncellemesi (weight update) sirasinda atlanir. 
+
+Algoritma
+
+Her egitim noktasi $x,y$ icin
+
+$ \ \ $$j$ icin
+    
+$ \ \ \ \ $$E[F_j(x,y')]$ hesapla (buna sadece $E$ diyelim)
+       
+$ \ \ \ \ $Guncelle: $w_j := w_j + \lambda[F_j(x,y) - E]$
+
+
+Bu hesabin en pahali kismi neresi? Beklenti hesabi. Bu beklentileri
+hesaplanmasi icin daha once verdigimiz matris carpimi yontemine benzer bir
+yontem kullanmak gerekiyor (burada vermeyecegiz, arama motorunde Rahul
+Gupta uzerinden arayabilirsiniz, bu kisi bu konuyu anlatiyor).
+
+[atlandi]
+
+
 
 
 
