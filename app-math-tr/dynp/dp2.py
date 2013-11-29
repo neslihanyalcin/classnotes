@@ -1,13 +1,5 @@
 from functools import wraps
 
-def memo(func):
-    cache = {}                                  
-    @wraps(func)                                
-    def wrap(*args):                            
-        if args not in cache: cache[args] = func(*args)           
-        return cache[args]                      
-    return wrap                                 
-
 DAG = {
     'a': {'b':2, 'f': 9},
     'b': {'d':2, 'c':1, 'f': 6},
@@ -16,6 +8,17 @@ DAG = {
     'e': {'f':4},
     'f': {}
 }
+
+def memo(func):
+    cache = {}                                  
+    @wraps(func)                                
+    def wrap(*args):                            
+        if args not in cache:
+            print 'miss', args
+            cache[args] = func(*args)
+        else: print 'hit', args
+        return cache[args]                      
+    return wrap                                 
 
 def rec_dag_sp(W, s, t):                        # Shortest path from s to t
     @memo                                       # Memoize f

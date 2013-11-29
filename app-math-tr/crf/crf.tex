@@ -680,6 +680,7 @@ toplamdan ``iceri'' nufuz eder,
 
 $$
  = \sum_{\bar{y}} \prod_i \exp  g_i(y_{i-1}y_i) 
+\ \ \ (5)
 $$
 
 $t=1,..,n+1$ icin sunu tanimlayalim,
@@ -695,9 +696,141 @@ $M_{n+1}(u,v)$ sadece $b=BITIS$ icin gecerli.
 
 $M_{12} = M_1M_2$ yani matris carpimi. 
 
-$M_{12}(BASLA,w)$'yu dusunelim, bu bize tek bir hucre degeri verir. 
+$M_{12}(BASLA,w)$'yu dusunelim (ki bu tek bir hucre degeri) 
 
-6:30
+\includegraphics[height=4cm]{crf_3.jpg}
+
+Bu ifadenin sol taraftaki $M_1$ icinde $BASLA$ satirini sag taraftaki $M_2$
+$w$ kolonu ile carptigini dusunebiliriz.
+
+$$M_{12}(BASLA,w) = \sum_v M_1(BASLA, v)M_2(v,w)  $$
+
+$$ = \sum_v \exp [g_1(BASLA,v) + g_2(v,w)] $$
+Bu istedigimiz gibi bir ifadeye donusmeye basladi, cunku hatirlarsak, (5)'e
+benzeyen bir seyleri elde etmeye ugrasiyoruz. Gerci ustteki ifade tum $y$
+degerleri icin degil, tek bir $v$ icin, ama yine de uygun, ustteki $v$
+yerine $y_1$ dersek belki daha uygun olur,
+
+$$ = \sum_{y_1} \exp [g_1(BASLA,y_1) + g_2(y_1,w)] $$
+
+Uclu bir carpma gorelim: $M_{123}$. 
+
+$$ M_{123} = \sum_{y_2} M_{12}(BASLA, y_2)M_3(y_2,w)  $$
+
+$$ = \sum_{y_2} [ \sum_{y_1}\exp [g_1(BASLA,y_1) + g_2(y_1y_2) ] 
+\exp g_3(y_2,w) ]
+$$
+
+$$ \sum_{y_1,y_2} \exp [g_1(BASLA,y_1) + g_2(y_1y_2) + g_3(y_2,v)]  $$
+
+Yani uc matrisi birbiriyle carparak $y_1,y_2$ uzerinden toplam almis
+oluyorum. Ve boyle devam edersem, yani tum matrisleri birbiriyle carparsam
+ve $BASLA, BITIS$ degerlerine bakarsam, 
+
+$$ 
+M_{123...n+1} (BASLA, BITIS) =  \sum_{y_1,...,y_n} 
+\exp [
+(g_1(BASLA,y_1) + g_2(y_1,y_2) + ... + g_3(y_2,y_3) + g_{n+1}  (y_n, BITIS)
+]
+$$
+
+Bu ifade parcalara ayirma (partition) fonsiyonu icin tam ihtiyacim olan
+sey. Daha once Viterbi algoritmasindan bahsettik, hatta bu algoritma
+dinamik programlama kategorisine girer dedik, ustteki algoritma aslinda bir
+matris carpimi sadece. Daha genel olarak ustteki algoritma ileri-geri
+(forward-backward) algoritmasinin bir turevi, bu algoritmalar bildigimiz
+gibi HMM'lerde sikca kullaniliyorlar. 
+
+Bu iki algoritma CRF'ler icin gerekli. Simdi CRF'leri nasil egitecegimizi
+gorelim. 
+
+Egitim
+
+Maksimizasyon icin rasgele gradyan cikisi kullanacagiz. 
+
+$$ 
+y|x;w) = \frac{\exp \sum_j w_j F_j(x,y)  }{Z(x;w)}
+$$
+
+adyan cikisi icin ustteki formulun turevini alabilmeliyiz. Once
+$\log$'unu almak lazim, cunku $\partial / \partial w_j \log p$ hesabi gerekli, usttekinin $\log$'u 
+ise bolumun $\log$'u eksi bolenin $\log$'u. 
+
+$$
+ \frac{\partial}{\partial w_j} \log p
+=
+\frac{\partial}{\partial w_j} [ \sum_j w_j F_j(x,y)] -
+\frac{\partial}{\partial w_j} \log Z(x;w)
+ $$
+
+Turevin eksi oncesi ilk bolumu cok basit, $w_j$ ve toplam yokolacak (tum
+$j$'lerin toplami yokoldu, cunku turev ``tek'' bir $j$ degeri ile
+ilgileniyor, digerleri sifir oluyor)
+
+
+$$ 
+=
+ F_j(x,y) -
+\frac{\partial}{\partial w_j} \log Z(x;w)
+$$
+
+Eksiden sonraki kisim cok zarif bir sonuca donusecek, birazdan gorecegiz. 
+
+$$ 
+\frac{\partial}{\partial w_j} \log Z(x;w) = 
+\frac{ 1}{Z} \frac{\partial}{\partial w_j} Z 
+$$
+
+Turevi toplam icine tasiyoruz, 
+
+$$ 
+= \frac{1}{Z} \sum_{y'} \frac{\partial}{\partial w_j} [
+\exp [ \sum_{j'} w_j' F_{j'}(x,y') ] ] 
+$$
+
+
+$$  
+=
+\frac{ 1}{Z}\sum_{y'} 
+\bigg[
+\exp [ \sum_{j'} w_{j'} F_{j'}(x,y') ] F_j(x,y')
+\bigg]
+$$
+
+$$ 
+= \sum_{y'} F_j (x,y')
+\frac{
+\exp [ \sum_{j'} w_{j'} F_{j'}(x,y') ]
+}
+{Z}
+$$ 
+
+
+Simdi ilginc kisma geldik, ustteki kesirli kisim $p(y' | x;w)$ degerine
+esittir. 
+
+$$ = \sum_{y'} F_j (x,y') p(y' | x;w)$$ 
+
+Ilginc durum burada ortaya cikiyor, cunku ustteki ayni zamanda bir beklenti
+(expectation) tanimi gibi. Tum $F_j$ degerlerini o degerlerin olasiliklari
+ile carpip toplarsak bir beklenti elde etmez miyiz? Evet. O zaman 
+
+$$\frac{\partial}{\partial w_j} \log p = F_j(x,y) - E[F_j(x,y') ] $$
+
+ki $y'$ soyle bir dagilimi takip ediyor, 
+
+$$ y' \sim p(y'|x;w) $$
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -706,3 +839,6 @@ $M_{12}(BASLA,w)$'yu dusunelim, bu bize tek bir hucre degeri verir.
 
 
 \end{document}
+
+
+

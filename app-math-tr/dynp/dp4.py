@@ -41,9 +41,6 @@ if __name__ == "__main__":
         }
 
     graph = WeightedGraph(DAG)
-    
-#    path = shortest_path(graph, 'a')
-#    print path.d, path.parent
-    
+        
     path = shortest_path_bottomup(graph, 'a')
     print path.d, path.parent
