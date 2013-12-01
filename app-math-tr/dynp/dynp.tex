@@ -4,9 +4,9 @@ Dinamik Programlama
 
 \includegraphics[height=6cm]{dp1.jpg}
 
-\begin{lstlisting}[language=Python]
-from functools import wraps
+Ustteki cizite tekabul eden veriyi kodlayalim
 
+\begin{lstlisting}[language=Python]
 DAG = {
     'a': {'b':2, 'f': 9},
     'b': {'d':2, 'c':1, 'f': 6},
@@ -15,6 +15,12 @@ DAG = {
     'e': {'f':4},
     'f': {}
 }
+\end{lstlisting}
+
+En kisa yolu bulacak program
+
+\begin{lstlisting}[language=Python]
+from functools import wraps
 
 def memo(func):
     cache = {}                                  
