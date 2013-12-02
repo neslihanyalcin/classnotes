@@ -33,18 +33,30 @@ Bolumler Kurali icin $u$ ve $v$ tanimlari nedir?
 
 O zaman
 
-\begin{equation} v \frac{du}{dx} = F_y \frac{dF_x}{dx} \label{eq1} \end{equation}
+\[ 
+v \frac{du}{dx} = F_y \frac{dF_x}{dx} 
+\ \ \ (1)
+\]
 
-\begin{equation} u \frac{dv}{dx} = -F_x \frac{dF_y }{dx} \label{eq2} \end{equation}
+\[
+u \frac{dv}{dx} = -F_x \frac{dF_y }{dx} 
+\ \ \ (2)
+\]
 
 Bunlardan mesela $dF_x/dx$ uzerinde Zincirleme Kanunu (Chain Rule) uygulamak
 lazim (bu kural tam integral kuralinin bir sonucu). 
 
 \[ \frac{d F_x(x,f(x)) }{dx} = \frac{\partial F_x}{\partial  x}(x,f(x))+\frac{\partial F_x}{\partial y}\frac{df}{dx}\\ \]
 
-\begin{equation} = F_{xx}(x,f(x))+F_{xy}(x,f(x))f'(x) \label{eq3}  \end{equation}
+\[
+= F_{xx}(x,f(x))+F_{xy}(x,f(x))f'(x) 
+\ \ \ (3)
+\]
 
-\begin{equation} \frac{d F_y(x,f(x)) }{dx} =  F_{xy}(x,f(x))+F_{yy}(x,f(x))f'(x) \label{eq4} \end{equation}
+\[
+\frac{d F_y(x,f(x)) }{dx} =  F_{xy}(x,f(x))+F_{yy}(x,f(x))f'(x) 
+\ \ \ (4)
+\]
 
 Zincirleme Kanunu niye ustteki sekilde acildi? Tam Diferansiyeli bir daha
 hatirlayalim:
@@ -55,7 +67,7 @@ hatirlayalim:
 
 \[ \frac{df}{dx} = \frac{\partial f}{\partial x} + \frac{\partial f}{\partial y} \frac{dy}{dx}  \]
 
-O zaman formuller \ref{eq1}, \ref{eq2}, \ref{eq3} ve \ref{eq4} bir araya konulursa,
+O zaman formuller (1) (2) (3) ve (4) bir araya konulursa,
 
 \[ y '' = - \frac{F_yF_{xx} - F_y F_{xy}\frac{F_x}{F_y} - F_xF_{xy} + F_xF_{yy}\frac{F_x}{F_y}}{F_y^2}\\ \]
 
@@ -112,7 +124,11 @@ Yerine koyarsak,
 
 $F_y^{-3}$ ve $F_y^{3}$ birbirlerini iptal ederler ve sonuc:
 
-\begin{equation}\kappa = \frac{F_y^2F_{xx} - 2F_{xy}F_xF_y + F_x^2F_{yy}}{(F_y^2 + F_x^2)^{3/2}} \label{eq5}\end{equation}
+\begin{equation}
+\kappa = \frac{F_y^2F_{xx} - 2F_{xy}F_xF_y +
+    F_x^2F_{yy}}{(F_y^2 + F_x^2)^{3/2}}
+\ \ \ (5)
+\end{equation}
 
 Ustteki unlu egim (curvature) formuludur. 
 
@@ -121,7 +137,7 @@ Bu egim formulunun diger bir sekli soyledir ($F$ yerine $\phi$ kullanirsak)
 \[ \kappa = \bigtriangledown \cdot \frac{\bigtriangledown \phi}{|\bigtriangledown \phi|} \]
 
 Bunun okunus sekli ``birim normal gradyanin uzaklasim olcusu (divergence of the
-unit normal gradient)'' seklindedir. Acaba bu formul, \ref{eq5}. formul ile
+unit normal gradient)'' seklindedir. Acaba bu formul, (5). formul ile
 uyumlu mu?
 
 \[ \kappa = \nabla \cdot \frac{\nabla \phi}{|\nabla \phi|}  \]
@@ -142,7 +158,7 @@ uyumlu mu?
 
 \[ = \frac{\phi_{xx}\phi_y^2 - 2\phi_x\phi_y\phi_{xy} + \phi_{yy}\phi_x^2}{(\phi_x^2+\phi_y^2)^{3/2}}  \]
 
-Bu formul bizim \ref{eq5}. formul ile tipatip ayni.
+Bu formul bizim (5). formul ile tipatip ayni.
 
 Ustteki islemlerde uzaklasim olcusu (divergence) operatoru $\nabla \cdot$ ile
 gradyan operatoru $\nabla$ arasindaki farki belirtelim:  $\nabla \cdot$
