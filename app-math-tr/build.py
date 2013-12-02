@@ -16,7 +16,8 @@ if len(sys.argv) == 1 or sys.argv[1] == 'tex':
 ./pde-wave-deriv/pde_01.pdf ./heat-deriv/heat-deriv.pdf ./heat/heat.pdf \
 ./curvature/curvature.pdf ./level/level.pdf ./lk/lk.pdf ./varcalc/varcalc.pdf \
 ./filter/filter.pdf ./svdcluster/svdcluster2.pdf ./rndsvd/rndsvd.pdf  ./svdrecom/svdrecom.pdf \
-./regularization/regular.pdf ./mixbern/stat_mixbern2.pdf ./meanshift/meanshift.pdf ./phd/phd.pdf \
+./regularization/regular.pdf ./mixbern/mixbern.pdf ./meanshift/meanshift.pdf ./phd/phd.pdf \
+./ztransform/z.pdf  \
 output ~/Dropbox/Public/skfiles/app-math-tr.pdf "
     os.system(cmd)
     exit()
