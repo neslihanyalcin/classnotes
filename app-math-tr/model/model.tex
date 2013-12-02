@@ -173,7 +173,7 @@ olduðu için, iþlemden geçirip p fonksiyonunu bulmak mümkün.
 Maltezyen modelini test etmek için, Amerika'nýn nüfus artýþ verisini
 kullanabiliriz.
 
-\begin{lstlisting}
+\begin{verbatim}
 Sene Nufus Maltezyen Lojistik
 
 1770 3.93 3.93  3.3
@@ -198,7 +198,7 @@ Sene Nufus Maltezyen Lojistik
 1980 226.50 764.08  210.46
 1990 249.63 1008.32  219.77
 2000 ? 1330.63  227.19
-\end{lstlisting}
+\end{verbatim}
 
 Örnek 1
 
@@ -327,7 +327,40 @@ islemesi icin once bir \verb!f! tanimlanir, daha sonra bu fonksiyonun
 gercek veri ile arasindaki hatayi tanimlayan bir fonksiyon verilir. Bu iki
 fonksiyon uzerinden veri uydurmasi yapilacaktir. 
 
-\lstinputlisting[language=Python]{us.py}
+\begin{minted}{python}
+# US population prediction, Logistic growth, Hill function
+# Amerika nufus artisi, lojistik denklem
+
+import numpy as np
+from scipy import optimize
+import matplotlib.pyplot as plt
+
+def f(t,A,k,K):
+    return K / (1+A*np.exp(-k*t))    
+
+def resid(p, y, t):
+    A,k,K = p
+    return y - f(t,A,k,K)
+
+t, x1 = np.loadtxt('us.txt', unpack=True)
+t = np.linspace(0,10,len(t))
+
+A0,k0,K0 = 1, 1, 1
+
+[A,k,K], flag  = optimize.leastsq(resid, [A0,k0,K0], args=(x1, t))
+
+print flag, A, k, K
+    
+plt.plot(t, x1, 'ro')
+plt.hold(True)            
+t = np.linspace(0,20,len(t))    
+plt.plot(t, f(t,A,k,K), 'go')    
+plt.savefig('us.png')
+\end{minted}
+
+\begin{verbatim}
+1 43.0658055581 0.427360301123 394.758729112
+\end{verbatim}
 
 Program isletildikten sonra grafik basilacak. Grafikte kirmizi noktalar
 gercek veri, yesil noktalar ise uyumu yapilmis fonksiyonun gelecek yillar
