@@ -6,7 +6,7 @@ Dinamik Programlama
 
 Ustteki cizite tekabul eden veriyi kodlayalim
 
-\begin{lstlisting}[language=Python]
+\begin{minted}{python}
 DAG = {
     'a': {'b':2, 'f': 9},
     'b': {'d':2, 'c':1, 'f': 6},
@@ -15,11 +15,11 @@ DAG = {
     'e': {'f':4},
     'f': {}
 }
-\end{lstlisting}
+\end{minted}
 
 En kisa yolu bulacak program
 
-\begin{lstlisting}[language=Python]
+\begin{minted}{python}
 from functools import wraps
 
 def memo(func):
@@ -43,7 +43,7 @@ def rec_dag_sp(W, s, t):
 
 dist = rec_dag_sp(DAG, 'a', 'f')
 print 'uzaklik=', dist
-\end{lstlisting}
+\end{minted}
 
 \begin{verbatim}
 miss ('a',)
