@@ -89,9 +89,9 @@ araþtýrmacýlarýnýn çok iþine yaramýþtýr.
 LISP dilinde temel veri yapýsý "listedir". Mesela, yukarýdaki baþlangýç
 tahtasýný LISP'de þöyle tanýmlanabiliriz.
 
-\begin{lstlisting}[language=Lisp]
+\begin{minted}{common-lisp}
 (setf tahta-baslangic '((5 4 nil)(6 1 8)(7 3 2)))
-\end{lstlisting}
+\end{minted}
 
 Bu kullanýmda dikkat ederseniz, bir listenin listesini tanýmladýk. Yani,
 liste içeren bir liste. LISP referans kaynaklarýndan rahatça öðrenilebilir,
@@ -114,7 +114,7 @@ sonuca nasýl geldiðini bize göstermesi!
 Bu sebeple, yeni büyütülmüþ liste (listenin listesi) þu hale geldi. Örnek
 olarak boþluðu aþaðý kaydýrarak, geldiðimiz bir tahtayý þöyle gösterelim.
 
-\begin{lstlisting}[language=Lisp]
+\begin{minted}{common-lisp}
 ;; listenin icine bakabilen islemler
 (Defun Durum (dugum) (first dugum))
 (Defun Kaydir (dugum) (second dugum))
@@ -133,7 +133,7 @@ olarak boþluðu aþaðý kaydýrarak, geldiðimiz bir tahtayý þöyle gösterelim.
 
 (print "tahta durumu")
 (durum baslangic)
-\end{lstlisting}
+\end{minted}
 
 "Üst" düðümün, çocuk düðümü içine nasýl konduðunu görüyoruz. Aðaçta daha
 derine indikçe, liste içinde liste, onun içinde liste, onun da içinde liste
@@ -207,7 +207,12 @@ Bu fiyatý iki türlü ölçebiliriz. Birincisi, karar aðacýnda çözümü ararken o
 an üzerinde bulunduðumuz düðüme gelmek için ödediðimiz fiyat (katedilen
 yol), öteki de önümüzde katedeceðimiz geri kalan yoldur.
 
-Katedilen yolun seçimde (arayýþta) ne yararý var diye düþünebilirsiniz. Eklemek gerekir ki, özellikle önce-derinliðine arama algoritmasý bazen ayný düðüme deðiþik yollardan ulaþabiliyor. Bu gibi durumlarda tuttuðumuz kayýtlarda ayný düðümü bulursak, ve bu düðümün içerdiði yol daha pahalý ise, eskiyi listeden atýp, yerine yeni düðümü koymamýz gerekiyor.
+Katedilen yolun seçimde (arayýþta) ne yararý var diye
+düþünebilirsiniz. Eklemek gerekir ki, özellikle önce-derinliðine arama
+algoritmasý bazen ayný düðüme deðiþik yollardan ulaþabiliyor. Bu gibi
+durumlarda tuttuðumuz kayýtlarda ayný düðümü bulursak, ve bu düðümün
+içerdiði yol daha pahalý ise, eskiyi listeden atýp, yerine yeni düðümü
+koymamýz gerekiyor.
 
 Nihayet akýllý bir "seçim" yaptýk.
 
@@ -274,19 +279,19 @@ geliþtirdiðini göreceksiniz.
 
 Yani biraz daha akýl kullanarak, iþimizi kolaylaþtýrmýþ oluyoruz.
 
-\lstinputlisting[frame=lines, language=Lisp, caption=ortak.lisp]{ortak.lisp}
+\inputminted{common-lisp}{ortak.lisp}
 
-\lstinputlisting[frame=lines, language=Lisp, caption=kat-kat-ara.lisp]{kat-kat-ara.lisp}
+\inputminted{common-lisp}{kat-kat-ara.lisp}
 
-\lstinputlisting[frame=lines, language=Lisp, caption=kat-engelli-da.lisp]{kat-engelli-da.lisp}
+\inputminted{common-lisp}{kat-engelli-da.lisp}
 
-\lstinputlisting[frame=lines, language=Lisp, caption=iki-yonlu-arama.lisp]{iki-yonlu-arama.lisp}
+\inputminted{common-lisp}{iki-yonlu-arama.lisp}
 
-\lstinputlisting[frame=lines, language=Lisp, caption=git-gide-derin-kka.lisp]{git-gide-derin-kka.lisp}
+\inputminted{common-lisp}{git-gide-derin-kka.lisp}
 
-\lstinputlisting[frame=lines, language=Lisp, caption=fiyati-sabit-arama.lisp]{fiyati-sabit-arama.lisp}
+\inputminted{common-lisp}{fiyati-sabit-arama.lisp}
 
-\lstinputlisting[frame=lines, language=Lisp, caption=a-yildiz-arama.lisp]{a-yildiz-arama.lisp}
+\inputminted{common-lisp}{a-yildiz-arama.lisp}
 
 Yapay Zeka ve Musabaka
 
@@ -378,13 +383,13 @@ yapmamýz mümkün olabiliyor. Ne güzel. Böylece iki tane if (ya da LISP cond)
 ifadesi yazmaktan kurtulmuþ olduk. Kod daha temiz hale geldi. Bahsedilen
 çaðýrým þekli dama-alg.lisp dosyasýndaki aþaðýdaki satýrda.
 
-\begin{lstlisting}[language=Lisp]
+\begin{minted}{common-lisp}
 (setf dene (eniyi-hareket (tas-oynat 
    (first hareket-listesi) konumn)
 (- derinlik 1)
 (* onun-eniyi -1) ;; eksi carpimina dikkat
 (* enyuksek-deger -1))) ;; ;; eksi carpimina dikkat
-\end{lstlisting}
+\end{minted}
 
 Bir baþka ilginç bir nokta da þudur: Rakibimizin tahtalarýný ve kendi
 tahtalarýna deðer biçerken hep ayný iþlevi kullanýyoruz. (Kod üzerinde
@@ -410,7 +415,7 @@ tümden budayabiliriz.
 
 Daha detaylý (ve matematiksel) bir örnekte göstermemiz gerekirse:
 
-\begin{lstlisting}[language=Lisp]
+\begin{minted}{common-lisp}
 altust-degeri(en tepe) = 
    üst ( alt(3, 12, 8), alt(2, x, y), alt(14, 5, 2) )
 altust-degeri(en tepe) = 
@@ -418,7 +423,7 @@ altust-degeri(en tepe) =
 altust-degeri(en tepe) = 
    üst ( 3, z, 2)
 altust-degeri(en tepe) = 3
-\end{lstlisting}
+\end{minted}
 
 Alt (2, x, y) iþlevinin deðeri Z'ye eþitlendi (ve atýldý), x ve y'nin ne
 olduðuna bile bakýlmadan. Çünkü alt(2, x, y) dediðimiz zaman ayný anda þunu
@@ -453,12 +458,12 @@ budanýr. Bu þekilde yer ve zamandan oldukça istifade etmemiz mümkündür.
 
 \includegraphics[height=4cm]{altust_budama_5.jpg}
 
-\lstinputlisting[frame=lines, language=Lisp, caption=dama-alg.lisp]{dama-alg.lisp}
+\inputminted{common-lisp}{dama-alg.lisp}
 
-\lstinputlisting[frame=lines, language=Lisp, caption=dama-deger.lisp]{dama-deger.lisp}
+\inputminted{common-lisp}{dama-deger.lisp}
 
-\lstinputlisting[frame=lines, language=Lisp, caption=dama-oyna.lisp]{dama-oyna.lisp}
+\inputminted{common-lisp}{dama-oyna.lisp}
 
-\lstinputlisting[frame=lines, language=Lisp, caption=dama-temel.lisp]{dama-temel.lisp}
+\inputminted{common-lisp}{dama-temel.lisp}
 
 \end{document}
