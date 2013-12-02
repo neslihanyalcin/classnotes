@@ -51,30 +51,30 @@ o zaman bir $t$ degiskeni de gerekiyor. Yani $\phi(x,y,t)$
 fonksiyonu. Gruplama icin kullanilacak kesiti ise sifir kesiti olarak
 alalim, yani $\phi(x,y,t) = 0$. Dogal olarak
 
-\[ \frac{d}{dt}(\phi(x,y,t) = 0) = 0 \]
+$$ \frac{d}{dt}(\phi(x,y,t) = 0) = 0 $$
 
 Simdi $x$, ve $y$ degiskenlerinin zaman gore degisimini formule bir
 sekilde dahil etmek lazim. Bunun icin sifir kesit seviyesi uzerinde
 bir parcacik hayal edilir, ve bu parcacigin gittigi yol $x(t)$, ve
 $y(t)$ olarak tanimlanir. O zaman
 
-\[ \frac{d}{dt}(\phi(x(t),y(t),t) = 0) = 0 \]
+$$ \frac{d}{dt}(\phi(x(t),y(t),t) = 0) = 0 $$
 
 Tam diferansiyel formulunden hareketle:
 
-\[ 
+$$ 
 d(\phi(x(t),y(t),t) = 
 \frac{\partial \phi}{\partial x}dx + 
 \frac{\partial \phi}{\partial y}dy + 
 \frac{\partial \phi}{\partial t}dt  = 0
- \]
+ $$
 
-\[ 
+$$ 
 \frac{d(\phi(x(t),y(t),t))}{dt} = 
 \frac{\partial \phi}{\partial x}\frac{dx}{dt} + 
 \frac{\partial \phi}{\partial y}\frac{dy}{dt} + 
 \frac{\partial \phi}{\partial t} = 0
- \]
+ $$
 
 \begin{equation} \frac{d(\phi(x(t),y(t),t))}{dt} = 
 \frac{\partial \phi}{\partial x}\frac{dx}{dt} + 
@@ -87,19 +87,19 @@ ile $\phi$'nin gradyanini (gradient) alarak, elde edilecek vektorun
 nokta carpimini kullanabiliriz.  O zaman formul~\ref{eq1} daha kisa
 olarak:
 
-\[ \phi_t + \bigtriangledown \phi \cdot \vec{V} = 0 \]
+$$ \phi_t + \bigtriangledown \phi \cdot \vec{V} = 0 $$
 
 olarak temsil edilebilir, ki
 
-\[ \bigtriangledown \phi = \bigg(
+$$ \bigtriangledown \phi = \bigg(
 \frac{\partial \phi}{\partial x},
 \frac{\partial \phi}{\partial y} \bigg)
- \]
+ $$
 
-\[ \vec{V} = \bigg(
+$$ \vec{V} = \bigg(
 \frac{dx}{dt} ,
 \frac{dy}{dt} \bigg)
- \]
+ $$
 
  Iki vektorun nokta carpimi bilindigi gibi sirayla her iki vektorun
  sirasiyla uyan elemanlarinin birbirleri ile carpilmasi ve o
@@ -118,21 +118,21 @@ isteseydik, $\vec{V}$'yi dik ve teget bilesenlerine ayirarak tekrar temsil
 edebilirdik: $\vec{V} = V_N\vec{N} + V_T\vec{T}$. Bu formulde $\vec{T}$ teget,
 $\vec{N}$ dik vektorler, $N$ ve $T$ skalar. Yerine koyalim:
 
-\[ \phi_t + \bigtriangledown \phi \cdot (V_N\vec{N} + V_T\vec{T}) = 0 \]
+$$ \phi_t + \bigtriangledown \phi \cdot (V_N\vec{N} + V_T\vec{T}) = 0 $$
 
 $\phi$'ye gore dik vektorun diger bir formulu $\vec{N} =
 \frac{\bigtriangledown\phi}{|\bigtriangledown\phi|}$ olduguna gore
 
-\[ \phi_t + (\bigtriangledown \phi \cdot
+$$ \phi_t + (\bigtriangledown \phi \cdot
 V_N\frac{\bigtriangledown\phi}{|\bigtriangledown\phi|} + \bigtriangledown
-\phi \cdot V_T\vec{T}) = 0 \]
+\phi \cdot V_T\vec{T}) = 0 $$
 
 Devam edelim: $\bigtriangledown \phi$ yuzeye dik olduguna gore, bu dik vektorun
 teget olan $\vec{T}$ ile noktasal carpimi sifir degerini verecektir, o carpim
 formulden atilabilir. Kalanlar:
 
-\[ \phi_t + (\bigtriangledown \phi \cdot 
-V_N\frac{\bigtriangledown\phi}{|\bigtriangledown\phi|}) = 0 \]
+$$ \phi_t + (\bigtriangledown \phi \cdot 
+V_N\frac{\bigtriangledown\phi}{|\bigtriangledown\phi|}) = 0 $$
 
 Daha da kisaltabiliriz: $\bigtriangledown \phi \cdot \bigtriangledown
 \phi = |\bigtriangledown \phi|^2$ oldugunu biliyoruz, gradyanin
@@ -141,9 +141,9 @@ karesidir. Daha genel olarak, bir vektorun uzunlugu, o vektorun
 kendisi ile noktasal carpiminin karekokudur. Ayni sey. O zaman en son
 formulde bu carpimi gerceklestirip, uzunluk olarak yazalim:
 
-\[ \phi_t + V_N\frac{|\bigtriangledown\phi|^2}{|\bigtriangledown\phi|} = 0  \]
+$$ \phi_t + V_N\frac{|\bigtriangledown\phi|^2}{|\bigtriangledown\phi|} = 0  $$
 
-\[ \phi_t + V_N |\bigtriangledown\phi| = 0  \]
+$$ \phi_t + V_N |\bigtriangledown\phi| = 0  $$
 
 Simdi bu formul hakkinda biraz anlayis gelistirelim. Eger elimizdeki
 bir $\phi$ seviye kesitinin seklen oldugu gibi kalmasini ama sadece
@@ -151,9 +151,9 @@ kuculmesini isteseydik, $\phi$'nin normalinin tersi yonunde bir buyume
 tanimlamamiz gerekirdi. Normal vektor disa dogru isaret ettigine gore
 ustteki formulde mesela $V_N = -1$ tanimlayabilirdik. O zaman
 
-\[ \phi_t + -1 |\bigtriangledown\phi| = 0 \]
+$$ \phi_t + -1 |\bigtriangledown\phi| = 0 $$
 
-\[ \phi_t = |\bigtriangledown\phi|   \]
+$$ \phi_t = |\bigtriangledown\phi|   $$
 
 Hesapsal olarak bunu nasil gerceklestiririz? 80 x 80 boyutunda bir
 matris icinde $\phi$ fonksiyonu ayriksal olarak tutalim. Yani 80 tane
@@ -161,20 +161,20 @@ x, 80 tane ayri y degeri var, her x ve y degerlerin kombinasyonlarina
 tekabul eden $\phi$ degerleri bu matris icinde. Gradyanin ne oldugunu
 hatirlayalim. Gradyan
 
-\[ 
+$$ 
 \bigtriangledown \phi = \bigg(
 \frac{\partial \phi}{\partial x},
 \frac{\partial \phi}{\partial y} \bigg)
- \]
+$$
 
 olarak tanimlidir, ve her $(x_i,y_i)$ noktasindaki $\phi(x_i,y_i)$
 degerine gore degisik bir vektor sonucunu getirecektir. Bilgisayar
 dunyasinda parcali turevler hesapsal ``farkliliklara'' donusurler,
 \verb!phi! matrisindeki farkliliklari Python ile
 
-\begin{lstlisting}[language=Python]
-gradPhiY, gradPhiX = np.gradient(phi)    
-\end{lstlisting}
+\begin{minted}{python}
+gradPhiY, gradPhiX = np.gradient(phi)
+\end{minted}
 
 olarak hesaplayabiliriz. Ustte elimize gecen gradyan dizinlerindeki
 degerler ile $|\bigtriangledown\phi|$ buyuklugunu hesaplayabiliriz, ve bu
@@ -185,13 +185,7 @@ degerlerine bu farklari ekledigimiz zaman $\phi$ fonksiyonu istedigimiz
 gibi evrilecektir.
 
 Alttaki kodda bizim baslangic $\phi$'miz kenarlardan w uzakliginda ici bos
-bir kutu olacak. Sifir seviyesindeki kesit seviyesinin nasil iki boyutlu
-goruntudeki kirmizi cizgilere tekabul ettigini gorebiliriz.
-
-\lstinputlisting[language=Python, frame=lines, caption=active1.py]{active1.py}
-
-Ustteki kod isleyince sifir kesit seviyesinin (kirmizi cizgiler) olduklari
-gibi kuculduklerini gorecegiz.
+bir kutu olacak. 
 
 Ortalama Egim (Mean Curvature) Kullanmak
 
@@ -202,12 +196,63 @@ hiz istiyoruz. O zaman hangi sekille baslarsa baslasindalar $\phi$ kesiti
 sonucta bir cember sekline dogru evrilecektir. Ortalama egim (mean
 curvature) hesabi icin su denklem kullanilir:
 
-\[ \kappa = -div \bigg( \frac{\bigtriangledown \phi}
-{|\bigtriangledown \phi| } \bigg) \]
+$$ \kappa = -div \bigg( \frac{\bigtriangledown \phi}
+{|\bigtriangledown \phi| } \bigg) $$
 
-Bu formulun turetilmesini burada yapmayacagiz. Python kodu soyle:
+\begin{minted}{python}
+%pylab inline
+import time
+f, ax = plt.subplots()
 
-\lstinputlisting[language=Python, frame=lines, caption=active2.py]{active2.py}
+# initial function phi - level set is a square 4 pixels
+# away from borders on each side, in 3D it looks like an empty
+# box
+c0=2; w=2
+nrow, ncol= (30,30)
+phi=c0*np.ones((nrow,ncol))
+phi[w+1:-w-1, w+1:-w-1]=-c0
+
+dt=1.
+
+phiOld=np.zeros((nrow,ncol))
+
+iter=0
+
+while iter < 50:
+    # gradient of phi
+    gradPhiY, gradPhiX = np.gradient(phi)
+    # magnitude of gradient of phi
+    absGradPhi=np.sqrt(gradPhiX**2+gradPhiY**2)                               
+    
+    # normalized gradient of phi - eliminating singularities
+    normGradPhiX=gradPhiX/(absGradPhi+(absGradPhi==0))
+    normGradPhiY=gradPhiY/(absGradPhi+(absGradPhi==0))
+    
+    divYnormGradPhiX, divXnormGradPhiX=np.gradient(normGradPhiX)
+    divYnormGradPhiY, divXnormGradPhiY=np.gradient(normGradPhiY)
+                           
+    # curvature is the divergence of normalized gradient of phi
+    K = divXnormGradPhiX + divYnormGradPhiY
+    dPhiBydT = K * absGradPhi # makes everything circle
+    
+    # level set evolution equation    
+    phi = phi + ( dt * dPhiBydT )
+    if iter % 10 == 0: 
+        CS = plt.contour(phi,0, colors='r')
+        plt.hold(False)
+        plt.savefig('level_1_'+ str(iter) + '.png')
+    iter += 1
+\end{minted}
+
+\includegraphics[height=4cm]{level_1_0.png}
+
+\includegraphics[height=4cm]{level_1_10.png}
+
+\includegraphics[height=4cm]{level_1_20.png}
+
+\includegraphics[height=4cm]{level_1_30.png}
+
+\includegraphics[height=4cm]{level_1_40.png}
 
 Imaj Gruplamak
 
@@ -221,11 +266,7 @@ farkliligi cok olmayan yani buyuk bir ihtimalle tek bir objeye ait bir
 bolgede hizla ilerliyor, buyuk renk farkinin oldugu buyuk bir ihtimalle bir
 kenar noktasina gelince ise yavasliyor. O sirada kesit seviyesinin geri
 kalan taraflari tabii ki baska hizlarda hareket ediyor olabilirler, zaten
-isin puf noktasi burada, sonunda resim bolgelere ayrilmis oluyor. Bu kodu
-da \verb!active3.py! icinde bulabilir, \verb!active4.py! icinde ise surekli
-degisim sonrasi sayisal bazi yan etkilerden dolayi $\phi$'nin dejenere
-olmasi sonucu onu ``tekrar bastan olusturan (reinitialization)'' iceren bir
-kisim var. Fakat teknigin ozu her iki kod icinde de gorulebilir.
+isin puf noktasi burada, sonunda resim bolgelere ayrilmis oluyor. 
 
 Bitirirken onemli gozlemi vurgulayalim. Problemi matematiksel olarak temsil
 ederken, hedefe dogru turetirken surekli (continous) alemde, surekli,
@@ -240,49 +281,119 @@ kullanildigi fizikten bol bol teknik alinabilir. Yani soylemek istedigimiz
 problemi cozmek icin hemen kodlamaya baslamiyoruz, dusunsel eylemin onemli
 bir kismi matematiksel formullerle (belki kalem kagitla) yapiliyor.
 
-\lstinputlisting[language=Python, frame=lines, caption=active3.py]{active3.py}
+\begin{minted}{python}
+import scipy.signal as signal
+import scipy.ndimage as image
+import time
+from scipy import ndimage
 
-\lstinputlisting[language=Python, frame=lines, caption=active4.py]{active4.py}
+def bwdist(a):
+    """ 
+    this is an intermediary function, 'a' has only True, False vals, 
+    so we convert them into 0, 1 values -- in reverse. True is 0, 
+    False is 1, distance_transform_edt wants it that way.
+    """
+    b = np.ones(a.shape)
+    b[a==True] = 0.
+    return ndimage.distance_transform_edt(b)
 
-\lstinputlisting[language=Python, frame=lines, caption=plot\_phi.py]{plot_phi.py}
+def gauss_kern():
+    """ Returns a normalized 2D gauss kernel array for convolutions """
+    h1 = 15
+    h2 = 15
+    x, y = np.mgrid[0:h2, 0:h1]
+    x = x-h2/2
+    y = y-h1/2
+    sigma = 1.5
+    g = np.exp( -( x**2 + y**2 ) / (2*sigma**2) );
+    return g / g.sum()
 
-\includegraphics[height=4cm]{pics/inwards.png}
+Img = plt.imread("twoObj.bmp")
+Img = Img[::-1] 
+g = gauss_kern()
+Img_smooth = signal.convolve(Img,g,mode='same')
+Iy,Ix=np.gradient(Img_smooth)
+absGradI=np.sqrt(Ix**2+Iy**2);
+rows, cols = Img.shape
 
-\includegraphics[height=4cm]{pics/level1.png}
+# initial function phi - level set is a square 4 pixels
+# away from borders on each side, in 3D it looks like an empty
+# box
+c0=4
+w=4
+nrow, ncol=Img.shape
+phi=c0*np.ones((nrow,ncol))
+phi[w+1:-w-1, w+1:-w-1]=-c0
 
-$\phi$ Fonksiyonu
+# edge-stopping function
+g = 1 / (1+absGradI**2)
 
-\includegraphics[height=4cm]{pics/level2.png}
+# gradient of edge-stopping function
+gy,gx = np.gradient(g)
 
-Kesit Seviyesi
+# gradient descent step size
+dt=1.
 
-\includegraphics[height=4cm]{pics/level3.png}
+# number of iterations after which we reinitialize the surface
+num_reinit=10
 
-$\phi$ Fonksiyonu
+phiOld=np.zeros((rows,cols))
 
-\includegraphics[height=4cm]{pics/level4.png}
+# number of iterations after which we reinitialize the surface
+iter=0
 
-Birkac z Seviyesinden Kesitler
+while iter < 70:
+    # gradient of phi
+    gradPhiY, gradPhiX = np.gradient(phi)    
+    # magnitude of gradient of phi
+    absGradPhi=np.sqrt(gradPhiX**2+gradPhiY**2)
+    # normalized gradient of phi - eliminating singularities
+    normGradPhiX=gradPhiX/(absGradPhi+(absGradPhi==0))
+    normGradPhiY=gradPhiY/(absGradPhi+(absGradPhi==0))
+    
+    divYnormGradPhiX, divXnormGradPhiX=np.gradient(normGradPhiX)
+    divYnormGradPhiY, divXnormGradPhiY=np.gradient(normGradPhiY)
+                           
+    # curvature is the divergence of normalized gradient of phi
+    K = divXnormGradPhiX + divYnormGradPhiY
+    tmp1 = g * K * absGradPhi
+    tmp2 = g * absGradPhi
+    tmp3 = gx * gradPhiX + gy*gradPhiY
+    dPhiBydT =tmp1 + tmp2 + tmp3    
+    
+    phiOld=phi
+    # level set evolution equation    
+    phi = phi + ( dt * dPhiBydT )
+    iter=iter+1
+    if np.mod(iter,num_reinit)==0:
+        # reinitialize the embedding function 
+        # after num_reinit iterations
+        phi=np.sign(phi)
+        phi = (phi > 0) * (bwdist(phi < 0)) - \
+            (phi < 0) * (bwdist(phi > 0))
+        
+    if np.mod(iter,10)==0:
+        plt.imshow(Img, cmap='gray')
+        plt.hold(True)
+        plt.contour(phi,0, colors='r')
+        plt.savefig('level_2_' + str(iter) + '.png')
+        plt.hold(False)
+\end{minted}
 
-\includegraphics[height=4cm]{pics/phi_init.png}
+\includegraphics[height=4cm]{level_2_10.png}
 
-$\phi$ Baslangici
+\includegraphics[height=4cm]{level_2_20.png}
 
-\includegraphics[height=4cm]{pics/phi_init_2d.png}
+\includegraphics[height=4cm]{level_2_30.png}
 
-$\phi$ Baslangici 2 Boyutta
+\includegraphics[height=4cm]{level_2_40.png}
 
-\includegraphics[height=7cm]{pics/edge1.png}
+\includegraphics[height=4cm]{level_2_50.png}
 
-\includegraphics[height=7cm]{pics/edge2.png}
+\includegraphics[height=4cm]{level_2_60.png}
 
-\includegraphics[height=7cm]{pics/edge3.png}
+\includegraphics[height=4cm]{level_2_70.png}
 
-\includegraphics[height=7cm]{pics/edge4.png}
-
-\includegraphics[height=7cm]{pics/edge5.png}
-
-\includegraphics[height=7cm]{pics/edge6.png}
 
 
 \end{document}
