@@ -154,7 +154,7 @@ Python Numpy kodlamasi baglaminda, daha once {\em Kesit Seviyeleri} yazisinda
 ayriksal olarak bir \verb!phi! degiskeni icindeki bir fonksiyon uzerinde
 egimselligi (curvature) soyle hesaplamistik:
 
-\begin{lstlisting}[language=Python]
+\begin{minted}{python}
 gradPhiY, gradPhiX = np.gradient(phi)
 absGradPhi=np.sqrt(gradPhiX**2+gradPhiY**2)                               
 
@@ -165,7 +165,7 @@ divYnormGradPhiX, divXnormGradPhiX=np.gradient(normGradPhiX)
 divYnormGradPhiY, divXnormGradPhiY=np.gradient(normGradPhiY)
                        
 K = divXnormGradPhiX + divYnormGradPhiY
-\end{lstlisting}
+\end{minted}
 
 Bu satirlarin $\nabla \cdot \frac{\nabla \phi}{|\nabla \phi|}$ ifadesiyle
 birebir uyum gosterdigini herhalde gorebiliyoruz. Satir 1, $\nabla \phi$
