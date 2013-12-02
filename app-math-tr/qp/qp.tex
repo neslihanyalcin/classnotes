@@ -158,7 +158,7 @@ mumkundur. Ustte buldugumuz degerleri altta gorebiliyoruz. Q esitliginde 2 ile
 carpim var, bunun sebebi karesel denklem formunun basinda $\frac{1}{2}$ carpimi
 olmasi, boylece bu iki carpim birbirini dengeliyor.
 
-\begin{lstlisting}[language=Python]
+\begin{minted}{python}
 from cvxopt import matrix
 from cvxopt import solvers
 Q = 2*matrix([ [2, .5], [.5, 1] ])
@@ -169,7 +169,7 @@ A = matrix([1.0, 1.0], (1,2))
 b = matrix(1.0)
 sol=solvers.qp(Q, p, G, h, A, b)
 print sol['x']
-\end{lstlisting}
+\end{minted}
 
 Sonuc $x_1$ icin [ 2.50e-01] ve $x_2$ icin [ 7.50e-01] olmali.
 

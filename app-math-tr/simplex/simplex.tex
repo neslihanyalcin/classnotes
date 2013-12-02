@@ -33,25 +33,20 @@ Bu bir lineer optimizasyon problemidir. Cozmek icin su sekilde belirtmek
 gerekir:
 
 \[ \textrm{maksimize et  } 30000x + 20000y, \textrm{  oyle ki} \] 
-
 \[ x + y \le 44 \]
-
 \[ 16x + 8y \le 512 \]
-
 \[ 9000x + 5000y \le 300000 \]
 
 sartlari gecerli olsun. 
 
 Ekteki program \verb!lp.py! ile bu problemi cozebiliriz. 
 
-\lstinputlisting[language=Python]{berlin.py}
+\inputminted{python}{berlin.py}
 
-Sonucu basinca 
-
-\begin{lstlisting}[language=Python]
+\begin{verbatim}
 1080000.0
 [ 20.  24.]
-\end{lstlisting}
+\end{verbatim}
 
 ekrana gelecek. Yani hesap (cost) adi verilen hedef fonksiyonu kargo
 buyuklugunun 1080000.0 oldugu noktada maksimize oldu (haftada en fazla bu
@@ -81,8 +76,7 @@ cagristiriyor (bkz doktora yazisi).
 
 Kaynaklar
 
-http://projects.scipy.org/scipy/attachment/ticket/1252/lp.py
-
+\verb!projects.scipy.org/scipy/attachment/ticket/1252/lp.py!
 
 \end{document}
 
