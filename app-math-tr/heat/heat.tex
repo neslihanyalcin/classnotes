@@ -2,7 +2,7 @@
 \begin{document}
 Isi Denklemi
 
-\[ \frac{\partial u}{\partial t} = \frac{\partial^2u}{\partial x^2} \]
+$$ \frac{\partial u}{\partial t} = \frac{\partial^2u}{\partial x^2} $$
 
 olarak gosterilen denklem fizikte isi denklemi olarak bilinir, u
 fonksiyonu iki degiskenlidir $u(x,t)$. Ornek icin bu denklemin
@@ -34,7 +34,7 @@ bir 2 boyutlu dizin uzerinde $u$ fonksiyonunun sayisal degerlerini tasiyor
 olsaydi, ve $j, i$ indis degerleri $t, x$'i temsil ediyorlar ise, $x$ uzerinden
 birinci turev yani birinci fark (first difference) soyle olur:
 
-\[ \frac{u_{j,i+1}-u_{j,i}}{h} \]
+$$ \frac{u_{j,i+1}-u_{j,i}}{h} $$
 
 $h$ hangi degiskenin farkini aliyorsak, o farkin buyuklugunu
 tanimlayan aralik degeridir, $h=\Delta x$, ve $u_{j,i+1} = u(t,x +
@@ -42,19 +42,22 @@ tanimlayan aralik degeridir, $h=\Delta x$, ve $u_{j,i+1} = u(t,x +
 
 Ikinci fark, farkin farkidir:
 
-\[ \frac{1}{h}
+$$ \frac{1}{h}
 \bigg[
 \bigg( \frac{u_{j,i+1}-u_{j,i}}{h} \bigg) -
 \bigg( \frac{u_{j,i}-u_{j,i-1}}{h} \bigg)
 \bigg] 
- \]
+ $$
 
-\begin{equation} = \frac{u_{j,i+1}-2u_{j,i}+u_{j,i-1}}{h^2} \label{diff} \end{equation}
+\begin{equation} 
+= \frac{u_{j,i+1}-2u_{j,i}+u_{j,i-1}}{h^2} 
+\ \ \ (1)
+\end{equation}
 
 Bu carpimi tum $i$ degerleri icin ve matris uzerinden temsil etmenin yolu sudur:
 Bir ikinci farkliliklar matrisi A yaratiriz:
 
-\[ 
+$$ 
 A = \frac{1}{\Delta x^2}
 \left[ \begin{array}{ccccccc}
 -2 & 1 & 0 & 0 \ldots 0 & 0 & 0 \\
@@ -63,11 +66,11 @@ A = \frac{1}{\Delta x^2}
 0 & 0 & 0 & 0 \ldots 1 & -2 & 1 \\
 0 & 0 & 0 & 0 \ldots 0 & 1 & -2
 \end{array} \right]
- \]
+ $$
 
 Ve u degerlerinin bir vektor icine cekeriz:
 
-\[ U_j =
+$$ U_j =
 \left[ \begin{array}{c}
 u_{j,0} \\
 u_{j,1} \\
@@ -75,9 +78,9 @@ u_{j,2} \\
 \vdots \\
 u_{j,n}
 \end{array} \right]
- \]
+ $$
 
-$AU_j$ carpiminin \ref{diff} denklemindeki toplamlari her u icin teker teker
+$AU_j$ carpiminin (1) denklemindeki toplamlari her u icin teker teker
 verecegini gorebiliriz. Indislerden $j$ zaman, $i$ mesafedir, yani ustteki
 denklem simdilik sadece mesafeyi yani $x$'i parcalara bolmustur.
 
@@ -86,7 +89,8 @@ denkleminin tamamini simdiye kadar elde ettiklerimizi kullanarak ve
 ayriksal olarak yazalim:
 
 \begin{equation}
-\frac{U_{j+1}-U_j}{\Delta t} = AU_j \label{main}
+\frac{U_{j+1}-U_j}{\Delta t} = AU_j 
+\ \ \ (2)
 \end{equation}
 
 $\frac{\partial^2u}{\partial x^2} \approx AU_j$, ve $\frac{\partial
@@ -98,20 +102,20 @@ Yaklasiksal tekniklerden Crank-Nicholson'a gore $AU_j$'i ardi ardina
 iki zaman indisi uzerinden hesaplanan bir ortalama olarak temsil
 edebiliriz, yani
 
-\[ AU_j \approx \frac{1}{2}(AU_{j+1}+AU_j) \]
+$$ AU_j \approx \frac{1}{2}(AU_{j+1}+AU_j) $$
 
 Niye bu acilim yapildi? Cunku elimizde $U_{j+1}$ ve $U_j$ degerleri var, bu
-degerleri tekrar ortaya cikararak bir ``denklem sistemi'' yaratmis olacagiz, iki
+degerleri tekrar ortaya cikararak bir "denklem sistemi" yaratmis olacagiz, iki
 bilinmeyen icin iki formul yanyana gelebilecek ve cozume erisilebilecek. 
 
-Ustteki formulu \ref{main} denklemindeki $AU_j$ degerleri
+Ustteki formulu (2) denklemindeki $AU_j$ degerleri
 icinkullanalim ve tekrar duzenleyelim.
 
-\[ \frac{\Delta t}{2}AU_{j+1} + \frac{\Delta t}{2}AU_j = U_{i+1} - U_i  \]
+$$ \frac{\Delta t}{2}AU_{j+1} + \frac{\Delta t}{2}AU_j = U_{i+1} - U_i  $$
 
-\[ U_{i+1} - \frac{\Delta t}{2}AU_{j+1} = U_i + \frac{\Delta t}{2}AU_j  \]
+$$ U_{i+1} - \frac{\Delta t}{2}AU_{j+1} = U_i + \frac{\Delta t}{2}AU_j  $$
 
-\[ (I - \frac{\Delta t}{2}A) U_{j+1} = (I + \frac{\Delta t}{2}A)U_i \]
+$$ (I - \frac{\Delta t}{2}A) U_{j+1} = (I + \frac{\Delta t}{2}A)U_i $$
 
 Artik bu formulu lineer cebirden bilinen $Ax=b$ formuna sokarak
 cozebiliriz. Forma gore formulun sag tarafi $b$ olur, sol tarafta parantez ici A
@@ -126,64 +130,178 @@ Her iki ucta $u$'nun sifir olma sarti uygulamali matematikte Dirichlet sinir
 sarti olarak biliniyor. Bu sart $A$ matrisinin olusturulmasi sirasinda
 kendiliginden olusuyor. Ufaltilmis bir D2 matrisi uzerinde gostermek gerekirse, 
 
-\[ \left[ \begin{array}{ccccc}
+$$ \left[ \begin{array}{ccccc}
 1 & -2 & 1 & 0 & 0 \\
 0 & 1 & -2 & 1 & 0 \\
 0 & 0 & 1 & -2 & 1
 \end{array} \right]
- \]
+ $$
 
-degerlerinin her satirinin \ref{diff} denklemini temsil ettigini
+degerlerinin her satirinin (1) denklemini temsil ettigini
 soylemistik. Eger sartlarimizdan biri $u_1$ ve $u_5$'un sifir olmasi ise, carpim
 sirasinda ona tekabul eden D2'nin en soldaki ve en sagdaki kolonlarin tamamen
 sifir yapmamiz yeterli olurdu, cunku carpim sirasinda $U_j$ icinde o kolonlar
 $u_1$ ve $u_5$ ile carpilip onu sifir yaparlardi. O zaman yeni matris soyle
 olurdu:
 
-\[ 
+$$ 
 \left[ \begin{array}{ccccc}
 0 & -2 & 1 & 0 & 0 \\
 0 & 1 & -2 & 1 & 0 \\
 0 & 0 & 1 & -2 & 0
 \end{array} \right]
- \]
+ $$
 
 Bu isler. Alternatif olarak sifir kolon yerine, o kolonlari tamamen matristen
 atabilirdik, ayni sekilde $u$ degerlerini uretirken birinci ve sonuncu degerleri
-de atmamiz gerekirdi, nasil olsa onlar``bilinmeyen'' degisken degiller. Bu yeni
+de atmamiz gerekirdi, nasil olsa onlar "bilinmeyen" degisken degiller. Bu yeni
 matris soyle olurdu:
 
-\[ \left[ \begin{array}{ccc}
+$$ \left[ \begin{array}{ccc}
 -2 & 1 & 0  \\
 1 & -2 & 1  \\
 0 & 1 & -2 
 \end{array} \right]
- \]
+$$
 
-Alttaki kod icinde \verb!x = x[1:-1]! ibaresi $x$ ve dolayli olarak $u$'nun
-ilk ve son degerlerini atmak icin kullanilmakta.
+Alttaki kod icinde <code>x = x[1:-1]</code> ibaresi $x$ ve dolayli
+olarak $u$'nun ilk ve son degerlerini atmak icin kullanilmakta.
 
-Kod
+Seyrek (sparse) matrisler kullanarak cozum altta.
 
-\lstinputlisting[language=Python]{hfdiff.py}
+\begin{minted}{python}
+%pylab inline
+"""
+	This program solves the heat equation
+		u_t = u_xx
+	with dirichlet boundary condition
+		u(0,t) = u(1,t) = 0
+	with the Initial Conditions
+		u(x,0) = 10*sin( pi*x )
+	over the domain x = [0, 1]
+ 
+	The program solves the heat equation using a finite difference
+	method where we use a center difference method in space and
+	Crank-Nicolson in time.
+"""
+import matplotlib.pylab as plt
+import numpy as np
+import scipy as sc
+import scipy.sparse as sparse
+import scipy.sparse.linalg
+import time
+f, ax = plt.subplots()
 
-Ustteki \verb!data! degiskeni icinde zamana gore degisen tum u vektorleri
-bulunabilir. Bu vektorleri grafik olarak gostermek icin alttaki kod eklenebilir:
+ 
+# Number of internal points
+N = 200
+ 
+# Calculate Spatial Step-Size
+h = 1/(N+1.0)
+ 
+# Create Temporal Step-Size, TFinal, Number of Time-Steps
+k = h/2
+TFinal = 1
+NumOfTimeSteps = 120
+ 
+# Create grid-points on x axis
+x = np.linspace(0,1,N+2)
+x = x[1:-1]
 
-\lstinputlisting[language=Python]{hfdiff2.py}
+# Initial Conditions
+u = np.transpose(np.mat(10*np.sin(np.pi*x)))
+ 
+# Second-Derivative Matrix
+data = np.ones((3, N))
+data[1] = -2*data[1]
+diags = [-1,0,1]
+D2 = sparse.spdiags(data,diags,N,N)/(h**2)
 
-Python kodlari zip icinde hfdiff2.py dosyasindadir. Kullanilan
-matrislerde bol sifir oldugu icin seyrek (sparse) matris teknikleri
-kullanilabiliyor, sparse metotlari kullanan kodlar ise J. Wiens
-kodlarindan alinan hfdiff.py icinde bulunabilir.
+# Identity Matrix
+I = sparse.identity(N)
+ 
+# Data for each time-step
+data = []
+ 
+for i in range(NumOfTimeSteps):
+	# Solve the System: 
+	#
+	# (I - k/2*D2) u_new = (I + k/2*D2)*u_old
+	#
+	A = (I -k/2*D2)
+	b = ( I + k/2*D2 )*u
+	u = np.transpose(np.mat(sparse.linalg.spsolve(A, b)))
+        if i % 20 == 0:
+            plt.plot(x, u)
+            plt.axis((0,1,0,10.1))
+            plt.savefig("heat-" + str(i))
+            plt.hold(False)
+\end{minted}
 
-Kaynaklar
+\includegraphics[height=4cm]{heat-0.png}
 
-Wiens, J., http://www.jkwiens.com/2010/01/02/finite-difference-heat-equation-using-numpy
+\includegraphics[height=4cm]{heat-20.png}
 
-Stackoverflow, http://stackoverflow.com/questions/4843034/application-of-boundary-conditions-in-finite-difference-solution-for-the-heat-equ
+\includegraphics[height=4cm]{heat-40.png}
 
-Strang, G., Computational Science and Engineering
+\includegraphics[height=4cm]{heat-60.png}
+
+\includegraphics[height=4cm]{heat-80.png}
+
+\includegraphics[height=4cm]{heat-100.png}
+
+Seyrek matrislerden olmadan, normal matris kullanarak olan cozum altta.
+
+\begin{minted}{python}
+%pylab inline
+import scipy.linalg
+f, ax = plt.subplots()
+
+# Number of internal points
+N = 200
+
+# Calculate Spatial Step-Size
+h = 1/(N+1.0)
+k = h/2
+
+x = np.linspace(0,1,N+2)
+x = x[1:-1] # get rid of the '0' and '1' at each end
+
+# Initial Conditions
+u = np.transpose(np.mat(10*np.sin(np.pi*x)))
+
+# second derivative matrix
+I2 = -2*np.eye(N)
+E = np.diag(np.ones((N-1)), k=1)
+D2 = (I2 + E + E.T)/(h**2)
+
+I = np.eye(N)
+
+TFinal = 1
+NumOfTimeSteps = 100
+
+for i in range(NumOfTimeSteps):
+    # Solve the System: 
+    # (I - k/2*D2) u_new = (I + k/2*D2)*u_old
+    A = (I - k/2*D2)
+    b = np.dot((I + k/2*D2), u)
+    u = scipy.linalg.solve(A, b)
+    if i % 20 == 0:
+        plt.plot(x, u)
+        plt.axis((0,1,0,10.1))
+        plt.savefig("heat-2-" + str(i))
+        plt.hold(False)
+\end{minted}
+
+\includegraphics[height=4cm]{heat-2-0.png}
+
+\includegraphics[height=4cm]{heat-2-20.png}
+
+\includegraphics[height=4cm]{heat-2-40.png}
+
+\includegraphics[height=4cm]{heat-2-60.png}
+
+\includegraphics[height=4cm]{heat-2-80.png}
 
 \end{document}
 
