@@ -25,11 +25,11 @@ elimizde o kadar cok veri olacak ki bu verinin tamamini isleyince zaten
 
 Ornek veri olarak alttakini urettik,
 
-\begin{lstlisting}[language=Python]
+\begin{minted}{python}
 from pandas import *
 mean1 = [10,10]
 mean2 = [20,20]
-cov = [[5,0],[0,5]]             %
+cov = [[5,0],[0,5]]             
 d1 = DataFrame(np.random.multivariate_normal(mean1,cov,10000))
 d2 = DataFrame(np.random.multivariate_normal(mean2,cov,10000))
 d1['labels'] = 1
@@ -37,7 +37,7 @@ d2['labels'] = 0
 data = DataFrame(np.vstack((d1,d2)))
 data.to_csv("testSet.txt",sep='\t',index=None,header=None)
 print data[:4]
-\end{lstlisting}
+\end{minted}
 
 \begin{verbatim}
            0          1  2
@@ -47,24 +47,24 @@ print data[:4]
 3  11.543380  11.627805  1
 \end{verbatim}
 
-\begin{lstlisting}[language=Python]
+\begin{minted}{python}
 %pylab inline
 plt.plot(d1.ix[:,0],d1.ix[:,1],'b.')
 plt.hold(True)
 plt.plot(d2.ix[:,0],d2.ix[:,1],'r.') %
 plt.hold(True)
 plt.savefig('logreg1.png')
-\end{lstlisting}
+\end{minted}
 
 \includegraphics[height=6cm]{logreg1.png}
 
 Altta veriyi isletmeden once kendimiz karistiriyoruz,
 
-\begin{lstlisting}[language=Python]
+\begin{minted}{python}
 !sort --random-sort testSet.txt > /tmp/testSet1.txt
-\end{lstlisting}
+\end{minted}
 
-\lstinputlisting[language=Python]{logreg.py}
+\inputminted{python}{logreg.py}
 
 Ustte esleyici icinde tek bir tane anahtar uretiyoruz, tum makinalarda tum
 esleyiciler ayni anahtari, bir kez uretiyor olacaklar. Bunun sebebi nedir?
@@ -94,9 +94,9 @@ anahtar ile esleyerek uretiyoruz ve is bitiyor.
 
 Komut satirindan isletelim:
 
-\begin{lstlisting}[language=Python]
+\begin{minted}{python}
 !python logreg.py /tmp/testSet1.txt 
-\end{lstlisting}
+\end{minted}
 
 \begin{verbatim}
 using configs in /home/burak/.mrjob.conf
@@ -115,7 +115,7 @@ Streaming final output from /tmp/logreg.burak.20131201.234703.391390/output
 removing tmp directory /tmp/logreg.burak.20131201.234703.391390
 \end{verbatim}
 
-\begin{lstlisting}[language=Python]
+\begin{minted}{python}
 def plot_theta(theta):
     x = np.array(arange(-10.0, 40.0, 0.1))
     y = np.array((-theta[0]-theta[1]*x)/theta[2])
@@ -131,7 +131,7 @@ def plot_theta(theta):
 theta = [9.50829527,-0.36317422,-0.34354905]
 plot_theta(theta)
 plt.savefig('logreg2.png')
-\end{lstlisting}
+\end{minted}
 
 \includegraphics[height=5cm]{logreg2.png}
 
