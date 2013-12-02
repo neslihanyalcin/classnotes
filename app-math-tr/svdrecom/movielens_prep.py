@@ -4,6 +4,7 @@ as columns with necessary fields one-hot-encoded
 '''
 from sklearn.feature_extraction import DictVectorizer
 import pandas as pd
+import os
 
 def one_hot_dataframe(data, cols, replace=False):
     vec = DictVectorizer()
