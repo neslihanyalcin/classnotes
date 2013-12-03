@@ -7,7 +7,6 @@ kullanici sezonlara gore isaretlemis. Bu ornek veriyi alttaki gibi
 gosterelim.
 
 \begin{minted}{python}
-%pylab inline
 from pandas import *
 
 d =  np.array(
@@ -89,7 +88,6 @@ $$
 $$
 
 \begin{minted}{python}
-%pylab inline
 from numpy import linalg as la
 def euclid(inA,inB):
     return 1.0/(1.0 + la.norm(inA - inB))
@@ -372,7 +370,6 @@ degerler ortalamaya etki etmez. Ardindan merkezleme islemi egitim
 verisi uzerinde uygulaniyor.
 
 \begin{minted}{python}
-%pylab inline
 import pandas as pd, os
 import scipy.sparse as sps
 df = pd.read_csv("%s/Downloads/movielens.csv" % os.environ['HOME'] ,sep=';')

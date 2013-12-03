@@ -33,7 +33,6 @@ print data[:10]
 \end{verbatim}
 
 \begin{minted}{python}
-%pylab inline
 plt.scatter(data.ix[:,0],data.ix[:,1])
 plt.plot(data.ix[1,0],data.ix[1,1],'rd')
 plt.plot(data.ix[4,0],data.ix[4,1],'rd')
@@ -163,7 +162,6 @@ Daha sonra ozdegerlerini, vektorlerini hesaplayabilmek icin verinin
 kovaryansini hesaplayacagiz.
 
 \begin{minted}{python}
-%pylab inline
 import numpy.linalg as lin
 from pandas import *
 data = read_csv("testSet.txt",sep="\t",header=None)

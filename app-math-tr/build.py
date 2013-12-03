@@ -27,7 +27,7 @@ if sys.argv[1] == 'all':
     for a in os.listdir("."):
         if os.path.isdir(a):
             os.chdir(a)
-            os.system("pdflatex *.tex")    
+            os.system("pdflatex -shell-escape *.tex")    
             os.chdir("..")
            
     
