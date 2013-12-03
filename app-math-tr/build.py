@@ -29,5 +29,6 @@ if sys.argv[1] == 'all':
             os.chdir(a)
             os.system("pdflatex -shell-escape *.tex")    
             os.chdir("..")
-           
-    
+               
+if sys.argv[1] == 'clean':
+    os.system("find . -name '_region_*' | xargs rm  -rf")
