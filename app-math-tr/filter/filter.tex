@@ -163,7 +163,7 @@ anlatmaliyiz. Bir n boyutlu Gaussian daha kucuk boyutlardaki p ve q alt
 Gaussian'lara parcalanabilir (tabii ki $n = p + q$). Yani su ifade
 kullanilabilir
 
-\begin{equation}\label{eq2}
+\[
 \mu = 
 \left[\begin{array}{r}
 \mu_1 \\ \mu_2
@@ -173,7 +173,8 @@ kullanilabilir
 \Sigma_{11} & \Sigma_{12} \\
 \Sigma_{21} & \Sigma_{22} 
 \end{array}\right]
-\end{equation}
+\ \ \ (2)
+\]
 
 \[ 
 p(x|\mu,\Sigma) = 
@@ -201,13 +202,14 @@ Ders 3'e bakabilirsiniz.
 
 Bundan sonra sartlanmis (conditioned) $\mu$ ve $\Sigma$ alinir.
 
-\begin{equation}\label{eq3}
+\[ 
 \mu_{1|2} = \mu_1 + \Sigma_{12}\Sigma_{22}^{-1}(x_2 - \mu_2) 
-\end{equation}
+\ \ \ (3)
+\]
 
 \[ \Sigma_{1|2} = \Sigma_{11}- \Sigma_{12}\Sigma_{22}^{-1}\Sigma_{21} \]
 
-Simdi denklem \ref{eq3}'u alip (1)'in icine koydugumuzda ve \ref{eq2}'deki
+Simdi denklem (3)'u alip (1)'in icine koydugumuzda ve (2)'deki
 yerlesim yapisini dikkate aldigimizda $\hat{x}_{t+1}^{t+1}$ ve
 $P_{t+1}^{t+1}$ formullerini ortaya cikartabiliriz.
 
