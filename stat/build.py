@@ -18,7 +18,9 @@ if sys.argv[1] == 'all':
     for a in sorted(glob.glob("stat*")):
         print a
         os.chdir(a)
-        os.system("pdflatex *.tex")    
+        os.system("pdflatex -shell-escape *.tex")    
         os.chdir("..")
     
+if sys.argv[1] == 'clean':
+    os.system("find . -name '_region_*' | xargs rm  -rf")
     
