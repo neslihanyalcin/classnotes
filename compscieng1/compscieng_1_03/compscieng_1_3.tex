@@ -5,7 +5,18 @@ Ders 3
 Konumuz $Au = b$ sistemini cozmek. Bu cozum icin Python'da
 \verb!linalg.solve! cagrisi var. Mesela
 
-\lstinputlisting[language=Python]{solve1.py}
+\begin{minted}{python}
+%pylab inline
+import scipy.linalg
+A = [[2,3,4],[5,5,6],[7,7,7]]
+b = [1,2,3]
+u = scipy.linalg.solve(A, b)
+print u
+\end{minted}
+
+\begin{verbatim}
+[ 0.14285714  0.42857143 -0.14285714]
+\end{verbatim}
 
 \verb!linalg.solve! cagrisi Matlab'de \verb!\! cagrisinin karsiligi,
 oradaki kullanim u = A \verb!\! b seklinde. 
@@ -16,11 +27,18 @@ komutlarina gerek yoktur. Her iki vektoru birbirine ekleyerek,
 \verb!solve!'u toplu halde cagirabiliriz, bu performans acisindan daha iyi
 olur. 
 
-\begin{lstlisting}[language=Python]
+\begin{minted}{python}
 c = [2,3,8]
 bc = np.vstack((b,c)).T
 u = scipy.linalg.solve(A,  bc)
-\end{lstlisting}
+print u
+\end{minted}
+
+\begin{verbatim}
+[[ 0.14285714 -1.28571429]
+ [ 0.42857143  5.14285714]
+ [-0.14285714 -2.71428571]]
+\end{verbatim}
 
 Python \verb!vstack! komutu iki matrisi ust uste koymak icin kullanilir.
 
@@ -49,9 +67,9 @@ gereksiz olurdu.
 Biraz zihin egzersizi yapalim. Eger soyle bir komut kullansam ne elde
 ederim (ki \verb!I! matrisi birim matrisi) ?
 
-\begin{lstlisting}[language=Python]
+\begin{minted}{python}
 solve(A, I)
-\end{lstlisting}
+\end{minted}
 
 Cevap, tabii ki $A$'nin tersini elde ederim, yani $A^{-1}$ cunku $AA^{-1} =
 I$, 
@@ -87,16 +105,16 @@ Simdi biraz buyuk resme bakalim.
 
 Lineer cebirin 4 buyuk problemi Python komutlari ile beraber sunlardir:
 
-Eliminasyon, 
+1) Eliminasyon, 
 \verb!scipy.linalg.lu(A)! $A = LU$
 
-Dikeylestirme / ortogonalastirma (orthogonalization), 
+2) Dikeylestirme / ortogonalastirma (orthogonalization), 
 \verb!scipy.linalg.qr(A)!, $A = QR$
 
-Ozdegerler (eigenvalues), 
+3) Ozdegerler (eigenvalues), 
 \verb!scipy.linalg.eig(A)! $A = SAS^{-1}$
 
-Tekil degerler (singular values), 
+4) Tekil degerler (singular values), 
 \verb!scipy.linalg.svd(A)! $A = U \Sigma V^{T}$
 
 Eliminasyon ne yapar? Dikkat edersek aslinda bu islemin bir alt ucgensel

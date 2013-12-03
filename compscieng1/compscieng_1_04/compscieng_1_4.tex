@@ -349,14 +349,22 @@ Ikinci kismi sadelestirirsek
 
 Problemin hazir verdigi forma, ve sonuca eristik.
 
-\lstinputlisting[language=Python]{1.2.2.py}
+\begin{minted}{python}
+import numpy as np
+import numpy.linalg as lin
+import ktbc
 
-\begin{lstlisting}[language=Python]
+K,T,B,C = ktbc.ktbc(4)
+
+print lin.inv(K) 
+\end{minted}
+
+\begin{verbatim}
 [[ 0.8  0.6  0.4  0.2]
  [ 0.6  1.2  0.8  0.4]
  [ 0.4  0.8  1.2  0.6]
  [ 0.2  0.4  0.6  0.8]]
-\end{lstlisting}
+\end{verbatim}
 
 Bir sonraki derste gorecegimiz gibi ustteki sonucun 2. kolonu aradigimiz
 sonuc (cunku delta agirligi 2. hucre uzerinde). Bu kolondaki degerleri
@@ -421,17 +429,30 @@ Birlestirince
 
 Soru 1.2.4
 
-\lstinputlisting[language=Python]{1.2.4.py}
+\begin{minted}{python}
+import numpy as np
+import scipy.linalg as lin
 
-\begin{lstlisting}[language=Python]
+DB = lin.toeplitz([1, -1, 0], [1, 0, 0])
+print DB; print lin.inv(DB)
+
+DF = lin.toeplitz([-1, 0, 0], [-1, 1, 0])
+
+D_0 = (DF + DB) / 2
+print D_0
+\end{minted}
+
+\begin{verbatim}
 [[ 1  0  0]
  [-1  1  0]
  [ 0 -1  1]]
-
 [[ 1.  0.  0.]
  [ 1.  1.  0.]
  [ 1.  1.  1.]]
-\end{lstlisting}
+[[ 0  0  0]
+ [-1  0  0]
+ [ 0 -1  0]]
+\end{verbatim}
 
 \verb!D_0! matrisini soruda istendigi sekilde yarattik. Bu matrisin null
 uzayi, yani \verb!D_0 u = 0! denklemindeki $u$ sifir olmadigi icin, bu
@@ -444,15 +465,39 @@ Soru 1.2.10
 iyi: $\Delta_+$ icin \verb!DF! ve $\Delta_-$ yerine \verb!DB! kullanip,
 carpimini alirsak,
 
-\lstinputlisting[language=Python]{1.2.10.py}
+\begin{minted}{python}
+import numpy as np
+import scipy.linalg as lin
 
-Carpim
+DB = lin.toeplitz([1, -1, 0], [1, 0, 0])
+print "backward"
+print DB
 
-\begin{lstlisting}[language=Python]
+DF = lin.toeplitz([-1, 0, 0], [-1, 1, 0])
+print "forward"
+print DF
+
+print "\n"
+
+print np.dot(DF, DB)
+\end{minted}
+
+\begin{verbatim}
+backward
+[[ 1  0  0]
+ [-1  1  0]
+ [ 0 -1  1]]
+forward
+[[-1  1  0]
+ [ 0 -1  1]
+ [ 0  0 -1]]
+
+
 [[-2  1  0]
  [ 1 -2  1]
  [ 0  1 -1]]
-\end{lstlisting}
+\end{verbatim}
+
 
 Bu matriste $u = 0$ sinir sartinin hangi satir ile temsil edildigi
 soruluyor, yani $u(..) = 0$ sartinda '..' neresi? Bu sart icin sol taraftaki
@@ -518,15 +563,58 @@ Denklemin tam cozumu
 
 \[ u(x) = x - \frac{1}{1-e} + \frac{1}{1-e}e^x \]
 
-\lstinputlisting[language=Python]{1.2.19.py}
+\begin{minted}{python}
+import scipy.linalg as lin
 
-Sonuc (numerik cozum)
+def ktbc(n):
+    vec = np.zeros((1,n))
+    vec[0,0] = 2
+    vec[0,1] = -1
+    K = lin.toeplitz(vec)
+    T = np.copy(K)
+    T[0,0] = 1
+    B = np.copy(K)
+    B[0,0] = 1
+    B[n-1,n-1] = 1
+    C = np.copy(K)
+    C[n-1,n-1] = 1
+    
+    return K, T, B, C
 
-\begin{lstlisting}[language=Python]
+import scipy.linalg as lin
+
+K,T,B,C = ktbc(4); print K
+
+C = lin.toeplitz([0, -1, 0, 0], [0, 1, 0, 0]); print C
+
+print "ortalanmis",  lin.solve((25*K + 2.5*C), [1.,1.,1.,1.])
+
+F = lin.toeplitz([-1, 0, 0, 0], [-1, 1, 0, 0]); print F
+
+print "ileri farklilik", lin.solve((25*K + 2.5*F), [1.,1.,1.,1.])
+
+def ux(x): return x - 1/(1-np.e) + np.e**x/(1-np.e)
+
+print ux(0.2), ux(0.4), ux(0.6), ux(0.8)
+\end{minted}
+
+\begin{verbatim}
+[[ 2. -1.  0.  0.]
+ [-1.  2. -1.  0.]
+ [ 0. -1.  2. -1.]
+ [ 0.  0. -1.  2.]]
+[[ 0  1  0  0]
+ [-1  0  1  0]
+ [ 0 -1  0  1]
+ [ 0  0 -1  0]]
 ortalanmis [ 0.07135546  0.11412325  0.12195055  0.0870728 ]
-
+[[-1  1  0  0]
+ [ 0 -1  1  0]
+ [ 0  0 -1  1]
+ [ 0  0  0 -1]]
 ileri farklilik [ 0.07956826  0.123533    0.12793827  0.08838856]
-\end{lstlisting}
+0.0711487519142 0.11376948211 0.121546007893 0.0867637263024
+\end{verbatim}
 
 Bu cozumlerden ortalanmis olanin daha iyi oldugunu gorebiliriz. 
 

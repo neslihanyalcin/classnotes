@@ -437,8 +437,69 @@ Matris boyutlarinin nasil buyudugune, ve $u_0$'in dahil edilmesine dikkat
 edelim. Problemin basindaki matris 3x3 boyutundaydi, bu 4x4 boyutunda,
 ayrica $h$ hala $1/4$ degerinde. 
 
-\lstinputlisting[language=Python]{1.2.A.py}
+Problem 1-2-A
 
+\begin{minted}{python}
+%pylab inline
+import scipy.linalg as lin
+
+def ktbc(n):
+    vec = np.zeros((1,n))
+    vec[0,0] = 2
+    vec[0,1] = -1
+    K = lin.toeplitz(vec)
+    T = np.copy(K)
+    T[0,0] = 1
+    B = np.copy(K)
+    B[0,0] = 1
+    B[n-1,n-1] = 1
+    C = np.copy(K)
+    C[n-1,n-1] = 1
+    
+    return K, T, B, C
+
+K,T,B,C = ktbc(3); print T
+
+h = 1./4.
+
+discrete = lin.solve( (1./h)**2 * T, [1.,1.,1.] )
+
+discrete = np.insert(discrete, 0, discrete[0]) 
+discrete = np.append(discrete, 0.) 
+
+K,T,B,C = ktbc(4); print T
+
+discrete_2 = lin.solve( (1./h**2)*T, [1./2.,1.,1.,1.] )
+# add little diff for plotting
+# grafik ust uste binmesin diye azicik fark ekledik
+discrete_2 = discrete_2 + 0.01 
+discrete_2 = np.append(discrete_2, 0.) 
+
+def u(x): return (1./2.)*(1. - x**2)
+
+p1 = plt.plot([u(0.0), u(0.25), u(0.5), u(0.75), u(1.)])
+
+p2 = plt.plot(discrete)
+
+p3 = plt.plot(discrete_2)
+
+plt.legend([p1,p2,p3], ["analytical solution (analitik cozum)",
+                        "discrete solution 1 (ayriksal cozum 1)",
+                        "discrete solution 2 (ayriksal cozum 2)"
+                        ])
+
+plt.savefig('1-2-A.png')
+\end{minted}
+
+\begin{verbatim}
+[[ 1. -1.  0.]
+ [-1.  2. -1.]
+ [ 0. -1.  2.]]
+[[ 1. -1.  0.  0.]
+ [-1.  2. -1.  0.]
+ [ 0. -1.  2. -1.]
+ [ 0.  0. -1.  2.]]
+\end{verbatim}
 \includegraphics[height=6cm]{1-2-A.png}
 
 Guzel. Artik hesap gercek sonuca iyice yaklasacak. 
