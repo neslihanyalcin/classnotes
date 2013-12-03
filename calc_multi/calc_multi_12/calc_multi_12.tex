@@ -383,6 +383,59 @@ Yine yerine koyalim
 
 Son formullerimiz bunlar.
 
-\lstinputlisting[language=Python]{hyperboloid.py}
+\begin{minted}{python}
+%pylab inline
+from __future__ import division
+
+from mpl_toolkits.mplot3d import Axes3D
+import matplotlib.pyplot as plt
+import numpy as np
+
+fig = plt.figure(figsize=plt.figaspect(1))  # Square figure
+ax = fig.add_subplot(111, projection='3d')
+
+r=1;
+u=np.linspace(-2,2,200);
+v=np.linspace(0,2*np.pi,60);
+[u,v]=np.meshgrid(u,v);
+
+a = 1
+b = 1
+c = 1
+
+x = a*np.cosh(u)*np.cos(v)
+y = b*np.cosh(u)*np.sin(v)
+z = c*np.sinh(u)
+
+ax.plot_surface(x, y, z,  rstride=4, cstride=4, color='b')
+
+plt.savefig('hyperboloid.png')
+\end{minted}
+
+\includegraphics[height=6cm]{hyperboloid.png}
+
+Bir diger kod $a \cos,b \sin$ ifadelerinin toplamini gosteriyor
+
+\begin{minted}{python}
+from pylab import *
+
+xmax = 6.
+xmin = -6.
+D = 100
+x = linspace(xmin, xmax, D)
+
+a = 3
+b = 1
+
+plot(x, (a*cos(x) + b*sin(x)))
+plot(x, (a*cos(x)))
+plot(x, (b*sin(x)))
+
+grid()
+legend(['sum', 'cos','sin'])
+plt.savefig('1h7.png')
+\end{minted}
+
+\includegraphics[height=6cm]{1h7.png}
 
 \end{document}
