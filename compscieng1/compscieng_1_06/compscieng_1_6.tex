@@ -341,7 +341,46 @@ Sonuc sifir gelecek, cunku iki fonksiyon birbirine dik.
 
 Soru 1.5.3
 
-\lstinputlisting[language=Python]{1.5.3.py}
+\begin{minted}{python}
+%pylab inline
+import scipy.linalg as lin
+
+def ktbc(n):
+    vec = np.zeros((1,n))
+    vec[0,0] = 2
+    vec[0,1] = -1
+    K = lin.toeplitz(vec)
+    T = np.copy(K)
+    T[0,0] = 1
+    B = np.copy(K)
+    B[0,0] = 1
+    B[n-1,n-1] = 1
+    C = np.copy(K)
+    C[n-1,n-1] = 1
+    
+    return K, T, B, C
+
+import numpy as np
+import scipy.linalg as lin
+import ktbc
+
+K,T,B,C =  ktbc.ktbc(5)
+
+u,v=lin.eig(K)
+
+print u
+
+print 2-np.sqrt(3), 2-1, 2-0, 2+1, 2+np.sqrt(3)
+
+print 2*np.ones((5,1)).T - 2*np.cos((np.arange(5)+1) * np.pi/6)
+\end{minted}
+
+\begin{verbatim}
+[ 3.73205081+0.j  3.00000000+0.j  2.00000000+0.j  0.26794919+0.j
+  1.00000000+0.j]
+0.267949192431 1 2 3 3.73205080757
+[[ 0.26794919  1.          2.          3.          3.73205081]]
+\end{verbatim}
 
 
 \end{document}
