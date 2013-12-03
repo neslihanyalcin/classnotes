@@ -10,3 +10,5 @@ if sys.argv[1] == 'all':
         os.system("pdflatex -shell-escape calc_mul*.tex") 
         os.chdir("..")
             
+if sys.argv[1] == 'clean':
+    os.system("find . -name '_region_*' | xargs rm  -rf")

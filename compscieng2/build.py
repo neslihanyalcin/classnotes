@@ -7,7 +7,8 @@ if len(sys.argv) == 1 or sys.argv[1] == 'tex':
 if sys.argv[1] == 'all':
     for a in sorted(glob.glob("compscieng*")):
         os.chdir(a)
-        os.system("pdflatex compscieng*.tex")    
+        os.system("pdflatex -shell-escape compscieng*.tex")    
         os.chdir("..")
-        
-    
+            
+if sys.argv[1] == 'clean':
+    os.system("find . -name '_region_*' | xargs rm  -rf")
