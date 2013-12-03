@@ -7,7 +7,6 @@ if len(sys.argv) == 1 or sys.argv[1] == 'tex':
 if sys.argv[1] == 'all':
     for a in sorted(glob.glob("calc*")):
         os.chdir(a)
-        os.system("pdflatex calc_mul*.tex")    
+        os.system("pdflatex -shell-escape calc_mul*.tex") 
         os.chdir("..")
-        
-    
+            
