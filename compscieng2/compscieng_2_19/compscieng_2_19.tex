@@ -59,13 +59,15 @@ Baslangic degerleri
 
 Simetrik Pozitif Kesin $A$ Icin Eslenik Gradyan Metodu
 
-\begin{lstlisting}[language=Matlab,mathescape,numbers=left,xleftmargin=3.0ex]
-$\alpha_k = r_{k-1}^T r_{k-1} / d_{k-1}^T A d_{k-1}$
-$\alpha_k = \alpha_{k-1} + \alpha_k d_{k-1}$
-$r_k = r_{k-1} - \alpha_k Ad_{k-1}$
-$\beta_k = r_k^Tr_k / r_{k-1}^Tr_{k-1}$
-$d_k = r_k + \beta_k d_{k-1}$
-\end{lstlisting}
+1. $\alpha_k = r_{k-1}^T r_{k-1} / d_{k-1}^T A d_{k-1}$
+
+2. $\alpha_k = \alpha_{k-1} + \alpha_k d_{k-1}$
+
+3. $r_k = r_{k-1} - \alpha_k Ad_{k-1}$
+
+4. $\beta_k = r_k^Tr_k / r_{k-1}^Tr_{k-1}$
+
+5. $d_k = r_k + \beta_k d_{k-1}$
 
 $d$ ``arama yonudur'', optimizasyon ilerlerken gidecegimiz
 istikamettir. 2. adimda guncellemeyi yapiyorum. Peki bir sonraki yonum ne
@@ -417,7 +419,41 @@ kalir. Boylece son formul
 
 haline geliyor, ve kodlama cok temizlesiyor. 
 
-\lstinputlisting[language=Python]{cg.py}
+\begin{minted}{python}
+%pylab inline
+import scipy.linalg as lin
 
+A = np.array([[6.,1.,1.],
+              [1.,7.,1.],
+              [1.,1.,8.]])
+
+b = np.array([1.,1.,1.])
+
+xreal = lin.solve(A, b); print "solution", xreal
+
+p = b
+r = b
+x = b*0;
+r2 = np.dot(r.T,r)
+for i in range(5):
+    Ap = np.dot(A,p)
+    alpha = r2 / np.dot(p.T,Ap)
+    x = x + np.dot(alpha,p)
+    r = r-np.dot(alpha,Ap)
+    r2old = r2
+    r2 = np.dot(r.T,r)
+    beta = r2 / r2old
+    p = r + np.dot(beta,p)
+    print x             
+\end{minted}
+
+\begin{verbatim}
+solution [ 0.13249211  0.11041009  0.09463722]
+[ 0.11111111  0.11111111  0.11111111]
+[ 0.13125  0.1125   0.09375]
+[ 0.13249211  0.11041009  0.09463722]
+[ 0.13249211  0.11041009  0.09463722]
+[ 0.13249211  0.11041009  0.09463722]
+\end{verbatim}
 
 \end{document}
