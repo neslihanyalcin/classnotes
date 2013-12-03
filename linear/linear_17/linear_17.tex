@@ -391,7 +391,32 @@ matrisi.
 
 Gram-Schmidt Python kodu altta bulunabilir.
 
-\lstinputlisting[language=Python]{gram.py}
+\begin{minted}{python}
+%pylab inline
+import numpy.linalg as lin
+
+A = np.array([[3., 4.],[5., 6.]])
+m,n = A.shape
+R = np.zeros((m,n))
+Q = np.zeros((m,n))
+
+for j in range(n):
+    v = A[:,j]
+    for i in range(j):
+        R[i,j] = np.dot(Q[:,i].T,A[:,j])
+        v=v-np.dot(R[i,j],Q[:,i])
+    R[j,j] = lin.norm(v)
+    Q[:,j] = v/R[j,j]
+print Q, R
+\end{minted}
+
+\begin{verbatim}
+[[ 0.51449576  0.85749293]
+ [ 0.85749293 -0.51449576]] [[ 5.83095189  7.20294058]
+ [ 0.          0.34299717]]
+\end{verbatim}
+
+
 
 
 \end{document}
