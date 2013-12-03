@@ -110,7 +110,25 @@ boyutlar yerler degisince belki mumkun olmaz. Boyutlar olsa bile sonuc
 farkli cikabilir, o sebeble esitlik farz edilemez. Ufak bir Python kodu ile
 test edelim:
 
-\lstinputlisting[language=Python]{dot.py}
+\begin{minted}{python}
+import numpy as np
+
+a = [[2,3,4],[4,4,5],[9,3,2]]
+b = [[2,3,9],[4,2,5],[9,3,2]]
+
+print np.dot(a,b)
+
+print np.dot(b,a)
+\end{minted}
+
+\begin{verbatim}
+[[ 52  24  41]
+ [ 69  35  66]
+ [ 48  39 100]]
+[[97 45 41]
+ [61 35 36]
+ [48 45 55]]
+\end{verbatim}
 
 Sonuclar farkli cikacak. 
 
