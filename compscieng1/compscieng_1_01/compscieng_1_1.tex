@@ -26,16 +26,25 @@ ozellikler? $K$'yi buyutseydik, seyrek (sparse) olacakti, yani icinde cok
 fazla sayida sifir olacakti. Su haliyle tam seyrek denemez, ama ayni
 kalipla buyutulursek seyrek olur. Eger Python kullanarak sifir olmayan
 elemanlari saydirmak isteseydik, sonuc ne gelecekti? 4x4 olan $K$ icin
-alttaki kod
+alttaki kod su sonucu verir,
 
-\lstinputlisting[language=Python]{nonzero.py}
+\begin{minted}{python}
+import numpy as np
+K = np.array([[2,-1,0,0],[-1,2,-1,0],
+              [0,-1,2,-1],[0,0,-1,2]])
+print np.count_nonzero(K)
+\end{minted}
 
-10 sonucunu verir. 4x4 = 16 icinden 10 eleman sifir degildir. Eger 100x100
-olsaydi? Matris ayni kalibi takip ederse, yani caprazi, ve caprazin bir
-alti ve bir ustu dolu kalirsa, caprazda 100 eleman olur (boyutla ayni), alt
-ve ustunde birer az eleman olur, yani 99+99 = 198. Toplayalim, 100 + 198 =
-298. Yani 100x100 = 10000 eleman icinden 298 eleman sifir degildir, geri
-kalan bir suru eleman sifirdir. Matris seyrektir. 
+\begin{verbatim}
+10
+\end{verbatim}
+
+4x4 = 16 icinden 10 eleman sifir degildir. Eger 100x100 olsaydi? Matris
+ayni kalibi takip ederse, yani caprazi, ve caprazin bir alti ve bir ustu
+dolu kalirsa, caprazda 100 eleman olur (boyutla ayni), alt ve ustunde birer
+az eleman olur, yani 99+99 = 198. Toplayalim, 100 + 198 = 298. Yani 100x100
+= 10000 eleman icinden 298 eleman sifir degildir, geri kalan bir suru
+eleman sifirdir. Matris seyrektir.
 
 Numerik hesaplamada yogun (dense -sifiri fazla olmayan-) matrisler, buyuk
 boyutlarda basimizi agritabilir. Seyrek matrisleri daha hizli cozmenin
@@ -52,26 +61,33 @@ filtreler (linear time invariant filters) ismi de veriliyor, cunku her
 satir birbirinin ayni (ve hesabimizda satirlarin zamani temsil ettigi
 kabulunden hareketle). Python ile bir Toeplitz yaratmanin yontemi soyle:
 
-\lstinputlisting[language=Python]{toep1.py}
+\begin{minted}{python}
+import scipy.linalg as lin
+K = lin.toeplitz([2, -1, 0, 0])
+print K
+\end{minted}
 
-Sonuc
-
-\begin{lstlisting}[language=Python]
+\begin{verbatim}
 [[ 2 -1  0  0]
  [-1  2 -1  0]
  [ 0 -1  2 -1]
  [ 0  0 -1  2]]
-\end{lstlisting}
+\end{verbatim}
 
 100x100 icin Toeplitz komutuna verdigimiz tek satirda daha fazla sifir
 gerekli. Icinde tamamen sifir olan bir vektor yaratiriz, basindaki birkac
 elemani istedigimiz degerle atariz. 
 
-\lstinputlisting[language=Python]{toep2.py}
+\begin{minted}{python}
+import numpy as np
+import scipy.linalg as lin
+vec = np.zeros((1,100))
+vec[0,0] = 2
+vec[0,1] = -1
+print lin.toeplitz(vec)
+\end{minted}
 
-Sonuc
-
-\begin{lstlisting}[language=Python]
+\begin{verbatim}
 [[ 2. -1.  0. ...,  0.  0.  0.]
  [-1.  2. -1. ...,  0.  0.  0.]
  [ 0. -1.  2. ...,  0.  0.  0.]
@@ -79,13 +95,27 @@ Sonuc
  [ 0.  0.  0. ...,  2. -1.  0.]
  [ 0.  0.  0. ..., -1.  2. -1.]
  [ 0.  0.  0. ...,  0. -1.  2.]]
-\end{lstlisting}
+\end{verbatim}
 
 Seyrek matrislerle islem yaptigimizi Python'a bir sekilde belirtmemiz
 lazim, eger mevcut haliyle bu matrisi cozmeye ugrasirsak, Python sifirlara
 gelene kadar onlarin sifir oldugunu bilemeyecektir. 
 
-\lstinputlisting[language=Python]{sparse.py}
+\begin{minted}{python}
+import scipy.sparse as sparse
+import numpy as np
+import scipy.linalg as lin
+vec = np.zeros((1,100))
+vec[0,0] = 2
+vec[0,1] = -1
+K = lin.toeplitz(vec)
+A = sparse.lil_matrix(K)
+print A.shape
+\end{minted}
+
+\begin{verbatim}
+(100, 100)
+\end{verbatim}
 
 Yanliz yukarida yogun matrisi once yarattim, sonra onu degistirerek seyrek
 matris yarattim, daha iyisi bastan bir seyrek matris yaratmakti. Neyse, bu
@@ -111,31 +141,31 @@ istiyorum. Orayi temizlemek istiyorum, cunku matrislerim eger ucgensel
 Birinci satiri ikiye bolup, ikinci satira eklerim. Terminoloji: 0,0
 kordinati (en ust sol kose) bu islem sirasinda pivot oldu. 
 
-\begin{lstlisting}[language=Python]
+\begin{verbatim}
  [ 2 -1    0  0]
  [ 0  3/2 -1  0]
  [ 0 -1    2 -1]
  [ 0  0   -1  2]
-\end{lstlisting}
+\end{verbatim} 
 
 Simdi pivot 3/2, ve onun altindaki degeri temizlemek istiyoruz. Ikinci
 satirin 2/3'unu alta eklersek, oradaki -1 sifirlanir. 
 
-\begin{lstlisting}[language=Python]
+\begin{verbatim}
  [ 2 -1    0    0]
  [ 0  3/2 -1    0]
  [ 0  0    4/3 -1]
  [ 0  0   -1    2]
-\end{lstlisting}
+\end{verbatim}
 
 ve sonunda
 
-\begin{lstlisting}[language=Python]
+\begin{verbatim}
  [ 2 -1    0      0]
  [ 0  3/2 -1      0]
  [ 0  0    4/3   -1]
  [ 0  0    0    5/4]
-\end{lstlisting}
+\end{verbatim}
 
 Bu gercekten hizli bir islem oldu. Python da determinanti zaten boyle
 bulacakti. Yoketme (elimination) kullanacakti, teker teker -1'leri
@@ -301,7 +331,25 @@ K, T, B, C matrislerini ayni anda yaratan bir Python programi
 surada. Kullanim mesela 4x4 boyutlari icin \lstinline!K, T, B, C = ktbc(4)!
 seklinde, bu bize tum ozel matrisleri bir kerede olusturuyor.
 
-\lstinputlisting[language=Python]{ktbc.py}
+\begin{minted}{python}
+import numpy as np
+import scipy.linalg as lin
+
+def ktbc(n):
+    vec = np.zeros((1,n))
+    vec[0,0] = 2
+    vec[0,1] = -1
+    K = lin.toeplitz(vec)
+    T = np.copy(K)
+    T[0,0] = 1
+    B = np.copy(K)
+    B[0,0] = 1
+    B[n-1,n-1] = 1
+    C = np.copy(K)
+    C[n-1,n-1] = 1
+    
+    return K, T, B, C
+\end{minted}
 
 Kapatirken su ozellikleri de ekleyelim. 
 
@@ -324,14 +372,21 @@ dogru farklilik (backward difference) matrisi de yaratabiliriz. Bu
 kullanimda matrisin sol kolonunu, ve ust satirini tamamen belirtmek
 gerekiyor.
 
-\lstinputlisting[language=Python]{toep3.py}
+\begin{minted}{python}
+import numpy as np
+import scipy.linalg as lin
 
-\begin{lstlisting}[language=Python]
+D = lin.toeplitz([1, -1, 0, 0], [1, 0, 0, 0])
+print D
+\end{minted}
+
+
+\begin{verbatim}
 [[ 1  0  0  0]
  [-1  1  0  0]
  [ 0 -1  1  0]
  [ 0  0 -1  1]]
-\end{lstlisting}
+\end{verbatim}
 
 Cozulmus Soru 1.1 B
 
@@ -372,22 +427,122 @@ carpilirsa her kolon icindeki sirayi tersine ceviriyor. $J*T*J$ carpimi
 aradigimiz sonuc. Yani satirlari cevirdikten sonra, kolonlari cevirince
 istedigimiz sonuca erisiyoruz. Python kodlari
 
-\lstinputlisting[language=Python]{flip.py}
+\begin{minted}{python}
+import numpy as np
+import scipy.linalg as lin
+T = lin.toeplitz([2, -1, 0])
+T[0,0] = 1
+J = np.fliplr(np.eye(3))
+print T
+print np.dot(T,J)
+print np.dot(J, np.dot(T,J))
+\end{minted}
+
+\begin{verbatim}
+[[ 1 -1  0]
+ [-1  2 -1]
+ [ 0 -1  2]]
+[[ 0. -1.  1.]
+ [-1.  2. -1.]
+ [ 2. -1.  0.]]
+[[ 2. -1.  0.]
+ [-1.  2. -1.]
+ [ 0. -1.  1.]]
+\end{verbatim}
 
 Soru 1.1 2
 
-\lstinputlisting[language=Python]{1.1.2.py}
+\begin{minted}{python}
+import numpy as np
+import scipy.linalg as lin
+
+T = lin.toeplitz([2, -1, 0])
+
+T[0,0] = 1
+
+U = np.array([[1, -1, 0],
+              [0, 1, -1],
+              [0, 0, 1]])
+
+print np.dot(U.T,U)
+print np.dot(U,lin.inv(U))
+print np.dot(lin.inv(U), lin.inv(U).T)
+\end{minted}
+
+\begin{verbatim}
+[[ 1 -1  0]
+ [-1  2 -1]
+ [ 0 -1  2]]
+[[ 1.  0.  0.]
+ [ 0.  1.  0.]
+ [ 0.  0.  1.]]
+[[ 3.  2.  1.]
+ [ 2.  2.  1.]
+ [ 1.  1.  1.]]
+\end{verbatim}
 
 Soru 1.1.5
 
-\lstinputlisting[language=Python]{1.1.5.py}
+\begin{minted}{python}
+import numpy as np
+import scipy.linalg as lin
+
+K, T, B, C = ktbc(3)
+print lin.inv(K)
+print lin.det(K)
+print lin.det(K) * lin.inv(K)
+
+K, T, B, C = ktbc(5)
+print lin.det(K)
+print lin.inv(K)
+print lin.det(K) * lin.inv(K)
+\end{minted}
+
+\begin{verbatim}
+[[ 0.75  0.5   0.25]
+ [ 0.5   1.    0.5 ]
+ [ 0.25  0.5   0.75]]
+4.0
+[[ 3.  2.  1.]
+ [ 2.  4.  2.]
+ [ 1.  2.  3.]]
+6.0
+[[ 0.83333333  0.66666667  0.5         0.33333333  0.16666667]
+ [ 0.66666667  1.33333333  1.          0.66666667  0.33333333]
+ [ 0.5         1.          1.5         1.          0.5       ]
+ [ 0.33333333  0.66666667  1.          1.33333333  0.66666667]
+ [ 0.16666667  0.33333333  0.5         0.66666667  0.83333333]]
+[[ 5.  4.  3.  2.  1.]
+ [ 4.  8.  6.  4.  2.]
+ [ 3.  6.  9.  6.  3.]
+ [ 2.  4.  6.  8.  4.]
+ [ 1.  2.  3.  4.  5.]]
+\end{verbatim}
 
 Soru 1.1.22
 
 Cozulmesi istenen denklem $du^2/dx^2 = 1$, elastik cubuk problemi ve
 cubugun iki tarafi sabitlenmis.
 
-\lstinputlisting[language=Python]{1.1.22.py}
+\begin{minted}{python}
+import scipy.sparse as sparse
+import scipy.sparse.linalg
+import numpy as np
+import scipy.linalg as lin
+import matplotlib.pyplot as plt
+
+n = 1000
+vec = np.zeros((1,n))
+vec[0,0] = 2; vec[0,1] = -1
+K = lin.toeplitz(vec)
+A = sparse.csc_matrix(K)
+e = np.ones((n,1))
+
+u = sparse.linalg.spsolve(A,e)
+plt.plot(u)
+plt.savefig('1-1-22.png')
+\end{minted}
+
 \includegraphics[height=5cm]{1-1-22.png}
 
 Sonuc ustteki grafik gibi olmali. Yani cozumumuz olan $u$ degerleri bir
@@ -437,7 +592,7 @@ ortalara yakin toplar, bir ustlerinden de aldiklari ek mesafe sayesinde
 daha fazla yer degistirebiliyor. Ama alt kisima yaklastikca orada bir
 birikme oluyor, cunku alt uc kisim da sabitlenmis. 
 
-\lstinputlisting[language=Python]{elastic_uniform_load.py}
+\inputminted{python}{elastic_uniform_load.py}
 
 Ekler
 
