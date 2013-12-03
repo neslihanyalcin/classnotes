@@ -1,5 +1,6 @@
 \documentclass[12pt,fleqn]{article}\usepackage{../common}
 \begin{document}
+
 Filtrelemek
 
 Filtreler dis dunyadaki bir aksiyon hakkinda elde edilen gurultulu
@@ -146,7 +147,7 @@ CP_t^t & CP_t^t + R
 
 Ayni sekilde $x_{t+1} , y_{t+1}$ birlesik dagilim icin
 
-\begin{equation}\label{eq1}
+\[
 \left[\begin{array}{r}
 \hat{x}_{t+1}^t \\
 C\hat{x}_{t+1}^t
@@ -154,8 +155,8 @@ C\hat{x}_{t+1}^t
 \left[\begin{array}{rr}
 P_{t+1}^t & P_{t+1}^tC' \\
 CP_{t+1}^t & CP_{t+1}^tC' + R
-\end{array}\right]
-\end{equation}
+\end{array}\right] \ \ \ (1)
+\]
 
 Simdi $x_{t+1}^{t+1}$ 'in ortalama ve varyansi icin parcali Gaussian kavramini
 anlatmaliyiz. Bir n boyutlu Gaussian daha kucuk boyutlardaki p ve q alt
@@ -206,9 +207,9 @@ Bundan sonra sartlanmis (conditioned) $\mu$ ve $\Sigma$ alinir.
 
 \[ \Sigma_{1|2} = \Sigma_{11}- \Sigma_{12}\Sigma_{22}^{-1}\Sigma_{21} \]
 
-Simdi denklem \ref{eq3}'u alip \ref{eq1}'in icine koydugumuzda ve
-\ref{eq2}'deki yerlesim yapisini dikkate aldigimizda $\hat{x}_{t+1}^{t+1}$
-ve $P_{t+1}^{t+1}$ formullerini ortaya cikartabiliriz. 
+Simdi denklem \ref{eq3}'u alip (1)'in icine koydugumuzda ve \ref{eq2}'deki
+yerlesim yapisini dikkate aldigimizda $\hat{x}_{t+1}^{t+1}$ ve
+$P_{t+1}^{t+1}$ formullerini ortaya cikartabiliriz.
 
 \[ \hat{x}_{t+1}^{t+1} =  x_{t+1}^{t} +  P_{t+1}^{t}C'(CP_{t+1}^{t}C' + \Sigma_w)^{-1}
 (y_{t+1}- C\hat{x}_{t+1}^t)

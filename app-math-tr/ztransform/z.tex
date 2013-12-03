@@ -152,11 +152,11 @@ oldugunu ogreniyoruz, ve $u(n)$ soyle
 
 $$
 u(n) = 
-\begin{cases}
+\left\{ \begin{array}{ll}
 1, & \textrm{ eger } n \ge 0 \\ 
 0, & \textrm{ eger } n < 0
-\end{cases} 
- $$
+\end{array} \right.
+$$
 
 Dikkat edilirse ters z Transform tablosunda $y$ dgil $h$ bazli sonuclar
 gosteriliyor, $h$ fonksiyonlari vurus cevabi (impulse response)
@@ -182,11 +182,7 @@ kumulatif (cumulative) $y(n)$'i hesaplamamiz istenecektir. Bu hesap
 literaturde ``deger kaybeden kumulatif toplam (cumulative sum with
 deprecitation)'' olarak biliniyor.
 
-O zaman ustteki formuldeki sonucu kodlarsak ve ornek veri
-
-\verb![  4.   3.   2.   8.   4.   4.  10.   4.  10.   7.   4.   7. ]!
-
-ise, kod soyledir
+O zaman ustteki formuldeki sonucu kodlarsak, ve ornek veriyle
 
 \begin{minted}{python}
 patents = np.array([  4.,   3.,   2.,   8.,   4.,  
