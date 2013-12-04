@@ -6,6 +6,12 @@ uretilmis dosyalari. Matematik ve uygulamali matematik hakkinda
 yazilmis bazi yazilarimiz da depoda bulunabilir. Ornek Python kodlari
 gerektigi yerde yazilar ile beraber ayni dizinde olacaktir.
 
+LaTeX dokumanlarin icinde Python kodlarini pytexipy-notebook adli bir
+teknoloji uzerinden belge icinde isletebiliyoruz (arka planda
+ipython'a baglanarak). Eger kodlari belgenin disinda isletmek
+isterseniz, import numpy as np ibaresini eklemek gerekir, cunku
+pytexipy otomatik olarak %pylab inline cagrisi yapiyor. 
+
 ---
 
 Here are lecture notes in ODE, Multivariate Calculus, Linear Algebra,
@@ -35,5 +41,4 @@ http://dl.dropbox.com/u/1570604/skfiles/stat.pdf
 http://dl.dropbox.com/u/1570604/skfiles/pde.pdf
 
 http://dl.dropbox.com/u/1570604/skfiles/functional_analysis.pdf
-
 
