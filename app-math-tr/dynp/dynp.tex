@@ -39,10 +39,9 @@ yolu kullaniyor olurduk, ve bu sefer bu alternatif en kisa olurdu. Fakat
 ilk basta en kisa yolu bildigimiz faraziyesi ile basladik. Bir celiski elde
 ettik, demek ki ara noktanin kisaligi dogrudur $\square$
 
-
 Oyle bir fonksiyon $d(v)$ olsun ki herhangi bir $v$ nodu icin o nod'dan
-bitis noktasina olan uzakligi hesapliyor olsun, $u,v$ arasindaki mesafe ise
-$w(u,v)$ ile verilecek.
+bitis noktasina olan uzakligi hesapliyor olsun, $u,v$ arasindaki parca
+mesafeler ise $w(u,v)$ ile verilecek. DAG'i alttaki gibi gosterelim,
 
 \begin{minted}{python}
 DAG = {
@@ -54,6 +53,17 @@ DAG = {
     'f': {}
 }
 \end{minted}
+
+Boylece $w(u,v)$ basit bir Python sozluk (dictionary) erisimi haline
+geliyor, mesela \verb!a,b! arasi parca mesafe icin 
+
+\begin{minted}{python}
+print DAG['a']['b']
+\end{minted}
+
+\begin{verbatim}
+2
+\end{verbatim}
 
 En kisa yolu bulacak program
 
@@ -77,12 +87,12 @@ def rec_dag_sp(W, s, t):
         print ('At ' + u[0])
         if u == t: return 0                     
         dist = min(W[u][v]+d(v) for v in W[u])  
-        print 'rewinding from',u,'dist=',dist
+        print 'returning from',u,', dist=',dist
         return dist
     return d(s)                                 
 
 dist = rec_dag_sp(DAG, 'a', 'f')
-print 'uzaklik=', dist
+print 'final distance=', dist
 \end{minted}
 
 \begin{verbatim}
@@ -98,16 +108,16 @@ miss e
 At e
 miss f
 At f
-rewinding from e dist= 4
+returning from e , dist= 4
 hit for f
-rewinding from d dist= 3
-rewinding from c dist= 10
+returning from d , dist= 3
+returning from c , dist= 10
 hit for d
 hit for f
-rewinding from b dist= 5
+returning from b , dist= 5
 hit for f
-rewinding from a dist= 7
-uzaklik= 7
+returning from a , dist= 7
+final distance= 7
 \end{verbatim}
 
 \end{document}
