@@ -200,8 +200,6 @@ $$ \kappa = -div \bigg( \frac{\bigtriangledown \phi}
 {|\bigtriangledown \phi| } \bigg) $$
 
 \begin{minted}{python}
-%pylab inline
-import time
 f, ax = plt.subplots()
 
 # initial function phi - level set is a square 4 pixels
@@ -284,7 +282,6 @@ bir kismi matematiksel formullerle (belki kalem kagitla) yapiliyor.
 \begin{minted}{python}
 import scipy.signal as signal
 import scipy.ndimage as image
-import time
 from scipy import ndimage
 
 def bwdist(a):
