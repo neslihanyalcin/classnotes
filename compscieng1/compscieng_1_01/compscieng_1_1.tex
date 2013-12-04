@@ -29,7 +29,6 @@ elemanlari saydirmak isteseydik, sonuc ne gelecekti? 4x4 olan $K$ icin
 alttaki kod su sonucu verir,
 
 \begin{minted}{python}
-import numpy as np
 K = np.array([[2,-1,0,0],[-1,2,-1,0],
               [0,-1,2,-1],[0,0,-1,2]])
 print np.count_nonzero(K)
@@ -79,7 +78,6 @@ gerekli. Icinde tamamen sifir olan bir vektor yaratiriz, basindaki birkac
 elemani istedigimiz degerle atariz. 
 
 \begin{minted}{python}
-import numpy as np
 import scipy.linalg as lin
 vec = np.zeros((1,100))
 vec[0,0] = 2
@@ -332,7 +330,6 @@ surada. Kullanim mesela 4x4 boyutlari icin \lstinline!K, T, B, C = ktbc(4)!
 seklinde, bu bize tum ozel matrisleri bir kerede olusturuyor.
 
 \begin{minted}{python}
-import numpy as np
 import scipy.linalg as lin
 
 def ktbc(n):
@@ -373,13 +370,11 @@ kullanimda matrisin sol kolonunu, ve ust satirini tamamen belirtmek
 gerekiyor.
 
 \begin{minted}{python}
-import numpy as np
 import scipy.linalg as lin
 
 D = lin.toeplitz([1, -1, 0, 0], [1, 0, 0, 0])
 print D
 \end{minted}
-
 
 \begin{verbatim}
 [[ 1  0  0  0]
@@ -428,7 +423,6 @@ aradigimiz sonuc. Yani satirlari cevirdikten sonra, kolonlari cevirince
 istedigimiz sonuca erisiyoruz. Python kodlari
 
 \begin{minted}{python}
-import numpy as np
 import scipy.linalg as lin
 T = lin.toeplitz([2, -1, 0])
 T[0,0] = 1
@@ -453,7 +447,6 @@ print np.dot(J, np.dot(T,J))
 Soru 1.1 2
 
 \begin{minted}{python}
-import numpy as np
 import scipy.linalg as lin
 
 T = lin.toeplitz([2, -1, 0])
@@ -484,7 +477,6 @@ print np.dot(lin.inv(U), lin.inv(U).T)
 Soru 1.1.5
 
 \begin{minted}{python}
-import numpy as np
 import scipy.linalg as lin
 
 K, T, B, C = ktbc(3)
@@ -527,9 +519,7 @@ cubugun iki tarafi sabitlenmis.
 \begin{minted}{python}
 import scipy.sparse as sparse
 import scipy.sparse.linalg
-import numpy as np
 import scipy.linalg as lin
-import matplotlib.pyplot as plt
 
 n = 1000
 vec = np.zeros((1,n))

@@ -331,9 +331,7 @@ fonksiyon uzerinden veri uydurmasi yapilacaktir.
 # US population prediction, Logistic growth, Hill function
 # Amerika nufus artisi, lojistik denklem
 
-import numpy as np
 from scipy import optimize
-import matplotlib.pyplot as plt
 
 def f(t,A,k,K):
     return K / (1+A*np.exp(-k*t))    
