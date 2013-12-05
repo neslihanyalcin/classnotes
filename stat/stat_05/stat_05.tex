@@ -166,6 +166,7 @@ plt.savefig('05_03.png')
 \end{minted}
 
 \includegraphics[height=6cm]{05_03.png}
+
 Bir diger ornek Glass veri seti uzerinde
 
 \begin{minted}{python}
@@ -199,11 +200,10 @@ Bu kavram istatistikte tartisilan konulardan biri. Bayes ve Frenkansçý
 (Frequentist) istatistik arasindaki felsefi farklardan biri burada ortaya
 cikiyor. Frekansci tanim soyledir:
 
-<blockquote>
 "Bir parametre $\theta$ icin $1-\alpha$ seviyesinde bir $C_n=(a,b)$ guven araligi
 tanimlanabilir -- bu aralik $a=a(X_1,..,X_n)$ ve $b=b(X_1,..,X_n)$ adli iki
 fonksiyon uzerinden tanimlanabilir. Bu fonksiyonlar veri uzerinde isleyen, 
-*verinin* fonksiyonlaridir, ve sonucta
+{\em verinin} fonksiyonlaridir, ve sonucta
 
 $$ \mathbb{P}_\theta (\theta \in C_n) \ge 1-\alpha, \ \ \forall \theta \in \Theta $$
 
@@ -221,9 +221,7 @@ ama $\theta$ sabittir, cunku $C_n$ verinin bir fonksiyonudur, ve veriden,
 yani bir orneklemden gelecegi icin o da rasgele olmalidir.
 
 Eger $\theta$ bir vektor ise o zaman bir aralik yerine bir guven kumesi
-kullanilir (mesela bir kure, ya da elips).
-"
-</blockquote>
+kullanilir (mesela bir kure, ya da elips)."
 
 Fakat frekansci yaklasimda aralik fonksiyonlari $a,b$ ile guven
 araligi arasindaki baglanti net degildir. Hangi fonksiyon secimi hangi
