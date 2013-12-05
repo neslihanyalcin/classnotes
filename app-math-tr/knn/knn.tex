@@ -181,8 +181,8 @@ def norm(x,y): return np.linalg.norm(x-y)
 
 points = np.array([[3.,3.],[2.,2.]])
 q = [1.,1.]
-print "diff", points-q
-print "dist", dist(points,q)
+print 'diff', points-q
+print 'dist', dist(points,q)
 \end{minted}
 
 \begin{verbatim}
@@ -191,9 +191,7 @@ diff [[ 2.  2.]
 dist [ 2.82842712  1.41421356]
 \end{verbatim}
 
-
 \begin{minted}{python}
-
 # k-nearest neighbor Ball Tree algorithm in Python
 import pprint
 
@@ -206,9 +204,10 @@ def zero_if_neg(x):
     if x < 0: return 0
     else: return x
 
-def form_tree(points,node):    
+def form_tree(points,node,all_points,plot_tree=False):    
     pivot = points[0]
     radius = np.max(dist(points,pivot))
+    if plot_tree: plot_circles(pivot, radius, points, all_points)
     node[0] = pivot
     node[1] = radius
     if len(points) <= __rmin__:
@@ -225,8 +224,8 @@ def form_tree(points,node):
     p2 = points[diffs > 0]
     node[3][0] = new_node() # left child
     node[3][1] = new_node() # right child
-    form_tree(p1,node[3][0])
-    form_tree(p2,node[3][1])
+    form_tree(p1,node[3][0],all_points)
+    form_tree(p2,node[3][1],all_points)
 
 # knn: [min_so_far, [points]]
 def search_tree(new_point, knn_matches, node, k):
@@ -283,7 +282,7 @@ def search_tree(new_point, knn_matches, node, k):
 points = np.array([[3.,4.],[5.,5.],[9.,2.],[3.2,5.],[7.,5.],
                  [8.,9.],[7.,6.],[8,4],[6,2]])
 tree = new_node()
-form_tree(points,tree)
+form_tree(points,tree,all_points=points)
 pp = pprint.PrettyPrinter(indent=4)
 print "tree"
 pp.pprint(tree)
@@ -334,6 +333,7 @@ tree
 None
 done [1.0, [[[8.0, 9.0]], [[7.0, 6.0]]]]
 \end{verbatim}
+
 
 \includegraphics[height=7cm]{alg.png}
 
@@ -460,25 +460,23 @@ egitim veri yapisina eklenecek bir etiket bilgisi ve siniflama sonrasi k
 noktanin agirlikli etiketinin hesabi ile basit sekilde
 gerceklestirilebilir.
 
+\begin{minted}{python}
+!python plot_circles.py
+\end{minted}
+
+
 Agaci olusumu sirasinda kurelerin grafigi alttadir. 
 
 \includegraphics[height=6cm]{knn0.png}
-
 \includegraphics[height=6cm]{knn1.png}
-
 \includegraphics[height=6cm]{knn2.png}
-
 \includegraphics[height=6cm]{knn3.png}
-
 \includegraphics[height=6cm]{knn4.png}
-
 \includegraphics[height=6cm]{knn5.png}
-
 \includegraphics[height=6cm]{knn6.png}
-
 \includegraphics[height=6cm]{knn7.png}
-
 \includegraphics[height=6cm]{knn8.png}
+\includegraphics[height=6cm]{knn9.png}
 
 Kaynaklar, Notlar
 
