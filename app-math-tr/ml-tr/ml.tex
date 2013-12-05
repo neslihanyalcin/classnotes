@@ -479,9 +479,9 @@ in two chunks, one for each possible value of $y$.
 
 \begin{eqnarray}
   \label{eq:likelihood3}
-  l = \sum_{i=1}^N log(p(y_{i}|\alpha)) + 
-  \sum_{y_{i}\in 0} log(p(x_{i}|\mu_{0},\Sigma_{0})) + \nonumber \\
-  \sum_{y_{i}\in 1} log(p(x_{i}|\mu_{1},\Sigma_{1}))
+  l = \sum_{i=1}^N \log(p(y_{i}|\alpha)) + 
+  \sum_{y_{i}\in 0} \log(p(x_{i}|\mu_{0},\Sigma_{0})) + \nonumber \\
+  \sum_{y_{i}\in 1} \log(p(x_{i}|\mu_{1},\Sigma_{1}))
 \end{eqnarray}
 
 Now, if we take the gradient of the likelihood according to $\alpha, \Sigma,
@@ -514,8 +514,8 @@ $y_{i}$'s from the equation, we change the equation to
   0 &=&
   \frac{\partial}{\partial \alpha}\
   \left(
-  \sum_{i\in class1} log(\alpha) +
-  \sum_{i\in class0} log(1-\alpha)
+  \sum_{i\in class1} \log(\alpha) +
+  \sum_{i\in class0} \log(1-\alpha)
   \right)
   \nonumber \\
   0 &=&

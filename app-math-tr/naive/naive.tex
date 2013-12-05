@@ -96,7 +96,7 @@ egitim tamamlanir.
 Turev almadan once iki tarafin log'unu alalim, boylece carpimlar toplamlara
 donusecek ve turevin formulun icine nufuz etmesi daha kolay olacak.
 
-$$ log(L) = \sum_{i=1}^N \sum_{d=1}^{D} {x_d^i}\ log (\alpha_d) + 
+$$ \log(L) = \sum_{i=1}^N \sum_{d=1}^{D} {x_d^i}\ log (\alpha_d) + 
 (1-x_d^i)\ log (1-\alpha_d) $$
 
 Turevi alalim:
@@ -253,7 +253,7 @@ kullandik; cunku olasilik degerleri hep 1'e esit ya da ondan kucuk sayilardir,
 ve bu kucuk degerlerin birbiriyle surekli carpimi nihai sonucu asiri fazla
 kucultur. Asiri ufak degerlerle ugrasmamak icin olasiliklarin log'unu alip
 birbirleri ile toplamayi sectik, yani hesapladigimiz deger $x_d \cdot
-log(\alpha_d) + (1-x_d) \cdot log(1-\alpha_d)$
+log(\alpha_d) + (1-x_d) \cdot \log(1-\alpha_d)$
 
 Fonksiyon \verb!prob! icindeki \verb!1e-7! kullanimi neden? Bu
 kullanim log numarisini yapabilmek icin -- sifir degerinin log degeri

@@ -510,9 +510,9 @@ Son terimi iki toplama çevirebiliriz. Bunun için $y$ üzerinden
 yapacaðýz. 
 
 \[
-  l = \sum_{i=1}^N log(p(y_{i}|\alpha)) + 
-  \sum_{y_{i}\in 0} log(p(x_{i}|\mu_{0},\Sigma_{0})) + 
-  \sum_{y_{i}\in 1} log(p(x_{i}|\mu_{1},\Sigma_{1}))
+  l = \sum_{i=1}^N \log(p(y_{i}|\alpha)) + 
+  \sum_{y_{i}\in 0} \log(p(x_{i}|\mu_{0},\Sigma_{0})) + 
+  \sum_{y_{i}\in 1} \log(p(x_{i}|\mu_{1},\Sigma_{1}))
   \mlabel{16}
 \]
 
@@ -551,8 +551,8 @@ yoketmek için tüm formülü þöyle deðiþtirebiliriz.
   0 =
   \frac{\partial}{\partial \alpha}\
   \left(
-  \sum_{i\in class1} log(\alpha) +
-  \sum_{i\in class0} log(1-\alpha)
+  \sum_{i\in class1} \log(\alpha) +
+  \sum_{i\in class0} \log(1-\alpha)
   \right)
  \]
 

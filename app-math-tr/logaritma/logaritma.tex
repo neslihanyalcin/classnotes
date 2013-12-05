@@ -184,35 +184,35 @@ Log'un Açýlýmý
 Log fonksiyonunu nasýl açarken, amatör bir baþlangýç þöyle
 olabilirdi. Dikkat edelim, þu anda sadece sembolik olarak iþlem yapýyoruz.
 
-\[ f(x) = log(x) \]
+\[ f(x) = \log(x) \]
 
 \[ f'(x) = \frac{1}{x}, f''(x) = \frac{-1}{x^2}, f'''(x)=.. \]
 
 \[ f(x) \approx f(a) + f'(a)(x-a)+\frac{f''(a)}{2!}(x-a)^2 + ... \]
 
-\[ f(x) \approx log(a) + \frac{1}{a}(x-a) + \frac{\frac{-1}{a^2}}{2!}(x-a)^2 \]
+\[ f(x) \approx \log(a) + \frac{1}{a}(x-a) + \frac{\frac{-1}{a^2}}{2!}(x-a)^2 \]
 
 Bu pek derli toplu bir açýlým olarak gözükmüyor. $a=0$ seçersek, 
 
-\[ f(x) \approx log(a) + \frac{1}{a}(x-a) + \frac{\frac{-1}{a^2}}{2!}(x-a)^2 + ..\]
+\[ f(x) \approx \log(a) + \frac{1}{a}(x-a) + \frac{\frac{-1}{a^2}}{2!}(x-a)^2 + ..\]
 
-\[ f(x) \approx log(0) + \frac{1}{a}x + \frac{\frac{-1}{0^2}}{2!}(x)^2 + ..\]
+\[ f(x) \approx \log(0) + \frac{1}{a}x + \frac{\frac{-1}{0^2}}{2!}(x)^2 + ..\]
 
 çýkar. $log(0)$ tanýmsýzdýr. Yani, bu açýlým iþimize yaramayacak. Daha temiz
 bir açýlým için, matematikçiler þu yöntemi bulmuþtur.
 
 $log(x)$ yerine, $log(1+x)$ kullanalým. 
 
-\[ f(x) = log(1+x) \]
+\[ f(x) = \log(1+x) \]
 
 \[ f'(x) = \frac{1}{1+x}, f''(x) = \frac{-1}{1+x}^2, f'''(x) = ... \]
 
 \[ f(x) \approx f(a) + f'(a)(x-a) + \frac{f'''(a)}{2!}(x-a)^2 + ... \]
 
 $a = 0$ alirsak
-\[ f(x) \approx log(1+a) + \frac{1}{1+a} (x-a)+ \frac{\frac{-1}{(1+a)^2}}{2!} (x-a)^2\]
+\[ f(x) \approx \log(1+a) + \frac{1}{1+a} (x-a)+ \frac{\frac{-1}{(1+a)^2}}{2!} (x-a)^2\]
 
-\[ f(x) \approx log(1) + \frac{1}{1}(x) + \frac{\frac{-1}{1^2}}{2!} (x)^2\]
+\[ f(x) \approx \log(1) + \frac{1}{1}(x) + \frac{\frac{-1}{1^2}}{2!} (x)^2\]
 
 \[ f(x) \approx 0 + \frac{1}{1}(x) \frac{\frac{-1}{1^2}}{2!} (x)^2 \]
 
@@ -224,7 +224,7 @@ ile hesaplamak çok basittir. Artýk log(20)'yi hesaplamaya hazýrýz.
 
 \[ f(x) \approx x - \frac{x^2}{2!}  + \frac{x^3}{3!} ... \]
 
-\[ log(20) \approx 20 - \frac{20^2}{2!} + \frac{20^3}{3!} ... \]
+\[ \log(20) \approx 20 - \frac{20^2}{2!} + \frac{20^3}{3!} ... \]
 
 Ama dikkat! Açýlan fonksiyonunu hesaplarken x'e verdiðimiz deðerin a
 noktasýna yakýn olmasý önemlidir.
@@ -244,14 +244,14 @@ Burada, log aritmetiði yardýmýmýza eriþiyor. Log iþlemlerinde, bölmenin
 çýkarmaya, çarpmanýn toplamaya dönüþtüðünü hatýrlayalým. Yâni Log(x*y) =
 log(x) + log(y), ve log(x/y) = log(x) - log(y) olur.
 
-O zaman, $log(20)$'yi 1'den küçük sayýlar kullanacak þekilde yeniden
+O zaman, $\log(20)$'yi 1'den küçük sayýlar kullanacak þekilde yeniden
 yazalým:
 
 \[ 
-log(20) = log( \frac{\frac{1}{2}}{\frac{1}{40}}) = log(\frac{1}{2})-log(\frac{1}{40})
+\log(20) = \log( \frac{\frac{1}{2}}{\frac{1}{40}}) = \log(\frac{1}{2})-\log(\frac{1}{40})
 \]
 
-\[ log(1+x) \approx x - \frac{x^2}{2!} + \frac{x^3}{3!} \]
+\[ \log(1+x) \approx x - \frac{x^2}{2!} + \frac{x^3}{3!} \]
 
 Not: $(1+x)$'in $\frac{1}{2}$ vermesi icin $x$'in $-\frac{1}{2}$ olmasi
 gerekir. 
