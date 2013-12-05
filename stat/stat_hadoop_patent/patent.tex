@@ -6,7 +6,7 @@ Hadoop ile Patent Verisi Islemek
 verdigi ve patentler hakkinda detayli verileri Hadoop ile
 isleyecegiz. Veriler alttaki baglantidan alinabilir, gerekli dosyalar
 Dosyalar \verb!cite75_99.txt! ve \verb!apat63_99.txt!. Bu dosyalari
-acip biz diyelim ki <code>/data</code> altina koyduk. 
+acip biz diyelim ki \verb!/data! altina koyduk. 
 
 \verb!www.nber.org/patents/!
 
@@ -115,7 +115,7 @@ df.to_csv(sys.stdout,sep="\t",index=False,header=False)
 
 Indirgeyici yazmadan once programimizi iki sekilde test edelim. Bu
 sekillerden birisi hic indirgeyici olmadan, ikincisi
-<code>IdentityReducer</code> denen kendisine gecilen veriyi oldugu
+\verb!IdentityReducer! denen kendisine gecilen veriyi oldugu
 gibi disari atan (ama yine de ortada bir indirgeyici oldugu icin
 sonradan bazi islemlerin yine de yapildigi) seklinde. Bu iki kullanim
 Hadoop kodlarinda hata bulma / temizleme icin faydali olabiliyor.
@@ -179,7 +179,7 @@ BS	15.778846153846153
 
 Ustteki sonucta goruyoruz ki anahtarlar uretilmis, ama ciktilar
 anahtara gore siralanmamislar. Hatta ustteki sira girdi sirasiyla
-tipatip ayni. Simdi <code>IdentityReducer</code> uzerinden.
+tipatip ayni. Simdi \verb!IdentityReducer! uzerinden.
 
 \begin{minted}{python}
 !ssh localhost -l hduser /home/hduser/Downloads/hadoop*/bin/hadoop dfs -rmr /user/hduser/output
@@ -250,7 +250,7 @@ YU	5.75
 ZA	11.170212765957446
 \end{verbatim}
 
-Bu kodu <code>hduser</code>'in bulabilecegi bir yere koyuyoruz. 
+Bu kodu \verb!hduser!'in bulabilecegi bir yere koyuyoruz. 
 
 \begin{minted}{python}
 !cp reducer.py /tmp/

@@ -42,17 +42,18 @@ tanimlayan aralik degeridir, $h=\Delta x$, ve $u_{j,i+1} = u(t,x +
 
 Ikinci fark, farkin farkidir:
 
-$$ \frac{1}{h}
+$$
+\frac{1}{h}
 \bigg[
 \bigg( \frac{u_{j,i+1}-u_{j,i}}{h} \bigg) -
 \bigg( \frac{u_{j,i}-u_{j,i-1}}{h} \bigg)
 \bigg] 
- $$
+$$
 
-\begin{equation} 
+$$
 = \frac{u_{j,i+1}-2u_{j,i}+u_{j,i-1}}{h^2} 
 \ \ \ (1)
-\end{equation}
+$$
 
 Bu carpimi tum $i$ degerleri icin ve matris uzerinden temsil etmenin yolu sudur:
 Bir ikinci farkliliklar matrisi A yaratiriz:
@@ -88,10 +89,10 @@ Zamani da modele dahil edelim ve cozumu elde etmeye ugrasalim. Isi
 denkleminin tamamini simdiye kadar elde ettiklerimizi kullanarak ve
 ayriksal olarak yazalim:
 
-\begin{equation}
+$$
 \frac{U_{j+1}-U_j}{\Delta t} = AU_j 
 \ \ \ (2)
-\end{equation}
+$$
 
 $\frac{\partial^2u}{\partial x^2} \approx AU_j$, ve $\frac{\partial
   u}{\partial t} \approx (U_{j+1}-U_j) / \Delta t$ olarak
@@ -164,7 +165,7 @@ $$ \left[ \begin{array}{ccc}
 \end{array} \right]
 $$
 
-Alttaki kod icinde <code>x = x[1:-1]</code> ibaresi $x$ ve dolayli
+Alttaki kod icinde \verb!x = x[1:-1]! ibaresi $x$ ve dolayli
 olarak $u$'nun ilk ve son degerlerini atmak icin kullanilmakta.
 
 Seyrek (sparse) matrisler kullanarak cozum altta.
@@ -183,7 +184,6 @@ Seyrek (sparse) matrisler kullanarak cozum altta.
 	method where we use a center difference method in space and
 	Crank-Nicolson in time.
 """
-import matplotlib.pylab as plt
 import scipy as sc
 import scipy.sparse as sparse
 import scipy.sparse.linalg
