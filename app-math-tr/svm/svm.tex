@@ -91,21 +91,27 @@ SVM ihtiyaclari icin ikiz formul (dual) ile calismak daha rahattir
 Lagrange (tekrar) olusturalim, turevi alalim, ve sifira esitleyelim.
 Bunun sonucunda elimize KKT noktalari gececektir
 
-\begin{equation}L_{p} = \frac{1}{2}||w||^{2}-\sum_{i}\alpha_{i}(y_{i}(w^{T}x_{i}+b)-1)  \label{eq:primal}\end{equation}
+$$
+L_{p} =
+  \frac{1}{2}||w||^{2}-\sum_{i}\alpha_{i}(y_{i}(w^{T}x_{i}+b)-1)  
+$$
 
 $$ \frac{\partial}{\partial w} L_{p} = w-\sum_{i}\alpha_{i}y_{i}x_{i}=0  $$
 
-\begin{equation}w = \sum_{i}\alpha_{i}y_{i}x_{i} \label{eq:wdual} \end{equation}
+$$
+w = \sum_{i}\alpha_{i}y_{i}x_{i} 
+$$
 
-\begin{equation}
-\frac{\partial}{\partial b} L_{p} = -\sum_{i}\alpha_{i}y_{i}=0  \label{eq:cdual}
-\end{equation}
+$$
+\frac{\partial}{\partial b} L_{p} = -\sum_{i}\alpha_{i}y_{i}=0  
+$$
 
 Ustteki iki denklemi asal (primal) denkleme koydugumuz zaman
 
-\begin{equation}
-\textrm{ Maksimize et } L_{D}=\sum_{i}\alpha_{i}-\frac{1}{2}\sum_{i}\sum_{j}\alpha_{i}\alpha_{j}y_{i}y_{j}x_{i}^{T}x_{j} \label{eq:svm}
-\end{equation}
+$$
+\textrm{ Maksimize et }
+L_{D}=\sum_{i}\alpha_{i}-\frac{1}{2}\sum_{i}\sum_{j}\alpha_{i}\alpha_{j}y_{i}y_{j}x_{i}^{T}x_{j} 
+$$
 
 sinirlar
 
