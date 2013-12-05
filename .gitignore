@@ -12,6 +12,7 @@ ode/Elementary*
 */*/*.pyc
 */*/*/*.pyc
 */*/*.aux
+*/*/*.out
 */CompSci_Strang.djvu
 calc_multi/*/*.pdf
 ode/*/ode*.pdf
