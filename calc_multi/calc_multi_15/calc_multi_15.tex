@@ -107,7 +107,7 @@ Mesela diyelim ki $x,y,z$ diger iki degisken $u,v$'ye bagli.
 Bu durumda $f$, aslinda $u,v$'nin bir fonksiyonu haline gelir. Ve bu
 noktada kendimize $f$ fonksiyonu mesela ``$u$'nun degisimine ne kadar
 hassas'' gibi bir soru sorabiliriz. Bunun cevabini Zincirleme Kanununu $u$
-uzerinden kullanarak cevaplayabiliriz. 
+uzerinden kullanarak verebiliriz.
 
 \[ 
 \frac{\partial f}{\partial u} = 
@@ -162,9 +162,9 @@ Genel ifade neydi?
 
 Bunu ozel durumumuza nasil uygulariz? $y$ sabit, o zaman $dy = 0$. Yani
 
-\begin{equation}\label{eq1}
-df = f_xdx + f_zdz  
-\end{equation}
+\[
+df = f_xdx + f_zdz  \mlabel{1}
+\]
 
 Devam edelim, aslinda $dx$'den de kurtulmak istiyoruz, cunku o bagimli bir
 degisken, her seyi $z$ formunda gormek istiyoruz. Bunun icin once $dg$'yi
@@ -186,7 +186,7 @@ Yani
 \bigg( \frac{\partial x}{\partial z}\bigg)_{y} = -\frac{g_z}{g_x}
  \]
 
-O zaman iki ustteki formulu alip, \ref{eq1}. formulde $dx$ yerine 
+O zaman iki ustteki formulu alip, (1). formulde $dx$ yerine 
 koyarsak
 
 \[ df = (-f_x\frac{g_z}{g_x} +  f_z) dz \]
