@@ -7,7 +7,7 @@ if len(sys.argv) == 1 or sys.argv[1] == 'tex':
 if sys.argv[1] == 'all':
     for a in sorted(glob.glob("pde*")):
         os.chdir(a)
-        os.system("pdflatex pde*.tex")    
+        os.system("pdflatex -shell-escape pde*.tex")    
         os.chdir("..")
     
     
