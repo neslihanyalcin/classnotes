@@ -18,7 +18,7 @@ if sys.argv[1] == 'all':
     for a in sorted(glob.glob("stat*")):
         print a
         os.chdir(a)
-        os.system("pdflatex -shell-escape *.tex")    
+        os.system("pdflatex -shell-escape *.tex")
         os.chdir("..")
     
 if sys.argv[1] == 'clean':

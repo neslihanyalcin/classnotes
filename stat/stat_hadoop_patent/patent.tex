@@ -81,7 +81,8 @@ localhost: starting tasktracker, logging to /home/hduser/Downloads/hadoop-1.0.4/
 
 \begin{minted}{python}
 /home/hduser/Downloads/hadoop*/bin/hadoop dfs -mkdir /user/hduser/patent
-!ssh localhost -l hduser /home/hduser/Downloads/hadoop*/bin/hadoop dfs -ls /user/hduser/patent
+!ssh localhost -l hduser /home/hduser/Downloads/hadoop*/bin/hadoop \
+dfs -ls /user/hduser/patent
 \end{minted}
 
 \begin{verbatim}
@@ -91,7 +92,9 @@ Found 2 items
 \end{verbatim}
 
 \begin{minted}{python}
-!ssh localhost -l hduser /home/hduser/Downloads/hadoop*/bin/hadoop dfs -copyFromLocal /data/apat63_99_sampled.txt /user/hduser/patent/apat63_99_sampled.txt
+!ssh localhost -l hduser /home/hduser/Downloads/hadoop*/bin/hadoop \
+dfs -copyFromLocal /data/apat63_99_sampled.txt \
+/user/hduser/patent/apat63_99_sampled.txt
 \end{minted}
 
 \begin{verbatim}
@@ -127,8 +130,12 @@ Hadoop kodlarinda hata bulma / temizleme icin faydali olabiliyor.
 \end{minted}
 
 \begin{minted}{python}
-!ssh localhost -l hduser /home/hduser/Downloads/hadoop*/bin/hadoop dfs -rmr /user/hduser/output
-!ssh localhost -l hduser /home/hduser/Downloads/hadoop*/bin/hadoop  jar /home/hduser/Downloads/hadoop*/contrib/streaming/hadoop-*streaming*.jar -input patent/apat63_99_sampled.txt  -output output  -mapper /tmp/mapper.py -numReduceTasks 0 
+!ssh localhost -l hduser /home/hduser/Downloads/hadoop*/bin/hadoop \
+dfs -rmr /user/hduser/output
+!ssh localhost -l hduser /home/hduser/Downloads/hadoop*/bin/hadoop \
+jar \$HOME/Downloads/hadoop*/contrib/streaming/hadoop-*streaming*.jar\
+-input patent/apat63_99_sampled.txt  -output output  \
+-mapper /tmp/mapper.py -numReduceTasks 0 
 \end{minted}
 
 \begin{verbatim}
@@ -182,8 +189,13 @@ anahtara gore siralanmamislar. Hatta ustteki sira girdi sirasiyla
 tipatip ayni. Simdi \verb!IdentityReducer! uzerinden.
 
 \begin{minted}{python}
-!ssh localhost -l hduser /home/hduser/Downloads/hadoop*/bin/hadoop dfs -rmr /user/hduser/output
-!ssh localhost -l hduser /home/hduser/Downloads/hadoop*/bin/hadoop  jar /home/hduser/Downloads/hadoop*/contrib/streaming/hadoop-*streaming*.jar -input patent/apat63_99_sampled.txt  -output output  -mapper /tmp/mapper.py -reducer org.apache.hadoop.mapred.lib.IdentityReducer -numReduceTasks 1 
+!ssh localhost -l hduser /home/hduser/Downloads/hadoop*/bin/hadoop \
+dfs -rmr /user/hduser/output
+!ssh localhost -l hduser /home/hduser/Downloads/hadoop*/bin/hadoop \
+ jar /home/hduser/Downloads/hadoop*/contrib/streaming/hadoop-*streaming*.jar \
+ -input patent/apat63_99_sampled.txt  -output output \
+ -mapper /tmp/mapper.py -reducer org.apache.hadoop.mapred.lib.IdentityReducer \
+-numReduceTasks 1 
 \end{minted}
 
 \begin{verbatim}
@@ -207,7 +219,8 @@ packageJobJar: [/app/hadoop/tmp/hadoop-unjar2314287838929839696/] [] /tmp/stream
 
 \begin{minted}{python}
 !ssh localhost -l hduser rm -rf /tmp/output
-!ssh localhost -l hduser /home/hduser/Downloads/hadoop*/bin/hadoop dfs  -copyToLocal output /tmp/
+!ssh localhost -l hduser /home/hduser/Downloads/hadoop*/bin/hadoop \
+dfs  -copyToLocal output /tmp/
 !head -10 /tmp/output/part-00000
 \end{minted}
 
@@ -259,8 +272,12 @@ Bu kodu \verb!hduser!'in bulabilecegi bir yere koyuyoruz.
 \end{minted}
 
 \begin{minted}{python}
-!ssh localhost -l hduser /home/hduser/Downloads/hadoop*/bin/hadoop dfs -rmr /user/hduser/output
-!ssh localhost -l hduser /home/hduser/Downloads/hadoop*/bin/hadoop  jar /home/hduser/Downloads/hadoop*/contrib/streaming/hadoop-*streaming*.jar -input patent/apat63_99_sampled.txt  -output output  -mapper /tmp/mapper.py -reducer /tmp/reducer.py -numReduceTasks 1 
+!ssh localhost -l hduser /home/hduser/Downloads/hadoop*/bin/hadoop \
+dfs -rmr /user/hduser/output
+!ssh localhost -l hduser /home/hduser/Downloads/hadoop*/bin/hadoop \
+jar \$HOME/Downloads/hadoop*/contrib/streaming/hadoop-*streaming*.jar\
+-input patent/apat63_99_sampled.txt  -output output \
+ -mapper /tmp/mapper.py -reducer /tmp/reducer.py -numReduceTasks 1 
 \end{minted}
 
 \begin{verbatim}
@@ -284,7 +301,8 @@ packageJobJar: [/app/hadoop/tmp/hadoop-unjar3358838375062006941/] [] /tmp/stream
 
 \begin{minted}{python}
 !ssh localhost -l hduser rm -rf /tmp/output
-!ssh localhost -l hduser /home/hduser/Downloads/hadoop*/bin/hadoop dfs  -copyToLocal output /tmp/
+!ssh localhost -l hduser /home/hduser/Downloads/hadoop*/bin/hadoop \
+dfs  -copyToLocal output /tmp/
 \end{minted}
 
 Ve sonuc altta oldugu gibi
@@ -314,7 +332,8 @@ Tabii bu sonuclar bir orneklem uzerinden alindi. Tum veriyi islemek icin
 \end{minted}
 
 \begin{minted}{python}
-!ssh localhost -l hduser /home/hduser/Downloads/hadoop*/bin/hadoop dfs -rmr /user/hduser/output
+!ssh localhost -l hduser /home/hduser/Downloads/hadoop*/bin/hadoop \
+dfs -rmr /user/hduser/output
 
 !ssh localhost -l hduser /home/hduser/Downloads/hadoop*/bin/hadoop  jar \
  /home/hduser/Downloads/hadoop*/contrib/streaming/hadoop-*streaming*.jar  \
