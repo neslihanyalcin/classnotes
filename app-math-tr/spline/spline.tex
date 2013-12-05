@@ -15,12 +15,10 @@ ortaya cikmasini saglar.
 
 \includegraphics[height=4cm]{spline1.png}
 
-
-
 Her $i=0,..,n+1$ icin 
 
 $$ p(x) = p_i(x) = a_i + b_i(x-x_i) + c_i(x-x_i)^2 + d_i(x-x_i)^3
-\ \ \ \label{1}
+\mlabel{1}
 $$
 
 kullanalim. Noktalar $x_i$ olarak gosteriliyor, ve her noktada aktif olan
@@ -84,7 +82,9 @@ $$ y_2 = p_1(x_2) = y_1 + b_1h_1 + c_1h_1^2 + d_1h_1^3 $$
 
 haline gelir. Hepsini birarada yaziyoruz ($y$'yi sag tarafa aldik)
 
-$$ y_1 + b_1h_1 + c_1h_1^2 + d_1h_1^3 = y_2 \ \ \ \label{2} $$
+$$ y_1 + b_1h_1 + c_1h_1^2 + d_1h_1^3 = y_2 
+\mlabel{2} 
+$$
 
 $$ y_2 + b_2h_2 + c_2h_2^2 + d_2h_2^3 = y_3 $$
 
@@ -171,7 +171,8 @@ $$  p_2'(x_2) = b_2 $$
 Ustteki niye sadece $b_2$ oldu? Cunku $x_i-x_i$ numarasi onun icin de
 gecerli, geriye sadece $b_2$ kaldi. Hepsi bir arada
 
-$$  b_1 + 2c_1h_1 + 3d_1h_1^2  = b_2 \ \ \ \label{3}$$
+$$  b_1 + 2c_1h_1 + 3d_1h_1^2  = b_2 
+\mlabel{3}$$
 
 $$  b_2 + 2c_2h_2 + 3d_2h_2^2 = b_3 $$
 
@@ -182,7 +183,8 @@ $$  b_{n-1} + 2c_{n-1}h_{n-1} + 3d_{n-1}h_{n-1}^2 =  b_n $$
 Ikinci turevler icin benzer bir durum var, bu sefer sol taraftan $b$'ler
 yokoluyor, 
 
-$$ 2c_1 + 6d_1h_1 = 2c_2 \ \ \ \label{4} $$
+$$ 2c_1 + 6d_1h_1 = 2c_2 
+\mlabel{4} $$
 
 $$ 2c_2 + 6d_2h_2 = 2c_3 $$
 
@@ -201,7 +203,8 @@ $$ 6d_1(x_1-x_1) $$ sifir olur
 
 Denklem (4)'den baslayan blogu tekrar duzenlersek, 
 
-$$ d_1 = \frac{ c_2 - c_1}{3h_1} \ \ \ \label{5} $$
+$$ d_1 = \frac{ c_2 - c_1}{3h_1} 
+\mlabel{5} $$
 
 $$ d_2 = \frac{ c_3 - c_2}{3h_2} $$
 
@@ -211,7 +214,8 @@ $$ d_n = \frac{ c_{n+1} - c_n}{3h_n} $$
 
 Ustteki denklemleri (2) ve (3)'e geri koyarsak,
 
-$$ b_1 + \frac{ c_2 + 2c_1}{3}h_1 = s_1 \ \ \ \label{7} $$
+$$ b_1 + \frac{ c_2 + 2c_1}{3}h_1 = s_1 
+\mlabel{7} $$
 
 $$ b_2 + \frac{ c_3 + 2c_2}{3}h_1 = s_2 $$
 
@@ -242,7 +246,8 @@ $$  (c_1 + c_2) h_1  = b_2 - b_1$$
 
 Bu ifade tum $i$ noktalari icin gecerli, hepsi bir arada
 
-$$  (c_1 + c_2) h_1  = b_2 - b_1 \ \ \ \label{6}$$
+$$  (c_1 + c_2) h_1  = b_2 - b_1 
+\mlabel{6}$$
 
 $$  (c_2 + c_3) h_2  = b_3 - b_2$$
 

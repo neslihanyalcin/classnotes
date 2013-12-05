@@ -223,7 +223,9 @@ tarafindan $x$ cikartirsam,
 
 \[ x_{k+1} - x = x_k - x + \alpha_k d_{k} \]
 
-\[ e_{k+1} = e_k + \alpha_k d_k \ \ \ \label{2}\]
+\[ e_{k+1} = e_k + \alpha_k d_k 
+\mlabel{2}
+\]
 
 Bu her adimi $\alpha_k$'ye bagli ozyineli bir tanimdir. 
 
@@ -244,7 +246,7 @@ olmali.
 \[ d_i^Tr_i + \alpha_i d_i^TA d_i   = 0\]
 
 \[ \alpha_i = -\frac{ d_i^Tr_i}{d_i^T A d_i} 
-\ \ \ \label{6}
+\mlabel{6}
 \]
 
 Simdi hata terimine donelim, diyelim ki $e_0$ vektoru, bu vektor, diger
@@ -264,7 +266,7 @@ carpimlari sifirdir,
 \[ d_k^T A e_0 =  \delta_j d_j^T A d_j \]
 
 \[ \delta_j = \frac{ d_k^T A e_0}{ d_j^T A d_j } 
-\ \ \ \label{4}
+\mlabel{4}
 \]
 
 Simdi $e_0$'in yerine (2)'teki ozyineli tanimdan turetecegim bir sey koymak
@@ -316,7 +318,7 @@ kullanabiliriz,
 Hatalarin ozyineli denklemi (2)'yi uste uygularsak, 
 
 \[ e_i = -\sum _{ j=i}^{n-1} \alpha_j d_j 
-\ \ \ \label{3}
+\mlabel{3}
 \]
 
 Simdi artiklarin ve onceki gidis yonlerinin ortogonal olduklarini
@@ -331,7 +333,7 @@ gosterelim. (3)'u $d_k^TA$ ile carpalim,
 $d$'ler arasindaki A-ortogonallik sayesinde ve $k < i$ icin 
 
 \[ d_k^Tr_i = 0
-\ \ \ \label{9}
+\mlabel{9}
 \]
 
 Madem ki eski yonler ve artiklar birbirine ortogonal, Gram-Schmidt
@@ -340,7 +342,7 @@ kullanabiliriz. Her artigi alip, icinden ona ortogonal bir yon cikartmak
 mumkun.
 
 \[ d_i = r_i + \sum _{ j=0}^{i-1} \beta_{i,j}d_j 
-\ \ \ \label{10}
+\mlabel{10}
 \]
 
 \[ \beta_{i,j} = - \frac{ r_i^TAd_j}{d_j^TAd_j} \]

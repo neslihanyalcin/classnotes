@@ -33,7 +33,7 @@ eðriliði ve baþlangýç noktasýný bilmediðimiz bir doðru olan f(x)'i öðrenmeye
 
 \[
   f(x;\theta) = \sum_{i=1}^N \theta_{1}x_{i} + \theta_{0}
-  \ \ \ (1)
+  \mlabel{1}
 \]
 
 ki $\theta_{0}$ ve $\theta_{1}$ bilinmeyen deðiþkenleri temsil ediyorlar. Birçok
@@ -59,7 +59,7 @@ ileride çok boyutta iþler hâle getirmek çok basit olacak.
       \theta_{0} \\
       \theta_{1}
   \end{array} \right]
-  \ \ \ (2)
+  \mlabel{2}
 \]
 
 \[
@@ -73,7 +73,7 @@ ileride çok boyutta iþler hâle getirmek çok basit olacak.
       \theta_{0} \\
       \theta_{1}
   \end{array} \right]
-  \ \ \ (3)
+  \mlabel{3}
 \]
 
 (2)'de gösterilen toplama dikkat edersek, (3) formülünden kaybolduðunu
@@ -213,7 +213,7 @@ uzatýlabilir.
       \vdots & \vdots & \vdots & \vdots \\
       1 & x_{N} & \cdots & x_{N}(D) \\
   \end{array} \right] 
-  \ \ \ (7)
+  \mlabel{7}
 \]
 
 \[ 
@@ -424,9 +424,9 @@ Bu örnekte, $x \in \mathbf{R}^D$ girdi verisidir, ve $y \in \{0,1\}$ de
 sonuçtur. Deðiþken y ikili sistemde olduðu için, bu daðýlýmý bir Bernoulli
 Daðýlýmý olarak modelleyebiliriz. 
 
-\begin{equation}
+\[
   p(y_{i}|\alpha)=\alpha^y_{i}(1-\alpha)^{1-y_{i}}
-\end{equation}
+\]
 ki $i=1...N$. Bir daðýlým tablosu yerine daðýlým {\em formülü} kullanmak bize
 daðýlýmý cebirsel olarak manipüle etme avantajýný saðlar. Bu sayede formülü En
 Büyük Olabilirlik (Maximum Likelihood) gibi bir metoda girdi olarak verebiliriz,
@@ -436,7 +436,7 @@ X'leri temsil etmek için Gaussian daðýlýmýný seçeceðiz.
 
 \[
   p(x_{i}|y_{i},\mu,\Sigma)=N(x_{i}|\mu_{y},\Sigma_{y})  
-  \ \ \ (11)
+  \mlabel{11}
 \]
 
 Ortak daðýlým da alttaki gibi gözükecektir. 
@@ -453,7 +453,7 @@ getirildi. Grafiðe bakarak cebirsel ortak daðýlýmý $p(x,y,\mu,\alpha,\Sigma)$
 
 \[
   p(y|\alpha)p(x|y,\mu,\Sigma)p(\Sigma)p(\mu)p(\alpha)
- \ \ \ (12)
+ \mlabel{12}
 \]
 
 Sýnýflandýrma amacýmýza eriþebilmek için (12) formülünü,
@@ -465,7 +465,7 @@ olarak þöyle devam edebiliriz.
   p(x,y|\alpha,\mu,\Sigma) =
   \frac{p(x,y,\alpha,\mu,\Sigma)}
        {p(\alpha)p(\mu)p(\Sigma)} 
-  \ \ \ (13)
+  \mlabel{13}
 \]
 
 Þimdi (13)'deki bölüneni, grafik modelden gelen ortak daðýlým (12) ile
@@ -476,7 +476,7 @@ deðiþtireceðiz.
   \frac{p(y|x)p(x|y,\mu,\Sigma)p(\alpha)p(\mu)p(\Sigma)}
        {p(\alpha)p(\mu)p(\Sigma)} \nonumber \\
   = p(y|x)p(x|y,\mu,\Sigma) 
- \ \ \ (14)
+ \mlabel{14}
 \]
 
 
@@ -486,10 +486,10 @@ veri noktasý ile hesabýndan sonra birbiri ile çarparýz. O zaman, bilinmeyen
 parametrelerin en iyi hesapsal tahmini (estimation), bu süper ortak
 daðýlýmýn en yüksek olduðu noktada bulunabilir.
 
-\begin{equation}
+\[
 Olabilirlik = \prod_{i=1}^N p(y|x)p(x|y,\mu,\Sigma)
-\ \ \ (15)
-\end{equation}
+\mlabel{15}
+\]
 
 Olabilirliðin en yüksek olduðu nokta, olabilirlik formülünün türevinin sýfýr
 olduðu noktadadýr. 
@@ -513,7 +513,7 @@ yapacaðýz.
   l = \sum_{i=1}^N log(p(y_{i}|\alpha)) + 
   \sum_{y_{i}\in 0} log(p(x_{i}|\mu_{0},\Sigma_{0})) + 
   \sum_{y_{i}\in 1} log(p(x_{i}|\mu_{1},\Sigma_{1}))
-  \ \ \ (16)
+  \mlabel{16}
 \]
 
 Þimdi, olabilirliðin gradyanýný $\alpha, \Sigma, \mu$'a göre (ayrý ayrý)

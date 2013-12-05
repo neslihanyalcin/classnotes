@@ -14,19 +14,21 @@ Cozmek icin problemi kompleks dunyaya getirdik
 Sag tarafin kompleks bir sayinin reel bolumu oldugunu farzettik
 boylece. Bunu yaptik cunku ustel sayilarin entegralini almak kolay. Cozum
 
-\begin{equation}\label{8eq1}
+\[
 \tilde{y} = \frac{1}{1+i(w/k)} e^{i\omega t} 
-\end{equation}
+\mlabel{1}
+\]
 
 olmustu, yani cozum sunun reel bolumu olacakti:
 
-\begin{equation}\label{8eq2}
+\[
 \frac{1}{\sqrt{1+(w/k)^2}} \cos(\omega t - \phi) 
-\end{equation}
+\mlabel{2}
+\]
 
 Bu metotu kutupsal metot olarak nitelemistik. 
 
-Kartezyen yontemini kullansaydik (\ref{8eq1}) formulunun hem ust hem alt
+Kartezyen yontemini kullansaydik (1) formulunun hem ust hem alt
 tarafini kartezyene, $a+ib$ formuna cevirecektik. Ilk once alti reel yapmak
 icin alti ve ustu bolenin eslenigi (conjugate) ile carpalim
 
@@ -38,7 +40,7 @@ kismi atiyoruz, iki islemi ayni anda yapiyoruz yani
 \[ \frac{1}{1+(w/k)^2} (\cos \omega t + \frac{w}{k} \sin \omega t )\]
 
 Boylece sonuca eristik. Simdi sonucu kontrol edelim, hem kutupsal hem
-kartezyen yonden gelince ayni sonuc erismemiz lazim. Bu sonuc (\ref{8eq2})
+kartezyen yonden gelince ayni sonuc erismemiz lazim. Bu sonuc (2)
 ile ayni mi?
 
 Ayni. Kontrol etmek icin bir trigonometrik esitlik (identity) kullanacagiz,
@@ -77,7 +79,7 @@ o zaman nihai formul
 
 \[ \frac{1}{\sqrt{1+(w/k)^2}} \cos (\omega t - \phi) \]
 
-ve bu formul (\ref{8eq2}) ile aynidir.
+ve bu formul (2) ile aynidir.
 
 Trigonometrik gecisin ispatlari:
 
@@ -121,9 +123,10 @@ edecegiz. Stratejimiz o noktadan kutupsal forma atlamak, sonra onun reel
 kismini ilk formulumuz $a \cos \theta + b \sin \theta$ ile karsilastirmak
 olacak. 
 
-\begin{equation}\label{eq3}
+\[
 (a - bi) (\cos \theta + i\sin \theta) 
-\end{equation}
+\mlabel{3}
+\]
 
 Soldaki eksi isaretinin sebebi bariz, cunku sagdaki eksi ile carpilinca
 $i^2 = -1$ ile beraber artiya donusmesi icin. Simdi parca parca kutupsal
@@ -135,7 +138,7 @@ $e^{i\theta}$'dir. Hep beraber
 
 \[ = \sqrt{a^2+b^2} e^{i(\theta - \phi) }  \]
 
-Formul (\ref{eq3})'un reel kismini alirsak, $a \cos \theta + b \sin \theta$
+Formul (3)'un reel kismini alirsak, $a \cos \theta + b \sin \theta$
 elde ederiz. Ustteki son formulun reel kismi nedir? 
 
 \[ = \sqrt{a^2+b^2}e^{i(\theta - \phi)}\]
