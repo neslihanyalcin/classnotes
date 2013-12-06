@@ -7,7 +7,6 @@ from PF import *
 def proj_board(im, xl, yl, z):
     color = cv.CV_RGB(0, 255, 0)
     image_size = (im.width, im.height)
-    print "image_size=" + str(image_size)
     for x in arange(xl-9, xl+9, 0.5):
         for y in arange(yl-9, yl+9, 0.5):
             X = array([x, y, z])
@@ -22,7 +21,6 @@ def detect(image):
     grayscale = cv.CreateImage(image_size, 8, 1)
     cv.CvtColor(image, grayscale, cv.CV_BGR2GRAY)
     storage = cv.CreateMemStorage(0)
-    #cvClearMemStorage(storage)    
     
     im = cv.CreateImage (image_size, 8, 3)    
     
@@ -44,9 +42,6 @@ def show_data(image, mu_x):
 
 
 if __name__ == "__main__":
-
-    print "Press ESC to quit, 't' to take a picture (image will be " 
-    print "saved in a snap.jpg file"
 
     snap_no = 0
     frame_no = 0
@@ -89,22 +84,21 @@ if __name__ == "__main__":
         is_x, is_y = detect(frame)
         
         if len(is_x) > 0: 
-            print "is_x[5]=" + str(is_x[5])
-            print "is_y[5]=" + str(is_y[5])
             pf.update(array([is_x[5], frame.height-is_y[5], 1.]))
             mu_x = pf.average()
-            print mu_x
             proj_board(frame, mu_x[0], mu_x[1], mu_x[2])
             show_data(frame, mu_x)
                 
         # display webcam image
         cv.ShowImage('Camera', frame)
                 
+        if snap_no == 12: break
+        if frame_no % 10 == 0:
+            cv.SaveImage('cb-pf-' + str(snap_no) + '.jpg', frame)
+            snap_no += 1
+            
         # handle events        
         k = cv.WaitKey(40) 
-        if k == "t":            
-            cv.SaveImage('snap-' + str(snap_no) + '.jpg', frame)
-            snap_no += 1
         if k == 27: # ESC
             print 'ESC pressed. Exiting ...'
             break            

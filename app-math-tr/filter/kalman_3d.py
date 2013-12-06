@@ -21,12 +21,12 @@ class Kalman:
     def update(self, obs):
 
         # Make prediction
-        print "self.mu_hat=" + str(self.mu_hat)
+        #print "self.mu_hat=" + str(self.mu_hat)
         self.mu_hat_est = dot(self.A,self.mu_hat) 
         prod = dot(self.A, dot(self.cov, transpose(self.A)))
         self.cov_est = prod + self.Sigma_x
-        print "self.mu_hat_est=" + str(self.mu_hat_est)
-        print "self.cov_est=" + str(self.cov_est)
+        #print "self.mu_hat_est=" + str(self.mu_hat_est)
+        #print "self.cov_est=" + str(self.cov_est)
                 
         # Update estimate
         prod = self.normalize_2d(dot(self.H,self.mu_hat_est))
