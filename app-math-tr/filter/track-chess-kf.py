@@ -66,7 +66,7 @@ if __name__ == "__main__":
         print "Error opening capture device"
         sys.exit(1)
 
-    kalman = Kalman(K, mu_init=array([1., 1., 165., 1.]))
+    kalman = Kalman(K, mu_init=array([1., 1., 165., 2.]))
 
     frame = cv.QueryFrame(capture)        
     proj_board(frame, 1, 1, 160)
