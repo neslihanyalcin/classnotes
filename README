@@ -6,11 +6,22 @@ uretilmis dosyalari. Matematik ve uygulamali matematik hakkinda
 yazilmis bazi yazilarimiz da depoda bulunabilir. Ornek Python kodlari
 gerektigi yerde yazilar ile beraber ayni dizinde olacaktir.
 
-LaTeX dokumanlarin icinde Python kodlarini pytexipy-notebook adli bir
-teknoloji uzerinden belge icinde isletebiliyoruz (arka planda
-ipython'a baglanarak). Eger kodlari belgenin disinda isletmek
-isterseniz, import numpy as np ibaresini eklemek gerekir, cunku
-pytexipy otomatik olarak %pylab inline cagrisi yapiyor. 
+Dokumanlarin icinde gorulen kod python/ipython ortami icinden direk
+isletilebilir. ipython kurmak icin
+
+http://ipython.org/install.html
+
+Komut satirindan ipython baslatmak icin
+
+ipython notebook --pylab=inline
+
+kullanilabilir. Eger kodlari not defteri disinda, dosya bazli, pur
+Python olarak isletmek isterseniz, import numpy as np, ve import
+matploblib.pylab as plt ibarelerini eklemek gerekir.
+
+Emacs / LaTeX dokumanlarin icinden Python kodlarini pytexipy-notebook
+adli bir teknoloji uzerinden belge icinde isletebiliyoruz (arka planda
+ipython'a baglaniyoruz, yani ayni temel yapi kullaniliyor).
 
 ---
 
