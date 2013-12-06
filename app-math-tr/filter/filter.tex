@@ -288,7 +288,65 @@ gorecegiz.  Not: Niye iki kere? Kodlama sirasinda boyutlarin uyumlu olmasi
 icin boyle gerekti, cok buyuk bir rahatsizlik degil. Kod altta
 gorulebilir.
 
-\inputminted{python}{kalman_slope.py}
+\begin{minted}{python}
+import numpy.linalg as lin
+slope = 2
+
+#
+# x_{t+1} = A x_t + Q
+# y_t = Hx_t + R
+#
+def Kalman(obs,x,mu_init,nsteps):
+
+    ndim = shape(mu_init)[0]
+
+    Q = np.zeros((ndim, ndim))
+    A = np.eye(ndim)
+    H = np.array([[1, 0], [1, 0]])
+
+    mu_hat = mu_init
+    cov = np.ones((ndim, ndim))
+    R = np.eye(ndim) * 10
+    
+    m = np.zeros((ndim,nsteps),dtype=float)
+    ce = np.zeros((ndim,ndim,nsteps),dtype=float)
+    
+    for t in range(1,nsteps):
+        # Tahmini yap
+        # A transofmrasyon matrisi ve suna esit
+        # | 1 delta_x |
+        # | 0    1    |
+        A = np.array([[1, x[t]-x[t-1]], [0, 1]])
+        mu_hat_est = np.dot(A,mu_hat)
+        cov_est = np.dot(A,dot(cov,transpose(A))) + Q
+
+        # tahmini guncelle
+        error_mu = obs[:,t] - dot(H,mu_hat_est)
+        error_cov = np.dot(H,np.dot(cov,np.transpose(H))) + R
+        K = np.dot(np.dot(cov_est,np.transpose(H)),lin.inv(error_cov))
+        mu_hat = mu_hat_est + np.dot(K,error_mu)
+        m[:,t] = mu_hat
+        cov = np.dot((np.eye(ndim) - np.dot(K,H)),cov_est)
+        ce[:,:,t] = cov
+    return mu_hat
+        
+N = 20
+
+#
+# ornek veri yarat
+#
+
+obs = zeros((2, N))
+x = xrange(N)
+for i in xrange(N):
+    obs[0, i] = obs[1, i]  = (slope*i)+random.normal(10)
+    
+mu_hat = Kalman(obs, x, mu_init=array([0, 0]),nsteps=N)
+
+plt.plot(obs[0, :])
+plt.plot([0,N], [10,N*mu_hat[1]], 'go-', label='line 1', linewidth=2)
+plt.savefig('kalman-line-fit.png')
+\end{minted}
 
 \includegraphics[height=7cm]{kalman-line-fit.png}
 
