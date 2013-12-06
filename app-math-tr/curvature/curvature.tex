@@ -170,7 +170,7 @@ Python Numpy kodlamasi baglaminda, daha once {\em Kesit Seviyeleri} yazisinda
 ayriksal olarak bir \verb!phi! degiskeni icindeki bir fonksiyon uzerinde
 egimselligi (curvature) soyle hesaplamistik:
 
-\begin{minted}{python}
+\begin{minted}[linenos,xleftmargin=1cm]{python}
 gradPhiY, gradPhiX = np.gradient(phi)
 absGradPhi=np.sqrt(gradPhiX**2+gradPhiY**2)                               
 
@@ -185,9 +185,9 @@ K = divXnormGradPhiX + divYnormGradPhiY
 
 Bu satirlarin $\nabla \cdot \frac{\nabla \phi}{|\nabla \phi|}$ ifadesiyle
 birebir uyum gosterdigini herhalde gorebiliyoruz. Satir 1, $\nabla \phi$
-ifadesidir. Satirlar 2-4 $\frac{\nabla \phi}{|\nabla \phi|}$ islemini
+ifadesidir. Satirlar 4-5 $\frac{\nabla \phi}{|\nabla \phi|}$ islemini
 gerceklestiriyor, gradyani onun uzunluguna (magnitude) bolerek onu birim vektoru
-haline getiriyor. Satirlar 6-7 tekrar sonucun gradyanini bir daha aliyor, ama bu
+haline getiriyor. Satirlar 7-10 tekrar sonucun gradyanini bir daha aliyor, ama bu
 sefer hesapsal kismi turevleri birbiriyle topluyor, boylece uzaklasim olcusu
 (divergence) hesaplanmis oluyor. Tum bu islemlerin sonucu egimsellik $\kappa$
 oluyor.
