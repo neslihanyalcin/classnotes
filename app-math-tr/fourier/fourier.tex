@@ -265,6 +265,23 @@ plt.savefig('fourier_1.png')
 
 \includegraphics[height=6cm]{fourier_1.png}
 
+En yuksek periyotu gormek istersek, alttaki kodu kullanabiliriz [6].
+
+\begin{minted}{python}
+Y = C
+n=len(Y)
+power = np.abs(Y[range(1,int(n/2))])**2
+nyquist = 1./2
+freq = np.array(map(float, np.array(arange(1,int(n/2))))) / (n/2)*nyquist
+period=1./freq;
+plt.plot(period,power)
+plt.xlim(0,30)
+plt.savefig('fourier_02.png')
+\end{minted}
+
+\includegraphics[height=6cm]{fourier_02.png}
+
+
 FFT
 
 Bitirmeden once FFT konusundan bahsedelim. $\textbf{D}$FT algoritmasi
@@ -280,16 +297,17 @@ cagrisi bu algoritmayi kullanir.
 
 Kaynaklar
 
-Strang, G., OCW MIT Lecture \#30, Computational Science and Engineering
+[1] Strang, G., OCW MIT Lecture \#30, Computational Science and Engineering
 
-Strang, G., Computational Science and Engineering, sf. 340-370
+[2] Strang, G., Computational Science and Engineering, sf. 340-370
 
-Chu, E., Discrete and Continuous Fourier Transforms
+[3] Chu, E., Discrete and Continuous Fourier Transforms
 
-Kammler, D., A First Course in Fourier Analysis
+[4] Kammler, D., A First Course in Fourier Analysis
 
-Mattuck, A., OCW MIT Lecture \#17-19, Differential Equations
+[5] Mattuck, A., OCW MIT Lecture \#17-19, Differential Equations
 
+[6] \verb!www.mathworks.de/products/matlab/examples.html?file=/products/demos/shipping/matlab/sunspots.html!
 
 \end{document}
 
