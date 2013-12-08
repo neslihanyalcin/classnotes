@@ -268,9 +268,8 @@ plt.savefig('fourier_1.png')
 En yuksek periyotu gormek istersek, alttaki kodu kullanabiliriz [6].
 
 \begin{minted}{python}
-Y = C
 n=len(Y)
-power = np.abs(Y[range(1,int(n/2))])**2
+power = np.abs(C[range(1,int(n/2))])**2
 nyquist = 1./2
 freq = np.array(map(float, np.array(arange(1,int(n/2))))) / (n/2)*nyquist
 period=1./freq;
@@ -280,7 +279,6 @@ plt.savefig('fourier_02.png')
 \end{minted}
 
 \includegraphics[height=6cm]{fourier_02.png}
-
 
 FFT
 
