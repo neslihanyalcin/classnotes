@@ -118,7 +118,7 @@ Toplamdaki tum terimleri gostermedik, onemli olan kisim zaten k'inci terim, yani
 $e^{-ikx}$ ile carpilan $e^{ikx}$ ifadesi. Bu carpim basit bir cebirsel islemle
 $e^{-ikx}e^{ikx} = e^{-ikx + ikx} = e^{0} = 1$, yani bir degerine esit. Diger
 tum terimler eger entegrali hesaplarsak gorebilecegimiz gibi sifira esit. Bir
-degerinin$-\pi$ ve $\pi$ arasinda entegrali $2\pi$. Geri kalanlar
+degerinin$-\pi$ ve $\pi$ arasinda entegrali $2\pi$. 
 
 O zaman
 
@@ -140,10 +140,13 @@ DFT
 
 Ayriksal (discrete) olarak Fourier modellemesi yapmak istiyorsak, elimizde
 devamli (continuous) f(x) fonksiyonu olmayacak, bir f(x) fonksiyonun belli
-noktalarindaki degerleri (oldugunu farzettigimiz) verileri iceren bir 
-{\em vektor} olacak. Bu vektorun N elemani var diyelim. Fonksiyon periyodik
-olduguna gore, x icin $2\pi$'i N esit parcaya boleriz (tahtadan alinan resim
-altta). Ornegimizde N=4 olsun.
+noktalarindaki degerleri (oldugunu farzettigimiz) verileri iceren bir {\em
+  vektor} olacak. Bu vektorun N elemani var diyelim. Fonksiyon periyodik
+olduguna gore, x icin $2\pi$'i N esit parcaya boleriz (tahtadan alinan
+resim altta). Bunu soylemekle fonksiyonun periyotunun $N$ oldugunu farz
+etmis oluyoruz, bir anlamda diyoruz ki eger elimizde $N$ tane daha nokta
+olsaydi, onlar elimizde olan degerlerle tipatip ayni olacakti. Ornegimizde
+N=4 olsun.
 
 \includegraphics[height=3cm]{four.png}
 
@@ -156,13 +159,16 @@ fonksiyon, x=0 noktasinda hangi degere sahip olurdu?
 
 $$ f(0) = c_0 + c_1 + c_2 + c_3 + c_4 = Y_0 $$
 
-Sonraki x degerleri $2\pi/N$, $4\pi/N$ icin asagidaki gibi devam edecegiz, ama
-ondan once bir $w$ degiskeni tanimlayalim, bu degiskeni $w=e^{2\pi i/N}$ olarak
+Sonraki $x$ degerleri $2\pi/N, 4\pi/N, ..$ icin (cunku her parca $2\pi/N$,
+bir sonraki parca $2\pi/N + 2\pi/N$, bir kere topluyoruz, yani parcayi $2$
+ile carpiyoruz, sonra $3$ ile, vs) asagidaki gibi devam edecegiz, ama ondan
+once bir $w$ degiskeni tanimlayalim, bu degiskeni $w=e^{2\pi i/N}$ olarak
 alalim. Boylece $w^2$ dedigimizde ustel islemlerde carpim islemi toplama
 islemine donusecegi icin $e^{4i\pi/N}$ degeri elde edilebilir, $w^3$ ile
 $e^{6i\pi/N}$ elde edilir, vs. Bu degerler bize lazim olacak degerler, $w$
-sayesinde formuller daha temiz olacak. $F(2\pi/N)$ icindeki 3. terim ($n=2$)
-nedir?  $c_ne^{inx} = c_2e^{2i2\pi/N} = c_2e^{4i\pi/N} = c_2w^2$. O zaman
+sayesinde formuller daha temiz olacak. $F(2\pi/N)$ icindeki 3. terim
+($n=2$) nedir?  $c_ne^{inx} = c_2e^{2i2\pi/N} = c_2e^{4i\pi/N} = c_2w^2$. O
+zaman
 
 $$ f(2\pi/N) = c_o + wc_1 + w^2c_2 + w^3c_3 = Y_1 $$
 
@@ -242,6 +248,8 @@ year=tempdata[:,0]
 
 Y=tempdata[:,1]
 
+print len(Y), 'tane veri noktasi var'
+
 N = len(Y)
 
 w = np.exp((2*np.pi*1j)/N)
@@ -263,15 +271,19 @@ plt.plot(year, Y_new, 'r')
 plt.savefig('fourier_1.png')
 \end{minted}
 
+\begin{verbatim}
+305 tane veri noktasi var
+\end{verbatim}
 \includegraphics[height=6cm]{fourier_1.png}
 
 En yuksek periyotu gormek istersek, alttaki kodu kullanabiliriz [6].
 
 \begin{minted}{python}
-n=len(Y)
+n=len(Y); print 'n=',n
 power = np.abs(C[1:int(n/2)])**2
 nyquist = 1./2
 freq = np.array(map(float, np.array(arange(1,int(n/2))))) / (n/2)*nyquist
+print 'len(freq)=',len(freq)
 period=1./freq;
 plt.plot(period,power)
 plt.xlim(0,30)
@@ -279,8 +291,8 @@ plt.savefig('fourier_02.png')
 \end{minted}
 
 \begin{verbatim}
-151
-151
+n= 305
+len(freq)= 151
 \end{verbatim}
 \includegraphics[height=6cm]{fourier_02.png}
 
@@ -299,6 +311,19 @@ FFT algoritmasi ustteki carpimin bazi ozelliklerini kullanarak DFT'yi
 daha da hizlandirir ve $O(\frac{1}{2}Nlog_2N)$ hizina getirir. FFT'den
 bu makalede bahsetmeyecegiz, aklimizda olsun, Scipy uzerinde fft
 cagrisi bu algoritmayi kullanir.
+
+Eger scipy kullanilmak istenirse, bu kutuphanenin \verb!fft! cagrisi cok
+basit:
+
+\begin{minted}{python}
+C = scipy.fft(Y)
+print C[:3]
+\end{minted}
+
+\begin{verbatim}
+[ 15318.00000000   +0.j           1153.09522938 +866.74784921j
+    -72.35158374+1347.22954505j]
+\end{verbatim}
 
 Kaynaklar
 

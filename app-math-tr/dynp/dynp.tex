@@ -7,9 +7,10 @@ kararlarin bulunmasi fikri yatar; her anda, her verilen karar baska bir
 karar secenekleri ortaya cikarabilir, ve bunlarin arasinda da secim
 yapilmalidir. Hedefimiz en iyi karar zincirini bulmaktir. Bu kismen
 ``acgozlu algoritmalar (greedy algorithms)'' olarak bilinen algoritmalarin
-yaptigina benzer, fakat acgozlu algoritmalar sadece ``o an icin' en iyisini
-yapar; Fakat o an icin iyi olan toplam goze alindigi zaman en iyi sonucu
-ortaya cikarmayabilir. Mesela alttaki grafige bir bakalim,
+yaptigina benzer, fakat acgozlu algoritmalar, mesela en kisa yolu bulmaya
+ugrasirken gezilen dugumlerde sadece ``o an icin' en iyisini yapar; Bu
+yaklasimin problemi o an icin iyi olan toplam goze alindigi zaman en iyi
+sonucu olmayabilecegidir; Mesela alttaki grafige bir bakalim,
 
 \includegraphics[height=6cm]{dp1.jpg}
 
@@ -31,17 +32,23 @@ hesaplanmadan gecilmelerini saglayabilir.
 Ornek olarak en kisa yol problemini DP ile cozelim. 
 
 Problemin tamami, teorik ve tumevarimsal olarak biraz dusunelim. Diyelim ki
-ustteki DAG'de $a,f$ arasindaki en kisa yolu biliyoruz. Ve yine diyelim ki
-bu yol uzerinde / bir ara nokta $x$ noktasi var. O zaman, $a,x$, ve $x,f$
-arasindaki yollar da tanim itibariyle en kisadir. Ispat: eger mesela $x,f$
-arasindaki en kisa yol bildigimizden baska olsaydi, o zaman eldekini atip o
-yolu kullaniyor olurduk, ve bu sefer bu alternatif en kisa olurdu. Fakat
-ilk basta en kisa yolu bildigimiz faraziyesi ile basladik. Bir celiski elde
-ettik, demek ki ara noktanin kisaligi dogrudur $\square$
+ustteki DAG'de $a,f$ arasindaki en kisa yolu kesin biliyoruz. Ve yine
+diyelim ki bu yol uzerinde / bir ara nokta $x$ noktasi var. O zaman, $a,x$,
+ve $x,f$ arasindaki yollar da tanim itibariyle en kisadir. Ispat: eger
+mesela $x,f$ arasindaki en kisa yol bildigimizden baska olsaydi, o zaman
+eldekini atip o yolu kullaniyor olurduk, ve bu sefer bu alternatif en kisa
+olurdu. Fakat ilk basta en kisa yolu bildigimiz faraziyesi ile
+basladik. Bir celiski elde ettik, demek ki ara noktanin kisaligi dogrudur
+$\square$
+
+Bu ispattan / bilgiden hareketle, kisa yolu tek numerik bir deger olarak
+hesaplamaya ugrasalim. 
 
 Oyle bir fonksiyon $d(v)$ olsun ki herhangi bir $v$ nodu icin o nod'dan
-bitis noktasina olan uzakligi hesapliyor olsun, $u,v$ arasindaki parca
-mesafeler ise $w(u,v)$ ile verilecek. DAG'i alttaki gibi gosterelim,
+bitis noktasina olan en kisa uzakligi hesaplayabiliyor olsun, $u,v$
+arasindaki parca mesafeler ise $w(u,v)$ ile verilecek. 
+
+Veri yapisi olarak DAG'i alttaki gibi gosterelim,
 
 \begin{minted}{python}
 DAG = {
