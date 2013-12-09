@@ -105,9 +105,9 @@ def rec_dag_sp(W, s, t):
     def d(u):
         print 'Dugum:' + u[0]
         if u == t:  print 'Son nokta t, geri donus'; return 0  
-        dist = min(W[u][v]+d(v) for v in W[u])  
-        print 'Geri donus,',u,'uzerindeyiz, mesafe=',dist 
-        return dist
+        min_dist = min(W[u][v]+d(v) for v in W[u])  
+        print 'Geri donus,',u,'uzerindeyiz, mesafe=',min_dist
+        return min_dist
     return d(s)                                 
 
 dist = rec_dag_sp(DAG, 'a', 'f')
@@ -140,7 +140,8 @@ Geri donus, a uzerindeyiz, mesafe= 7
 toplam mesafe= 7
 \end{verbatim}
 
-Simdi cagri mekaniginin hakikaten nasil isledigini gorelim. 
+Simdi cagri mekaniginin hakikaten nasil isledigini gorelim. Not: Onbellek
+kodlamasi dekorator kullaniyor, bu kullanim icin [2]'ye bakabilirsiniz.
 
 Baslangic $u$, oradan, minimum secerken, surekli $d()$ cagrisi yapiyoruz,
 yani $d()$ kendini cagiriyor. Cagrinin geri donmesinin tek yolu son noktaya
@@ -176,9 +177,21 @@ Ve her dugumdaki minimum hesabi en iyiyse, bu hesaplari kullanan baslangica
 yakin noktalarin hesabi da dogal olarak en iyisi (kisasi) olacaktir. Basta
 tumevarimsal olarak belirttigimizin tekrar ifade edilmesidir bu. 
 
-Kisa Yolu Bulmak
+Kisa Yol Tarifini Bulmak
 
-Mesafe hesabi boyle. Peki yolun kendisini nasil biliriz? Bunun icin 
+Mesafe hesabi iste boyle yapiliyor... Peki en kisa yolun kendisini nasil
+biliriz? Yani once suraya, sonra suraya git turunden yol tarifi bilgisi
+nasil hesaplanir? Aslinda komsular arasindaki en kisa mesafeyi secme
+problemi, o komsular icinden hangisinin o en mesafeyi sagladigini hatirlama
+problemine oldukca benziyor. Yani, her dugum uzerindeyken ve komsular
+arasindan en kisa mesafeyi secerken, o mesafenin ``hangi komsudan''
+geldigini hatirlamak ve bunu bir yerlere kaydetmek yeterli. Her dugum icin,
+son noktaya olan en kisa mesafe degismedigine gore, ``o mesafe bilgisinin
+geldigi komsunun hangisi oldugu'' bilgisi de degismeyecektir. Ve her nokta
+icin o ``ebeveyn komsu'' bilindigi zaman hersey isleyip bittikten sonra en
+kisa yol tarifi icin eldeki kayda bakariz, ve baslangic noktasi
+\verb!a!'dan baslayarak ziplaya ziplaya o ebeveyn zinciri ile sona kadar
+geliriz. Bu degisiklikleri ekleyince kod su hale gelir,
 
 
 \begin{minted}{python}
@@ -197,7 +210,7 @@ def rec_dag_sp2(W, s, t):
 
 print rec_dag_sp2(DAG, 'a', 'f')
 
-print parent
+print 'ebeveynler', parent
 \end{minted}
 
 \begin{verbatim}
@@ -217,11 +230,28 @@ Geri donus, b uzerindeyiz, mesafe= 5
 onbellekte var - f
 Geri donus, a uzerindeyiz, mesafe= 7
 7
-{'a': 'b', 'c': 'd', 'b': 'd', 'e': 'f', 'd': 'f'}
+ebeveynler {'a': 'b', 'c': 'd', 'b': 'd', 'e': 'f', 'd': 'f'}
 \end{verbatim}
 
+Iste sonuc. Baslangic \verb!a!, onun ebeveyni \verb!b!. \verb!b!'ye
+bakiyoruz, onunki \verb!d!. Oradan \verb!f!'ye atliyoruz, ve sonuca erismis
+oluyoruz, en kisa yol \verb!a-b-d-f!. 
 
-%onbellek
-%http://sayilarvekuramlar.blogspot.de/2013/07/onbelleklemeyi-dekorator-ile-yapmak.html
+Analiz
+
+Acgozlu yaklasimdan bu yaklasimin farkini simdi daha iyi gorebiliriz,
+acgozlu teknik her dugumde en azi bizzat takip eder, ve kisayol hesabi,
+mesafe hesabi hep bu takip eylemi sirasin o anda yapilir, elde bir toplam
+vardir ve ona eklenir, vs. Bu yaklasim daha hangi yolu sectigi, sonradan,
+birkac adim sonrasinda hicbir secimle ilgilenmez. Dinamik Programlama ise
+takip etme eylemi ile hesap eylemini birbirinden ayirir, ve tumevarimsal
+bir tanimdan yola cikarak, hep en kisa, en optimali bulmayi basarir.
+
+
+Kaynaklar
+
+[1] Python Algorithms, 8. Bolum
+
+[2] \url{http://sayilarvekuramlar.blogspot.de/2013/07/onbelleklemeyi-dekorator-ile-yapmak.html}
 
 \end{document}
