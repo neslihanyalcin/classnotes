@@ -231,13 +231,7 @@ carpimlarla $C$ vektorunu bulacak. Bu vektor icindeki sayilar Fourier
 analizindeki belli frekanslara, harmoniklere tekabul ediyor olacaklar.
 
 Bu C degerlerinden bazilari digerlerinden daha guclu bir etkidir, mesela 11
-senelik periyot, C icinde daha guclu olarak cikacaktir, cikmalidir. Biz kabaca
-ilk ve son 30 sayi haricindekileri silerek onlara sifir degeri verdik, sonra bu
-yeni C'yi kullanarak benek verisini tekrar "urettirdik". Sonuc onemli olan
-(ilk ve son 30 degerin temsil ettigi harmoniklerin onemli oldugunu varsayiyoruz)
-periyotlarin yeni bir toplami oldu. Her iki grafigi de ust uste cizdik ve
-cakisma oldugunu net bir sekilde gorebiliyoruz. Eger tum C'leri kullansaydik, o
-zaman iki grafik daha benzer, hatta tipatip ayni cikacakti.
+senelik periyot, C icinde daha guclu olarak cikacaktir, cikmalidir. 
 
 \begin{minted}{python}
 import scipy
@@ -260,29 +254,19 @@ for i in range(N):
         W[i,k] = w**(i*k)
         
 C = np.dot(np.linalg.inv(W), Y) 
-
-C[30:-30] = 0.
-
-Y_new = scipy.real(np.dot(W, C))
-
-plt.plot(year, Y, 'g')
-plt.hold(True)
-plt.plot(year, Y_new, 'r')
-plt.savefig('fourier_1.png')
 \end{minted}
 
 \begin{verbatim}
 305 tane veri noktasi var
 \end{verbatim}
-\includegraphics[height=6cm]{fourier_1.png}
 
 En yuksek periyotu gormek istersek, alttaki kodu kullanabiliriz [6].
 
 \begin{minted}{python}
 n=len(Y); print 'n=',n
-power = np.abs(C[1:int(n/2)])**2
+power = np.abs(C[0:int(n/2)])**2
 nyquist = 1./2
-freq = np.array(map(float, np.array(arange(1,int(n/2))))) / (n/2)*nyquist
+freq = np.array(map(float, np.array(arange(0,int(n/2))))) / (n/2)*nyquist
 print 'len(freq)=',len(freq)
 period=1./freq;
 plt.plot(period,power)
@@ -292,7 +276,7 @@ plt.savefig('fourier_02.png')
 
 \begin{verbatim}
 n= 305
-len(freq)= 151
+len(freq)= 152
 \end{verbatim}
 \includegraphics[height=6cm]{fourier_02.png}
 
