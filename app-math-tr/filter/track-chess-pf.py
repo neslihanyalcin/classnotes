@@ -54,7 +54,7 @@ if __name__ == "__main__":
 
     capture = cv.CreateFileCapture (sys.argv[1])
     dim = 3
-    forward_step = -1.
+    forward_step = -2.
 
     pts = dim * dim
     mid = int(pts / 2)
