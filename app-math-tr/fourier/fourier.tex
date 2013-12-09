@@ -25,7 +25,7 @@ sifir olacaktir, formulden atilabilir.
 
 Ikinci terimde $\cos(nx)\cos(kx)$'in ustteki gibi entegrali eger k ve n esit
 degilse, sifirdir. Sadece n ve k esit ise $a_k(\cos kx)^2$ degeri elde edilir.
-$(\cos kx)^2$'in iseustteki sekilde entegrali $\pi$ sonucunu verir. Yani ikinci
+$(\cos kx)^2$'in ise ustteki sekilde entegrali $\pi$ sonucunu verir. Yani ikinci
 terimde olan, o sonsuza kadar giden koca toplam icinde sadece tek bir terim sag
 kalabilir.
 
@@ -141,7 +141,7 @@ DFT
 Ayriksal (discrete) olarak Fourier modellemesi yapmak istiyorsak, elimizde
 devamli (continuous) f(x) fonksiyonu olmayacak, bir f(x) fonksiyonun belli
 noktalarindaki degerleri (oldugunu farzettigimiz) verileri iceren bir 
-*vektor* olacak. Bu vektorun N elemani var diyelim. Fonksiyon periyodik
+{\em vektor} olacak. Bu vektorun N elemani var diyelim. Fonksiyon periyodik
 olduguna gore, x icin $2\pi$'i N esit parcaya boleriz (tahtadan alinan resim
 altta). Ornegimizde N=4 olsun.
 
@@ -269,7 +269,7 @@ En yuksek periyotu gormek istersek, alttaki kodu kullanabiliriz [6].
 
 \begin{minted}{python}
 n=len(Y)
-power = np.abs(C[range(1,int(n/2))])**2
+power = np.abs(C[1:int(n/2)])**2
 nyquist = 1./2
 freq = np.array(map(float, np.array(arange(1,int(n/2))))) / (n/2)*nyquist
 period=1./freq;
@@ -278,6 +278,10 @@ plt.xlim(0,30)
 plt.savefig('fourier_02.png')
 \end{minted}
 
+\begin{verbatim}
+151
+151
+\end{verbatim}
 \includegraphics[height=6cm]{fourier_02.png}
 
 
