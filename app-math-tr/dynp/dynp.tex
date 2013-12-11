@@ -3,14 +3,15 @@
 Dinamik Programlama
 
 Dinamik programlamanin (DP) temelinde ardi ardina verilen kararlarin
-hesaplanmasi fikri yatar; her anda, her verilen karar baska karar
-seceneklerini ortaya cikarabilir, ve seceneklerin arasindan bir tanesi
-secilmelidir. Amac en iyi karar zincirini bulmaktir. Bu amac ve metot
-kismen ``acgozlu algoritmalar (greedy algorithms)'' olarak bilinen
-algoritmalarin yaptigina benzer fakat acgozlu algoritmalar, mesela en kisa
-yolu bulmaya ugrasirken, gezilen dugumlerde sadece ``o an icin'' en iyi
-secimi yapar, fakat nihai sonuc goze alindigi zaman bu anlik secimler en
-iyi sonucu vermeyebilir; Mesela alttaki grafige bakarsak,
+bulunmasi / hesaplanmasi fikri vardir; ilgilendigi problemler her verilen
+kararin diger karar seceneklerini ortaya cikardigi turden problemlerdir, ve
+her seferinde bu seceneklerin arasindan bir tanesi secilmelidir. Amac en
+iyi karar zincirini bulmaktir. Metot olarak kullanilanlar kismen ``acgozlu
+algoritmalar (greedy algorithms)'' olarak bilinen algoritmalarin yaptigina
+benzer fakat acgozlu algoritmalar, mesela en kisa yolu bulmaya ugrasirken,
+gezilen dugumlerde sadece ``o an icin'' en iyi secimi yapar. Bu tur secim
+nihai sonuc goze alindigi zamanen iyi sonucu vermeyebilir; Mesela alttaki
+grafige bakarsak,
 
 \includegraphics[height=6cm]{dp1.jpg}
 
@@ -20,9 +21,9 @@ cunku her an, sadece o an icin en iyi olani secerdi. Fakat nihai sonuca
 bakarsak secilen yolun en kisa yol olmadigini goruruz. En iyi yol
 \verb!a,b,d! uzerinden giden yoldur.
 
-Not: Ustteki cizit / ag yapisi (graph), yonlu ve çevrimsiz (directed,
-acyclic graph -DAG-) diye bilinen bir yapidir. Tipik kisa yol problemleri
-bu yapilar uzerinde calisirlar.
+Gosterilen cizit / ag yapisi (graph) yonlu ve çevrimsiz (directed, acyclic
+graph -DAG-) diye bilinen bir yapidir. Tipik kisa yol problemleri bu
+yapilar uzerinde calisirlar.
 
 DP problemleri ozellikle bir problemi alt problemlere bolebildigimiz zaman
 faydalidirlar, ve bu alt problemler tekrar tekrar hesaplaniyorlarsa da bu
@@ -141,7 +142,8 @@ toplam mesafe= 7
 \end{verbatim}
 
 Simdi cagri mekaniginin hakikaten nasil isledigini gorelim. Not: Onbellek
-kodlamasi dekorator kullaniyor, bu kullanim icin [2]'ye bakabilirsiniz.
+kodlamasi dekorator kullaniyor, dekoratorler hakkinda bir yazi icin [2]'ye
+bakabilirsiniz.
 
 Baslangic $u$, oradan, minimum secerken, surekli $d()$ cagrisi yapiyoruz,
 yani $d()$ kendini cagiriyor. Cagrinin geri donmesinin tek yolu son noktaya
@@ -152,8 +154,8 @@ yariyor? Ayrica onbelleklemenin hakikaten isleyip islemedigini nasil
 bilecegiz?  Ya da onbellekteki bir degerin hep en iyisi oldugunu nereden
 bilecegim? 
 
-Not: Bu yaklasimda, hemen belirtelim, onbellek degerini, bir kez set edildi
-mi, hic degistirmeye gerek yok.
+Bu arada, boyle bir yaklasimda, onbellek degeri bir kez set edildi mi,
+hic degistirmeye gerek yok.
 
 Nokta \verb!d!'ye bakalim. Bu noktanin mesafesi (yani son nokta \verb!f!'ye
 uzakligi) kararlastirilirken algoritma \verb!d!'nin her komsusuna
@@ -233,6 +235,8 @@ Geri donus, a uzerindeyiz, mesafe= 7
 ebeveynler {'a': 'b', 'c': 'd', 'b': 'd', 'e': 'f', 'd': 'f'}
 \end{verbatim}
 
+Not: \verb!argmin! bir liste icindeki en minimal degerin indisini verir. 
+
 Iste sonuc. Baslangic \verb!a!, onun ebeveyni \verb!b!. \verb!b!'ye
 bakiyoruz, onunki \verb!d!. Oradan \verb!f!'ye atliyoruz, ve sonuca erismis
 oluyoruz, en kisa yol \verb!a-b-d-f!. 
@@ -247,10 +251,16 @@ birkac adim sonrasinda hicbir secimle ilgilenmez. Dinamik Programlama ise
 takip etme eylemi ile hesap eylemini birbirinden ayirir, ve tumevarimsal
 bir tanimdan yola cikarak, hep en kisa, en optimali bulmayi basarir.
 
+DP algoritmasinin karmasikligi, $M$ tane baglanti (edges) ve $N$ tane dugum
+icin $O(N + M)$'dir. Yani cozum lineer zamandadir! Alt problemleri tekrar
+tekrar cozuyoruz evet, ve \verb!@memo! ibaresini koddan cikartsaydik
+algoritmamizin ustel (exponential) zamanda isledigini gorurduk, ki bu cok
+kotudur. Fakat cozulen alt problemleri bir daha cozmeyip sonuclarini
+onbellekten aldigimiz icin algoritma son derece hizli isliyor.
 
 Kaynaklar
 
-[1] Python Algorithms, 8. Bolum
+[1] Hetland, M., L., {\em Python Algorithms}, 8. Bolum
 
 [2] \url{http://sayilarvekuramlar.blogspot.de/2013/07/onbelleklemeyi-dekorator-ile-yapmak.html}
 
