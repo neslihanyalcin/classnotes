@@ -350,10 +350,24 @@ Ikinci kismi sadelestirirsek
 Problemin hazir verdigi forma, ve sonuca eristik.
 
 \begin{minted}{python}
-import numpy.linalg as lin
-import ktbc
+import scipy.linalg as lin
 
-K,T,B,C = ktbc.ktbc(4)
+def ktbc(n):
+    vec = np.zeros((1,n))
+    vec[0,0] = 2
+    vec[0,1] = -1
+    K = lin.toeplitz(vec)
+    T = np.copy(K)
+    T[0,0] = 1
+    B = np.copy(K)
+    B[0,0] = 1
+    B[n-1,n-1] = 1
+    C = np.copy(K)
+    C[n-1,n-1] = 1
+    
+    return K, T, B, C
+
+K,T,B,C = ktbc(4)
 
 print lin.inv(K) 
 \end{minted}
@@ -473,9 +487,7 @@ print DB
 DF = lin.toeplitz([-1, 0, 0], [-1, 1, 0])
 print "forward"
 print DF
-
-print "\n"
-
+print 'product'
 print np.dot(DF, DB)
 \end{minted}
 
@@ -488,8 +500,7 @@ forward
 [[-1  1  0]
  [ 0 -1  1]
  [ 0  0 -1]]
-
-
+product
 [[-2  1  0]
  [ 1 -2  1]
  [ 0  1 -1]]
@@ -561,23 +572,6 @@ Denklemin tam cozumu
 \[ u(x) = x - \frac{1}{1-e} + \frac{1}{1-e}e^x \]
 
 \begin{minted}{python}
-import scipy.linalg as lin
-
-def ktbc(n):
-    vec = np.zeros((1,n))
-    vec[0,0] = 2
-    vec[0,1] = -1
-    K = lin.toeplitz(vec)
-    T = np.copy(K)
-    T[0,0] = 1
-    B = np.copy(K)
-    B[0,0] = 1
-    B[n-1,n-1] = 1
-    C = np.copy(K)
-    C[n-1,n-1] = 1
-    
-    return K, T, B, C
-
 import scipy.linalg as lin
 
 K,T,B,C = ktbc(4); print K
