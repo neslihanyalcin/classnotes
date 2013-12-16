@@ -16,7 +16,8 @@ lineer bir fonksiyon uzerindendir.
 \[ y_t = Hx_t + w \]
 
 $v$ ve $w$'in dagilimi Gaussian'dir ve kovaryans sirasiyla $Q$ ve $R$
-icindedir. 
+icindedir. Cogu filtre hesaplamasinda $A,H,Q,R$ matrisleri onceden bilinir.
+
 
 Zaman faktorunu de dahil etmek gerekirse;
 
@@ -26,7 +27,7 @@ Zaman faktorunu de dahil etmek gerekirse;
 
 Filtremenin amaci $x_{t+1}$ ve $P_{t+1}$ hesabini yeni bir olcum $y_{t+1}$
 uzerinden yapmak olacak. ``Gizli'' $x_t$ derken bunu kastediyorduk, bu
-deger bize verilmiyor, sadece xt ve $x_{t+1}$ arasindaki gecisin nasil oldugunu
+deger bize verilmiyor, sadece $x_t$ ve $x_{t+1}$ arasindaki gecisin nasil oldugunu
 biliyoruz, gurultunun nasil eklendigini biliyoruz, ama bunlarin bilsek bile
 elde bir suru bilinmeyen var. Filtrelemenin matematiksel numaralari
 sayesinde bunu hesaplayabiliyor olacagiz.  Yani yapmamiz gereken ``oku
@@ -35,10 +36,15 @@ tersine cevirmek'', yani $x_t$'nin $y_t$ uzerindeki sartsal bagliligini
 bagimliligini tersine cevirerek yapmak. Ana denklemin iki tarafinin da
 beklentisini (expectation) alalim:
 
-\[ E \ x_{t+1} = \hat{x}_{t+1} = A \mu_t = A \hat{x}_t \]
+\[ E [x_{t+1}] = E [A x_{t} + v] = E [A x_{t}] = A E [x_{t}] = A \mu_t = A \hat{x}_t \]
 
-Simdi iki tarafin kovaryansini alalim ve $P_t$'yi $cov \ x(t)$ olarak
-belirtelim:
+Notasyon olarak sunu soylersek iyi olur
+
+\[ E [x_{t+1}]  = \hat{x}_{t+1} \] 
+
+Beklentiyi alinca $v$ yokoldu cunku bu rasgele degiskenin beklentisinin
+sifir oldugunu biliyoruz. Simdi iki tarafin kovaryansini alalim ve $P_t$'yi
+$cov \ x_t$ olarak belirtelim:
 
 \[ P_{t+1} = AP_tA' + Q \]
 
@@ -224,7 +230,7 @@ $P_{t+1}^{t+1}$ formullerini ortaya cikartabiliriz.
 
 Eger $K = P_{t+1}^{t}C'(CP_{t+1}^{t}C' + \Sigma_w)^{-1}$ dersek
 
-\[  \hat{x}_{t+1}^{t+1}  =  \hat{x}_{t+1}^{t} + K_t (y_{t+1} - C \hat{x}_{t+1}^{t}  \]
+\[  \hat{x}_{t+1}^{t+1}  =  \hat{x}_{t+1}^{t} + K_t (y_{t+1} - C \hat{x}_{t+1}^{t})  \]
 
 \[  P_{t+1}^{t+1} =  P_{t+1}^{t} - K_tC P_{t+1}^{t} \]
 
