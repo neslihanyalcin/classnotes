@@ -70,6 +70,7 @@ if __name__ == "__main__":
 
     frame = cv.QueryFrame(capture)        
     proj_board(frame, 1, 1, 160)
+    cv.SaveImage('first-projection.jpg', frame)
     cv.ShowImage('Camera', frame)
     
     while True:

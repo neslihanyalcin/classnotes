@@ -62,13 +62,14 @@ Kovaryans icin benzer durum
 C_{t+1}^t C' + R
  \]
 
- Simdi daha zor is olan oku tersini cevirmeye gelelim. Eger amacimiz p(xt
- |yt ) denklemini elde etmek ise o zaman bu iki degiskeni iceren birlesik
- dagilimi (joint distribution) elde etmek zorundayiz. Iki Gaussian'in
- birlesiminin yeni bir Gaussian oldugunu biliyoruz, o zaman hem $x_t$ hem
- de $y_t$'in kendisi cok boyutlu birer Gaussian olduklari icin onlarin
- birlesimi $p(x_t |y_t )$'in hakikaten devasa bir Gaussian olacagini tahmin
- edebiliriz.
+Simdi daha zor is olan oku tersini cevirmeye gelelim. Eger amacimiz $p(x_t
+ | y_t)$ 
+denklemini elde etmek ise o zaman bu iki degiskeni iceren birlesik
+dagilimi (joint distribution) elde etmek zorundayiz. Iki Gaussian'in
+birlesiminin yeni bir Gaussian oldugunu biliyoruz, o zaman hem $x_t$ hem
+de $y_t$'in kendisi cok boyutlu birer Gaussian olduklari icin onlarin
+birlesimi $p(x_t |y_t )$'in hakikaten devasa bir Gaussian olacagini tahmin
+edebiliriz.
 
 $x_t$ ve $y_t$'in birlesimi olan Gaussian'i bulmak demek, bu Gaussian'in 
 ortalamasini (mean) ve kovaryansini bulmak demektir cunku bir Gaussian 
@@ -180,7 +181,7 @@ kullanilabilir
 \[ 
 p(x|\mu,\Sigma) = 
 \frac{1}{(2\pi)^{(p+q)/2}|\Sigma|^{1/2}}
-exp \bigg\{ 
+\exp \bigg\{ 
 -\frac{1}{2} 
 \left(\begin{array}{rr}
 x_1 - \mu_1 \\
@@ -244,7 +245,7 @@ Kendimize bir soru soralim: bu sistemin konum bilgisi nedir? Bir robotu
 izliyorsak mesela soru cevabi basittir, onun $x, y$ gibi kordinat
 bilgisi. Duz cizgi fit ederken takip edilen bunlar degil, bize gerekli olan
 bir cizginin ``egimi (slope)''. Yani hem bir cizginin y eksenini kestigi
-nokta, hem de cizginin egimi xt konum bilgisi icinde dahil edilecek. Burada
+nokta, hem de cizginin egimi $x_t$ konum bilgisi icinde dahil edilecek. Burada
 KF literaturunden gelen $x, y$ harfleri birbirine karismasin diye cizginin
 degerlerini $xx_t$ ve $yy_t$ olarak tanimlayacagiz. O zaman $x_t$ vektoru suna
 benzer:
@@ -355,8 +356,8 @@ Ornek: Obje Takibi
 Daha degisik bir ornekten bahsedelim. Bu ornekte OpenCV kutuphanesinden
 elde ettigimiz 2 boyutlu degerleri $y_t$ icin kullanacagiz. Degerler
 OpenCV'nin bir satranc tahtasi seklinin kose noktalarini otomatik olarak
-bulabilen cvFindChessboardCorners cagrisinden gelecek (ayrica
-cvDrawChessboardCorners ile bu noktalari ekranda aninda gosterebilecegiz).
+bulabilen \verb!cvFindChessboardCorners! cagrisinden gelecek (ayrica
+\verb!cvDrawChessboardCorners! ile bu noktalari ekranda aninda gosterebilecegiz).
 
 Elimizdeki ``gurultulu'' olcumler iki boyutlu noktasal degerler. Gurultulu
 cunku kamera bize bu imajlari aktarirken hata eklemis olabilir, OpenCV
@@ -387,7 +388,7 @@ bildiriyorum. Yer degisikligini $d$ olarak betimledim, ve $A$ soyle oldu:
 
 Dikkat edersek $A$ 4x4 boyutunda, 3x3 degil. 3 boyutlu kordinatlari temsil
 etmek icin homojen kordinat sistemini kullandigimiz icin boyle oldu, o
-sebe- ple zaten $x_t$ de 4x1 oldu, ona uymak icin $A$'nin degismesi
+sebeple zaten $x_t$ de 4x1 oldu, ona uymak icin $A$'nin degismesi
 gerekiyordu. $Ax_t$ carpiminin hakikaten kartonu hareket ettirdigini
 gostermek icin bu carpimi bir ornek uzerinde yapalim: Diyelim 
 ki $x_t = [
@@ -411,16 +412,20 @@ gelen bir matristir ve bu matrisi hesaplamak ayarlama / kalibrasyon
 kalibrasyon icin fonksiyonlar var, biz de bunlari denedik, kalibrasyon icin
 kullandigimiz resimlerle alakali olmali, elde edilen sonuclardan memnun
 kalmadik. Alternatif olarak sunu yaptik; resimde gorulen yesil yuzey bizim
-programin olustur- dugu hayali bir yuzey. Filtrenin o anki tahminini P
+programin olusturdugu hayali bir yuzey. Filtrenin o anki tahminini P
 uzerinden goruntuye yansitarak bu yuzeyi olusturduk, boylece deneme /
 yanilma yontemiyle pek cok P degerini deneyerek, yuzeyin resimde gorulen
-masanin sonunda cikacak sekilde olmasini sagladik. O noktaya gelince
-istedigimiz P degerini bulmus oluyorduk. Yansitma matrisleri 3x3 olur, KF
-buna bir dorduncu [0 0 0] satiri ekleyerek onu 4x3 H haline getiriyor.
+masanin sonunda cikacak sekilde olmasini sagladik. 
+
+\includegraphics[height=6cm]{first-projection.jpg}
+
+O noktaya gelince istedigimiz P degerini bulmus oluyorduk. Yansitma
+matrisleri 3x3 olur, KF buna bir dorduncu [0 0 0] satiri ekleyerek onu 4x3
+H haline getiriyor.
 
 KF'in baslangic noktasi olarak P'yi bulmak icin kullandigimiz masa sonunu
-kullandik. Kararsizlik olcutu Q icin, ki bu degisken bir Gaussian kovaryan-
-sidir, $Q = I \cdot 150 cm$ degerini kullandik, yani oldukca buyuk bir
+kullandik. Kararsizlik olcutu Q icin, ki bu degisken bir Gaussian
+kovaryansidir, $Q = I \cdot 150 cm$ degerini kullandik, yani oldukca buyuk bir
 kararsizlik degeri kullandik. Sebep baslangic degeri olan masa ortasini
 sectik, ve takip edecegimiz satranc tahtasinin nerede oldugunu bilmiyoruz,
 ``emin degiliz''.  Bu kararsizligi sayisal olarak programa bildirmis olduk.
@@ -461,7 +466,7 @@ sayi.
 
 Parcacik filtreleri (PF) bir dagilimi ``ayriksal'' olarak temsil
 ederler. Yani diyelim ki tek boyutlu bir dagilimi 100 eleman iceren bir
-dizin ile temsil ede- biliriz, o zaman dagilimin degerlerini 100 tane
+dizin ile temsil edebiliriz, o zaman dagilimin degerlerini 100 tane
 noktada tasimamiz gerekir.  Bunun faydalari her turlu dagilim seklini
 temsil edebilmemiz. Gaussian sadece belli bir sekilde olabilir, tek bir
 tepe noktasi olmalidir, vs. Ayriksal temsil ile 2, 3, istedigimiz kadar
@@ -475,7 +480,7 @@ Daha detaylandirmak gerekirse, PF kodlamasi $x_t$ icin iki tane veri yapisi
 gerektirir. Bir veri yapisi dagilimdaki degerleri temsil eden
 parcaciklardir, digeri ise bu parcaciklarin dagilimdaki onemini temsil eden
 agirliklardir.  Filtreleme sistemi KF'e benzer, once bir gecis uygulanir,
-ki bu gecis kararsi- zligi arttiracaktir, fakat ardindan gozlem verisi bir
+ki bu gecis kararsizligi arttiracaktir, fakat ardindan gozlem verisi bir
 hata fonksiyonu uzerinden dagilim guncellenir. Bu islem sirasinda hatasi
 yuksek olan parcaciklar cezalandirilir, onlarin agirligi azalir,
 otekilerinki yukselir. Her parcacik icin hata fonksiyonu sudur:
@@ -574,7 +579,7 @@ Technology, 2008.
 
 Lall, S., Modern Control 2 Lecture Notes, Stanford University, 2006.
 
-Quantitative Economics Lecture Notebooks - thttp://quant-econ.net/kalman.html
+Quantitative Economics Lecture Notebooks - http://quant-econ.net/kalman.html
 
 \end{document}
 
