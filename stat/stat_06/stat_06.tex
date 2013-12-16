@@ -361,6 +361,176 @@ print a
 5      100      800  0.125000   0.35
 \end{verbatim}
 
+Büyük Sayýlar Kanunu
+
+Olasýlýk kuramýnda önemli matematiksel bir denklem, büyük sayýlar
+kanunudur. Bu kanun, tahmini olarak bildiðimiz günlük bir gerçeðin
+matematiksel ispatýdýr da denebilir.
+
+Yazý-tura atarken yazý çýkma ihtimalinin 1/2 olduðunu biliyoruz. Herhalde
+çoðumuz da bu yazý-tura iþleminin "bir çok kere" tekrarlandýðý durumda,
+toplam sonucun aþaðý yukarý "yarýsýnýn" yazý olacaðýný tahmin biliyoruz. Bu
+tahminin matematiksel olarak söylemi, büyük sayýlar kanunudur. Yýllarca
+önce Öklid'in geometriyi ispat ederek yaptýðý gibi, matematiðe eklediðimizi
+her yeni bilgi daðarcýðýný önce matematiksel olarak ispatlamamýz gerekiyor.
+
+Farzedelim ki her yazý-tura atýþý bir deney olsun. Her ayrý deneyin sonucu
+$X_1, X_2...X_n$ olarak rasgelen deðiþkenlerle tanýmlanmýþ olsun. Bu
+deðiþkenler ya 1 ya da 0 deðeri taþýyacak, Yazý=1, Tura=0 olmak üzere.
+
+Buna göre, n tane deneyden sonra elimize gelmesi gereken yazý oraný þudur.
+
+\[ \bar{X_n} = \frac{1}{n} \sum_{i=1}^n X_i  \]
+
+Büyük sayýlar kanunu, $n$ büyüdükçe $X_n$'in 1/2'ye yaklaþtýðýný ispatlar.
+
+Baþlayalým.
+
+$X_1,X_2,..,X_n$ bagimsiz degiskenler olsun. 
+
+\[ E(X_i) = \mu \]
+
+\[ Var(X_i) = \sigma \]
+
+\[ \bar{X_n} = \frac{1}{n} \sum_{i=1}^n X_i  \]
+
+O zaman her $\epsilon > 0$ icin ve $n \rightarrow \infty $, $p(|\bar{X_n} -
+\mu|) \rightarrow 0$. 
+
+Bu tanýmlara göre, her rasgele deðiþkenin (deneyin) ortalamasý ayni
+deðerdir diyoruz. Bu zaten beklenir bir tanýmdý, çünkü her rasgele
+deðiþkenin daðýlýmýnýn ayný olduðunu kabul etmiþtik. Her yazý tura ayný
+þartlar altýnda atýlmazlar mý?
+
+$\bar{X_n}$ de bir rasgele deðiþkendir, çünku Büyük sayýlar kanununu,
+matematiksel olarak,$\bar{X_n}$ deðiþkeninin ortalamasýný tekil olarak her
+Xi daðýlýmýnýn (ayný olan) ortalamasý arasýnda birkü onun da formülü baþka
+rasgelen deðiþkenlere dayanýyor.
+
+Ýspat devam etmek için, þapkalý Xn daðýlýmýnýn beklentisini bulmamýz gerekiyor. 
+
+\[ \bar{X_n} = \frac{1}{n} \sum_{i=1}^n X_i  \]
+
+\[ E(\bar{X_n}) = E(\frac{1}{n} \sum_{i=1}^n X_i)  \]
+
+E dogrusal bir islec (linear operator) oldugu icin disaridan iceri dogru
+nufuz eder. 
+
+\[ = \frac{1}{n} \sum_{i=1}^n E(X_i) = \frac{1}{n}n\mu \]
+
+\[ = \mu \]
+
+$\bar{X_n}$ daðýlýmýnýn standart sapmasýný da bulalým. 
+
+Diger bir olasilik kuramina gore
+
+\[ Y = a + bX \]
+
+\[ Var(Y) = b^2Var(X) \]
+
+oldugunu biliyoruz. O zaman,
+
+\[ \bar{X_n} = \frac{1}{n} \sum_{i=1}^n X_i  \]
+
+\[ Var(\bar{X_n}) = Var(\frac{1}{n}\sum_{i=1}^nX_i) = 
+\frac{1}{n^2}\sum_{i=1}^n Var(X_i)
+\]
+
+\[ Var(\bar{X_n}) = \frac{1}{n^2}\sum_{i=1}^n \sigma^2 = 
+\frac{1}{n^2}n\sigma^2 = \frac{\sigma^2}{n} 
+\]
+
+Artýk Çebiþev kuramýný kullanmaya hazýrýz. 
+
+$n \rightarrow \infty$, \[ P(|\bar{X_n}-\mu| > \epsilon) \rightarrow 0 \]
+
+Cebisev'den
+
+\[ P(|\bar{X_n}-\mu| > \epsilon) \le \frac{Var(\bar{X_n})}{\epsilon^2} \]
+
+\[ P(|\bar{X_n}-\mu| > \epsilon) \le \frac{\sigma^2}{n\epsilon^2}
+\rightarrow 0 \]
+
+$\sigma^2 / n\epsilon^2$'in sifira gitmesi normal cunku n sonsuza gidiyor.
+
+Peki $P(|\bar{X_n}-\mu| > \epsilon)$'nin sifira gittigini gosterdik mi? 
+
+$\sigma^2 / n\epsilon^2$'nin sifira gittigini gosterdik. $\sigma^2 /
+n\epsilon^2$ de $P(|\bar{X_n}-\mu| > \epsilon)$'den buyuk olduguna gore,
+demek ki o da sifira iner. 
+
+Çebiþev Eþitsizliði
+
+Olasýlýk matematiðinde, büyük sayýlar kuramý adýnda anýlan ve olasýlýk
+matematiðinin belkemiðini oluþturan kuramý ispatlamak için, diðer bir kuram
+olan Çebiþev eþitsizliðini de anlamamýz gerekiyor. Çebiþev eþitsizliði bir
+rasgele deðiþken, onun ortalamasý (beklentisi) ve herhangi bir sabit sayý
+arasýndaki üçlü arasýnda bir 'eþitsizlik' baðlantýsý kurar, ve bu baðlantý
+diðer olasýlýk iþlemlerimizde ispat verisi olarak iþimize yarar.
+
+Teori: Herhangi bir $t$ deðeri için, 
+
+\[ P(|X-\mu| > t) \le \frac{\sigma^2}{t^2} \]
+
+Ýspata baþlayalým. Entegral ile olasýlýk hesabý yapmak için bize bir $x$
+uzayý lazým.
+
+\[ R = {x: |x-\mu| > t} \]
+
+Yani R uzayý, $x$ ile ortalamasýnýn farkýnýn, $t$'den büyük olduðu bütün
+sayýlarýn kümesidir.
+
+O zaman, 
+
+\[ P(|X-\mu| > t) = \int_R f(x)dx \]
+
+Dikkat edelim $P(..)$ içindeki formül, küme tanýmý ile ayný. O yüzden $P()$
+hesabý ortada daha olmayan, ama varolduðu kesin bir daðýlým fonksiyonu
+tanýmlamýþ da oluyor. Buna $f(x)$ deriz. $P()$'in, $f(x)$ fonksiyonunun $R$
+üzerinden entegral olduðunu olasýlýða giriþ dersinden bilmemiz lazým.
+
+Eger $x \in R$ dersek o zaman
+
+\[ \frac{|x-\mu|^2}{t^2} \ge 1 \]
+
+t'nin denkleme bu þekilde nereden geldiði þaþkýnlýk yaratabilir. Daha önce
+tanýmlanan þu ibareye dikkat edelim, $x: |x-u| > t$ diye belirtmiþtik. Bu
+ifadeyi deðiþtirerek, yukarýdaki denkleme gelebiliriz.
+
+Devam edersek, elimizdeki 1'den büyük bir deðer var. Bu deðeri kullanarak,
+aþaðýdaki tanýmý yapmamýz doðru olacaktýr.
+
+\[ \int_R f(x)dx \le \int_R \frac{(x-\mu)^2}{t^2}f(x)dx \le
+\int_{-\infty}^{\infty}\frac{(x-\mu)^2}{t^2}f(x)dx 
+ \]
+
+
+Ortadaki entegral niye birinci entegralden büyük? Çünkü ortadaki entegraldeki
+$F(x)dx$ ibaresinden önce gelen kýsmýn, her zaman 1'den büyük olacaðýný
+belirttiðimize göre, ikinci entegralin birinciden büyük olmasý normaldir.
+
+Evet...Üçüncü entegral ispata oldukça yaklaþtý aslýnda. Standart sapma
+iþaretini hala ortada göremiyoruz, fakat son entegraldeki ibare standart
+sapma deðerini zaten içeriyor. Önce daha önceki olasýlýk natematiði
+bilgimize dayanarak, standart sapmanýn tanýmýný yazýyoruz. Dikkat edelim,
+bu ibare þu anki ispatýmýz dahilinden deðil, haricinden önceki bilgimize
+dayanarak geldi. Standart sapmanýn tanýmý þöyledir.
+
+\[ \sigma^2 = \int_{-\infty}^{\infty} (x-\mu)^2f(x)dx \]
+
+O zaman
+
+\[ \frac{\sigma^2}{t^2} = \int_{-\infty}^{\infty}\frac{(x-\mu)^2}{t^2}f(x)dx \]
+
+yani
+
+\[ \int_R f(x)dx \le \frac{\sigma^2}{t^2} = 
+\int_{-\infty}^{\infty} \frac{(x-\mu)^2}{t^2}f(x)dx
+\]
+
+ki $\int_R f(x)dx$ zaten $P(|X-\mu| > t)$ olarak tanimlanmisti. 
+
+
 Kaynaklar
 
 \verb!https://gist.github.com/mblondel/1761714!
