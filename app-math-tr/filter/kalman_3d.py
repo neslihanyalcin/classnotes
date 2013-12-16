@@ -43,16 +43,3 @@ class Kalman:
         left = eye(self.ndim+1) 
         diff = left - prod
         self.cov = dot(diff, self.cov_est)
-        
-if __name__ == "__main__":		
-
-    # camera matrix
-    K = array([[653.52398682, 0., 326.47888184], 
-               [0., 653.76440430, 259.63595581],
-               [0., 0., 1.]])
-
-    kalman = Kalman(K, mu_init=array([1., 1., 165., 1]))
-    kalman.update(array([100.0, 100.0, 1.]))
-    kalman.update(array([120.0, 120.0, 1.]))
-
-

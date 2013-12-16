@@ -421,9 +421,12 @@ kalmadik. Alternatif olarak sunu yaptik; resimde gorulen yesil yuzey bizim
 programin olusturdugu hayali bir yuzey. Filtrenin o anki tahminini P
 uzerinden goruntuye yansitarak bu yuzeyi olusturduk, boylece deneme /
 yanilma yontemiyle pek cok P degerini deneyerek, yuzeyin resimde gorulen
-masanin sonunda cikacak sekilde olmasini sagladik. 
+masanin sonunda cikacak sekilde olmasini sagladik. Projeksiyon icin
+kullanilan $K$ matrisi ve baslangic imaji altta:
 
 \includegraphics[height=6cm]{first-projection.jpg}
+
+\inputminted{python}{K.py}
 
 O noktaya gelince istedigimiz P degerini bulmus oluyorduk. Yansitma
 matrisleri 3x3 olur, KF buna bir dorduncu [0 0 0] satiri ekleyerek onu 4x3
@@ -439,11 +442,11 @@ sectik, ve takip edecegimiz satranc tahtasinin nerede oldugunu bilmiyoruz,
 Alttaki resimlerde filtrenin tahminini temsil eden yesil yuzeyin satranc tah-
 tasini basariyla takip ettigini goreceksiniz.
 
-\inputminted{python}{run_filter.py}
+\inputminted{python}{track-chess-kf.py}
 
 \inputminted{python}{kalman_3d.py}
 
-\inputminted{python}{track-chess-kf.py}
+\inputminted{python}{run_filter.py}
 
 \begin{minted}{python}
 !python run_filter.py kf
@@ -539,9 +542,9 @@ atliyor.
 
 Kaynaklar
 
-http://dl.dropbox.com/u/1570604/skfiles/campy/chessb-left.avi
+\url{http://dl.dropbox.com/u/1570604/skfiles/campy/chessb-left.avi}
 
-http://dl.dropbox.com/u/1570604/skfiles/campy/chessb-right.avi
+\url{http://dl.dropbox.com/u/1570604/skfiles/campy/chessb-right.avi}
 
 S. Marsland, Machine Learning: An Algorithmic Perspective, CRC Press,
 2009.
@@ -561,8 +564,8 @@ Neural Computation 11(2):305-345, 1999.
 Ghahramani Z., H. E. Hinton, Parameter Estimation for Linear Dynamical
 Systems, Technical Report CRG-TR-96-2
 
-ftp://ftp.cs.toronto.edu/pub/zoubin/tr96-2.ps.gz], Department of Computer
-Science, University of Toronto, 1996. 
+\url{ftp://ftp.cs.toronto.edu/pub/zoubin/tr96-2.ps.gz}, Department of
+Computer Science, University of Toronto, 1996.
 
 Ghahramani Z., H. E. Hinton, Switching State Space Models, Technical Report
 CRG-TR-96-3, Dept. Comp. Sci., Univ. Toronto, 1996. 
@@ -585,7 +588,7 @@ Technology, 2008.
 
 Lall, S., Modern Control 2 Lecture Notes, Stanford University, 2006.
 
-Quantitative Economics Lecture Notebooks - http://quant-econ.net/kalman.html
+Quantitative Economics Lecture Notebooks - \url{http://quant-econ.net/kalman.html}
 
 \end{document}
 

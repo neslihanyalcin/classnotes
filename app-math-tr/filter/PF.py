@@ -40,9 +40,3 @@ class PF:
     def average(self):
         return sum(self.x.T*self.w, axis=1)
             
-if __name__ == "__main__":
-
-    K = array([[700., 0., 300.],[0., 700., 330.],[0., 0., 1.]])   
-    p = PF(K, 100)
-    p.update(array([100.,100.,1.]))
-    print p.average()
