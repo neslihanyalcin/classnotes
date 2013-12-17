@@ -12,6 +12,21 @@ ve
 
 \[ f_Y(y) = \int f(x,y) dy \]
 
+
+Ustteki integraller gercek bir dagilim fonksiyonu $f(x,y)$ verilince alt ve
+ust limit te tanimlamak zorundadir. Cunku bilesen yogunluk icin bir veya
+daha fazla degiskeni ``integralle disari atmak (integrate out)'' ettigimiz
+soylenir, eger ayriksal (discrete) ortamda olsaydik bu atilan degiskenin
+tum degerlerini goze alarak toplama yapan bir formul yazardik. Surekli
+ortamda integral kullaniyoruz, ama tum degerlerin uzerinden yine bir
+sekilde gecmemiz gerekiyor. Iste alt ve ust limitler bunu
+gerceklestiriyor. Bu alt ve ust limitler, atilan degiskenin ``tum
+degerlerine'' bakmasi gerektigi icin $-\infty,+\infty$ olmalidir. Eger
+problem icinde degiskenin belli degerler arasinda oldugu belirtilmis ise
+(mesela alttaki ornekte $x>0$) o zaman entegral limitleri alt ve ust
+sinirini buna gore degistirebilir. 
+
+
 Ornek 
 
 $f_{X,Y}(x,y) = e^{ -(x+y)}$, olsun ki $x,y \ge 0$. O zaman $f_X(x)$
@@ -209,8 +224,11 @@ bu karekokun su ozellikleri vardir, (i)  $\Sigma^{1/2}$ simetriktir, (ii)
 $\Sigma =  \Sigma^{1/2}\Sigma^{1/2} = I$ ve $\Sigma^{-1/2} =
 (\Sigma^{1/2})^{-1}$. 
 
-Diyelim ki Normal bir vektor $X$'i $X = (X_1,X_2)$ olarak parcaladik. Ayni
-sekilde $\mu = (\mu_1,\mu_2)$ olarak parcalayabiliriz. $\Sigma$ ise
+Cok Boyutlu Gaussian'i Parcalamak (Partitioning)
+
+Diyelim ki Normal bir vektor $X$'i $X = (X_1,X_2)$ olarak parcaladik. Bunu
+Gaussian'a etkileri ne olur? Ayni sekilde $\mu = (\mu_1,\mu_2)$ olarak
+parcalayabiliriz. $\Sigma$ ise
 
 \[ \Sigma = 
 \left[\begin{array}{rr}
@@ -619,9 +637,9 @@ yogunlugu olmalidir. Yani,
 
 Buradan genel bir kural cikartabiliriz, 
 
-(1) $X_2$'nin bilesen yogunlugu $X_2 \sim N(\mu_2, \Sigma_{22})$
+1) $X_2$'nin bilesen yogunlugu $X_2 \sim N(\mu_2, \Sigma_{22})$
 
-(2) $X_2 = x_2$ olmak uzere $X_1$'in kosullu dagilimi 
+2) $X_2 = x_2$ olmak uzere $X_1$'in kosullu dagilimi 
 
 \[ X_1 | X_2 = x_2 \sim 
 N\bigg(\mu_1 + \Sigma_{12}\Sigma_{22}^{-1} (x_2 -\mu_2) \ , \
