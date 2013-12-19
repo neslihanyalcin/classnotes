@@ -48,23 +48,63 @@ $b$, $P$'nin bir ozvektoru mudur? Degildir. Cunku $b$ ve $Pb$ ayni yonu
 gostermiyorlar. 
 
 Peki, bu resme gore, yansitma sonrasi ayni yonde olacak bir vektor var
-midir? Varsa nerededir? Cevap, eger $x$ ustteki duzlemde ise $P$ yansitmasi
-sonrasi ayni yonde kalir. Tabii yansitma tekrar kendisini verir, yani
-vektor hic degismemis olur. $Px = x$, ki $\lambda = 1$. 
+midir? Varsa nerededir? Cevap, eger $x$ ustteki duzlemin tam uzerinde ise
+$P$ yansitmasi sonrasi ayni yonde kalir. Tabii yansitma tekrar kendisini
+verir, yani vektor hic degismemis olur. $Px = x$, ki $\lambda = 1$.
 
 Baska bir ozvektor var mi? Olmasini umuyorum cunku 3 boyuttayim ve bu
 demektir ki 2 tane daha birbirinden bagimsiz ozvektor bulabilmeliyim, ki
-nihayetinde ozcektorlerin ikisi duzlem uzerinde, ucuncusu duzlem disinda
-olacak. Duzlem disinda olan ozvektor dik olan ozvektordur. 
+nihayetinde ozvektorlerin ikisi duzlem uzerinde [duzlem iki boyutlu bir sey
+olduguna gore), o zaman ucuncusu duzlem disinda olacak. Duzlem disinda olan
+ozvektor dik olan ozvektor olmali.
 
 \includegraphics[height=4cm]{21_2.png}
 
-Bu durumda $Px = 0$, ve $\lambda = 0$. 
+Bu durumda $Px = 0$, ve $\lambda = 0$, cunku dikligin bir diger tanimi
+carpim sonrasi sonucun sifir olmasi. 
+
+Bir diger ornek. Su permutasyon matrisine bakalim. 
+
+$$ 
+A = \left[\begin{array}{cc}
+0 & 1 \\
+1 & 0
+\end{array}\right]
+ $$
+
+ Bu matrisi hangi vektor ile carparsam ayni yonde bir vektor elde ederim?
+ Permutasyon matrisi tanim itibariyle permutasyon yapar, yani ogelerin
+ yerini degistirir. Iki boyut baglaminda bir vektorun iki ogesinin yerini
+ degistirecektir. Peki hangi vektorun ogeleri yer degistirirse yine kendisi
+ olur? Cevap basit, $x = [1 \ 1]$. 
+
+$$ 
+x = \left[\begin{array}{c}
+1 \\ 1
+\end{array}\right], 
+Ax = \left[\begin{array}{c}
+1 \\ 1
+\end{array}\right], 
+\lambda = 1, Ax = x
+ $$
+
+Bir tane daha ozdeger/vektor lazim. Bu diger ozdeger $\lambda = -1$
+olmali. Peki nasil bir vektor olmali ki ogeleri yer degistirince ters yonu
+gostersin? 
+
+$$ 
+x = \left[\begin{array}{r}
+-1 \\ 1
+\end{array}\right], 
+Ax = \left[\begin{array}{r}
+1 \\ -1
+\end{array}\right], 
+\lambda = -1, Ax = -x
+ $$
 
 
 
-
-
+14:00
 
 
 
