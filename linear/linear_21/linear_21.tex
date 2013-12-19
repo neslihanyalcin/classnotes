@@ -102,18 +102,241 @@ Ax = \left[\begin{array}{r}
 \lambda = -1, Ax = -x
  $$
 
+Ozvektor/degerler hakkinda ufak bir sey daha soylemek istiyorum. $N \times
+N$ matrisinin $N$ tane ozdegeri vardir. Bu degerleri bulmak kolay
+degildir. 1., 2., hatta $N^{inci}$ seviye bir denklemden cikar bu
+degerler. Fakat bize yardim eden bir numara vardir, tum ozdegerlerin
+toplami matrisin kosegen degerlerinin toplamina esittir, ki bu toplama
+``iz'' (trace) ismi verilir. 
+
+Bu numarayi ustteki ornekte kullanirsak, $\lambda = 1$ buldugum anda diger
+ozdegerin -1 oldugunu hemen bilirim, cunku ana matrisin izi sifir, 
+$0 - 1 =
+-1$. 
+
+Artik ozdeger/vektor hesabina gelelim. $Ax = \lambda x$ denklemi var, bu
+denklemde iki bilinmeyen var. Bu denklemi nasil cozerim? Bir numara, her
+seyi tek terafa gonderirim,
+
+$$ (A-\lambda I )x = 0 $$
+
+Simdi bu denklem bana bir seyler soyluyor. Eger bir $x$ ``var'' ise, bu
+varlik, $A-\lambda I$'nin tekil oldugu anlamina gelir. Peki tekil matrisler
+hakkinda ne biliyorum? Determinantlarinin sifir oldugunu biliyorum. Yani,
+
+$$ \det (A -\lambda I) = 0 $$
+
+Bu denklem ozdeger denklemi, ya da karakteristik denklem (characteristic
+equation) olarak bilinir. 
+
+Ilk once $\lambda$ bulmakla ise baslarim. Tabii $N$ tane $\lambda$
+olacaktir, bunlarin hepsini bulmakla ise baslarim. Not: $N$ $\lambda$
+olmasi demek $N$ degisik $\lambda$ olmasi anlamina gelmiyor, bazi $\lambda$
+degerleri kendini tekrar edebilir. Tabii tekrarlanan $\lambda$ bizim
+dersteki her turlu derdin kaynagidir [biraz saka biraz gercek havasiyla
+soyluyor hoca].
+
+$\lambda$'yi bulunca ne yaparim? Matrisin null uzayini hesaplarim, ki artik
+bu islemde usta olduk, eliminasyona baslarim, pivot bulurum, vs. 
+
+Ornek
+
+$$ 
+A = \left[\begin{array}{ccc}
+3 & 1 \\ 1 & 3
+\end{array}\right]
+ $$
+
+Bu matris simetrik. Bu tur ozel sartlar matrisin ozdegerlerinin de ozel
+olmasi  anlamina gelir. Mesela simetrik matrislerin tum ozdegerlerinin reel
+sayi oldugunu hemen bilirim. Peki ozvektorler? Birbirlerine dik
+olurlar. Bir onceki ornegi hatirlarsak, $[1 \ -1]$ ve $[-1 \ 1]$. 
+
+$$ 
+\det (A -\lambda I) = 
+\left[\begin{array}{ccc}
+3-\lambda & 1 \\ 
+1 & 3-\lambda
+\end{array}\right] = 
+(3-\lambda)^2 -1 = 0
+$$
+
+$$ \lambda^2 - 6\lambda + 8 = 0 $$
+
+Bu formuldeki $6$ nedir? Matris izinin eksi hali. Peki 8? O da
+determinant. Yani 2x2 durumunda sayilar cok basit sekilde ortaya
+cikiyorlar. Neyse, ustteki formulu faktorize edelim, $(\lambda - 4)(\lambda
+- 2)$, 
+yani $\lambda_1 = 4,\lambda_2 = 2$. 
+
+Simdi ozvektorler: Bu vektorler kosegenden 2 ya da 4 cikartildigi zaman
+ortaya cikan matrislerin null uzayidir. 
+
+$$ 
+\left[\begin{array}{ccc}
+3-4 & 1 \\ 1 & 3-4
+\end{array}\right] = 
+\left[\begin{array}{ccc}
+-1 & 1 \\ 1 & -1
+\end{array}\right]
+ $$
+
+Bu matris tekil mi? Oyle. Bu matrisi $x_1 = [1 \ 1]$ ile carparsam sifir elde
+ederim. Digeri?
+
+$$ 
+\left[\begin{array}{ccc}
+3-2 & 1 \\ 1 & 3-2
+\end{array}\right] = 
+\left[\begin{array}{ccc}
+1 & 1 \\ 1 & 1
+\end{array}\right]
+ $$
+
+$x_2 = [1 \ -1]$. Bu da ikinci ozvektor.
+
+Ilginc bir durum, bu sonuc permutasyon matrisinden gelen sonuca cok
+benziyor. Fark nerede? Ana matrisin kosegenine 3 eklenmis, ya da $A + 3I$
+yapilmis. Bunu yapinca ozdegerlere 3 eklemis oldum. Ama ozvektorler hic
+degismeden kaldi.
+
+Daha cetrefil bir ornek gorelim. Diyelim ki iki matris $A,B$'nin
+ozdegerlerini biliyorum. $A+B$'nin ozdegerleri $\lambda,\alpha$ nedir?  Ilk
+akla gelen cevap ``ozdegerleri toplanir'' dogru degil. Cunku
+
+$$ (A+B)x = (\lambda+\alpha)x $$
+
+demis oluruz, ama bunu derken ozvektorler ayni demis oluruz. Bu dogru
+degildir. $A \cdot B$ ayni sekilde. Bunlar kotu ornekler. 
+
+Bir ornek daha yapalim, bu sefer rotasyon matrisi. 90 derece dondurme
+matrisi olsun.
+
+Ornek
+
+$$ Q =  
+\left[\begin{array}{ccc}
+\cos 90 & -\sin 90 \\
+\sin 90 & \cos 90
+\end{array}\right]
+= \left[\begin{array}{ccc}
+0 & -1\\
+1  & 0
+\end{array}\right]
+$$
+
+Bu bir dik, ortagonal bir matris. 
 
 
-14:00
+38 36
 
+Ekler: Alttaki anlatim alternatif bir kaynaktan alinmistir
 
+Ozvektorler, Ozdegerleri Elle Hesaplamak (Eigenvectors, Eigenvalues)
 
+Ozdegerler ve ozvektorler her matrise gore ozel vektorlerdir, ki matris bu
+ozel vektorleri transform ettiginde / islediginde sonuc yine ozvektorun
+kendisidir, daha dogrusu onun bir sabit (ozdeger) ile carpilmis
+halidir. Yani
 
+\[ Ax = \lambda x \]
 
+Tek tarafa gecirelim
 
+\[ Ax - \lambda x = 0 \]
 
+Bu noktada $x$'leri disari cekmek isterdik, fakat bunu yapamayiz, cunku o
+zaman iceride $A - \lambda$ kalir ve bu olmaz, cunku $A$ bir matris,
+$\lambda$ bir tek sayi. Ama $Ix = x$'ten hareketle
 
+\[ Ax - \lambda I x = 0 \]
 
+diyebiliriz. Simdi disari cekersek
+
+\[ (A - \lambda I) x = 0 \]
+
+Bu ifadenin dogru olmasi icin parantez icindeki ifade / matris tekil
+(singular) olmalidir. Bunun icin ise parantez icinin determinanti sifir
+olmalidir. Yani
+
+\[ |A - \lambda I| = 0 \]
+
+Ornek 
+
+\[ 
+A = 
+\left[\begin{array}{rr}
+1 & 4 \\ 3 & 5
+\end{array}\right]
+ \]
+
+\[ 
+A - \lambda I = 
+\left[\begin{array}{rr}
+1 & 4 \\ 3 & 5
+\end{array}\right] - 
+\lambda
+\left[\begin{array}{rr}
+1 & 0 \\ 0 & 1
+\end{array}\right] 
+ \]
+
+\[ 
+= 
+\left[\begin{array}{rr}
+1 - \lambda & 4 \\ 3 & 5-\lambda
+\end{array}\right]
+ \]
+
+\[ det(A - \lambda I) = (1-\lambda)(5-\lambda) - 4 \cdot 3 \]
+
+Ustteki denkleme karakteristik denklem (characteristic equation) denir. 
+
+\[ = -7 -6\lambda + \lambda^2 \]
+
+Kokleri $\lambda_1 = 7$, $\lambda_2 = -1$.
+
+Her ozdegere tekabul eden ozvektoru bulmak istiyorsak, cikartma islemini
+yapalim
+
+\[ 
+A - \lambda I = 
+\left[\begin{array}{rr}
+1-7 & 4 \\ 3 & 5-7
+\end{array}\right] = 
+\left[\begin{array}{rr}
+-6 & 4 \\ 3 & -2
+\end{array}\right]
+ \]
+
+Su formule donersek
+
+\[ (A - \lambda I) x = 0 \]
+
+Cikartma sonrasi elimize gecen matrisi carpacak oyle bir $x$ vektoru
+ariyoruz ki bu vektorle carpinca elimize sifir (vektoru) gecsin. Yani bu
+aradigimiz $x$ vektoru $(A - \lambda I)$'nin sifir uzayinda (nullspace). 
+
+2 x 2 boyutundaki boyle ufak bir ornek icin $x$'i aslinda tahmin
+edebiliriz. Oyle iki sayi bulalim ki, 1. ve 2. kolonu onlarla ayri ayri
+carpip topladigimizda sonuc sifir olsun. Her iki kolonun tepesinde -6 ve 4
+goruyorum, sadece bu iki sayinin sifira toplanmasi icin acaba -6'yi 2 ile
+4'u 3 ile carpip toplasam olur mu? Kolondaki diger sayilara bakiyoruz, 3 ve
+-2 icin de bu ise yariyor. Demek ki ozvektorlerden biri 
+
+\[ x_1 = 
+\left[\begin{array}{r}
+2 \\ 3
+\end{array}\right]
+ \]
+
+Diger ise ayni teknigi kullanarak
+
+\[ x_2 = 
+\left[\begin{array}{r}
+-2 \\ 1
+\end{array}\right]
+ \]
 
 
 
