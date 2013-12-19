@@ -501,7 +501,7 @@ yaratmaz, çünkü (15) formülünün deðiþim hýzý, toplamlý olan formülünkiyle
 aynýdýr.
 
 \[
-  l = \sum_{i=1}^N log (p(y_{i}|x_{i})) + \sum_{i=1}^N log
+  l = \sum_{i=1}^N \log (p(y_{i}|x_{i})) + \sum_{i=1}^N \log
   (p(x_{i}|y_{i},\mu,\Sigma))
 \]
 
@@ -527,24 +527,24 @@ olarak þu olur:
 \[ 
   \frac{\partial l}{\partial \alpha} =
   \frac{\partial }{\partial \alpha}
-  \sum_{i=1}^N log (p(y_{i}|\alpha)) 
+  \sum_{i=1}^N \log (p(y_{i}|\alpha)) 
  \]
 
 \[ 
   0 =
   \frac{\partial}{\partial \alpha}
-  \sum_{i=1}^N log\left(\alpha^y_{i}(1-\alpha)^{1-y_{i}}\right) 
+  \sum_{i=1}^N \log\left(\alpha^y_{i}(1-\alpha)^{1-y_{i}}\right) 
  \]
 
 \[  
   0 =
   \frac{\partial}{\partial \alpha}
-  \sum_{i=1}^N y_{i}log(\alpha) + (1-y_{i})log(1-\alpha) 
+  \sum_{i=1}^N y_{i}\log(\alpha) + (1-y_{i})\log(1-\alpha) 
 \]
 
 Problem alanýndan bildiðimiz üzere, bazý $y_{i}$'ler 0 olacak, bazýlari ise
-1. Sýfýr deðerler $y_{i}log(\alpha)$'yi iptal edecektir, bir deðerleri de
-$(1-y_{i})log(1-\alpha)$'i iptal edecektir. O zaman, $y_{i}$'leri formülden
+1. Sýfýr deðerler $y_{i}\log(\alpha)$'yi iptal edecektir, bir deðerleri de
+$(1-y_{i})\log(1-\alpha)$'i iptal edecektir. O zaman, $y_{i}$'leri formülden
 yoketmek için tüm formülü þöyle deðiþtirebiliriz.
 
 \[ 
