@@ -205,5 +205,61 @@ Artik $P(X \ge Y)$ hesabi icin haziriz,
 \[ = \frac{ 21}{4} \int _{ 0}^{1} x^2 \frac{ x^2 - x^4}{2} dx = \frac{ 3}{20} \]
 
 
+``Hafizasiz'' Dagilim, Ustel (Exponential) Dagilim
+
+Ustel dagilimin hafizasiz oldugu soylenir. Bunun ne anlama geldigini
+anlatmaya ugrasalim. Diyelim ki rasgele degisken $X$ bir aletin omrunu
+temsil ediyor, yani bir $p(x)$ fonksiyonuna bir zaman ``sordugumuz'' zaman
+bize dondurulen olasilik, o aletin $x$ zamani kadar daha islemesinin
+olasiligi. Eger $p(2) = 0.2$ ise, aletin 2 yil daha yasamasinin olasiligi
+0.2. 
+
+Bu hafizasizligi, olasilik matematigi ile nasil temsil ederiz?
+
+\[ P( X>s+t \ | X>t ) =  P(X>s) , \ \forall s, \ t \ge 0 \]
+
+Yani oyle bir dagilim var ki elimizde, $X>t$ bilgisi veriliyor, ama (kalan)
+zamani hala $P(X>s)$ olasiligi veriyor. Yani $t$ kadar zaman gectigi 
+bilgisi hicbir seyi degistirmiyor. Ne kadar zaman gecmis olursa olsun,
+direk $s$ ile gidip ayni olasilik hesabini yapiyoruz. 
+
+Sartsal (conditional) formulunu uygularsak ustteki soyle olur
+
+\[  \frac{P( X>s+t,  X>t )}{P(X>t)} = P(X>s)  \]
+
+ya da
+
+\[  P( X>s+t,  X>t ) = P(X>s)P(X>t) \]
+
+Bu son denklemin tatmin olmasi icin $X$ ne sekilde dagilmis olmalidir?
+Ustteki denklem sadece $X$ dagilim fonksiyonu ustel (exponential) olursa
+mumkundur, cunku sadece o zaman
+
+\[ e^{-\lambda(s+t)}  = e^{-\lambda s} e^{-\lambda t}\]
+
+gibi bir iliski kurulabilir. 
+
+Ornek
+
+Diyelim ki bir bankadaki bekleme zamani ortalam 10 dakika ve ustel olarak
+dagilmis. Bir musterinin i) bu bankada 15 dakika beklemesinin ihtimali
+nedir? ii) Bu musterinin 10 dakika bekledikten sonra toplam olarak 15
+dakika (ya da daha fazla) beklemesinin olasiligi nedir? 
+
+Cevap
+
+i) Eger $X$ musterinin bankada bekledigi zamani temsil ediyorsa
+
+\[ P(X>15) = e^{-15 \cdot 1/10} = e^{-3/2} \approx 0.223 \]
+
+ii) Sorunun bu kismi musteri 10 dakika gecirdikten sonra 5 dakika daha
+gecirmesinin olasiligini soruyor. Fakat ustel dagilim ``hafizasiz'' oldugu
+icin kalan zamani alip yine direk ayni fonksiyona geciyoruz, 
+
+\[ P(X>5> = e^{-5 \cdot 1/10} = e^{-1/2} \approx 0.60\]
+
+Kaynak
+
+Introduction to Probability Models, Sheldon Ross, 8th Edition, sf. 273
 
 \end{document}
