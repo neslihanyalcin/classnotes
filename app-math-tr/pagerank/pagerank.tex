@@ -76,17 +76,68 @@ Aradigimiz gecis icin kordinat 0,0'a bakiyoruz ve sonuc 0.5749. Numpy
 \verb!matrix_power! bir matrisi istedigimiz kadar kendisiyle carpmamizi
 sagliyor. 
 
+Duragan Dagilim (Stationary Distribution)
+
+Eger yagmur ornegindeki matrisi carpmaya devam edersek, mesela 8 kere
+kendisiyle carpsak sonuc ne olurdu? 
+
 \begin{minted}{python}
-K = 4
-  
-T = [[1./4, 2./4, 0, 0, 1./4],
+import numpy.linalg as lin
+P = np.array([[0.7,0.3],[0.4,0.6]])
+P8 = lin.matrix_power(P,8)
+print P8
+\end{minted}
+
+\begin{verbatim}
+[[ 0.57145669  0.42854331]
+ [ 0.57139108  0.42860892]]
+\end{verbatim}
+
+Dikkat edilirse, her satir bir deger yaklasmaya basladi. Bu deger MZ'nin
+duragan dagilimidir, belli kosullara uyan her MZ'nin boyle bir duragan
+dagilimi vardir. Bu kosullar MZ'nin periyodik olmayan (aperiodic) ve tekrar
+eden (recurrent) olmasidir. Bu sartlar cok ``ozel'' sartlar degildir
+aslinda, daha cok ``normal'' bir MZ'yi tarif ediyor diyebiliriz. Tum
+konumlari tekrar eden yapmak kolaydir, MZ tek bagli (singly connected) hale
+getirilir, yani her konumdan her diger konuma bir gecis olur, ve periyodik
+olmamasi icin ise MZ'ye olmadigi zamanlarda bir konumdan kendisine gecis
+saglanir (az bir gurultu uzerinden). 
+
+Nihayetinde duraganlik su denkleme sebebiyet verir, 
+
+$$ \pi = \pi P $$
+
+Burada duragan dagilim $\pi$'dir. Bu denklem tanidik geliyor mu?  Devrigini
+alarak soyle gosterelim, belki daha iyi taninir, 
+
+$$ P^T\pi^T = \pi^T $$
+
+Bir sey daha ekleyelim, 
+
+$$ P^T\pi^T = 1 \cdot \pi^T $$
+
+Bu ozdeger/vektor formuna benzemiyor mu? Evet! Bu form 
+
+$$ Ax = \lambda x $$
+
+MZ denklemi sunu soyluyor, 1 degerindeki ozdegere ait ozvektor bir MZ'nin
+duragan dagilimidir! Bu arada, MZ gecis matrisi $P$'nin en buyuk
+ozdegerinin her zaman 1 oldugunu biliyoruz. Bu durumda en buyuk ozdegere
+ait ozvektoru hesaplamak yeterli olacaktir. Bunu yapmayi zaten {\em Lineer
+  Cebir Ders 21}'de ogrenmistik, ust metot (power method) sayesinde bu
+hesap kolayca yapilabiliyor.
+
+Simdi en basktaki Web sayfalarina ait gecisleri yazalim,
+
+\begin{minted}{python}
+P = [[1./4, 2./4, 0, 0, 1./4],
      [1./6, 0, 2./6, 1./6, 2./6],
      [0, 0, 0, 2./4, 2./4],
      [1./8, 0, 0, 4./8, 3./8],
      [0, 1./2, 0, 1./2, 0]]
 
-T = np.array(T)
-print T
+P = np.array(P)
+print P
 \end{minted}
 
 \begin{verbatim}
@@ -97,6 +148,52 @@ print T
  [ 0.          0.5         0.          0.5         0.        ]]
 \end{verbatim}
 
+Simdi ust metotu kullanarak duragan dagilimi hesaplayalim. $P$'yi 20 kere
+kendisiyle carpmak yeterli olur (ya da rasgele bir baslangic vektorunu 20
+kere $P$ ile carpmak diyelim, bakis acisina gore degisir). 
+
+\begin{minted}{python}
+import numpy.linalg as lin
+x=np.array([.5, .3, .1, .1, 0])
+pi = np.dot(x,lin.matrix_power(P,20))
+print pi
+\end{minted}
+
+\begin{verbatim}
+[ 0.10526316  0.18421053  0.06140351  0.38596491  0.2631579 ]
+\end{verbatim}
+
+Eger kutuphane cagrisi kullanmak gerekirse, 
+
+\begin{minted}{python}
+import scipy.linalg as lin
+evals,evec = lin.eig(P.T)
+pi =  evec[:,0] / np.sum(evec[:,0])
+print pi
+\end{minted}
+
+\begin{verbatim}
+[ 0.10526316-0.j  0.18421053-0.j  0.06140351-0.j  0.38596491-0.j
+  0.26315789-0.j]
+\end{verbatim}
+
+Sonuc gosteriyor ki ``book'' yazdigizda Google bize 5. sayfayi en basta
+olacak sekilde sonuc dondurmeli.
+
+Duragan Dagilima Bakis
+
+MZ ve duragan dagilimin PageRank'le alakasini bir daha dusunelim. MZ ile
+$n$ adim sonrasini hesaplayabiliyoruz, duragan dagilim ise sonsuz adim
+sonrasini ifade ediyor. Ve bu dagilim, bir anlamda, sonsuz yapilan adimlar
+sirasinda {\em en fazla hangi konumlarda} zaman gecirilecegini
+gosteriyor. Konum yerine sayfa dersek duragan dagilimin niye en onemli
+sayfalari belirlemek icin onemli oldugunu anlariz. 
+
+Kullanici herhangi bir sayfada iken hangi diger sayfalara gidecegi o sayfa
+uzerinde baglantilar uzerinden anlasilir, ve PageRank aslinda bu
+baglantinin mevcudiyetine bakar sadece, o mevcudiyet uzerinden bir gecis
+olasiligi hesaplanir, ve bu olasiliga gore, raslantisal sekilde baglantinin 
+takip edilecegi dusunulur. 
 
 
 [1] Murphy, K., CS340: Machine Learning Lecture Notes, \url{www.ugrad.cs.ubc.ca/~cs340}
