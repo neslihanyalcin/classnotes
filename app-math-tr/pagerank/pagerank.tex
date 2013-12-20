@@ -166,19 +166,19 @@ print pi
 Eger kutuphane cagrisi kullanmak gerekirse, 
 
 \begin{minted}{python}
-import scipy.linalg as lin
+import numpy.linalg as lin
 evals,evec = lin.eig(P.T)
 pi =  evec[:,0] / np.sum(evec[:,0])
-print pi
+print np.abs(pi)
 \end{minted}
 
 \begin{verbatim}
-[ 0.10526316-0.j  0.18421053-0.j  0.06140351-0.j  0.38596491-0.j
-  0.26315789-0.j]
+[ 0.10526316  0.18421053  0.06140351  0.38596491  0.26315789]
 \end{verbatim}
 
 Sonuc gosteriyor ki ``book'' yazdigizda Google bize 5. sayfayi en basta
-olacak sekilde sonuc dondurmeli.
+olacak sekilde sonuc dondurmeli, cunku onun duragan dagilimi 1,2,5
+sayfalarinin arasinda en yuksek.
 
 Duragan Dagilima Bakis
 

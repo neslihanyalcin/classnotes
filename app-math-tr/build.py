@@ -16,7 +16,7 @@ if len(sys.argv) == 1 or sys.argv[1] == 'tex':
 ./curvature/curvature.pdf ./level/level.pdf ./lk/lk.pdf ./varcalc/varcalc.pdf \
 ./filter/filter.pdf ./svdcluster/svdcluster.pdf ./rndsvd/rndsvd.pdf  ./svdrecom/svdrecom.pdf \
 ./regularization/regular.pdf ./mixbern/mixbern.pdf ./meanshift/meanshift.pdf ./phd/phd.pdf \
-./ztransform/z.pdf  \
+./ztransform/z.pdf  ./pagerank/pagerank.pdf \
 output ~/Dropbox/Public/skfiles/app-math-tr.pdf "
     os.system(cmd)
     exit()
