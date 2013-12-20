@@ -225,12 +225,93 @@ $$ Q =
 \end{array}\right]
 $$
 
-Bu bir dik, ortagonal bir matris. 
+Bu bir dik, ortagonal bir matris. Ozdegerlerin toplami sifir olacak, cunku
+iz oyle. Determinant ozdegerlerin carpimina esit, yani bu carpim 1 olacak. 
 
+Fakat bu ornekte bazi seyler yanlis gidecek. Niye? Dusunelim, hangi vektor
+bu matrise verilince, donduruldukten snora, disari ayni yonde olarak cikar?
+Ozellikle 90 derece donduruldukten sonra. Gordugunuz gibi problem
+cikabilir.  Ozdegerler ile de problem var, toplami 0 olan ama carpimi 1
+olan nasil sayilar bulabilecegiz ki?
 
-38 36
+Fakat bir care var. Hesaplayalim, 
 
-Ekler: Alttaki anlatim alternatif bir kaynaktan alinmistir
+$$ \det(Q - \lambda I) = 
+\left[\begin{array}{ccc}
+-\lambda & -1 \\
+1 & -\lambda
+\end{array}\right] = \lambda^2 + 1 = 0
+ $$
+
+Ozdegerler nedir? $\lambda_1 = i, \lambda_2 = -i$. Bu sayilar kompleks / hayali
+sayilardir, reel degillerdir. Bu olabilir. Bir matris, ustte oldugu gibi,
+tamamen reel sayilardan olusabilir, ama ozdegerleri hayali olabilir. 
+
+Bu iki hayali sayi birbirinin kopmleks eslenigi (complex
+conjugate). Kompleks eslenigin ne oldugunu hatirliyoruz herhalde, bir
+sayinin hayali kisminin isaretini degistirince onun kompleks eslenigini
+elde etmis olurum. Ustteki sayilar zaten tamamen hayali bolumden olusuyor,
+hic reel kisimlari yok, o tek kismin da isaretini degistirince eslenigi
+elde ediyorum. 
+
+Eger matrisim simetrik, ya da ``simetrige yakin'' olsaydi, ustteki durum
+kesinlikle ortaya cikmazdi. Cunku kural odur ki, simetrik matrislerin
+ozdegerleri reeldir. 
+
+Bol bol ornek veriyorum ki tum olasiliklari gorebilelim. 
+
+Bir kotu ihtimal daha.
+
+$$ A = 
+\left[\begin{array}{ccc}
+3 & 1 \\ 0 & 3
+\end{array}\right]
+ $$
+
+Bu matris ucgensel (triangular). Bu tur matrislerde ozdegerler kosegenin
+uzerindedir! Bunu bilmek oldukca faydalidir. Ama kontrol edelim,
+
+$$ \det(Q - \lambda I) = 
+\left[\begin{array}{ccc}
+3-\lambda & 1 \\
+0 & 3-\lambda
+\end{array}\right] = (3-\lambda)(3-\lambda) = 0, 
+\lambda_1 = 3, \lambda_2 = 3
+ $$
+
+Problem nerede? Problem ozvektorlerde. Hatirlayalim, 
+
+$$ (A-\lambda I)x = 0$$
+
+denklemini cozuyoruz, yani
+
+$$ (A-\lambda I)x = 
+\left[\begin{array}{cc}
+0 & 1 \\ 
+0 & 0
+\end{array}\right]
+\vec{x}
+=
+\left[\begin{array}{c}
+0 \\ 0
+\end{array}\right]
+$$
+
+Burada $\vec{x}$ sonucunu ariyorum, bir vektor. Kafadan hemen birinci
+ozvektoru bulabilirim, 
+
+$$ x_1 = \left[\begin{array}{c}
+1 \\ 0
+\end{array}\right] $$
+
+Peki ikinci ozvektor nedir? Bu vektorun birinciden bagimsiz olmasi gerekir,
+unutmayalim. Boyle bir vektor bulabilir miyiz? Bulamayiz. Mumkun degil. Bu
+sebeple bu ornege dejenere durum (degenerate case) denir. Ikinci bir
+bagimsiz ozvektor yoktur. 
+
+Ekler 
+
+Alttaki anlatim alternatif bir kaynaktan alinmistir
 
 Ozvektorler, Ozdegerleri Elle Hesaplamak (Eigenvectors, Eigenvalues)
 
@@ -330,7 +411,7 @@ goruyorum, sadece bu iki sayinin sifira toplanmasi icin acaba -6'yi 2 ile
 \end{array}\right]
  \]
 
-Diger ise ayni teknigi kullanarak
+Digeri ise, ayni teknigi kullanarak,
 
 \[ x_2 = 
 \left[\begin{array}{r}

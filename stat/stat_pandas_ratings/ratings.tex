@@ -95,9 +95,12 @@ print active_titles[:10]
 Index([u''burbs, The (1989)', u'10 Things I Hate About You (1999)', u'101 Dalmatians (1961)', u'101 Dalmatians (1996)', u'12 Angry Men (1957)', u'13th Warrior, The (1999)', u'2 Days in the Valley (1996)', u'20,000 Leagues Under the Sea (1954)', u'2001: A Space Odyssey (1968)', u'2010 (1984)'], dtype=object)
 \end{verbatim}
 
-Yapilan harekete dikkat: \verb!ratings_by_title.index! uzerinde bir boolean filtreleme yaptik, yani \verb![True, False..., True]!
-gibi bir filtreleyiciyi \verb!Index! **objesi** uzerinde kullandik. Bu niye isledi? Cunku \verb!.index! cagrisi da sonucta
-bir dizindir, ve dizinler uzerinde istenen boolean filtrelemesi yapilabilir (her iki taraf ta ayni boyutta oldugu surece).
+Yapilan harekete dikkat: \verb!ratings_by_title.index! uzerinde bir boolean
+filtreleme yaptik, yani \verb![True, False..., True]!  gibi bir
+filtreleyiciyi \verb!Index! {\em objesi} uzerinde kullandik. Bu niye
+isledi? Cunku \verb!.index! cagrisi da sonucta bir dizindir, ve dizinler
+uzerinde istenen boolean filtrelemesi yapilabilir (her iki taraf ta ayni
+boyutta oldugu surece).
 
 Devam edelim, simdi ortalama notlari ustteki yeni Index'e gore
 azaltalim (ve \verb!.ix! kullanacagiz, cunku Index objesi
