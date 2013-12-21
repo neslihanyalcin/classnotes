@@ -148,20 +148,25 @@ print P
  [ 0.          0.5         0.          0.5         0.        ]]
 \end{verbatim}
 
-Simdi ust metotu kullanarak duragan dagilimi hesaplayalim. $P$'yi 20 kere
-kendisiyle carpmak yeterli olur (ya da rasgele bir baslangic vektorunu 20
-kere $P$ ile carpmak diyelim, bakis acisina gore degisir). 
+Simdi ust metotu kullanarak duragan dagilimi hesaplayalim. Herhangi bir
+baslangic vektorunu $P$ ile 20 kere  carpmak yeterli olur.
 
 \begin{minted}{python}
 import numpy.linalg as lin
 x=np.array([.5, .3, .1, .1, 0]) # herhangi bir vektor
-pi = np.dot(x,lin.matrix_power(P,20))
-print pi
+for i in range(20): 
+    x = np.dot(x,P)
+print 'pi = ', x
 \end{minted}
 
 \begin{verbatim}
-[ 0.10526316  0.18421053  0.06140351  0.38596491  0.2631579 ]
+pi =  [ 0.10526316  0.18421053  0.06140351  0.38596491  0.2631579 ]
 \end{verbatim}
+
+Not: Aslinda cebirsel olarak $P$'yi 20 kere kendisiyle carpmak ve sonucu
+baslangic vektoru ile bir kere carpmak ta dusunulebilirdi. Fakat 20 kere
+vektor / matris carpimlari yapmak, 20 kere matris / matris carpimi
+yapmaktan daha verimli olacaktir. Buyuk Veri ortami icin de bu soylenebilir.
 
 Eger kutuphane cagrisi kullanmak gerekirse, 
 
