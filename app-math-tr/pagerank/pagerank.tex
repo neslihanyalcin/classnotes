@@ -246,7 +246,7 @@ N = [[0, 0, 0, 1., 0],
 N = np.array(N)
 
 Nf = 0.20 * np.ones((5,5))
-d = 0.9
+d = 0.85
 M = d*N + (1-d)*Nf
 x=np.array([.5, .3, .1, .1, 0]) # herhangi bir vektor
 for i in range(20): 
@@ -255,7 +255,7 @@ print 'result = ', x
 \end{minted}
 
 \begin{verbatim}
-result =  [ 0.18887406  0.24587067  0.18763576  0.18998375  0.18763576]
+result =  [ 0.18959094  0.24375097  0.18775335  0.19115138  0.18775335]
 \end{verbatim}
 
 Sonuca gore $v_2$ en yuksek PageRank degerine sahip. 
