@@ -44,11 +44,11 @@ Derivation
 \end{figure}
 
 Decision plane: $w^{T}x + b=0$ \\
-Let's define $q = min_{x}\big\|x - 0\big\|$
+Let's define $q = \min_{x}\big\|x - 0\big\|$
 
 \begin{itemize}
    \item We will later use the formula for $q$ on $H^{+}$ and $H^{-}$.
-   \item For H: $q = min_{x}\big\|x - 0\big\|$ subject to $w^{T}x+b=0$
+   \item For H: $q = \min_{x}\big\|x - 0\big\|$ subject to $w^{T}x+b=0$
    \item Lagrange: $min_{x}\frac{1}{2}\big\|x - 0\big\|^2+\lambda(w^{T}x+b)$
    \item Take gradient ($\frac{\partial}{\partial x}$) set to 0
    \item After some algebra: $q = \frac{|b|}{||w||}$
@@ -95,7 +95,7 @@ y_{i}(w^{T}x+b)-1 \geq 0 \nonumber
 Putting it all together
 
 \begin{equation}
-  min \frac{1}{2}{||w||^2} \textrm{ subject to }  y_{i}(w^Tx_{i}+b)-1 \ge 0 \nonumber
+  \min \frac{1}{2}{||w||^2} \textrm{ subject to }  y_{i}(w^Tx_{i}+b)-1 \ge 0 \nonumber
 \end{equation}
 
 This is a quadratic program!
