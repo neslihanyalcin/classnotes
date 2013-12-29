@@ -185,12 +185,12 @@ Bir dik matris ornegi gorelim:
 
 \[ 
 \left[\begin{array}{cc}
-cos \theta & -sin \theta \\
-sin \theta & cos \theta \\
+\cos \theta & -\sin \theta \\
+\sin \theta & \cos \theta \\
 \end{array}\right]
  \]
 
-Ilk kolona bakalim, uzunlugu hakikaten 1, cunku $cos \theta ^2 + sin \theta
+Ilk kolona bakalim, uzunlugu hakikaten 1, cunku $\cos \theta ^2 + \sin \theta
 ^2 = 1$. 
 Diger kolon da ona dik, 1. kolon ile carpilinca sonuc sifir olacak. 
 
@@ -249,15 +249,14 @@ hala gecerli oldugunu anlayacagiz.
 
 Cozumu bulmak icin tahmin yontemini kullanalim: hangi fonksiyonun ikinci
 turevinin negatifi, o fonksiyonun katini verir? Sin ve cos fonksiyonlari,
-yani $y$ $sin \omega x$, $cos \omega x$ olabilir, ya da onlarin birlesimi
+yani $y$ $\sin \omega x$, $\cos \omega x$ olabilir, ya da onlarin birlesimi
 olarak ustel $e^{-i\omega x}$, $e^{i\omega x}$ formunda olabilir.
 
-Eger $y$ icin sin, cos kullanirsak ozdeger ne olur? Yerine koyarsak
-goruruz, $sin\omega x$'in iki kere turevini alirsak $\omega$ iki kere
+Eger $y$ icin $\sin, \cos$ kullanirsak ozdeger ne olur? Yerine koyarsak
+goruruz, $\sin\omega x$'in iki kere turevini alirsak $\omega$ iki kere
 disari cikar, arada bir eksi degeri mutlaka ortaya cikar (cunku 
-$cos'\theta =
--sin\theta)$, eksi ile eksi carpilir, sonuc $\omega^2$. Hatta ustteki tum
-$y$ secenekleri icin sonuc aynidir. 
+$\cos'\theta = -\sin\theta)$, eksi ile eksi carpilir, sonuc $\omega^2$. 
+Hatta ustteki tum $y$ secenekleri icin sonuc aynidir. 
  
 Sinir kosullarini unutmayalim tabii. Problemin tamami
 
@@ -265,14 +264,14 @@ Sinir kosullarini unutmayalim tabii. Problemin tamami
 
 \[ y(0) = 0, \ y(1) = 0 \]
 
-Sinir kosullari sayesinde tum sin, tum cos fonksiyonlari arasindan belli
+Sinir kosullari sayesinde tum $\sin$, tum $\cos$ fonksiyonlari arasindan belli
 bazilarini secebilecegiz. En basit eleme $y(0) = 0$, bu sart sayesinde cos
 fonksiyonlarinin tamami elenir. Degil mi? Cunku $\cos(0) = 0$ dogru
-olamaz. Diger sarta bakalim, $y(1)$ uzerinden $sin(\omega) = 0$ olur,
-tersinden dusunursek $sin(\omega)$ ile sifir degeri verecek $\omega$ ne
+olamaz. Diger sarta bakalim, $y(1)$ uzerinden $\sin(\omega) = 0$ olur,
+tersinden dusunursek $\sin(\omega)$ ile sifir degeri verecek $\omega$ ne
 olabilir? $\pi$ olabilir. O zaman bir cozum bulduk:
 
-\[ y_1 = sin \pi x \]
+\[ y_1 = \sin \pi x \]
 
 Elimizdeki ilk ``ozfonksiyon (eigenfunction)'' bu. Ozdegeri nedir?
 
@@ -290,16 +289,16 @@ $y'(0) = 0$ olsaydi, sin fonksiyonlari yerine cos fonksiyonlari elde
 ederdik, sin elenirdi cunku sin'in turevi $\cos(0) = 0$ dogru bir ifade
 olamazdi. 
 
-Ayriksal olarak temsil edersek, $sin\pi h$ ve $h = 1 / n+1$, $n = 4$
+Ayriksal olarak temsil edersek, $\sin\pi h$ ve $h = 1 / n+1$, $n = 4$
 kullanalim
 
 \[ 
 y_1 = 
 \left[\begin{array}{c}
-sin \frac{\pi}{5} \\
-sin \frac{2\pi}{5} \\
-sin \frac{3\pi}{5} \\
-sin \frac{4\pi}{5} 
+\sin \frac{\pi}{5} \\
+\sin \frac{2\pi}{5} \\
+\sin \frac{3\pi}{5} \\
+\sin \frac{4\pi}{5} 
 \end{array}\right]
  \]
 
@@ -321,21 +320,21 @@ sin \frac{8\pi}{5}
 \includegraphics[height=2cm]{6_3.png}
 
 Ozvektorler oldugunu soylemekle ikinci bir sey daha soyluyoruz, bu iki
-vektor birbirine dik. Buradan hareketle $sin(\pi x)$ fonksiyonu (iki
-ustteki resim) $sin(2\pi x)$ fonksiyonuna (bir ustteki resim) dik
+vektor birbirine dik. Buradan hareketle $\sin(\pi x)$ fonksiyonu (iki
+ustteki resim) $\sin(2\pi x)$ fonksiyonuna (bir ustteki resim) dik
 diyebilirdik, ki hakikaten oyledir. Hatta bu matematiksel durum Fourier
 Serilerinin islemesini saglayan onemli bir etkendir.
 
 Bu baglantidan devam edelim: pur vektorler oldugu zaman diklik kontrolu icin
 $y_1^T \cdot y_2$ diyordum, ve $y_1$ ve $y_2$'nin eslesen elemanlari birbiriyle 
 carpilip, bu sonuclar teker teker toplaniyordu. Elimde $y_1$ ve $y_2$ icin 
-birer fonksiyon var ise, bir tarafta $sin(\pi x)$ var, her $x$ icin degisik
-degerler veriyor, diger tarafta $sin(2\pi x)$ var, bunlari carpip toplamam
+birer fonksiyon var ise, bir tarafta $\sin(\pi x)$ var, her $x$ icin degisik
+degerler veriyor, diger tarafta $\sin(2\pi x)$ var, bunlari carpip toplamam
 lazim. Ama Elimde teker teker toplayabilecegim degerler olmadigi icin ($x$ reel
 bir sayidir, belli bir aralikta bile sonsuz tane degere sahip olabilir), o
 zaman toplama yerine entegrasyon kullanmam lazim. O zaman
 
-\[ y_1^T \cdot y_2  = \int_0^1 (sin \pi x)(sin 2\pi x)dx  \]
+\[ y_1^T \cdot y_2  = \int_0^1 (\sin \pi x)(\sin 2\pi x)dx  \]
 
 Sonuc sifir gelecek, cunku iki fonksiyon birbirine dik.
 
