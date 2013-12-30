@@ -3,11 +3,10 @@
 ;; Bu islev, atak oyun halinde mi, yoksa defans oyun halinde mi
 ;; oldugumuzu hesaplar. Eger defans agirlikli oynuyorsak, ki program
 ;; bunu oyunun basinda yapmak uzere yazildi, her tahtanin degeri
-;; hesaplanirken agirliklar defansif olculere gore secilir.
-;; Atak oyununda bu agirliklar degisiyor.
-;; Defans/Atak karari su ana kadar kac hamle yapildigina
-;; gore veriliyor; Belli bir tetik degerinden sonra, (7 hamle)
-;; bilgisayar atak oynamaya basliyor. 
+;; hesaplanirken agirliklar defansif olculere gore secilir.  Atak
+;; oyununda bu agirliklar degisiyor.  Defans/Atak karari su ana kadar
+;; kac hamle yapildigina gore veriliyor; Belli bir tetik degerinden
+;; sonra, (7 hamle) bilgisayar atak oynamaya basliyor.
 (defun atak-oyun? ()
   (cond ((> bilgisayar-hamle-sayisi 7) t)
 	(t nil)))
