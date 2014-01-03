@@ -6,6 +6,7 @@ Ikisel Matris Ayristirmasi ve Oge Kumeleri Bulmak
 
 \begin{minted}{python}
 import nimfa
+import pandas as pd
 import scipy.sparse as sp
 
 def __fact_factor(X):
@@ -29,17 +30,25 @@ res = nimfa.mf_run(fctr)
 threshold = 0.2
 res1 = __fact_factor(res.basis())
 res2 = __fact_factor(res.coef())
-print np.abs(np.round(res1 - 0.5 + threshold)),'\n\n',\
-      np.abs(np.round(res2 - 0.5 + threshold))
+res1 = np.abs(np.round(res1 - 0.5 + threshold))
+res2 = np.abs(np.round(res2 - 0.5 + threshold))
+res1 = pd.DataFrame(res1, index=['long-haired','well-known','male'])
+res2 = pd.DataFrame(res2, columns=['A','B','C'])
+print res1
+print '\n'
+print res2
 \end{minted}
 
 \begin{verbatim}
-[[ 1.  0.]
- [ 1.  1.]
- [ 0.  1.]] 
+             0  1
+long-haired  1  0
+well-known   1  1
+male         0  1
 
-[[ 1.  0.  0.]
- [ 0.  1.  1.]]
+
+   A  B  C
+0  1  0  0
+1  0  1  1
 \end{verbatim}
 
 \includegraphics[height=2cm]{abc_res.png}
@@ -76,8 +85,9 @@ def one_hot_dataframe(data, cols, replace=False):
         data = data.join(vecData)
     return (data, vecData, vec)
 
-df = pd.DataFrame(data,columns=['outlook','temparature','humidity','windy','play'])
-df2, _, _ = one_hot_dataframe(df, ['outlook','temparature','humidity','windy','play'], replace=True)
+cols = ['outlook','temparature','humidity','windy','play']
+df = pd.DataFrame(data,columns=cols)
+df2, _, _ = one_hot_dataframe(df, cols, replace=True)
 print df2.ix[0]
 \end{minted}
 
@@ -142,6 +152,7 @@ for x in items:
 \end{minted}
 
 \begin{verbatim}
+<fp.node instance at 0x4210518>
    Null Set   1
      play=yes   9
        humidity=high   1
@@ -170,5 +181,13 @@ for x in items:
 set(['play=yes', 'humidity=normal'])
 set(['play=yes', 'windy=false'])
 \end{verbatim}
+
+Kaynaklar
+
+[1] Ian H. Witten, Eibe Frank, Mark A. Hall, {\em Data Mining Practical Machine Learning Tools and Techniques}
+
+[2] Harrington, P., {\em Machine Learning in Action}
+
+
 
 \end{document}
