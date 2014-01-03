@@ -1,0 +1,44 @@
+\documentclass[12pt,fleqn]{article}\usepackage{../common}
+\begin{document}
+Ikisel Matris Ayristirmasi ve Oge Kumeleri Bulmak
+
+\includegraphics[height=4cm]{abc.png}
+
+\begin{minted}{python}
+import nimfa
+import scipy.sparse as sp
+
+A = np.array([[1., 1., 0],
+              [1., 1., 1.],
+              [0, 1., 1.]])
+
+fctr = nimfa.mf(A,
+              seed = "nndsvd", 
+              rank = 2, 
+              method = "bmf", 
+              max_iter = 40, 
+              initialize_only = True,
+              lambda_w = 1.1,
+              lambda_h = 1.1)
+
+res = nimfa.mf_run(fctr)
+
+threshold = 0.2
+res1 = __fact_factor(res.basis())
+res2 = __fact_factor(res.coef())
+print np.abs(np.round(res1 - 0.5 + threshold)),'\n\n',\
+      np.abs(np.round(res2 - 0.5 + threshold))
+\end{minted}
+
+\begin{verbatim}
+[[ 1.  0.]
+ [ 1.  1.]
+ [ 0.  1.]] 
+
+[[ 1.  0.  0.]
+ [ 0.  1.  1.]]
+\end{verbatim}
+
+\includegraphics[height=2cm]{abc_res.png}
+
+\end{document}
