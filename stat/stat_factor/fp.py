@@ -105,7 +105,8 @@ def create_init_set(dataSet):
 
 def fpgrowth(data, minsup):
     init_set = create_init_set(data)
-    tree, header_tab = create_tree(init_set, 6)
+    tree, header_tab = create_tree(init_set, minsup)
+    print tree
     tree.disp(); items = []
     mine_tree(tree, header_tab, 6, set([]), items)
     return items
@@ -118,11 +119,11 @@ if __name__ == "__main__":
         ['z', 'y', 'x', 'w', 'v', 'u', 't', 's'],
         ['r', 'x', 'n', 'o', 's'],
         ['y', 'r', 'x', 'z', 'q', 't', 'p'],
-        ['y', 'z', 'x', 'e', 'q', 's', 't', 'm']]
+        ['y', 'z', 'x', 'e', 'q', 's', 't', 'm']
+        ]
 
-
-#    items = fpgrowth(data, minsup=6)
-#    for x in items:
-#        if len(x) > 1: print x
+    items = fpgrowth(data, minsup=2)
+    for x in items:
+        if len(x) > 1: print x
 
         
