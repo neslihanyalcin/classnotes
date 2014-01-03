@@ -108,7 +108,7 @@ def fpgrowth(data, minsup):
     tree, header_tab = create_tree(init_set, minsup)
     print tree
     tree.disp(); items = []
-    mine_tree(tree, header_tab, 6, set([]), items)
+    mine_tree(tree, header_tab, minsup, set([]), items)
     return items
 
 if __name__ == "__main__": 
@@ -122,8 +122,7 @@ if __name__ == "__main__":
         ['y', 'z', 'x', 'e', 'q', 's', 't', 'm']
         ]
 
-    items = fpgrowth(data, minsup=2)
+    items = fpgrowth(data, minsup=3)
     for x in items:
         if len(x) > 1: print x
 
-        
