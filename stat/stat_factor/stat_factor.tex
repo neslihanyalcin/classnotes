@@ -8,6 +8,9 @@ Ikisel Matris Ayristirmasi ve Oge Kumeleri Bulmak
 import nimfa
 import scipy.sparse as sp
 
+def __fact_factor(X):
+    return X.todense() if sp.isspmatrix(X) else X
+
 A = np.array([[1., 1., 0],
               [1., 1., 1.],
               [0, 1., 1.]])
@@ -40,5 +43,133 @@ print np.abs(np.round(res1 - 0.5 + threshold)),'\n\n',\
 \end{verbatim}
 
 \includegraphics[height=2cm]{abc_res.png}
+
+\begin{minted}{python}
+data = [
+  ['outlook=sunny', 'temparature=hot', 'humidity=high', 'windy=false', 'play=no'],
+  ['outlook=sunny', 'temparature=hot', 'humidity=high', 'windy=true', 'play=no'],
+  ['outlook=overcast', 'temparature=hot', 'humidity=high', 'windy=false', 'play=yes'],
+  ['outlook=rainy', 'temparature=mild', 'humidity=high', 'windy=false', 'play=yes'],
+  ['outlook=rainy', 'temparature=cool', 'humidity=normal', 'windy=false', 'play=yes'],
+  ['outlook=rainy', 'temparature=cool', 'humidity=normal', 'windy=true', 'play=no'],
+  ['outlook=overcast', 'temparature=cool', 'humidity=normal', 'windy=true', 'play=yes'],
+  ['outlook=sunny', 'temparature=mild', 'humidity=high', 'windy=false', 'play=no'],
+  ['outlook=sunny', 'temparature=cool', 'humidity=normal', 'windy=false', 'play=yes'],
+  ['outlook=rainy', 'temparature=mild', 'humidity=normal', 'windy=false', 'play=yes'],
+  ['outlook=sunny', 'temparature=mild', 'humidity=normal', 'windy=true', 'play=yes'],
+  ['outlook=overcast', 'temparature=mild', 'humidity=high', 'windy=true', 'play=yes'],
+  ['outlook=overcast', 'temparature=hot', 'humidity=normal', 'windy=false', 'play=yes'],
+  ['outlook=rainy', 'temparature=mild', 'humidity=high', 'windy=true', 'play=no']
+  ]
+
+from sklearn.feature_extraction import DictVectorizer
+import pandas as pd
+
+def one_hot_dataframe(data, cols, replace=False):
+    vec = DictVectorizer()
+    mkdict = lambda row: dict((col, row[col]) for col in cols)
+    vecData = pd.DataFrame(vec.fit_transform(data[cols].apply(mkdict, axis=1)).toarray())
+    vecData.columns = vec.get_feature_names()
+    vecData.index = data.index
+    if replace is True:
+        data = data.drop(cols, axis=1)
+        data = data.join(vecData)
+    return (data, vecData, vec)
+
+df = pd.DataFrame(data,columns=['outlook','temparature','humidity','windy','play'])
+
+df2, _, _ = one_hot_dataframe(df, ['outlook','temparature','humidity','windy','play'], replace=True)
+print df2.ix[0]
+\end{minted}
+
+\begin{verbatim}
+humidity=humidity=high          1
+humidity=humidity=normal        0
+outlook=outlook=overcast        0
+outlook=outlook=rainy           0
+outlook=outlook=sunny           1
+play=play=no                    1
+play=play=yes                   0
+temparature=temparature=cool    0
+temparature=temparature=hot     1
+temparature=temparature=mild    0
+windy=windy=false               1
+windy=windy=true                0
+Name: 0, dtype: float64
+\end{verbatim}
+
+
+\begin{minted}{python}
+import nimfa
+import scipy.sparse as sp
+
+fctr = nimfa.mf(np.array(df2).T, seed = "nndsvd", 
+              rank = 4, method = "bmf", 
+              max_iter = 40, initialize_only = True,
+              lambda_w = 1.1, lambda_h = 1.1)
+
+res = nimfa.mf_run(fctr)
+
+threshold = 0.2
+res1 = __fact_factor(res.basis())
+res2 = __fact_factor(res.coef())
+res1 = np.abs(np.round(res1 - 0.5 + threshold))
+res2=  np.abs(np.round(res2 - 0.5 + threshold))
+res1 = pd.DataFrame(res1,index=df2.columns)
+print res1
+\end{minted}
+
+\begin{verbatim}
+                              0  1  2  3
+humidity=humidity=high        1  0  0  1
+humidity=humidity=normal      0  1  0  0
+outlook=outlook=overcast      0  0  1  0
+outlook=outlook=rainy         1  0  0  0
+outlook=outlook=sunny         0  0  0  1
+play=play=no                  0  0  0  1
+play=play=yes                 0  1  1  0
+temparature=temparature=cool  0  0  0  0
+temparature=temparature=hot   0  0  0  0
+temparature=temparature=mild  1  0  0  0
+windy=windy=false             0  0  1  0
+windy=windy=true              1  0  0  0
+\end{verbatim}
+
+\begin{minted}{python}
+import fp
+items = fp.fpgrowth(data, minsup=6)
+for x in items:
+    if len(x) > 1: print x
+\end{minted}
+
+\begin{verbatim}
+   Null Set   1
+     play=yes   9
+       humidity=high   1
+         windy=true   1
+           temparature=mild   1
+       windy=false   6
+         humidity=high   2
+           temparature=mild   1
+         humidity=normal   4
+           temparature=mild   1
+       humidity=normal   2
+         windy=true   2
+           temparature=mild   1
+     humidity=high   2
+       windy=true   2
+         temparature=mild   1
+     windy=false   2
+       humidity=high   2
+         temparature=mild   1
+     humidity=normal   1
+       windy=true   1
+   Null Set   1
+     play=yes   6
+   Null Set   1
+     play=yes   6
+set(['play=yes', 'humidity=normal'])
+set(['play=yes', 'windy=false'])
+\end{verbatim}
 
 \end{document}

@@ -14,7 +14,6 @@ class node:
         for child in self.children.values():
             child.disp(ind+1)
 
-#create FP-tree from dataset but don't mine            
 def create_tree(dataSet, minSup=1): 
     header_table = {}
     #go over dataSet twice
@@ -79,41 +78,24 @@ def find_pre_path(basePat, node): #node comes from header table
     return condPats
 
 def mine_tree(inTree, header_table, minSup, preFix, freqItemList):
-    print 'minSup',minSup
     #(sort header table)
     bigL = [v[0] for v in sorted(header_table.items(), key=lambda p: p[1])]
     for base_pattern in bigL:  #start from bottom of header table
-        print 'base_pattern',base_pattern
         newFreqSet = preFix.copy()
         newFreqSet.add(base_pattern)
         freqItemList.append(newFreqSet)
         cond_pattern_bases = find_pre_path(base_pattern, header_table[base_pattern][1])
-        print 'cond_pattern_bases',cond_pattern_bases
         #2. construct cond FP-tree from cond. pattern base
         myCondTree, myHead = create_tree(cond_pattern_bases, minSup)
         if myHead != None: #3. mine cond. FP-tree
-            print 'conditional tree for: ',newFreqSet
             myCondTree.disp(1)            
             mine_tree(myCondTree, myHead, minSup, newFreqSet, freqItemList)
     
-def load_ment():
-    data = [
-        ['outlook=sunny', 'temparature=hot', 'humidity=high', 'windy=false', 'play=no'],
-        ['outlook=sunny', 'temparature=hot', 'humidity=high', 'windy=true', 'play=no'],
-        ['outlook=overcast', 'temparature=hot', 'humidity=high', 'windy=false', 'play=yes'],
-        ['outlook=rainy', 'temparature=mild', 'humidity=high', 'windy=false', 'play=yes'],
-        ['outlook=rainy', 'temparature=cool', 'humidity=normal', 'windy=false', 'play=yes'],
-        ['outlook=rainy', 'temparature=cool', 'humidity=normal', 'windy=true', 'play=no'],
-        ['outlook=overcast', 'temparature=cool', 'humidity=normal', 'windy=true', 'play=yes'],
-        ['outlook=sunny', 'temparature=mild', 'humidity=high', 'windy=false', 'play=no'],
-        ['outlook=sunny', 'temparature=cool', 'humidity=normal', 'windy=false', 'play=yes'],
-        ['outlook=rainy', 'temparature=mild', 'humidity=normal', 'windy=false', 'play=yes'],
-        ['outlook=sunny', 'temparature=mild', 'humidity=normal', 'windy=true', 'play=yes'],
-        ['outlook=overcast', 'temparature=mild', 'humidity=high', 'windy=true', 'play=yes'],
-        ['outlook=overcast', 'temparature=hot', 'humidity=normal', 'windy=false', 'play=yes'],
-        ['outlook=rainy', 'temparature=mild', 'humidity=high', 'windy=true', 'play=no']
-        ]
-    return data
+def create_init_set(dataSet):
+    retDict = {}
+    for trans in dataSet:
+        retDict[frozenset(trans)] = 1
+    return retDict
 
 def create_init_set(dataSet):
     retDict = {}
@@ -121,31 +103,26 @@ def create_init_set(dataSet):
         retDict[frozenset(trans)] = 1
     return retDict
 
-def load_simp_dat():
+def fpgrowth(data, minsup):
+    init_set = create_init_set(data)
+    tree, header_tab = create_tree(init_set, 6)
+    tree.disp(); items = []
+    mine_tree(tree, header_tab, 6, set([]), items)
+    return items
+
+if __name__ == "__main__": 
+ 
     data = [
-            ['z'],
-            ['r', 'z', 'h', 'j', 'p'],
-            ['z', 'y', 'x', 'w', 'v', 'u', 't', 's'],
-            ['r', 'x', 'n', 'o', 's'],
-            ['y', 'r', 'x', 'z', 'q', 't', 'p'],
-            ['y', 'z', 'x', 'e', 'q', 's', 't', 'm']]
-    return data
+        ['z'],
+        ['r', 'z', 'h', 'j', 'p'],
+        ['z', 'y', 'x', 'w', 'v', 'u', 't', 's'],
+        ['r', 'x', 'n', 'o', 's'],
+        ['y', 'r', 'x', 'z', 'q', 't', 'p'],
+        ['y', 'z', 'x', 'e', 'q', 's', 't', 'm']]
 
-def create_init_set(dataSet):
-    retDict = {}
-    for trans in dataSet:
-        retDict[frozenset(trans)] = 1
-    return retDict
 
-#data = load_simp_dat()
-data = load_ment()
+#    items = fpgrowth(data, minsup=6)
+#    for x in items:
+#        if len(x) > 1: print x
 
-init_set = create_init_set(data)
-
-tree, header_tab = create_tree(init_set, 6)
-tree.disp()
-
-items = []
-mine_tree(tree, header_tab, 6, set([]), items)
-for x in items:
-    if len(x) > 1: print x
+        
