@@ -223,7 +223,20 @@ teknikten alip ekranda grafikleyecegiz.
 
 \begin{minted}{python}
 !python mrprojs.py A_matrix > /tmp/Y
+\end{minted}
 
+\begin{verbatim}
+using configs in /home/burak/.mrjob.conf
+creating tmp directory /tmp/mrprojs.burak.20140104.064956.493025
+writing to /tmp/mrprojs.burak.20140104.064956.493025/step-0-mapper_part-00000
+Counters from step 1:
+  (no counters found)
+Moving /tmp/mrprojs.burak.20140104.064956.493025/step-0-mapper_part-00000 -> /tmp/mrprojs.burak.20140104.064956.493025/output/part-00000
+Streaming final output from /tmp/mrprojs.burak.20140104.064956.493025/output
+removing tmp directory /tmp/mrprojs.burak.20140104.064956.493025
+\end{verbatim}
+
+\begin{minted}{python}
 import numpy.linalg as lin
 
 n = 4; k = 3
@@ -243,16 +256,7 @@ plt.plot(U[:,0],U[:,1],'bx')
 plt.savefig('rnd_1.png')
 \end{minted}
 
-\begin{verbatim}
-using configs in /home/burak/.mrjob.conf
-creating tmp directory /tmp/mrprojs.burak.20131203.094752.176690
-writing to /tmp/mrprojs.burak.20131203.094752.176690/step-0-mapper_part-00000
-Counters from step 1:
-  (no counters found)
-Moving /tmp/mrprojs.burak.20131203.094752.176690/step-0-mapper_part-00000 -> /tmp/mrprojs.burak.20131203.094752.176690/output/part-00000
-Streaming final output from /tmp/mrprojs.burak.20131203.094752.176690/output
-removing tmp directory /tmp/mrprojs.burak.20131203.094752.176690
-\end{verbatim}
+\includegraphics[height=5cm]{rnd_1.png}
 
 Sonuclar fena degil.
 
