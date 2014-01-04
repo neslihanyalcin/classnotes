@@ -8,7 +8,7 @@ sitemize gelen musterilerin ayni zamanda vs ozelliklerinin oldugunu da
 kesfettik" gibi. 
 
 Benzer bir ornek, ki bu alan oge kumelerinin aslinda en onemli cikis
-sebeplerinden birisidir, alisveris sepeti analizidir. Musterinin her
+sebeplerinden birisidir, alisveris sepeti analizi. Musterinin her
 alisverisinde sepetinde belli mallar vardir, ve bu mallarin hangilerinin
 ayni anda, ayni sepette oldugu analiz edilmeye ugrasilir. Eger surekli
 ekmek ve recel ayni anda aliniyorsa, bu bilgi kullanilarak belki mallarin
@@ -18,20 +18,24 @@ madenciligi (association mining) gibi. Algoritma olarak kullanilan pek cok
 teknik var, APriori iyi bilinenlerden, FPGrowth ondan daha hizli calisan ve
 son zamanlarda daha tercih edilmeye baslanan bir teknik.
 
-Alternatif bir teknik ikisel matris ayristirmasi (binary matrix
-factorization -BMF-) [3]. Aynen SVD'de oldugu gibi BMF de bir matrisi
-ayristirir, fakat uc matris yerine iki matrise ayristirir. Ayristirma
-oncesi hangi kerte (rank) $k$ degerine gecmek istedigimizi biz
+Bir diger alternatif ikisel matris ayristirmasi (binary matrix
+factorization -BMF-) kullanmaktir [3]. Aynen SVD'de oldugu gibi BMF de bir
+matrisi ayristirir, fakat uc matris yerine iki matrise ayristirir ve hem
+sonuc matrisi hem de ayristirilan matrisler sadece 0 ya da 1 degerini
+tasiyabilirler. 
+
+Ayristirma oncesi hangi kerte (rank) $k$ degerine gecmek istedigimizi biz
 belirtiriz. BMF'nin oge kumeleri madenciligi icin faydasi surada: oge
 kumeleri ararken baktigimiz ogeler kategorik seylerdir, alisveris sepeti
 orneginde mesela ekmek, recel gibi. Kategorik ogeleri daha once one-hot
 kodlamasi (encoding) ile 1/0 degerleri tasiyan yeni kolonlara
 gecirebildigimizi gormustuk. Yani tamamen kategorik degerler tasiyan
 veriler tamamen 1/0 tasiyacak sekilde tekrar kodlanabilir, yani ikisel
-matris haline getirilebilir. Bu ikisel matrisi ayristirdigimiz zaman ise
-ayni zamanda boyut indirgemesi yapmis oluruz, ve bir anlamda ana matrisi
-``ozetleriz''. Iste bu ozet, ozellikle carpilan ``baz'' matris, oge
-kumelerinin hangileri oldugu hakkinda ipuclari iceriyor olabilir.
+matris haline getirilebilir. Bu ikisel matrisi ayristirdigimiz zaman ve
+kendileri de ikisel olan iki yeni matris elde ettigimizde bir anlamda boyut
+indirgemesi yapmis oluruz, yani sanki ana matrisi ``ozetleriz''. Iste bu
+ozet, ozellikle carpilan ``baz'' matris, oge kumelerinin hangileri oldugu
+hakkinda ipuclari iceriyor olabilir.
 
 Bir ornek uzerinde gorelim, mesela altta Alice (A), Bob Marley (B) ve Prens
 Charles (C) verileri var. Bu kisiler icin saci uzun mu (long-haired), ünlü
@@ -110,18 +114,17 @@ male         0  1
 1  0  1  1
 \end{verbatim}
 
-Sonuc neredeyse tipatip ayni; sadece carpan matriste 0,B kordinati 1
-degil, fakat bize lazim olan baz matris ayni cikti. 
-
-BMF hakkinda bazi ek bilgiler: [2]'ye gore en az hatali BMF hesaplamak
-NP-hard zorlugunda, yani 3SAT gibi, ya da Seyahat Eden Satis Elemani
-(Traveling Salesman) problemi gibidir, ki bu problem kombinatoryel
-(combinatorial) optimizasyon problemi, yani cozum icin tum olasiliklar
-denenir, kisayol mevcut degildir. Fakat, yaklasiksal BMF metotlari cok
-hizlidir, ayrica seyreklik cok buyuk fark yaratiyor, ki kategorik veriler
-gercek dunyada cogunlukla seyrek olarak goruluyor. Eldeki 2000 tane mal
-cesidi icinden bir sepette ancak 5-10 tane urun oluyor mesela, tum 2000
-tane mali bir sepete koymak mumkun degil.
+Sonuc neredeyse tipatip ayni; sadece carpan matriste [0,B] kordinati 1
+degil, fakat bize lazim olan baz matris ayni cikti. BMF hakkinda bazi ek
+bilgiler: [2]'ye gore en az hatali BMF hesaplamak NP-hard zorlugunda, yani
+3SAT gibi, ya da Seyahat Eden Satis Elemani (Traveling Salesman) problemi
+gibi ki bu problem kombinatoryel (combinatorial) optimizasyon problemi,
+yani cozum icin tum olasiliklar denendigi ve kisayolun mevcut olmadigi
+cesitten problem. Fakat, yaklasiksal BMF metotlari oldukca hizli, ayrica
+seyreklik cok buyuk fark yaratiyor ki kategorik veriler gercek dunyada
+cogunlukla seyrek olarak goruluyor. Eldeki 2000 tane mal cesidi icinden bir
+sepette ancak 5-10 tane urun oluyor mesela, tum 2000 tane mali bir sepete
+koymak mumkun degil.
 
 Simdi baska bir ornek gorelim. 
 
