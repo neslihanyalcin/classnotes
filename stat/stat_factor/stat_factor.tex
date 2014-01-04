@@ -72,7 +72,7 @@ data = [
 ]
 
 from sklearn.feature_extraction import DictVectorizer
-import pandas as pd
+import pandas as pd, re
 
 def one_hot_dataframe(data, cols, replace=False):
     vec = DictVectorizer()
@@ -87,23 +87,24 @@ def one_hot_dataframe(data, cols, replace=False):
 
 cols = ['outlook','temparature','humidity','windy','play']
 df = pd.DataFrame(data,columns=cols)
+df = df.applymap(lambda x: re.sub('.*?=','',x))
 df2, _, _ = one_hot_dataframe(df, cols, replace=True)
 print df2.ix[0]
 \end{minted}
 
 \begin{verbatim}
-humidity=humidity=high          1
-humidity=humidity=normal        0
-outlook=outlook=overcast        0
-outlook=outlook=rainy           0
-outlook=outlook=sunny           1
-play=play=no                    1
-play=play=yes                   0
-temparature=temparature=cool    0
-temparature=temparature=hot     1
-temparature=temparature=mild    0
-windy=windy=false               1
-windy=windy=true                0
+humidity=high       1
+humidity=normal     0
+outlook=overcast    0
+outlook=rainy       0
+outlook=sunny       1
+play=no             1
+play=yes            0
+temparature=cool    0
+temparature=hot     1
+temparature=mild    0
+windy=false         1
+windy=true          0
 Name: 0, dtype: float64
 \end{verbatim}
 
