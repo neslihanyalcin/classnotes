@@ -39,13 +39,29 @@ mü (well-known) ve bay mý (male) verileri var.
 
 \includegraphics[height=5cm]{abc.png}
 
-Bu matris uzerinde ikisel ayristirma yaparsak, 
+Bu matris uzerinde ikisel ayristirma yaparsak, $k=2$
 
 \includegraphics[height=2cm]{abc_res.png}
 
-Sonuca dikkatle bakalim, ozellikle sol taraftaki carpilan ``baz'' matrisi
-onemli. {\em Matris Carpimi} yazisini hatirlarsak, bu yazidaki kolon
-kombinasyon bakisini kullanalim, 
+Sonuca bakalim, ozellikle sol taraftaki carpilan ``baz'' matrisi. {\em
+  Matris Carpimi} yazisindan hareketle, bu yazidaki kolon kombinasyon
+bakisini kullanalim, o zaman soldaki baz matrisin dikey, kolon bazli
+olarak, bir ozet oldugunu gorebiliyoruz. Cunku carpan sag taraf bu
+kolonlari alip onlari belli sekillerde ``kombine ederek'' nihai (orijinal)
+matrisi ortaya cikartabilmeli. Bu sebeple soldaki carpilan matris bir ozet
+olmali / baz olusturmali, ve kolondaki degerlerde belli bir kalip / oruntu
+(pattern) olmali. O zaman her baz kolonunda birbiriyle alakali olan ogeler
+ayni anda 1 degeri tasiyor olacaktir.
+
+Sonuca gore uzun sacli ve unlu olmak arasinda baglanti varmis, ayrica erkek
+olmak ve unlu olmak arasinda da baglanti varmis :) Veriye gore boyle en
+azindan.. Bu sonucu orijinal matrise bakarak ta kontrol edebiliriz.
+
+Ayristirma Kodlamasi 
+
+BMF ozel bir hesaptir ve Numpy / Scipy icinde mevcut degildir. Bunun icin
+ozel bir kutuphane cagrisi kullanabiliriz. Nimfa denen paket icinde [4]
+gerekli kodlar var. Kurduktan sonra ustteki ornegi soyle cozebiliriz;
 
 \begin{minted}{python}
 import nimfa
@@ -94,6 +110,21 @@ male         0  1
 1  0  1  1
 \end{verbatim}
 
+Sonuc neredeyse tipatip ayni; sadece carpan matriste 0,B kordinati 1
+degil, fakat bize lazim olan baz matris ayni cikti. 
+
+BMF hakkinda bazi ek bilgiler: [2]'ye gore en az hatali BMF hesaplamak
+NP-hard zorlugunda, yani 3SAT gibi, ya da Seyahat Eden Satis Elemani
+(Traveling Salesman) problemi gibidir, ki bu problem kombinatoryel
+(combinatorial) optimizasyon problemi, yani cozum icin tum olasiliklar
+denenir, kisayol mevcut degildir. Fakat, yaklasiksal BMF metotlari cok
+hizlidir, ayrica seyreklik cok buyuk fark yaratiyor, ki kategorik veriler
+gercek dunyada cogunlukla seyrek olarak goruluyor. Eldeki 2000 tane mal
+cesidi icinden bir sepette ancak 5-10 tane urun oluyor mesela, tum 2000
+tane mali bir sepete koymak mumkun degil.
+
+Simdi baska bir ornek gorelim. 
+
 \begin{minted}{python}
 data = [
 ['outlook=sunny', 'temparature=hot', 'humidity=high', 'windy=false', 'play=no'],
@@ -111,98 +142,28 @@ data = [
 ['outlook=overcast', 'temparature=hot', 'humidity=normal', 'windy=false', 'play=yes'],
 ['outlook=rainy', 'temparature=mild', 'humidity=high', 'windy=true', 'play=no']
 ]
-
-from sklearn.feature_extraction import DictVectorizer
-import pandas as pd, re
-
-def one_hot_dataframe(data, cols, replace=False):
-    vec = DictVectorizer()
-    mkdict = lambda row: dict((col, row[col]) for col in cols)
-    vecData = pd.DataFrame(vec.fit_transform(data[cols].apply(mkdict, axis=1)).toarray())
-    vecData.columns = vec.get_feature_names()
-    vecData.index = data.index
-    if replace is True:
-        data = data.drop(cols, axis=1)
-        data = data.join(vecData)
-    return (data, vecData, vec)
-
-cols = ['outlook','temparature','humidity','windy','play']
-df = pd.DataFrame(data,columns=cols)
-# kolon ismini veriden cikart, cunku tekrar geri koyulacak
-# fpgrowth icin veri icinde olmasi lazim
-df = df.applymap(lambda x: re.sub('.*?=','',x))
-df2, _, _ = one_hot_dataframe(df, cols, replace=True)
-# tek ornek ekrana bas
-print df2.ix[0]
 \end{minted}
 
-\begin{verbatim}
-humidity=high       1
-humidity=normal     0
-outlook=overcast    0
-outlook=rainy       0
-outlook=sunny       1
-play=no             1
-play=yes            0
-temparature=cool    0
-temparature=hot     1
-temparature=mild    0
-windy=false         1
-windy=true          0
-Name: 0, dtype: float64
-\end{verbatim}
+Hava ile alakali bazi veriler bunlar; bu veriler tahmin (outlook), sicaklik
+(temparature), nem (humidity), ruzgar (windy), disarida oyun oynayan var mi
+(play). Mesela ilk satirda tahmin gunesli, isi sicak, nem yuksek, ruzgar
+yok ve oyun oynayan yok. Bu sekilde bir suru satir. Biz bu veride bir kalip
+olup olmadigina bakacagiz.
 
+FPGrowth
 
-\begin{minted}{python}
-import nimfa
-import scipy.sparse as sp
-
-fctr = nimfa.mf(np.array(df2).T, seed = "nndsvd", 
-              rank = 4, method = "bmf", 
-              max_iter = 40, initialize_only = True,
-              lambda_w = 1.1, lambda_h = 1.1)
-
-res = nimfa.mf_run(fctr)
-
-threshold = 0.2
-res1 = __fact_factor(res.basis())
-res2 = __fact_factor(res.coef())
-res1 = np.abs(np.round(res1 - 0.5 + threshold))
-res2=  np.abs(np.round(res2 - 0.5 + threshold))
-res1 = pd.DataFrame(res1,index=df2.columns)
-print res1
-\end{minted}
-
-\begin{verbatim}
-                  0  1  2  3
-humidity=high     1  0  0  1
-humidity=normal   0  1  0  0
-outlook=overcast  0  0  1  0
-outlook=rainy     1  0  0  0
-outlook=sunny     0  0  0  1
-play=no           0  0  0  1
-play=yes          0  1  1  0
-temparature=cool  0  0  0  0
-temparature=hot   0  0  0  0
-temparature=mild  1  0  0  0
-windy=false       0  0  1  0
-windy=true        1  0  0  0
-\end{verbatim}
-
-\begin{minted}{python}
-print np.array(df2.columns)[res1.ix[:,0] == 1]
-print np.array(df2.columns)[res1.ix[:,1] == 1]
-print np.array(df2.columns)[res1.ix[:,2] == 1]
-print np.array(df2.columns)[res1.ix[:,3] == 1]
-\end{minted}
-
-\begin{verbatim}
-['humidity=high' 'outlook=rainy' 'temparature=mild' 'windy=true']
-['humidity=normal' 'play=yes']
-['outlook=overcast' 'play=yes' 'windy=false']
-['humidity=high' 'outlook=sunny' 'play=no']
-\end{verbatim}
-
+Oge kumeleri bulmak icin BMF haricinde bir yontem FPGrowth yontemidir
+[1,2]. Bu yontem once her ogeden (tek basina) kac tane oldugunu sayar,
+belli bir esik degeri \verb!minsup! altinda olanlari atar, sonucu
+siralar. Bu liste bir yapisina isaret eden bir baslik yapisi haline
+gelir. Agacin kendisini olusturmak icin veri satirlari teker teker islenir,
+her satirdaki her oge icin baslik yapisindaki en fazla degeri tasiyan oge
+once olmak uzere tepeden baslanip alta dogru uzayan bir agac yapisi
+olusturulur. Agactaki her dugum altindaki dugumun sayisal toplamini
+tasir. Madencilik icin alttan baslanarak yukari dogru cikilir (amac en uste
+ulasmak) ve bu sirada ogeler \verb!minsup! altinda ise, atilirlar. Sonucta
+ulasilan ve atilmayan yollar bir oge kumesini temsil ederler. [2]'deki kodu
+[1]'deki veriye uygularsak, sonuc soyle:
 
 \begin{minted}{python}
 import fp
@@ -242,6 +203,148 @@ set(['play=yes', 'humidity=normal'])
 set(['play=yes', 'windy=false'])
 \end{verbatim}
 
+Bulunan sonuclar iki tane (tek ogeli sonuclar da var ama onlari
+eledik). Bunlar hakikaten veri icindeki kaliplari temsil ediyorlar. Fena
+degil. 
+
+Kiyas icin BMF uzerinden madencilik yapalim. Once one-hot kodlamasi
+yapalim, ve ornek icin bir veri satirini ekrana basalim,
+
+\begin{minted}{python}
+from sklearn.feature_extraction import DictVectorizer
+import pandas as pd, re
+
+def one_hot_dataframe(data, cols, replace=False):
+    vec = DictVectorizer()
+    mkdict = lambda row: dict((col, row[col]) for col in cols)
+    tmp = data[cols].apply(mkdict, axis=1)
+    vecData = pd.DataFrame(vec.fit_transform(tmp).toarray())
+    vecData.columns = vec.get_feature_names()
+    vecData.index = data.index
+    if replace is True:
+        data = data.drop(cols, axis=1)
+        data = data.join(vecData)
+    return (data, vecData, vec)
+
+cols = ['outlook','temparature','humidity','windy','play']
+df = pd.DataFrame(data,columns=cols)
+# kolon ismini veriden cikart, cunku tekrar geri koyulacak
+# fpgrowth icin veri icinde olmasi lazim
+df = df.applymap(lambda x: re.sub('.*?=','',x))
+df2, _, _ = one_hot_dataframe(df, cols, replace=True)
+# tek ornek ekrana bas
+print df2.ix[0]
+\end{minted}
+
+\begin{verbatim}
+humidity=high       1
+humidity=normal     0
+outlook=overcast    0
+outlook=rainy       0
+outlook=sunny       1
+play=no             1
+play=yes            0
+temparature=cool    0
+temparature=hot     1
+temparature=mild    0
+windy=false         1
+windy=true          0
+Name: 0, dtype: float64
+\end{verbatim}
+
+Simdi BMF isletelim, $k=4$
+
+\begin{minted}{python}
+import nimfa
+import scipy.sparse as sp
+
+fctr = nimfa.mf(np.array(df2).T, seed = "nndsvd", 
+              rank = 4, method = "bmf", 
+              max_iter = 40, initialize_only = True,
+              lambda_w = 1.1, lambda_h = 1.1)
+
+res = nimfa.mf_run(fctr)
+
+threshold = 0.2
+res1 = __fact_factor(res.basis())
+res2 = __fact_factor(res.coef())
+res1 = np.abs(np.round(res1 - 0.5 + threshold))
+res2=  np.abs(np.round(res2 - 0.5 + threshold))
+res1 = pd.DataFrame(res1,index=df2.columns)
+print res1
+\end{minted}
+
+\begin{verbatim}
+                  0  1  2  3
+humidity=high     1  0  0  1
+humidity=normal   0  1  0  0
+outlook=overcast  0  0  1  0
+outlook=rainy     1  0  0  0
+outlook=sunny     0  0  0  1
+play=no           0  0  0  1
+play=yes          0  1  1  0
+temparature=cool  0  0  0  0
+temparature=hot   0  0  0  0
+temparature=mild  1  0  0  0
+windy=false       0  0  1  0
+windy=true        1  0  0  0
+\end{verbatim}
+
+Bu sonuclari kategoriksel hale cevirip tekrar ekrana basalim,
+
+\begin{minted}{python}
+print np.array(df2.columns)[res1.ix[:,0] == 1]
+print np.array(df2.columns)[res1.ix[:,1] == 1]
+print np.array(df2.columns)[res1.ix[:,2] == 1]
+print np.array(df2.columns)[res1.ix[:,3] == 1]
+\end{minted}
+
+\begin{verbatim}
+['humidity=high' 'outlook=rainy' 'temparature=mild' 'windy=true']
+['humidity=normal' 'play=yes']
+['outlook=overcast' 'play=yes' 'windy=false']
+['humidity=high' 'outlook=sunny' 'play=no']
+\end{verbatim}
+
+1. sonuc atlanabilir, buradaki ``kalabalik'' orada bir kalip olmadigina
+dair bir isaret. Ayristirma sonucu bu tur kolonlar ortaya cikabilir, diger
+kolonlardaki kaliplar butunu temsil etmeye {\em tam} yetmemisse, arta kalan
+her turlu gereklilik bir yerler tikilabilir, bu normal. 2. sonuc FPGrowth
+sonucunda var, guzel. 3. sonuc ta neredeyse ayni, sadece ek olarak
+outlook=overcast var. Fakat, 3. sonuc aslinda onemli bir kalip iceriyor
+olabilir, yani kalmasi daha iyi olur. Ayrica tavsiyemiz BMF sonuclari
+uzerinde her sonuc icin ogelerini teker teker eleyerek kalanlarin kuvvetini
+kontrol etmek, yani alt yeni sonuclara bakmak. Bu sekilde 3. uzerinde eleme
+yaparken outlook=overcast elenince ana kalibi bulurduk. 4. sonuc ise cok
+onemli bir kalip ve FPGrowth bunu tamamen kacirmis!
+
+Sebep FPGrowth'un cozume lokal olarak erismeye calisiyor olmasi, kiyasla
+BMF butune (global) bakiyor [3]. Bu ne demektir? Bir ayristirmanin ne
+oldugunu dusunursek, bir matrisi olusturan carpimi ayristiriyoruz ve bu
+ayristirma olduktan sonra iki matris elde ediyoruz. Bu iki matris ozgundur
+(unique). Yani belli bir ikisel matrisi olusturan carpim sadece tek bir
+sekilde olabilir. Buradan hareketle diyebiliriz ki bu ayristirma butunu
+goze alarak yapilmalidir, sagi, solu tutan ama kosesi tutmayan bir
+ayristirma olmaz. Bu sebeptendir ki ayristirma cozumunden belli bir
+kapsayicilik bekleyebiliriz.
+
+FPGrowth ise olaya yerel bakiyor; agac olustururken degisik bir sira takip
+edilirse mesela degisik agaclar ortaya cikabilir. Ayrica her onemli iliski
+muhakkak ozgun bir dal yapisinda olmayabilir. 
+
+Kodlama Notlari
+
+Su kod \verb!np.round(num - 0.5 + threshold)! kullanimi yuvarlama
+(rounding) yapiyor, cunku Nimfa 1 degeri yerine 0.9, 0.8 gibi degerler
+uretebiliyor, ayrica 0.1 gibi degerler de oluyor. Biz bildigimiz \verb!.5!
+sonrasi uzerini 1 yapmayi secmedik, belli bir esik degeri (threshold)
+uzerinden yuvarlama yapiyoruz. Yani esik=0.2 ise 0.7 alta yuvarlanir ve 0
+olur, 0.9 esik ustunde oldugu icin uste yuvarlanir 1 olur.
+
+BMF icin kerte $k$ kullanici tarafindan secilmeli, ama bu durum SVD, ya da
+k-Means gibi diger yapay ogrenim metotlarindan farkli degildir. Bu
+oynanmasi gereken, kesfedilmesi gereken bir deger. 
+
 Kaynaklar
 
 [1] Ian H. Witten, Eibe Frank, Mark A. Hall, {\em Data Mining Practical Machine Learning Tools and Techniques}
@@ -249,5 +352,7 @@ Kaynaklar
 [2] Harrington, P., {\em Machine Learning in Action}
 
 [3] \url{http://www.mpi-inf.mpg.de/~pmiettin/slides/BooleanMatrixFactorizationsForDataMining_Antwerp_slides.pdf}
+
+[4] \url{http://nimfa.biolab.si/#installation}
 
 \end{document}
