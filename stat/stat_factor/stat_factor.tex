@@ -87,8 +87,11 @@ def one_hot_dataframe(data, cols, replace=False):
 
 cols = ['outlook','temparature','humidity','windy','play']
 df = pd.DataFrame(data,columns=cols)
+# kolon ismini veriden cikart, cunku tekrar geri koyulacak
+# fpgrowth icin veri icinde olmasi lazim
 df = df.applymap(lambda x: re.sub('.*?=','',x))
 df2, _, _ = one_hot_dataframe(df, cols, replace=True)
+# tek ornek ekrana bas
 print df2.ix[0]
 \end{minted}
 
@@ -130,20 +133,35 @@ print res1
 \end{minted}
 
 \begin{verbatim}
-                              0  1  2  3
-humidity=humidity=high        1  0  0  1
-humidity=humidity=normal      0  1  0  0
-outlook=outlook=overcast      0  0  1  0
-outlook=outlook=rainy         1  0  0  0
-outlook=outlook=sunny         0  0  0  1
-play=play=no                  0  0  0  1
-play=play=yes                 0  1  1  0
-temparature=temparature=cool  0  0  0  0
-temparature=temparature=hot   0  0  0  0
-temparature=temparature=mild  1  0  0  0
-windy=windy=false             0  0  1  0
-windy=windy=true              1  0  0  0
+                  0  1  2  3
+humidity=high     1  0  0  1
+humidity=normal   0  1  0  0
+outlook=overcast  0  0  1  0
+outlook=rainy     1  0  0  0
+outlook=sunny     0  0  0  1
+play=no           0  0  0  1
+play=yes          0  1  1  0
+temparature=cool  0  0  0  0
+temparature=hot   0  0  0  0
+temparature=mild  1  0  0  0
+windy=false       0  0  1  0
+windy=true        1  0  0  0
 \end{verbatim}
+
+\begin{minted}{python}
+print np.array(df2.columns)[res1.ix[:,0] == 1]
+print np.array(df2.columns)[res1.ix[:,1] == 1]
+print np.array(df2.columns)[res1.ix[:,2] == 1]
+print np.array(df2.columns)[res1.ix[:,3] == 1]
+\end{minted}
+
+\begin{verbatim}
+['humidity=high' 'outlook=rainy' 'temparature=mild' 'windy=true']
+['humidity=normal' 'play=yes']
+['outlook=overcast' 'play=yes' 'windy=false']
+['humidity=high' 'outlook=sunny' 'play=no']
+\end{verbatim}
+
 
 \begin{minted}{python}
 import fp
