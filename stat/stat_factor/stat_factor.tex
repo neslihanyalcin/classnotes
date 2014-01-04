@@ -8,7 +8,7 @@ sitemize gelen musterilerin ayni zamanda vs ozelliklerinin oldugunu da
 kesfettik" gibi. 
 
 Benzer bir ornek, ki bu alan oge kumelerinin aslinda en onemli cikis
-sebeplerinden birisidir, alisveris sepeti analizi. Musterinin her
+sebeplerinden birisidir, alisveris sepeti analizidir. Musterinin her
 alisverisinde sepetinde belli mallar vardir, ve bu mallarin hangilerinin
 ayni anda, ayni sepette oldugu analiz edilmeye ugrasilir. Eger surekli
 ekmek ve recel ayni anda aliniyorsa, bu bilgi kullanilarak belki mallarin
@@ -16,13 +16,17 @@ daha iyi konumlandirilmasi yapilacaktir, vs. Sýk bulunan oge kumeleri
 teknikleri bazen degisik adlar altinda da gecebiliyor, mesela alaka
 madenciligi (association mining) gibi. Algoritma olarak kullanilan pek cok
 teknik var, APriori iyi bilinenlerden, FPGrowth ondan daha hizli calisan ve
-son zamanlarda daha tercih edilmeye baslanan bir teknik.
+daha tercih edilen bir teknik.
 
 Bir diger alternatif ikisel matris ayristirmasi (binary matrix
 factorization -BMF-) kullanmaktir [3]. Aynen SVD'de oldugu gibi BMF de bir
 matrisi ayristirir, fakat uc matris yerine iki matrise ayristirir ve hem
 sonuc matrisi hem de ayristirilan matrisler sadece 0 ya da 1 degerini
-tasiyabilirler. 
+tasiyabilirler. Yani bu ayristirma sonuc matrislerinin ikisel olmasini
+mecbur tutar, negatif olmayan matris ayristirmasinin (non-negative matrix
+factorization) sonuc matrisinin pozitif degerler tasimasini mecbur kilmasi
+gibi. Bunlar birer kisitlama (constraint) ve bu sonuc o kisitlamalara gore
+ortaya cikiyor.
 
 Ayristirma oncesi hangi kerte (rank) $k$ degerine gecmek istedigimizi biz
 belirtiriz. BMF'nin oge kumeleri madenciligi icin faydasi surada: oge
@@ -32,10 +36,10 @@ kodlamasi (encoding) ile 1/0 degerleri tasiyan yeni kolonlara
 gecirebildigimizi gormustuk. Yani tamamen kategorik degerler tasiyan
 veriler tamamen 1/0 tasiyacak sekilde tekrar kodlanabilir, yani ikisel
 matris haline getirilebilir. Bu ikisel matrisi ayristirdigimiz zaman ve
-kendileri de ikisel olan iki yeni matris elde ettigimizde bir anlamda boyut
-indirgemesi yapmis oluruz, yani sanki ana matrisi ``ozetleriz''. Iste bu
-ozet, ozellikle carpilan ``baz'' matris, oge kumelerinin hangileri oldugu
-hakkinda ipuclari iceriyor olabilir.
+kendileri de ikisel olan iki yeni matris elde ettigimizde ise bir anlamda
+boyut indirgemesi yapmis oluruz, yani sanki ana matrisi ``ozetleriz''. Iste
+bu ozet, ozellikle carpilan ``baz'' matris, oge kumelerinin hangileri
+oldugu hakkinda ipuclari iceriyor olabilir.
 
 Bir ornek uzerinde gorelim, mesela altta Alice (A), Bob Marley (B) ve Prens
 Charles (C) verileri var. Bu kisiler icin saci uzun mu (long-haired), ünlü
@@ -53,13 +57,15 @@ bakisini kullanalim, o zaman soldaki baz matrisin dikey, kolon bazli
 olarak, bir ozet oldugunu gorebiliyoruz. Cunku carpan sag taraf bu
 kolonlari alip onlari belli sekillerde ``kombine ederek'' nihai (orijinal)
 matrisi ortaya cikartabilmeli. Bu sebeple soldaki carpilan matris bir ozet
-olmali / baz olusturmali, ve kolondaki degerlerde belli bir kalip / oruntu
-(pattern) olmali. O zaman her baz kolonunda birbiriyle alakali olan ogeler
-ayni anda 1 degeri tasiyor olacaktir.
+olmali / baz olusturmali, ve bunun yan etkisi olarak kolonlardaki
+degerlerde belli bir kalip / oruntu (pattern) olmali. O zaman her baz
+kolonunda birbiriyle alakali olan ogeler ayni anda 1 degeri tasiyor
+olacaktir.
 
-Sonuca gore uzun sacli ve unlu olmak arasinda baglanti varmis, ayrica erkek
-olmak ve unlu olmak arasinda da baglanti varmis :) Veriye gore boyle en
-azindan.. Bu sonucu orijinal matrise bakarak ta kontrol edebiliriz.
+Sonuca gore uzun sacli ve unlu olmak (1. kolon) arasinda baglanti varmis ,
+ayrica erkek olmak ve unlu olmak (2. kolon) arasinda da baglanti varmis :)
+Veriye gore boyle en azindan.. Bu sonucu orijinal matrise bakarak ta
+kontrol edebiliriz.
 
 Ayristirma Kodlamasi 
 
@@ -121,10 +127,10 @@ bilgiler: [2]'ye gore en az hatali BMF hesaplamak NP-hard zorlugunda, yani
 gibi ki bu problem kombinatoryel (combinatorial) optimizasyon problemi,
 yani cozum icin tum olasiliklar denendigi ve kisayolun mevcut olmadigi
 cesitten problem. Fakat, yaklasiksal BMF metotlari oldukca hizli, ayrica
-seyreklik cok buyuk fark yaratiyor ki kategorik veriler gercek dunyada
-cogunlukla seyrek olarak goruluyor. Eldeki 2000 tane mal cesidi icinden bir
-sepette ancak 5-10 tane urun oluyor mesela, tum 2000 tane mali bir sepete
-koymak mumkun degil.
+seyreklik cok fark yaratiyor (yani seyreklik iyi) ki kategorik veriler
+gercek dunyada cogunlukla seyrek olarak goruluyor. Eldeki 2000 tane mal
+cesidi icinden bir sepette ancak 5-10 tane urun oluyor mesela, tum 2000
+tane mali bir sepete koymak mumkun degil.
 
 Simdi baska bir ornek gorelim. 
 
@@ -147,11 +153,11 @@ data = [
 ]
 \end{minted}
 
-Hava ile alakali bazi veriler bunlar; bu veriler tahmin (outlook), sicaklik
-(temparature), nem (humidity), ruzgar (windy), disarida oyun oynayan var mi
-(play). Mesela ilk satirda tahmin gunesli, isi sicak, nem yuksek, ruzgar
-yok ve oyun oynayan yok. Bu sekilde bir suru satir. Biz bu veride bir kalip
-olup olmadigina bakacagiz.
+Hava ile alakali bazi veriler [1] bunlar; bu veriler tahmin (outlook),
+sicaklik (temparature), nem (humidity), ruzgar (windy), disarida oyun
+oynayan var mi (play). Mesela ilk satirda tahmin gunesli, isi sicak, nem
+yuksek, ruzgar yok ve oyun oynayan yok. Bu sekilde bir suru satir. Biz bu
+veride bir kalip olup olmadigina bakacagiz.
 
 FPGrowth
 
@@ -166,7 +172,7 @@ olusturulur. Agactaki her dugum altindaki dugumun sayisal toplamini
 tasir. Madencilik icin alttan baslanarak yukari dogru cikilir (amac en uste
 ulasmak) ve bu sirada ogeler \verb!minsup! altinda ise, atilirlar. Sonucta
 ulasilan ve atilmayan yollar bir oge kumesini temsil ederler. [2]'deki kodu
-[1]'deki veriye uygularsak, sonuc soyle:
+[1]'den aldigimiz ustteki veriye uygularsak, sonuc soyle:
 
 \begin{minted}{python}
 import fp
@@ -261,6 +267,9 @@ Simdi BMF isletelim, $k=4$
 import nimfa
 import scipy.sparse as sp
 
+def __fact_factor(X):
+    return X.todense() if sp.isspmatrix(X) else X
+
 fctr = nimfa.mf(np.array(df2).T, seed = "nndsvd", 
               rank = 4, method = "bmf", 
               max_iter = 40, initialize_only = True,
@@ -296,10 +305,8 @@ windy=true        1  0  0  0
 Bu sonuclari kategoriksel hale cevirip tekrar ekrana basalim,
 
 \begin{minted}{python}
-print np.array(df2.columns)[res1.ix[:,0] == 1]
-print np.array(df2.columns)[res1.ix[:,1] == 1]
-print np.array(df2.columns)[res1.ix[:,2] == 1]
-print np.array(df2.columns)[res1.ix[:,3] == 1]
+for i in range(4):
+    print np.array(df2.columns)[res1.ix[:,i] == 1]
 \end{minted}
 
 \begin{verbatim}
@@ -312,14 +319,15 @@ print np.array(df2.columns)[res1.ix[:,3] == 1]
 1. sonuc atlanabilir, buradaki ``kalabalik'' orada bir kalip olmadigina
 dair bir isaret. Ayristirma sonucu bu tur kolonlar ortaya cikabilir, diger
 kolonlardaki kaliplar butunu temsil etmeye {\em tam} yetmemisse, arta kalan
-her turlu gereklilik bir yerler tikilabilir, bu normal. 2. sonuc FPGrowth
-sonucunda var, guzel. 3. sonuc ta neredeyse ayni, sadece ek olarak
+her turlu gereklilik bir yerlere tikilabiliyor, bu normal. 2. sonuc
+FPGrowth sonucunda var, guzel. 3. sonuc ta neredeyse ayni, sadece ek olarak
 outlook=overcast var. Fakat, 3. sonuc aslinda onemli bir kalip iceriyor
 olabilir, yani kalmasi daha iyi olur. Ayrica tavsiyemiz BMF sonuclari
 uzerinde her sonuc icin ogelerini teker teker eleyerek kalanlarin kuvvetini
 kontrol etmek, yani alt yeni sonuclara bakmak. Bu sekilde 3. uzerinde eleme
-yaparken outlook=overcast elenince ana kalibi bulurduk. 4. sonuc ise cok
-onemli bir kalip ve FPGrowth bunu tamamen kacirmis!
+yaparken outlook=overcast elenince ana kalibi bulurduk. 
+
+4. sonuc ise cok onemli bir kalip ve FPGrowth bunu tamamen kacirmis!
 
 Sebep FPGrowth'un cozume lokal olarak erismeye calisiyor olmasi, kiyasla
 BMF butune (global) bakiyor [3]. Bu ne demektir? Bir ayristirmanin ne
@@ -333,16 +341,18 @@ kapsayicilik bekleyebiliriz.
 
 FPGrowth ise olaya yerel bakiyor; agac olustururken degisik bir sira takip
 edilirse mesela degisik agaclar ortaya cikabilir. Ayrica her onemli iliski
-muhakkak ozgun bir dal yapisinda olmayabilir. 
+muhakkak ozgun bir dal yapisinda olmayabilir. Madencilik algoritmasi alt
+dallardan baslar ve yukariya dogru cikar, fakat bu her zaman iyi bir yontem
+midir?
 
 Kodlama Notlari
 
 Su kod \verb!np.round(num - 0.5 + threshold)! kullanimi yuvarlama
 (rounding) yapiyor, cunku Nimfa 1 degeri yerine 0.9, 0.8 gibi degerler
-uretebiliyor, ayrica 0.1 gibi degerler de oluyor. Biz bildigimiz \verb!.5!
-sonrasi uzerini 1 yapmayi secmedik, belli bir esik degeri (threshold)
-uzerinden yuvarlama yapiyoruz. Yani esik=0.2 ise 0.7 alta yuvarlanir ve 0
-olur, 0.9 esik ustunde oldugu icin uste yuvarlanir 1 olur.
+uretebiliyor, ayrica 0.1 gibi degerler de oluyor. Biz bildigimiz yuvarlama
+\verb!.5!  sonrasi uzerini 1 yapmak yerine belli bir esik degeri
+(threshold) uzerinden yuvarlama yaptik. Yani esik=0.2 ise 0.7 alta
+yuvarlanir ve 0 olur, 0.9 esik ustunde oldugu icin uste yuvarlanir 1 olur.
 
 BMF icin kerte $k$ kullanici tarafindan secilmeli, ama bu durum SVD, ya da
 k-Means gibi diger yapay ogrenim metotlarindan farkli degildir. Bu
