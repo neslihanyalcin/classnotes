@@ -1,8 +1,51 @@
 \documentclass[12pt,fleqn]{article}\usepackage{../common}
 \begin{document}
-Ikisel Matris Ayristirmasi ve Oge Kumeleri Bulmak
+Oge Kumeleri Bulmak ve Ikisel Matris Ayristirmasi (Binary Matrix Factorization)
+
+Veri madenciligi denince pek cok kisinin aklina gelen ilk ornek, aslinda,
+sýk bulunan öðe kumeleri (frequent itemsets) ornegidir: "filanca ulkeden
+sitemize gelen musterilerin ayni zamanda vs ozelliklerinin oldugunu da
+kesfettik" gibi. 
+
+Benzer bir ornek, ki bu alan oge kumelerinin aslinda en onemli cikis
+sebeplerinden birisidir, alisveris sepeti analizidir. Musterinin her
+alisverisinde sepetinde belli mallar vardir, ve bu mallarin hangilerinin
+ayni anda, ayni sepette oldugu analiz edilmeye ugrasilir. Eger surekli
+ekmek ve recel ayni anda aliniyorsa, bu bilgi kullanilarak belki mallarin
+daha iyi konumlandirilmasi yapilacaktir, vs. Sýk bulunan oge kumeleri
+teknikleri bazen degisik adlar altinda da gecebiliyor, mesela alaka
+madenciligi (association mining) gibi. Algoritma olarak kullanilan pek cok
+teknik var, APriori iyi bilinenlerden, FPGrowth ondan daha hizli calisan ve
+son zamanlarda daha tercih edilmeye baslanan bir teknik.
+
+Alternatif bir teknik ikisel matris ayristirmasi (binary matrix
+factorization -BMF-) [3]. Aynen SVD'de oldugu gibi BMF de bir matrisi
+ayristirir, fakat uc matris yerine iki matrise ayristirir. Ayristirma
+oncesi hangi kerte (rank) $k$ degerine gecmek istedigimizi biz
+belirtiriz. BMF'nin oge kumeleri madenciligi icin faydasi surada: oge
+kumeleri ararken baktigimiz ogeler kategorik seylerdir, alisveris sepeti
+orneginde mesela ekmek, recel gibi. Kategorik ogeleri daha once one-hot
+kodlamasi (encoding) ile 1/0 degerleri tasiyan yeni kolonlara
+gecirebildigimizi gormustuk. Yani tamamen kategorik degerler tasiyan
+veriler tamamen 1/0 tasiyacak sekilde tekrar kodlanabilir, yani ikisel
+matris haline getirilebilir. Bu ikisel matrisi ayristirdigimiz zaman ise
+ayni zamanda boyut indirgemesi yapmis oluruz, ve bir anlamda ana matrisi
+``ozetleriz''. Iste bu ozet, ozellikle carpilan ``baz'' matris, oge
+kumelerinin hangileri oldugu hakkinda ipuclari iceriyor olabilir.
+
+Bir ornek uzerinde gorelim, mesela altta Alice (A), Bob Marley (B) ve Prens
+Charles (C) verileri var. Bu kisiler icin saci uzun mu (long-haired), ünlü
+mü (well-known) ve bay mý (male) verileri var. 
 
 \includegraphics[height=5cm]{abc.png}
+
+Bu matris uzerinde ikisel ayristirma yaparsak, 
+
+\includegraphics[height=2cm]{abc_res.png}
+
+Sonuca dikkatle bakalim, ozellikle sol taraftaki carpilan ``baz'' matrisi
+onemli. {\em Matris Carpimi} yazisini hatirlarsak, bu yazidaki kolon
+kombinasyon bakisini kullanalim, 
 
 \begin{minted}{python}
 import nimfa
@@ -50,8 +93,6 @@ male         0  1
 0  1  0  0
 1  0  1  1
 \end{verbatim}
-
-\includegraphics[height=2cm]{abc_res.png}
 
 \begin{minted}{python}
 data = [
@@ -207,6 +248,6 @@ Kaynaklar
 
 [2] Harrington, P., {\em Machine Learning in Action}
 
-
+[3] \url{http://www.mpi-inf.mpg.de/~pmiettin/slides/BooleanMatrixFactorizationsForDataMining_Antwerp_slides.pdf}
 
 \end{document}
