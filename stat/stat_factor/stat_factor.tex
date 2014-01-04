@@ -26,7 +26,8 @@ tasiyabilirler. Yani bu ayristirma sonuc matrislerinin ikisel olmasini
 mecbur tutar, negatif olmayan matris ayristirmasinin (non-negative matrix
 factorization) sonuc matrisinin pozitif degerler tasimasini mecbur kilmasi
 gibi. Bunlar birer kisitlama (constraint) ve bu sonuc o kisitlamalara gore
-ortaya cikiyor.
+ortaya cikiyor. {\em Dikkat}: BMF icin toplama islemi $1+0 = 1, 1+1=1, 0+0
+= 0$ olarak tekrar tanimlanir, yani mantiksal OR islemi haline gelir.
 
 Ayristirma oncesi hangi kerte (rank) $k$ degerine gecmek istedigimizi biz
 belirtiriz. BMF'nin oge kumeleri madenciligi icin faydasi surada: oge
@@ -53,14 +54,14 @@ Bu matris uzerinde ikisel ayristirma yaparsak, $k=2$
 
 Sonuca bakalim, ozellikle sol taraftaki carpilan ``baz'' matrisi. {\em
   Matris Carpimi} yazisindan hareketle, bu yazidaki kolon kombinasyon
-bakisini kullanalim, o zaman soldaki baz matrisin dikey, kolon bazli
-olarak, bir ozet oldugunu gorebiliyoruz. Cunku carpan sag taraf bu
-kolonlari alip onlari belli sekillerde ``kombine ederek'' nihai (orijinal)
-matrisi ortaya cikartabilmeli. Bu sebeple soldaki carpilan matris bir ozet
-olmali / baz olusturmali, ve bunun yan etkisi olarak kolonlardaki
-degerlerde belli bir kalip / oruntu (pattern) olmali. O zaman her baz
-kolonunda birbiriyle alakali olan ogeler ayni anda 1 degeri tasiyor
-olacaktir.
+bakisini kullanalim (tabii toplamanin BMF icin OR oldugunu unutmadan), o
+zaman soldaki baz matrisin dikey, kolon bazli olarak, bir ozet oldugunu
+gorebiliyoruz. Cunku carpan sag taraf bu kolonlari alip onlari belli
+sekillerde ``kombine ederek'' nihai (orijinal) matrisi ortaya
+cikartabilmeli. Bu sebeple soldaki carpilan matris bir ozet olmali / baz
+olusturmali, ve bunun yan etkisi olarak kolonlardaki degerlerde belli bir
+kalip / oruntu (pattern) olmali. O zaman her baz kolonunda birbiriyle
+alakali olan ogeler ayni anda 1 degeri tasiyor olacaktir.
 
 Sonuca gore uzun sacli ve unlu olmak (1. kolon) arasinda baglanti varmis ,
 ayrica erkek olmak ve unlu olmak (2. kolon) arasinda da baglanti varmis :)
