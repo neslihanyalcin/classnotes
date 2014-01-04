@@ -446,6 +446,9 @@ print np.dot(J, np.dot(T,J))
 
 Soru 1.1 2
 
+$T_3^{-1}$ hesabini uc basamakta yap ve bunu yaparken daha once gordugumuz
+$U$ ve $U^{-1}$ matrislerini kullan.
+
 \begin{minted}{python}
 import scipy.linalg as lin
 
@@ -475,6 +478,15 @@ print np.dot(lin.inv(U), lin.inv(U).T)
 \end{verbatim}
 
 Soru 1.1.5
+
+$K_3$ ve $K_4$'un tersini al ($K_2$'yi de bir zahmet), ve su kesirler olsun
+
+$$ \frac{1}{det} = \frac{1}{4} \frac{1}{5}$$. 
+
+\includegraphics[height=2.5cm]{1_8.png}
+
+Ilk once $K=K_5$ determinantini tahmin edin. Sonra $\det(K)$ ve
+$inv(K)$'yi hesaplayin ve $\det(K) * inv(K)$ hesabini yapin. 
 
 \begin{minted}{python}
 import scipy.linalg as lin
