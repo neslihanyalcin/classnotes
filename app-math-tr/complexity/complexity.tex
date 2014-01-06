@@ -1,56 +1,50 @@
 \documentclass[12pt,fleqn]{article}\usepackage{../common}
 \begin{document}
-Hesapsal Yük Teorisi (computational complexity)
+Hesapsal Zorluk Teorisi (Computational Complexity)
 
-Hesapsal Yük Teorisi algoritmalarýn yer ve zaman gibi kaynaklarý ne kadar
+Hesapsal Zorluk Teorisi algoritmalarýn yer ve zaman gibi kaynaklarý ne kadar
 kullandýðýndan hareketle bu algoritmalarý kategorize etmeye uðraþýr. Diðer
 bazý amaçlar, hangi algoritmalarýn çözümsüz olacaðý, hangi algoritmalarýn
 çok zaman alacak olsa bile, eninde sonunda bir sonuca varabileceði gibi
 konulardýr.
 
-Algoritma türlerinin arasýndaki benzerlikleri bulmak, yük teorisinde önemli
-bir yer tutar. Mühendisler için de bu kategorizasyonun direk bir etkisi
-olmaktadýr. Mesela problem XYZ için bir algoritma yazmanýz gerektiðini
-düþünün, ve ayný gün kuramsal bir bilgisayar bilim makâlesinde, sizin
-probleminizin diðer bir "ABC problemi" ile týpatýp ayný olduðunu
-okudunuz. Bu makâleye göre, ABC probleminin kabakuvvet çözümünün "yavaþ"
-olduðunu belirtilmiþ olabilir, ve hýzlý çözümün imkansýz olduðu da ispat
-edilmiþtir (mesela).
+Algoritma türlerinin arasýndaki benzerlikleri bulmak, zorluk teorisinde
+önemli bir yer tutar. Mesela problem $P$ için bir algoritma yazmamýz
+gerektiðini düþünelim, ve ayný gün kuramsal bir bilgisayar bilim
+makâlesinde, bizim problemin diðer bir "$A$ problemi" ile týpatýp ayný
+olduðunu okuduk. Bu makâleye göre, $A$ probleminin kabakuvvet çözümünün
+"yavaþ" olduðu belirtilmiþ olabilir, ve hýzlý çözümün imkansýz olduðu da
+ispat edilmiþtir (mesela).
 
-Bu bilgiden hareketle, siz üzerinde uðraþtýðýnýz algoritmanýn hýzlý
-cözümünün olamayacaðýný daha baþtan anlamýþ oluyorsunuz. Bu sayede gereksiz
-zaman harcamayarak, ya problemi basitleþtirmeye, ya da akýllý tahmin
-(heuristic) ekleyerek çözümü biraz olsun hýzlandýrmaya
-çalýþabilirsiniz. Yazýlýmbilimde algoritmalar arasýndaki benzerlik, çok
-sýký bir iliþkidir, ve bu yüzden algoritma kategorilerinin hangi
-problemleri içerdiði çok büyük önem taþýr.
+Bu bilgiden hareketle, üzerinde uðraþtýðýmiz algoritmanýn hýzlý cözümünün
+olamayacaðýný daha baþtan anlamýþ oluyoruz, gereksiz zaman harcamayarak ya
+problemi basitleþtirmeye ya da akýllý tahmin (heuristic) ekleyerek çözümü
+biraz olsun hýzlandýrmaya çalýþabiliriz. Bilgisayar bilimde algoritmalar
+arasýndaki benzerlik çok sýký bir iliþki, bu yüzden algoritma
+kategorilerinin hangi problemleri içerdiðine dikkat etmek lazim.
 
 Diðer Konular
 
-Yazý dizimizin sonunda, hýzlý ve ya yavaþ algoritma sözünün teorik olarak
-ne ifade ettiðini, hesapsal yük teorisinin baþ araçlarýndan olan indirgeme
-(reduction) tekniðinin ne olduðunu göreceðiz. Problemler arasýndaki
-benzerliðin, birini ötekini indirgemek ile mümkün olduðunu göstermeye
-uðraþacaðýz.
+Yazý dizisinin sonunda hýzlý ve ya yavaþ algoritma sözünün teorik olarak ne
+ifade ettiðini hesapsal yük teorisinin baþ araçlarýndan olan indirgeme
+(reduction) tekniðini göreceðiz. Problemler arasýndaki benzerliðin, birini
+ötekini indirgemek ile mümkün olduðunu göstermeye uðraþacaðýz.
 
 Turing makinalarýný, baþtan planlý (deterministic), baþtan plansýz
 (nondeterministic) þekillerini de yazýlarýmýzda görmeniz mümkün olacak.
 
 Algoritma
 
-Bilgisayarcýlar için algoritma çok tanýdýk bir kelimedir. Baþý sonu belli,
-her muhtemel seçenek için önceden belirlenmiþ bir kod parçasýnýn devreye
-girdiði bir veri ve eylemler dizisidir algoritma.
-
-Bu algoritmayý yazarken içinde bulunduðumuz evren, deðiþkenler, girdi,
-çýktý aletleri, eðer/eylem çiftleri, gibi kavramlarýn olduðu bir
-evrendir. Bu dili iþleten makinayý bir soyut makina olarak addedelim. Fakat
-göreceðiz ki, halâ teorik iþ yapmamýz için bu makina yeteri kadar basit
-deðildir. Kullandýðýmýz 'esnek' dili destekleyen makinamýz oldukça
-çetrefilli hâldedir. Ayrýca, dili deðiþtirirsek (Java yerine LISP gibi)
-makinýn da deðiþmesi gerekecektir, bütün dilleri temsil edebilen bir makina
-bulamaz mýyýz? Teorik iþ yapabilmemiz için böyle evrensel bir makinaya
-ihtiyacýmýz var.
+Algoritma baþý sonu belli, her muhtemel seçenek için önceden belirlenmiþ
+bir kod parçasýnýn devreye girdiði bir veri ve eylemler dizisidir. Bu
+algoritmayý yazarken içinde bulunduðumuz evren, deðiþkenler, girdi, çýktý
+aletleri, eðer/eylem çiftleri, gibi kavramlarýn olduðu bir evren. Bu dili
+iþleten makinayý bir soyut makina olarak gorelim. Fakat göreceðiz ki, halâ
+teorik iþ yapmamýz için bu makina yeteri kadar basit
+deðildir. Kullandýðýmýz 'esnek' dili destekleyen makinamýz oldukça çetrefil
+hâlde. Ayrýca, dili deðiþtirirsek (Java yerine LISP gibi) makinýn da
+deðiþmesi gerekir, bütün dilleri temsil edebilen bir makina bulamaz mýyýz?
+Teorik iþ yapabilmemiz için böyle evrensel bir makinaya ihtiyacýmýz var.
 
 Dili basitleþtirelim. Direk eriþimli (random access) belleði olan,
 komutlarý ve verisi ayný gözüken bir makina yapalým ve onun kullandýðý dili
@@ -502,7 +496,7 @@ olacak. Ait deðil ise 0.
 
 \includegraphics[height=3cm]{infinite_binary_esleme.png}
 
-Nereye gelmeye çalýþtýðýmýzý herhalde görüyorsunuz. $X_A$ numarasýnýn tamâmý,
+Nereye gelmeye çalýþtýðýmýzý herhalde görüyoruz. $X_A$ numarasýnýn tamâmý,
 A dilinin bir nevi "temsilci numarasý" olmaktadýr. Ayný þekilde "1 ile
 baþlayan metinlerin toplamý olan dil"'in temsilci no'su baþka olacaktýr
 (mesela $X_C$). Temsilci no'su, aynen B kümesinin elemanlarý gibi, sonsuza
@@ -513,6 +507,41 @@ Demek ki bütün diller sayýlamayan sonsuzluktadýr, çünkü B'nin sayýlamayan
 sonsuzlukta olduðunu ispatlamýþtýk. Kýyasla, Turing makinalarý sayýlabilir
 sonsuz olduðuna göre, aradaki fark, karar verilemeyen diller olacaktýr. Bu
 dilleri karar verebilen Turing makinasýnýn yazýlmasý mümkün deðildir.
+
+NP-Zor (NP-Hard) ve NP-Tam (NP-Complete)
+
+Bilgisayar bilimde oyle problemler vardir cozumlerini bulmak icin her
+mumkun girdiyi denemek gerekir. 3SAT bu problemlerden biri. Diyelim ki
+$x_1,..,x_n$ degiskenlerini kullanip en fazla uc ogeli, ve grup icinde VEYA
+ile birbirine bagli, gruplarasi ise VE ile birbirine bagli bir ifade
+zinciri olusturuyoruz. Mesela,
+
+$$ (x_1 \lor x_2 \lor \bar{x_3}) \land 
+(\bar{x_1} \lor \bar{x_2} \lor \bar{x_3}) \land
+(x_1 \lor \bar{x_2}) \land
+(\bar{x_1} \lor \bar{x_2})
+$$
+
+ki $\lor$ isareti VEYA (OR), $\land$ isareti ise VE (AND), degisken
+uzerinde cizgi olmasi onun tersinin alinmasi (NOT) demek. Soru su, bu
+ifadenin dogru yani 1 sonucunu vermesini saglayacak girdiler (onu tatmin
+edecek (satisfy -SAT kisaltmasi buradan geliyor-) var midir? Ve bu sonuc
+polinom zamanda ($n$ ve ifade uzunluguna dogru lineer orantili sekilde)
+bulunabilir mi?
+
+Bu ufak ornekte tahmin etmeye ugrasirsak, $x_1=1,x_2=0,x_3=0$ bu formulu
+``tatmin eder'', yani ustteki ifade 1 sonucunu verebilen bir
+ifadedri. Fakat bu sonuca ``kesinlikle'' erismek ve bunu her tur 3SAT
+problemi icin yapabilmek icin bir programin tum girdi kombinasyonlarini
+denemesi gerekir. Tum seceneklerin denenme mecburiyeti bir problemi zor
+kategorisine sokar. Kisayol, cinlik, envai turden tahmin (heuristic) her
+zaman ise yaramaz (probleme gore bazen ise yarayabilir, fakat hesapsal
+zorluk her zaman en kotu sartin performansini baz alir).
+
+Ayrica 3SAT o kadar temel bir problemdir ki, zor problemler kategorisinde
+temsili bir ozelligi vardir. Tum zor problemler 3SAT'a
+indirgenebilirler. Bu tur problemlere ayrica NT-Tam ismi de verilir, cunku
+cok zor problemleri ``tam'' olarak temsil ederler.
 
 
 \end{document}
