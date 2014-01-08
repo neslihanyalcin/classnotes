@@ -3,28 +3,33 @@
 \begin{document}
 Google Nasil Isler? 
 
-Google arama motoruna bir kelime yazdigimizda geri gelen sonuclar nasil
-kararlastirilir? Ilk akla gelen yontem tabii ki Web'deki tum sayfalarin
-(milyarlarca sayfa) sayfalar uzerindeki kelimelerin o sayfa ile
-iliskilendirilmesi ve arama yapilinca kelimeye gore sayfa geri
-getirilmesi. Mesela alttaki ornekte ``book (kitap)'' yazinca geriye 1.,
-2. ve 5. sayfalar geri gelecek. Fakat hangi sirada? Bu sayfalardan hangisi
-digerlerinden daha onemli?
+Lineer Cebir hocalari Google'a mutesekkir olmali, cunku bu unlu arama
+motorunun kullandigi PageRank tekniginin ozu aslinda lineer cebirin
+temelini olusturan kavramlardan ozdeger / ozvektor hesabi. Ogrenciler
+``niye bu kavramlari ogreniyoruz hocam?''  diye sorunca artik cevap
+kolay: ``bu yontemi Google da kullaniyor!''.
+
+Simdi arama motorunun yapmasi gerekenleri dusunelim: Google'a bir kelime
+yazdigimizda geri gelen sonuclar nasil kararlastirilir? Ilk akla gelen
+yontem tabii ki Web'deki tum sayfalarin (milyarlarca sayfa) sayfalar
+uzerindeki kelimelerin o sayfa ile iliskilendirilmesi ve arama yapilinca
+kelimeye gore sayfa geri getirilmesi. Mesela alttaki ornekte ``book
+(kitap)'' yazinca geriye 1., 2. ve 5. sayfalar geri gelecek. Fakat hangi
+sirada? Bu sayfalardan hangisi digerlerinden daha onemli?
 
 \includegraphics[height=9cm]{pg2.png}
 
-Google'in arama motorlarina getirdigi en buyuk yeniliklerden biri PageRank
-algoritmasidir. Bu algoritmanin temelinde daha fazla referans edilen
-sayfalar daha ustte cikmasi yatar. Hatta o referans eden sayfalarin
-kendilerine daha fazla referans var ise bu etki ta en sondaki sayfaya kadar
-yansitilir, hatta bu zincir bastan sona her seviyede hesaplanabilir. Peki bu
-nasil gerceklestirilir?
+PageRank'in temelinde daha fazla referans edilen sayfalarin daha ustte
+cikmasi yatar. Hatta o referans eden sayfalarin kendilerine daha fazla
+referans var ise bu etki ta en sondaki sayfaya kadar yansitilir, hatta bu
+zincir bastan sona her seviyede hesaplanabilir. Peki bu nasil
+gerceklestirilir?
 
-PageRank Web sayfalarini bir Markov Zincir olarak gorur. Markov Zincirleri
+PageRank Web sayfalarini bir Markov Zinciri olarak gorur. Markov Zincirleri
 seri halindeki $X_n, n=0,1,2,..$ rasgele degiskenini modeller ve bu
 degiskenler belli sayidaki konumlarin birinde olabilirler. Mesela konumlari
 bir dogal sayi ile ilintilendirirsek $X_n = i$ olabilir ki $i=\{0,1,..\}$
-diye kabul edelim. 
+diye kabul edelim.
 
 Markov Zincirlerinde (MZ) $i$ konumundan $j$ konumuna gecis olasiligini,
 $P_{ij}$, biliriz ve bu $P(X_{n+1} = j | X_{n} = i)$ olarak acilabilir. Acilimdan  
@@ -93,7 +98,7 @@ print P8
  [ 0.57139108  0.42860892]]
 \end{verbatim}
 
-Dikkat edilirse, her satir bir deger yaklasmaya basladi. Bu deger MZ'nin
+Dikkat edilirse, her satir bir degere yaklasmaya basladi. Bu deger MZ'nin
 duragan dagilimidir, belli kosullara uyan her MZ'nin boyle bir duragan
 dagilimi vardir. Bu kosullar MZ'nin periyodik olmayan (aperiodic) ve tekrar
 eden (recurrent) olmasidir. Bu sartlar cok ``ozel'' sartlar degildir
@@ -122,10 +127,11 @@ $$ Ax = \lambda x $$
 
 MZ denklemi sunu soyluyor, 1 degerindeki ozdegere ait ozvektor bir MZ'nin
 duragan dagilimidir! Bu arada, MZ gecis matrisi $P$'nin en buyuk
-ozdegerinin her zaman 1 oldugunu biliyoruz. Bu durumda en buyuk ozdegere
-ait ozvektoru hesaplamak yeterli olacaktir. Bunu yapmayi zaten {\em Lineer
-  Cebir Ders 21}'de ogrenmistik, ust metot (power method) sayesinde bu
-hesap kolayca yapilabiliyor.
+ozdegerinin her zaman 1 oldugunu biliyoruz (cunku ustteki tarif ettigimiz
+ozel sartlara sahip olan turden matrisler boyle ozdegerlere sahip
+olmali). Bu durumda en buyuk ozdegere ait ozvektoru hesaplamak yeterli
+olacaktir. Bunu yapmayi zaten {\em Lineer Cebir Ders 21}'de ogrenmistik,
+ust metot (power method) sayesinde bu hesap kolayca yapilabiliyor.
 
 Simdi en basktaki Web sayfalarina ait gecisleri yazalim,
 
@@ -168,7 +174,8 @@ baslangic vektoru ile bir kere carpmak ta dusunulebilirdi. Fakat 20 kere
 vektor / matris carpimlari yapmak, 20 kere matris / matris carpimi
 yapmaktan daha verimli olacaktir. Buyuk Veri ortami icin de bu soylenebilir.
 
-Eger kutuphane cagrisi kullanmak gerekirse, 
+Neyse, eger ozvektor hesabini kendimiz elle yapmak yerine direk kutuphane
+cagrisi kullansaydik,
 
 \begin{minted}{python}
 import numpy.linalg as lin
@@ -181,9 +188,9 @@ print np.abs(pi)
 [ 0.10526316  0.18421053  0.06140351  0.38596491  0.26315789]
 \end{verbatim}
 
-Sonuc gosteriyor ki ``book'' yazdigizda Google bize 5. sayfayi en basta
-olacak sekilde sonuc dondurmeli, cunku onun duragan dagilimi 1,2,5
-sayfalarinin arasinda en yuksek.
+Ayni sonuca ulastik. Bu sonuc gosteriyor ki ``book'' yazdigizda Google bize
+5. sayfayi en basta olacak sekilde sonuc dondurmeli, cunku onun duragan
+dagilimi 1,2,5 sayfalarinin arasinda en yuksek.
 
 Duragan Dagilima Bakis
 
@@ -203,16 +210,16 @@ agirligi 1 olacaktir, fakat ornek amacli 2,3 gibi sayilar da kullaniliyor.
 
 Rasgele Sayfa Gecisi
 
-Simdi $\pi^T$ yerine $p$, $P$ yerine $N$ kullanalim, PageRank ozyineli
-algoritmasi 
+Google veri temsili uzerinde bazi ekler yapmaktadir, mesela kullanicinin
+hicbir baglanti takip etmeyip tarayiciya direk URL girerek baska bir
+sayfaya ziplamasi (teleporting) bir sekilde temsil edilmelidir. Ayrica hic
+disa baglanti vermeyen sayfalar (olu noktalar) hesaba katilmalidir. Simdi
+$\pi^T$ yerine $p$, $P$ yerine $N$ kullanalim, PageRank ozyineli
+algoritmasi
 
 $$ p = N^Tp $$ 
 
-olarak gosterilebilir. Google veri temsili uzerinde bazi ekler yapmaktadir,
-mesela kullanicinin hicbir baglanti takip etmeyip tarayiciya direk URL
-girerek baska bir sayfaya ziplamasi (teleporting) bir sekilde temsil
-edilmelidir. Ayrica hic disa baglanti vermeyen sayfalar (olu noktalar)
-hesaba katilmalidir. 
+olarak gosterilebilir. 
 
 Bu her iki durum icin formul su sekilde ikiye ayirilir,
 
