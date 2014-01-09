@@ -659,6 +659,60 @@ N\bigg(\mu_1 + \Sigma_{12}\Sigma_{22}^{-1} (x_2 -\mu_2) \ , \
 \bigg)
  \]
 
+Hatirlama Numarasi
+
+Normal Dagilimin formulunu bazen hatirlayamayabiliriz. Peki daha basit bir
+formulden baslayarak onu turetebilir miyiz? Bu mumkun. Daha once {\em
+  $e^{-x^2}$ Nasil Entegre Edilir?} yazisinda
+
+$$ \int _{-\infty}^{+\infty} e^{-x^2} dx= \sqrt{\pi} $$
+
+oldugunu gormustuk. Dikkat edersek bu integral bir formulun olasiliksal
+dagilim olup olmadigini kontrol etmek icin kullandigimiz integrale
+benziyor. Eger integral 1 cikarsa onun olasiliksal dagilim oldugunu
+biliyoruz. Ustteki sonuc $\sqrt{\pi}$, fakat iki tarafi $\sqrt{\pi}$'ye
+bolersek, sag taraf 1 olur ve boylece solda bir dagilim elde ederiz. Yani
+
+$$ \int _{-\infty}^{+\infty} \frac{1}{\sqrt{\pi}} e^{-x^2} dx = 1$$
+
+formulunde integralin sagindaki kisim bir dagilimdir. Bu formulu
+donusturerek Gaussian'a erisebiliriz. Ustteki formulun orta noktasi (mean)
+sifir, varyansi (variance), yani $\sigma^2 = 1/2$ (bunu da ezberlemek lazim
+ama o kadar dert degil). O zaman $\sigma = 1 / \sqrt{2}$.
+
+Ilk amacimiz $\sigma = 1$'e erismek olsun (cunku oradan herhangi bir
+$\sigma$'ya atlayabiliriz), bunun icin $x$'i $\sqrt{2}$'e bolmek lazim,
+tabii ayni anda onun etkisini sifirlamak icin normalize eden sabiti
+dengelemek amaciyla $\sqrt{2}$'ye bolmek lazim,
+
+$$ = \int _{-\infty}^{+\infty} \frac{1}{\sqrt{2\pi}} e^{-(\frac{x}{\sqrt{2}})^2} dx$$
+
+$\sigma = 1$'e erisince oradan herhangi bir $\sigma$ icin, $\sigma$
+degiskenine bolelim, yine hem $e$ ustune hem sabite bu eki yapalim,
+
+$$ = \int _{-\infty}^{+\infty} 
+\frac{1}{\sigma \sqrt{2\pi}} 
+e^{-(\frac{x}{\sqrt{2} \sigma })^2} dx
+$$
+
+Simdi herhangi bir ortalama $\mu$ icin bu degiskeni formule sokalim, bunun
+icin $\mu$'yu $x$'den cikarmak yeterli
+
+$$ = \int _{-\infty}^{+\infty} 
+\frac{1}{\sigma \sqrt{2\pi}} 
+e^{-(\frac{x-\mu}{\sqrt{2} \sigma })^2} dx
+$$
+
+$e$ ustundeki kare alma islemini acarsak,
+
+$$ = \int _{-\infty}^{+\infty} 
+\frac{1}{\sigma \sqrt{2\pi}} 
+e^{-  \frac{(x-\mu)^2}{2 \sigma^2 }} dx
+$$
+
+
+Boylece integral icindeki kisim tek boyutlu Gaussian formuna erismis
+oluyor. 
 
 
 \end{document}
