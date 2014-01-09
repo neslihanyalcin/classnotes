@@ -2,7 +2,50 @@
 \begin{document}
 Algilayicilardan Gelen Gauss Dagilimlarinin Fuzyonu (Gaussian Sensor Fusion)
 
+Diyelim ki tek boyutlu ortamda bir buyuklugu mesela bir lokasyon bilgisi
+$x$'i, iki kere olcuyoruz, ve bu olcumu iki degisik algilayiciya
+yaptiriyoruz. Yani iki alet bir cismin oldugu yeri bize geri donduruyor, bu
+bilgilerde belli olcude gurultu var ki bu belirsizlik aletler yuzunden
+olabilir. Diyelim ki iki $z_1,z_2$ olcumu icin iki degisik belirsizlik
+(uncertainty) $\sigma_1,\sigma_2$. 
 
+Soru su, bu iki olcumu kullanarak daha iyi bir $x$ tahmini yapabilir miyiz?
+
+Bunun iki olcumu bir sekilde birlestirmemiz gerekiyor. Her olcumu Gaussian
+/ Normal dagilim olarak modelleyebiliriz, o zaman iki Normal dagilimi bir
+sekilde birlestirmemiz (fusion) lazim. Olcumleri temsil etmek icin Gaussian
+bicilmis kaftan. Olcumdeki belirsizligi standart sapma (standart deviation)
+uzerinden rahatlikla temsil edebiliriz. Peki birlestirimi nasil yapalim? 
+
+Bu tur problemlerde maksimum olurluk (maximum likelihood) kullanilmasi
+gerektigini asagi yukari tahmin edebiliriz, cunku maksimum olurluk verinin
+olurlugunu maksimize ederek bilinmeyen parametreleri tahmin etmeye
+ugrasir. Cogunlukla bu teknigi hep {\em tek} bir dagilim baglaminda
+gormusuzdur herhalde (ders kitaplarinda vs), o tek dagilima degisik veri
+noktalari verilerek olasilik sonuclari carpilir, ve bu maksimize edilmeye
+ugrasilir. Fakat maksimum olurluk illa tek bir dagilimla kullanilabilir
+diye bir kural yok. Ustteki problemde iki olcumu iki Gaussian ile temsil
+ederiz (buna mecburuz, iki degisik belirsizlik var), ve bu iki Gaussian'a
+verilen iki olcum noktasini olurlugunu bu Gaussian'larin sonuclarini
+carparak elde edebiliriz. Peki bilinmeyen $x$ nedir? Onu da Gaussian'in
+orta noktasi (mean) olarak aliriz! Yani
+
+$$ L(x) = p(z_1|x,\sigma_1) p(z_2|x,\sigma_2) $$
+
+$$ L(x) \sim \exp{\frac{-(z_1-x)^2}{2\sigma_1^2} } 
+\times \frac{-(z_2-x)^2}{2\sigma_2^2} $$
+
+Ders notlari [1]'de bu formulun nasil turetilerek bir $x_{MLE}$ formulune
+erisildigini gorebiliriz. Biz alternatif olarak daha temiz bir yoldan
+gidecegiz. Her iki olcumu iki farkli 1 boyutlu Gaussian olarak temsil etmek
+bir yontemdir. Diger bir yontem su olabilir. \textbf{2 boyutlu} bir
+Gaussian yaratiriz, olcum belirsizliklerini bu Gaussianin kovaryansinda
+capraza (diagonal) koyariz, diger matris ogeleri sifir olur, boylecek iki
+olcumun birbirinden bagimsizligini temsil etmis oluruz.
+
+
+
+[1] \url{www.robots.ox.ac.uk/~az/lectures/est/lect34.pdf}
 
 
 \end{document}
