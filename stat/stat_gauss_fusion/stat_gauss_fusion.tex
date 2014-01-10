@@ -24,11 +24,12 @@ ugrasir. Cogunlukla bu teknigi hep {\em tek} bir dagilim baglaminda
 gormusuzdur herhalde (ders kitaplarinda vs), o tek dagilima degisik veri
 noktalari verilerek olasilik sonuclari carpilir, ve bu maksimize edilmeye
 ugrasilir. Fakat maksimum olurluk illa tek bir dagilimla kullanilabilir
-diye bir kural yok. Ustteki problemde iki olcumu iki Gaussian ile temsil
-ederiz (buna mecburuz, iki degisik belirsizlik var), ve bu iki Gaussian'a
-verilen iki olcum noktasini olurlugunu bu Gaussian'larin sonuclarini
-carparak elde edebiliriz. Peki bilinmeyen $x$ nedir? Onu da Gaussian'in
-orta noktasi (mean) olarak aliriz! Yani
+diye bir kural yok. 
+
+Ustteki problemde iki olcumu iki Gaussian ile temsil ederiz, ve bu iki
+Gaussian'a verilen iki olcum noktasini olurlugunu bu Gaussian'larin
+sonuclarini carparak elde edebiliriz. Peki bilinmeyen $x$ nedir? Onu da
+Gaussian'in orta noktasi (mean) olarak alabiliriz. Yani
 
 $$ L(x) = p(z_1|x,\sigma_1) p(z_2|x,\sigma_2) $$
 
@@ -45,20 +46,21 @@ Ders notlari [1]'de iki ustteki formulun nasil maksimize edilerek bir
 $x_{MLE}$ formulune erisildigini gorebiliriz. Ustteki formul basindaki
 sabit kisminin $L(x)$ formulunde kullanilmadigini goruyoruz, cunku
 maksimizasyon acisindan dusunursek, o kisim tekrar tekrar carpilacak ve,
-hesaplamaya calistigimiz degiskenler acisindan en azindan bu ek buyukluk
-bir fark yaratmayacakti.
+hesaplamaya calistigimiz degiskenler acisindan bu surekli tekrarlanan ek
+buyukluk bir fark yaratmayacakti.
 
-Ustteki metot ta isler. Fakat biz alternatif olarak daha degisik (temiz?)
-bir yoldan gidecegiz. Elimizdeki her iki olcumu iki farkli 1 boyutlu
-Gaussian olarak temsil etmek bir yontemdir. Diger bir yontem su
-olabilir. \textbf{2 boyutlu} bir Gaussian yaratiriz, ve iki olcumu tek bir
-2 boyutlu vektor icinde belirtiriz, ve tek bir olasilik hesabi $p(z;x,\Sigma)$ 
-yapariz. Belirsizlikler ne olacak? Olcum belirsizliklerini bu 2D
-Gaussian'in kovaryansinda capraza (diagonal) koyariz, capraz disindaki
-matris ogeleri sifir olursa boylece iki olcumun birbirinden bagimsizligini
-temsil etmis oluruz. Maksimizasyon nasil olacak? Tek bir olcumun
-olasiligini maksimize etmek mumkun, cunku bu hesap sirasinda bilinmeyen
-degiskenleri iceren yeni bir formul ortaya cikacak. 
+Ustteki metot isler. Fakat biz alternatif olarak degisik bir yoldan
+gidecegiz. Elimizdeki her iki olcumu iki farkli 1 boyutlu Gaussian olarak
+temsil etmek bir secenek, diger bir yontem su olabilir. \textbf{2 boyutlu}
+bir Gaussian yaratiriz, ve iki olcumu tek bir 2 boyutlu vektor icinde
+belirtiriz, ve tek bir olasilik hesabini $p(z;x,\Sigma)$ baz aliriz.
+Belirsizlikler ne olacak? Olcum belirsizliklerini bu 2D Gaussian'in
+kovaryansinda capraza (diagonal) konabilir, capraz disindaki matris ogeleri
+sifir olursa iki olcumun birbirinden bagimsizligini temsil etmis
+oluruz. Maksimizasyon? Tek bir olcumun olasiligini maksimize edebiliriz, bu
+tek bir olcumun olasiligini hesaplamaktan ibarettir, ve bu hesap sirasinda
+bilinmeyen degiskenleri de iceren yeni bir formul ortaya
+cikacaktir. Maksimize etmeye ugrasacagimiz bu formul olur.
 
 Cok boyutlu Gaussian'i hatirlayalim (artik $z,x$ birer vektor),
 
@@ -126,8 +128,8 @@ $$ =
 \frac{1}{2}\sigma_1^{-2}(z_1-x)^2 + \frac{1}{2}\sigma_2^{-2} (z_2-x)^2
 $$
 
-Maksimize etmek icin bilinmeyen $x$ degiskenine gore turev alip sifira
-esitleyebiliriz, 
+Maksimize etmek icin, formul karesel olduguna gore, bilinmeyen $x$
+degiskenine gore turev alip sifira esitleyebiliriz,
 
 $$ 
 \sigma_1^{-2}z_1-\sigma_1^{-2}x + \sigma_2^{-2}z_2-\sigma_2^{-2}x = 0
@@ -149,6 +151,8 @@ $$
 \frac{\sigma_1^{-2}z_1+ \sigma_2^{-2}z_2 }{\sigma_1^{-2}+\sigma_2^{-2}}= x_{MLE}
 $$
 
+Gayet temiz bir sekilde sonuca eristik. 
+
 Ornek
 
 Elimizde belirsizlikleri $\sigma_1=10,\sigma_2=20$ olan iki algilayici
@@ -160,14 +164,15 @@ $$ x_{MLE} =
 \frac{130/10^2 + 170/20^2}{1/10^2 + 1/20^2} = 138.0
 $$
 
-Sonucun belirsizligi daha az olan olcume daha yakin ciktigini goruyoruz. 
+Sonucu belirsizligi daha az olan olcume daha yakin cikti, bu akla yatkin
+bir sonuc.
 
 Cok Boyutlu Gaussian Fuzyon
 
 Peki ya elimizdeki birden fazla olan olcumlerin herbiri cok boyutlu ise? 
 
 O zaman yine maksimum olurluk uzerinden bir formul turetebiliriz. Bu
-durumda iki ayri dagilim olacaktir,
+durumda tek olasilik hesabi yetmez, iki ayri dagilim olmali,
 
 $$ p(z_1;x,\Sigma_1) =  \frac{ 1}{C_1} \exp 
 \bigg\{ 
@@ -180,10 +185,12 @@ $$ p(z_2;x,\Sigma_2) =  \frac{ 1}{C_2} \exp
 \bigg\} $$
 
 Orta nokta $x$ her iki formulde ayni cunku degismeyen olan o; ayni orta
-nokta icin tahmin uretmeye ugrasiyoruz.  Simdi bildik maksimum olurluk
-hesaplarina biraz daha yaklastik. Daha once $\ln$ alarak $\exp$'yi
-yoketmistik. Bunun bir diger faydasi $\ln$ alininca carpimlarin toplama
-donusmesidir, 
+nokta icin tahmin uretmeye ugrasiyoruz. Bu durum bildik maksimum olurluk
+hesaplarina yine benziyor, fakat hala bir fark var, cunku farkli turden
+olasilik fonksiyonlarini farkli veri noktalari uzerinden carpiyoruz. 
+
+Devam edelim. Daha once $\ln$ alarak $\exp$'yi yoketmistik. Bunun bir diger
+faydasi $\ln$ alininca carpimlarin toplama donusmesidir, 
 
 $$ L = p(z_1;x,\Sigma_1) p(z_2;x,\Sigma_2) 
 $$
@@ -234,7 +241,11 @@ $$
 \Sigma_x^{-1} = \Sigma_1^{-1} + \Sigma_2^{-1}
 $$
 
-O zaman ana formule donelim,
+Not: Aslinda $\Sigma_x$ te diyebilirdik, fakat tersi alinmis matrislerin
+toplami oldugunu temsil etmesi icin ``tersi alinmis bir sembol''
+kullandik. 
+
+Simdi ana formule donelim,
 
 $$ 
 z_1\Sigma_1^{-1}  + z_2\Sigma_2^{-1}  = x\Sigma_x^{-1}
@@ -272,7 +283,43 @@ $$
 
 Nihai olcum nedir? 
 
-\includegraphics[height=4cm]{fusion_1.png}
+\begin{minted}{python}
+from mpl_toolkits.mplot3d import Axes3D
+from matplotlib import cm
+import matplotlib.mlab as mlab
+
+x = np.arange(-10.0, 10.0, 0.1)
+y = np.arange(-10.0, 10.0, 0.1)
+
+X, Y = np.meshgrid(x, y)
+Z1 = mlab.bivariate_normal(X, Y, sigmax=1.0, sigmay=4.0,mux=1., \
+     muy=1.,sigmaxy=0.0)
+Z2 = mlab.bivariate_normal(X, Y, sigmax=4.0, sigmay=1.0,mux=2., \
+     muy=-1.,sigmaxy=0.0)
+
+fig = plt.figure()
+
+ax = Axes3D(fig)
+ax.view_init(elev=40.,azim=80)
+
+ax.plot_surface(X,Y,Z1,alpha=0.1)
+ax.plot_surface(X,Y,Z2,alpha=0.1)
+plt.savefig('fusion_1.png')
+\end{minted}
+
+
+\includegraphics[height=6cm]{fusion_1.png}
+
+Ustten bakisla kontur (contour) olarak gosterirsek 
+
+\begin{minted}{python}
+CS = plt.contour(X, Y, Z1)
+CS = plt.contour(X, Y, Z2)
+plt.savefig('fusion_3.png')
+\end{minted}
+
+\includegraphics[height=6cm]{fusion_3.png}
+
 
 Resimde once ilk olcum, sonra onunla yanyana olacak ikinci olcum koyulmus. 
 
@@ -288,7 +335,7 @@ $$ \Sigma_x^{-1} = \Sigma_1^{-1} + \Sigma_2^{-1}  =
 \end{array}\right] 
 $$
 
-Tersini alalim (daha dogrusu tersin tersini almis oluyoruz)
+Tersini alalim 
 
 $$ \Sigma_x =
 \left[\begin{array}{cc}
@@ -324,7 +371,29 @@ $$
 
 Sonuc grafiklenirse suna benzer,
 
-\includegraphics[height=4cm]{fusion_2.png}
+\begin{minted}{python}
+Z3 = mlab.bivariate_normal(X, Y, sigmax=0.8, sigmay=0.8,mux=1.2, \
+     muy=-0.6,sigmaxy=0.0)
+
+fig = plt.figure()
+
+ax = Axes3D(fig)
+ax.view_init(elev=40.,azim=80)
+
+ax.plot_surface(X,Y,Z3)
+plt.savefig('fusion_2.png')
+\end{minted}
+
+
+\includegraphics[height=6cm]{fusion_2.png}
+
+\begin{minted}{python}
+CS = plt.contour(X, Y, Z3)
+plt.savefig('fusion_4.png')
+\end{minted}
+
+\includegraphics[height=6cm]{fusion_4.png}
+
 
 [1] \url{www.robots.ox.ac.uk/~az/lectures/est/lect34.pdf}
 
