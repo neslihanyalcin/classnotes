@@ -50,7 +50,7 @@ $$
 \end{array}\right]
  $$
 
-Matris ve Vektor Turevleri
+Vektor Turevleri
 
 Eger bir $x$ vektorunden bagimsiz bir $M$ matrisi o $x$ ile carpiliyor ise,
 bunlarin $x$'e gore turevi nedir? 
@@ -59,9 +59,25 @@ $$ \frac{\partial}{\partial x} [Mx] = M
 $$
 
 Ustteki sonuc aslinda tek sayili / boyutlu ortamda $2x$ gibi bir ifadenin
-$x$'e gore turevini alinca $2$ elde etmeye esdeger. 
+$x$'e gore turevini alinca $2$ elde etmeye esdeger. Eger ispatini merak
+ediyorsak, soyle dusunebiliriz. {\em Matrisi Carpimi} yazisini
+hatirlayalim, ve carpima kolon kombinasyonu bakisini hatirlayalim. Bu
+bakisa gore $Mx$'i soyle gorebiliriz (ki $M$'in kolonlarini $M_i$, $x$
+ogelerini $x_i$ diye temsil edersek)
 
+$$ 
+[ M_1 \cdot x_1 + ... + M_d \cdot x_d ]
+ $$
 
+Bu durumda ustteki vektorun en ustundeki oge nedir?
+
+$$ 
+\left[\begin{array}{c}
+m_{11}x_1 + .. + m_{d1}x_d  \\
+\vdots \\ 
+m_{d1}x_1 + .. + m_{dd}x_d  
+\end{array}\right]
+ $$
 
 
 \end{document}
