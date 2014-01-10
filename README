@@ -2,11 +2,12 @@
 ODE, Cok Degiskenli Calculus, Lineer Cebir, Hesapsal Bilim,
 Istatistik, Fonksiyonel Analiz[ video derslerinden, ya da ders
 kitaplarindan alinan notlarin Latex ile yazilmis ve PDF olarak
-uretilmis dosyalari. Matematik ve uygulamali matematik hakkinda
-yazilmis bazi yazilarimiz da depoda bulunabilir. Ornek Python kodlari
-gerektigi yerde yazilar ile beraber ayni dizinde olacaktir.
+uretilmis dosyalari burada bulunabilir. Matematik ve Uygulamali
+Matematik hakkinda yazilmis yazilar da depoda bulunabilir. Ornek
+Python kodlari gerektigi yerde yazi icinde ya da onunla beraber ayni
+dizinde olacaktir.
 
-Dokumanlarin icinde gorulen kod python/ipython ortami icinden direk
+Dokumanlarin icinde gorulen kod python/ipython ortami icinden
 isletilebilir. ipython kurmak icin
 
 http://ipython.org/install.html
@@ -15,13 +16,19 @@ Komut satirindan ipython baslatmak icin
 
 ipython notebook --pylab=inline
 
-kullanilabilir. Eger kodlari not defteri disinda, dosya bazli, pur
-Python olarak isletmek isterseniz, import numpy as np, ve import
-matploblib.pylab as plt ibarelerini eklemek gerekir.
+kullanilabilir. Tabii bu durumda belgelerde gorulen kodlar elle
+girilecektir. Eger kodlari not defteri disinda, dosya bazli, pur
+Python olarak isletmek isterseniz, import
 
-Emacs / LaTeX dokumanlarin icinden Python kodlarini pytexipy-notebook
-adli bir teknoloji uzerinden belge icinde isletebiliyoruz (arka planda
-ipython'a baglaniyoruz, yani ayni temel yapi kullaniliyor).
+import numpy as np
+import matploblib.pylab as plt
+
+ibarelerini script'in basina eklemek gerekir. Emacs / LaTeX
+dokumanlarin *icinden* Python kodlarini pytexipy-notebook adli bir
+teknoloji uzerinden direk belge icinde isletebiliyoruz (arka planda
+ipython'a baglaniyor, yani ayni temel yapi kullaniliyor). Bu durumda,
+pytexipy-notebook kuruldugunda ve Emacs icinden cagirildiginda o
+gereken tum ipython ayarlari kendisi yapiyor.
 
 ---
 

@@ -35,15 +35,119 @@ $$ L(x) = p(z_1|x,\sigma_1) p(z_2|x,\sigma_2) $$
 $$ L(x) \sim \exp{\frac{-(z_1-x)^2}{2\sigma_1^2} } 
 \times \frac{-(z_2-x)^2}{2\sigma_2^2} $$
 
-Ders notlari [1]'de bu formulun nasil turetilerek bir $x_{MLE}$ formulune
-erisildigini gorebiliriz. Biz alternatif olarak daha temiz bir yoldan
-gidecegiz. Her iki olcumu iki farkli 1 boyutlu Gaussian olarak temsil etmek
-bir yontemdir. Diger bir yontem su olabilir. \textbf{2 boyutlu} bir
-Gaussian yaratiriz, olcum belirsizliklerini bu Gaussianin kovaryansinda
-capraza (diagonal) koyariz, diger matris ogeleri sifir olur, boylecek iki
-olcumun birbirinden bagimsizligini temsil etmis oluruz.
+1D Gaussian formulunu hatirlarsak, 
 
+$$ p(z;x,\sigma) = \frac{1}{\sigma\sqrt{2\pi}} 
+\exp \bigg\{ - \frac{(z-x)^2}{2\sigma^2}  \bigg\}
+ $$
 
+Ders notlari [1]'de iki ustteki formulun nasil maksimize edilerek bir
+$x_{MLE}$ formulune erisildigini gorebiliriz. Ustteki formul basindaki
+sabit kisminin $L(x)$ formulunde kullanilmadigini goruyoruz, cunku
+maksimizasyon acisindan dusunursek, o kisim tekrar tekrar carpilacak ve,
+hesaplamaya calistigimiz degiskenler acisindan en azindan bu ek buyukluk
+bir fark yaratmayacakti.
+
+Ustteki metot ta isler. Fakat biz alternatif olarak daha degisik (temiz?)
+bir yoldan gidecegiz. Elimizdeki her iki olcumu iki farkli 1 boyutlu
+Gaussian olarak temsil etmek bir yontemdir. Diger bir yontem su
+olabilir. \textbf{2 boyutlu} bir Gaussian yaratiriz, ve iki olcumu tek bir
+2 boyutlu vektor icinde belirtiriz, ve tek bir olasilik hesabi $p(z;x,\Sigma)$ 
+yapariz. Belirsizlikler ne olacak? Olcum belirsizliklerini bu 2D
+Gaussian'in kovaryansinda capraza (diagonal) koyariz, capraz disindaki
+matris ogeleri sifir olursa boylece iki olcumun birbirinden bagimsizligini
+temsil etmis oluruz. Maksimizasyon nasil olacak? Tek bir olcumun
+olasiligini maksimize etmek mumkun, cunku bu hesap sirasinda bilinmeyen
+degiskenleri iceren yeni bir formul ortaya cikacak. 
+
+Cok boyutlu Gaussian'i hatirlayalim (artik $z,x$ birer vektor),
+
+$$ p(z;x,\Sigma) = 
+\frac{ 1}{(2\pi)^{k/2} \det(\Sigma)^{1/2}} \exp 
+\bigg\{ 
+-\frac{ 1}{2}(z-x)^T\Sigma^{-1}(z-x)
+\bigg\} $$
+
+Kisaca,
+
+$$ =  \frac{ 1}{C} \exp 
+\bigg\{ 
+-\frac{ 1}{2}(z-x)^T\Sigma^{-1}(z-x)
+\bigg\} $$
+
+Bir numara, $\exp$ ve parantez ici negatif ibareden kurtulmak icin
+$-\ln p$ alalim,
+
+$$ -\ln p(z) = 
+\frac{ 1}{2}(z-x)^T\Sigma^{-1}(z-x)
+$$
+
+Simdi iki olcumu, belirsizligi vektor / matris ogeleri olarak gosterelim, 
+
+$$ = \frac{1}{2}  
+\left[\begin{array}{c}
+z_1-x \\ z_2-x
+\end{array}\right]^T
+\left[\begin{array}{cc}
+\sigma_1^2 & 0 \\
+0 & \sigma_2^2 
+\end{array}\right]^{-1}
+\left[\begin{array}{c}
+z_1-x \\ z_2-x
+\end{array}\right]
+$$
+
+Capraz matrisin tersini almak icin caprazdaki ogelerin tersini almak
+yeterlidir,
+
+$$ = \frac{1}{2}  
+\left[\begin{array}{c}
+z_1-x \\ z_2-x
+\end{array}\right]^T
+\left[\begin{array}{cc}
+\sigma_1^{-2} & 0 \\
+0 & \sigma_2^{-2} 
+\end{array}\right]
+\left[\begin{array}{c}
+z_1-x \\ z_2-x
+\end{array}\right]
+$$
+
+$$ = \frac{1}{2}  
+\left[\begin{array}{cc}
+\sigma_1^{-2}(z_1-x) & \sigma_2^{-2} (z_2-x)
+\end{array}\right]
+\left[\begin{array}{c}
+z_1-x \\ z_2-x
+\end{array}\right]
+$$
+
+$$ = 
+\frac{1}{2}\sigma_1^{-2}(z_1-x)^2 + \frac{1}{2}\sigma_2^{-2} (z_2-x)^2
+$$
+
+Maksimize etmek icin bilinmeyen $x$ degiskenine gore turev alip sifira
+esitleyebiliriz, 
+
+$$ 
+\sigma_1^{-2}z_1-\sigma_1^{-2}x + \sigma_2^{-2}z_2-\sigma_2^{-2}x = 0
+$$
+
+$x$ uzerinden gruplarsak,
+
+$$ 
+-x(\sigma_1^{-2}+\sigma_2^{-2}) + \sigma_1^{-2}z_1+ \sigma_2^{-2}z_2 = 0
+$$
+
+Gruplanan kismi esitligin sagina alalim,
+
+$$ 
+\sigma_1^{-2}z_1+ \sigma_2^{-2}z_2 = x(\sigma_1^{-2}+\sigma_2^{-2}) 
+$$
+
+$$ 
+\frac{\sigma_1^{-2}z_1+ \sigma_2^{-2}z_2 }{(\sigma_1^{-2}+\sigma_2^{-2})}= x_{MLE}
+$$
 
 [1] \url{www.robots.ox.ac.uk/~az/lectures/est/lect34.pdf}
 
