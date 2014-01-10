@@ -2,34 +2,39 @@
 \begin{document}
 Gaussian Olcumlerin Fuzyonu (Gaussian Sensor Fusion)
 
-Diyelim ki tek boyutlu ortamda bir buyuklugu mesela bir lokasyon bilgisi
-$x$'i, iki kere olcuyoruz, ve bu olcumu iki degisik algilayiciya
-yaptiriyoruz. Yani iki alet bir cismin oldugu yeri bize geri donduruyor, bu
-bilgilerde belli olcude gurultu var ki bu belirsizlik aletler yuzunden
-olabilir. Diyelim ki iki $z_1,z_2$ olcumu icin iki degisik belirsizlik
-(uncertainty) $\sigma_1,\sigma_2$. 
+Tek boyutlu ortamda bir buyuklugu mesela bir lokasyon bilgisi $x$'i, iki
+kere olcuyoruz, ve bu olcumu iki degisik algilayiciya yaptiriyoruz, ve yine
+diyelim ki iki degisik alet bir cismin oldugu uzakligini / yerini bize geri
+donduruyor. Devam edelim, bu bilgilerde belli olcude gurultu var; bu
+aletlerin hatali olcumu yuzunden olabilir, cevre sartlari sebebiyle
+olabilir, ornek olarak iki $z_1,z_2$ olcumu icin iki degisik belirsizlik
+(uncertainty) oldugunu farzedelim, bunlar $\sigma_1,\sigma_2$. Soru su: bu
+iki olcumu kullanarak daha iyi bir $x$ tahmini yapabilir miyiz?
 
-Soru su, bu iki olcumu kullanarak daha iyi bir $x$ tahmini yapabilir miyiz?
+Bunun icin iki olcumu bir sekilde birlestirmemiz gerekiyor. Her olcumu
+Gaussian / Normal dagilim olarak modelleyebiliriz, o zaman iki Gaussian
+dagilimi bir sekilde birlestirmemiz (fusion) lazim. 
 
-Bunun iki olcumu bir sekilde birlestirmemiz gerekiyor. Her olcumu Gaussian
-/ Normal dagilim olarak modelleyebiliriz, o zaman iki Normal dagilimi bir
-sekilde birlestirmemiz (fusion) lazim. Olcumleri temsil etmek icin Gaussian
-bicilmis kaftan. Olcumdeki belirsizligi standart sapma (standart deviation)
-uzerinden rahatlikla temsil edebiliriz. Peki birlestirimi nasil yapalim? 
+Olcumleri temsil etmek icin Gaussian bicilmis kaftan. Olcumdeki
+belirsizligi standart sapma (standart deviation) uzerinden rahatlikla
+temsil edebiliriz. Peki birlestirimi nasil yapalim?
 
 Bu tur problemlerde maksimum olurluk (maximum likelihood) kullanilmasi
 gerektigini asagi yukari tahmin edebiliriz, cunku maksimum olurluk verinin
-olurlugunu maksimize ederek bilinmeyen parametreleri tahmin etmeye
-ugrasir. Cogunlukla bu teknigi hep {\em tek} bir dagilim baglaminda
-gormusuzdur herhalde (ders kitaplarinda vs), o tek dagilima degisik veri
-noktalari verilerek olasilik sonuclari carpilir, ve bu maksimize edilmeye
-ugrasilir. Fakat maksimum olurluk illa tek bir dagilimla kullanilabilir
-diye bir kural yok. 
+olurlugunu (olasiligini yani) maksimize ederek bilinmeyen parametreleri
+tahmin etmeye ugrasir. Cogunlukla bu teknigi hep {\em tek} bir dagilim
+baglaminda goruruz, bazi bilinmeyen parametreleri olan tek bir dagilima
+degisik veri noktalari verilerek olasilik sonuclari carpilir, ve elde
+edilen formul maksimize edilmeye ugrasilirken ayni anda bilinmeyen
+parametrelerin optimal degerleri saptanmaya ugrasilir. Bizim bu
+problemimizde iki degisik dagilim olacak, maksimum olurluk illa tek bir
+dagilimla kullanilabilir diye bir kural yok.
 
-Ustteki problemde iki olcumu iki Gaussian ile temsil ederiz, ve bu iki
+Problemimizde iki olcumu, iki Gaussian ile temsil edebiliriz, ve bu iki
 Gaussian'a verilen iki olcum noktasini olurlugunu bu Gaussian'larin
-sonuclarini carparak elde edebiliriz. Peki bilinmeyen $x$ nedir? Onu da
-Gaussian'in orta noktasi (mean) olarak alabiliriz. Yani
+sonuclarini carparak hesaplayabiliriz. Peki bilinmeyen parametre nedir? Onu
+da {\em her iki Gaussian icin de ayni oldugunu farzettigimiz orta nokta}
+(mean) olarak alabiliriz, ve $x$ olarak belirtiriz. Yani
 
 $$ L(x) = p(z_1|x,\sigma_1) p(z_2|x,\sigma_2) $$
 
@@ -43,24 +48,25 @@ $$ p(z;x,\sigma) = \frac{1}{\sigma\sqrt{2\pi}}
  $$
 
 Ders notlari [1]'de iki ustteki formulun nasil maksimize edilerek bir
-$x_{MLE}$ formulune erisildigini gorebiliriz. Ustteki formul basindaki
-sabit kisminin $L(x)$ formulunde kullanilmadigini goruyoruz, cunku
-maksimizasyon acisindan dusunursek, o kisim tekrar tekrar carpilacak ve,
-hesaplamaya calistigimiz degiskenler acisindan bu surekli tekrarlanan ek
-buyukluk bir fark yaratmayacakti.
+$x_{MLE}$ formulune erisildigini gorebiliriz. 
 
-Ustteki metot isler. Fakat biz alternatif olarak degisik bir yoldan
-gidecegiz. Elimizdeki her iki olcumu iki farkli 1 boyutlu Gaussian olarak
-temsil etmek bir secenek, diger bir yontem su olabilir. \textbf{2 boyutlu}
-bir Gaussian yaratiriz, ve iki olcumu tek bir 2 boyutlu vektor icinde
-belirtiriz, ve tek bir olasilik hesabini $p(z;x,\Sigma)$ baz aliriz.
-Belirsizlikler ne olacak? Olcum belirsizliklerini bu 2D Gaussian'in
-kovaryansinda capraza (diagonal) konabilir, capraz disindaki matris ogeleri
-sifir olursa iki olcumun birbirinden bagimsizligini temsil etmis
-oluruz. Maksimizasyon? Tek bir olcumun olasiligini maksimize edebiliriz, bu
-tek bir olcumun olasiligini hesaplamaktan ibarettir, ve bu hesap sirasinda
-bilinmeyen degiskenleri de iceren yeni bir formul ortaya
-cikacaktir. Maksimize etmeye ugrasacagimiz bu formul olur.
+Formul basindaki sabit kisminin $L(x)$'de kullanilmadigini goruyoruz, cunku
+maksimizasyon acisindan dusunursek o kisim tekrar tekrar carpilacak ve
+hesaplamaya calistigimiz degiskenler acisindan bu surekli tekrar bir
+fark yaratmaz.
+
+Bu metot isler. Fakat biz alternatif olarak daha temiz olacak degisik bir
+yoldan gidecegiz. Elimizdeki her iki olcumu iki farkli tek boyutlu Gaussian
+yerine {\em 2 boyutlu} tek bir Gaussian icine koyacagiz, iki olcumu tek
+bir 2 boyutlu vektor icinde belirtecegiz yani, ve tek bir olasilik hesabini
+$p(z;x,\Sigma)$'i baz alacagiz.  Belirsizlikler ne olacak? Olcum
+belirsizliklerini bu 2D Gaussian'in kovaryansinda capraza (diagonal)
+koyabiliriz, capraz disindaki matris ogeleri sifir yapilirsa iki olcumun
+birbirinden bagimsizligini temsil etmis oluruz. Maksimizasyon? Tek bir
+olcumun olurlugunu maksimize edecegiz, bu tek bir olcumun olasiligini
+hesaplamaktan ibarettir, ve bu hesap sirasinda bilinmeyen degiskenleri
+iceren yeni bir formul ortaya cikacaktir. Maksimize etmeye ugrasacagimiz bu
+formul olur.
 
 Cok boyutlu Gaussian'i hatirlayalim (artik $z,x$ birer vektor),
 
@@ -80,7 +86,7 @@ $$ =  \frac{ 1}{C} \exp
 Bir numara, $\exp$ ve parantez ici negatif ibareden kurtulmak icin
 $-\ln p$ alalim,
 
-$$ -\ln p(z) = 
+$$ L = -\ln p(z) = 
 \frac{ 1}{2}(z-x)^T\Sigma^{-1}(z-x)
 $$
 
@@ -132,7 +138,7 @@ Maksimize etmek icin, formul karesel olduguna gore, bilinmeyen $x$
 degiskenine gore turev alip sifira esitleyebiliriz,
 
 $$ 
-\sigma_1^{-2}z_1-\sigma_1^{-2}x + \sigma_2^{-2}z_2-\sigma_2^{-2}x = 0
+\frac{dL}{dx} = \sigma_1^{-2}z_1-\sigma_1^{-2}x + \sigma_2^{-2}z_2-\sigma_2^{-2}x = 0
 $$
 
 $x$ uzerinden gruplarsak,
@@ -164,15 +170,16 @@ $$ x_{MLE} =
 \frac{130/10^2 + 170/20^2}{1/10^2 + 1/20^2} = 138.0
 $$
 
-Sonucu belirsizligi daha az olan olcume daha yakin cikti, bu akla yatkin
+Sonuc belirsizligi daha az olan olcume daha yakin cikti, bu akla yatkin
 bir sonuc.
 
 Cok Boyutlu Gaussian Fuzyon
 
-Peki ya elimizdeki birden fazla olan olcumlerin herbiri cok boyutlu ise? 
+Peki ya elimizdeki olcumlerin kendisi cok boyutlu ise? Yani $z_1,z_2$ birer
+vektor ise?
 
-O zaman yine maksimum olurluk uzerinden bir formul turetebiliriz. Bu
-durumda tek olasilik hesabi yetmez, iki ayri dagilim olmali,
+Yine maksimum olurluk uzerinden bir formul turetebiliriz. Bu durumda tek
+olasilik hesabi yetmez, iki ayri dagilim olmali,
 
 $$ p(z_1;x,\Sigma_1) =  \frac{ 1}{C_1} \exp 
 \bigg\{ 
@@ -186,8 +193,9 @@ $$ p(z_2;x,\Sigma_2) =  \frac{ 1}{C_2} \exp
 
 Orta nokta $x$ her iki formulde ayni cunku degismeyen olan o; ayni orta
 nokta icin tahmin uretmeye ugrasiyoruz. Bu durum bildik maksimum olurluk
-hesaplarina yine benziyor, fakat hala bir fark var, cunku farkli turden
-olasilik fonksiyonlarini farkli veri noktalari uzerinden carpiyoruz. 
+hesaplarina benziyor, fakat ilk basta belirttigimiz gibi farkli turden
+olasilik fonksiyonlarinin (bu sefer cok boyutlu) farkli veri noktalari
+uzerinden carpilmasi.
 
 Devam edelim. Daha once $\ln$ alarak $\exp$'yi yoketmistik. Bunun bir diger
 faydasi $\ln$ alininca carpimlarin toplama donusmesidir, 
@@ -198,20 +206,25 @@ $$
 $$ -\ln L = -\ln p(z_1;x,\Sigma_1) -\ln p(z_2;x,\Sigma_2) 
 $$
 
-$$ -\ln L = 
+$$ 
+\mathcal{L} = 
+-\ln L = 
 \frac{ 1}{2}(z_1-x)^T\Sigma_1^{-1}(z_1-x) + 
 \frac{ 1}{2}(z_2-x)^T\Sigma_2^{-1}(z_2-x)
 $$
 
 Simdi esitligin sag tarafinin $x$'e gore turevini alalim, vektor ve matris
 baglaminda turev nasil alinir? Herhangi bir $M$'in simetrik oldugu
-durumlarda
+durumlarda (ki kovaryans matrisleri her zaman simetriktir, cunku mesela iki
+degiskenli durumda $x_1,x_2$ kovaryansi -iliskisi- $x_2,x_1$ kovaryansindan
+farkli olamaz),
 
 $$ \frac{\partial}{\partial x}[x^TMx] = 2Mx $$
 
 oldugunu biliyoruz [2]. O zaman turev sonucu soyle olur, 
 
 $$ 
+\frac{d\mathcal{L}}{dx} = 
 (z_1-x)^T\Sigma_1^{-1} +  (z_2-x)^T\Sigma_2^{-1}
 $$
 
@@ -243,7 +256,9 @@ $$
 
 Not: Aslinda $\Sigma_x$ te diyebilirdik, fakat tersi alinmis matrislerin
 toplami oldugunu temsil etmesi icin ``tersi alinmis bir sembol''
-kullandik. 
+kullandik. Tabii diger yandan tersin tersini alinca ele gececek
+$\Sigma_x$'in de bir anlami oldugu iddia edilebilir, bu $\Sigma_x$ en olasi
+$x$ tahmininin yeni belirsizligidir de bir bakima. 
 
 Simdi ana formule donelim,
 
@@ -310,6 +325,12 @@ plt.savefig('fusion_1.png')
 
 \includegraphics[height=6cm]{fusion_1.png}
 
+Iki olcumu Gaussian olarak ekrana bastik, bu Gaussian'larin orta noktasi
+$z_1,z_2$, bu durumu maksimum olurluk icin ayni oldugunu farz ettigimiz $x$
+ile karistirmayalim; o $x$ modelleme sirasinda oldugunu farzettigimiz ideal
+bir Gaussian idi. Ustte sadece veri noktalarini ekrana basiyoruz. 
+
+
 Ustten bakisla kontur (contour) olarak gosterirsek 
 
 \begin{minted}{python}
@@ -369,7 +390,8 @@ x_{MLE} =
 \end{array}\right]  
 $$
 
-Sonuc grafiklenirse suna benzer,
+Sonuc grafiklenirse suna benzer (ki yeni belirsizlik $\Sigma_x$'i de
+grafikte kullanalim),
 
 \begin{minted}{python}
 Z3 = mlab.bivariate_normal(X, Y, sigmax=0.8, sigmay=0.8,mux=1.2, \
@@ -386,6 +408,9 @@ plt.savefig('fusion_2.png')
 
 
 \includegraphics[height=6cm]{fusion_2.png}
+
+Yeni tahminimiz boyle cikti. Cok daha emin oldugumuz bir noktada en olasi
+olcumu ortaya cikardik. Kontur olarak grafiklersek,
 
 \begin{minted}{python}
 CS = plt.contour(X, Y, Z3)
