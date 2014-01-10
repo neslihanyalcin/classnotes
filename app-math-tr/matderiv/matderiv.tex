@@ -1,0 +1,67 @@
+\documentclass[12pt,fleqn]{article}\usepackage{../common}
+\begin{document}
+Matrislerin, Vektörlerin Türevleri
+
+Gradyan
+
+$d$ boyutlu vektor $x$'i alan ve geriye tek sayi sonucu donduren bir $f$
+fonksiyonunun $x$'e gore turevini nasil aliriz? Bu durumda her $x$
+elemanina gore kismi turevler (partial derivatives) alinir, ve sonuc
+bir $d$ boyutlu vektore yerlestirilir,
+
+$$
+\frac{\partial f}{\partial x}  =
+\left[\begin{array}{c}
+\frac{\partial f}{\partial x_1} \\
+\\
+\frac{\partial f}{\partial x_2} \\
+\vdots \\
+\frac{\partial f}{\partial x_d} 
+\end{array}\right]
+$$
+
+Bu sonuc tanidik gelmis olabilir, sonuc gradyan olarak ta biliniyor. Yani
+
+$$ \frac{\partial f}{\partial x}  = \nabla f = grad \ f(x) $$
+
+Tek Parametreye Gore Matris Turevi
+
+Eger bir $M$ matrisinin tum ogeleri bir $\theta$ parametresine bagli ise, o
+matrisin $\theta$'ya gore turevi icin tum elemanlarinin teker teker
+$\theta$'ya gore turevleri alinir,
+
+$$ 
+\frac{\partial M}{\partial \theta} = 
+\left[\begin{array}{cccc}
+\frac{\partial m_{11}}{\partial \theta} & 
+\frac{\partial m_{12}}{\partial \theta} & \dots & 
+\frac{\partial m_{1d}}{\partial \theta} \\
+
+\frac{\partial m_{21}}{\partial \theta} & 
+\frac{\partial m_{22}}{\partial \theta} &  \dots & 
+\frac{\partial m_{2d}}{\partial \theta}  \\
+
+\vdots & \vdots & \ddots & \vdots \\
+
+\frac{\partial m_{n1}}{\partial \theta} & 
+\frac{\partial m_{n2}}{\partial \theta} &  \dots & 
+\frac{\partial m_{nd}}{\partial \theta}  
+
+\end{array}\right]
+ $$
+
+Matris ve Vektor Turevleri
+
+Eger bir $x$ vektorunden bagimsiz bir $M$ matrisi o $x$ ile carpiliyor ise,
+bunlarin $x$'e gore turevi nedir? 
+
+$$ \frac{\partial}{\partial x} [Mx] = M
+$$
+
+Ustteki sonuc aslinda tek sayili / boyutlu ortamda $2x$ gibi bir ifadenin
+$x$'e gore turevini alinca $2$ elde etmeye esdeger. 
+
+
+
+
+\end{document}
