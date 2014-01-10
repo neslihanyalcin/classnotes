@@ -33,7 +33,7 @@ orta noktasi (mean) olarak aliriz! Yani
 $$ L(x) = p(z_1|x,\sigma_1) p(z_2|x,\sigma_2) $$
 
 $$ L(x) \sim \exp{\frac{-(z_1-x)^2}{2\sigma_1^2} } 
-\times \frac{-(z_2-x)^2}{2\sigma_2^2} $$
+\times \exp \frac{-(z_2-x)^2}{2\sigma_2^2} $$
 
 1D Gaussian formulunu hatirlarsak, 
 
@@ -146,10 +146,188 @@ $$
 $$
 
 $$ 
-\frac{\sigma_1^{-2}z_1+ \sigma_2^{-2}z_2 }{(\sigma_1^{-2}+\sigma_2^{-2})}= x_{MLE}
+\frac{\sigma_1^{-2}z_1+ \sigma_2^{-2}z_2 }{\sigma_1^{-2}+\sigma_2^{-2}}= x_{MLE}
 $$
+
+Ornek
+
+Elimizde belirsizlikleri $\sigma_1=10,\sigma_2=20$ olan iki algilayici
+var. Bu algilayicilar ayni obje hakkinda $z_1=130,z_2=170$ olarak iki olcum
+gonderiyorlar. Bu olcumleri birlestirelim. Hatirlarsak $10^{-2}$ ile
+carpmak $10^{2}$ ile bolmek ayni sey.
+
+$$ x_{MLE} =
+\frac{130/10^2 + 170/20^2}{1/10^2 + 1/20^2} = 138.0
+$$
+
+Sonucun belirsizligi daha az olan olcume daha yakin ciktigini goruyoruz. 
+
+Cok Boyutlu Gaussian Fuzyon
+
+Peki ya elimizdeki birden fazla olan olcumlerin herbiri cok boyutlu ise? 
+
+O zaman yine maksimum olurluk uzerinden bir formul turetebiliriz. Bu
+durumda iki ayri dagilim olacaktir,
+
+$$ p(z_1;x,\Sigma_1) =  \frac{ 1}{C_1} \exp 
+\bigg\{ 
+-\frac{ 1}{2}(z_1-x)^T\Sigma_1^{-1}(z_1-x)
+\bigg\} $$
+
+$$ p(z_2;x,\Sigma_2) =  \frac{ 1}{C_2} \exp 
+\bigg\{ 
+-\frac{ 1}{2}(z_2-x)^T\Sigma_2^{-1}(z_2-x)
+\bigg\} $$
+
+Orta nokta $x$ her iki formulde ayni cunku degismeyen olan o; ayni orta
+nokta icin tahmin uretmeye ugrasiyoruz.  Simdi bildik maksimum olurluk
+hesaplarina biraz daha yaklastik. Daha once $\ln$ alarak $\exp$'yi
+yoketmistik. Bunun bir diger faydasi $\ln$ alininca carpimlarin toplama
+donusmesidir, 
+
+$$ L = p(z_1;x,\Sigma_1) p(z_2;x,\Sigma_2) 
+$$
+
+$$ -\ln L = -\ln p(z_1;x,\Sigma_1) -\ln p(z_2;x,\Sigma_2) 
+$$
+
+$$ -\ln L = 
+\frac{ 1}{2}(z_1-x)^T\Sigma_1^{-1}(z_1-x) + 
+\frac{ 1}{2}(z_2-x)^T\Sigma_2^{-1}(z_2-x)
+$$
+
+Simdi esitligin sag tarafinin $x$'e gore turevini alalim, vektor ve matris
+baglaminda turev nasil alinir? Herhangi bir $M$'in simetrik oldugu
+durumlarda
+
+$$ \frac{\partial}{\partial x}[x^TMx] = 2Mx $$
+
+oldugunu biliyoruz [2]. O zaman turev sonucu soyle olur, 
+
+$$ 
+(z_1-x)^T\Sigma_1^{-1} +  (z_2-x)^T\Sigma_2^{-1}
+$$
+
+Sifira esitleyip cozelim, 
+
+$$ 
+(z_1-x)\Sigma_1^{-1} +  (z_2-x)\Sigma_2^{-1} = 0
+$$
+
+$$ 
+z_1\Sigma_1^{-1} - x\Sigma_1^{-1} + z_2\Sigma_2^{-1} - x\Sigma_2^{-1} = 0
+$$
+
+Yine $x$ altinda gruplayalim,
+
+$$ 
+-x(\Sigma_1^{-1} + \Sigma_2^{-1}) + z_1\Sigma_1^{-1}  + z_2\Sigma_2^{-1}  = 0
+$$
+
+$$ 
+z_1\Sigma_1^{-1}  + z_2\Sigma_2^{-1}  = x(\Sigma_1^{-1} + \Sigma_2^{-1}) 
+$$
+
+Eger iki belirsizligin toplamini $\Sigma_x^{-1}$ olarak ozetlersek, yani 
+
+$$ 
+\Sigma_x^{-1} = \Sigma_1^{-1} + \Sigma_2^{-1}
+$$
+
+O zaman ana formule donelim,
+
+$$ 
+z_1\Sigma_1^{-1}  + z_2\Sigma_2^{-1}  = x\Sigma_x^{-1}
+$$
+
+
+$$ 
+\Sigma_x (z_1\Sigma_1^{-1}  + z_2\Sigma_2^{-1}) = x_{MLE}
+$$
+
+Ornek
+
+Elimizde iki tane iki boyutlu olcum var, 
+
+$$ z_1 = \left[\begin{array}{c}
+1 \\ 1
+\end{array}\right], 
+z_2 = \left[\begin{array}{r}
+2 \\ -1
+\end{array}\right] 
+$$
+
+Olcumler iki degisik algilayicidan geliyor, belirsizlikleri
+
+$$ 
+\Sigma_1 = 
+\left[\begin{array}{cc}
+1 & 0 \\ 0 & 4
+\end{array}\right], 
+\Sigma_2 = 
+\left[\begin{array}{cc}
+4 & 0 \\ 0 & 1
+\end{array}\right]
+ $$
+
+Nihai olcum nedir? 
+
+\includegraphics[height=4cm]{fusion_1.png}
+
+Resimde once ilk olcum, sonra onunla yanyana olacak ikinci olcum koyulmus. 
+
+$$ \Sigma_x^{-1} = \Sigma_1^{-1} + \Sigma_2^{-1}  =
+\left[\begin{array}{cc}
+1 & 0 \\ 0 & 0.25
+\end{array}\right] + 
+\left[\begin{array}{cc}
+0.25 & 0 \\ 0 & 1
+\end{array}\right] =
+\left[\begin{array}{cc}
+1.25 & 0 \\ 0 & 1.25
+\end{array}\right] 
+$$
+
+Tersini alalim (daha dogrusu tersin tersini almis oluyoruz)
+
+$$ \Sigma_x =
+\left[\begin{array}{cc}
+0.8 & 0 \\ 0 & 0.8
+\end{array}\right] 
+$$
+
+$$ x_{MLE} =  \Sigma_x (z_1\Sigma_1^{-1}  + z_2\Sigma_2^{-1}) $$
+
+$$ 
+x_{MLE} =
+\left[\begin{array}{cc}
+0.8 & 0 \\ 0 & 0.8
+\end{array}\right] 
+\bigg(
+\left[\begin{array}{cc}
+1 & 0 \\ 0 & 0.25
+\end{array}\right] 
+\left[\begin{array}{c}
+1 \\ 1
+\end{array}\right]  + 
+\left[\begin{array}{cc}
+0.25 & 0 \\ 0 & 1
+\end{array}\right] 
+\left[\begin{array}{r}
+2 \\ -1
+\end{array}\right]  
+\bigg) = 
+\left[\begin{array}{r}
+1.2 \\ -0.6
+\end{array}\right]  
+$$
+
+Sonuc grafiklenirse suna benzer,
+
+\includegraphics[height=4cm]{fusion_2.png}
 
 [1] \url{www.robots.ox.ac.uk/~az/lectures/est/lect34.pdf}
 
+[2] Hart, Duda, {\em Pattern Classification}
 
 \end{document}
