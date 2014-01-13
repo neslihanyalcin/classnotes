@@ -106,4 +106,73 @@ matris ile
  [7 7 7]]
 \end{verbatim}
 
+Satir Kombinasyon Bakisi
+
+Sagdan carpan vektoru bir genisleterek 2 boyutlu hale getirelim, 
+
+$$
+\left[\begin{array}{ccc}
+1 & 1 & 6 \\
+3 & 0 & 1 \\
+1 & 1 & 4 \\
+\end{array}\right]
+\left[\begin{array}{ccc}
+2 & 2  \\
+5 & 5  \\
+0 & 0  \\
+\end{array}\right]
+$$
+
+Satirsal bakisa gore soldaki matrisinin herhangi bir $i$ satirindaki her
+oge, sagdaki matrisin tum satirlarini kombine ederek sonucun $i$ satirini
+ortaya cikarir. Mesela en ust (birinci satir) icin
+
+$$ 
+1 \cdot
+\left[\begin{array}{cc}
+2 & 2
+\end{array}\right] +
+1 \cdot
+\left[\begin{array}{cc}
+2 & 2
+\end{array}\right] + 
+6 \cdot
+\left[\begin{array}{cc}
+0 & 0
+\end{array}\right] 
+=
+\left[\begin{array}{cc}
+7 & 7 \\
+\vdots & \vdots \\
+\vdots & \vdots
+\end{array}\right] 
+$$
+
+Digerleri icin benzer islem uygulanir, 
+
+
+$$ 
+3 \cdot
+\left[\begin{array}{cc}
+2 & 2
+\end{array}\right] +
+0 \cdot
+\left[\begin{array}{cc}
+2 & 2
+\end{array}\right] + 
+1 \cdot
+\left[\begin{array}{cc}
+0 & 0
+\end{array}\right] 
+=
+\left[\begin{array}{cc}
+7 & 7 \\
+6 & 6 \\
+\vdots & \vdots
+\end{array}\right] 
+$$
+
+ve boyle devam edilir.
+
+
 \end{document}

@@ -4,10 +4,18 @@ Matrislerin, Vektörlerin Türevleri
 
 Gradyan
 
-$d$ boyutlu vektor $x$'i alan ve geriye tek sayi sonucu donduren bir $f$
-fonksiyonunun $x$'e gore turevini nasil aliriz? Bu durumda her $x$
-elemanina gore kismi turevler (partial derivatives) alinir, ve sonuc
-bir $d$ boyutlu vektore yerlestirilir,
+$m$ boyutlu vektor $x$'i alan ve geriye tek sayi sonucu donduren bir $f$
+fonksiyonunun $x$'e gore turevini nasil aliriz? Yani $x \in \mathbb{R}^m$ ve
+
+$$ x = 
+\left[\begin{array}{ccc}
+x_1 \\ \vdots \\ x_m
+\end{array}\right]
+ $$
+
+Bu durumda $x$'in her ogesine gore kismi turevler (partial derivatives)
+alinir, ve tek boyutlu / tekil sayi boyutundaki sonuclar $m$ boyutlu bir
+sonuc vektorune teker teker yerlestirilir,
 
 $$
 \frac{\partial f}{\partial x}  =
@@ -16,68 +24,78 @@ $$
 \\
 \frac{\partial f}{\partial x_2} \\
 \vdots \\
-\frac{\partial f}{\partial x_d} 
+\frac{\partial f}{\partial x_m} 
 \end{array}\right]
 $$
 
-Bu sonuc tanidik gelmis olabilir, sonuc gradyan olarak ta biliniyor. Yani
+Bu sonuc tanidik gelmis olabilir, cunku ustteki ifade gradyan olarak ta
+biliniyor,
 
 $$ \frac{\partial f}{\partial x}  = \nabla f = grad \ f(x) $$
 
+Elde edilen vektor surpriz degil cunku tek, skalar bir deger veren bir
+fonksiyonun $x$ icindeki {\em her ogensinin} nasil degistigine gore bunun
+fonksiyon uzerindeki etkilerini merak ediyorduk, ustteki vektor oge bazinda
+bize aynen bunu gosteriyor. Yani tek skalar sonuc $m$ tane sonuca
+ayriliyor, cunku tek sonucun $m$ tane secenege gore degimini gormek
+istedik. Not olarak belirtelim, gradyan vektoru matematiksel bir rahatlik
+olarak matematikcilerin kullandigi bir kisayol, bir ziplama noktasi, yani
+matematiksel olarak turetilerek ulasilan ``kurallardan'' biri degil.
+
 Tek Parametreye Gore Matris Turevi
 
-Eger bir $M$ matrisinin tum ogeleri bir $\theta$ parametresine bagli ise, o
+Eger bir $A$ matrisinin tum ogeleri bir $\theta$ parametresine bagli ise, o
 matrisin $\theta$'ya gore turevi icin tum elemanlarinin teker teker
 $\theta$'ya gore turevleri alinir,
 
 $$ 
-\frac{\partial M}{\partial \theta} = 
+\frac{\partial A}{\partial \theta} = 
 \left[\begin{array}{cccc}
-\frac{\partial m_{11}}{\partial \theta} & 
-\frac{\partial m_{12}}{\partial \theta} & \dots & 
-\frac{\partial m_{1d}}{\partial \theta} \\
+\frac{\partial a_{11}}{\partial \theta} & 
+\frac{\partial a_{12}}{\partial \theta} & \dots & 
+\frac{\partial a_{1n}}{\partial \theta} \\
 
-\frac{\partial m_{21}}{\partial \theta} & 
-\frac{\partial m_{22}}{\partial \theta} &  \dots & 
-\frac{\partial m_{2d}}{\partial \theta}  \\
+\frac{\partial a_{21}}{\partial \theta} & 
+\frac{\partial a_{22}}{\partial \theta} &  \dots & 
+\frac{\partial a_{2n}}{\partial \theta}  \\
 
 \vdots & \vdots & \ddots & \vdots \\
 
-\frac{\partial m_{n1}}{\partial \theta} & 
-\frac{\partial m_{n2}}{\partial \theta} &  \dots & 
-\frac{\partial m_{nd}}{\partial \theta}  
+\frac{\partial a_{m1}}{\partial \theta} & 
+\frac{\partial a_{m2}}{\partial \theta} &  \dots & 
+\frac{\partial a_{mn}}{\partial \theta}  
 
 \end{array}\right]
- $$
+$$
 
 Vektor Turevleri
 
-Eger bir $x$ vektorunden bagimsiz bir $M$ matrisi o $x$ ile carpiliyor ise,
+Eger bir $x \in \mathbb{R}^m$ vektorunden bagimsiz bir $A$ matrisi o $x$ ile carpiliyor ise,
 bunlarin $x$'e gore turevi nedir? 
 
-$$ \frac{\partial}{\partial x} [Mx] = M
+$$ \frac{\partial}{\partial x^T} [Ax] = A
 $$
 
 Ustteki sonuc aslinda tek sayili / boyutlu ortamda $2x$ gibi bir ifadenin
-$x$'e gore turevini alinca $2$ elde etmeye esdeger. Eger ispatini merak
-ediyorsak, soyle dusunebiliriz. {\em Matrisi Carpimi} yazisini
-hatirlayalim, ve carpima kolon kombinasyonu bakisini hatirlayalim. Bu
-bakisa gore $Mx$'i soyle gorebiliriz (ki $M$'in kolonlarini $M_i$, $x$
-ogelerini $x_i$ diye temsil edersek)
+$x$'e gore turevini alinca $2$ elde etmeye esdeger. Ispat icin soyle
+dusunelim, eger $a_i \in \mathbb{R}^n$ ise (ki devrigi alininca bu vektor
+yatay hale gelir, yani altta bu yatay vektorleri ust uste istifliyoruz), 
 
-$$ 
-[ M_1 \cdot x_1 + ... + M_d \cdot x_d ]
- $$
+$$ A = \left[\begin{array}{c}
+a_1^T \\ \vdots \\ a_m^T
+\end{array}\right] $$
 
-Bu durumda ustteki vektorun en ustundeki oge nedir?
+Bu durumda $Ax$ ne olur? {\em Matris Carpimi} yazisindaki satir bakis acisi
+dusunulurse, $A$'in bir satirinin her ogesi $x$'in tum satirlarini (burada
+$x$ vektor oldugu icin her satir tek bir sayidan ibaret) kombine ederek o
+sonuc satirini olusturmaktadir, o zaman
 
-$$ 
-\left[\begin{array}{c}
-m_{11}x_1 + .. + m_{d1}x_d  \\
-\vdots \\ 
-m_{d1}x_1 + .. + m_{dd}x_d  
-\end{array}\right]
- $$
+$$ A = \left[\begin{array}{c}
+a_1^Tx_1 \\ \vdots \\ a_m^Tx_m
+\end{array}\right] $$
+
+
+
 
 
 \end{document}
