@@ -132,24 +132,23 @@ arasinda olmasindan da anliyoruz, sonucta CDF alan demektir
 (yogunlugun entegrali) ve en ust degeri 1 demektir, ki bu CDF tanimina
 uygundur.
 
-Simdi elimizde olabilecek $k$ tane degisken ve bu degiskenlerin
-bilinmeyen katsayilari icin 0 ve 1'e eslenecek bir regresyon
-olusturalim. Diyelim ki katsayilar $\theta_0,..,\theta_k$. Bu
-katsayilari degiskenler ile carpip toplayarak $h(x)$'e verelim, (0/1)
-cikip cikmayacagi katsayilara bagli olacak, verideki etiketler ile
-$h(x)$ sonucu arasinda bir baglanti kurabilirsek, bu bize katsayilari
-verebilir. Bu modele gore eger $\theta$'yi ne kadar iyi secersek,
-eldeki veriye etiketlerine o kadar yaklasmis olacagiz. Simdi sigmoid'i
-katsayilarla beraber yazalim,
+Simdi elimizde olabilecek $k$ tane degisken ve bu degiskenlerin bilinmeyen
+katsayilari icin 0 ve 1'e eslenecek bir regresyon olusturalim. Diyelim ki
+katsayilar $\theta_0,..,\theta_k$. Bu katsayilari degiskenler ile carpip
+toplayarak $h(x)$'e verelim, (0/1) cikip cikmayacagi katsayilara bagli
+olacak, verideki etiketler ile $h(x)$ sonucu arasinda bir baglanti
+kurabilirsek, bu bize katsayilari verebilir. Bu modele gore eger
+$\theta$'yi ne kadar iyi secersek, eldeki veri etiketlerine o kadar
+yaklasmis olacagiz. Simdi sigmoid'i katsayilarla beraber yazalim,
 
 $$ h_\theta(x) = g(\theta^T x) = \frac{1}{1+e^{-\theta^T x}} $$
 
-"Veriye olabildigince yaklasmak icin en iyi $\alpha$'yi bulmak" sozu
-bize maksimum olurluk (maximum likelihood) hesabini hatirlatmali. Bu
-hesaba gore icinde bilinmeyen $\alpha$'yi barindiran formulun
-uzerinden tum verinin sonuclarinin teker teker birbiri ile carpimi
-olabildigince buyuk olmalidir. Bu ifadeyi maksimize edecek $\alpha$
-veriye en uygun $\alpha$ olacaktir.
+"Veriye olabildigince yaklasmak icin en iyi $\alpha$'yi bulmak" sozu bize
+maksimum olurluk (maximum likelihood) hesabini hatirlatmali. Bu hesaba gore
+icinde bilinmeyen $\alpha$'yi barindiran formulun uzerinden tum verinin
+sonuclarinin teker teker birbiri ile carpimi olabildigince buyuk
+olmalidir. Bu ifadeyi maksimize edecek $\alpha$ veriye en uygun $\alpha$
+olacaktir.
 
 Simdi her iki etiket icin ve sigmoid'i kullanarak olasilik hesaplarini
 yapalim,
@@ -198,11 +197,7 @@ $$ 1-\frac{1}{1+e^{-z}}  = \frac{1+e^{-z}-1}{1+e^{-z}}$$
 $$ \frac{e^{-z}}{1+e^{-z}} = \frac{1}{1+e^{z}}$$
 
 Hakikaten son esitligin sag tarafina bakarsak, $g(-z)$'yi elde ettigimizi
-goruyoruz.
-
-$$ \Box $$
-
-Simdi tureve gelelim,
+goruyoruz. Simdi tureve gelelim,
 
 $$
 g'(z) = \frac{d}{dz} \frac{ 1}{1+ e^{ -z}} 
@@ -235,9 +230,7 @@ edilebilir, ya da  $g(z)$ ve $1-g(z)$,
 
 $$
  = g(z)(1-g(z))
- $$
-
-$$ \Box $$
+$$
 
 Bu baglamda ilginc bir diger denklem log sansi (log odds) denklemidir. Eger
 ilk bastaki denklemi dusunursek,
