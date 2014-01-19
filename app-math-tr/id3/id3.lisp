@@ -1,6 +1,8 @@
 ;;
 ;; Ilk kolon, her satir icin kimlik gorevini yapiyor. Yani, d1'i
 ;; kullanarak d1 ile baslayan tum veri satirina ulasmak mumkun.
+;; Python kodundaki veri farkli olarak ikinci kolondaki etiket degerini
+;; en sona atiyor
 ;; 
 ;; LISP dilinde bu isi gerceklestirebilmek icin, veri satirindaki bilgileri
 ;; anahtar-deger deger cifti olarak kimlik kolonu 'uzerinde' sakliyoruz.
