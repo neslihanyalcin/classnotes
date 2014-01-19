@@ -296,32 +296,7 @@ görüyoruz.
 
 \includegraphics[height=7cm]{id3_agac_eniyi.jpg}
 
-\inputminted{common-lisp}{id3.lisp}
-
-\begin{minted}{python}
-!clisp id3.lisp
-\end{minted}
-
-\begin{verbatim}
-MUSTERILER
- = BIRAZ => EVET
- = DOLU
-     ACMIYIZ
-      = EVET
-          YEMEKTURU
-           = TAYLAND
-               HAFTASONU
-                = HAYIR => HAYIR
-                = EVET => EVET
-           = ITALYAN => HAYIR
-           = KEBAP => EVET
-      = HAYIR => HAYIR
- = HIC => HAYIR
-
-"Tamam. Birim Testler Isledi." 
-\end{verbatim}
-
-Ayni kodu Python ile gostermek istersek [1]
+Kodu Python ile gostermek gerekirse [1]
 
 \begin{minted}{python}
 from math import log
@@ -476,6 +451,8 @@ decisionNode = dict(boxstyle="sawtooth", fc="0.8")
 leafNode = dict(boxstyle="round4", fc="0.8")
 arrow_args = dict(arrowstyle="<-")
 
+# lisp verisi ile fark kimlik kolon yok, ve ondan sonraki kolon
+# sona atildi olmasi cunku etiketlerin orada olmasi lazim
 dataSet = [
 ['EVET','HAYIR','HAYIR','EVET','BIRAZ','DDD','HAYIR','EVET','FRANSIZ','0','EVET'],
 ['EVET','HAYIR','HAYIR','EVET','DOLU','D','HAYIR','HAYIR','TAYLAND','30','HAYIR'],
@@ -499,6 +476,30 @@ createPlot(tree)
 
 \includegraphics[height=10cm]{id3_1.png}
 
+\inputminted{common-lisp}{id3.lisp}
+
+\begin{minted}{python}
+!clisp id3.lisp
+\end{minted}
+
+\begin{verbatim}
+MUSTERILER
+ = BIRAZ => EVET
+ = DOLU
+     ACMIYIZ
+      = EVET
+          YEMEKTURU
+           = TAYLAND
+               HAFTASONU
+                = HAYIR => HAYIR
+                = EVET => EVET
+           = ITALYAN => HAYIR
+           = KEBAP => EVET
+      = HAYIR => HAYIR
+ = HIC => HAYIR
+
+"Tamam. Birim Testler Isledi." 
+\end{verbatim}
 
 Kaynaklar 
 
