@@ -2,6 +2,9 @@
 \begin{document}
 Matris Türevleri
 
+Aksi belirtilmedikce altta $a,x$ gibi vektorler kolon vektorleri olacaktir,
+yani $m \times 1$, ya da $n \times 1$ gibi boyutlara sahip olacaklardir. 
+
 Gradyan
 
 $m$ boyutlu vektor $x$'i alan ve geriye tek sayi sonucu donduren bir $f(x)$
@@ -43,11 +46,11 @@ rahatliktir, bir kisayoldur, bir ziplama noktasidir, yani matematiksel olarak
 turetilerek ulasilan ana kurallardan biri denemez. Fakat cok ise yaradigina
 suphe yok.
 
-Tek Parametreye Gore Matris Turevi
+Tek Sayi Parametreye Gore Matris Turevi
 
-Eger bir $A$ matrisinin tum ogeleri bir $\theta$ parametresine bagli ise, o
-matrisin $\theta$'ya gore turevi icin tum elemanlarinin teker teker
-$\theta$'ya gore turevleri alinir,
+Eger bir $A$ matrisinin tum ogeleri bir tek sayi parametresi $\theta$'e
+bagli ise, o matrisin $\theta$'ya gore tum elemanlarinin teker teker
+$\theta$'ya gore turevidir,
 
 $$ 
 \frac{\partial A}{\partial \theta} = 
@@ -75,10 +78,12 @@ Simdi ilginc bir varyasyon; diyelim ki hem fonksiyon $f(x)$'e verilen $x$
 cok boyutlu, hem de fonksiyonun sonucu cok boyutlu! Bu gayet mumkun bir
 durum. Bu durumda ne olurdu? 
 
-Eger kismi turevlerin her turlu oge degisimini temsil etmesini istiyorsak,
-o zaman hem her girdi hucresi, hem de her cikti hucresi icin bu degisimi
-saptamaliyiz. Jacobian matrisleri tam da bunu yapar. Eger $m$ boyutlu girdi
-ve $n$ boyutlu cikti tanimlayan $f$'in turevini almak istersek,
+Eger $f$'in turevinin her turlu degisimi temsil etmesini istiyorsak, o
+zaman hem her girdi hucresi, hem de her cikti hucresi kombinasyonu icin bu
+degisimi saptamaliyiz. Jacobian matrisleri tam da bunu yapar. Eger $m$
+boyutlu girdi ve $n$ boyutlu cikti tanimlayan $f$'in turevini almak
+istersek, bu bize $m \times n$ boyutunda bir matris verecektir!
+Hatirlarsak daha once gradyan sadece $m$ boyutunda bir vektor vermisti.
 
 $$ 
 J(x) = \frac{\partial f(x)}{\partial x} =
@@ -95,30 +100,71 @@ J(x) = \frac{\partial f(x)}{\partial x} =
 
 Vektor Turevleri
 
-Eger bir $x \in \mathbb{R}^m$ vektorunden bagimsiz bir $A$ matrisi o $x$ ile carpiliyor ise,
-bunlarin $x$'e gore turevi nedir? 
+$a,x \in \mathbb{R}^n$ ise, $a^Tx$'in $x$'e gore turevi nedir? 
+
+$a^Tx$ bir noktasal carpim olduguna gore sonucu bir tek sayidir
+(scalar). Bu noktasal carpimi bir fonksiyon gibi dusunebiliriz, bu durumda
+demektir ki tek sayili bir fonksiyonun cok boyutlu $x$'e gore turevini
+aliyoruz. Bu durumu ustte gorduk, sonuc bir gradyan olacaktir,
+
+$$ 
+\frac{\partial (a^Tx)}{\partial x} = 
+\left[\begin{array}{c}
+\frac{\partial (a^Tx)}{\partial x_1} \\ 
+\vdots \\ 
+\frac{\partial (a^Tx)}{\partial x_n} 
+\end{array}\right] = 
+\left[\begin{array}{c}
+a_1 \\
+\vdots  \\
+a_n
+\end{array}\right] =
+a
+ $$
+
+Peki $a^Tx$'in $x^T$'ye gore turevi nedir? $x^T$'nin yatay bir vektor olduguna
+dikkat, yani satir vektorudur, o zaman sonuc ta yatay bir vektor olur
+(kiyasla gradyan dikeydi). 
+
+$$ 
+\frac{\partial (a^Tx)}{\partial x^T} = 
+\left[\begin{array}{ccc}
+\frac{\partial (a^Tx)}{\partial x_1} &
+\dots 
+&
+\frac{\partial (a^Tx)}{\partial x_n} 
+\end{array}\right] 
+ $$
+
+$$ =
+\left[\begin{array}{ccc}
+a_1 & \dots & a_n
+\end{array}\right] = 
+a^T $$
+
+Matris Turevleri
+
+Eger bir $x \in \mathbb{R}^m$ vektorunden $A$ matrisi $x$ ile carpiliyor
+ise, bu carpimin $x$'e gore turevi nedir? 
+
 
 $$ \frac{\partial}{\partial x^T} [Ax] = A
 $$
 
-Ustteki sonuc aslinda tek sayili / boyutlu ortamda $2x$ gibi bir ifadenin
-$x$'e gore turevini alinca $2$ elde etmeye esdeger. Ispat icin soyle
-dusunelim, eger $a_i \in \mathbb{R}^n$ ise (ki devrigi alininca bu vektor
-yatay hale gelir, yani altta bu yatay vektorleri ust uste istifliyoruz), 
+Ispat: Eger $a_i \in \mathbb{R}^n$ ise (ki devrigi alininca bu vektor yatay hale
+gelir, yani altta bu yatay vektorleri ust uste istifledigimizi dusunuyoruz),
 
 $$ A = \left[\begin{array}{c}
 a_1^T \\ \vdots \\ a_m^T
 \end{array}\right] $$
 
-Bu durumda $Ax$ ne olur? {\em Matris Carpimi} yazisindaki satir bakis acisi
-dusunulurse, $A$'in bir satirinin her ogesi $x$'in tum satirlarini (burada
-$x$ vektor oldugu icin her satir tek bir sayidan ibaret) kombine ederek o
-sonuc satirini olusturmaktadir, o zaman
+O zaman $Ax$ ne olur? {\em Matris Carpimi} yazisindaki ``satir bakis acisi''
+dusunulurse, $A$'in her satiri, ayri ayri $x$'in tum satirlarini kombine
+ederek tekabul eden sonuc satirini olusturur, o zaman
 
-$$ A = \left[\begin{array}{c}
-a_1^Tx_1 \\ \vdots \\ a_m^Tx_m
-\end{array}\right] $$
-
+$$ 
+\frac{\partial}{\partial x^T} [Ax]  =
+ $$
 
 Kaynaklar
 
@@ -126,5 +172,14 @@ Duda, Hart, {\em Pattern Classification}
 
 
 
+
+
+
+Kaynaklar 
+
+Economics 627 Econometric Theory II, Vector and Matrix Differentiation,
+\url{http://faculty.arts.ubc.ca/vmarmer/econ627/}
+        
+Duda, Hart, {\em Pattern Classification}
 
 \end{document}
