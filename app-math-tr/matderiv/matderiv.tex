@@ -1,11 +1,12 @@
 \documentclass[12pt,fleqn]{article}\usepackage{../common}
 \begin{document}
-Matrislerin, Vektörlerin Türevleri
+Matris Türevleri
 
 Gradyan
 
-$m$ boyutlu vektor $x$'i alan ve geriye tek sayi sonucu donduren bir $f$
-fonksiyonunun $x$'e gore turevini nasil aliriz? Yani $x \in \mathbb{R}^m$ ve
+$m$ boyutlu vektor $x$'i alan ve geriye tek sayi sonucu donduren bir $f(x)$
+fonksiyonunun $x$'e gore turevini nasil aliriz? Yani $x \in \mathbb{R}^m$
+ve bir vektor,
 
 $$ x = 
 \left[\begin{array}{ccc}
@@ -13,9 +14,9 @@ x_1 \\ \vdots \\ x_m
 \end{array}\right]
  $$
 
-Bu durumda $x$'in her ogesine gore kismi turevler (partial derivatives)
-alinir, ve tek boyutlu / tekil sayi boyutundaki sonuclar $m$ boyutlu bir
-sonuc vektorune teker teker yerlestirilir,
+Bu durumda $x$'in her hucresine / ogesine gore kismi turevler (partial
+derivatives) alinir, sonucta tek boyutlu / tekil sayili fonksiyon, turev 
+sonrasi $m$ boyutlu bir sonuc vektorunu yaratir, yani
 
 $$
 \frac{\partial f}{\partial x}  =
@@ -28,19 +29,19 @@ $$
 \end{array}\right]
 $$
 
-Bu sonuc tanidik gelmis olabilir, cunku ustteki ifade gradyan olarak ta
-biliniyor,
+Bu sonuc tanidik gelmis olabilir, bu ifade gradyan olarak ta bilinir.
 
 $$ \frac{\partial f}{\partial x}  = \nabla f = grad \ f(x) $$
 
 Elde edilen vektor surpriz degil cunku tek, skalar bir deger veren bir
 fonksiyonun $x$ icindeki {\em her ogensinin} nasil degistigine gore bunun
 fonksiyon uzerindeki etkilerini merak ediyorduk, ustteki vektor oge bazinda
-bize aynen bunu gosteriyor. Yani tek skalar sonuc $m$ tane sonuca
-ayriliyor, cunku tek sonucun $m$ tane secenege gore degimini gormek
-istedik. Not olarak belirtelim, gradyan vektoru matematiksel bir rahatlik
-olarak matematikcilerin kullandigi bir kisayol, bir ziplama noktasi, yani
-matematiksel olarak turetilerek ulasilan ``kurallardan'' biri degil.
+bize aynen bunu gosteriyor. Yani tek skalar sonuc $m$ tane turev sonucuna
+ayriliyor, cunku tek sonucun $m$ tane secenege gore degisimini gormek
+istedik. Not olarak belirtelim, gradyan vektoru matematiksel bir
+rahatliktir, bir kisayoldur, bir ziplama noktasidir, yani matematiksel olarak
+turetilerek ulasilan ana kurallardan biri denemez. Fakat cok ise yaradigina
+suphe yok.
 
 Tek Parametreye Gore Matris Turevi
 
@@ -70,7 +71,27 @@ $$
 
 Cok Parametreli Matris Turevi
 
-[JAACOBIAN ANLAT]
+Simdi ilginc bir varyasyon; diyelim ki hem fonksiyon $f(x)$'e verilen $x$
+cok boyutlu, hem de fonksiyonun sonucu cok boyutlu! Bu gayet mumkun bir
+durum. Bu durumda ne olurdu? 
+
+Eger kismi turevlerin her turlu oge degisimini temsil etmesini istiyorsak,
+o zaman hem her girdi hucresi, hem de her cikti hucresi icin bu degisimi
+saptamaliyiz. Jacobian matrisleri tam da bunu yapar. Eger $m$ boyutlu girdi
+ve $n$ boyutlu cikti tanimlayan $f$'in turevini almak istersek,
+
+$$ 
+J(x) = \frac{\partial f(x)}{\partial x} =
+\left[\begin{array}{ccc}
+\frac{\partial f_{1}(x)}{\partial \theta} & \dots & 
+\frac{\partial f_{1}(x)}{\partial \theta} \\
+
+\vdots & \ddots & \vdots \\
+
+\frac{\partial f_{n}(x)}{\partial \theta} & \dots & 
+\frac{\partial f_{n}(x)}{\partial \theta}  
+\end{array}\right]
+ $$
 
 Vektor Turevleri
 
