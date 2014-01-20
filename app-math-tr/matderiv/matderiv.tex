@@ -5,7 +5,7 @@ Matris Türevleri
 Aksi belirtilmedikce altta $a,x$ gibi vektorler kolon vektorleri olacaktir,
 yani $m \times 1$, ya da $n \times 1$ gibi boyutlara sahip olacaklardir. 
 
-Gradyan
+Skalar Fonksiyon Turevi, Gradyan
 
 $m$ boyutlu vektor $x$'i alan ve geriye tek sayi sonucu donduren bir $f(x)$
 fonksiyonunun $x$'e gore turevini nasil aliriz? Yani $x \in \mathbb{R}^m$
@@ -32,25 +32,27 @@ $$
 \end{array}\right]
 $$
 
-Bu sonuc tanidik gelmis olabilir, bu ifade gradyan olarak ta bilinir.
+Bu sonuc tanidik gelmis olabilir, bu ifade gradyan olarak ta bilinir. 
 
 $$ \frac{\partial f}{\partial x}  = \nabla f = grad \ f(x) $$
 
-Elde edilen vektor surpriz degil cunku tek, skalar bir deger veren bir
-fonksiyonun $x$ icindeki {\em her ogensinin} nasil degistigine gore bunun
-fonksiyon uzerindeki etkilerini merak ediyorduk, ustteki vektor oge bazinda
-bize aynen bunu gosteriyor. Yani tek skalar sonuc $m$ tane turev sonucuna
-ayriliyor, cunku tek sonucun $m$ tane secenege gore degisimini gormek
-istedik. Not olarak belirtelim, gradyan vektoru matematiksel bir
-rahatliktir, bir kisayoldur, bir ziplama noktasidir, yani matematiksel olarak
-turetilerek ulasilan ana kurallardan biri denemez. Fakat cok ise yaradigina
-suphe yok.
+Turev bir kolon vektoru olarak cikti cunku $x$ de bir kolon
+vektoruydu. Elde edilen vektor surpriz degil cunku tek, skalar bir deger
+veren bir fonksiyonun $x$ icindeki {\em her ogensinin} nasil degistigine
+gore bunun fonksiyon uzerindeki etkilerini merak ediyorduk, ustteki vektor
+oge bazinda bize aynen bunu gosteriyor. Yani tek skalar sonuc $m$ tane
+turev sonucuna ayriliyor, cunku tek sonucun $m$ tane secenege gore
+degisimini gormek istedik. 
 
-Tek Sayi Parametreye Gore Matris Turevi
+Not olarak belirtelim, gradyan vektoru matematiksel bir kisayoldur, yani
+matematikte kuramsal olarak turetilerek ulasilan ana kurallardan biri
+denemez. Fakat cok ise yaradigina suphe yok.
 
-Eger bir $A$ matrisinin tum ogeleri bir tek sayi parametresi $\theta$'e
-bagli ise, o matrisin $\theta$'ya gore tum elemanlarinin teker teker
-$\theta$'ya gore turevidir,
+Skalar Parametreye Gore Matris Turevi
+
+Eger bir $A$ matrisinin tum ogeleri tek sayi $\theta$ gibi bir degiskene
+bagli ise, o matrisin $\theta$'ya gore turevi, tum elemanlarinin teker
+teker $\theta$'ya gore turevidir,
 
 $$ 
 \frac{\partial A}{\partial \theta} = 
@@ -74,7 +76,7 @@ $$
 
 Cok Parametreli Matris Turevi
 
-Simdi ilginc bir varyasyon; diyelim ki hem fonksiyon $f(x)$'e verilen $x$
+Simdi ilginc bir durum; diyelim ki hem fonksiyon $f(x)$'e verilen $x$
 cok boyutlu, hem de fonksiyonun sonucu cok boyutlu! Bu gayet mumkun bir
 durum. Bu durumda ne olurdu? 
 
@@ -83,7 +85,8 @@ zaman hem her girdi hucresi, hem de her cikti hucresi kombinasyonu icin bu
 degisimi saptamaliyiz. Jacobian matrisleri tam da bunu yapar. Eger $m$
 boyutlu girdi ve $n$ boyutlu cikti tanimlayan $f$'in turevini almak
 istersek, bu bize $m \times n$ boyutunda bir matris verecektir!
-Hatirlarsak daha once gradyan sadece $m$ boyutunda bir vektor vermisti.
+Hatirlarsak daha once gradyan sadece $m$ boyutunda bir {\em vektor}
+vermisti. Simdi sonuc bir matris. 
 
 $$ 
 J(x) = \frac{\partial f(x)}{\partial x} =
@@ -105,7 +108,7 @@ $a,x \in \mathbb{R}^n$ ise, $a^Tx$'in $x$'e gore turevi nedir?
 $a^Tx$ bir noktasal carpim olduguna gore sonucu bir tek sayidir
 (scalar). Bu noktasal carpimi bir fonksiyon gibi dusunebiliriz, bu durumda
 demektir ki tek sayili bir fonksiyonun cok boyutlu $x$'e gore turevini
-aliyoruz. Bu durumu ustte gorduk, sonuc bir gradyan olacaktir,
+aliyoruz, yani gradyan durumu tekrar vuku buldu,
 
 $$ 
 \frac{\partial (a^Tx)}{\partial x} = 
@@ -113,7 +116,16 @@ $$
 \frac{\partial (a^Tx)}{\partial x_1} \\ 
 \vdots \\ 
 \frac{\partial (a^Tx)}{\partial x_n} 
-\end{array}\right] = 
+\end{array}\right] 
+ $$
+
+$$  =
+\left[\begin{array}{c}
+\frac{\partial (a_1x_1 + ... + a_nx_n)}{\partial x_1} \\ 
+\vdots \\ 
+\frac{\partial (a_1x_1 + ... + a_nx_n)}{\partial x_n} 
+\end{array}\right] 
+= 
 \left[\begin{array}{c}
 a_1 \\
 \vdots  \\
@@ -122,9 +134,16 @@ a_n
 a
  $$
 
-Peki $a^Tx$'in $x^T$'ye gore turevi nedir? $x^T$'nin yatay bir vektor olduguna
-dikkat, yani satir vektorudur, o zaman sonuc ta yatay bir vektor olur
-(kiyasla gradyan dikeydi). 
+
+Niye her satirda $a_1,a_2$  gibi degerler elde ettigimizin sebebi bariz
+herhalde, cunku mesela ilk satirda $x_1$'e gore turev alindigi durumda
+$a_1x_1$ haricindeki tum terimler yokolacaktir, cunku o terimler icinde
+$x_1$ yoktur ve Calculus'a gore sabit sayi sayilirlar.
+
+Peki $a^Tx$'in $x^T$'ye gore turevi nedir? 
+
+$x^T$'nin yatay bir vektor olduguna dikkat, yani satir vektoru, o zaman
+sonuc yatay bir vektor olacaktir (kiyasla gradyan dikeydi).
 
 $$ 
 \frac{\partial (a^Tx)}{\partial x^T} = 
@@ -134,6 +153,7 @@ $$
 &
 \frac{\partial (a^Tx)}{\partial x_n} 
 \end{array}\right] 
+\mlabel{1}
  $$
 
 $$ =
@@ -160,11 +180,29 @@ a_1^T \\ \vdots \\ a_m^T
 
 O zaman $Ax$ ne olur? {\em Matris Carpimi} yazisindaki ``satir bakis acisi''
 dusunulurse, $A$'in her satiri, ayri ayri $x$'in tum satirlarini kombine
-ederek tekabul eden sonuc satirini olusturur, o zaman
+ederek tekabul eden sonuc satirini olusturur (tabii bu ornekte $x$'in
+kendisi bir vektor o yuzden ``satirlari'' tek bir sayidan ibaret), 
+
+$$ Ax = \left[\begin{array}{c}
+a_1^Tx \\ \vdots \\ a_m^Tx
+\end{array}\right] 
+$$
+
+Ustteki bir vektor, her ogesi tek sayi. Turevi alirsak (dikkat yatay
+vektore gore turev aliyoruz), ve (1)'i dikkate alirsak, 
 
 $$ 
-\frac{\partial}{\partial x^T} [Ax]  =
+\frac{\partial Ax}{\partial x^T}  =
+\left[\begin{array}{c}
+\frac{\partial(a_1^Tx) }{\partial x^T} 
+\\ 
+\vdots \\ 
+\frac{\partial(a_m^Tx) }{\partial }
+\end{array}\right] = \left[\begin{array}{c}
+a_1^T \\ \vdots \\ a_m^T
+\end{array}\right]  = A
  $$
+
 
 Kaynaklar
 
