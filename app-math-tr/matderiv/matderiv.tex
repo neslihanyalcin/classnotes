@@ -5,8 +5,6 @@ Matris Türevleri
 Aksi belirtilmedikce altta $a,x$ gibi vektorler kolon vektorleri olacaktir,
 yani $m \times 1$, ya da $n \times 1$ gibi boyutlara sahip olacaklardir. 
 
-Skalar Fonksiyon Turevi, Gradyan
-
 $m$ boyutlu vektor $x$'i alan ve geriye tek sayi sonucu donduren bir $f(x)$
 fonksiyonunun $x$'e gore turevini nasil aliriz? Yani $x \in \mathbb{R}^m$
 ve bir vektor,
@@ -48,8 +46,6 @@ Not olarak belirtelim, gradyan vektoru matematiksel bir kisayoldur, yani
 matematikte kuramsal olarak turetilerek ulasilan ana kurallardan biri
 denemez. Fakat cok ise yaradigina suphe yok.
 
-Skalar Parametreye Gore Matris Turevi
-
 Eger bir $A$ matrisinin tum ogeleri tek sayi $\theta$ gibi bir degiskene
 bagli ise, o matrisin $\theta$'ya gore turevi, tum elemanlarinin teker
 teker $\theta$'ya gore turevidir,
@@ -73,8 +69,6 @@ $$
 
 \end{array}\right]
 $$
-
-Cok Parametreli Matris Turevi
 
 Simdi ilginc bir durum; diyelim ki hem fonksiyon $f(x)$'e verilen $x$
 cok boyutlu, hem de fonksiyonun sonucu cok boyutlu! Bu gayet mumkun bir
@@ -101,9 +95,7 @@ J(x) = \frac{\partial f(x)}{\partial x} =
 \end{array}\right]
  $$
 
-Vektor Turevleri
-
-$a,x \in \mathbb{R}^n$ ise, $a^Tx$'in $x$'e gore turevi nedir? 
+Vektorlere gelelim. $a,x \in \mathbb{R}^n$ ise, $a^Tx$'in $x$'e gore turevi nedir? 
 
 $a^Tx$ bir noktasal carpim olduguna gore sonucu bir tek sayidir
 (scalar). Bu noktasal carpimi bir fonksiyon gibi dusunebiliriz, bu durumda
@@ -162,13 +154,11 @@ a_1 & \dots & a_n
 \end{array}\right] = 
 a^T $$
 
-Matris Turevleri
-
 Eger bir $x \in \mathbb{R}^m$ vektorunden $A$ matrisi $x$ ile carpiliyor
 ise, bu carpimin $x$'e gore turevi nedir? 
 
 
-$$ \frac{\partial}{\partial x^T} [Ax] = A
+$$ \frac{\partial(Ax)}{\partial x^T} = A
 $$
 
 Ispat: Eger $a_i \in \mathbb{R}^n$ ise (ki devrigi alininca bu vektor yatay hale
@@ -204,20 +194,123 @@ a_1^T \\ \vdots \\ a_m^T
  $$
 
 
+Su turev nasil hesaplanir? 
+
+$$ 
+\frac{\partial (x^TA^T)}{\partial x}
+$$
+
+Carpimi acalim, $x$ devrigi yatay bir vektor, $A$'nin satirlari $a_i$'ler
+ise devrik sonrasi kolonlar haline gelirler, yani
+
+
+$$ 
+\left[\begin{array}{ccc}
+x_1 & \dots & x_n
+\end{array}\right]
+\left[\begin{array}{ccc}
+\uparrow & & \uparrow \\
+a_1 & \dots & a_m \\
+\downarrow & & \downarrow 
+\end{array}\right]
+ $$
+
+Simdi matris carpimi satir bakisini kullanalim, carpan $x$ satiri bir
+tane, o zaman sonuc tek satir olacak. Bu tek $x$ satirinin ogeleri, $A^T$
+satirlarini teker teker carpip toplayacak ve o tek sonuc satirini meydana
+getirecek. Yani $x_1,x_2,...$ sirayla $a_1$'in tum ogelerini carpiyor,
+ayni sekilde $a_2$ icin aynisi oluyor, vs. Bu durumu daha temiz bir
+sekilde alttaki gibi belirtebiliriz,
+
+$$ 
+= 
+\left(\begin{array}{ccc}
+x^Ta_1 & \dots x^Ta_m 
+\end{array}\right)
+ $$
+
+Bu ifadenin turevini almak cok kolay, 
+
+$$ 
+= 
+\left(\begin{array}{ccc}
+\frac{\partial (x^Ta_1)}{\partial x} &
+\dots
+\frac{\partial (x^Ta_m)}{\partial x} 
+\end{array}\right)
+ $$
+
+$$ 
+= 
+\left(\begin{array}{ccc}
+a_1 & \dots a_m 
+\end{array}\right)
+ $$
+
+$$ \frac{\partial (x^TA^T)}{\partial x} = A^T \mlabel{2}$$
+
+
+Diyelim ki $x \in \mathbb{R}^n, z \in \mathbb{R}^m$. Yeni bir vektor $c =
+A^Tz$ 
+tanimlayalim ki vektor $n$ boyutunda. O zaman 
+
+
+$$ 
+\frac{\partial (z^TAx)}{\partial x} =  
+\frac{\partial (c^Tx)}{\partial x} = c = 
+A^Tz
+$$
+Diger bir turev
+
+$$ 
+\frac{\partial (z^TAx)}{\partial z} =  
+Ax
+$$
+
+Ustteki (2)'nin bir sonucu olarak gorulebilir.
+
+Eger $x=x(\alpha),z=z(\alpha)$ olursa, turev almada Zincir Kuralini kullanalim,
+
+$$ 
+\frac{\partial (z^TAx)}{\partial \alpha} =  
+\frac{\partial (z^TAx)}{\partial x} \frac{\partial x}{\partial \alpha}  + 
+\frac{\partial (z^TAx)}{\partial z} \frac{\partial z}{\partial \alpha}  
+$$
+
+$$ 
+\frac{\partial (z^TAx)}{\partial \alpha} =  
+A^Tz \frac{\partial x}{\partial \alpha}  + 
+Ax \frac{\partial z}{\partial \alpha}  
+$$
+
+Eger $z = x = \alpha$ dersek,
+
+$$ 
+\frac{\partial (x^TAx)}{\partial \alpha} =  
+\frac{\partial (x^TAx)}{\partial x} =  
+A^Tx \frac{\partial x}{\partial \alpha}  + 
+Ax \frac{\partial x}{\partial \alpha}  
+$$
+
+
+$$ 
+= Ax + A^Tx  = (A^T+A) x
+$$
+
+Diyelim ki $A$ simetrik bir matris, o zaman $A^T=A$, ve
+
+$$ 
+(A^T+A)x = 2Ax
+$$
+
+
 Kaynaklar
-
-Duda, Hart, {\em Pattern Classification}
-
-
-
-
-
-
-Kaynaklar 
 
 Economics 627 Econometric Theory II, Vector and Matrix Differentiation,
 \url{http://faculty.arts.ubc.ca/vmarmer/econ627/}
         
 Duda, Hart, {\em Pattern Classification}
+
+\url{http://math.umn.edu/~mathe233/math2263/resources/sum11_math2263_chainrule.pdf}
 
 \end{document}
