@@ -2,13 +2,11 @@
 \begin{document}
 K-Means Kumeleme Metodu
 
-Yapay Ogrenim (Machine Learning) alaninda onemli algoritmalardan biri
-k-means metodu. K-means kumelemesi icin kac tane kumenin olmasi
-gerektigi bastan tanimlanir (yani k parametresi), algoritma bunu
-kendisi bulmaz.
-
-Metotun geri kalani basittir - bir dongu (iteration) icinde her
-basamakta:
+Yapay Ogrenim (Machine Learning) alaninda populer kumeleme
+algoritmalarindan biri k-means algoritmasidir. K-means kumelemesinde kac
+tane kumenin olmasi gerektigi bastan tanimlanir ($k$ parametresi ile),
+algoritma bunu kendisi bulmaz. Metotun geri kalani basit - bir dongu
+(iteration) icinde her basamakta:
 
 1) Her nokta icin, eldeki kume merkezleri teker teker kontrol edilir
 ve o nokta en yakin olan kumeye atanir
@@ -88,7 +86,8 @@ class KMeans():
         self.iter = iter
     def fit(self,X):
         # her veri noktasi icin rasgele kume merkezi ata
-        self.labels_ = np.array([random.randint(0,self.k-1) for i in range(X.shape[0])])
+        labels = [random.randint(0,self.k-1) for i in range(X.shape[0])]
+        self.labels_ = np.array(labels)
         self.centers_ = np.zeros((self.k,X.shape[1]))
         for i in range(self.iter):
             # yeni kume merkezleri uret
@@ -115,14 +114,14 @@ print cf.labels_
 \end{minted}
 
 \begin{verbatim}
-[2 2 2 ..., 1 1 1]
+[2 2 2 ..., 0 0 0]
 \end{verbatim}
 
-Ustteki sonucun icinde iki ana vektor var, bu vektorlerden birincisi
-icinde 4,1, gibi sayilar goruluyor, bu sayilar her noktaya tekabul
-eden kume atamalari.  Ikinci vektor icinde iki boyutlu k tane vektor
-var, bu vektorler de her kumenin merkez noktasi. Merkez noktalarini ham
-veri uzerinde grafiklersek (kirmizi noktalar)
+Ustteki sonucun icinde iki ana vektor var, bu vektorlerden birincisi icinde
+2,0, gibi sayilar goruluyor, bu sayilar her noktaya tekabul eden kume
+atamalari.  Ikinci vektor icinde iki boyutlu $k$ tane vektor var, bu
+vektorler de her kumenin merkez noktasi. Merkez noktalarini ham veri
+uzerinde grafiklersek (kirmizi noktalar)
 
 \begin{minted}{python}
 plt.scatter(data[:,0],data[:,1])
@@ -138,7 +137,7 @@ Goruldugu gibi 5 tane kume icin ustteki merkezler bulundu. Fena
 degil. Eger 10 dersek
 
 \begin{minted}{python}
-cf = KMeans(k=17,iter=30)
+cf = KMeans(k=10,iter=30)
 cf.fit(data)
 plt.scatter(data[:,0],data[:,1])
 plt.ylim([30000,70000])
@@ -197,59 +196,54 @@ print df2.ix[0]
 \end{minted}
 
 \begin{verbatim}
-A2       30.83
-A3           0
-A8        1.25
-A11          1
-A14      00202
-A15          0
-A16          +
-A10=f        0
-A10=t        1
-A12=f        1
-A12=t        0
-A13=g        1
-A13=p        0
-A13=s        0
-A1=?         0
-A1=a         0
-A1=b         1
-A4=?         0
-A4=l         0
-A4=u         1
-A4=y         0
-A5=?         0
-A5=g         1
-A5=gg        0
-A5=p         0
-A6=?         0
-A6=aa        0
-A6=c         0
-A6=cc        0
-A6=d         0
-A6=e         0
-A6=ff        0
-A6=i         0
-A6=j         0
-A6=k         0
-A6=m         0
-A6=q         0
-A6=r         0
-A6=w         1
-A6=x         0
-A7=?         0
-A7=bb        0
-A7=dd        0
-A7=ff        0
-A7=h         0
-A7=j         0
-A7=n         0
-A7=o         0
-A7=v         1
-A7=z         0
-A9=f         0
-A9=t         1
-Name: 0, Length: 52, dtype: object
+A2        30.83
+A3         0.00
+A8         1.25
+A11        1.00
+A14      202.00
+A15        0.00
+A16        1.00
+A10=f      0.00
+A10=t      1.00
+A12=f      1.00
+A12=t      0.00
+A13=g      1.00
+A13=p      0.00
+A13=s      0.00
+A1=a       0.00
+A1=b       1.00
+A4=l       0.00
+A4=u       1.00
+A4=y       0.00
+A5=g       1.00
+A5=gg      0.00
+A5=p       0.00
+A6=aa      0.00
+A6=c       0.00
+A6=cc      0.00
+A6=d       0.00
+A6=e       0.00
+A6=ff      0.00
+A6=i       0.00
+A6=j       0.00
+A6=k       0.00
+A6=m       0.00
+A6=q       0.00
+A6=r       0.00
+A6=w       1.00
+A6=x       0.00
+A7=bb      0.00
+A7=dd      0.00
+A7=ff      0.00
+A7=h       0.00
+A7=j       0.00
+A7=n       0.00
+A7=o       0.00
+A7=v       1.00
+A7=z       0.00
+A9=f       0.00
+A9=t       1.00
+Name: 0, dtype: float64
 \end{verbatim}
 
 Islem sonucunda A12=f mesela icin 1 verilmis, ama A12=t (ve diger her
@@ -296,7 +290,8 @@ class MixedKMeans():
         self.euc_n = euc_n
         self.weights = weights
     def fit(self,X,iter=10):
-        self.labels_ = np.array([random.randint(0,self.k-1) for i in range(X.shape[0])])
+        labels = [random.randint(0,self.k-1) for i in range(X.shape[0])]
+        self.labels_ = np.array(labels)
         self.centers_ = np.zeros((self.k,X.shape[1]))
         for i in range(self.iter):
             for j in range(self.k):
@@ -305,7 +300,8 @@ class MixedKMeans():
                 self.centers_[j,:] = center
             self.labels_ = []
             for point in X:
-                c = np.argmin(mixed_to_clusters(self.centers_, point, self.euc_n,self.weights))
+                c = np.argmin(mixed_to_clusters(self.centers_, \
+                              point, self.euc_n,self.weights))
                 self.labels_.append(int(c))
 
             self.labels_ = np.array(self.labels_)
@@ -338,7 +334,7 @@ print float(match)/len(df)
 \end{minted}
 
 \begin{verbatim}
-0.182235834609
+0.816232771822
 \end{verbatim}
 
 Bu veri icinde iki tane kume vardi, kumeler A16 kolonunda + ya da - olarak
@@ -346,14 +342,16 @@ isaretli. Kumeleme takip edilmeyen (unsupervised) bir Yapay Ogrenim
 metotududur, hangi noktanin hangi kumeye ait oldugunu onceden bilmeyiz,
 ornek veri setini kullanirken bu isaretleri gormemezlikten geliyoruz,
 sadece kontrol amacli olarak sonradan bu isaretlere bakiyoruz. Ve ustteki
-kod ile yuzde 82 (bazen 82, bazen 18 degeri gelebilir, cunku 0 ile 1
-degerleri gelisiguzel secildi, tahminler ona gore tam tersi olabiliyor)
-oraninda bir basariyla dogru kumeyi bulabilmisiz.
+kod ile yuzde 82 civari (bazen 82, bazen 18 degeri gelebilir, cunku kume
+atamalari ``1. kume'' ya da ``0. kume'' arasinda bir secim yapamaz, sadece
+onlarin ayri kume olduklarini bulabilir, tahminler bu sebeple bazen tam
+tersi cikabiliyor, fakat bu cok onemli degil) oraninda bir basariyla dogru
+kumeyi bulabilmisiz.
 
 Parametre olarak gecilen \verb!euc_n! degiskeni her veri noktasi icin "ilk kac
 noktanin numerik" oldugunu belirtiyor. Boylece uzaklik fonksiyonu sadece
 o kisimda Oklit uzakligi kullaniyor. Peki numerik degerler niye hep basta?
-Bunun sebebi \verb!one_hot_dataframe! cagrisinin yeni kolonlari yaratirken eskileri
+Sebep \verb!one_hot_dataframe! cagrisinin yeni kolonlari yaratirken eskileri
 silmesi ve eklenen yeni kolonlarin hep en sona konmasi, boylece en bastakiler
 hep numerik kolon olacak!
 

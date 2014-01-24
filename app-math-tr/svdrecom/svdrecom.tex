@@ -326,7 +326,7 @@ veri noktasi dolu. Bu oldukca seyrek bir matris demektir.
 
 Verinin ham hali diger ders notlarimizi iceren ust dizinlerde var, veriyi
 SVD ile kullanilir hale getirmek icin bu dizindeki \verb!movielens_prep.py!
-adli script kullanilir. Islem bitince movielens.csv adli bir dosya
+adli script kullanilir. Islem bitince \verb!movielens.csv! adli bir dosya
 script'te gorulen yere yazilacak. Bu dosyada olmayan derecelendirmeler,
 verilmemis notlar bos olacaktir. Bu bosluklari sifirlarsak, seyrek matrisi
 o noktalari atlar. Ardindan bu seyrek matris uzerinde seyrek SVD
@@ -413,10 +413,11 @@ diger $U$ vektorleri icinde arama yapiyoruz, en yakin diger
 kullaniciyi buluyoruz ve onun bu filme verdigi notu tahminimiz olarak
 kullaniyoruz.
 
-Altta eger bulunan diger kullanici o filme not vermemisse,
-basitlestirme amacli olarak, o filmi atladik. Gercek dunya sartlarinda
-filme not vermis ve yakin olan (en yakin olmasa da) ikinci, ucuncu
-kullanicilar bulunup onun notu kullanilabilir.
+Altta eger bulunan diger kullanici o filme not vermemisse, basitlestirme
+amacli olarak, o filmi atladik. Gercek dunya sartlarinda filme not vermis
+ve yakin olan (en yakin olmasa da) ikinci, ucuncu kullanicilar bulunup
+onlarin notu kullanilabilir. Hatta en yakin k tane kullanicinin ortalamasi
+alinabilir (o kullanicilar kNN gibi bir metotla bulunur belki), vs.
 
 \begin{minted}{python}
 def euclid(inA,inB):
@@ -425,7 +426,11 @@ def euclid(inA,inB):
 rmse = 0; n = 0
 for i,test_row in enumerate(df_test):
     for j, test_val in enumerate(test_row):
+        # nan olmayan bir not buluncaya kadar ara
         if np.isnan(test_val): continue	
+        # bulduk, test satirini tamamen kopyala ve bulunan notu silerek
+        # onu nan / sifir haline getir cunku yansitma (projection) oncesi
+        # o notu 'bilmiyormus gibi' yapmamiz lazim. 
 	curr = test_row.copy()
         curr[j] = np.nan
         curr[np.isnan(curr)] = 0.
@@ -480,7 +485,7 @@ rmse 0.975900072949
 \end{verbatim}
 
 Sonuc fena degil. Tavsiye programlarinda RMSE 0.9 civari iyi olarak
-bilinir, Netflix yarismasinda [4] mesela kazanan algoritma RMSE 0.85'e
+bilinir, Netflix yarismasinda [3] mesela kazanan algoritma RMSE 0.85'e
 erismistir.
 
 Kaynaklar
@@ -489,9 +494,8 @@ Kaynaklar
 
 [2] Harrington, P., Machine Learning in Action
 
-[3] \url{http://stats.stackexchange.com/questions/31096/how-do-i-use-the-svd-in-collaborative-filtering}
+[3] \url{http://en.wikipedia.org/wiki/Netflix_Prize}
 
-[4] \url{http://en.wikipedia.org/wiki/Netflix_Prize}
-
+[4] \url{http://stats.stackexchange.com/questions/31096/how-do-i-use-the-svd-in-collaborative-filtering}
 
 \end{document}
