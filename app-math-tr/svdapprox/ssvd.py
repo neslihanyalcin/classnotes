@@ -3,29 +3,36 @@ from pandas import *
 import numpy as np
 
 def ssvd(df_train):
-    # user biases for all movies, that is for all movies all together
-    # as a single number per user
     mu = 0.1
     m,n = df_train.shape
-    b_u = np.ones((1, m)) * 0.1; b_i = np.ones((1, n)) * 0.1
-    p_u = np.ones((1, m)) * 0.1; q_i = np.ones((1, n)) * 0.1
-    r_ui = np.zeros((df_train.shape))
-    #print b_u.shape, p_u.shape    
-    for u in df_train.index:
-        print "user", u
-        for i,val in enumerate(df_train.ix[u]):
-            print "i", i,val
+    print m,n
+    k = 3 # rank
+    b_u = np.ones((1, m)) * 0.1
+    b_i = np.ones((1, n)) * 0.1
+    p_u = np.ones((m, k)) * 0.1
+    q_i = np.ones((k, n)) * 0.1
+    r_ui = np.array(df_train).copy()
+    r_ui[:] = np.nan
+    for u in range(m):
+        print "user", u        
+        for i in range(n):
+            print "i", i
+            print p_u[u,:].shape
+            print q_i[:,i].shape
+            tmp = np.dot(q_i[:,i].T,p_u[u,:])
+            r_ui[u,i] = mu + b_i[0,i] + b_u[0,u] + tmp
+            print r_ui[u,i]            
         break
     
 if __name__ == "__main__": 
 
     d =  np.array(
          [[5, 5, np.nan, 5],
-         [5, np.nan, 3, 4],
-         [3, 4, np.nan, 3],
-         [0, np.nan, 5, 3],
-         [5, 4, 4, 5],
-         [5, 4, 5, 5]])
+          [5, np.nan, 3, 4],
+          [3, 4, np.nan, 3],
+          [np.nan, np.nan, 5, 3],
+          [5, 4, 4, 5],
+          [5, 4, 5, 5]])
 
     data = DataFrame (d.T,
         columns=['S1','S2','S3','S4','S5','S6'],
