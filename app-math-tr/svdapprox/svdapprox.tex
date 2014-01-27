@@ -3,56 +3,58 @@
 Yaklasiksal SVD ve Tavsiye Sistemleri
 
 \begin{minted}[fontsize=\footnotesize]{python}
-import pandas as pd, os
-import scipy.sparse as sps
-df = pd.read_csv("%s/Downloads/movielens.csv" % os.environ['HOME'] ,sep=';')
-print df.shape
-df = df.ix[:,1:] # id kolonunu atla
-df = df.ix[:,:3700] # sadece filmleri al
-df_train = df.copy().ix[:5000,:]
-df_test = df.copy().ix[5001:,:]
+import pandas as pd
+import ssvd; reload(ssvd)
+d =  np.array(
+[[  5.,   5.,   3.,  nan,   5.,   5.],
+ [  5.,  nan,   4.,  nan,   4.,   4.],
+ [ nan,   3.,  nan,   5.,   4.,   5.],
+ [  5.,   4.,   3.,   3.,   5.,   5.],
+ [  5.,   5.,  nan,  nan,  nan,   5.]
+])
+data = pd.DataFrame (d,
+    columns=['0','1','2','3','4','5'],
+    index=['Ben','Tom','John','Fred','Bob'])
+mu,b_u,b_i,q_i,p_u = ssvd.ssvd(data)
+print mu
+print 'b_u',b_u
+print 'b_i',b_i
+print 'q_i',q_i
+print 'p_u',p_u
 \end{minted}
 
 \begin{verbatim}
-(6040, 3731)
+5 6
+user 0
+user 1
+user 2
+user 3
+user 4
+4.31388888889
+b_u [ 0.10133903  0.09409426  0.09418718  0.08886431  0.10676199]
+b_i [ 0.10901103  0.09410751  0.0818748   0.0946108   0.0992177   0.10642075]
+q_i [[ 0.10086511  0.09937517  0.09815699  0.0994476   0.09988284  0.10059356]
+ [ 0.10086511  0.09937517  0.09815699  0.0994476   0.09988284  0.10059356]
+ [ 0.10086511  0.09937517  0.09815699  0.0994476   0.09988284  0.10059356]]
+p_u [[ 0.100097    0.100097    0.100097  ]
+ [ 0.09937763  0.09937763  0.09937763]
+ [ 0.09938889  0.09938889  0.09938889]
+ [ 0.09885517  0.09885517  0.09885517]
+ [ 0.10065103  0.10065103  0.10065103]]
 \end{verbatim}
 
 
-\begin{minted}{python}
-row = df_train.ix[3]
-idxs = row.index[row.notnull()]
-for i in idxs:
-   print i,row[i]
+\begin{minted}[fontsize=\footnotesize]{python}
+u = 0
+i_s = [3,4,5]
+for i in i_s:
+   r_ui_hat = mu + b_i[i] + b_u[u] + np.dot(q_i[:,i].T,p_u[u,:])
+   print r_ui_hat
 \end{minted}
 
 \begin{verbatim}
-260 5.0
-480 4.0
-1036 4.0
-1097 4.0
-1196 2.0
-1198 5.0
-1201 5.0
-1210 3.0
-1214 4.0
-1240 5.0
-1387 5.0
-1954 5.0
-2028 5.0
-2366 4.0
-2692 5.0
-2947 5.0
-2951 4.0
-3418 4.0
-3468 5.0
-3527 1.0
-3702 4.0
+4.53970194399
 \end{verbatim}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-
-
 
 
 
@@ -60,11 +62,20 @@ for i in idxs:
 
 
 \begin{minted}[fontsize=\footnotesize]{python}
-import ssvd
-reload(ssvd)
-b_u,b_i,q_i,p_u = ssvd.ssvd(df_train.ix[0:10])
-print b_u[10]
+import pandas as pd, os
+df = pd.read_csv("%s/Downloads/movielens.csv" % os.environ['HOME'] ,sep=';')
+print df.shape
+df = df.ix[0:200,1:3700] # id kolonunu atla,
+df.columns = range(3699)
+print df.shape
 \end{minted}
+
+\begin{verbatim}
+(6040, 3731)
+(201, 3699)
+\end{verbatim}
+
+
 
 
 
