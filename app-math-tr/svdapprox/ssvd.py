@@ -3,6 +3,8 @@ from pandas import *
 import numpy as np
 
 def ssvd(df_train):
+    gamma = 0.005 # regularization
+    lam = 0.02
     mu = 0.1
     m,n = df_train.shape
     print m,n
@@ -19,9 +21,9 @@ def ssvd(df_train):
             print "i", i
             print p_u[u,:].shape
             print q_i[:,i].shape
-            tmp = np.dot(q_i[:,i].T,p_u[u,:])
-            r_ui[u,i] = mu + b_i[0,i] + b_u[0,u] + tmp
-            print r_ui[u,i]            
+            r_ui_hat = mu + b_i[0,i] + b_u[0,u] + np.dot(q_i[:,i].T,p_u[u,:])
+            e = np.nan_to_num(r_ui[u,i]) - r_ui_hat
+            print e
         break
     
 if __name__ == "__main__": 
