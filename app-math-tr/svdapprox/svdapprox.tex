@@ -25,11 +25,6 @@ print 'p_u',p_u
 
 \begin{verbatim}
 5 6
-user 0
-user 1
-user 2
-user 3
-user 4
 4.31388888889
 b_u [ 0.10133903  0.09409426  0.09418718  0.08886431  0.10676199]
 b_i [ 0.10901103  0.09410751  0.0818748   0.0946108   0.0992177   0.10642075]
@@ -45,15 +40,13 @@ p_u [[ 0.100097    0.100097    0.100097  ]
 
 
 \begin{minted}[fontsize=\footnotesize]{python}
-u = 0
-i_s = [3,4,5]
-for i in i_s:
-   r_ui_hat = mu + b_i[i] + b_u[u] + np.dot(q_i[:,i].T,p_u[u,:])
-   print r_ui_hat
+u = 4; i = 2
+r_ui_hat = mu + b_i[i] + b_u[u] + np.dot(q_i[:,i].T,p_u[u,:])
+print r_ui_hat
 \end{minted}
 
 \begin{verbatim}
-4.53970194399
+4.53216448203
 \end{verbatim}
 
 
@@ -65,19 +58,59 @@ for i in i_s:
 import pandas as pd, os
 df = pd.read_csv("%s/Downloads/movielens.csv" % os.environ['HOME'] ,sep=';')
 print df.shape
-df = df.ix[0:200,1:3700] # id kolonunu atla,
+df = df.ix[0:1000,1:3700] # id kolonunu atla,
 df.columns = range(3699)
 print df.shape
 \end{minted}
 
 \begin{verbatim}
 (6040, 3731)
-(201, 3699)
+(1001, 3699)
+\end{verbatim}
+
+\begin{minted}[fontsize=\footnotesize]{python}
+print df.ix[110,10]
+print df.ix[59,20]
+df.ix[110,10] = nan
+df.ix[59,20] = nan
+print df.ix[110,10]
+print df.ix[59,20]
+\end{minted}
+
+\begin{verbatim}
+4.0
+3.0
+nan
+nan
 \end{verbatim}
 
 
+\begin{minted}[fontsize=\footnotesize]{python}
+mu,b_u,b_i,q_i,p_u = ssvd.ssvd(df)
+reload(ssvd)
+import ssvd 
+print mu
+\end{minted}
+
+\begin{verbatim}
+1001 3699
+3.2900967656
+\end{verbatim}
 
 
+\begin{minted}[fontsize=\footnotesize]{python}
+u=110;i=10
+r_ui_hat = mu + b_i[i] + b_u[u] + np.dot(q_i[:,i].T,p_u[u,:])
+print r_ui_hat
+u=59;i=20
+r_ui_hat = mu + b_i[i] + b_u[u] + np.dot(q_i[:,i].T,p_u[u,:])
+print r_ui_hat
+\end{minted}
+
+\begin{verbatim}
+3.77778381527
+3.54456229482
+\end{verbatim}
 
 
 \end{document}
