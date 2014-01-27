@@ -129,7 +129,7 @@ durumunda elde $x_1,...,x_n$ verisi vardir, ve bu veri $N(\mu,\Sigma)$
 dagilimindan gelmistir ve test etmek istedigimiz hipotez /
 karsilastirma $\mu = \mu_0$. 
 
-\begin{minted}{python}
+\begin{minted}[fontsize=\footnotesize]{python}
 from scipy.stats import ttest_1samp, wilcoxon, ttest_ind
 import pandas as pd
 daily_intake = np.array([5260,5470,5640,6180,6390,6515, 6805,7515,7515,8230,8770])
@@ -149,7 +149,7 @@ min    5260.000000
 max    8770.000000
 \end{verbatim}
 
-\begin{minted}{python}
+\begin{minted}[fontsize=\footnotesize]{python}
 t_statistic, p_value = ttest_1samp(daily_intake, 7725)
 print "one-sample t-test", p_value
 \end{minted}
@@ -168,7 +168,7 @@ isaretlendi, ve test etmek istedigimiz iki grubun ortalamasinin (mean)
 ayni oldugu hipotezini test etmek. t-test bu arada varyansin ayni
 oldugunu farzeder.
 
-\begin{minted}{python}
+\begin{minted}[fontsize=\footnotesize]{python}
 energ = np.array([
 [9.21, 0],
 [7.53, 1],
@@ -214,7 +214,7 @@ sonrasi bir daha alinir ve "farklarin ortalamasinin sifir oldugu"
 hipotezi test edilebilir. Altta bir grup hastanin deney oncesi ve
 sonrasi ne kadar yiyecek tukettigi listelenmis. 
 
-\begin{minted}{python}
+\begin{minted}[fontsize=\footnotesize]{python}
 intake = np.array([
 [5260, 3910],
 [5470, 4220],
@@ -258,7 +258,7 @@ tane sayi icinden herhangi birini $1/2$ olasiligiyla secmek, ve
 sonuclari toplamaya tekabul etmektedir. Ve bu sonuc yine \verb!0.05!
 ile karsilastirilir.
 
-\begin{minted}{python}
+\begin{minted}[fontsize=\footnotesize]{python}
 z_statistic, p_value = wilcoxon(daily_intake - 7725)
 print "one-sample wilcoxon-test", p_value
 \end{minted}
@@ -271,7 +271,7 @@ Hipotezi yine reddettik.
 
 Ustte yaptigimiz eslemeli t-testi simdi Wilcoxon testi ile yapalim,
 
-\begin{minted}{python}
+\begin{minted}[fontsize=\footnotesize]{python}
 z_statistic, p_value = wilcoxon(post - pre)
 print "paired wilcoxon-test", p_value
 \end{minted}
@@ -319,7 +319,7 @@ gunluk ziyaret, tiklama sayilarini gosteren bir veri seti var (CVR
 ziyaretcilerin, sitedeki tiklayan musteriye "cevirme' orani,
 -conversion-)
 
-\begin{minted}{python}
+\begin{minted}[fontsize=\footnotesize]{python}
 import pandas as pd
 from scipy import stats
 a = pd.DataFrame({'tiklama': [20.,2.,40.,5.,10.,100.],
@@ -343,7 +343,7 @@ onceden biliyoruz. Ustteki basari orani binom dagili ile
 modellenebilir, ziyaretler "deneylerdir", yani orneklem buyuklugunu
 gosterirler. Tiklama ise basaridir,
 
-\begin{minted}{python}
+\begin{minted}[fontsize=\footnotesize]{python}
 p_hat = 0.16
 btest = lambda x: (x['cvr']-p_hat) / np.sqrt( p_hat*(1-p_hat)/x['ziyaret'])
 a['guven'] = a.apply(btest, axis=1)

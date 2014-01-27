@@ -21,13 +21,13 @@ modellenebilirler.
 
 Veriye bakalim.
 
-\begin{minted}{python}
+\begin{minted}[fontsize=\footnotesize]{python}
 from pandas import *
 from statsmodels.formula.api import logit
 from patsy import dmatrix, dmatrices
 \end{minted}
 
-\begin{minted}{python}
+\begin{minted}[fontsize=\footnotesize]{python}
 df = read_csv('wells.dat', sep = ' ', header = 0, index_col = 0)
 print df.head()
 \end{minted}
@@ -45,7 +45,7 @@ Model 1: Guvenli su kuyusuna uzaklik
 
 Ilk once modelde kuyu uzakligini kullanalim. 
 
-\begin{minted}{python}
+\begin{minted}[fontsize=\footnotesize]{python}
 model1 = logit("switch ~ dist", df).fit()
 print model1.summary()
 \end{minted}
@@ -87,7 +87,7 @@ mesela Patsy formullerinde baska amaclar icin kullaniliyor. 'I' harfi
 birim (identity) kelimesinden geliyor, yani hicbir seyin degismedigini
 anlatmaya ugrasiyoruz, "icinde ne varsa onu ver" diyoruz [1].
 
-\begin{minted}{python}
+\begin{minted}[fontsize=\footnotesize]{python}
 model1 = logit('switch ~I(dist/100.)', df).fit()
 print model1.summary()
 \end{minted}
@@ -117,7 +117,7 @@ Simdi modelimizi grafikleyelim. Yanliz degisim (switch) verisini suni olarak
 kaydirmamiz / segirtmemiz (jitter) gerekiyor, cunku degisim 0 ve 1'den baska
 bir sey olamaz ve grafik surekli ayni iki bolgeye nokta basip duracak. 
 
-\begin{minted}{python}
+\begin{minted}[fontsize=\footnotesize]{python}
 def binary_jitter(x, jitter_amount = .05):
     '''
     0/1 vektoru iceren veriye segirtme ekle
@@ -169,7 +169,7 @@ Simdi arsenik seviyesini modelimize ekleyelim. Bekleriz ki kuyusunda yuksek
 arsenik miktari olan kimselerin kuyu degistirmesi daha cok beklenen bir
 seydir.
 
-\begin{minted}{python}
+\begin{minted}[fontsize=\footnotesize]{python}
 model2 = logit('switch ~ I(dist / 100.) + arsenic', df).fit()
 print model2.summary()
 \end{minted}
@@ -205,7 +205,7 @@ Bilesen (marginal) etkiler
 Tum bu degiskenlerin degisim olasiligi uzerindeki etkilerini gormek icin
 verinin ortalama noktasinda bir bilesen hesabi yapalim. 
 
-\begin{minted}{python}
+\begin{minted}[fontsize=\footnotesize]{python}
 print model2.margeff(at = 'mean').summary()
 \end{minted}
 
@@ -239,7 +239,7 @@ bir hata oraninin olmasini bekliyoruz. Fakat baska bir sey farkediyoruz,
 grafigin "kisa mesafe-yuksek arsenik" bolgesinde cogunlukla degisimciler var,
 ve "uzun mesafe-dusuk arsenik" bolgesinde cogunlukla degistirmeyenler var.
 
-\begin{minted}{python}
+\begin{minted}[fontsize=\footnotesize]{python}
 logit_pars = model2.params
 intercept = -logit_pars[0] / logit_pars[2]
 slope = -logit_pars[1] / logit_pars[2]
@@ -263,6 +263,7 @@ plt.savefig('wells_2.png')
 \end{minted}
 
 \includegraphics[height=6cm]{wells_2.png}
+
 Model 3: Etkilesim eklemek
 
 Arsenik seviyesi ve uzaklik degiskenlerinin modele ayri ayri yaptigi
@@ -278,7 +279,7 @@ koyayim" seklinde dusunmez.
 Patsy ile modele etkilesim eklemenin yolu degiskenler arasinda `:`
 operatorunu kullanmak ile olur.
 
-\begin{minted}{python}
+\begin{minted}[fontsize=\footnotesize]{python}
 model3 = logit('switch ~ I(dist / 100.) + arsenic + I(dist / 100.):arsenic', df).fit()
 print model3.summary()
 \end{minted}
@@ -329,7 +330,7 @@ yorumlamamiz rahatlasacak. Bir kez daha bu isi tamamen Patsy sayesinde
 formul icinde halledecegiz, disaridan on hesap yapip formule gecmemiz
 gerekmeyecek.
 
-\begin{minted}{python}
+\begin{minted}[fontsize=\footnotesize]{python}
 model_form = ('switch ~ center(I(dist / 100.)) + center(arsenic) + ' +
               'center(I(educ / 4.)) + ' +
               'center(I(dist / 100.)) : center(arsenic) + ' + 
@@ -386,7 +387,7 @@ degiskenler icin olusturdugumuz kutucuklar (bins) icine kalintilarin
 ortalamasini koyacagiz ve bunlari grafikleyecegiz (lowess ya da hareketli
 ortalama -moving average- teknigi de burada ise yarayabilirdi). 
 
-\begin{minted}{python}
+\begin{minted}[fontsize=\footnotesize]{python}
 def bin_residuals(resid, var, bins):
     '''
     Compute average residuals within bins of a variable.
@@ -447,7 +448,7 @@ transformasyonu gibi bir seyler yapmamizin gerektiginin isareti.
 
 Bu degisimi de direk formul icinde yapabiliriz.
 
-\begin{minted}{python}
+\begin{minted}[fontsize=\footnotesize]{python}
 model_form = ('switch ~ center(I(dist / 100.)) + center(np.log(arsenic)) + ' +
               'center(I(educ / 4.)) + ' +
               'center(I(dist / 100.)) : center(np.log(arsenic)) + ' + 
@@ -487,7 +488,7 @@ center(np.log(arsenic)):center(I(educ / 4.))       0.0601      0.070      0.855 
 
 Simdi arsenik icin kutulanmis kalinti grafikleri daha iyi gozukuyor.
 
-\begin{minted}{python}
+\begin{minted}[fontsize=\footnotesize]{python}
 arsenic_resids = bin_residuals(model5.resid, df['arsenic'], 40)
 dist_resids = bin_residuals(model5.resid, df['dist'], 40)
 plt.figure(figsize = (12, 5))
@@ -517,7 +518,7 @@ durumda null modeli "herkes kuyu degistiriyor" diye modeller, ve bu
 basit modelin hata payi 42\% olur. Bizim model bu modelden daha iyi
 bir sonuc verecek midir? Sonuc altta.
 
-\begin{minted}{python}
+\begin{minted}[fontsize=\footnotesize]{python}
 print model5.pred_table()
 print 'Model Error rate: {0: 3.0%}'.format(
     1 - np.diag(model5.pred_table()).sum() / model5.pred_table().sum())
@@ -538,7 +539,7 @@ Yukaridaki qcut kullanimini ozetlemek gerekirse; arsenik degiskeni
 icin mesela dagilim bolgeleri (n-tile) uzerinden bir atama yapacagiz,
 once DataFrame yaratalim,
 
-\begin{minted}{python}
+\begin{minted}[fontsize=\footnotesize]{python}
 resid_df = DataFrame({'var': df['arsenic'], 'resid': model4.resid})
 print resid_df[:10]
 \end{minted}
@@ -559,7 +560,7 @@ print resid_df[:10]
 
 Simdi 40 tane dagilim bolgesi yaratalim
 
-\begin{minted}{python}
+\begin{minted}[fontsize=\footnotesize]{python}
 print qcut(df['arsenic'], 40)
 \end{minted}
 
@@ -586,7 +587,7 @@ Goruldugu gibi bolgeler bir obje aslinda ve icinde levels diye bir
 degiskeni var. Ayrica labels diye bir degisken de var,
 
 
-\begin{minted}{python}
+\begin{minted}[fontsize=\footnotesize]{python}
 print qcut(df['arsenic'], 40).labels
 \end{minted}
 
@@ -597,7 +598,7 @@ print qcut(df['arsenic'], 40).labels
 Ki bu degisken icinde hangi noktanin hangi olasilik bolgesine ait oldugunun
 atamasi var. Mesela 2. nokta 6. bolgeye aitmis, bu bolge hangisi?
 
-\begin{minted}{python}
+\begin{minted}[fontsize=\footnotesize]{python}
 print qcut(df['arsenic'], 40).levels[6]
 \end{minted}
 
@@ -610,7 +611,7 @@ Simdi soyle bir atama yaparsak, yani qcut sonucunu direk oldugu gibi
 \verb!resid_df!  uzerindeki index (sira) ile uyumlandirilacaktir, ve her
 var icin dogru olan \verb!qcut! sonucu atanmis olacaktir!
 
-\begin{minted}{python}
+\begin{minted}[fontsize=\footnotesize]{python}
 resid_df['bins'] = qcut(df['arsenic'], 40)
 print resid_df[:10]
 \end{minted}

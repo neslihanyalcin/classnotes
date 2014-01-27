@@ -25,7 +25,7 @@ elimizde o kadar cok veri olacak ki bu verinin tamamini isleyince zaten
 
 Ornek veri olarak alttakini urettik,
 
-\begin{minted}{python}
+\begin{minted}[fontsize=\footnotesize]{python}
 from pandas import *
 mean1 = [10,10]
 mean2 = [20,20]
@@ -47,7 +47,7 @@ print data[:4]
 3  11.543380  11.627805  1
 \end{verbatim}
 
-\begin{minted}{python}
+\begin{minted}[fontsize=\footnotesize]{python}
 plt.plot(d1.ix[:,0],d1.ix[:,1],'b.')
 plt.hold(True)
 plt.plot(d2.ix[:,0],d2.ix[:,1],'r.') %
@@ -59,11 +59,11 @@ plt.savefig('logreg1.png')
 
 Altta veriyi isletmeden once kendimiz karistiriyoruz,
 
-\begin{minted}{python}
+\begin{minted}[fontsize=\footnotesize]{python}
 !sort --random-sort testSet.txt > /tmp/testSet1.txt
 \end{minted}
 
-\inputminted{python}{logreg.py}
+\inputminted[fontsize=\footnotesize]{python}{logreg.py}
 
 Ustte esleyici icinde tek bir tane anahtar uretiyoruz, tum makinalarda tum
 esleyiciler ayni anahtari, bir kez uretiyor olacaklar. Bunun sebebi nedir?
@@ -93,7 +93,7 @@ anahtar ile esleyerek uretiyoruz ve is bitiyor.
 
 Komut satirindan isletelim:
 
-\begin{minted}{python}
+\begin{minted}[fontsize=\footnotesize]{python}
 !python logreg.py /tmp/testSet1.txt 
 \end{minted}
 
@@ -114,7 +114,7 @@ Streaming final output from /tmp/logreg.burak.20131201.234703.391390/output
 removing tmp directory /tmp/logreg.burak.20131201.234703.391390
 \end{verbatim}
 
-\begin{minted}{python}
+\begin{minted}[fontsize=\footnotesize]{python}
 def plot_theta(theta):
     x = np.array(arange(-10.0, 40.0, 0.1))
     y = np.array((-theta[0]-theta[1]*x)/theta[2])

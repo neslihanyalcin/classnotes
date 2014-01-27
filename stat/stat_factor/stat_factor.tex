@@ -74,7 +74,7 @@ BMF ozel bir hesaptir ve Numpy / Scipy icinde mevcut degildir. Bunun icin
 ozel bir kutuphane cagrisi kullanabiliriz. Nimfa denen paket icinde [4]
 gerekli kodlar var. Kurduktan sonra ustteki ornegi soyle cozebiliriz;
 
-\begin{minted}{python}
+\begin{minted}[fontsize=\footnotesize]{python}
 import nimfa
 import pandas as pd
 import scipy.sparse as sp
@@ -135,7 +135,7 @@ tane mali bir sepete koymak mumkun degil.
 
 Simdi baska bir ornek gorelim. 
 
-\begin{minted}{python}
+\begin{minted}[fontsize=\footnotesize]{python}
 data = [
 ['outlook=sunny', 'temparature=hot', 'humidity=high', 'windy=false', 'play=no'],
 ['outlook=sunny', 'temparature=hot', 'humidity=high', 'windy=true', 'play=no'],
@@ -175,7 +175,7 @@ ulasmak) ve bu sirada ogeler \verb!minsup! altinda ise, atilirlar. Sonucta
 ulasilan ve atilmayan yollar bir oge kumesini temsil ederler. [2]'deki kodu
 [1]'den aldigimiz ustteki veriye uygularsak, sonuc soyle:
 
-\begin{minted}{python}
+\begin{minted}[fontsize=\footnotesize]{python}
 import fp
 items = fp.fpgrowth(data, minsup=6)
 for x in items:
@@ -220,7 +220,7 @@ degil.
 Kiyas icin BMF uzerinden madencilik yapalim. Once one-hot kodlamasi
 yapalim, ve ornek icin bir veri satirini ekrana basalim,
 
-\begin{minted}{python}
+\begin{minted}[fontsize=\footnotesize]{python}
 from sklearn.feature_extraction import DictVectorizer
 import pandas as pd, re
 
@@ -264,7 +264,7 @@ Name: 0, dtype: float64
 
 Simdi BMF isletelim, $k=4$
 
-\begin{minted}{python}
+\begin{minted}[fontsize=\footnotesize]{python}
 import nimfa
 import scipy.sparse as sp
 
@@ -305,7 +305,7 @@ windy=true        1  0  0  0
 
 Bu sonuclari kategoriksel hale cevirip tekrar ekrana basalim,
 
-\begin{minted}{python}
+\begin{minted}[fontsize=\footnotesize]{python}
 for i in range(4):
     print np.array(df2.columns)[res1.ix[:,i] == 1]
 \end{minted}

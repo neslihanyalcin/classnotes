@@ -34,7 +34,7 @@ yerini alacak ve islem tekrar baslayacak.
 
 Simdi ham veriyi gosterelim,
 
-\begin{minted}{python}
+\begin{minted}[fontsize=\footnotesize]{python}
 from pandas import *
 df1 = read_csv("synthetic.txt",sep="   ")
 plt.scatter(df1.ix[:,0],df1.ix[:,1])
@@ -43,7 +43,7 @@ plt.savefig('kmeans_1.png')
 
 \includegraphics[height=4cm]{kmeans_1.png}
 
-\inputminted{python}{kmeans.py}
+\inputminted[fontsize=\footnotesize]{python}{kmeans.py}
 
 \verb!reduce_all_centers! cagrisi tum indirgeyiciler her kume icin yeni
 orta noktayi hesaplayip onu yayinladiktan (emit) sonra, tum yeni
@@ -51,7 +51,7 @@ merkezlerin gelecegi yer.
 
 Komut satirindan tek makina icin Hadoop'suz isletelim,
 
-\begin{minted}{python}
+\begin{minted}[fontsize=\footnotesize]{python}
 !sort --random-sort synthetic.txt > /tmp/synthetic.txt
 !head -15 /tmp/synthetic.txt > /tmp/centers.csv
 !python kmeans.py synthetic.txt
@@ -146,7 +146,7 @@ writing to /tmp/kmeans.burak.20131202.234456.597838/step-1-reducer_part-00000
 ...
 \end{verbatim}
 
-\begin{minted}{python}
+\begin{minted}[fontsize=\footnotesize]{python}
 import pandas as pd
 df1 = pd.read_csv("synthetic.txt",sep="   ",header=None)
 plt.scatter(df1.ix[:,0],df1.ix[:,1])

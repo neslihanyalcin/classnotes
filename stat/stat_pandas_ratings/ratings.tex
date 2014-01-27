@@ -8,7 +8,7 @@ yayilmis halde. Uc tabloyu alttaki sekilde, \verb!merge! komutu
 ile birlestiriyoruz - Pandas otomatik olarak ortak kolon ismini
 bulacak ve onun uzerinden birlestirimi yapacak.
 
-\begin{minted}{python}
+\begin{minted}[fontsize=\footnotesize]{python}
 import pandas as pd
 unames = ['user_id', 'gender', 'age', 'occupation', 'zip']
 users = pd.read_table('users.dat', sep='::', header=None,names=unames)
@@ -66,7 +66,7 @@ tanimlanabilir), ve boylece pivotlama gerceklesmis olur.
 Bizim pivot icin cinsiyet kolona yayilacak, film ismi satira
 yayilacak. Kesisim ise not ortalamasi (rating mean) olacak.
 
-\begin{minted}{python}
+\begin{minted}[fontsize=\footnotesize]{python}
 mean_ratings = data.pivot_table('rating', rows='title', cols='gender',
                                 aggfunc='mean')
 print mean_ratings[:5]
@@ -85,7 +85,7 @@ $1,000,000 Duck (1971)         3.375000  2.761905
 Daha fazla ilerlemeden ufak bir ek islem daha yapalim, 250'den daha az
 not almis olan filmleri eleyelim.
 
-\begin{minted}{python}
+\begin{minted}[fontsize=\footnotesize]{python}
 ratings_by_title = data.groupby('title').size()
 active_titles = ratings_by_title.index[ratings_by_title >= 250]
 print active_titles[:10]
@@ -108,7 +108,7 @@ satirlar uzerinde islem yapar ve \verb!.ix! cagrisi satirlara
 erismek icin kullanilir), ve hanimlarin en cok sevdigi filmlere
 bakalim,
 
-\begin{minted}{python}
+\begin{minted}[fontsize=\footnotesize]{python}
 mean_ratings = mean_ratings.ix[active_titles]
 top_female_ratings = mean_ratings.sort_index(by='F', ascending=False)
 print top_female_ratings[:4]
@@ -127,7 +127,7 @@ Baylara pek tanidik gelmeyen bir liste. Simdi erkekler ve hanimlar
 begeni farkini hesaplayalim ve en buyuk farklar en ustte olacak
 sekilde siralama (sort) yapalim,
 
-\begin{minted}{python}
+\begin{minted}[fontsize=\footnotesize]{python}
 mean_ratings['diff'] = mean_ratings['M'] - mean_ratings['F']
 sorted_by_diff = mean_ratings.sort_index(by='diff')
 print sorted_by_diff[:6] 
@@ -148,7 +148,7 @@ Anastasia (1997)           3.800000  3.281609 -0.518391
 listeyi ters cevirelim ve en alta bakalim, orada baylarin en cok
 hanimlarin en az sevdigi filmler olmali,
 
-\begin{minted}{python}
+\begin{minted}[fontsize=\footnotesize]{python}
 print sorted_by_diff[::-1][:15]
 \end{minted}
 

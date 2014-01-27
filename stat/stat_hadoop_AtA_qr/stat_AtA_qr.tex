@@ -81,7 +81,7 @@ $A^TA$ orneginde eldeki veri $A$, ve "cok olan" $A$'nin satirlari,
 yani $m \times n$ boyutlarinda matris var ve $m$ devasa boyutlarda
 (olabilir). Bir $A$ dosyasi tipik olarak soyle gozukecek:
 
-\begin{minted}{python}
+\begin{minted}[fontsize=\footnotesize]{python}
 !head -5 A_matrix
 \end{minted}
 
@@ -137,7 +137,7 @@ hale gelmis oluyor. Tabii indirgeme sonrasi o sonuclar yayinlaniyor,
 ve satir no'ya gore dogal olarak siralanmis halde nihai sonuc cikiyor.
 Ama toplama islemi paralel. Kod alttaki gibi
 
-\inputminted{python}{AtA.py}
+\inputminted[fontsize=\footnotesize]{python}{AtA.py}
 
 Fonksiyon \verb!mapper_final! MRJob kurallarina gore bir 
 makinadaki tum esleme bittikten sonra cagirilir, biz bu cengeli
@@ -151,7 +151,7 @@ yaptigina dikkat, yani 20,000 satir olabilir, iki tane esleyici var ise
 her esleyici bu verinin 10,000 satirini isler, ama ayrica isleyiciler
 daha ufak ufak (ustte 4) parcalarla carpim yapiyor.
 
-\begin{minted}{python}
+\begin{minted}[fontsize=\footnotesize]{python}
 !python AtA.py A_matrix
 \end{minted}
 
@@ -177,7 +177,7 @@ removing tmp directory /tmp/AtA.burak.20131202.225802.256844
 
 Karsilastirmak icin ayni islemi tek bir script icinde yapalim, 
 
-\begin{minted}{python}
+\begin{minted}[fontsize=\footnotesize]{python}
 A = np.loadtxt('A_matrix')
 print np.dot(A.T,A)
 \end{minted}
@@ -193,7 +193,7 @@ Tipatip ayni.
 
 Simdi bu sonuc uzerinde Cholesky yapalim
 
-\begin{minted}{python}
+\begin{minted}[fontsize=\footnotesize]{python}
 import numpy.linalg as lin
 print lin.cholesky(np.dot(A.T,A))
 \end{minted}
@@ -208,7 +208,7 @@ print lin.cholesky(np.dot(A.T,A))
 Bu bize $L$'yi verdi. Karsilastirmak icin $A$ uzerinde direk \verb!qr!
 yapalim
 
-\begin{minted}{python}
+\begin{minted}[fontsize=\footnotesize]{python}
 q,r = lin.qr(A)
 print r.T
 \end{minted}
@@ -245,9 +245,9 @@ baska bir sekilde MRJob islemine verilmis olmasi lazim. Bir isleme
 zinciri var, zincirde once $A^TA$, Cholesky, oradan $R$ alinip baska
 bir isleme (job) aktariliyor. 
 
-\inputminted{python}{AB.py}
+\inputminted[fontsize=\footnotesize]{python}{AB.py}
 
-\begin{minted}{python}
+\begin{minted}[fontsize=\footnotesize]{python}
 !python AB.py A_matrix
 \end{minted}
 
@@ -273,7 +273,7 @@ removing tmp directory /tmp/AB.burak.20131202.230008.985111
 
 Kontrol edelim,
 
-\begin{minted}{python}
+\begin{minted}[fontsize=\footnotesize]{python}
 B = np.array([[-20.49390153,   0.        ,   0.        ,   0.        ],
               [-22.59208669,  -5.25334361,   0.        ,   0.        ],
               [-12.88188096, -11.41585875,   4.44244436,   0.        ],
@@ -311,7 +311,7 @@ olarak yayinlamalilar. Bu eklemeyi okuyucuya birakiyorum!
 Simdi QR hesabini bu sekilde yapip yapamayacagimizi kontrol
 edelim. Eger \verb!qr! ile $Q$ hesaplarsak,
 
-\begin{minted}{python}
+\begin{minted}[fontsize=\footnotesize]{python}
 q,r = lin.qr(A)
 print q
 \end{minted}
@@ -339,7 +339,7 @@ print q
 $R$'in tersi ile $A$ carpilinca hakikaten $Q$ elde ediliyor mu?
 Kontrol edelim.
 
-\begin{minted}{python}
+\begin{minted}[fontsize=\footnotesize]{python}
 print np.dot(A,lin.inv(B.T))
 \end{minted}
 

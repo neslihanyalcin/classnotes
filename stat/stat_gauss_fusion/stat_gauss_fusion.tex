@@ -298,7 +298,7 @@ $$
 
 Nihai olcum nedir? 
 
-\begin{minted}{python}
+\begin{minted}[fontsize=\footnotesize]{python}
 from mpl_toolkits.mplot3d import Axes3D
 from matplotlib import cm
 import matplotlib.mlab as mlab
@@ -337,7 +337,7 @@ bir Gaussian idi. Ustte sadece veri noktalarini ekrana basiyoruz.
 
 Ustten bakisla kontur (contour) olarak gosterirsek 
 
-\begin{minted}{python}
+\begin{minted}[fontsize=\footnotesize]{python}
 CS = plt.contour(X, Y, Z1,rotation=70)
 CS = plt.contour(X, Y, Z2,rotation=70)
 plt.savefig('fusion_3.png')
@@ -397,7 +397,7 @@ $$
 Sonuc grafiklenirse suna benzer (ki yeni belirsizlik $\Sigma_x$'i de
 grafikte kullanalim),
 
-\begin{minted}{python}
+\begin{minted}[fontsize=\footnotesize]{python}
 Z3 = mlab.bivariate_normal(X, Y, sigmax=0.8, sigmay=0.8,mux=1.2, \
      muy=-0.6,sigmaxy=0.0)
 
@@ -417,7 +417,7 @@ plt.savefig('fusion_2.png')
 Yeni tahminimiz boyle cikti. Cok daha emin oldugumuz bir noktada en olasi
 olcumu ortaya cikardik. Kontur olarak grafiklersek,
 
-\begin{minted}{python}
+\begin{minted}[fontsize=\footnotesize]{python}
 CS = plt.contour(X, Y, Z3)
 plt.savefig('fusion_4.png')
 \end{minted}

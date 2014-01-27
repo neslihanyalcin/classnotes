@@ -12,7 +12,7 @@ acip biz diyelim ki \verb!/data! altina koyduk.
 
 Referans verisine bakarsak,
 
-\begin{minted}{python}
+\begin{minted}[fontsize=\footnotesize]{python}
 !head -10 /data/cite75_99.txt
 \end{minted}
 
@@ -32,7 +32,7 @@ Referans verisine bakarsak,
 Bu veri, hangi patentin hangi diger patenti kullandigini "tek" patent
 bazinda gostermekte. Detayli patent verisine bakalim
 
-\begin{minted}{python}
+\begin{minted}[fontsize=\footnotesize]{python}
 !head -10 /data/apat63_99.txt
 \end{minted}
 
@@ -53,7 +53,7 @@ Simdi patent detay verisinden bir orneklem (sample) alalim. Daha ufak bir
 veri kumesiyle calismak ilk basta faydali olabilir, gelistirme test etme
 surecini hizlandirir.
 
-\begin{minted}{python}
+\begin{minted}[fontsize=\footnotesize]{python}
 !chmod a+r /data/apat63_99.txt
 !head -1 /data/apat63_99.txt > /data/apat63_99_sampled.txt
 !cat /data/apat63_99.txt | perl -n -e 'print if (rand() < .05)' >> /data/apat63_99_sampled.txt
@@ -61,7 +61,7 @@ surecini hizlandirir.
 
 Hadoop baslatalim
 
-\begin{minted}{python}
+\begin{minted}[fontsize=\footnotesize]{python}
 !ssh localhost -l hduser /home/hduser/Downloads/hadoop*/bin/stop-all.sh
 !ssh localhost -l hduser /home/hduser/Downloads/hadoop*/bin/start-all.sh
 \end{minted}
@@ -79,7 +79,7 @@ starting jobtracker, logging to /home/hduser/Downloads/hadoop-1.0.4/libexec/../l
 localhost: starting tasktracker, logging to /home/hduser/Downloads/hadoop-1.0.4/libexec/../logs/hadoop-hduser-tasktracker-burak-Aspire-S3.out
 \end{verbatim}
 
-\begin{minted}{python}
+\begin{minted}[fontsize=\footnotesize]{python}
 /home/hduser/Downloads/hadoop*/bin/hadoop dfs -mkdir /user/hduser/patent
 !ssh localhost -l hduser /home/hduser/Downloads/hadoop*/bin/hadoop \
 dfs -ls /user/hduser/patent
@@ -91,7 +91,7 @@ Found 2 items
 -rw-r--r--   1 hduser supergroup ...   /user/hduser/patent/apat63_99_sampled.txt
 \end{verbatim}
 
-\begin{minted}{python}
+\begin{minted}[fontsize=\footnotesize]{python}
 !ssh localhost -l hduser /home/hduser/Downloads/hadoop*/bin/hadoop \
 dfs -copyFromLocal /data/apat63_99_sampled.txt \
 /user/hduser/patent/apat63_99_sampled.txt
@@ -106,7 +106,7 @@ basina ortalama ne kadar patent uretildigini
 hesaplamak. Esleme-Indirgeme (Map-Reduce) dongusunde esleme kismini
 yapacak program asagida.
 
-\begin{minted}{python}
+\begin{minted}[fontsize=\footnotesize]{python}
 #!/usr/bin/python
 import os,sys
 os.environ['MPLCONFIGDIR']='/tmp' 
@@ -123,13 +123,13 @@ gibi disari atan (ama yine de ortada bir indirgeyici oldugu icin
 sonradan bazi islemlerin yine de yapildigi) seklinde. Bu iki kullanim
 Hadoop kodlarinda hata bulma / temizleme icin faydali olabiliyor.
 
-\begin{minted}{python}
+\begin{minted}[fontsize=\footnotesize]{python}
 !cp mapper.py /tmp/
 !chmod a+r /tmp/mapper.py
 !chmod a+x /tmp/mapper.py
 \end{minted}
 
-\begin{minted}{python}
+\begin{minted}[fontsize=\footnotesize]{python}
 !ssh localhost -l hduser /home/hduser/Downloads/hadoop*/bin/hadoop \
 dfs -rmr /user/hduser/output
 !ssh localhost -l hduser /home/hduser/Downloads/hadoop*/bin/hadoop \
@@ -156,7 +156,7 @@ packageJobJar: [/app/hadoop/tmp/hadoop-unjar2555196345671652661/] [] /tmp/stream
 13/02/24 16:30:49 INFO streaming.StreamJob: Output: output
 \end{verbatim}
 
-\begin{minted}{python}
+\begin{minted}[fontsize=\footnotesize]{python}
 !ssh localhost -l hduser /home/hduser/Downloads/hadoop*/bin/hadoop dfs  -copyToLocal output /tmp/
 !head -20 /tmp/output/part-00000
 \end{minted}
@@ -188,7 +188,7 @@ Ustteki sonucta goruyoruz ki anahtarlar uretilmis, ama ciktilar
 anahtara gore siralanmamislar. Hatta ustteki sira girdi sirasiyla
 tipatip ayni. Simdi \verb!IdentityReducer! uzerinden.
 
-\begin{minted}{python}
+\begin{minted}[fontsize=\footnotesize]{python}
 !ssh localhost -l hduser /home/hduser/Downloads/hadoop*/bin/hadoop \
 dfs -rmr /user/hduser/output
 !ssh localhost -l hduser /home/hduser/Downloads/hadoop*/bin/hadoop \
@@ -217,7 +217,7 @@ packageJobJar: [/app/hadoop/tmp/hadoop-unjar2314287838929839696/] [] /tmp/stream
 13/02/24 18:03:46 INFO streaming.StreamJob: Output: output
 \end{verbatim}
 
-\begin{minted}{python}
+\begin{minted}[fontsize=\footnotesize]{python}
 !ssh localhost -l hduser rm -rf /tmp/output
 !ssh localhost -l hduser /home/hduser/Downloads/hadoop*/bin/hadoop \
 dfs  -copyToLocal output /tmp/
@@ -242,11 +242,11 @@ Ustteki sonucta anahtarlarin siralanmis oldugunu goruyoruz.
 Simdi bir indirgeyici (reducer) ekleyelim. Bu indirgeyici ulke bazindaki
 veriler uzerinen ortalama alacak. 
 
-\inputminted{python}{reducer.py}
+\inputminted[fontsize=\footnotesize]{python}{reducer.py}
 
 Eger indirgeyiciyi direk isletirsek (Hadoop disindan)
 
-\begin{minted}{python}
+\begin{minted}[fontsize=\footnotesize]{python}
 cat /tmp/output/part-00000 | ./reducer.py | tail -10
 \end{minted}
 
@@ -265,13 +265,13 @@ ZA	11.170212765957446
 
 Bu kodu \verb!hduser!'in bulabilecegi bir yere koyuyoruz. 
 
-\begin{minted}{python}
+\begin{minted}[fontsize=\footnotesize]{python}
 !cp reducer.py /tmp/
 !chmod a+r /tmp/reducer.py
 !chmod a+x /tmp/reducer.py
 \end{minted}
 
-\begin{minted}{python}
+\begin{minted}[fontsize=\footnotesize]{python}
 !ssh localhost -l hduser /home/hduser/Downloads/hadoop*/bin/hadoop \
 dfs -rmr /user/hduser/output
 !ssh localhost -l hduser /home/hduser/Downloads/hadoop*/bin/hadoop \
@@ -299,7 +299,7 @@ packageJobJar: [/app/hadoop/tmp/hadoop-unjar3358838375062006941/] [] /tmp/stream
 13/02/24 20:33:42 INFO streaming.StreamJob: Output: output
 \end{verbatim}
 
-\begin{minted}{python}
+\begin{minted}[fontsize=\footnotesize]{python}
 !ssh localhost -l hduser rm -rf /tmp/output
 !ssh localhost -l hduser /home/hduser/Downloads/hadoop*/bin/hadoop \
 dfs  -copyToLocal output /tmp/
@@ -307,7 +307,7 @@ dfs  -copyToLocal output /tmp/
 
 Ve sonuc altta oldugu gibi
 
-\begin{minted}{python}
+\begin{minted}[fontsize=\footnotesize]{python}
 !head -10 /tmp/output/part-00000
 \end{minted}
 
@@ -326,12 +326,12 @@ BO	25.0
 
 Tabii bu sonuclar bir orneklem uzerinden alindi. Tum veriyi islemek icin
 
-\begin{minted}{python}
+\begin{minted}[fontsize=\footnotesize]{python}
 !ssh localhost -l hduser /home/hduser/Downloads/hadoop*/bin/hadoop dfs \
 -copyFromLocal /data/apat63_99.txt /user/hduser/patent/apat63_99.txt
 \end{minted}
 
-\begin{minted}{python}
+\begin{minted}[fontsize=\footnotesize]{python}
 !ssh localhost -l hduser /home/hduser/Downloads/hadoop*/bin/hadoop \
 dfs -rmr /user/hduser/output
 
@@ -362,13 +362,13 @@ packageJobJar: [/app/hadoop/tmp/hadoop-unjar938213738183646678/] [] /tmp/streamj
 13/02/24 23:51:17 INFO streaming.StreamJob: Output: output
 \end{verbatim}
 
-\begin{minted}{python}
+\begin{minted}[fontsize=\footnotesize]{python}
 !ssh localhost -l hduser rm -rf /tmp/output
 !ssh localhost -l hduser /home/hduser/Downloads/hadoop*/bin/hadoop dfs  \
 -copyToLocal output /tmp/
 \end{minted}
 
-\begin{minted}{python}
+\begin{minted}[fontsize=\footnotesize]{python}
 !head -7 /tmp/output/part-00000
 \end{minted}
 

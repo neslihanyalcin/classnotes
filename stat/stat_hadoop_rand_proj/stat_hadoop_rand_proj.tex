@@ -54,7 +54,7 @@ uretimi deterministik bir algoritmadir, zaten literaturde bu islem
 "yari rasgele sayi uretimi (pseudorandom number generation)" olarak
 gecer.
 
-\begin{minted}{python}
+\begin{minted}[fontsize=\footnotesize]{python}
 import random
 
 # tohumsuz, bu kod her seferinde degisik sayi uretir
@@ -67,7 +67,7 @@ print random.gauss(0,1), random.gauss(0,1)
 -0.612135407803 -0.0159405924623
 \end{verbatim}
 
-\begin{minted}{python}
+\begin{minted}[fontsize=\footnotesize]{python}
 import random
 # tohumlu
 random.seed(100000)
@@ -99,7 +99,7 @@ ugrasiyoruz, "yeterince raslantisal olmalari" kafi.
 Altta bu veri matrisini satir satir carpip yansitilmis yeni bir
 matrisi ureten mrjob programini bulabilirsiniz.
 
-\inputminted{python}{mrproj.py}
+\inputminted[fontsize=\footnotesize]{python}{mrproj.py}
 
 Tek bir esle cagrisi var, cunku carpim islemi oldukca basit, indirgeme
 islemine gerek yok.
@@ -114,7 +114,7 @@ boyut var ise, bazi seyler arka arkaya islenmeliyse, o bilgi ayri bir
 kolon (mesela tarih, zaman damgasi -timestamp-) olarak veride
 bulunurdu.
 
-\begin{minted}{python}
+\begin{minted}[fontsize=\footnotesize]{python}
 !python mrproj.py A_matrix > /tmp/out
 \end{minted}
 
@@ -129,7 +129,7 @@ Streaming final output from /tmp/mrproj.burak.20131203.094548.254606/output
 removing tmp directory /tmp/mrproj.burak.20131203.094548.254606
 \end{verbatim}
 
-\begin{minted}{python}
+\begin{minted}[fontsize=\footnotesize]{python}
 !head -10 /tmp/out
 \end{minted}
 
@@ -167,7 +167,7 @@ satirda cok fazla sifir olacak demektir, ve icinde cok sifiri olan
 vektorleri / matrisleri seyrek matrisler ile cok rahat sekilde temsil
 edebiliriz.
 
-\inputminted{python}{mrprojs.py}
+\inputminted[fontsize=\footnotesize]{python}{mrprojs.py}
 
 Ustteki kodda her satiri okur okumaz hemen onu bir seyrek matrise
 ceviriyoruz. Simdi en kritik numara: \verb!itertools.izip!
@@ -184,7 +184,7 @@ gerceklestiriyoruz.
 
 Sonuclara bakalim:
 
-\begin{minted}{python}
+\begin{minted}[fontsize=\footnotesize]{python}
 !python mrprojs.py A_matrix > /tmp/out
 !head -10 /tmp/out
 \end{minted}
@@ -221,7 +221,7 @@ teknikle SVD hesabini yapacagiz. Ardindan pur SVD ile $A$'yi isleyecegiz ve
 sonuc $U$ matrisindeki en buyuk iki tekilsel (singular) degeri her iki
 teknikten alip ekranda grafikleyecegiz.
 
-\begin{minted}{python}
+\begin{minted}[fontsize=\footnotesize]{python}
 !python mrprojs.py A_matrix > /tmp/Y
 \end{minted}
 
@@ -236,7 +236,7 @@ Streaming final output from /tmp/mrprojs.burak.20140104.064956.493025/output
 removing tmp directory /tmp/mrprojs.burak.20140104.064956.493025
 \end{verbatim}
 
-\begin{minted}{python}
+\begin{minted}[fontsize=\footnotesize]{python}
 import numpy.linalg as lin
 
 n = 4; k = 3
