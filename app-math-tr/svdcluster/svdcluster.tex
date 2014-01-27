@@ -8,7 +8,7 @@ paylasilan zaman serisini kullandik. Serinin tumunu kullanilmadi, ilk 10
 noktasini aldik, ve grafige bakinca iki tane ana seri turu oldugunu
 goruyoruz.
 
-\begin{minted}{python}
+\begin{minted}[fontsize=\footnotesize]{python}
 data = np.genfromtxt("synthetic_control.data", dtype=float)
 
 print data.shape
@@ -72,7 +72,7 @@ kumeleme icin bir ipucudur. Bunu gormek icin ornek zaman serilerinin
 SVD sonrasi elde edilen $C$ (ornekte \verb!u!) matrisinin ilk
 iki kolonunu bile grafiklemek yeterlidir.
 
-\begin{minted}{python}
+\begin{minted}[fontsize=\footnotesize]{python}
 import scipy.linalg as lin
 data = np.genfromtxt("synthetic_control.data", dtype=float)
 
@@ -138,7 +138,7 @@ ve mesela birinci kumeye ait zaman serilerini bulabiliriz.
 
 Kontrol etmek icin ilk 3 kolonun degerlerini uc boyutta grafikleyelim.
 
-\begin{minted}{python}
+\begin{minted}[fontsize=\footnotesize]{python}
 from mpl_toolkits.mplot3d import Axes3D
 import scipy.linalg as lin
 
@@ -189,7 +189,7 @@ cekip cikartacagiz, ve onu temsilci olarak alacagiz.
 
 Kelime mesafesi olarak
 
-\begin{minted}{python}
+\begin{minted}[fontsize=\footnotesize]{python}
 def levenshtein(s1, s2):
   l1 = len(s1)
   l2 = len(s2)
@@ -221,7 +221,7 @@ The Levenshtein-Distance of  pizza  and  pioazza  is  2
 The Levenshtein-Distance of  hamburger  and  haemmurger  is  2
 \end{verbatim}
 
-\begin{minted}{python}
+\begin{minted}[fontsize=\footnotesize]{python}
 import scipy.linalg as lin
 from sklearn.cluster import KMeans
 import itertools

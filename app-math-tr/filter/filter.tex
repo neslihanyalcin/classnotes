@@ -305,7 +305,7 @@ gorecegiz.  Not: Niye iki kere? Kodlama sirasinda boyutlarin uyumlu olmasi
 icin boyle gerekti, cok buyuk bir rahatsizlik degil. Kod altta
 gorulebilir.
 
-\begin{minted}{python}
+\begin{minted}[fontsize=\footnotesize]{python}
 import numpy.linalg as lin
 slope = 2
 
@@ -436,7 +436,7 @@ kullanilan $K$ matrisi ve baslangic imaji altta:
 
 \includegraphics[height=6cm]{first-projection.jpg}
 
-\inputminted{python}{K.py}
+\inputminted[fontsize=\footnotesize]{python}{K.py}
 
 O noktaya gelince istedigimiz P degerini bulmus oluyorduk. Yansitma
 matrisleri 3x3 olur, KF buna bir dorduncu [0 0 0] satiri ekleyerek onu 4x3
@@ -452,13 +452,13 @@ sectik, ve takip edecegimiz satranc tahtasinin nerede oldugunu bilmiyoruz,
 Alttaki resimlerde filtrenin tahminini temsil eden yesil yuzeyin satranc tah-
 tasini basariyla takip ettigini goreceksiniz.
 
-\inputminted{python}{track-chess-kf.py}
+\inputminted[fontsize=\footnotesize]{python}{track-chess-kf.py}
 
-\inputminted{python}{kalman_3d.py}
+\inputminted[fontsize=\footnotesize]{python}{kalman_3d.py}
 
-\inputminted{python}{run_filter.py}
+\inputminted[fontsize=\footnotesize]{python}{run_filter.py}
 
-\begin{minted}{python}
+\begin{minted}[fontsize=\footnotesize]{python}
 !python run_filter.py kf
 \end{minted}
 
@@ -529,11 +529,11 @@ tekrarlanmasini istiyoruz. Dikkat: tekrar ornekleme sureci yeni parcacik
 degerleri yaratmiyor, sadece mevcut olanlari tekrarliyor ya da onlari
 atliyor.
 
-\inputminted{python}{PF.py}
+\inputminted[fontsize=\footnotesize]{python}{PF.py}
 
-\inputminted{python}{track-chess-pf.py}
+\inputminted[fontsize=\footnotesize]{python}{track-chess-pf.py}
 
-\begin{minted}{python}
+\begin{minted}[fontsize=\footnotesize]{python}
 !python run_filter.py pf
 \end{minted}
 

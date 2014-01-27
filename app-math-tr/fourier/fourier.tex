@@ -233,7 +233,7 @@ analizindeki belli frekanslara, harmoniklere tekabul ediyor olacaklar.
 Bu C degerlerinden bazilari digerlerinden daha guclu bir etkidir, mesela 11
 senelik periyot, C icinde daha guclu olarak cikacaktir, cikmalidir. 
 
-\begin{minted}{python}
+\begin{minted}[fontsize=\footnotesize]{python}
 import scipy
 
 tempdata = np.loadtxt("sunspots.dat")
@@ -262,7 +262,7 @@ C = np.dot(np.linalg.inv(W), Y)
 
 En yuksek periyotu gormek istersek, alttaki kodu kullanabiliriz [6].
 
-\begin{minted}{python}
+\begin{minted}[fontsize=\footnotesize]{python}
 n=len(Y); print 'n=',n
 power = np.abs(C[0:int(n/2)])**2
 nyquist = 1./2
@@ -299,7 +299,7 @@ cagrisi bu algoritmayi kullanir.
 Eger scipy kullanilmak istenirse, bu kutuphanenin \verb!fft! cagrisi cok
 basit:
 
-\begin{minted}{python}
+\begin{minted}[fontsize=\footnotesize]{python}
 C = scipy.fft(Y)
 print C[:3]
 \end{minted}

@@ -59,7 +59,7 @@ konu baska bir yazida islenecek.
 
 Ornek test verisi altta
 
-\begin{minted}{python}
+\begin{minted}[fontsize=\footnotesize]{python}
 from pandas import *
 data = read_csv("synthetic.txt",names=['a','b'],sep="   ")
 print data.shape
@@ -70,13 +70,13 @@ data = np.array(data)
 (3000, 2)
 \end{verbatim}
 
-\begin{minted}{python}
+\begin{minted}[fontsize=\footnotesize]{python}
 plt.scatter(data[:,0],data[:,1])
 plt.savefig('kmeans_1.png')
 \end{minted}
 
 \includegraphics[height=6cm]{kmeans_1.png}
-\begin{minted}{python}
+\begin{minted}[fontsize=\footnotesize]{python}
 def euc_to_clusters(x,y):
     return np.sqrt(np.sum((x-y)**2, axis=1))
 
@@ -107,7 +107,7 @@ class KMeans():
             self.labels_ = np.array(self.labels_)
 \end{minted}
 
-\begin{minted}{python}
+\begin{minted}[fontsize=\footnotesize]{python}
 cf = KMeans(k=5,iter=20)
 cf.fit(data)
 print cf.labels_
@@ -123,7 +123,7 @@ atamalari.  Ikinci vektor icinde iki boyutlu $k$ tane vektor var, bu
 vektorler de her kumenin merkez noktasi. Merkez noktalarini ham veri
 uzerinde grafiklersek (kirmizi noktalar)
 
-\begin{minted}{python}
+\begin{minted}[fontsize=\footnotesize]{python}
 plt.scatter(data[:,0],data[:,1])
 plt.hold(True)
 plt.ylim([30000,70000])
@@ -136,7 +136,7 @@ plt.savefig('kmeans_2.png')
 Goruldugu gibi 5 tane kume icin ustteki merkezler bulundu. Fena
 degil. Eger 10 dersek
 
-\begin{minted}{python}
+\begin{minted}[fontsize=\footnotesize]{python}
 cf = KMeans(k=10,iter=30)
 cf.fit(data)
 plt.scatter(data[:,0],data[:,1])
@@ -163,7 +163,7 @@ ismi veriliyor.
 
 Ornek olarak UCI veri bankasindan Avustralya Kredi Verisine bakalim:
 
-\begin{minted}{python}
+\begin{minted}[fontsize=\footnotesize]{python}
 import pandas as pd
 df = pd.read_csv("crx.csv")
 print df[:2]
@@ -178,7 +178,7 @@ print df[:2]
 Bu veride A1, A2, gibi kolon isimleri var, kategorik olanlarda 'g','w' gibi
 degerler goruluyor. Bu kolonlari degistirmek icin
 
-\begin{minted}{python}
+\begin{minted}[fontsize=\footnotesize]{python}
 from sklearn.feature_extraction import DictVectorizer
 def one_hot_dataframe(data, cols, replace=False):
     vec = DictVectorizer()
@@ -265,7 +265,7 @@ bastan numerik olan kismi icin Oklit uzakligi, diger kalan kismi icin
 kosinus uzakligi kullanabiliriz. Her iki kisimdan elde edilen uzaklik
 degerlerini toplariz.
 
-\begin{minted}{python}
+\begin{minted}[fontsize=\footnotesize]{python}
 from numpy import linalg as la
 import pandas as pd, os
 import scipy.sparse as sps
@@ -307,7 +307,7 @@ class MixedKMeans():
             self.labels_ = np.array(self.labels_)
 \end{minted}
 
-\begin{minted}{python}
+\begin{minted}[fontsize=\footnotesize]{python}
 df = pd.read_csv("crx.csv",sep=',',na_values=['?'])
 df = df.dropna()
 
@@ -391,7 +391,7 @@ edebiliriz, bu veride en basta olan kolonlar en onemli olanlardir, ve
 bu kolonlari, mesela ilk ikisini alarak ekrana basabiliriz. Avustralya
 Kredi setinde bunu yaparsak sunu goruruz:
 
-\begin{minted}{python}
+\begin{minted}[fontsize=\footnotesize]{python}
 import scipy.linalg as lin
 u,s,vt=lin.svd(df2) # normalize edilmis veri uzerinde
 plt.plot(u[:,0], u[:,1],'.')

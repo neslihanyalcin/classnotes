@@ -13,7 +13,7 @@ olacagini tahmin etmek mumkun olur. Kullanilan temel veriler kisinin
 yasi, cinsiyeti, vucut kutle endeksi (body mass index) ortalama
 tansiyonu ve alti kere alinmis kan serum olcumleridir.
 
-\begin{minted}{python}
+\begin{minted}[fontsize=\footnotesize]{python}
 from pandas import *
 diabetes = read_csv("diabetes.csv",sep=';')
 diabetes_y = diabetes['response']
@@ -38,7 +38,7 @@ $y=ax+c$ formulundeki $c$'nin bulunabilmesi icindir. Pandas ile bu ekstra
 kolonu eklemek cok basit, ismen mevcut olmayan kolon erisildigi anda
 o kolon hemen yoktan yaratilir.
 
-\begin{minted}{python}
+\begin{minted}[fontsize=\footnotesize]{python}
 import numpy.linalg as la
 x_tmp = diabetes_x_train.copy()
 x_tmp['intercept'] = 1
@@ -58,7 +58,7 @@ yapalim. Bu paketin \verb!LinearRegression! cagrisi intercept
 isini otomatik olarak hallediyor, eger intercept olmasin isteseydik,
 \verb!fit_intercept=False! diyecektik.
 
-\begin{minted}{python}
+\begin{minted}[fontsize=\footnotesize]{python}
 from sklearn import linear_model, cross_validation
 lin = linear_model.LinearRegression()
 lin.fit(diabetes_x_train, diabetes_y_train)
@@ -153,7 +153,7 @@ uzerinden $\lambda I$ eklersek, geri kalan tum islemler ayni olacak.
 
 Kontrol edelim
 
-\begin{minted}{python}
+\begin{minted}[fontsize=\footnotesize]{python}
 lam = 0.2
 wridge = np.dot(la.inv(xTx+lam*np.eye(xTx.shape[0])),\
                 np.dot(x_tmp.T,diabetes_y_train))
@@ -168,7 +168,7 @@ print wridge
 
 Simdi \verb!scikit-learn! ile ayni hesabi yapalim
 
-\begin{minted}{python}
+\begin{minted}[fontsize=\footnotesize]{python}
 ridge = linear_model.Ridge(alpha=0.2)
 ridge.fit(diabetes_x_train, diabetes_y_train) 
 print ridge.score(diabetes_x_test, diabetes_y_test), ridge.coef_
@@ -188,7 +188,7 @@ inmeyecegiz.
 
 Ornek olarak bir $\lambda$ ile onun buldugu katsayilara bakalim.
 
-\begin{minted}{python}
+\begin{minted}[fontsize=\footnotesize]{python}
 lasso = linear_model.Lasso(alpha=0.3)
 lasso.fit(diabetes_x_train, diabetes_y_train)
 print lasso.coef_
@@ -240,14 +240,14 @@ geliyor, capraz saglama bunu sagliyor. Capraz saglama icin
 katlari tanimlariz, sonra bu degistirilmis regresyon fonksiyonlarina
 katlama usulunu geceriz.
 
-\begin{minted}{python}
+\begin{minted}[fontsize=\footnotesize]{python}
 k_fold = cross_validation.KFold(n=420, n_folds=7)
 \end{minted}
 
 Katlari ustteki gibi tanimladik. 420 tane veri noktasini 7 kata bol dedik.
 Simdi bu katlari kullanalim,
 
-\begin{minted}{python}
+\begin{minted}[fontsize=\footnotesize]{python}
 ridge_cv = linear_model.RidgeCV(cv=k_fold)
 ridge_cv.fit(np.array(diabetes_x), np.array(diabetes_y))
 print ridge_cv.alpha_
@@ -260,7 +260,7 @@ print ridge_cv.alpha_
 Ustteki sonuc $\lambda = 0.1$'i gosteriyor. Bu $\lambda$ daha optimalmis
 demek ki. Lasso icin benzer sekilde
 
-\begin{minted}{python}
+\begin{minted}[fontsize=\footnotesize]{python}
 lasso_cv = linear_model.LassoCV(cv=k_fold)
 print lasso_cv.fit(diabetes_x, diabetes_y)
 \end{minted}
@@ -272,7 +272,7 @@ LassoCV(alphas=None, copy_X=True,
     precompute=auto, tol=0.0001, verbose=False)
 \end{verbatim}
 
-\begin{minted}{python}
+\begin{minted}[fontsize=\footnotesize]{python}
 print lasso_cv.alpha_
 \end{minted}
 
@@ -280,7 +280,7 @@ print lasso_cv.alpha_
 0.00283958719118
 \end{verbatim}
 
-\begin{minted}{python}
+\begin{minted}[fontsize=\footnotesize]{python}
 print lasso_cv.score(diabetes_x_test, diabetes_y_test) 
 \end{minted}
 
@@ -291,7 +291,7 @@ print lasso_cv.score(diabetes_x_test, diabetes_y_test)
 Simdi veri setinin bir kismi uzerinde teker teker hangi algoritmanin
 daha basarili oldugunu gorelim. 
 
-\begin{minted}{python}
+\begin{minted}[fontsize=\footnotesize]{python}
 def predict(row):
     j = row; i = row-1
     new_data = diabetes_x[i:j]

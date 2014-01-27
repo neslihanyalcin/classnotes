@@ -63,7 +63,7 @@ $u$'nun uzakligi olarak almaktir.
 
 Veri yapisi olarak DAG'i alttaki gibi gosterelim,
 
-\begin{minted}{python}
+\begin{minted}[fontsize=\footnotesize]{python}
 DAG = {
     'a': {'b':2, 'f': 9},
     'b': {'d':2, 'c':1, 'f': 6},
@@ -77,7 +77,7 @@ DAG = {
 Boylece $w(u,v)$ basit bir Python sozluk (dictionary) erisimi haline
 geliyor, mesela \verb!a,b! arasi parca mesafe icin 
 
-\begin{minted}{python}
+\begin{minted}[fontsize=\footnotesize]{python}
 print DAG['a']['b']
 \end{minted}
 
@@ -87,7 +87,7 @@ print DAG['a']['b']
 
 En kisa yolu bulacak program
 
-\begin{minted}{python}
+\begin{minted}[fontsize=\footnotesize]{python}
 from functools import wraps
 
 def memo(func):
@@ -196,7 +196,7 @@ kisa yol tarifi icin eldeki kayda bakariz, ve baslangic noktasi
 geliriz. Bu degisiklikleri ekleyince kod su hale gelir,
 
 
-\begin{minted}{python}
+\begin{minted}[fontsize=\footnotesize]{python}
 parent = {}
 
 def rec_dag_sp2(W, s, t):                       

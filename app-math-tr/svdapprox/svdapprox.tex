@@ -2,7 +2,7 @@
 \begin{document}
 Yaklasiksal SVD ve Tavsiye Sistemleri
 
-\begin{minted}{python}
+\begin{minted}[fontsize=\footnotesize]{python}
 import pandas as pd, os
 import scipy.sparse as sps
 df = pd.read_csv("%s/Downloads/movielens.csv" % os.environ['HOME'] ,sep=';')
@@ -29,7 +29,7 @@ df_test = df.copy().ix[5001:,:]
 
 
 
-\begin{minted}{python}
+\begin{minted}[fontsize=\footnotesize]{python}
 import ssvd
 reload(ssvd)
 ssvd.ssvd(df_train)

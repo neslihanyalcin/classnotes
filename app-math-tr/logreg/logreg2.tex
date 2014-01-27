@@ -8,7 +8,7 @@ gecirerek onlari 0/1 degerleri baglaminda bir olasiliga esler. Yani
 elimizdeki veri pek cok boyutta veri noktalari ve o noktalarin 0 ya da 1
 olarak bir "etiketi" olacaktir. Mesela
 
-\begin{minted}{python}
+\begin{minted}[fontsize=\footnotesize]{python}
 from pandas import *
 df = read_csv("testSet.txt",sep='\t',names=['x','y','labels'],header=None)
 df['intercept']=1.0
@@ -60,7 +60,7 @@ Sigmoid fonksiyonun "-sonsuzluk ile +sonsuzluk arasindaki degerleri 0
 ve 1 arasina esledigi / indirgedigi (map)" ifadesi de litaraturde
 mevcuttur.
 
-\begin{minted}{python}
+\begin{minted}[fontsize=\footnotesize]{python}
 def sigmoid(arr):
     return 1.0/(1+exp(-arr))
 
@@ -86,7 +86,7 @@ Peki sigmoid fonksiyonu bir olasilik fonksiyonu (dagilimi) olarak
 kullanilabilir mi?  Entegralini alalim, ve -/+ sonsuzluklar uzerinden
 alan hesabi yapalim, sonucun 1 cikmasi gerekli,
 
-\begin{minted}{python}
+\begin{minted}[fontsize=\footnotesize]{python}
 import sympy
 x = sympy.Symbol('x')
 print sympy.integrate('1/(1+exp(-x))')
@@ -112,7 +112,7 @@ $$ \ln (e^{x}\cdot 1 + e^{x}e^{-x})  $$
 
 $$ \ln (e^{x} + 1)  = \ln (1 + e^{x} )  $$
 
-\begin{minted}{python}
+\begin{minted}[fontsize=\footnotesize]{python}
 print log (1+exp(-inf))
 print log(1+exp(inf))
 \end{minted}
@@ -353,7 +353,7 @@ $$ \theta_{yeni} = \theta_{eski} + \alpha (y^{i} - h_\theta(x^{i}))x^{i}_j $$
 
 Kodu isletelim,
 
-\begin{minted}{python}
+\begin{minted}[fontsize=\footnotesize]{python}
 def grad_ascent(data_mat, label_mat):
     m,n = data_mat.shape
     label_mat=label_mat.reshape((m,1))
@@ -375,7 +375,7 @@ print theta.T
 \end{verbatim}
 
 
-\begin{minted}{python}
+\begin{minted}[fontsize=\footnotesize]{python}
 def plot_theta(theta):
      x = np.array(arange(-3.0, 3.0, 0.1))
      y = np.array((-theta[0]-theta[1]*x)/theta[2])
@@ -414,7 +414,7 @@ nokta bazinda da vermistik.  O zaman o tek noktayi sirayla alip
 guncellersek, otomatik olarak yeni bir sekilde gradyan cikisi yapmis
 oluruz.
 
-\begin{minted}{python}
+\begin{minted}[fontsize=\footnotesize]{python}
 def stoc_grad_ascent0(data_mat, label_mat):
     m,n = data_mat.shape
     label_mat=label_mat.reshape((m,1))
@@ -435,7 +435,7 @@ print theta.T
 [[ 1.01702007  0.85914348 -0.36579921]]
 \end{verbatim}
 
-\begin{minted}{python}
+\begin{minted}[fontsize=\footnotesize]{python}
 plot_theta(theta)
 plt.savefig('logreg3.png')
 \end{minted}
@@ -453,7 +453,7 @@ $\alpha$ degeri her dongude belli oranda kucultulerek (yani $\alpha$ artik
 sabit degil) sonuca yaklasirken oradan buraya savrulmasini engellemis
 olacagiz. Yeni kod altta,
 
-\begin{minted}{python}
+\begin{minted}[fontsize=\footnotesize]{python}
 def stoc_grad_ascent1(data_mat, label_mat):
     m,n = data_mat.shape
     iter = 150
@@ -479,7 +479,7 @@ print theta.T
 [[ 14.67440542   1.30317067  -2.08702677]]
 \end{verbatim}
 
-\begin{minted}{python}
+\begin{minted}[fontsize=\footnotesize]{python}
 plot_theta(theta)
 plt.savefig('logreg4.png')
 \end{minted}
@@ -497,7 +497,7 @@ zaman bu noktanin "1 etiketi olma olasiligini" hesaplamis
 olacagiz. Ornek (diyelim ki mevcut veri noktasi icinden bir veriyi,
 -mesela 15. nokta- sanki yeniymis gibi sectik)
 
-\begin{minted}{python}
+\begin{minted}[fontsize=\footnotesize]{python}
 pt = df.ix[15,['intercept','x','y']]
 print sigmoid(dot(array(pt), theta)), 
 print 'label =',labels[15]

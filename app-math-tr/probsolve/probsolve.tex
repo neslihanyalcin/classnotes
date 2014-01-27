@@ -89,7 +89,7 @@ araþtýrmacýlarýnýn çok iþine yaramýþtýr.
 LISP dilinde temel veri yapýsý "listedir". Mesela, yukarýdaki baþlangýç
 tahtasýný LISP'de þöyle tanýmlanabiliriz.
 
-\begin{minted}{common-lisp}
+\begin{minted}[fontsize=\footnotesize]{common-lisp}
 (setf tahta-baslangic '((5 4 nil)(6 1 8)(7 3 2)))
 \end{minted}
 
@@ -114,7 +114,7 @@ sonuca nasýl geldiðini bize göstermesi!
 Bu sebeple, yeni büyütülmüþ liste (listenin listesi) þu hale geldi. Örnek
 olarak boþluðu aþaðý kaydýrarak, geldiðimiz bir tahtayý þöyle gösterelim.
 
-\begin{minted}{common-lisp}
+\begin{minted}[fontsize=\footnotesize]{common-lisp}
 ;; listenin icine bakabilen islemler
 (Defun Durum (dugum) (first dugum))
 (Defun Kaydir (dugum) (second dugum))
@@ -279,19 +279,19 @@ geliþtirdiðini göreceksiniz.
 
 Yani biraz daha akýl kullanarak, iþimizi kolaylaþtýrmýþ oluyoruz.
 
-\inputminted{common-lisp}{ortak.lisp}
+\inputminted[fontsize=\footnotesize]{common-lisp}{ortak.lisp}
 
-\inputminted{common-lisp}{kat-kat-ara.lisp}
+\inputminted[fontsize=\footnotesize]{common-lisp}{kat-kat-ara.lisp}
 
-\inputminted{common-lisp}{kat-engelli-da.lisp}
+\inputminted[fontsize=\footnotesize]{common-lisp}{kat-engelli-da.lisp}
 
-\inputminted{common-lisp}{iki-yonlu-arama.lisp}
+\inputminted[fontsize=\footnotesize]{common-lisp}{iki-yonlu-arama.lisp}
 
-\inputminted{common-lisp}{git-gide-derin-kka.lisp}
+\inputminted[fontsize=\footnotesize]{common-lisp}{git-gide-derin-kka.lisp}
 
-\inputminted{common-lisp}{fiyati-sabit-arama.lisp}
+\inputminted[fontsize=\footnotesize]{common-lisp}{fiyati-sabit-arama.lisp}
 
-\inputminted{common-lisp}{a-yildiz-arama.lisp}
+\inputminted[fontsize=\footnotesize]{common-lisp}{a-yildiz-arama.lisp}
 
 Yapay Zeka ve Musabaka
 
@@ -383,7 +383,7 @@ yapmamýz mümkün olabiliyor. Ne güzel. Böylece iki tane if (ya da LISP cond)
 ifadesi yazmaktan kurtulmuþ olduk. Kod daha temiz hale geldi. Bahsedilen
 çaðýrým þekli dama-alg.lisp dosyasýndaki aþaðýdaki satýrda.
 
-\begin{minted}{common-lisp}
+\begin{minted}[fontsize=\footnotesize]{common-lisp}
 (setf dene (eniyi-hareket (tas-oynat 
    (first hareket-listesi) konumn)
 (- derinlik 1)
@@ -415,7 +415,7 @@ tümden budayabiliriz.
 
 Daha detaylý (ve matematiksel) bir örnekte göstermemiz gerekirse:
 
-\begin{minted}{common-lisp}
+\begin{minted}[fontsize=\footnotesize]{common-lisp}
 altust-degeri(en tepe) = 
    üst ( alt(3, 12, 8), alt(2, x, y), alt(14, 5, 2) )
 altust-degeri(en tepe) = 
@@ -458,19 +458,19 @@ budanýr. Bu þekilde yer ve zamandan oldukça istifade etmemiz mümkündür.
 
 \includegraphics[height=4cm]{altust_budama_5.jpg}
 
-\inputminted{common-lisp}{dama-alg.lisp}
+\inputminted[fontsize=\footnotesize]{common-lisp}{dama-alg.lisp}
 
-\inputminted{common-lisp}{dama-deger.lisp}
+\inputminted[fontsize=\footnotesize]{common-lisp}{dama-deger.lisp}
 
-\inputminted{common-lisp}{dama-oyna.lisp}
+\inputminted[fontsize=\footnotesize]{common-lisp}{dama-oyna.lisp}
 
-\inputminted{common-lisp}{dama-temel.lisp}
+\inputminted[fontsize=\footnotesize]{common-lisp}{dama-temel.lisp}
 
-\inputminted{common-lisp}{dama-test.lisp}
+\inputminted[fontsize=\footnotesize]{common-lisp}{dama-test.lisp}
 
 Tek hamlelik bir oyun oynayalim, ve bilgisayarin karsiligini gorelim, 
 
-\begin{minted}{python}
+\begin{minted}[fontsize=\footnotesize]{python}
 !clisp dama-test.lisp
 \end{minted}
 

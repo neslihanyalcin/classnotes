@@ -12,7 +12,7 @@ diger amac hangi degiskenlerin varyansinin daha fazla olmasinin
 gorulmesi uzerine, o degiskenlerin daha onemli olabileceginin
 anlasilmasi. Ornek olarak alttaki grafige bakalim,
 
-\begin{minted}{python}
+\begin{minted}[fontsize=\footnotesize]{python}
 from pandas import *
 data = read_csv("testSet.txt",sep="\t",header=None)
 print data[:10]
@@ -32,7 +32,7 @@ print data[:10]
 9   9.498181  10.825446
 \end{verbatim}
 
-\begin{minted}{python}
+\begin{minted}[fontsize=\footnotesize]{python}
 plt.scatter(data.ix[:,0],data.ix[:,1])
 plt.plot(data.ix[1,0],data.ix[1,1],'rd')
 plt.plot(data.ix[4,0],data.ix[4,1],'rd')
@@ -161,7 +161,7 @@ islem yaparken tum degerlerin sifir merkezli olmasi gerekiyor.
 Daha sonra ozdegerlerini, vektorlerini hesaplayabilmek icin verinin
 kovaryansini hesaplayacagiz.
 
-\begin{minted}{python}
+\begin{minted}[fontsize=\footnotesize]{python}
 import numpy.linalg as lin
 from pandas import *
 data = read_csv("testSet.txt",sep="\t",header=None)
@@ -190,7 +190,7 @@ print eig_ind
 [0 1]
 \end{verbatim}
 
-\begin{minted}{python}
+\begin{minted}[fontsize=\footnotesize]{python}
 print eigs[1],eigv[:,1].T
 print eigs[0],eigv[:,0].T
 \end{minted}
@@ -203,7 +203,7 @@ print eigs[0],eigv[:,0].T
 En buyuk olan yonu quiver komutunu kullanarak orijinal veri seti
 uzerinde gosterelim,
 
-\begin{minted}{python}
+\begin{minted}[fontsize=\footnotesize]{python}
 plt.scatter(data.ix[:,0],data.ix[:,1]) 
 # merkez 9,9, tahminen secildi
 plt.quiver(9,9,eigv[1,1],eigv[0,1],scale=10,color='r') 
@@ -216,7 +216,7 @@ Goruldugu gibi bu yon hakikaten dagilimin, veri noktalarinin en cok
 yayilmis oldugu yon. Demek ki PCA yontemi dogru sonucu buldu. Her iki
 yonu de cizersek,
 
-\begin{minted}{python}
+\begin{minted}[fontsize=\footnotesize]{python}
 plt.scatter(data.ix[:,0],data.ix[:,1]) 
 plt.quiver(9,9,eigv[1,0],eigv[0,0],scale=10,color='r') 
 plt.quiver(9,9,eigv[1,1],eigv[0,1],scale=10,color='r')
@@ -301,7 +301,7 @@ Ornek
 Ilk bolumdeki ornege donelim, ve ozvektorleri SVD uzerinden
 hesaplatalim. 
 
-\begin{minted}{python}
+\begin{minted}[fontsize=\footnotesize]{python}
 U,s,Vt = svd(meanless_data.T,full_matrices=False)
 print U
 \end{minted}
@@ -311,7 +311,7 @@ print U
  [-0.85389096  0.52045195]]
 \end{verbatim}
 
-\begin{minted}{python}
+\begin{minted}[fontsize=\footnotesize]{python}
 print np.dot(U.T,U)
 \end{minted}
 
@@ -344,7 +344,7 @@ kalanlar uzerinde mesela bir kumeleme algoritmasi kullanabilirdik.
 
 Ana veriyi yukleyip birkac satirini ve kolonlarini gosterelim.
 
-\begin{minted}{python}
+\begin{minted}[fontsize=\footnotesize]{python}
 from pandas import *
 import numpy.linalg as lin
 nyt = read_csv ("nytimes.csv")
@@ -385,7 +385,7 @@ Not: Oklitsel norm alirken toplamin hemen ardindan cok ufak bir 1e-16
 degeri eklememize dikkat cekelim, bunu toplamin sifir olma durumu icin
 yapiyoruz, ki sonra sifirla bolerken NaN sonucundan kacinalim. 
 
-\begin{minted}{python}
+\begin{minted}[fontsize=\footnotesize]{python}
 nyt = nyt.drop(['class.labels'],axis=1)
 freq = nyt.astype(bool).sum(axis=0)
 freq = freq.replace(0,1)
@@ -412,7 +412,7 @@ print nyt.ix[:8,102:107]
 
 SVD yapalim
 
-\begin{minted}{python}
+\begin{minted}[fontsize=\footnotesize]{python}
 nyt = nyt - nyt.mean(0)
 u,s,v = lin.svd(nyt.T,full_matrices=False)
 print s[:10]
@@ -423,7 +423,7 @@ print s[:10]
   1.15118771  1.13820504  1.1138296   1.10424634]
 \end{verbatim}
 
-\begin{minted}{python}
+\begin{minted}[fontsize=\footnotesize]{python}
 print u.shape
 \end{minted}
 
@@ -435,7 +435,7 @@ SVD'nin verdigi $u$ icinden iki ozvektoru seciyoruz (en bastakiler,
 cunku Numpy SVD kodu bu ozvektorleri zaten siralanmis halde dondurur),
 ve veriyi bu yeni kordinata izdusumluyoruz.
 
-\begin{minted}{python}
+\begin{minted}[fontsize=\footnotesize]{python}
 proj = np.dot(nyt, u[:,:2])
 proj.shape
 plt.plot(proj[:,0],proj[:,1],'.')
@@ -447,7 +447,7 @@ plt.savefig('pca_4.png')
 Simdi ayni veriyi bir de etiket bilgisini devreye sokarak
 cizdirelim. Sanat kirmizi muzik mavi olacak.
 
-\begin{minted}{python}
+\begin{minted}[fontsize=\footnotesize]{python}
 arts =proj[labels == 'art']
 music =proj[labels == 'music']
 plt.plot(arts[:,0],arts[:,1],'r.')

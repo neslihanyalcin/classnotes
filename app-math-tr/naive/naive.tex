@@ -148,7 +148,7 @@ lazim. Bu vektorun her hucresi belli bir kelime olacak, ve o kelimelerin ne
 oldugunu onceden kararlastirmamiz lazim. Bunun icin her siniftaki tum
 dokumanlardaki tum kelimeleri iceren bir sozluk yaratiriz:
 
-\begin{minted}{python}
+\begin{minted}[fontsize=\footnotesize]{python}
 import re
 import math
 
@@ -289,7 +289,7 @@ vektorumuzun boyutunu onceden saptamis oluruz.  Sonra kelimeye
 bakariz, hash uretiriz, sonuc mesela 230 geldi, o zaman ozellik
 vektorundeki 230'uncu kolonun degerini 1 yapariz. 
 
-\begin{minted}{python}
+\begin{minted}[fontsize=\footnotesize]{python}
 d_input = dict()
 
 def add_word(word):
@@ -304,7 +304,7 @@ print d_input
 {48: 1}
 \end{verbatim}
 
-\begin{minted}{python}
+\begin{minted}[fontsize=\footnotesize]{python}
 add_word("politics")
 print d_input
 \end{minted}
@@ -325,7 +325,7 @@ addedilebilir.
 
 Pandas kullanarak bir Dataframe'i otomatik olarak anahtarlamak istersek,
 
-\begin{minted}{python}
+\begin{minted}[fontsize=\footnotesize]{python}
 import pandas as pd
 data = {'state': ['Ohio', 'Ohio', 'Ohio', 'Nevada', 'Nevada'],
         'year': [2000, 2001, 2002, 2001, 2002],
@@ -347,7 +347,7 @@ print data
 Simdi bu veri uzerinde sadece eyalet (state) icin bir anahtarlama numarasi
 yapalim
 
-\begin{minted}{python}
+\begin{minted}[fontsize=\footnotesize]{python}
 def hash_col(df, col, N):
     cols = [col + "_" + str(i) for i in range(N)]
     def xform(x):

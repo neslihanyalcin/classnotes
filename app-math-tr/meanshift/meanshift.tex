@@ -100,7 +100,7 @@ uzerinden islem yapacaktir.  Beklenir ki, islem ilerledikce islenmesi
 gereken noktalar azalacaktir ve yontemin bu sebeple klasik yonteme
 gore daha hizli isleyecegi tahmin edilebilir. Hakikaten de boyledir.
 
-\begin{minted}{python}
+\begin{minted}[fontsize=\footnotesize]{python}
 from pandas import *
 data = read_csv("synthetic.txt",header=None,sep="   ")
 print data.shape
@@ -111,13 +111,13 @@ data = np.array(data)
 (3000, 2)
 \end{verbatim}
 
-\begin{minted}{python}
+\begin{minted}[fontsize=\footnotesize]{python}
 plt.scatter(data[:,0],data[:,1])
 plt.savefig('meanshift_1.png')
 \end{minted}
 
 \includegraphics[height=6cm]{meanshift_1.png}
-\begin{minted}{python}
+\begin{minted}[fontsize=\footnotesize]{python}
 from sklearn.neighbors import NearestNeighbors
 from sklearn.utils import extmath
 
@@ -182,7 +182,7 @@ print len(cluster_centers)
 17
 \end{verbatim}
 
-\begin{minted}{python}
+\begin{minted}[fontsize=\footnotesize]{python}
 plt.scatter(data[:,0],data[:,1])
 plt.hold(True)
 for x in asarray(cluster_centers): plt.plot(x[0],x[1],'rd')

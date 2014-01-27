@@ -20,7 +20,7 @@ agirlikla mesela sirayla $0.2,0.8$ ile carpilip toplanir.
 
 Ornek olarak alttaki veriye bakalim.
 
-\begin{minted}{python}
+\begin{minted}[fontsize=\footnotesize]{python}
 def pnorm(x, m, s):
     """ 
     Compute the multivariate normal distribution with values
@@ -64,7 +64,7 @@ dusunursek eger bu veriye bir dagilim uydurmak (fit) istersek bir karisim
 kullanilmasi gerekli, cunku iki tepe noktasiyle daha rahat temsil
 edilecegini dusundugumuz bir durum var ortada.
 
-\begin{minted}{python}
+\begin{minted}[fontsize=\footnotesize]{python}
 # Multivariate gaussian, contours
 #
 import scipy.stats
@@ -157,7 +157,7 @@ erkeklere ait oldugunu bilmeseydik o zaman ne yapardik? Bu veriyi
 grafiklerken etiketleri renkleyemezdik tabii ki, soyle bir resim
 cizebilirdik ancak,
 
-\begin{minted}{python}
+\begin{minted}[fontsize=\footnotesize]{python}
 import scipy.stats
 data = np.loadtxt('biometric_data_simple.txt',delimiter=',')
 
@@ -295,7 +295,7 @@ oncelikle EM'in ustteki durumda yakinsak (convergence) bir davranis
 sergiledigi bilinir, yani bir optimum vardir, va belli uc nokta sartlari
 haricinde bu degere yaklasilmasi garantidir, vs.
 
-\begin{minted}{python}
+\begin{minted}[fontsize=\footnotesize]{python}
 import math, random, copy, sys
 
 def expectation_maximization(t, nbclusters=2, nbiter=3, \
@@ -547,7 +547,7 @@ karisimlar var ise, etiketleme yapiliyorsa, EM ilk akla gelen yontemlerden
 biri olabilir. Tabii ki karisimlar ve diger her tur Bayes problemi MCMC ile
 de hesaplanabilir.
 
-\begin{minted}{python}
+\begin{minted}[fontsize=\footnotesize]{python}
 def loginnerprodexp(t,a):
     eps=1e-15
     t[t>0.] = 1

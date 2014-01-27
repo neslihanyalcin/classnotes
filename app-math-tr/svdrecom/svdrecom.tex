@@ -6,7 +6,7 @@ Diyelim ki Star Trek (ST) dizisini ne kadar begendigini 4 tane
 kullanici sezonlara gore isaretlemis. Bu ornek veriyi alttaki gibi
 gosterelim.
 
-\begin{minted}{python}
+\begin{minted}[fontsize=\footnotesize]{python}
 from pandas import *
 
 d =  np.array(
@@ -87,7 +87,7 @@ $$
 \cos\theta = \frac{A \cdot B}{||A||||B||}
 $$
 
-\begin{minted}{python}
+\begin{minted}[fontsize=\footnotesize]{python}
 from numpy import linalg as la
 def euclid(inA,inB):
     return 1.0/(1.0 + la.norm(inA - inB))
@@ -102,7 +102,7 @@ def cos_sim(inA,inB):
     return 0.5+0.5*(num/denom)
 \end{minted}
 
-\begin{minted}{python}
+\begin{minted}[fontsize=\footnotesize]{python}
 print np.array(data.ix['Fred'])
 print np.array(data.ix['John'])
 print np.array(data.ix['Ben'])
@@ -118,7 +118,7 @@ print pearson(data.ix['Fred'],data.ix['Ben'])
 0.906922851283
 \end{verbatim}
 
-\begin{minted}{python}
+\begin{minted}[fontsize=\footnotesize]{python}
 print cos_sim(data.ix['Fred'],data.ix['John'])
 print cos_sim(data.ix['Fred'],data.ix['Ben'])
 \end{minted}
@@ -151,7 +151,7 @@ onemli iki (en ust) satiri bize iki boyutta bir kisi kumesi verebilir.
 
 O zaman begeni matrisi uzerinde SVD uygulayalim,
 
-\begin{minted}{python}
+\begin{minted}[fontsize=\footnotesize]{python}
 from numpy.linalg import linalg as la
 U,Sigma,V=la.svd(data, full_matrices=False)
 print data.shape
@@ -181,7 +181,7 @@ vt [[-0.44721867 -0.53728743]
 
 degerleri elimize gecer. U ve VT matrisleri 
 
-\begin{minted}{python}
+\begin{minted}[fontsize=\footnotesize]{python}
 def label_points(d,xx,yy,style):
     for label, x, y in zip(d, xx, yy):
         plt.annotate(
@@ -247,7 +247,7 @@ $$ S^{-1} V_k A^T = U_k^T $$
 
 Bazi kod ispatlari, $u$'nun ortonormal olmasi:
 
-\begin{minted}{python}
+\begin{minted}[fontsize=\footnotesize]{python}
 print np.dot(u.T,u)
 \end{minted}
 
@@ -262,7 +262,7 @@ birbirinden cikartip, cok kucuk bir sayidan buyukluge gore filtreleme
 yapalim, ve sonuc icinde bir tane bile True olup olmadigini kontrol
 edelim,
 
-\begin{minted}{python}
+\begin{minted}[fontsize=\footnotesize]{python}
 print not any(U.T-la.inv(U) > 1e-15)
 \end{minted}
 
@@ -272,13 +272,13 @@ True
 
 Yeni Bob verisi 
 
-\begin{minted}{python}
+\begin{minted}[fontsize=\footnotesize]{python}
 bob = np.array([5,5,0,0,0,5]) 
 \end{minted}
 
 O zaman 
 
-\begin{minted}{python}
+\begin{minted}[fontsize=\footnotesize]{python}
 print bob.T.shape
 print u.shape
 S_k = np.eye(2)*Sigma[:2]
@@ -301,7 +301,7 @@ matrisi elde ederiz.
 Simdi mesela kosinus benzerligi kullanarak bu izdusumlenmis yeni
 vektorun hangi diger vektorlere benzedigini bulalim.
 
-\begin{minted}{python}
+\begin{minted}[fontsize=\footnotesize]{python}
 for i,user in enumerate(u):
    print data.index[i],cos_sim(user,bob_2d)
 \end{minted}
@@ -369,7 +369,7 @@ olacaktir, ve Pandas bu degerleri atlamasi gerektigini bilir, yani bu
 degerler ortalamaya etki etmez. Ardindan merkezleme islemi egitim
 verisi uzerinde uygulaniyor.
 
-\begin{minted}{python}
+\begin{minted}[fontsize=\footnotesize]{python}
 import pandas as pd, os
 import scipy.sparse as sps
 df = pd.read_csv("%s/Downloads/movielens.csv" % os.environ['HOME'] ,sep=';')
@@ -419,7 +419,7 @@ ve yakin olan (en yakin olmasa da) ikinci, ucuncu kullanicilar bulunup
 onlarin notu kullanilabilir. Hatta en yakin k tane kullanicinin ortalamasi
 alinabilir (o kullanicilar kNN gibi bir metotla bulunur belki), vs.
 
-\begin{minted}{python}
+\begin{minted}[fontsize=\footnotesize]{python}
 def euclid(inA,inB):
     return 1.0/(1.0 + la.norm(inA - inB))
     
