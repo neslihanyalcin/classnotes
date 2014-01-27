@@ -2,6 +2,7 @@ from numpy.linalg import linalg as la
 import scipy.sparse as sps, itertools
 from pandas import *
 import numpy as np
+import pandas as pd, os
 
 def ssvd(df_train):
     gamma = 0.005 # regularization
@@ -15,14 +16,12 @@ def ssvd(df_train):
     b_i = np.ones(n) * c
     p_u = np.ones((m, k)) * c
     q_i = np.ones((k, n)) * c
-    #r_ui = np.array(df_train).copy()
     r_ui = np.array(df_train)
-    #r_ui[:] = np.nan
     for u in range(m):
-        #print "user", u
-        line_sps = sps.coo_matrix(r_ui[u,:],shape=(1,n))
-        for xx,i,v in itertools.izip(line_sps.row, line_sps.col, line_sps.data):
-            #print "i", i
+        print "user", u
+        row = df_train.ix[u]; idxs = row.index[row.notnull()]
+        for i in idxs:
+            i = int(i)
             r_ui_hat = mu + b_i[i] + b_u[u] + np.dot(q_i[:,i].T,p_u[u,:])
             e_ui = np.nan_to_num(r_ui[u,i]) - r_ui_hat
             b_u[u] = b_u[u] + gamma * (e_ui - lam*b_u[u])
@@ -43,12 +42,23 @@ if __name__ == "__main__":
           [5, 4, 5, 5]])
 
     data = DataFrame (d.T,
-        columns=['S1','S2','S3','S4','S5','S6'],
+        columns=['0','1','2','3','4','5'],
         index=['Ben','Tom','John','Fred'])
-
     b_u,b_i,q_i,p_u = ssvd(data)
     print b_u
     print b_i
     print q_i
     print p_u
+
+    df = pd.read_csv("%s/Downloads/movielens.csv" % os.environ['HOME'] ,sep=';')
+    print df.shape
+    df = df.ix[:,1:3700] # id kolonunu atla,
+    df.columns = range(3699)
+    print df.shape
+    df_train = df.ix[:5000,:]
+    df_test = df.ix[5001:,:]
+
+    b_u,b_i,q_i,p_u = ssvd(df_train)
+    print b_u[10]
+    
     

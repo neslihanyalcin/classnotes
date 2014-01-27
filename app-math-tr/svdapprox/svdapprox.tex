@@ -18,6 +18,36 @@ df_test = df.copy().ix[5001:,:]
 \end{verbatim}
 
 
+\begin{minted}{python}
+row = df_train.ix[3]
+idxs = row.index[row.notnull()]
+for i in idxs:
+   print i,row[i]
+\end{minted}
+
+\begin{verbatim}
+260 5.0
+480 4.0
+1036 4.0
+1097 4.0
+1196 2.0
+1198 5.0
+1201 5.0
+1210 3.0
+1214 4.0
+1240 5.0
+1387 5.0
+1954 5.0
+2028 5.0
+2366 4.0
+2692 5.0
+2947 5.0
+2951 4.0
+3418 4.0
+3468 5.0
+3527 1.0
+3702 4.0
+\end{verbatim}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -36,10 +66,6 @@ b_u,b_i,q_i,p_u = ssvd.ssvd(df_train.ix[0:10])
 print b_u[10]
 \end{minted}
 
-\begin{verbatim}
-11 3700
--0.208352311236
-\end{verbatim}
 
 
 
