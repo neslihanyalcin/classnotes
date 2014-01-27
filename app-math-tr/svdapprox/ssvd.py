@@ -9,23 +9,26 @@ def ssvd(df_train):
     m,n = df_train.shape
     print m,n
     k = 3 # rank
-    b_u = np.ones((1, m)) * 0.1
-    b_i = np.ones((1, n)) * 0.1
-    p_u = np.ones((m, k)) * 0.1
-    q_i = np.ones((k, n)) * 0.1
+    c = 0.1
+    b_u = np.ones(m) * c
+    b_i = np.ones(n) * c
+    p_u = np.ones((m, k)) * c
+    q_i = np.ones((k, n)) * c
     r_ui = np.array(df_train).copy()
     r_ui[:] = np.nan
     for u in range(m):
-        print "user", u        
+        #print "user", u        
         for i in range(n):
-            print "i", i
-            print p_u[u,:].shape
-            print q_i[:,i].shape
-            r_ui_hat = mu + b_i[0,i] + b_u[0,u] + np.dot(q_i[:,i].T,p_u[u,:])
-            e = np.nan_to_num(r_ui[u,i]) - r_ui_hat
-            print e
-        break
-    
+            #print "i", i
+            r_ui_hat = mu + b_i[i] + b_u[u] + np.dot(q_i[:,i].T,p_u[u,:])
+            e_ui = np.nan_to_num(r_ui[u,i]) - r_ui_hat
+            b_u[u] = b_u[u] + gamma * (e_ui - lam*b_u[u])
+            b_i[i] = b_i[i] + gamma * (e_ui - lam*b_i[i])
+            q_i[:,i] = q_i[:,i] + gamma * (e_ui*p_u[u,:].T - lam*q_i[:,i])
+            p_u[u,:] = p_u[u,:] + gamma * (e_ui*q_i[:,i].T - lam*p_u[u,:])
+
+    return b_u,b_i,q_i,p_u
+            
 if __name__ == "__main__": 
 
     d =  np.array(
@@ -40,5 +43,9 @@ if __name__ == "__main__":
         columns=['S1','S2','S3','S4','S5','S6'],
         index=['Ben','Tom','John','Fred'])
 
-    ssvd(data)
+    b_u,b_i,q_i,p_u = ssvd(data)
+    print b_u
+    print b_i
+    print q_i
+    print p_u
     
