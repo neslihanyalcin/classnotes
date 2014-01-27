@@ -1,4 +1,5 @@
 from numpy.linalg import linalg as la
+import scipy.sparse as sps, itertools
 from pandas import *
 import numpy as np
 
@@ -14,11 +15,13 @@ def ssvd(df_train):
     b_i = np.ones(n) * c
     p_u = np.ones((m, k)) * c
     q_i = np.ones((k, n)) * c
-    r_ui = np.array(df_train).copy()
-    r_ui[:] = np.nan
+    #r_ui = np.array(df_train).copy()
+    r_ui = np.array(df_train)
+    #r_ui[:] = np.nan
     for u in range(m):
-        #print "user", u        
-        for i in range(n):
+        #print "user", u
+        line_sps = sps.coo_matrix(r_ui[u,:],shape=(1,n))
+        for xx,i,v in itertools.izip(line_sps.row, line_sps.col, line_sps.data):
             #print "i", i
             r_ui_hat = mu + b_i[i] + b_u[u] + np.dot(q_i[:,i].T,p_u[u,:])
             e_ui = np.nan_to_num(r_ui[u,i]) - r_ui_hat
