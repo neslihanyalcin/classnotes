@@ -183,7 +183,8 @@ from sklearn.feature_extraction import DictVectorizer
 def one_hot_dataframe(data, cols, replace=False):
     vec = DictVectorizer()
     mkdict = lambda row: dict((col, row[col]) for col in cols)
-    vecData = pd.DataFrame(vec.fit_transform(data[cols].apply(mkdict, axis=1)).toarray())
+    tmp = data[cols].apply(mkdict, axis=1)
+    vecData = pd.DataFrame(vec.fit_transform(tmp).toarray())
     vecData.columns = vec.get_feature_names()
     vecData.index = data.index
     if replace is True:
@@ -191,59 +192,65 @@ def one_hot_dataframe(data, cols, replace=False):
         data = data.join(vecData)
     return (data, vecData, vec)
 
-df2, _, _ = one_hot_dataframe(df, ['A1','A4','A5','A6','A7','A9','A10','A12','A13'], replace=True)
+df2, _, _ = one_hot_dataframe(df,['A1','A4','A5','A6','A7','A9','A10','A12','A13'], \
+                              replace=True)
 print df2.ix[0]
 \end{minted}
 
 \begin{verbatim}
-A2        30.83
-A3         0.00
-A8         1.25
-A11        1.00
-A14      202.00
-A15        0.00
-A16        1.00
-A10=f      0.00
-A10=t      1.00
-A12=f      1.00
-A12=t      0.00
-A13=g      1.00
-A13=p      0.00
-A13=s      0.00
-A1=a       0.00
-A1=b       1.00
-A4=l       0.00
-A4=u       1.00
-A4=y       0.00
-A5=g       1.00
-A5=gg      0.00
-A5=p       0.00
-A6=aa      0.00
-A6=c       0.00
-A6=cc      0.00
-A6=d       0.00
-A6=e       0.00
-A6=ff      0.00
-A6=i       0.00
-A6=j       0.00
-A6=k       0.00
-A6=m       0.00
-A6=q       0.00
-A6=r       0.00
-A6=w       1.00
-A6=x       0.00
-A7=bb      0.00
-A7=dd      0.00
-A7=ff      0.00
-A7=h       0.00
-A7=j       0.00
-A7=n       0.00
-A7=o       0.00
-A7=v       1.00
-A7=z       0.00
-A9=f       0.00
-A9=t       1.00
-Name: 0, dtype: float64
+A2       30.83
+A3           0
+A8        1.25
+A11          1
+A14      00202
+A15          0
+A16          +
+A10=f        0
+A10=t        1
+A12=f        1
+A12=t        0
+A13=g        1
+A13=p        0
+A13=s        0
+A1=?         0
+A1=a         0
+A1=b         1
+A4=?         0
+A4=l         0
+A4=u         1
+A4=y         0
+A5=?         0
+A5=g         1
+A5=gg        0
+A5=p         0
+A6=?         0
+A6=aa        0
+A6=c         0
+A6=cc        0
+A6=d         0
+A6=e         0
+A6=ff        0
+A6=i         0
+A6=j         0
+A6=k         0
+A6=m         0
+A6=q         0
+A6=r         0
+A6=w         1
+A6=x         0
+A7=?         0
+A7=bb        0
+A7=dd        0
+A7=ff        0
+A7=h         0
+A7=j         0
+A7=n         0
+A7=o         0
+A7=v         1
+A7=z         0
+A9=f         0
+A9=t         1
+Name: 0, Length: 52, dtype: object
 \end{verbatim}
 
 Islem sonucunda A12=f mesela icin 1 verilmis, ama A12=t (ve diger her
@@ -315,7 +322,8 @@ df['A16'] = df['A16'].str.replace('+','1')
 df['A16'] = df['A16'].str.replace('-','0')
 df['A16'] = df['A16'].astype(int)
 
-df2, _, _ = one_hot_dataframe(df, ['A1','A4','A5','A6','A7','A9','A10','A12','A13'], replace=True)
+df2, _, _ = one_hot_dataframe(df,['A1','A4','A5','A6','A7','A9','A10','A12','A13'], \
+                              replace=True)
 df2 = df2.drop('A16',axis=1)
 
 df2 = np.array(df2)
@@ -348,12 +356,12 @@ onlarin ayri kume olduklarini bulabilir, tahminler bu sebeple bazen tam
 tersi cikabiliyor, fakat bu cok onemli degil) oraninda bir basariyla dogru
 kumeyi bulabilmisiz.
 
-Parametre olarak gecilen \verb!euc_n! degiskeni her veri noktasi icin "ilk kac
-noktanin numerik" oldugunu belirtiyor. Boylece uzaklik fonksiyonu sadece
-o kisimda Oklit uzakligi kullaniyor. Peki numerik degerler niye hep basta?
-Sebep \verb!one_hot_dataframe! cagrisinin yeni kolonlari yaratirken eskileri
-silmesi ve eklenen yeni kolonlarin hep en sona konmasi, boylece en bastakiler
-hep numerik kolon olacak!
+Parametre olarak gecilen \verb!euc_n! degiskeni her veri noktasi icin "ilk
+kac noktanin numerik" oldugunu belirtiyor. Boylece uzaklik fonksiyonu
+sadece o kisimda Oklit uzakligi kullaniyor. Peki numerik degerler niye hep
+basta?  Basta olmasinin sebebi \verb!one_hot_dataframe! cagrisinin yeni
+kolonlari yaratirken eskileri silmesi ve eklenen yeni kolonlarin hep en
+sona konmasi, boylece en bastakiler hep numerik kolon olacak!
 
 Agirliklar
 
