@@ -28,7 +28,7 @@ kalipla buyutulursek seyrek olur. Eger Python kullanarak sifir olmayan
 elemanlari saydirmak isteseydik, sonuc ne gelecekti? 4x4 olan $K$ icin
 alttaki kod su sonucu verir,
 
-\begin{minted}{python}
+\begin{minted}[fontsize=\footnotesize]{python}
 K = np.array([[2,-1,0,0],[-1,2,-1,0],
               [0,-1,2,-1],[0,0,-1,2]])
 print np.count_nonzero(K)
@@ -60,7 +60,7 @@ filtreler (linear time invariant filters) ismi de veriliyor, cunku her
 satir birbirinin ayni (ve hesabimizda satirlarin zamani temsil ettigi
 kabulunden hareketle). Python ile bir Toeplitz yaratmanin yontemi soyle:
 
-\begin{minted}{python}
+\begin{minted}[fontsize=\footnotesize]{python}
 import scipy.linalg as lin
 K = lin.toeplitz([2, -1, 0, 0])
 print K
@@ -77,7 +77,7 @@ print K
 gerekli. Icinde tamamen sifir olan bir vektor yaratiriz, basindaki birkac
 elemani istedigimiz degerle atariz. 
 
-\begin{minted}{python}
+\begin{minted}[fontsize=\footnotesize]{python}
 import scipy.linalg as lin
 vec = np.zeros((1,100))
 vec[0,0] = 2
@@ -99,7 +99,7 @@ Seyrek matrislerle islem yaptigimizi Python'a bir sekilde belirtmemiz
 lazim, eger mevcut haliyle bu matrisi cozmeye ugrasirsak, Python sifirlara
 gelene kadar onlarin sifir oldugunu bilemeyecektir. 
 
-\begin{minted}{python}
+\begin{minted}[fontsize=\footnotesize]{python}
 import scipy.sparse as sparse
 import numpy as np
 import scipy.linalg as lin
@@ -329,7 +329,7 @@ K, T, B, C matrislerini ayni anda yaratan bir Python programi
 surada. Kullanim mesela 4x4 boyutlari icin \lstinline!K, T, B, C = ktbc(4)!
 seklinde, bu bize tum ozel matrisleri bir kerede olusturuyor.
 
-\begin{minted}{python}
+\begin{minted}[fontsize=\footnotesize]{python}
 import scipy.linalg as lin
 
 def ktbc(n):
@@ -369,7 +369,7 @@ dogru farklilik (backward difference) matrisi de yaratabiliriz. Bu
 kullanimda matrisin sol kolonunu, ve ust satirini tamamen belirtmek
 gerekiyor.
 
-\begin{minted}{python}
+\begin{minted}[fontsize=\footnotesize]{python}
 import scipy.linalg as lin
 
 D = lin.toeplitz([1, -1, 0, 0], [1, 0, 0, 0])
@@ -422,7 +422,7 @@ carpilirsa her kolon icindeki sirayi tersine ceviriyor. $J*T*J$ carpimi
 aradigimiz sonuc. Yani satirlari cevirdikten sonra, kolonlari cevirince
 istedigimiz sonuca erisiyoruz. Python kodlari
 
-\begin{minted}{python}
+\begin{minted}[fontsize=\footnotesize]{python}
 import scipy.linalg as lin
 T = lin.toeplitz([2, -1, 0])
 T[0,0] = 1
@@ -449,7 +449,7 @@ Soru 1.1 2
 $T_3^{-1}$ hesabini uc basamakta yap ve bunu yaparken daha once gordugumuz
 $U$ ve $U^{-1}$ matrislerini kullan.
 
-\begin{minted}{python}
+\begin{minted}[fontsize=\footnotesize]{python}
 import scipy.linalg as lin
 
 T = lin.toeplitz([2, -1, 0])
@@ -488,7 +488,7 @@ $$ \frac{1}{det} = \frac{1}{4} \frac{1}{5}$$.
 Ilk once $K=K_5$ determinantini tahmin edin. Sonra $\det(K)$ ve
 $inv(K)$'yi hesaplayin ve $\det(K) * inv(K)$ hesabini yapin. 
 
-\begin{minted}{python}
+\begin{minted}[fontsize=\footnotesize]{python}
 import scipy.linalg as lin
 
 K, T, B, C = ktbc(3)
@@ -528,7 +528,7 @@ Soru 1.1.22
 Cozulmesi istenen denklem $du^2/dx^2 = 1$, elastik cubuk problemi ve
 cubugun iki tarafi sabitlenmis.
 
-\begin{minted}{python}
+\begin{minted}[fontsize=\footnotesize]{python}
 import scipy.sparse as sparse
 import scipy.sparse.linalg
 import scipy.linalg as lin
@@ -594,7 +594,7 @@ ortalara yakin toplar, bir ustlerinden de aldiklari ek mesafe sayesinde
 daha fazla yer degistirebiliyor. Ama alt kisima yaklastikca orada bir
 birikme oluyor, cunku alt uc kisim da sabitlenmis. 
 
-\inputminted{python}{elastic_uniform_load.py}
+\inputminted[fontsize=\footnotesize]{python}{elastic_uniform_load.py}
 
 Ekler
 

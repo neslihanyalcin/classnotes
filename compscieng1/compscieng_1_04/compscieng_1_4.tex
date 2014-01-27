@@ -349,7 +349,7 @@ Ikinci kismi sadelestirirsek
 
 Problemin hazir verdigi forma, ve sonuca eristik.
 
-\begin{minted}{python}
+\begin{minted}[fontsize=\footnotesize]{python}
 import scipy.linalg as lin
 
 def ktbc(n):
@@ -449,7 +449,7 @@ toplamlar matrisi oldugunu kontrol edin. Dikkat: $\Delta_0 = (\Delta_{+} +
 \Delta_{-}) / 2$ ifadesinin tersi olmayabilir! $\Delta_0 u = 0$ denklemini
 $n=3$ ve $n=5$ icin cozun.
 
-\begin{minted}{python}
+\begin{minted}[fontsize=\footnotesize]{python}
 import scipy.linalg as lin
 
 DB = lin.toeplitz([1, -1, 0], [1, 0, 0])
@@ -484,7 +484,7 @@ Soru 1.2.10
 iyi: $\Delta_+$ icin \verb!DF! ve $\Delta_-$ yerine \verb!DB! kullanip,
 carpimini alirsak,
 
-\begin{minted}{python}
+\begin{minted}[fontsize=\footnotesize]{python}
 import scipy.linalg as lin
 
 DB = lin.toeplitz([1, -1, 0], [1, 0, 0])
@@ -590,7 +590,7 @@ Denklemin tam cozumu
 
 \[ u(x) = x - \frac{1}{1-e} + \frac{1}{1-e}e^x \]
 
-\begin{minted}{python}
+\begin{minted}[fontsize=\footnotesize]{python}
 import scipy.linalg as lin
 
 K,T,B,C = ktbc(4); print K

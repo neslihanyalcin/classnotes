@@ -5,7 +5,7 @@ Ders 3
 Konumuz $Au = b$ sistemini cozmek. Bu cozum icin Python'da
 \verb!linalg.solve! cagrisi var. Mesela
 
-\begin{minted}{python}
+\begin{minted}[fontsize=\footnotesize]{python}
 import scipy.linalg
 A = [[2,3,4],[5,5,6],[7,7,7]]
 b = [1,2,3]
@@ -26,7 +26,7 @@ komutlarina gerek yoktur. Her iki vektoru birbirine ekleyerek,
 \verb!solve!'u toplu halde cagirabiliriz, bu performans acisindan daha iyi
 olur. 
 
-\begin{minted}{python}
+\begin{minted}[fontsize=\footnotesize]{python}
 c = [2,3,8]
 bc = np.vstack((b,c)).T
 u = scipy.linalg.solve(A,  bc)
@@ -66,7 +66,7 @@ gereksiz olurdu.
 Biraz zihin egzersizi yapalim. Eger soyle bir komut kullansam ne elde
 ederim (ki \verb!I! matrisi birim matrisi) ?
 
-\begin{minted}{python}
+\begin{minted}[fontsize=\footnotesize]{python}
 solve(A, I)
 \end{minted}
 

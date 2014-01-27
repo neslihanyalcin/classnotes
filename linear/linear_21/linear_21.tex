@@ -519,7 +519,7 @@ aklimizda tutalim [2].
 
 Ornek olarak alttaki $A$'yi alalim, baslangic olarak $v_0 = [1 \ 1]$
 
-\begin{minted}{python}
+\begin{minted}[fontsize=\footnotesize]{python}
 v0 = np.array([1.,1.])
 A = np.array([[13., 5], [2,4]])
 for i in range(20): 
@@ -535,7 +535,7 @@ Sonsuzluk norm'u (infinity norm) ile normalize edersek (sonsuzluk normu bir
 vektor icindeki en buyuk ogenin alinip bolumde kullanilmasiyla yapilan
 normalizasyondur), 
 
-\begin{minted}{python}
+\begin{minted}[fontsize=\footnotesize]{python}
 v1 = v0 / np.max(v0)
 print 'v1 =', v1
 \end{minted}
@@ -546,7 +546,7 @@ v1 = [ 1.   0.2]
 
 Kontrol edelim,
 
-\begin{minted}{python}
+\begin{minted}[fontsize=\footnotesize]{python}
 import numpy.linalg as lin
 U,D = lin.eig(A)
 print D
