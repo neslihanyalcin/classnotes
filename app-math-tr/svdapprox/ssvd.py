@@ -4,25 +4,26 @@ import numpy as np
 import random
 import pandas as pd, os
 
-def create_training_test(df):
+def create_training_test(df,collim=2,rowlim=200):
     test_data = []
     df_train = df.copy()
     for u in range(df.shape[0]):
         row = df.ix[u]; idxs = row.index[row.notnull()]
-        i = random.choice(idxs); val = df.ix[u,i]
-        test_data.append([u,i,val])
-        df_train.ix[u,i] = np.nan
+        if len(idxs) > collim:
+            i = random.choice(idxs); val = df.ix[u,i]
+            test_data.append([u,i,val])
+            df_train.ix[u,i] = np.nan
+        if len(test_data) > rowlim: break
     return df_train, test_data
 
 def ssvd(df_train,rank):
-    print rank
+    print 'rank',rank
     gamma = 0.02 # regularization
-    lam = 0.2
+    lam = 0.05
     
     mu = df_train.mean().mean()
     m,n = df_train.shape
-    print m,n
-    c = 0.08
+    c = 0.03
     b_u = np.ones(m) * c
     b_i = np.ones(n) * c
     p_u = np.ones((m, rank)) * c
