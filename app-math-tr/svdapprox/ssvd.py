@@ -31,15 +31,19 @@ def ssvd(df_train):
             
 if __name__ == "__main__": 
 
-    df = pd.read_csv("%s/Downloads/movielens.csv" % os.environ['HOME'] ,sep=';')
-    print df.shape
-    df = df.ix[:,1:3700] # id kolonunu atla,
-    df.columns = range(3699)
-    print df.shape
-    df_train = df.ix[:5000,:]
-    df_test = df.ix[5001:,:]
-
-    mu,b_u,b_i,q_i,p_u = ssvd(df_train)
-    print b_u[10]
+    d =  np.array(
+    [[  5.,   5.,   3.,  np.nan,   5.,   5.],
+     [  5.,  np.nan,   4.,  np.nan,   4.,   4.],
+     [ np.nan,   3.,  np.nan,   5.,   4.,   5.],
+     [  5.,   4.,   3.,   3.,   5.,   5.],
+     [  5.,   5.,  np.nan,  np.nan,  np.nan,   5.]
+    ])
+    df = pd.DataFrame (d,
+                       columns=['0','1','2','3','4','5'],
+                       index=['Ben','Tom','John','Fred','Bob'])
     
-    
+    for u in range(df.shape[1]):
+        row = df.ix[u]; idxs = row.index[row.notnull()]
+        #print row
+        print 'picked',df.ix[u,idxs[0]]
+        

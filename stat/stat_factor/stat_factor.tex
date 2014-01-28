@@ -122,16 +122,51 @@ male         0  1
 \end{verbatim}
 
 Sonuc neredeyse tipatip ayni; sadece carpan matriste [0,B] kordinati 1
-degil, fakat bize lazim olan baz matris ayni cikti. BMF hakkinda bazi ek
-bilgiler: [2]'ye gore en az hatali BMF hesaplamak NP-hard zorlugunda, yani
-3SAT gibi, ya da Seyahat Eden Satis Elemani (Traveling Salesman) problemi
-gibi ki bu problem kombinatoryel (combinatorial) optimizasyon problemi,
-yani cozum icin tum olasiliklar denendigi ve kisayolun mevcut olmadigi
-cesitten problem. Fakat, yaklasiksal BMF metotlari oldukca hizli, ayrica
-seyreklik cok fark yaratiyor (yani seyreklik iyi) ki kategorik veriler
-gercek dunyada cogunlukla seyrek olarak goruluyor. Eldeki 2000 tane mal
-cesidi icinden bir sepette ancak 5-10 tane urun oluyor mesela, tum 2000
-tane mali bir sepete koymak mumkun degil.
+degil, fakat bize lazim olan baz matris ayni cikti. 
+
+Eger kontrol etmek istersek, matris carpimi yapmamiz gerekir, bunun icin
+
+\begin{minted}[fontsize=\footnotesize]{python}
+a = np.array([[1,  0],
+               [1,  1],
+               [0,  1]], dtype=bool)
+b = np.array([[1,  1,  0],
+               [0,  1,  1]], dtype=bool)
+
+print np.dot(a,b)
+\end{minted}
+
+\begin{verbatim}
+[[ True  True False]
+ [ True  True  True]
+ [False  True  True]]
+\end{verbatim}
+
+0 ve 1 degerleri gormek icin 1 ile carpmak yeterli
+
+\begin{minted}[fontsize=\footnotesize]{python}
+print 1*np.dot(a,b)
+\end{minted}
+
+\begin{verbatim}
+[[1 1 0]
+ [1 1 1]
+ [0 1 1]]
+\end{verbatim}
+
+Sonuc baslangic matrisi ile ayni, demek ki \verb!bool! tipi matris
+tanimlayinca Numpy caprimi \verb!dot!, carpim sirasindaki toplama islemi
+icin aritmetik toplama yerine VEYA (OR) kullanmasi gerektigini anladi.
+
+BMF hakkinda bazi ek bilgiler: [2]'ye gore en az hatali BMF hesaplamak
+NP-hard zorlugunda, yani 3SAT gibi, ya da Seyahat Eden Satis Elemani
+(Traveling Salesman) problemi gibi ki bu problem kombinatoryel
+(combinatorial) optimizasyon problemi, yani cozum icin tum olasiliklar
+denendigi ve kisayolun mevcut olmadigi cesitten problem. Fakat, yaklasiksal
+BMF metotlari oldukca hizli, ayrica seyreklik cok fark yaratiyor (yani
+seyreklik iyi) ki kategorik veriler gercek dunyada cogunlukla seyrek olarak
+goruluyor. Eldeki 2000 tane mal cesidi icinden bir sepette ancak 5-10 tane
+urun oluyor mesela, tum 2000 tane mali bir sepete koymak mumkun degil.
 
 Simdi baska bir ornek gorelim. 
 
