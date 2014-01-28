@@ -1,6 +1,6 @@
 \documentclass[12pt,fleqn]{article}\usepackage{../common}
 \begin{document}
-Yaklasiksal SVD ve Tavsiye Sistemleri
+Yaklasiksal SVD ile Tavsiye Sistemleri
 
 \begin{minted}[fontsize=\footnotesize]{python}
 import pandas as pd
@@ -15,38 +15,32 @@ d =  np.array(
 data = pd.DataFrame (d,
     columns=['0','1','2','3','4','5'],
     index=['Ben','Tom','John','Fred','Bob'])
-mu,b_u,b_i,q_i,p_u = ssvd.ssvd(data)
+mu,b_u,b_i,q_i,p_u = ssvd.ssvd(data,rank=3)
 print mu
 print 'b_u',b_u
 print 'b_i',b_i
 print 'q_i',q_i
 print 'p_u',p_u
-\end{minted}
-
-\begin{verbatim}
-5 6
-4.31388888889
-b_u [ 0.10133903  0.09409426  0.09418718  0.08886431  0.10676199]
-b_i [ 0.10901103  0.09410751  0.0818748   0.0946108   0.0992177   0.10642075]
-q_i [[ 0.10086511  0.09937517  0.09815699  0.0994476   0.09988284  0.10059356]
- [ 0.10086511  0.09937517  0.09815699  0.0994476   0.09988284  0.10059356]
- [ 0.10086511  0.09937517  0.09815699  0.0994476   0.09988284  0.10059356]]
-p_u [[ 0.100097    0.100097    0.100097  ]
- [ 0.09937763  0.09937763  0.09937763]
- [ 0.09938889  0.09938889  0.09938889]
- [ 0.09885517  0.09885517  0.09885517]
- [ 0.10065103  0.10065103  0.10065103]]
-\end{verbatim}
-
-
-\begin{minted}[fontsize=\footnotesize]{python}
 u = 4; i = 2
 r_ui_hat = mu + b_i[i] + b_u[u] + np.dot(q_i[:,i].T,p_u[u,:])
 print r_ui_hat
 \end{minted}
 
 \begin{verbatim}
-4.53216448203
+3
+5 6
+4.31388888889
+b_u [ 0.0886944   0.05933122  0.06104905  0.04271818  0.10839186]
+b_i [ 0.11786797  0.05972506  0.01061162  0.06061645  0.08115571  0.10956981]
+q_i [[ 0.08185888  0.07721267  0.07355249  0.07792275  0.07886466  0.08083053]
+ [ 0.08185888  0.07721267  0.07355249  0.07792275  0.07886466  0.08083053]
+ [ 0.08185888  0.07721267  0.07355249  0.07792275  0.07886466  0.08083053]]
+p_u [[ 0.07933801  0.07933801  0.07933801]
+ [ 0.07723364  0.07723364  0.07723364]
+ [ 0.07740027  0.07740027  0.07740027]
+ [ 0.07555062  0.07555062  0.07555062]
+ [ 0.08138767  0.08138767  0.08138767]]
+4.45085116027
 \end{verbatim}
 
 
@@ -54,59 +48,62 @@ print r_ui_hat
 import pandas as pd, os
 df = pd.read_csv("%s/Downloads/movielens.csv" % os.environ['HOME'] ,sep=';')
 print df.shape
-df = df.ix[0:1000,1:3700] # id kolonunu atla,
+df = df.ix[:,1:3700] # id kolonunu atla,
 df.columns = range(3699)
 print df.shape
 \end{minted}
 
 \begin{verbatim}
 (6040, 3731)
-(1001, 3699)
+(6040, 3699)
 \end{verbatim}
 
 \begin{minted}[fontsize=\footnotesize]{python}
-print df.ix[110,10]
-print df.ix[59,20]
-df.ix[110,10] = nan
-df.ix[59,20] = nan
-print df.ix[110,10]
-print df.ix[59,20]
+import ssvd; reload(ssvd)
+df_train, test_data = ssvd.create_training_test(df)
+print len(test_data)
 \end{minted}
 
 \begin{verbatim}
-4.0
-3.0
-nan
-nan
+6040
 \end{verbatim}
 
 
 \begin{minted}[fontsize=\footnotesize]{python}
-mu,b_u,b_i,q_i,p_u = ssvd.ssvd(df)
-reload(ssvd)
-import ssvd 
+import ssvd; reload(ssvd)
+mu,b_u,b_i,q_i,p_u = ssvd.ssvd(df_train,rank=25)
 print mu
 \end{minted}
 
 \begin{verbatim}
-1001 3699
-3.2900967656
+25
+6040 3699
+3.23828836099
 \end{verbatim}
 
 
 \begin{minted}[fontsize=\footnotesize]{python}
-u=110;i=10
-r_ui_hat = mu + b_i[i] + b_u[u] + np.dot(q_i[:,i].T,p_u[u,:])
-print r_ui_hat
-u=59;i=20
-r_ui_hat = mu + b_i[i] + b_u[u] + np.dot(q_i[:,i].T,p_u[u,:])
-print r_ui_hat
+rmse = 0; n = 0
+for u,i,real in test_data:
+    r_ui_hat = mu + b_i[i] + b_u[u] + np.dot(q_i[:,i].T,p_u[u,:])
+    rmse += (real-r_ui_hat)**2
+    n += 1
+    #print u,i,real, r_ui_hat
+print "rmse", np.sqrt(rmse / n)
 \end{minted}
 
 \begin{verbatim}
-3.77778381527
-3.54456229482
+rmse 0.938248517831
 \end{verbatim}
+
+
+
+
+
+
+
+
+
 
 Kaynaklar
 
