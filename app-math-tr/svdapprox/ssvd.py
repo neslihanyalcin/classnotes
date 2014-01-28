@@ -1,7 +1,19 @@
 from numpy.linalg import linalg as la
 import scipy.sparse as sps, itertools
 import numpy as np
+import random
 import pandas as pd, os
+
+def create_training_test(df):
+    test_data = []
+    df_train = df.copy()
+    for u in range(df.shape[0]):
+        row = df.ix[u]; idxs = row.index[row.notnull()]
+        i = random.choice(idxs)
+        val = df.ix[u,i]
+        test_data.append([u,i,val])
+        df_train.ix[u,i] = np.nan
+    return df_train, test_data
 
 def ssvd(df_train):
     gamma = 0.005 # regularization
@@ -38,12 +50,11 @@ if __name__ == "__main__":
      [  5.,   4.,   3.,   3.,   5.,   5.],
      [  5.,   5.,  np.nan,  np.nan,  np.nan,   5.]
     ])
-    df = pd.DataFrame (d,
-                       columns=['0','1','2','3','4','5'],
+    df = pd.DataFrame (d,columns=['0','1','2','3','4','5'],
                        index=['Ben','Tom','John','Fred','Bob'])
-    
-    for u in range(df.shape[1]):
-        row = df.ix[u]; idxs = row.index[row.notnull()]
-        #print row
-        print 'picked',df.ix[u,idxs[0]]
+
         
+    print df
+    df_train, test_data = create_training_test(df)
+    print df_train        
+    print test_data
