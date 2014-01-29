@@ -41,6 +41,16 @@ vektorlerin degerlerini bulduktan sonra (egitim verisiyle bu hesabi
 yapacagiz) modeli kullanarak gercek not $r_{ui}$ icin bir
 tahmin yapmaya ugrasacagiz.
 
+Yanlilik hakkinda bazi ornekler vermek gerekirse, diyelim ki kullanici Bob
+not verirken yuksek seviyede oy vermeye meyilli. Bu durumda bu kullanicinin
+ortalama hatta dusuk oy vermesi onun bir filmden hakikaten hic
+hoslanmadigini sinyalleyebilir. Ya da mesela bir film, genellikle ortalama
+oy almaktadir, bu durumda ona cok iyi not veren bir kisinin bu filmi cok
+begendigi ortaya cikar. Modeldeki yanlilik parametreleri bu durumu
+saptayabilirler.
+
+Egitim
+
 Egitim icin ne yapmali? Minimize edecegimiz bir hedef fonksiyonu kuralim,
 ki cogunlukla bu karesi alinmis hata ile olur. Mesela gercek not
 $r_{ui}$ degerinden tahmin notu $\hat{r}_{ui}$'yi cikartip karesini
@@ -120,8 +130,9 @@ p_u \leftarrow p_u + \gamma (e_{ui}\cdot q_i - \lambda \cdot p_u)
 $$
 
 Her degisken icin baslangic noktasi rasgele olarak secilebilir, ki
-$\gamma,\lambda$ sabitleri ile beraber bu baslangic noktalari icin en iyi degerler
-deneme/ yanilma ya da capraz saglama (crossvalidation) ile bulunabilir.
+$\gamma,\lambda$ sabitleri ile beraber bu baslangic noktalari icin en iyi
+degerler deneme/ yanilma ya da capraz saglama (crossvalidation) ile
+bulunabilir.
 
 Rasgelelik, aynen {\em Lojistik Regresyon} orneginde oldugu gibi verinin
 rasgeliliginden geliyor, her veri noktasini teker teker sirayla isliyoruz
@@ -131,6 +142,12 @@ sadece bir kere verinin uzerinden geciyor. Basa donup birkac kere (hatta
 yuzlerce) veriyi isleyenler de oldu.
 
 \inputminted[fontsize=\footnotesize]{python}{ssvd.py}
+
+Kodun onemli bir ozelligi sudur, bos yani \verb!nan! degeri iceren notlar
+egitim sirasinda atlanir. SGD seyrek verilerle de isleyebilen bir egitim
+yontemidir. Bu durumda verinin seyrekligi (sparsity) bizim icin cok
+faydali, cunku o veri noktalarina bakilmayacak, \verb!row.notnull()! ile
+bos olmayan ogelerin indis degerlerini aliyoruz.
 
 Basit bir ornek
 
@@ -184,8 +201,8 @@ sadece belli bir sayida (\verb!collim!) not vermis kullanicilar icin
 yapiyoruz, ki boylece az sayida not vermis kullanicilarin verisini silmemis
 oluyoruz. Ayrica belli miktarda test noktasi elde edince is bitti kabul
 ediyoruz. Test verisi yaratmak icin \%80/\%20 ayrimi gibi bir sey yapmadik,
-egitim verisindeki tum kullanicilari ve onlarin neredeyse tum verisini
-egitim icin kullaniyoruz yani.
+yani egitim verisindeki tum kullanicilari ve onlarin neredeyse tum verisini
+egitim icin kullaniyoruz.
 
 Movielens verisine gelelim. {\em SVD, Toplu Tavsiye} yazisindaki
 \verb!movielens_prep.py! ile gerekli egitim dosyasi uretildigini
