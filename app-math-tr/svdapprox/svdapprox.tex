@@ -113,21 +113,13 @@ gordugumuz yonde adim atilacak, yani adim onceki degere toplanacak, ve yeni
 deger elde edilecek. Diger degiskenler icin de ayni islemi yaparsak, sonuc 
 soyle,
 
-$$
-b_u \leftarrow b_u + \gamma (e_{ui} - \lambda \cdot b_u)
-$$
+$$ b_u \leftarrow b_u + \gamma (e_{ui} - \lambda \cdot b_u) $$
 
-$$
-b_i \leftarrow b_i + \gamma (e_{ui} - \lambda \cdot b_i)
-$$
+$$ b_i \leftarrow b_i + \gamma (e_{ui} - \lambda \cdot b_i) $$
 
-$$
-q_i \leftarrow q_i + \gamma (e_{ui}\cdot p_u - \lambda \cdot q_i)
-$$
+$$ q_i \leftarrow q_i + \gamma (e_{ui}\cdot p_u - \lambda \cdot q_i) $$
 
-$$
-p_u \leftarrow p_u + \gamma (e_{ui}\cdot q_i - \lambda \cdot p_u)
-$$
+$$ p_u \leftarrow p_u + \gamma (e_{ui}\cdot q_i - \lambda \cdot p_u) $$
 
 Her degisken icin baslangic noktasi rasgele olarak secilebilir, ki
 $\gamma,\lambda$ sabitleri ile beraber bu baslangic noktalari icin en iyi
@@ -197,12 +189,12 @@ sectik, bunlari bir kenara kaydederek onlarin ana matris icindeki degerini
 sildik (yerine \verb!nan!  koyarak), ve bir kismi silinmis yeni bir egitim
 matrisi yarattik, \verb!create_training_test! islevinde bu gorulebilir. Bu
 islevde her kullanicidan sadece bir tane not verisi aliyoruz, ve bunu
-sadece belli bir sayida (\verb!collim!) not vermis kullanicilar icin
+sadece belli bir sayida, \verb!collim! kadar, not vermis kullanicilar icin
 yapiyoruz, ki boylece az sayida not vermis kullanicilarin verisini silmemis
-oluyoruz. Ayrica belli miktarda test noktasi elde edince is bitti kabul
-ediyoruz. Test verisi yaratmak icin \%80/\%20 ayrimi gibi bir sey yapmadik,
-yani egitim verisindeki tum kullanicilari ve onlarin neredeyse tum verisini
-egitim icin kullaniyoruz.
+oluyoruz. Ayrica belli miktarda, \verb!rowlim! kadar test noktasi elde
+edince is bitti kabul ediyoruz. Test verisi yaratmak icin \%80-\%20 gibi
+bir ayrim yapmadik, yani egitim verisindeki tum kullanicilari ve onlarin
+neredeyse tum verisini egitim icin kullaniyoruz.
 
 Movielens verisine gelelim. {\em SVD, Toplu Tavsiye} yazisindaki
 \verb!movielens_prep.py! ile gerekli egitim dosyasi uretildigini
@@ -270,8 +262,8 @@ SGD SVD'nin hikayesi soyle. Yil 2009, Netflix Yarismasi [11]
 katilimcilarindan Simon Funk (gercek adi Brandyn Webb) SGD SVD yaklasimini
 kodlayip veri uzerinde isletince birden bire siralamada ilk 3'e firlar;
 Webb artik cok unlu olan blog yazisinda [1] yaklasimi detayiyla paylasip
-forum'da haberini verince bu haber tam bir bomba etkisi yaratti. Pek cok
-kisi yaklasimi kopyaladi, hatta kazanan BellKor urununde Webb'in SVD
+forum'da haberini verince bu haber tam bir bomba etkisi yaratir. Pek cok
+kisi yaklasimi kopyalar, hatta kazanan BellKor urununde Webb'in SVD
 yaklasiminin kullanildigi biliniyor.
 
 Bu metotun kesfi hangi basamaklardan gecti? Beni meraklandiran minimizasyon
