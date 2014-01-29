@@ -6,18 +6,23 @@ Yaklasiksal SVD ile Tavsiye Sistemleri
 boyut azaltmistik. Azaltilmis boyut uzerinden, yeni bir kullanicinin diger
 mevcut kullanicilara mesafesini hesaplamis, ve boylece en cok benzedigi
 diger kullaniciyi bulmustuk. Bu kullanicinin bir film icin verdigi notu yeni
-kullanici icin tahmin olarak baz aldik. 
+kullanici icin tahmin olarak baz almistik. 
 
 SVD uygulamanin degisik bir yolu daha var. Netflix yarismasinda kullanilan
 [1] bir yaklasim soyle. Alttaki SVD ayristirmasina bakalim, 
 
 \includegraphics[height=4cm]{svdapprox_1.png}
 
-1. kullanicini 1. filme verdigi not ustte gosterilen satirlarin carpimi
-ile, eger ufak harfler ve kullanici (user) icin $u$, film icin $i$ indisini
-kullanirsak, ve $q,p$ vektorlerini $Q,P$ matrislerinin sirasiyla kolon ve
-satirlarini gostermek icin kullanirsak, ayristirma sonrasi begeni degerinin
-onemli bir kismi $q_i^Tp_u$ carpimindadir.
+1. kullanicini 1. filme verdigi not ustte koyu gosterilen satirlarin
+carpimi ile oluyor, eger ufak harfler ve kullanici (user) icin $u$, film
+icin $i$ indisini kullanirsak, ve $q,p$ vektorlerini $Q,P$ matrislerinin
+sirasiyla kolon ve satirlarini gostermek icin kullanirsak, ayristirma
+sonrasi begeni degerinin onemli bir kismi $q_i^Tp_u$ carpimindadir. Carpim
+icinde $S$'ten gelecek tekil degeri (singular value) ne yaptik?
+Formulasyonu biraz degistirirsek, bu degeri carpim disina alarak birkac
+toplam olarak gosterebiliriz. Bu toplamlar mesela bir kullanicinin ne kadar
+yanli (bias) not verdigini, ya da bir filmin kabaca, ortalama nasil not
+aldigini modelleyebilirler.
 
 
 
@@ -53,11 +58,11 @@ p_u \leftarrow p_u + \gamma (e_{ui}\cdot q_i - \lambda \cdot p_u)
 $$
 
 
-
+\inputminted[fontsize=\footnotesize]{python}{ssvd.py}
 
 \begin{minted}[fontsize=\footnotesize]{python}
 import pandas as pd
-import ssvd; reload(ssvd)
+import ssvd
 d =  np.array(
 [[  5.,   5.,   3.,  nan,   5.,   5.],
  [  5.,  nan,   4.,  nan,   4.,   4.],
@@ -112,7 +117,7 @@ print df.shape
 \end{verbatim}
 
 \begin{minted}[fontsize=\footnotesize]{python}
-import ssvd; reload(ssvd)
+import ssvd
 df_train, test_data = ssvd.create_training_test(df,300)
 print len(test_data)
 \end{minted}

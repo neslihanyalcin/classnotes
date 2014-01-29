@@ -1,5 +1,4 @@
 from numpy.linalg import linalg as la
-import scipy.sparse as sps, itertools
 import numpy as np
 import random
 import pandas as pd, os
