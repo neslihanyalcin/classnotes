@@ -18,20 +18,28 @@ carpimi ile oluyor, eger ufak harfler ve kullanici (user) icin $u$, film
 icin $i$ indisini kullanirsak, ve $q,p$ vektorlerini $Q,P$ matrislerinin
 sirasiyla kolon ve satirlarini gostermek icin kullanirsak, ayristirma
 sonrasi begeni degerinin onemli bir kismi $q_i^Tp_u$ carpimindadir. Carpim
-icinde $S$'ten gelecek tekil degeri (singular value) ne yaptik?
-Formulasyonu biraz degistirirsek, bu degeri carpim disina alarak birkac
-toplam olarak gosterebiliriz. Bu toplamlar mesela bir kullanicinin ne kadar
-yanli (bias) not verdigini, ya da bir filmin kabaca, ortalama nasil not
-aldigini modelleyebilirler.
+icinde $S$'ten gelecek tekil degeri (singular value) ne olacak?
+Formulasyonu biraz degistirelim dedik, bu degeri carpim disina alarak
+birkac toplam olarak gosterebiliriz. Bu toplamlar mesela bir kullanicinin
+ne kadar yanli (bias) not verdigini, ya da bir filmin kabaca, ortalama
+nasil not almaya meyilli oldugunu modelleyebilirler (ki bu da bir yanlilik
+olcusu). Bu durumda bir begeni notunu tahmin edecek formul soyle
+gosterilebilir,
 
+$$
+\hat{r}_{ui} = \mu + b_i + b_u + q_i^Tp_u
+$$
+
+$\mu$ bir skalar, tum filmlere verilen ortalamayi gosteriyor. Bu deger tek
+bir hesap ile tum begenilerin ortalamasini alarak basitce
+bulunabilir. $\hat{r}_{ui}$'ya bir tahmin dedik cunku modelimizdeki
+vektorleri bulduktan sonra (egitim verisiyle hesap sonrasi) bu modeli
+kullanarak gercek $r_{ui}$'yi bulmak yaptigimiz bir hesaptir. 
 
 
 $$
 \min_{b*,q*,p*} \sum_{u,i} (r_{ui} - \mu + b_i + b_u + q_i^Tp_u)^2 + 
 \lambda_4 (b_i^2 + b_u^2 + ||q_i||^2 + ||p_u||^2)
-$$
-$$
-\hat{r}_{ui} = \mu + b_i + b_u + q_i^Tp_u
 $$
 
 $$
@@ -166,6 +174,7 @@ Kaynaklar
 
 \url{http://sifter.org/~simon/journal/20061211.html}
 
+Koren, Bell, {\em Recommender Systems Handbook},
 \url{http://www.cs.bme.hu/nagyadat/Recommender_systems_handbook.pdf}
 
 \url{http://www2.research.att.com/~volinsky/papers/ieeecomputer.pdf}
