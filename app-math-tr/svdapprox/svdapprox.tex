@@ -2,14 +2,17 @@
 \begin{document}
 Yaklasiksal SVD ile Tavsiye Sistemleri
 
-{\em SVD, Toplu Tavsiye} yazisinda Movielens verisine SVD uygulayarak once
-boyut azaltmistik. Azaltilmis boyut uzerinden, yeni bir kullanicinin diger
-mevcut kullanicilara mesafesini hesaplamis, ve boylece en cok benzedigi
-diger kullaniciyi bulmustuk. Bu kullanicinin bir film icin verdigi notu yeni
-kullanici icin tahmin olarak baz almistik. 
+Gecmis verilere bakarak bir kullanicinin hic seyretmedigi bir filme nasil
+not verecegini tahmin etmek unlu Netflix yarismasinin konusuydu. Onceki bir
+yazi {\em SVD, Toplu Tavsiye}'de benzer bir veri seti Movielens uzerinde
+SVD uygulayarak once boyut azaltmistik, azaltilmis boyut uzerinden yeni (o
+film icin notu bilinmeyen) bir kullanicinin diger mevcut kullanicilara
+mesafesini hesaplamis, ve boylece begeni acisindan en cok benzedigi diger
+kullaniciyi bulmustuk (birkac tane de bulunabilir). Bu kullanicinin bir
+film icin verdigi notu yeni kullanici icin tahmin olarak baz almistik.
 
-SVD uygulamanin degisik bir yolu daha var. Netflix yarismasinda kullanilan
-[1] bir yaklasim soyle. Alttaki SVD ayristirmasina bakalim, 
+SVD uygulamanin tek yontemi bu degil. Netflix yarismasinda kullanilan [1]
+bir yaklasim soyle; alttaki SVD ayristirmasina bakalim,
 
 \includegraphics[height=4cm]{svdapprox_1.png}
 
@@ -17,30 +20,32 @@ SVD uygulamanin degisik bir yolu daha var. Netflix yarismasinda kullanilan
 carpimi ile oluyor, eger ufak harfler ve kullanici (user) icin $u$, film
 icin $i$ indisini kullanirsak, ve $q,p$ vektorlerini $Q,P$ matrislerinin
 sirasiyla kolon ve satirlarini gostermek icin kullanirsak, ayristirma
-sonrasi begeni degerinin onemli bir kismi $q_i^Tp_u$ carpimindadir. Carpim
-icinde $S$'ten gelecek tekil degeri (singular value) ne olacak?
-Formulasyonu biraz degistirelim dedik, bu degeri carpim disina alarak
-birkac toplam olarak gosterebiliriz. Bu toplamlar mesela bir kullanicinin
-ne kadar yanli (bias) not verdigini, ya da bir filmin kabaca, ortalama
-nasil not almaya meyilli oldugunu modelleyebilirler (ki bu da bir yanlilik
-olcusu). Bu durumda bir begeni notunu tahmin edecek formul soyle
-gosterilebilir,
+sonrasi begeni degeri (onemli bir kismi daha dogrusu) $q_i^Tp_u$
+carpimindadir. Carpim icinde $S$'ten gelecek tekil degeri (singular value)
+ne olacak?  Simdi formulasyonu biraz degistirelim, bu degeri carpim disina
+alarak birkac toplam olarak gosterebiliriz. Bu toplamlar mesela bir
+kullanicinin ne kadar yanli (bias) not verdigini, ya da bir filmin kabaca,
+ortalama nasil not almaya meyilli oldugunu modelleyebilirler (ki bu da bir
+yanlilik olcusu). Ayrica tum filmlere verilen notlarin yanliligi da
+olculebilir. Tum bunlari bir araya koyarsak, bir begeni notunu tahmin
+edecek formul soyle gosterilebilir,
 
 $$
 \hat{r}_{ui} = \mu + b_i + b_u + q_i^Tp_u
 $$
 
 $\mu$ bir skalar, tum filmlere verilen ortalamayi gosteriyor, ki tum
-begenilerin ortalamasi uzerinden basit bir sekilde hizla
+begenilerin sayisal ortalamasi uzerinden basit bir sekilde hizla
 hesaplanabilir. $\hat{r}_{ui}$'ya bir tahmin dedik cunku modelimizdeki
 vektorlerin degerlerini bulduktan sonra (egitim verisiyle bu hesabi
-yapacagiz) modeli kullanarak $r_{ui}$'yi (gercek not) bulabiliyoruz. 
+yapacagiz) modeli kullanarak gercek not $r_{ui}$ icin bir
+tahmin yapmaya ugrasacagiz.
 
-Egitim icin ne yapmali? Minimize edecegimiz bir hedef fonksiyonu
-bulabiliriz, ki cogunlukla bu karesi alinmis hata uzerinden olur. Bunun
-icin gercek not $r_{ui}$ degerinden tahmin notu $\hat{r}_{ui}$'yi cikartip
-karesini alabiliriz. Bu islemi tum $u,i$'ler icin yaparak bu toplami
-minimize etmeye ugrasabiliriz. 
+Egitim icin ne yapmali? Minimize edecegimiz bir hedef fonksiyonu kuralim,
+ki cogunlukla bu karesi alinmis hata ile olur. Mesela gercek not
+$r_{ui}$ degerinden tahmin notu $\hat{r}_{ui}$'yi cikartip karesini
+alabiliriz. Bu islemi tum $u,i$'ler icin yaparak sonuclari toplariz, ve bu
+toplami minimize etmeye ugrasabiliriz. Yani
 
 
 $$
@@ -53,8 +58,26 @@ $$
 \lambda (b_i^2 + b_u^2 + ||q_i||^2 + ||p_u||^2)
 $$
 
-
+Kisaltma olarak $e_{ui}$ tanimlayalim, bu faydali olabilir, formuldeki ilk
+parantez icindeki kisimda $e_{ui}$ kullanmak uzere,
 $$ e_{ui} := r_{ui} - \hat{r}_{ui} $$
+
+$\lambda$ ile carpilan bolum regularizasyon icin. Istatistik, yapay
+ogrenim, optimizasyon alanlarinda modelimizin asiri uygunluk (overfitting)
+yapmasini engellemek icin regularizasyon kullanilir, bunun icin istedigimiz
+degiskenlerin fazla buyumesini cezalandiririz, ustteki minimizasyon
+modelinde bu ceza icin tum degerlerin buyuklugunu (magnitude) hesapladik
+-skalar degerlerin karesini, vektor degerlerinin kare norm'unu alarak- ve
+bu buyuklukleri bizim disaridan set edebilecegimiz bir sabitle carpilmasi
+uzerinden minimizasyon problemine direk dahil ettik. Boylece bu buyuklukler
+formulasyona dahil oldular ve azaltilma hedefinin bir parcasi haline
+geldiler. Yani hem $e_{ui}^2$ hem de hatayi olusturan degerlerin kendileri
+minimize edilecek.
+
+Rasgele Gradyan Inisi (Stochastic Gradient Descent -SGD-)
+
+
+
 
 $$
 b_u \leftarrow b_u + \gamma (e_{ui} - \lambda \cdot b_u)
