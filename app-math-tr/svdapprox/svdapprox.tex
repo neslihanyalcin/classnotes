@@ -30,22 +30,29 @@ $$
 \hat{r}_{ui} = \mu + b_i + b_u + q_i^Tp_u
 $$
 
-$\mu$ bir skalar, tum filmlere verilen ortalamayi gosteriyor. Bu deger tek
-bir hesap ile tum begenilerin ortalamasini alarak basitce
-bulunabilir. $\hat{r}_{ui}$'ya bir tahmin dedik cunku modelimizdeki
-vektorleri bulduktan sonra (egitim verisiyle hesap sonrasi) bu modeli
-kullanarak gercek $r_{ui}$'yi bulmak yaptigimiz bir hesaptir. 
+$\mu$ bir skalar, tum filmlere verilen ortalamayi gosteriyor, ki tum
+begenilerin ortalamasi uzerinden basit bir sekilde hizla
+hesaplanabilir. $\hat{r}_{ui}$'ya bir tahmin dedik cunku modelimizdeki
+vektorlerin degerlerini bulduktan sonra (egitim verisiyle bu hesabi
+yapacagiz) modeli kullanarak $r_{ui}$'yi (gercek not) bulabiliyoruz. 
 
+Egitim icin ne yapmali? Minimize edecegimiz bir hedef fonksiyonu
+bulabiliriz, ki cogunlukla bu karesi alinmis hata uzerinden olur. Bunun
+icin gercek not $r_{ui}$ degerinden tahmin notu $\hat{r}_{ui}$'yi cikartip
+karesini alabiliriz. Bu islemi tum $u,i$'ler icin yaparak bu toplami
+minimize etmeye ugrasabiliriz. 
 
-$$
-\min_{b*,q*,p*} \sum_{u,i} (r_{ui} - \mu + b_i + b_u + q_i^Tp_u)^2 + 
-\lambda_4 (b_i^2 + b_u^2 + ||q_i||^2 + ||p_u||^2)
-$$
 
 $$
 \min_{b*,q*,p*} \sum_{u,i} (r_{ui} - \hat{r}_{ui})^2 + 
-\lambda_4 (b_i^2 + b_u^2 + ||q_i||^2 + ||p_u||^2)
+\lambda (b_i^2 + b_u^2 + ||q_i||^2 + ||p_u||^2)
 $$
+
+$$
+= \min_{b*,q*,p*} \sum_{u,i} (r_{ui} - \mu - b_i - b_u - q_i^Tp_u)^2 + 
+\lambda (b_i^2 + b_u^2 + ||q_i||^2 + ||p_u||^2)
+$$
+
 
 $$ e_{ui} := r_{ui} - \hat{r}_{ui} $$
 
@@ -78,9 +85,8 @@ d =  np.array(
  [  5.,   4.,   3.,   3.,   5.,   5.],
  [  5.,   5.,  nan,  nan,  nan,   5.]
 ])
-data = pd.DataFrame (d,
-    columns=['0','1','2','3','4','5'],
-    index=['Ben','Tom','John','Fred','Bob'])
+data = pd.DataFrame (d, columns=['0','1','2','3','4','5'],
+       index=['Ben','Tom','John','Fred','Bob'])
 mu,b_u,b_i,q_i,p_u = ssvd.ssvd(data,rank=3)
 print mu
 print 'b_u',b_u
@@ -93,8 +99,7 @@ print r_ui_hat
 \end{minted}
 
 \begin{verbatim}
-3
-5 6
+rank 3
 4.31388888889
 b_u [ 0.05129388  0.01927226  0.0206893   0.0065487   0.06568321]
 b_i [ 0.07820389  0.01958841 -0.03217881  0.01561187  0.04071886  0.07140383]
@@ -115,7 +120,7 @@ import pandas as pd, os
 df = pd.read_csv("%s/Downloads/movielens.csv" % os.environ['HOME'] ,sep=';')
 print df.shape
 df = df.ix[:,1:3700] # id kolonunu atla,
-df.columns = range(3699)
+df.columns = range(3699) # kolon degerlerini tekrar indisle
 print df.shape
 \end{minted}
 
@@ -126,24 +131,24 @@ print df.shape
 
 \begin{minted}[fontsize=\footnotesize]{python}
 import ssvd
-df_train, test_data = ssvd.create_training_test(df,300)
+df_train, test_data = ssvd.create_training_test(df,rowlim=500,collim=300)
 print len(test_data)
 \end{minted}
 
 \begin{verbatim}
-201
+501
 \end{verbatim}
 
 
 \begin{minted}[fontsize=\footnotesize]{python}
-import ssvd; reload(ssvd)
+import ssvd
 mu,b_u,b_i,q_i,p_u = ssvd.ssvd(df_train,rank=25)
 print 'mu',mu
 \end{minted}
 
 \begin{verbatim}
 rank 25
-mu 3.23808578394
+mu 3.23841096846
 \end{verbatim}
 
 
@@ -158,7 +163,7 @@ print "rmse", np.sqrt(rmse / n)
 \end{minted}
 
 \begin{verbatim}
-rmse 0.91
+rmse 0.878340489577
 \end{verbatim}
 
 
