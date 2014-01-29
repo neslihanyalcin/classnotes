@@ -97,8 +97,7 @@ Gradyan her zaman en yuksek cikisi gosterir, o zaman hesapsal algoritma
 onun tersi yonune gitmelidir. Bu gidisin adim buyuklugunu kontrol etmek
 icin disaridan bizim belirledigimiz bir $\gamma$ sabiti ile carpim
 yapabiliriz, ve bir numara daha, sabit 2 degerlerinin $\gamma$ icinde
-eritilebilecegini farzederek onlari sileriz. Yani adim $\gamma(e_{ui} - 2
-\lambda b_u)$ 
+eritilebilecegini farzederek onlari sileriz. Yani adim $\gamma(e_{ui} - \lambda b_u)$ 
 haline geldi. Bir dongu icinde eski $b_u$ bulunacak,
 gordugumuz yonde adim atilacak, yani adim onceki degere toplanacak, ve yeni
 deger elde edilecek. Diger degiskenler icin de ayni islemi yaparsak, sonuc 
@@ -179,18 +178,18 @@ Test Etmek
 Test verisi olusturmak icin egitim verisinde rasgele olarak bazi notlari
 sectik, bunlari bir kenara kaydederek onlarin ana matris icindeki degerini
 sildik (yerine \verb!nan!  koyarak), ve bir kismi silinmis yeni bir egitim
-matrisi yarattik, bkz \verb!create_training_test! islevi. Bu islevde her
-kullanicidan sadece bir tane not verisi aliyoruz, ve bunu sadece belli bir
-sayida (\verb!collim!) not vermis kullanicilar icin yapiyoruz, ki boylece
-az sayida not vermis kullanicilarin verisini silmemis oluyoruz. Ayrica
-belli miktarda test noktasi elde edince is bitti kabul ediyoruz. Test
-verisi yaratmak icin \%80/\%20 ayrimi gibi bir sey yapmadik, egitim
-verisindeki tum kullanicilari ve onlarin neredeyse tum verisini egitim icin
-kullaniyoruz yani. 
+matrisi yarattik, \verb!create_training_test! islevinde bu gorulebilir. Bu
+islevde her kullanicidan sadece bir tane not verisi aliyoruz, ve bunu
+sadece belli bir sayida (\verb!collim!) not vermis kullanicilar icin
+yapiyoruz, ki boylece az sayida not vermis kullanicilarin verisini silmemis
+oluyoruz. Ayrica belli miktarda test noktasi elde edince is bitti kabul
+ediyoruz. Test verisi yaratmak icin \%80/\%20 ayrimi gibi bir sey yapmadik,
+egitim verisindeki tum kullanicilari ve onlarin neredeyse tum verisini
+egitim icin kullaniyoruz yani.
 
-Movielens verisine gelelim. {\em SVD, Toplu Tavsiye} yazisi icin
-gelistirilen \verb!movielens_prep.py! ile gerekli egitim dosyasi
-uretildigini farzederek,
+Movielens verisine gelelim. {\em SVD, Toplu Tavsiye} yazisindaki
+\verb!movielens_prep.py! ile gerekli egitim dosyasi uretildigini
+farzederek,
 
 \begin{minted}[fontsize=\footnotesize]{python}
 import pandas as pd, os
@@ -218,6 +217,8 @@ print len(test_data)
 501
 \end{verbatim}
 
+Egitim
+
 \begin{minted}[fontsize=\footnotesize]{python}
 import ssvd
 mu,b_u,b_i,q_i,p_u = ssvd.ssvd(df_train,rank=25)
@@ -228,6 +229,8 @@ print 'mu',mu
 rank 25
 mu 3.23835007474
 \end{verbatim}
+
+Test
 
 \begin{minted}[fontsize=\footnotesize]{python}
 rmse = 0; n = 0
@@ -265,21 +268,21 @@ algoritma var ise, teorik ispat gelene kadar bu metotun kullanilmasinda
 sakinca yoktur.
 
 Fakat boyle buluslarda yine de bazi garantiler temel alinmis olabilir,
-arastirmaci tamamen baliklama atlayis yapmaz, bir bildigi olabilir. Webb'in
-kendisine bu sorulari sorduk ve bize bulusun hangi seviyelerden gectigini
-anlatti. Geriye sariyoruz, Webb Netflix'den cok once yapay sinir aglarini
-arastirmaktadir, ve Sanger, Oja'nin [5,6] yayinlarini baz alarak kurdugu
-bir YSA icin bir cozum buldugunu farkeder. Sayisal cozumde ozdeger/vektor
-bulmaya yarayan Ustel Metotun (power method) bir seklini kullanmistir, ki
-Sanger'in Genel Hebbian Algoritmasinin (GHA) ustel metot ile baglantilari
-var, ve bu GHA yayininda ``egitilince'' ozdeger/vektor ve PCA hesabi
-yapabilen bir YSA'dan bahsediliyor. Daha onemlisi GHA 1 olasilikla (yani
-kesin) bu sonuclara erisebiliyor. 
+arastirmaci tamamen baliklama atlayis yapmaz. Webb'in kendisine bu sorulari
+sorduk ve bize bulusun hangi seviyelerden gectigini anlatti. Geriye
+sariyoruz, Webb Netflix'den cok once yapay sinir aglarini arastirmaktadir,
+ve Sanger, Oja'nin [5,6] yayinlarini baz alarak kurdugu bir YSA icin bir
+cozum buldugunu farkeder. Sayisal cozumde ozdeger/vektor bulmaya yarayan
+Ustel Metotun (power method) bir seklini kullanmistir, ki Sanger'in Genel
+Hebbian Algoritmasinin (GHA) ustel metot ile baglantilari var, ve bu GHA
+yayininda ``egitilince'' ozdeger/vektor ve PCA hesabi yapabilen bir YSA'dan
+bahsediliyor. Daha onemlisi GHA 1 olasilikla (yani kesin) bu sonuclara
+erisebiliyor.
 
 Daha sonra Webb bu cozumu arkadasi Gorrell ile tartisirken Gorrell ona
 problem formulasyonunun SVD olarak gorulebilecegini soyler. Bilindigi gibi
 ozdeger/vektor hesabi ile SVD yakin akraba sayilir. Ikili bu baglamda
-birkac yayin da yapiyorlar. Daha sonra Netflix yarismasi basladiginda Webb
+birkac yayin da yaparlar. Daha sonra Netflix yarismasi basladiginda Webb
 cozum icin gradyan baz alarak SGD kullanabilecegini farkediyor, ki SGD ile
 ustel metot arasinda teorik baglanti var [7]. Ve sonuc olarak SGD SVD
 metotu ortaya cikiyor.

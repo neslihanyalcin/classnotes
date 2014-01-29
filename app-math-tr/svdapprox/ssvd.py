@@ -29,7 +29,6 @@ def ssvd(df_train,rank):
     q_i = np.ones((rank, n)) * c
     r_ui = np.array(df_train)
     for u in range(m):
-        #print "user", u
         row = df_train.ix[u]; idxs = row.index[row.notnull()]
         for i in idxs:
             i = int(i)
