@@ -76,8 +76,33 @@ minimize edilecek.
 
 Rasgele Gradyan Inisi (Stochastic Gradient Descent -SGD-)
 
+Modeli nasil minimize ederiz? Bu model konveks (convex) degil, ki
+konvekslik bilindigi gibi fonksiyonun duzgun bir cukur gibi oldugu
+problemlerdir, herhangi bir noktadan baslarsiniz, gradyani hesaplarsiniz,
+ve bu gradyan hep optimal inis noktasini gosterir cunku cukurda ``takilip
+kalabileceginiz'', ``yerel minimumlar'' mevcut degildir . Bizim
+problemimizde $q_i^Tp_u$ var, bu degiskenlerin ikisi de bilinmiyor, ve bu
+carpimin karesi alindigi icin genel karesellligi (quadratic) kaybetmis
+oluyoruz. Fakat yine de SGD bu problemi cozebiliyor. Bunun sebeplerini, SGD
+SVD'nin hikayesiyle beraber yazinin sonunda bulabilirsiniz. 
 
+SGD icin gradyanlar lazim, her degisken icin minimizasyon toplami icindeki
+kismin (bu kisma $E$ diyelim) ayri ayri kismi turevini almak lazim. Mesela
+$b_u$ icin
 
+$$ \frac{\partial E}{\partial b_u}  = -2e_{ui} + 2 \lambda b_u
+$$
+
+Gradyan her zaman en yuksek cikisi gosterir, o zaman hesapsal algoritma
+onun tersi yonune gitmelidir. Bu gidisin adim buyuklugunu kontrol etmek
+icin disaridan bizim belirledigimiz bir $\gamma$ sabiti ile carpim
+yapabiliriz, ve bir numara daha, sabit 2 degerlerinin $\gamma$ icinde
+eritilebilecegini farzederek onlari sileriz. Yani adim $\gamma(e_{ui} - 2
+\lambda b_u)$ 
+haline geldi. Bir dongu icinde eski $b_u$ bulunacak,
+gordugumuz yonde adim atilacak, yani adim onceki degere toplanacak, ve yeni
+deger elde edilecek. Diger degiskenler icin de ayni islemi yaparsak, sonuc 
+soyle,
 
 $$
 b_u \leftarrow b_u + \gamma (e_{ui} - \lambda \cdot b_u)
@@ -95,8 +120,20 @@ $$
 p_u \leftarrow p_u + \gamma (e_{ui}\cdot q_i - \lambda \cdot p_u)
 $$
 
+Her degisken icin baslangic noktasi rasgele olarak secilebilir, ki
+$\gamma,\lambda$ sabitleri ile beraber bu baslangic noktalari icin en iyi degerler
+deneme/ yanilma ya da capraz saglama (crossvalidation) ile bulunabilir.
+
+Rasgelelik, aynen {\em Lojistik Regresyon} orneginde oldugu gibi verinin
+rasgeliliginden geliyor, her veri noktasini teker teker sirayla isliyoruz
+aslinda fakat bu ``siranin'' rasgele oldugunu farzettigimiz icin ozyineli 
+algoritmamiz rasgelelik elde ediyor. Python kodu altta, egitim icin kod
+sadece bir kere verinin uzerinden geciyor. Basa donup birkac kere (hatta
+yuzlerce) veriyi isleyenler de oldu.
 
 \inputminted[fontsize=\footnotesize]{python}{ssvd.py}
+
+Basit bir ornek
 
 \begin{minted}[fontsize=\footnotesize]{python}
 import pandas as pd
@@ -116,7 +153,7 @@ print 'b_u',b_u
 print 'b_i',b_i
 print 'q_i',q_i
 print 'p_u',p_u
-u = 4; i = 2
+u = 4; i = 2 # Bob icin tahmin yapalim
 r_ui_hat = mu + b_i[i] + b_u[u] + np.dot(q_i[:,i].T,p_u[u,:])
 print r_ui_hat
 \end{minted}
@@ -137,6 +174,23 @@ p_u [[ 0.03053543  0.03053543  0.03053543]
 4.34999993855
 \end{verbatim}
 
+Test Etmek
+
+Test verisi olusturmak icin egitim verisinde rasgele olarak bazi notlari
+sectik, bunlari bir kenara kaydederek onlarin ana matris icindeki degerini
+sildik (yerine \verb!nan!  koyarak), ve bir kismi silinmis yeni bir egitim
+matrisi yarattik, bkz \verb!create_training_test! islevi. Bu islevde her
+kullanicidan sadece bir tane not verisi aliyoruz, ve bunu sadece belli bir
+sayida (\verb!collim!) not vermis kullanicilar icin yapiyoruz, ki boylece
+az sayida not vermis kullanicilarin verisini silmemis oluyoruz. Ayrica
+belli miktarda test noktasi elde edince is bitti kabul ediyoruz. Test
+verisi yaratmak icin \%80/\%20 ayrimi gibi bir sey yapmadik, egitim
+verisindeki tum kullanicilari ve onlarin neredeyse tum verisini egitim icin
+kullaniyoruz yani. 
+
+Movielens verisine gelelim. {\em SVD, Toplu Tavsiye} yazisi icin
+gelistirilen \verb!movielens_prep.py! ile gerekli egitim dosyasi
+uretildigini farzederek,
 
 \begin{minted}[fontsize=\footnotesize]{python}
 import pandas as pd, os
@@ -152,6 +206,8 @@ print df.shape
 (6040, 3699)
 \end{verbatim}
 
+Egitim ve test verisi yaratiyoruz,
+
 \begin{minted}[fontsize=\footnotesize]{python}
 import ssvd
 df_train, test_data = ssvd.create_training_test(df,rowlim=500,collim=300)
@@ -162,7 +218,6 @@ print len(test_data)
 501
 \end{verbatim}
 
-
 \begin{minted}[fontsize=\footnotesize]{python}
 import ssvd
 mu,b_u,b_i,q_i,p_u = ssvd.ssvd(df_train,rank=25)
@@ -171,9 +226,8 @@ print 'mu',mu
 
 \begin{verbatim}
 rank 25
-mu 3.23841096846
+mu 3.23835007474
 \end{verbatim}
-
 
 \begin{minted}[fontsize=\footnotesize]{python}
 rmse = 0; n = 0
@@ -181,44 +235,87 @@ for u,i,real in test_data:
     r_ui_hat = mu + b_i[i] + b_u[u] + np.dot(q_i[:,i].T,p_u[u,:])
     rmse += (real-r_ui_hat)**2
     n += 1
-    #print u,i,real, r_ui_hat
 print "rmse", np.sqrt(rmse / n)
 \end{minted}
 
 \begin{verbatim}
-rmse 0.878340489577
+rmse 0.903347878156
 \end{verbatim}
 
+Sonuc oldukca iyi.
 
+Formulasyonun Hikayesi
 
+SGD SVD'nin hikayesi soyle. Yil 2009, Netflix Yarismasi [11]
+katilimcilarindan Simon Funk (gercek adi Brandyn Webb) SGD SVD yaklasimini
+kodlayip veri uzerinde isletince birden bire siralamada ilk 3'e firlar;
+Webb artik cok unlu olan blog yazisinda [1] yaklasimi detayiyla paylasip
+forum'da haberini verince bu haber tam bir bomba etkisi yaratti. Pek cok
+kisi yaklasimi kopyaladi, hatta kazanan BellKor urununde Webb'in SVD
+yaklasiminin kullanildigi biliniyor.
 
+Bu metotun kesfi hangi basamaklardan gecti? Beni meraklandiran minimizasyon
+formulasyonun konveks olmamasiydi -- genellikle optimizasyon problemlerinde
+konveksligin mevdudiyeti aranir, cunku bu durumda sonuca yaklasmak
+(convergence) icin bir garanti elde edilir. Bu durumda konvekslik
+yoktu. Biraz arastirinca Bottou ve LeCunn gibi arastirmacilarin yazilarina
+ulastik [4]. Onlara gore konvekslik olmamasi yapay ogrenim
+arastirmacilarini korkutmamali, eger sayisal (empirically) isleyen bir
+algoritma var ise, teorik ispat gelene kadar bu metotun kullanilmasinda
+sakinca yoktur.
 
+Fakat boyle buluslarda yine de bazi garantiler temel alinmis olabilir,
+arastirmaci tamamen baliklama atlayis yapmaz, bir bildigi olabilir. Webb'in
+kendisine bu sorulari sorduk ve bize bulusun hangi seviyelerden gectigini
+anlatti. Geriye sariyoruz, Webb Netflix'den cok once yapay sinir aglarini
+arastirmaktadir, ve Sanger, Oja'nin [5,6] yayinlarini baz alarak kurdugu
+bir YSA icin bir cozum buldugunu farkeder. Sayisal cozumde ozdeger/vektor
+bulmaya yarayan Ustel Metotun (power method) bir seklini kullanmistir, ki
+Sanger'in Genel Hebbian Algoritmasinin (GHA) ustel metot ile baglantilari
+var, ve bu GHA yayininda ``egitilince'' ozdeger/vektor ve PCA hesabi
+yapabilen bir YSA'dan bahsediliyor. Daha onemlisi GHA 1 olasilikla (yani
+kesin) bu sonuclara erisebiliyor. 
 
+Daha sonra Webb bu cozumu arkadasi Gorrell ile tartisirken Gorrell ona
+problem formulasyonunun SVD olarak gorulebilecegini soyler. Bilindigi gibi
+ozdeger/vektor hesabi ile SVD yakin akraba sayilir. Ikili bu baglamda
+birkac yayin da yapiyorlar. Daha sonra Netflix yarismasi basladiginda Webb
+cozum icin gradyan baz alarak SGD kullanabilecegini farkediyor, ki SGD ile
+ustel metot arasinda teorik baglanti var [7]. Ve sonuc olarak SGD SVD
+metotu ortaya cikiyor.
 
-
-
+Tabii ki ``SGD SVD ne kadar SVD sayilir?'' gibi bir soru sorulabilir. Evet,
+regularizasyon bazi gayri-lineerlikleri probleme sokar, zaten bu cozumu
+``yaklasiksal'' yapan kisim da budur. Fakat belli sartlarda, regularizasyon
+olmasa cozum tam SVD olacaktir. Bu bulusun puf noktasi bu bilgide, ve
+ustteki teorik benzerliklerde, onlari biliyor olmakta yatiyor. Eger bunlar
+biliniyor ise, ve saglam lineer cebir bilgisi ile gerektigi zaman onlari ne
+kadar esnetebilecegimizi biliriz. Konu hakkindaki daha fazla detay surada
+[10] bulunabilir.
 
 Kaynaklar
 
-\url{http://sifter.org/~simon/journal/20061211.html}
+[1] \url{http://sifter.org/~simon/journal/20061211.html}
 
-Koren, Bell, {\em Recommender Systems Handbook},
+[2] Koren, Bell, {\em Recommender Systems Handbook},
 \url{http://www.cs.bme.hu/nagyadat/Recommender_systems_handbook.pdf}
 
-\url{http://www2.research.att.com/~volinsky/papers/ieeecomputer.pdf}
+[3] \url{http://www2.research.att.com/~volinsky/papers/ieeecomputer.pdf}
 
-\url{http://www.cs.nyu.edu/~yann/talks/lecun-20071207-nonconvex.pdf}
+[4] \url{http://www.cs.nyu.edu/~yann/talks/lecun-20071207-nonconvex.pdf}
 
-\url{http://courses.cs.washington.edu/courses/cse528/09sp/sanger_pca_nn.pdf}
+[5] \url{http://courses.cs.washington.edu/courses/cse528/09sp/sanger_pca_nn.pdf}
 
-\url{http://users.ics.aalto.fi/oja/Oja1982.pdf}
+[6] \url{http://users.ics.aalto.fi/oja/Oja1982.pdf}
 
-\url{http://arxiv.org/pdf/1308.3509}
+[7] \url{http://arxiv.org/pdf/1308.3509}
 
-\url{http://www.maths.qmul.ac.uk/~wj/MTH5110/notes/MAS235_lecturenotes1.pdf}
+[8] \url{http://www.maths.qmul.ac.uk/~wj/MTH5110/notes/MAS235_lecturenotes1.pdf}
 
-\url{http://heim.ifi.uio.no/~tom/powerandqrslides.pdf}
+[9] \url{http://heim.ifi.uio.no/~tom/powerandqrslides.pdf}
 
-\url{http://math.stackexchange.com/questions/649701/gradient-descent-on-non-convex-function-works-but-how}
+[10] \url{http://math.stackexchange.com/questions/649701/gradient-descent-on-non-convex-function-works-but-how}
+
+[11] Netflix Odulu, \url{http://www.netflixprize.com}
 
 \end{document}
