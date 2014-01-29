@@ -34,32 +34,28 @@ Fred   5   4   3   3   5   5
 Veriye gore Tom, ST dizisinin 3. sezonunu 4 seviyesinde sevmis. 0
 degeri o sezonun seyredilmedigini gosteriyor.
 
-Toplu Tavsiye algoritmalari verideki diger kisilerin bir urunu,
-diziyi, vs. ne kadar begendiginin verisinin diger "benzer" kisilere
-tavsiye olarak sunabilir, ya da ondan once, bir kisinin daha almadigi
-urunu, seyretmedigi sezonu, dinlemedigi muzigi ne kadar
-"begenecegini" tahmin eder. Kaggle sitesi uzerinden yapilan unlu Netflix
-yarismasinin amaci buydu - ayrica tahmin edilen ve gercek begeni notunun
-hata payinin hesabi icin RMSE hesabi kullanilmisti.
+Toplu Tavsiye algoritmalari verideki diger kisilerin bir urunu, diziyi,
+vs. ne kadar begendiginin verisinin diger "benzer" kisilere tavsiye olarak
+sunabilir, ya da ondan once, bir kisinin daha almadigi urunu, seyretmedigi
+sezonu, dinlemedigi muzigi ne kadar begenecegini tahmin eder. 2006 yilinda
+yapilan unlu Netflix yarismasinin amaci buydu mesela. 
 
 Peki benzerligin kriteri nedir, ve benzerlik nelerin arasinda olculur?
 
-Benzerlik, urun seviyesinde, ya da kisi seviyesinde yapilabilir. Eger
-urun sevisinde ise, tek bir urun icin tum kullanicilarin verdigi nota
+Benzerlik, urun seviyesinde, ya da kisi seviyesinde yapilabilir. Eger urun
+sevisinde ise, tek bir urun icin tum kullanicilarin verdigi nota
 bakilir. Eger kullanici seviyesinde ise, tek kullanicinin tum urunlere
-verdigi begeni notlari vektoru kullanilir. 
+verdigi begeni notlari vektoru kullanilir. 1. sezonu ornek kullanalim,o
+sezonu begenen kisilere o sezona benzer diger sezonlar tavsiye
+edilebilir. Kisiden hareketle, mesela John'a benzeyen diger kisiler
+bulunarak onlarin begendigi urunler John'a tavsiye edilebilir.
 
-Mesela 1. sezondan hareketle, o sezonu begenen kisilere o sezona
-benzer diger sezonlar tavsiye edilebilir. Kisiden hareketle, mesela
-John'a benzeyen diger kisiler bulunarak onlarin begendigi urunler John'a
-tavsiye edilebilir.
-
-Urun ya da kisi bazinda olsun, benzerligi hesaplamanin da farkli
-yollari var.  Genel olarak benzerlik olcutunun 0 ile 1 arasinda
-degisen bir sayi olmasini tercih ediyoruz ve tum ayarlari ona gore
-yapiyoruz. Diyelim ki ki elimizde begeni notlarini tasiyan $A,B$
-vektorleri var (baska veri turu de tasiyor olabilir tabii), ve bu
-vektorlerin icinde begeni notlari var. Benzerlik cesitleri soyle:
+Urun ya da kisi bazinda olsun, benzerligi hesaplamak icin bir benzerlik
+olcutu olusturmaliyiz. Genel olarak bu benzerlik olcutunun 0 ile 1 arasinda
+degisen bir sayi olmasini tercih edilir ve tavsiye mantiginin geri kalani
+bu olcutu baz alacaktir. Elimizde begeni notlarini tasiyan $A,B$ vektorleri
+olabilir, ve bu vektorlerin icinde begeni notlari olacaktir. Vektor
+icindeki sayilari baz alan benzerlik cesitleri soyledir:
 
 Oklit Benzerligi (Euclidian Similarity)
 

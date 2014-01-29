@@ -1,6 +1,6 @@
 \documentclass[12pt,fleqn]{article}\usepackage{../common}
 \begin{document}
-Oge Kumeleri Bulmak ve Ikisel Matris Ayristirmasi (Binary Matrix Factorization)
+Oge Kumeleri, Ikisel Matris Ayristirmasi (Binary Matrix Factorization), FPGrowth
 
 Veri madenciligi denince pek cok kisinin aklina gelen ilk ornek, aslinda,
 sýk bulunan öðe kumeleri (frequent itemsets) ornegidir: "filanca ulkeden
@@ -52,16 +52,51 @@ Bu matris uzerinde ikisel ayristirma yaparsak, $k=2$
 
 \includegraphics[height=2cm]{abc_res.png}
 
-Sonuca bakalim, ozellikle sol taraftaki carpilan ``baz'' matrisi. {\em
-  Matris Carpimi} yazisindan hareketle, bu yazidaki kolon kombinasyon
-bakisini kullanalim (tabii toplamanin BMF icin OR oldugunu unutmadan), o
-zaman soldaki baz matrisin dikey, kolon bazli olarak, bir ozet oldugunu
-gorebiliyoruz. Cunku carpan sag taraf bu kolonlari alip onlari belli
-sekillerde ``kombine ederek'' nihai (orijinal) matrisi ortaya
-cikartabilmeli. Bu sebeple soldaki carpilan matris bir ozet olmali / baz
-olusturmali, ve bunun yan etkisi olarak kolonlardaki degerlerde belli bir
-kalip / oruntu (pattern) olmali. O zaman her baz kolonunda birbiriyle
-alakali olan ogeler ayni anda 1 degeri tasiyor olacaktir.
+Eger kontrol etmek istersek, matris carpimi yapmamiz gerekir, bunun icin
+
+\begin{minted}[fontsize=\footnotesize]{python}
+a = np.array([[1,  0],
+               [1,  1],
+               [0,  1]], dtype=bool)
+b = np.array([[1,  1,  0],
+               [0,  1,  1]], dtype=bool)
+
+print np.dot(a,b)
+\end{minted}
+
+\begin{verbatim}
+[[ True  True False]
+ [ True  True  True]
+ [False  True  True]]
+\end{verbatim}
+
+0 ve 1 degerleri gormek icin 1 ile carpmak yeterli
+
+\begin{minted}[fontsize=\footnotesize]{python}
+print 1*np.dot(a,b)
+\end{minted}
+
+\begin{verbatim}
+[[1 1 0]
+ [1 1 1]
+ [0 1 1]]
+\end{verbatim}
+
+Sonuc baslangic matrisi ile ayni, demek ki \verb!bool! tipi matris
+tanimlayinca Numpy caprimi \verb!dot!, carpim sirasindaki toplama islemi
+icin aritmetik toplama yerine VEYA (OR) kullanmasi gerektigini anladi.
+
+Simdi ayristirmayi analiz edelim, ozellikle sol taraftaki carpilan ``baz''
+matrise bakalim.. {\em Matris Carpimi} yazisindan hareketle, bu yazidaki
+kolon kombinasyon bakisini kullanalim (tabii toplamanin BMF icin OR
+oldugunu unutmadan), o zaman soldaki baz matrisin dikey, kolon bazli
+olarak, bir ozet oldugunu gorebiliyoruz. Cunku carpan sag taraf bu
+kolonlari alip onlari belli sekillerde ``kombine ederek'' nihai (orijinal)
+matrisi ortaya cikartabilmeli. Bu sebeple soldaki carpilan matris bir ozet
+olmali / baz olusturmali, ve bunun yan etkisi olarak kolonlardaki
+degerlerde belli bir kalip / oruntu (pattern) olmali. O zaman her baz
+kolonunda birbiriyle alakali olan ogeler ayni anda 1 degeri tasiyor
+olacaktir.
 
 Sonuca gore uzun sacli ve unlu olmak (1. kolon) arasinda baglanti varmis ,
 ayrica erkek olmak ve unlu olmak (2. kolon) arasinda da baglanti varmis :)
@@ -123,40 +158,6 @@ male         0  1
 
 Sonuc neredeyse tipatip ayni; sadece carpan matriste [0,B] kordinati 1
 degil, fakat bize lazim olan baz matris ayni cikti. 
-
-Eger kontrol etmek istersek, matris carpimi yapmamiz gerekir, bunun icin
-
-\begin{minted}[fontsize=\footnotesize]{python}
-a = np.array([[1,  0],
-               [1,  1],
-               [0,  1]], dtype=bool)
-b = np.array([[1,  1,  0],
-               [0,  1,  1]], dtype=bool)
-
-print np.dot(a,b)
-\end{minted}
-
-\begin{verbatim}
-[[ True  True False]
- [ True  True  True]
- [False  True  True]]
-\end{verbatim}
-
-0 ve 1 degerleri gormek icin 1 ile carpmak yeterli
-
-\begin{minted}[fontsize=\footnotesize]{python}
-print 1*np.dot(a,b)
-\end{minted}
-
-\begin{verbatim}
-[[1 1 0]
- [1 1 1]
- [0 1 1]]
-\end{verbatim}
-
-Sonuc baslangic matrisi ile ayni, demek ki \verb!bool! tipi matris
-tanimlayinca Numpy caprimi \verb!dot!, carpim sirasindaki toplama islemi
-icin aritmetik toplama yerine VEYA (OR) kullanmasi gerektigini anladi.
 
 BMF hakkinda bazi ek bilgiler: [2]'ye gore en az hatali BMF hesaplamak
 NP-hard zorlugunda, yani 3SAT gibi, ya da Seyahat Eden Satis Elemani

@@ -2,6 +2,59 @@
 \begin{document}
 Yaklasiksal SVD ile Tavsiye Sistemleri
 
+{\em SVD, Toplu Tavsiye} yazisinda Movielens verisine SVD uygulayarak once
+boyut azaltmistik. Azaltilmis boyut uzerinden, yeni bir kullanicinin diger
+mevcut kullanicilara mesafesini hesaplamis, ve boylece en cok benzedigi
+diger kullaniciyi bulmustuk. Bu kullanicinin bir film icin verdigi notu yeni
+kullanici icin tahmin olarak baz aldik. 
+
+SVD uygulamanin degisik bir yolu daha var. Netflix yarismasinda kullanilan
+[1] bir yaklasim soyle. Alttaki SVD ayristirmasina bakalim, 
+
+\includegraphics[height=4cm]{svdapprox_1.png}
+
+1. kullanicini 1. filme verdigi not ustte gosterilen satirlarin carpimi
+ile, eger ufak harfler ve kullanici (user) icin $u$, film icin $i$ indisini
+kullanirsak, ve $q,p$ vektorlerini $Q,P$ matrislerinin sirasiyla kolon ve
+satirlarini gostermek icin kullanirsak, ayristirma sonrasi begeni degerinin
+onemli bir kismi $q_i^Tp_u$ carpimindadir.
+
+
+
+$$
+\min_{b*,q*,p*} \sum_{u,i} (r_{ui} - \mu + b_i + b_u + q_i^Tp_u)^2 + 
+\lambda_4 (b_i^2 + b_u^2 + ||q_i||^2 + ||p_u||^2)
+$$
+$$
+\hat{r}_{ui} = \mu + b_i + b_u + q_i^Tp_u
+$$
+
+$$
+\min_{b*,q*,p*} \sum_{u,i} (r_{ui} - \hat{r}_{ui})^2 + 
+\lambda_4 (b_i^2 + b_u^2 + ||q_i||^2 + ||p_u||^2)
+$$
+
+$$ e_{ui} := r_{ui} - \hat{r}_{ui} $$
+
+$$
+b_u \leftarrow b_u + \gamma (e_{ui} - \lambda \cdot b_u)
+$$
+
+$$
+b_i \leftarrow b_i + \gamma (e_{ui} - \lambda \cdot b_i)
+$$
+
+$$
+q_i \leftarrow q_i + \gamma (e_{ui}\cdot p_u - \lambda \cdot q_i)
+$$
+
+$$
+p_u \leftarrow p_u + \gamma (e_{ui}\cdot q_i - \lambda \cdot p_u)
+$$
+
+
+
+
 \begin{minted}[fontsize=\footnotesize]{python}
 import pandas as pd
 import ssvd; reload(ssvd)
@@ -106,24 +159,24 @@ rmse 0.91
 
 Kaynaklar
 
-http://sifter.org/~simon/journal/20061211.html
+\url{http://sifter.org/~simon/journal/20061211.html}
 
-http://www.cs.bme.hu/nagyadat/Recommender_systems_handbook.pdf
+\url{http://www.cs.bme.hu/nagyadat/Recommender_systems_handbook.pdf}
 
-http://www2.research.att.com/~volinsky/papers/ieeecomputer.pdf
+\url{http://www2.research.att.com/~volinsky/papers/ieeecomputer.pdf}
 
-http://www.cs.nyu.edu/~yann/talks/lecun-20071207-nonconvex.pdf
+\url{http://www.cs.nyu.edu/~yann/talks/lecun-20071207-nonconvex.pdf}
 
-http://courses.cs.washington.edu/courses/cse528/09sp/sanger_pca_nn.pdf
+\url{http://courses.cs.washington.edu/courses/cse528/09sp/sanger_pca_nn.pdf}
 
-http://users.ics.aalto.fi/oja/Oja1982.pdf
+\url{http://users.ics.aalto.fi/oja/Oja1982.pdf}
 
-http://arxiv.org/pdf/1308.3509
+\url{http://arxiv.org/pdf/1308.3509}
 
-http://www.maths.qmul.ac.uk/~wj/MTH5110/notes/MAS235_lecturenotes1.pdf
+\url{http://www.maths.qmul.ac.uk/~wj/MTH5110/notes/MAS235_lecturenotes1.pdf}
 
-http://heim.ifi.uio.no/~tom/powerandqrslides.pdf
+\url{http://heim.ifi.uio.no/~tom/powerandqrslides.pdf}
 
-http://math.stackexchange.com/questions/649701/gradient-descent-on-non-convex-function-works-but-how
+\url{http://math.stackexchange.com/questions/649701/gradient-descent-on-non-convex-function-works-but-how}
 
 \end{document}
