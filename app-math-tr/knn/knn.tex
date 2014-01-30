@@ -85,7 +85,7 @@ kullaniriz, fakat bu kavram bir norm oldugu ve belirttigimiz uzayda
 gecerli oldugu icin ucgensel esitsizlik uzerine kurulmus tum diger
 kurallar gecerli olur.
 
-\includegraphics[height=4cm]{tri1.png}
+\includegraphics[height=6cm]{tri1.png}
 
 Simdi diyelim ki disaridaki bir $q$ noktasindan bir kure icindeki diger tum
 $x$ noktalarina olan mesafe hakkinda bir seyler soylemek istiyoruz. Ustteki
@@ -143,6 +143,36 @@ Bu ifade ne diyor? Yeni noktanin mihenke olan uzakligina yaricap
  bir ust sinir (upper bound) vermis oldu. 
 
 Algoritma
+
+
+\begin{algorithm}[t]
+\begin{pseudocode}
+\codename $\code{ball\_knn}\left(PS^{in},node\right)$\\
+\codeline -- Eger alttaki sart gecerli ise node icindeki bir noktanin daha once \\
+\codeline -- kesfedilmis $k$ en yakin komsudan daha yakin olmasi imkansizdir\\
+\codeline $\code{if } D^{node}_{minp} \ge D_{sofar}$ \\
+\codeline \> $\code{return } PS_{in}$ degismemis halde;\\
+\codeline $\code{else if } node $ bir cocuk noktasi ise \\
+\codeline \> $PS_{out} = PS_{in}$;\\
+\codeline \> $\code{for } \forall x \in points(node)$\\
+\codeline \> \> $\code{if } \left( |x-q| < D_{sofar} \right)$; -- basit lineer arama yap\\
+\codeline \> \> $x$'i $PS_{out}$'a ekle;\\
+\codeline \> \> $\code{if } |PS^{out}| == k+1$;\\
+\codeline \> \> \> en uzak olan komsuyu $PS^{out}$'tan cikart;\\
+\codeline \> \> \> $D_{sofar}$'i guncelle;\\
+\codeline \\
+\codeline -- eger uc nokta degil ise iki cocuk dugumden daha yakin olanini \\
+\codeline -- incele, sonra daha uzakta olanina bak. buyuk bir ihtimalle   \\
+\codeline -- arama devam ettirilirse bu arama kendiliginden kesilecektir  \\
+\codeline $\code{else }$\\
+\codeline \> $node_1 = node$'un $q$'ya en yakin cocugu;\\
+\codeline \> $node_2 = node$'un $q$'dan en uzak cocugu;\\
+\codeline \> $PS^{temp} = \code{ball\_knn}(PS^{in},node_1)$;\\
+\codeline \> $PS^{out} = \code{ball\_knn}(PS^{temp},node_2);$
+\end{pseudocode}
+\end{algorithm}
+
+\includegraphics[height=7cm]{alg.png}
 
 Kure Agaclari (BT) metotu once kureleri, agaclari olusturmalidir. Bu
 kureler hiyerarsik sekilde planlanir, tum noktalarin icinde oldugu bir "en
@@ -333,9 +363,6 @@ tree
 None
 done [1.0, [[[8.0, 9.0]], [[7.0, 6.0]]]]
 \end{verbatim}
-
-
-\includegraphics[height=7cm]{alg.png}
 
 
 Bu iki grup, o anda islemekte oldugumuz agac dugumun (node) iki

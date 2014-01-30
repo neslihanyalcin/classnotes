@@ -25,3 +25,12 @@
 \usepackage[hyphens]{url}
 \usepackage{hyperref}
 \makeatletter \renewcommand\verbatim@font{\footnotesize\ttfamily} \makeatother
+
+% pseudocode
+\usepackage{algorithm}
+\newcommand{\code}[1]{\mbox{\texttt{#1}}}
+\newcounter{lineno}
+\newenvironment{pseudocode}{\begin{small}\begin{tabbing}\textbf{mm}\=mm\=mm\=mm\=mm\=mm\=mm\=mm\=mm\=\kill}{\end{tabbing}\end{small}}
+\newcommand{\codename}{\setcounter{lineno}{0}\>}
+\newcommand{\codeline}{\>\stepcounter{lineno}\textbf{\arabic{lineno}}\'\>}
+\newcommand{\codeskip}{\>\>}
