@@ -88,13 +88,15 @@ Rasgele Gradyan Inisi (Stochastic Gradient Descent -SGD-)
 
 Modeli nasil minimize ederiz? Bu model konveks (convex) degil, ki
 konvekslik bilindigi gibi fonksiyonun duzgun bir cukur gibi oldugu
-problemlerdir, herhangi bir noktadan baslarsiniz, gradyani hesaplarsiniz,
-ve bu gradyan hep optimal inis noktasini gosterir cunku cukurda ``takilip
-kalabileceginiz'', ``yerel minimumlar'' mevcut degildir . Bizim
-problemimizde $q_i^Tp_u$ var, bu degiskenlerin ikisi de bilinmiyor, ve bu
-carpimin karesi alindigi icin genel karesellligi (quadratic) kaybetmis
-oluyoruz. Fakat yine de SGD bu problemi cozebiliyor. Bunun sebeplerini, SGD
-SVD'nin hikayesiyle beraber yazinin sonunda bulabilirsiniz. 
+problemlerdir. Boyle cukur fonksiyonlarinda herhangi bir noktadan
+baslarsiniz, gradyani hesaplarsiniz, ve bu gradyan hep optimal inis
+noktasini (daha dogrusu tersini) gosterir, ve yolda giderken takilip
+kalabileceginiz yerel minimumlar mevcut degildir, ve sonunda cukur dibine
+ulasilir. Bizim problemimizde $q_i^Tp_u$ var, bu degiskenlerin ikisi de
+bilinmiyor, ve bu carpimin karesi alindigi icin genel karesellligi
+(quadratic) kaybetmis oluyoruz. Fakat yine de SGD bu problemi
+cozebiliyor. Bunun sebeplerini, SGD SVD'nin hikayesiyle beraber yazinin
+sonunda bulabilirsiniz.
 
 SGD icin gradyanlar lazim, her degisken icin minimizasyon toplami icindeki
 kismin (bu kisma $E$ diyelim) ayri ayri kismi turevini almak lazim. Mesela
@@ -107,11 +109,11 @@ Gradyan her zaman en yuksek cikisi gosterir, o zaman hesapsal algoritma
 onun tersi yonune gitmelidir. Bu gidisin adim buyuklugunu kontrol etmek
 icin disaridan bizim belirledigimiz bir $\gamma$ sabiti ile carpim
 yapabiliriz, ve bir numara daha, sabit 2 degerlerinin $\gamma$ icinde
-eritilebilecegini farzederek onlari sileriz. Yani adim $\gamma(e_{ui} - \lambda b_u)$ 
-haline geldi. Bir dongu icinde eski $b_u$ bulunacak,
+eritilebilecegini farzederek onlari sileriz. Yani adim $\gamma(e_{ui} -
+\lambda b_u)$ haline geldi. Bir dongu icinde eski $b_u$ bulunacak,
 gordugumuz yonde adim atilacak, yani adim onceki degere toplanacak, ve yeni
-deger elde edilecek. Diger degiskenler icin de ayni islemi yaparsak, sonuc 
-soyle,
+deger elde edilecek. Diger degiskenler icin turev alip benzer islemleri
+yaparsak, sonuc soyle,
 
 $$ b_u \leftarrow b_u + \gamma (e_{ui} - \lambda \cdot b_u) $$
 
@@ -190,7 +192,7 @@ sildik (yerine \verb!nan!  koyarak), ve bir kismi silinmis yeni bir egitim
 matrisi yarattik, \verb!create_training_test! islevinde bu gorulebilir. Bu
 islevde her kullanicidan sadece bir tane not verisi aliyoruz, ve bunu
 sadece belli bir sayida, \verb!collim! kadar, not vermis kullanicilar icin
-yapiyoruz, ki boylece az sayida not vermis kullanicilarin verisini silmemis
+yapiyoruz, ki boylece az sayida not vermis kullanicilarin verisini azaltmamis
 oluyoruz. Ayrica belli miktarda, \verb!rowlim! kadar test noktasi elde
 edince is bitti kabul ediyoruz. Test verisi yaratmak icin \%80-\%20 gibi
 bir ayrim yapmadik, yani egitim verisindeki tum kullanicilari ve onlarin
@@ -226,10 +228,7 @@ print len(test_data)
 501
 \end{verbatim}
 
-Egitim
-
 \begin{minted}[fontsize=\footnotesize]{python}
-import ssvd
 mu,b_u,b_i,q_i,p_u = ssvd.ssvd(df_train,rank=25)
 print 'mu',mu
 \end{minted}
