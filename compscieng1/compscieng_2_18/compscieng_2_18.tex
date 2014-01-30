@@ -45,18 +45,22 @@ ortonormal olmasi. Bu son ozellik elde edilebilirse en iyisidir. Ustteki
 $K$ pek iyi bir baz degildir. Arnoldi'nin amaci Krylov bazini ortogonalize
 etmektir. $b,Ab,..$'yi alip $q_1,q_2,..,q_j$ olusturmaktir. Koda bakalim, 
 
-\begin{minted}[mathescape,linenos,xleftmargin=1cm]{matlab}
-q_1 = b / ||b||; % normalize et
-for j = 1,..,n-1 % $q_{j+1}$'i hesaplamaya basla
-  t = A * q_j; 
-  for i = 1,..,j  % $t$ $\mathscr{K}_{j+1}$ uzayinda
-    h_{ij} = q_i^T t  % h_{ij}q_i, $t$'nin $q_i$'ye yansimasi
-    t = t - h_{ij}q_i % yansimayi cikart
-  end % $t$, $q_1,..,q_j$'ye ortogonal
-  h_{j+1,j} = ||t|| % $t$'nin buyuklugunu hesapla
-  q_{j+1} = t / h_{j+1,j}
-end % $q_1,..,q_j$ ortonormal
-\end{minted}
+\begin{algorithm}[h]
+\begin{pseudocode}
+\codename $\code{arnoldi}$\\
+\codeline $q_1 = b / ||b||$; // normalize et\\
+\codeline $\code{for }j = 1,..,n-1 // q_{j+1}$'i hesaplamaya basla\\
+\codeline \> $t = A * q_j$;\\
+\codeline \> $\code{for }i = 1,..,j $ // $t$, $\mathscr{K}_{j+1}$ uzayinda\\
+\codeline \> \>  $h_{ij} = q_i^T t$  // $h_{ij}q_i$, $t$'nin $q_i$'ye yansimasi\\
+\codeline \> \>   $t = t - h_{ij}q_i$ // yansimayi cikart \\
+\codeline // $t$, $q_1,..,q_j$'ye ortogonal\\
+\codeline $h_{j+1,j} = ||t||$ //  $t$'nin buyuklugunu hesapla\\
+\codeline $q_{j+1} = t / h_{j+1,j}$\\
+\codeline // $q_1,..,q_j$ ortonormal
+\end{pseudocode}
+\end{algorithm}
+
 
 Fikir Gram-Schmidt fikriyle cok benzer. 1. satirda ilk vektoru oldugu gibi
 aliyoruz, sadece normalize ediyoruz. Sonra 3. satirda bir deneme

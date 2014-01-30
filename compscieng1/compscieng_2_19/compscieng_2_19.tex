@@ -59,15 +59,17 @@ Baslangic degerleri
 
 Simetrik Pozitif Kesin $A$ Icin Eslenik Gradyan Metodu
 
-1. $\alpha_k = r_{k-1}^T r_{k-1} / d_{k-1}^T A d_{k-1}$
+\begin{algorithm}[h]
+\begin{pseudocode}
+\codename $\code{eslenik\_gradyan}$\\
+\codeline $\alpha_k = r_{k-1}^T r_{k-1} / d_{k-1}^T A d_{k-1}$ \\
+\codeline $\alpha_k = \alpha_{k-1} + \alpha_k d_{k-1}$\\
+\codeline $r_k = r_{k-1} - \alpha_k Ad_{k-1}$\\
+\codeline $\beta_k = r_k^Tr_k / r_{k-1}^Tr_{k-1}$\\
+\codeline $d_k = r_k + \beta_k d_{k-1}$
+\end{pseudocode}
+\end{algorithm}
 
-2. $\alpha_k = \alpha_{k-1} + \alpha_k d_{k-1}$
-
-3. $r_k = r_{k-1} - \alpha_k Ad_{k-1}$
-
-4. $\beta_k = r_k^Tr_k / r_{k-1}^Tr_{k-1}$
-
-5. $d_k = r_k + \beta_k d_{k-1}$
 
 $d$ ``arama yonudur'', optimizasyon ilerlerken gidecegimiz
 istikamettir. 2. adimda guncellemeyi yapiyorum. Peki bir sonraki yonum ne
