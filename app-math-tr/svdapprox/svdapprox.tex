@@ -9,26 +9,25 @@ SVD uygulayarak once boyut azaltmistik, azaltilmis boyut uzerinden yeni (o
 film icin notu bilinmeyen) bir kullanicinin diger mevcut kullanicilara
 mesafesini hesaplamis, ve boylece begeni acisindan en cok benzedigi diger
 kullaniciyi bulmustuk (birkac tane de bulunabilir). Bu kullanicinin bir
-film icin verdigi notu yeni kullanici icin tahmin olarak baz almistik.
-
-SVD uygulamanin tek yontemi bu degil. Netflix yarismasinda kullanilan [1]
-bir yaklasim soyle; alttaki SVD ayristirmasina bakalim,
+film icin verdigi notu yeni kullanici icin tahmin olarak baz
+almistik. SVD'yi kullanmanin bir yontemi daha var, Netflix yarismasinda
+kullanilan [1] bir yaklasim soyle; alttaki SVD ayristirmasina bakalim,
 
 \includegraphics[height=4cm]{svdapprox_1.png}
 
 1. kullanicini 1. filme verdigi not ustte koyu gosterilen satirlarin
 carpimi ile oluyor, eger ufak harfler ve kullanici (user) icin $u$, film
-icin $i$ indisini kullanirsak, ve $q,p$ vektorlerini $Q,P$ matrislerinin
-sirasiyla kolon ve satirlarini gostermek icin kullanirsak, ayristirma
-sonrasi begeni degeri (onemli bir kismi daha dogrusu) $q_i^Tp_u$
-carpimindadir. Carpim icinde $S$'ten gelecek tekil degeri (singular value)
-ne olacak?  Simdi formulasyonu biraz degistirelim, bu degeri carpim disina
-alarak birkac toplam olarak gosterebiliriz. Bu toplamlar mesela bir
-kullanicinin ne kadar yanli (bias) not verdigini, ya da bir filmin kabaca,
-ortalama nasil not almaya meyilli oldugunu modelleyebilirler (ki bu da bir
-yanlilik olcusu). Ayrica tum filmlere verilen notlarin yanliligi da
-olculebilir. Tum bunlari bir araya koyarsak, bir begeni notunu tahmin
-edecek formul soyle gosterilebilir,
+icin $i$ indisini, ve $q,p$ vektorlerini $Q,P$ matrislerinin sirasiyla
+kolon ve satirlarini gostermek icin kullanirsak, ayristirma sonrasi begeni
+degeri (onemli bir kismi daha dogrusu) $q_i^Tp_u$ carpimindadir. Carpim
+icinde $S$'ten gelecek tekil degeri (singular value) ne olacak?  Simdi
+formulasyonu biraz degistirelim, bu degeri carpim disina alarak birkac
+toplam olarak gosterebiliriz. Bu toplamlar mesela bir kullanicinin ne kadar
+yanli (bias) not verdigini, ya da bir filmin kabaca, ortalama nasil not
+almaya meyilli oldugunu modelleyebilirler (ki bu da bir yanlilik
+olcusu). Ayrica tum filmlere verilen notlarin yanliligi da olculebilir. Tum
+bunlari bir araya koyarsak, bir begeni notunu tahmin edecek formul soyle
+gosterilebilir,
 
 $$
 \hat{r}_{ui} = \mu + b_i + b_u + q_i^Tp_u
@@ -39,15 +38,16 @@ begenilerin sayisal ortalamasi uzerinden basit bir sekilde hizla
 hesaplanabilir. $\hat{r}_{ui}$'ya bir tahmin dedik cunku modelimizdeki
 vektorlerin degerlerini bulduktan sonra (egitim verisiyle bu hesabi
 yapacagiz) modeli kullanarak gercek not $r_{ui}$ icin bir
-tahmin yapmaya ugrasacagiz.
+tahmin olarak kullanilacak.
 
 Yanlilik hakkinda bazi ornekler vermek gerekirse, diyelim ki kullanici Bob
 not verirken yuksek seviyede oy vermeye meyilli. Bu durumda bu kullanicinin
 ortalama hatta dusuk oy vermesi onun bir filmden hakikaten hic
-hoslanmadigini sinyalleyebilir. Ya da mesela bir film, genellikle ortalama
-oy almaktadir, bu durumda ona cok iyi not veren bir kisinin bu filmi cok
+hoslanmadigini sinyalleyebilir. Ya da bir film genellikle ortalama oy
+almaktadir, bu durumda ona cok iyi not veren bir kisinin bu filmi cok
 begendigi ortaya cikar. Modeldeki yanlilik parametreleri bu durumu
-saptayabilirler.
+saptayabilirler. Eger verimizde / gercek dunyada yanlilik var ise, modelin
+bu bilgiyi kullanmasi onun basarisini arttiracaktir.
 
 Egitim
 
@@ -69,20 +69,23 @@ $$
 $$
 
 Kisaltma olarak $e_{ui}$ tanimlayalim, bu faydali olabilir, formuldeki ilk
-parantez icindeki kisimda $e_{ui}$ kullanmak uzere,
+parantez icindeki kisimda kullanmak uzere,
+
 $$ e_{ui} := r_{ui} - \hat{r}_{ui} $$
 
 $\lambda$ ile carpilan bolum regularizasyon icin. Istatistik, yapay
-ogrenim, optimizasyon alanlarinda modelimizin asiri uygunluk (overfitting)
-yapmasini engellemek icin regularizasyon kullanilir, bunun icin istedigimiz
-degiskenlerin fazla buyumesini cezalandiririz, ustteki minimizasyon
-modelinde bu ceza icin tum degerlerin buyuklugunu (magnitude) hesapladik
--skalar degerlerin karesini, vektor degerlerinin kare norm'unu alarak- ve
-bu buyuklukleri bizim disaridan set edebilecegimiz bir sabitle carpilmasi
-uzerinden minimizasyon problemine direk dahil ettik. Boylece bu buyuklukler
-formulasyona dahil oldular ve azaltilma hedefinin bir parcasi haline
-geldiler. Yani hem $e_{ui}^2$ hem de hatayi olusturan degerlerin kendileri
-minimize edilecek.
+ogrenimde modelimizin asiri uygunluk (overfitting) yapmasini engellemek
+icin regularizasyon kullanilir, bunun icin istedigimiz degiskenlerin fazla
+buyumesini cezalandiririz, ustteki minimizasyon modelinde bu ceza icin tum
+degerlerin buyuklugunu (magnitude) hesapladik -skalar degerlerin karesini,
+vektor degerlerinin kare norm'unu alarak- ve bu buyuklukleri bizim
+disaridan tanimlayacagimiz bir sabitle carpimi uzerinden minimizasyon
+problemine direk dahil ettik. Boylece bu buyuklukler azaltilma hedefinin
+parcasi haline geldiler. Yani hem $e_{ui}^2$ hem de hatayi olusturan
+degerlerin kendileri minimize edilecek. Bu minimizasyon sirasinda bazi
+degiskenlerin sifira inip o $u,i$ icin tamamen etkisiz hale gelmesi bile
+mumkundur (ki bu bize o parametrenin onemsiz oldugunu sinyalleyebilecegi
+icin faydalidir). 
 
 Rasgele Gradyan Inisi (Stochastic Gradient Descent -SGD-)
 
@@ -141,7 +144,9 @@ Kodun onemli bir ozelligi sudur, bos yani \verb!nan! degeri iceren notlar
 egitim sirasinda atlanir. SGD seyrek verilerle de isleyebilen bir egitim
 yontemidir. Bu durumda verinin seyrekligi (sparsity) bizim icin cok
 faydali, cunku o veri noktalarina bakilmayacak, \verb!row.notnull()! ile
-bos olmayan ogelerin indis degerlerini aliyoruz.
+bos olmayan ogelerin indis degerlerini aliyoruz. Bilindigi uzere Movielens,
+Netflix verileri oldukca seyrektir, kullanici binlerce film icinden onlar,
+yuzler baglaminda not verimi yapar, geri kalan degerler bostur. 
 
 Basit bir ornek
 
@@ -269,11 +274,12 @@ Bu metotun kesfi hangi basamaklardan gecti? Beni meraklandiran minimizasyon
 formulasyonun konveks olmamasiydi -- genellikle optimizasyon problemlerinde
 konveksligin mevdudiyeti aranir, cunku bu durumda sonuca yaklasmak
 (convergence) icin bir garanti elde edilir. Bu durumda konvekslik
-yoktu. Biraz arastirinca Bottou ve LeCunn gibi arastirmacilarin yazilarina
-ulastik [4]. Onlara gore konvekslik olmamasi yapay ogrenim
-arastirmacilarini korkutmamali, eger sayisal (empirically) isleyen bir
-algoritma var ise, teorik ispat gelene kadar bu metotun kullanilmasinda
-sakinca yoktur.
+yoktu. ``O zaman Webb nasil rahat bir sekilde SGD kullanabildi?'' sorusunun
+cevabini merak ediyorduk yani. Biraz arastirinca Bottou ve LeCunn gibi
+arastirmacilarin yazilarina ulastik [4]. Onlara gore konvekslik olmamasi
+yapay ogrenim arastirmacilarini korkutmamali, eger sayisal (empirically)
+isleyen bir algoritma var ise, teorik ispat gelene kadar bu metotun
+kullanilmasinda sakinca yoktur.
 
 Fakat boyle buluslarda yine de bazi garantiler temel alinmis olabilir,
 arastirmaci tamamen baliklama atlayis yapmaz. Webb'in kendisine bu sorulari
