@@ -21,13 +21,15 @@ icin $i$ indisini, ve $q,p$ vektorlerini $Q,P$ matrislerinin sirasiyla
 kolon ve satirlarini gostermek icin kullanirsak, ayristirma sonrasi begeni
 degeri (onemli bir kismi daha dogrusu) $q_i^Tp_u$ carpimindadir. Carpim
 icinde $S$'ten gelecek tekil degeri (singular value) ne olacak?  Simdi
-formulasyonu biraz degistirelim, bu degeri carpim disina alarak birkac
-toplam olarak gosterebiliriz. Bu toplamlar mesela bir kullanicinin ne kadar
-yanli (bias) not verdigini, ya da bir filmin kabaca, ortalama nasil not
-almaya meyilli oldugunu modelleyebilirler (ki bu da bir yanlilik
-olcusu). Ayrica tum filmlere verilen notlarin yanliligi da olculebilir. Tum
-bunlari bir araya koyarsak, bir begeni notunu tahmin edecek formul soyle
-gosterilebilir,
+formulasyonda bir degisiklik dusunelim, bu degerin carpim disina alindigini
+hayal edelim; bu degerin kabaca birkac toplamin sonucuna donustugunu
+dusunelim. Matematiksel olarak imkansiz degil. Bu toplam terimleri, toplam
+olduklari icin, bir baz seviyesi tanimlayabilirler. Bir kullanicinin ne
+kadar yanli (bias) not verdigini, ya da bir filmin nasil not almaya meyilli
+oldugunu modelleyebilirler (ki bu da bir yanlilik olcusu). Ayrica tum
+filmlere verilen notlarin yanliligi da ayri bir terim olarak
+gosterilebilir. Tum bunlari bir araya koyarsak, bir begeni notunu tahmin
+edecek formul soyle gosterilebilir,
 
 $$
 \hat{r}_{ui} = \mu + b_i + b_u + q_i^Tp_u
@@ -126,17 +128,17 @@ $$ q_i \leftarrow q_i + \gamma (e_{ui}\cdot p_u - \lambda \cdot q_i) $$
 
 $$ p_u \leftarrow p_u + \gamma (e_{ui}\cdot q_i - \lambda \cdot p_u) $$
 
-Her degisken icin baslangic noktasi rasgele olarak secilebilir, ki
-$\gamma,\lambda$ sabitleri ile beraber bu baslangic noktalari icin en iyi
-degerler deneme/ yanilma ya da capraz saglama (crossvalidation) ile
-bulunabilir.
+Her degisken icin baslangic noktasi rasgele olarak secilebilir, ya da en
+iyi degerler deneme/ yanilma ya da capraz saglama (crossvalidation) ile
+bulunabilir. Ayni durum $\gamma,\lambda$ sabitleri icin de gecerli. Biz bu
+ornekte deneme / yanilma yontemini sectik.
 
 Rasgelelik, aynen {\em Lojistik Regresyon} orneginde oldugu gibi verinin
 rasgeliliginden geliyor, her veri noktasini teker teker sirayla isliyoruz
 aslinda fakat bu ``siranin'' rasgele oldugunu farzettigimiz icin ozyineli 
 algoritmamiz rasgelelik elde ediyor. Python kodu altta, egitim icin kod
 sadece bir kere verinin uzerinden geciyor. Basa donup birkac kere (hatta
-yuzlerce) veriyi isleyenler de oldu.
+yuzlerce) veriyi isleyenler de olabiliyor.
 
 \inputminted[fontsize=\footnotesize]{python}{ssvd.py}
 
