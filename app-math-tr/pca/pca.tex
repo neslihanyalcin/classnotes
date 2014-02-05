@@ -410,6 +410,29 @@ print nyt.ix[:8,102:107]
 8          0  0.000000  0.000000  0.000000      0
 \end{verbatim}
 
+Not: Bir diger normalize metotu
+
+\begin{minted}[fontsize=\footnotesize]{python}
+import pandas as pd
+
+df = pd.DataFrame([[1.,1.,1.],
+                   [2.,2.,2.],
+                   [3.,3.,3.]])
+print df
+print df.div(df.sum(axis=1), axis=1)
+\end{minted}
+
+\begin{verbatim}
+   0  1  2
+0  1  1  1
+1  2  2  2
+2  3  3  3
+          0         1         2
+0  0.333333  0.166667  0.111111
+1  0.666667  0.333333  0.222222
+2  1.000000  0.500000  0.333333
+\end{verbatim}
+
 SVD yapalim
 
 \begin{minted}[fontsize=\footnotesize]{python}

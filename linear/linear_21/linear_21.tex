@@ -423,18 +423,18 @@ Ekler
 
 Ozdeger/Vektor Hesabinda Ust Metot (Power Method)
 
-Diyelim ki bir $A$ matrisinin, ki $A \in \mathbb{R}^{n \times n}$,
-ozdegerleri $\lambda_1,...,\lambda_n$ ve ozvektorleri $v_1,..,v_n$ olarak
-verilmis. Bu demektir ki her $i=1,..,n$ icin $Av_i = \lambda_i v_i$.
+Diyelim ki bir $A$ matrisinin, ki $A \in \mathbb{R}^{n \times n}$, ozdegerleri $\lambda_1,...,\lambda_n$ ve 
+ozvektorleri $v_1,..,v_n$ olarak verilmis. Bu demektir ki her $i=1,..,n$ 
+icin $Av_i = \lambda_i v_i$. Farzedelim ki bu matrisin tum ozvektorleri bir 
+``ozbaz (eigenbasis)'' olusturuyor ve bu baz ile $\mathbb{R}^n$'deki
+herhangi bir vektoru temsil edebiliyoruz. Hatirlayalim eger tekrar
+eden ozdeger yok ise (hepsi degisik), normalize edilmis $v_i$ vektorleri 
+ortonormal bir set olustururlar, $||v||=1,v_i^Tv_i=1,v_j^Tv_i=0$ demektir.
 
-Farzedelim ki bu matrisin tum ozvektorleri bir ``ozbaz (eigenbasis)''
-olusturuyor ve bu baz ile $\mathbb{R}^n$'deki herhangi bir vektoru temsil
-edebiliyoruz. Yine farzedelim ki $|\lambda_1| > |\lambda_2| > .. >
-|\lambda_n| $. Biz bu yazida $\lambda_1$'e 
-baskin (dominant) ozdeger diyecegiz.
-
-Simdi herhangi bir $v_0 \in \mathbb{R}^n$'i alalim. Usttekiler isiginda
-$\mu_1,..,\mu_n$ olarak katsayilar olmalidir, ki 
+Diyelim ki $|\lambda_1| > |\lambda_2| > .. >
+|\lambda_n| $, bu yazida $\lambda_1$'e  baskin 
+(dominant) ozdeger diyecegiz. Simdi Herhangi bir $v_0 \in \mathbb{R}^n$'i
+alalim.  Usttekiler isiginda $\mu_1,..,\mu_n$ olarak oyle katsayilar olmalidir ki 
 
 $$ v_o = \mu_1v_1 + .. + \mu_nv_n 
 $$
@@ -521,7 +521,7 @@ Ornek olarak alttaki $A$'yi alalim, baslangic olarak $v_0 = [1 \ 1]$
 
 \begin{minted}[fontsize=\footnotesize]{python}
 v0 = np.array([1.,1.])
-A = np.array([[13., 5], [2,4]])
+A = np.array([[13., 5.], [2., 4.]])
 for i in range(20): 
     v0 = np.dot(A,v0)
 print 'v0 =',v0
@@ -537,11 +537,15 @@ normalizasyondur),
 
 \begin{minted}[fontsize=\footnotesize]{python}
 v1 = v0 / np.max(v0)
-print 'v1 =', v1
+v1 = v1.reshape((2,1))
+print 'v1 ='
+print v1
 \end{minted}
 
 \begin{verbatim}
-v1 = [ 1.   0.2]
+v1 =
+[[ 1. ]
+ [ 0.2]]
 \end{verbatim}
 
 Kontrol edelim,
@@ -549,10 +553,12 @@ Kontrol edelim,
 \begin{minted}[fontsize=\footnotesize]{python}
 import numpy.linalg as lin
 U,D = lin.eig(A)
+print U
 print D
 \end{minted}
 
 \begin{verbatim}
+[ 14.   3.]
 [[ 0.98058068 -0.4472136 ]
  [ 0.19611614  0.89442719]]
 \end{verbatim}
@@ -560,10 +566,103 @@ print D
 Birinci kolona oldukca yakin bir deger elde ettik, ki en buyuk ozdegere
 tekabul eden ozvektor orada.
 
+Peki ozdegerin kendisini nasil buluruz? Rayleigh Bolumu (Rayleigh Quotient) 
+formulunu kullanabiliriz. Bu formul, eger $x$ bir ozvektor ise
+
+$$ \lambda = \frac{x^TAx}{x^Tx} $$
+
+Turetelim,
+
+$$ Ax = \lambda x  $$
+
+$$ x^TAx = x^T\lambda x $$
+
+$\lambda$ bir tek sayi olduguna gore sag taraftan $x^Tx$'i alip, solda bolum
+yapabiliriz, ve Rayleigh formulune erisiriz.
+
+$$ x^TAx / x^Tx = \lambda $$
+
+1. ozdegeri hesaplayalim o zaman,
+
+\begin{minted}[fontsize=\footnotesize]{python}
+print np.dot(np.dot(v1.T,A),v1) / np.dot(v1.T,v1)
+\end{minted}
+
+\begin{verbatim}
+[[ 14.]]
+\end{verbatim}
+
+Tum Ozvektorler
+
+En buyuk ozdegeri bulmanin yolunu gorduk. Diger ozvektorleri nasil buluruz?
+Bunun yontemlerinden birisi en buyuk ozdeger $\lambda_1$'i bulduktan sonra
+onu bir islem sonrasi en kucuk haline getirmek, ve Ust Metotu tekrar
+kullanarak (artik en buyuk olan) $\lambda_2$'yi bulmak. $\lambda_1$'i en
+kucuk haline getirmek, ozdeger/vektoru ana matris $A$'dan cikartmak, onu
+``deflasyon islemine tabi tutmak'' (deflation) olarak
+biliniyor. Cikartacagimiz deger  $\lambda_1u_1u_1^T$ olacak. Ispati
+soyle gosterelim (normalize edilmis $v_i$ ozvektorleri simdi $u_i$ olarak
+gosteriyoruz), 
+
+$$ (A-\lambda_1u_1u_1^T)u_j = Au_j-\lambda_1u_1u_1^Tu_1u_j = 
+\lambda_ju_j - \lambda_1u_1(u_1^Tu_j)
+$$
+
+Eger $j=1$ ise
+
+$$  (A-\lambda_1u_1u_1^T)u_1 = \lambda_1u_1 - \lambda_1u_1(u_1^Tu_1) = 0u_j$$
+
+Eger $j \ne 1$ ise
+
+$$ (A-\lambda_1u_1u_1^T)u_j = \lambda_ju_j - \lambda_1u_1(u_1^Tu_j) = \lambda_ju_j  $$
+
+Yani $(A-\lambda_1u_1u_1^T)$'nin ozvektorleri $A$ ile aynidir, tek farki en
+buyuk olani 0 haline gelmistir, ama $j \ne 1$ icin, yani diger tum
+ozvektorleri aynidir. O zaman deflasyon isleminden sonra ele gecen yeni
+matris uzerinde Ust Metotu tekrar kullanirsak artik en buyuk olan $u_2$'yi
+buluruz, sonra deflasyonu tekrarlariz, bir daha Ust Metot isletiriz, bu
+boyle devam eder. 
+
+\begin{minted}[fontsize=\footnotesize]{python}
+lam1 = 14.
+v0 = np.array([1.,1.])
+B = A - np.dot(v1,v1.T)*lam1
+print 'B'
+print B
+for i in range(20): 
+    v0 = np.dot(B,v0)
+v2 = v0 / np.max(v0)
+v2 = v2.reshape((2,1))
+print 'v2'
+print v2
+\end{minted}
+
+\begin{verbatim}
+B
+[[-1.    2.2 ]
+ [-0.8   3.44]]
+v2
+[[ 0.55]
+ [ 1.  ]]
+\end{verbatim}
+
+Rayleigh Bolumu ile ikinci ozdegeri bulalim,
+
+\begin{minted}[fontsize=\footnotesize]{python}
+print np.dot(np.dot(v2.T,B),v2) / np.dot(v2.T,v2)
+\end{minted}
+
+\begin{verbatim}
+[[ 3.]]
+\end{verbatim}
+
+
 Kaynaklar
 
 [1] \url{http://www.math.mcgill.ca/feys/documents/tutnotesR18.pdf}
 
 [2] \url{http://www.math.ualberta.ca/~ewoolgar/labs/linalg/Lab15.pdf}
+
+[3] \url{http://www.robots.ox.ac.uk/~sjrob/Teaching/EngComp/ecl4.pdf}
 
 \end{document}
