@@ -2,15 +2,15 @@
 \begin{document}
 Temel Bileþen Analizi (Principal Component Analysis -PCA-)
 
-PCA yontemi boyut azaltan yontemlerden biridir, takip edilmeden
-(unsupervised) isleyebilir. Ana fikir veri noktalarinin izdusumunun
-yapilacagi yonler bulmaktir ki bu yonler baglaminda (izdusum sonrasi)
-noktalarin arasindaki varyans (variance) en fazla olsun, yani noktalar
-en "yaygin" sekilde bulunsunlar. Boylece birbirinden daha uzaklasan
-noktalarin mesela daha rahat kumelenebilecegini umabiliriz.  Yani bir
-diger amac hangi degiskenlerin varyansinin daha fazla olmasinin
-gorulmesi uzerine, o degiskenlerin daha onemli olabileceginin
-anlasilmasi. Ornek olarak alttaki grafige bakalim,
+PCA yontemi boyut azaltan yontemlerden biri, takip edilmeden (unsupervised)
+isleyebilir. Ana fikir veri noktalarinin izdusumunun yapilacagi yonler
+bulmaktir ki bu yonler baglaminda (izdusum sonrasi) noktalarin arasindaki
+varyans (variance) en fazla olsun, yani noktalar grafik baglaminda
+dusunursek en "yayilmis" sekilde bulunsunlar. Boylece birbirinden daha
+uzaklasan noktalarin mesela daha rahat kumelenebilecegini umabiliriz.  Bir
+diger amac, hangi degiskenlerin varyansinin daha fazla oldugunun gorulmesi
+uzerine, o degiskenlerin daha onemli olabileceginin anlasilmasi. Ornek
+olarak alttaki grafige bakalim,
 
 \begin{minted}[fontsize=\footnotesize]{python}
 from pandas import *
@@ -56,10 +56,9 @@ noktalar verideki 1. ve 4. siradaki noktalar),
 
 \includegraphics[height=4cm]{proj1.png}
 
-gibi bir goruntuden bahsediyoruz. Hayali bir $w$ kullandik, ve
-noktalardan biri veri noktasi, $w$ uzerine izdusum yapilarak yeni bir
-vektoru / noktayi ortaya cikartiyor. Genel olarak ifade edersek, bir
-nokta icin
+gibi bir goruntuden bahsediyoruz. Hayali bir $w$ kullandik, ve noktalardan
+biri veri noktasi, $w$ uzerine izdusum yapilarak yeni bir vektoru / noktayi
+ortaya cikartiliyor. Genel olarak ifade edersek, bir nokta icin
 
 $$z = w^T x$$
 
@@ -83,29 +82,28 @@ $$ E[w^Tx] = w^T E[x] = w^T \mu $$
 $$ Var(w^Tx)  = w^T Var(x) w = w^T \Sigma w$$
 
 Ustteki sonuclarin boyutlarina dikkat: $w^T \mu$ durumunda $1 \times N
-\cdot N \times 1 = 1 \times 1$ , $w^T \Sigma w$ durumunda ise $1
-\times N \cdot N \times N \cdot N \times 1 = 1 \times 1$.  Iki durumda
-da tek boyutlu skalar degerler elde ettik. Demek ki $w^T$ ile carpim
-sonrasi bir $N(w^T\mu,w^T\Sigma w)$ dagilimi elde ederiz ve bu dagilim
-bir tek boyutlu bir dagilimdir. Yani $w$ yonundeki izdusum bize tek
-boyutlu bir Gaussian dagilimini verecektir. Bu sonuc aslinda cok
-sasirtici olmasa gerek, tum veri noktalarini alip, baslangici orijin
-noktasinda olan vektorlere cevirip ayni yone isaret edecek sekilde
-duzenliyoruz, bu vektorleri tekrar nokta olarak dusunursek, tabii ki
-ayni yonu gosteriyorlar, bilahere ayni cizgi uzerindeki noktalara
-donusuyorlar. Ayni cizgi uzerinde olmak ne demek? Tek boyuta inmis
-olmak demek.
+\cdot N \times 1 = 1 \times 1$ , $w^T \Sigma w$ durumunda ise $1 \times N
+\cdot N \times N \cdot N \times 1 = 1 \times 1$.  Iki durumda da tek
+boyutlu skalar degerler elde ettik. Demek ki $w^T$ ile carpim sonrasi bir
+$N(w^T\mu,w^T\Sigma w)$ dagilimi elde ederiz ve bu dagilim bir tek boyutlu
+bir dagilimdir. Yani $w$ yonundeki izdusum bize tek boyutlu bir Gaussian
+dagilimini verecektir. Bu sonuc aslinda cok sasirtici olmasa gerek, tum
+veri noktalarini alip, baslangici basnokta 0,0 (origin) noktasinda olan
+vektorlere cevirip ayni yone isaret edecek sekilde duzenliyoruz, bu
+vektorleri tekrar nokta olarak dusunursek, tabii ki ayni yonu
+gosteriyorlar, bilahere ayni cizgi uzerindeki noktalara donusuyorlar. Ayni
+cizgi uzerinde olmak ne demek? Tek boyuta inmis olmak demek.
 
 Bastaki amacimiza donersek, $Var(z_1)$'i maksimize etmek ayni anda
 $Var(w_1^T\Sigma w_1)$'i maksimize etmek demektir.
 
-Ufak bir sorun $w_1^T\Sigma w_1$'i surekli daha buyuk $w_1$'lerle
-sonsuz kadar buyutebilirsiniz. Bize ek bir kisitlama sarti daha lazim,
-bu sart $||w|| = 1$ olabilir, yani $w$'nin norm'u 1'den daha buyuk
-olmasin. Boylece optimizasyon $w$'nin buyuklugu uzerinde taklalar
-atmayacak, sadece yon bulmak ile ilgilenecek, iyi, zaten biz $w$'nin
-yonu ile ilgileniyoruz. Aradigimiz ifadeyi yazalim, ve ek siniri
-Lagrange ifadesi olarak ekleyelim, ve yeni bir $L$ ortaya cikartalim,
+Ufak bir sorun $w_1^T\Sigma w_1$'i surekli daha buyuk $w_1$'lerle sonsuz
+kadar buyutebilirsiniz. Bize ek bir kisitlama sarti daha lazim, bu sart
+$||w|| = 1$ olabilir, yani $w$'nin norm'u 1'den daha buyuk olmasin. Boylece
+optimizasyon $w$'yi surekli buyute buyute maksimizasyon yapmayacak, sadece
+yon bulmak ile ilgilenecek, iyi, zaten biz $w$'nin yonu ile
+ilgileniyoruz. Aradigimiz ifadeyi yazalim, ve ek siniri Lagrange ifadesi
+olarak ekleyelim, ve yeni bir $L$ ortaya cikartalim,
 
 $$ L(w_1,\lambda) =  w_1^T \Sigma w_1  - \lambda(w_1^T w_1 - 1) $$
 
