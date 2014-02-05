@@ -1,8 +1,120 @@
 \documentclass[12pt,fleqn]{article}\usepackage{../common}
 \begin{document}
+Giris
+
 Bu notlar makine ogrenimi, veri madenciligi gibi konularda gerekli olasilik
 ve istatistik bilgisini paylasmak icin hazirlaniyor. Notlarda olasilik ve
 istatistik ayni anda anlatilacak, ve uygulamalara agirlik verilecek. 
+
+Daðýlýmlar Hakkýnda
+
+Doðadan yapýlan çoðu ölçümlerin, sýklýk grafiðini alýnca sonucun
+aþaðýda gibi çýkmasi ilginctir.
+
+\includegraphics[height=4cm]{norm.png}
+
+Mesela, Türkiye'deki 2000 yetiþkinin kilosunu ölçün. Grafiðini alýn,
+kesinlikle yukarýdaki tepe þekli çýkacak. Ya da, 1000 kiþinin boyunu ölçün,
+ayný tepe þekli. Keskin niþancýnýn hedefe attýðý kurþunlarýn hedefe
+geliþini en iyi 12 en kötü 1 olmak üzere ölçün, sýklýk grafiðini alýn. Gene
+ayný tepe þekli!
+
+Nasýl oluyor bu iþ?
+
+Açýklama için, normal daðýlým eðrisinden bahsetmemiz gerekecek.
+
+Not olarak düþelim: Sýklýk grafiði, X sayýsýnýn ne kadar çýktýðýný sayýp, Y
+ekseni üzerinde bu sayýyý X'e tekabül ederek kolon olarak göstermeye
+denir. Mesela, 60 kilo deðeri 13 kere çýktý ise, X=60, Y=13 gibi bir kolon
+çizilecektir.
+
+Normal Daðýlým Eðrisi
+
+Normal daðýlýmýn olasýlýk kavramý ile yakýn baðlarý var. Bu konuda ünlü bir
+deney zar atma deneyidir. Mesela, elimizde tek bir zar olsun, ve bu zarý
+arka arkaya atalým. Sabrýmýz yeterse 1000 kere atalým. Sonuçta, sýklýk
+grafiði eþit bir daðýlým gösterecektir. (Zar tutmuyorsanýz :) )
+
+Bunun sebeplerini anlamak zor deðil. Her zar atýþ olayý birbirinden
+baðýmsýz, ve her sayýnýn üstte gelme ihtimali birbirine eþit olduðu için
+(1/6), her sayýdan eþit miktarda gelecektir. Tabii bunun için deneyin
+birçok kere tekrarlanmasý gerekiyor.
+
+Fakat, bir yerine 2 zar atalým. Hatta hatta, 4 zar atalým, ve bu sefer
+sýklýk grafik hanesine yazmadan çýkan sayýlarý önce toplayalým. Bu çýkan
+toplamýn sýklýk grafiðini alalým.
+
+Ýþte bu sýklýk grafiði göreceðiz ki, önceden bahsettiðimiz tepe grafiðine
+yaklaþýyor. Ne kadar çok zar atarsanýz, bu benzerlik o kadar daha fazla
+olacaktýr.
+
+Bunun sebebi de aslýnda basit: 1..6 arasý sayýlarýn tek bir zardan gelme
+olasýlýðý ayný, evet. Fakat toplamlara gelince, mesela iki zarlý örnekte,
+10 sayýsýnýn olasýlýðý 2 sayýsýndan daha yüksek. Çünkü, 10 sayýsýný 5-5,
+4-6 ya da 6-4 ile alabiliyoruz. 2 sayýsý sadece 1-1 ile geliyor.
+
+Buradan þu sonuç cýkabilir: Eðer doðada ölçtüðümüz bir kavramýn oluþmasýnda
+birden fazla etken var ise, o ölçümlerin sýklýðý her zaman tepe þekli ile
+olacaktýr.
+
+Fakat, daha da gizemli olan bir olay þudur; Sabit olan bir þeyi
+ölçtüðümüzde (yaptýðýmýz hatalar sonucu) çýkan grafiðin bile tepe þekilli
+olmasý! Yani, doðru dürüst hata yapmak bile elimizde deðil gibi
+gözüküyor... Bunun tabii ki olasýlýk açýklamalarý olacaktýr. Ýzlediðimiz
+matematikçilerden bu en son konuda net bir açýklama alamadýk.
+
+Simulasyon
+
+Eðer bu kavramlarý simulasyon ortamýnda göstermek istersek, Python ile
+bunu yapabiliriz.
+
+Ýlk önce, Random.org sitesinden rasgele sayý üretip bilgiyarýmýza
+kopyalacaðýz. Bahsettiðimiz site, kimsenin kullanmadýðý radyo kanallarýndan
+atmosfer gürültüsü dinleyip, bu gürültüleri sayýsal deðere çevirerek
+rasgele sayý üretiyor.
+
+Gerçek rasgele sayý üretmek pek kolay bir iþ deðil. Her ne kadar
+bilgisayarýnýzda rasgele sayý üreten birçok algoritma olsa bile, bu
+algoritmalar belli bir sayý üretiminden sonra kendini tekrar etmeye
+baþlýyorlar. Gerçek rasgele sayýlar için muhakkak dýþ bir kaynaða baðlanmak
+gerekiyor.
+
+Gösterimiz için, rasgele sayýlarý üretip, bir dat dosyasýna
+koyuyoruz. Python ile bu sayýlarý okuyup, ilk önce teker teker
+sayýlarýn sýklýk grafiðini, ondan sonra sayýlarý üçer üçer toplayýp,
+onlarýn grafiðini alýp göstereceðiz. Aþâðýda bu iki grafiði
+bulabilirsiniz.
+
+\begin{minted}[fontsize=\footnotesize]{python}
+A = loadtxt('rasgele.dat')
+plt.hist(A, 50)
+plt.savefig('dagilim_1.png')
+\end{minted}
+
+\includegraphics[height=6cm]{dagilim_1.png}
+
+\begin{minted}[fontsize=\footnotesize]{python}
+A = loadtxt('rasgele.dat');
+B = []
+
+i = 1;
+
+while (i < 998):
+  toplam = 0
+  s = A[i]
+  toplam = toplam + s
+  s = A[i+1]
+  toplam = toplam + s
+  s = A[i+2]
+  toplam = toplam + s
+  B.append(toplam/3)
+  i = i + 3
+
+plt.hist(B, 50);
+plt.savefig('dagilim_2.png')
+\end{minted}
+
+\includegraphics[height=6cm]{dagilim_2.png}
 
 Orneklem Uzayi (Sample Space)
 
@@ -262,116 +374,6 @@ rutinlere sahiptir. Tum istatistik kitaplarinda $\Phi(z)$'nin belli
 degerlerini tasiyan bir tablo vardir. Ders notlarimizin sonunda da benzer
 bir tabloyu bulabilirsiniz.
 
-
-Daðýlýmlar Hakkýnda
-
-Doðadan yapýlan çoðu ölçümlerin, sýklýk grafiðini alýnca sonucun
-aþaðýda gibi çýkmasi ilginctir.
-
-\includegraphics[height=4cm]{norm.png}
-
-Mesela, Türkiye'deki 2000 yetiþkinin kilosunu ölçün. Grafiðini alýn,
-kesinlikle yukarýdaki tepe þekli çýkacak. Ya da, 1000 kiþinin boyunu ölçün,
-ayný tepe þekli. Keskin niþancýnýn hedefe attýðý kurþunlarýn hedefe
-geliþini en iyi 12 en kötü 1 olmak üzere ölçün, sýklýk grafiðini alýn. Gene
-ayný tepe þekli!
-
-Nasýl oluyor bu iþ?
-
-Açýklama için, normal daðýlým eðrisinden bahsetmemiz gerekecek.
-
-Not olarak düþelim: Sýklýk grafiði, X sayýsýnýn ne kadar çýktýðýný sayýp, Y
-ekseni üzerinde bu sayýyý X'e tekabül ederek kolon olarak göstermeye
-denir. Mesela, 60 kilo deðeri 13 kere çýktý ise, X=60, Y=13 gibi bir kolon
-çizilecektir.
-
-Normal Daðýlým Eðrisi
-
-Normal daðýlýmýn olasýlýk kavramý ile yakýn baðlarý var. Bu konuda ünlü bir
-deney zar atma deneyidir. Mesela, elimizde tek bir zar olsun, ve bu zarý
-arka arkaya atalým. Sabrýmýz yeterse 1000 kere atalým. Sonuçta, sýklýk
-grafiði eþit bir daðýlým gösterecektir. (Zar tutmuyorsanýz :) )
-
-Bunun sebeplerini anlamak zor deðil. Her zar atýþ olayý birbirinden
-baðýmsýz, ve her sayýnýn üstte gelme ihtimali birbirine eþit olduðu için
-(1/6), her sayýdan eþit miktarda gelecektir. Tabii bunun için deneyin
-birçok kere tekrarlanmasý gerekiyor.
-
-Fakat, bir yerine 2 zar atalým. Hatta hatta, 4 zar atalým, ve bu sefer
-sýklýk grafik hanesine yazmadan çýkan sayýlarý önce toplayalým. Bu çýkan
-toplamýn sýklýk grafiðini alalým.
-
-Ýþte bu sýklýk grafiði göreceðiz ki, önceden bahsettiðimiz tepe grafiðine
-yaklaþýyor. Ne kadar çok zar atarsanýz, bu benzerlik o kadar daha fazla
-olacaktýr.
-
-Bunun sebebi de aslýnda basit: 1..6 arasý sayýlarýn tek bir zardan gelme
-olasýlýðý ayný, evet. Fakat toplamlara gelince, mesela iki zarlý örnekte,
-10 sayýsýnýn olasýlýðý 2 sayýsýndan daha yüksek. Çünkü, 10 sayýsýný 5-5,
-4-6 ya da 6-4 ile alabiliyoruz. 2 sayýsý sadece 1-1 ile geliyor.
-
-Buradan þu sonuç cýkabilir: Eðer doðada ölçtüðümüz bir kavramýn oluþmasýnda
-birden fazla etken var ise, o ölçümlerin sýklýðý her zaman tepe þekli ile
-olacaktýr.
-
-Fakat, daha da gizemli olan bir olay þudur; Sabit olan bir þeyi
-ölçtüðümüzde (yaptýðýmýz hatalar sonucu) çýkan grafiðin bile tepe þekilli
-olmasý! Yani, doðru dürüst hata yapmak bile elimizde deðil gibi
-gözüküyor... Bunun tabii ki olasýlýk açýklamalarý olacaktýr. Ýzlediðimiz
-matematikçilerden bu en son konuda net bir açýklama alamadýk.
-
-Simulasyon
-
-Eðer bu kavramlarý simulasyon ortamýnda göstermek istersek, Python ile
-bunu yapabiliriz.
-
-Ýlk önce, Random.org sitesinden rasgele sayý üretip bilgiyarýmýza
-kopyalacaðýz. Bahsettiðimiz site, kimsenin kullanmadýðý radyo kanallarýndan
-atmosfer gürültüsü dinleyip, bu gürültüleri sayýsal deðere çevirerek
-rasgele sayý üretiyor.
-
-Gerçek rasgele sayý üretmek pek kolay bir iþ deðil. Her ne kadar
-bilgisayarýnýzda rasgele sayý üreten birçok algoritma olsa bile, bu
-algoritmalar belli bir sayý üretiminden sonra kendini tekrar etmeye
-baþlýyorlar. Gerçek rasgele sayýlar için muhakkak dýþ bir kaynaða baðlanmak
-gerekiyor.
-
-Gösterimiz için, rasgele sayýlarý üretip, bir dat dosyasýna
-koyuyoruz. Python ile bu sayýlarý okuyup, ilk önce teker teker
-sayýlarýn sýklýk grafiðini, ondan sonra sayýlarý üçer üçer toplayýp,
-onlarýn grafiðini alýp göstereceðiz. Aþâðýda bu iki grafiði
-bulabilirsiniz.
-
-\begin{minted}[fontsize=\footnotesize]{python}
-A = loadtxt('rasgele.dat')
-plt.hist(A, 50)
-plt.savefig('dagilim_1.png')
-\end{minted}
-
-\includegraphics[height=6cm]{dagilim_1.png}
-
-\begin{minted}[fontsize=\footnotesize]{python}
-A = loadtxt('rasgele.dat');
-B = []
-
-i = 1;
-
-while (i < 998):
-  toplam = 0
-  s = A[i]
-  toplam = toplam + s
-  s = A[i+1]
-  toplam = toplam + s
-  s = A[i+2]
-  toplam = toplam + s
-  B.append(toplam/3)
-  i = i + 3
-
-plt.hist(B, 50);
-plt.savefig('dagilim_2.png')
-\end{minted}
-
-\includegraphics[height=6cm]{dagilim_2.png}
 
 Ornek 
 
@@ -1945,257 +1947,6 @@ freedom) bir Student's t Dagilimidir.
 
 [TBD - Ispat]
 
-Hipotez Testleri (Hypothesis Testing)
-
-Hipotez testi (bir veriye dayanarak) farzedilen bir parametreyi bir
-sabit degerle karsilastirmak, ya da iki parametreyi birbiriyle
-karsilastirmak icin kullanilir. 
-
-Bir hipotez testi, sonucta sadece iki cevap verebilecek bir sorudur;
-bu sonuclar "reddetmek" ya da "reddetmemek" olabilir. Dikkat: bu
-sonuclardan biri "kabul etmek" degil, bir istatistiki hipotezi kabul
-etmek mumkun degildir. Tek soyleyebildigimiz "bir hipotezi reddetmek
-icin elimizde yeterli veri olmadigini" soylemektir. Ama
-reddedebiliyorsak, bu sonucta daha bir kesinlik vardir. 
-
-Tek Orneklem t Testi (One-sample t test)
-
-Bu test verinin Normal dagilimdan geldigini farzeder, tek orneklem
-durumunda elde $x_1,...,x_n$ verisi vardir, ve bu veri $N(\mu,\Sigma)$
-dagilimindan gelmistir ve test etmek istedigimiz hipotez /
-karsilastirma $\mu = \mu_0$. 
-
-\begin{minted}[fontsize=\footnotesize]{python}
-from scipy.stats import ttest_1samp, wilcoxon, ttest_ind
-import pandas as pd
-daily_intake = np.array([5260,5470,5640,6180,6390,6515, 6805,7515,7515,8230,8770])
-df = pd.DataFrame(daily_intake)
-print df.describe()
-\end{minted}
-
-\begin{verbatim}
-                 0
-count    11.000000
-mean   6753.636364
-std    1142.123222
-min    5260.000000
-25%    5910.000000
-50%    6515.000000
-75%    7515.000000
-max    8770.000000
-\end{verbatim}
-
-\begin{minted}[fontsize=\footnotesize]{python}
-t_statistic, p_value = ttest_1samp(daily_intake, 7725)
-print "one-sample t-test", p_value
-\end{minted}
-
-\begin{verbatim}
-one-sample t-test 0.0181372351761
-\end{verbatim}
-
-Sonuc \verb!p_value! \verb!0.05!'ten kucuk cikti yani
-yuzde 5 onemliligini (significance) baz aldik bu durumda veri
-hipotezden onemli derecede (significantly) uzakta. Demek ki
-ortalamanin 7725 oldugu hipotezini reddetmemiz gerekiyor.
-
-Testi iki orneklemli kullanalim, gruplar 0/1 degerleri ile
-isaretlendi, ve test etmek istedigimiz iki grubun ortalamasinin (mean)
-ayni oldugu hipotezini test etmek. t-test bu arada varyansin ayni
-oldugunu farzeder.
-
-\begin{minted}[fontsize=\footnotesize]{python}
-energ = np.array([
-[9.21, 0],
-[7.53, 1],
-[7.48, 1],
-[8.08, 1],
-[8.09, 1],
-[10.15, 1],
-[8.40, 1],
-[10.88, 1],
-[6.13, 1],
-[7.90, 1],
-[11.51, 0],
-[12.79, 0],
-[7.05, 1],
-[11.85, 0],
-[9.97, 0],
-[7.48, 1],
-[8.79, 0],
-[9.69, 0],
-[9.68, 0],
-[7.58, 1],
-[9.19, 0],
-[8.11, 1]])
-group1 = energ[energ[:, 1] == 0][:, 0]
-group2 = energ[energ[:, 1] == 1][:, 0]
-t_statistic, p_value = ttest_ind(group1, group2)
-print "two-sample t-test", p_value
-\end{minted}
-
-\begin{verbatim}
-two-sample t-test 0.00079899821117
-\end{verbatim}
-
-$p-value < 0.05$ yani iki grubun ortalamasi ayni degildir. Ayni oldugu
-hipotezi reddedildi.
-
-Eslemeli t-Test (Paired t-test)
-
-Eslemeli testler ayni deneysel birimin olcumu alindigi zaman
-kullanilabilir, yani olcum alinan ayni grupta, deney sonrasi deneyin
-etki edip etmedigi test edilebilir. Bunun icin ayni olcum deney
-sonrasi bir daha alinir ve "farklarin ortalamasinin sifir oldugu"
-hipotezi test edilebilir. Altta bir grup hastanin deney oncesi ve
-sonrasi ne kadar yiyecek tukettigi listelenmis. 
-
-\begin{minted}[fontsize=\footnotesize]{python}
-intake = np.array([
-[5260, 3910],
-[5470, 4220],
-[5640, 3885],
-[6180, 5160],
-[6390, 5645],
-[6515, 4680],
-[6805, 5265],
-[7515, 5975],
-[7515, 6790],
-[8230, 6900],
-[8770, 7335],
-])
-pre = intake[:, 0]
-post = intake[:, 1]
-t_statistic, p_value = ttest_1samp(post - pre, 0)
-print "paired t-test", p_value
-\end{minted}
-
-\begin{verbatim}
-paired t-test 3.05902094293e-07
-\end{verbatim}
-
-Wilcoxon isaretli-sirali testi (Wilcoxon signed-rank test)
-
-t Testleri Normal dagilima gore sapmalari yakalamak acisindan,
-ozellikle buyuk orneklemler var ise, oldukca saglamdir. Fakat bazen
-verinin Normal dagilimdan geldigi faraziyesini yapmak istemeyebiliriz.
-Bu durumda {\em dagilimdan bagimsiz metotlar} daha uygundur, bu tur
-metotlar icin verinin yerine cogunlukla onun sira istatistiklerini
-(order statistics) kullanir.
-
-Tek orneklemli Wilcoxon testi icin prosedur $\mu_0$'i tum veriden
-cikartmak ve geri kalan (farklari) isaretine bakmadan numerik degerine
-gore siralamak, ve bu sira degerini bir kenara yazmak. Daha sonra geri
-donup bu sefer cikartma islemi sonucunun isaretine bakmak, ve eksi
-isareti tasiyan sira degerlerini toplamak, ayni islemi arti isareti
-icin yapmak, ve eksi toplami arti toplamindan cikartmak. Sonucta
-elimize bir istatistik $W$ gelecek. Bu test istatistigi aslinda $1..n$
-tane sayi icinden herhangi birini $1/2$ olasiligiyla secmek, ve
-sonuclari toplamaya tekabul etmektedir. Ve bu sonuc yine \verb!0.05!
-ile karsilastirilir.
-
-\begin{minted}[fontsize=\footnotesize]{python}
-z_statistic, p_value = wilcoxon(daily_intake - 7725)
-print "one-sample wilcoxon-test", p_value
-\end{minted}
-
-\begin{verbatim}
-one-sample wilcoxon-test 0.0279991628713
-\end{verbatim}
-
-Hipotezi yine reddettik.
-
-Ustte yaptigimiz eslemeli t-testi simdi Wilcoxon testi ile yapalim,
-
-\begin{minted}[fontsize=\footnotesize]{python}
-z_statistic, p_value = wilcoxon(post - pre)
-print "paired wilcoxon-test", p_value
-\end{minted}
-
-\begin{verbatim}
-paired wilcoxon-test 0.00463608893545
-\end{verbatim}
-
-Binom Testi
-
-Binom dagilimi belli sayida "deney" icinde her seferinde $p$ olasiligi
-tasiyan iki kategorili bir olaydan {\em kac tane} olabilecegini
-modeller. Dagilim
-
-$$
-P(K = k) = \left( \begin{array}{ccc}
-n \\ k
-\end{array} \right)
-p^k q^{n-k}
-$$
-
-olarak belirtilir, ki $q = 1-p$ degeridir. Bu dagilimin $n>20$, yani
-"yeterince buyuk" degerleri icin Normal (Gaussian) Dagilima yaklastigi
-/ onun gibi oldugu bilinmektedir. Bu yaklasilan dagilim ortalamasi
-$np$ ve standart sapmasi $\sqrt{npq}$ olan bir Normal dagilim olacaktir, yani
-$N(np,\sqrt{npq})$.
-
-Devam edelim, madem elimizde bir normal dagilim var, bu normal dagilimi diger
-her normal dagilim gibi standardize edebiliriz,
-
-$$
-Z = \frac{ K - np}{\sqrt{npq}} \sim N_{0,1}
-$$
-
-Burada rasgele degisken $K$, yani her binom deneyi ardindan ele
-gececek basari sayisi burada. Binom testi icin test etmek istedigimiz
-sey budur.  O zaman $p$ yerine test ettigimiz ana binom dagilimindan
-gelen ana orani $\hat{p}$ kullaniriz, ki bu basari / tum deney sayisi
-olarak hesaplanir, $K$ yeni deneydeki ele gecen basari sayisidir, n
-ornekleminin buyuklugudur, bu sayilari yerine koyarak $Z$ dagilimindan
-bir guven rakami (confidence) elde edebiliriz.
-
-Bir ornek uzerinde gorelim: diyelim ki elimizde bir Web sitesinin
-gunluk ziyaret, tiklama sayilarini gosteren bir veri seti var (CVR
-ziyaretcilerin, sitedeki tiklayan musteriye "cevirme' orani,
--conversion-)
-
-\begin{minted}[fontsize=\footnotesize]{python}
-import pandas as pd
-from scipy import stats
-a = pd.DataFrame({'tiklama': [20.,2.,40.,5.,10.,100.],
-                  'ziyaret': [100.,10.,300.,400.,30.,800.]})
-a['cvr'] = a['tiklama'] / a['ziyaret'] 
-print a
-\end{minted}
-
-\begin{verbatim}
-   tiklama  ziyaret       cvr
-0       20      100  0.200000
-1        2       10  0.200000
-2       40      300  0.133333
-3        5      400  0.012500
-4       10       30  0.333333
-5      100      800  0.125000
-\end{verbatim}
-
-Diyelim ki bu veri seti icin cvr'in 0.16, yani yuzde 16 oldugunu
-onceden biliyoruz. Ustteki basari orani binom dagili ile
-modellenebilir, ziyaretler "deneylerdir", yani orneklem buyuklugunu
-gosterirler. Tiklama ise basaridir,
-
-\begin{minted}[fontsize=\footnotesize]{python}
-p_hat = 0.16
-btest = lambda x: (x['cvr']-p_hat) / np.sqrt( p_hat*(1-p_hat)/x['ziyaret'])
-a['guven'] = a.apply(btest, axis=1)
-a['guven'] = np.round(stats.zprob(a['guven'])*100,2)
-print a
-\end{minted}
-
-\begin{verbatim}
-   tiklama  ziyaret       cvr  guven
-0       20      100  0.200000  86.24
-1        2       10  0.200000  63.50
-2       40      300  0.133333  10.39
-3        5      400  0.012500   0.00
-4       10       30  0.333333  99.52
-5      100      800  0.125000   0.35
-\end{verbatim}
 
 Büyük Sayýlar Kanunu
 
@@ -2376,10 +2127,6 @@ Kaynaklar
 
 [3] Introduction to Probability Models, Sheldon Ross, 8th Edition, sf. 273
 
-\verb!https://gist.github.com/mblondel/1761714!
 
-Introductory Statistics with R
-
-Introduction to Probability and Statistics Using R
 
 \end{document}
