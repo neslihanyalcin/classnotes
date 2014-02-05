@@ -1,0 +1,2385 @@
+\documentclass[12pt,fleqn]{article}\usepackage{../common}
+\begin{document}
+Bu notlar makine ogrenimi, veri madenciligi gibi konularda gerekli olasilik
+ve istatistik bilgisini paylasmak icin hazirlaniyor. Notlarda olasilik ve
+istatistik ayni anda anlatilacak, ve uygulamalara agirlik verilecek. 
+
+Orneklem Uzayi (Sample Space)
+
+Orneklem uzayi $\Omega$ bir deneyin mumkun tum olasiliksal sonuclarin
+(outcome) kumesidir. Eger deneyimiz ardi ardina iki kere yazi (T) tura (H)
+atip sonucu kaydetmek ise, bu deneyin mumkun tum sonuclari soyledir
+
+\[\Omega = \{HH,HT,TH,TT\} \]
+
+Sonuclar ve Olaylar (Outcomes and Events)
+
+$\Omega$ icindeki her nokta bir sonuctur (outcome). Olaylar $\Omega$'nin
+herhangi bir alt kumesidir ve sonuclardan olusurlar. Mesela ustteki
+yazi-tura deneyinde ``iki atisin icinden ilk atisin her zaman H gelmesi
+olayi'' boyle bir alt kumedir, bu olaya $A$ diyelim, $A =
+\{HH,HT\}$.
+
+Ya da bir deneyin sonucu $\omega$ fiziksel bir olcum , diyelin ki sicaklik
+olcumu. Sicaklik $\pm$, reel bir sayi olduguna gore, $\Omega = (-\infty,
++\infty)$, ve
+sicaklik olcumunun 10'dan buyuk ama 23'ten kucuk ya da esit
+olma ``olayi'' $A = (10,23]$. Koseli parantez kullanildi cunku sinir
+degerini dahil ediyoruz. 
+
+Ornek 
+
+10 kere yazi-tura at. $A$ = ``en az bir tura gelme'' olayi olsun. $T_j$ ise
+$j$'inci yazi-tura atisinda yazi gelme olayi olsun. $P(A)$ nedir? 
+
+Bunun hesabi icin en kolayi, hic tura gelmeme, yani tamamen yazi gelme
+olasiligini, $A^c$'yi hesaplamak, ve onu 1'den cikartmaktir. $^c$ sembolu
+``tamamlayici (complement)'' kelimesinden geliyor.
+
+\[ P(A) = 1 - P(A^c) \]
+
+\[ = 1 - P(\textit{hepsi yazi}) \]
+
+\[ = 1-P(T_1)P(T_2)...P(T_{10}) \]
+
+\[ = 1 - \bigg(\frac{1}{2}\bigg)^{10} \approx .999 \]
+
+
+Rasgele Degiskenler (Random Variables)
+
+Bir rasgele degisken $X$ bir eslemedir, ki bu esleme $X: \Omega \to \mathbb{R}$
+her sonuc ile bir reel sayi arasindaki eslemedir. 
+
+Olasilik derslerinde bir noktadan sonra artik ornekleme uzayindan
+bahsedilmez, ama bu kavramin arkalarda bir yerde her zaman devrede oldugunu
+hic aklimizdan cikartmayalim. 
+
+Ornek
+
+10 kere yazi-tura attik diyelim. VE yine diyelim ki $X(\omega)$ rasgele
+degiskeni her $\omega$ siralamasinda (sequence) olan tura sayisi. Iste bir
+esleme. Mesela eger $\omega = HHTHHTHHTT$ ise $X(\omega) = 6$. Tura sayisi
+eslemesi $\omega$ sonucunu 6 sayisina esledi. 
+
+Ornek 
+
+$\Omega = \{ (x,y); x^2+y^2 \le 1 \}$, yani kume birim cember ve icindeki
+reel sayilar (unit disc). Diyelim ki bu kumeden rasgele secim
+yapiyoruz. Tipik bir sonuc $\omega = (x,y)$'dir. Tipik rasgele degiskenler
+ise $X(\omega) = x$, $Y(\omega) = y$, $Z(\omega) = x+y$ olabilir. Goruldugu
+gibi bir sonuc ile reel sayi arasinda esleme var. $X$ rasgele degiskeni
+bir sonucu $x$'e eslemis, yani $(x,y)$ icinden sadece $x$'i cekip
+cikartmis. Benzer sekilde $Y,Z$ degiskenleri var. 
+
+Toplamsal Dagilim Fonksiyonu (Cumulative Distribution Function -CDF-)
+
+Tanim
+
+$X$ rasgele degiskeninin CDF'i $F_X: \mathbb{R} \to [0,1]$ tanimi
+
+\[ F_X(x) = P(X \ge x) \]
+
+Eger $X$ ayriksal ise, yani sayilabilir bir kume $\{x_1,x_2,...\}$ icinden
+degerler aliyorsa olasilik fonksiyonu (probability function), ya da
+olasilik kutle fonksiyonu (probability mass function -PMF-) 
+
+\[ f_X(x) = P(X = x) \]
+
+Bazen $f_X$, ve $F_X$ yerine sadece $f$ ve $F$ yazariz. 
+
+Tanim
+
+Eger $X$ surekli (continuous) ise, yani tum $x$'ler icin $f_X(x) > 0$,
+$\int_{-\infty}^{+\infty}f(x) dx = 1$ olacak sekilde bir $f_X$ mevcut ise, o zaman her $a \le b$ icin
+
+\[ P(a<X<b) = \int_{a}^{b}f_X(x)dx \]
+
+Bu durumda $f_X$ olasilik yogunluk fonksiyonudur (probability density function
+-PDF-). 
+
+\[ F_X = \int_{\infty}^{x}f_X(t)dt \]
+
+Ayrica $F_X(x)$'in turevi alinabildigi her $x$ noktasinda  $f_X(x) = F'_X(x)$
+demektir. 
+
+Dikkat! Eger $X$ surekli ise o zaman $P(X = x) = 0$ degerindedir. $f(x)$
+fonksiyonunu $P(X=x)$ olarak gormek hatalidir. Bu sadece ayriksal rasgele
+degiskenler icin isler. Surekli durumda olasilik hesabi icin belli iki
+nokta arasinda entegral hesabi yapmamiz gereklidir. Ek olarak PDF 1'den
+buyuk olabilir, ama PMF olamaz. PDF'in 1'den buyuk olabilmesi entegrali
+bozmaz mi? Unutmayalim, entegral hesabi yapiyoruz, noktasal degerlerin 1
+olmasi tum 1'lerin toplandigi anlamina gelmez. Bakiniz {\em Entegralleri
+  Nasil Dusunelim} yazimiz.
+
+Tanim
+
+$X$ rasgele degiskeninin CDF'i $F$ olsun. Ters CDF (inverse cdf), ya da
+ceyrek fonksiyonu (quantile function)
+
+\[ F^{-1}(q) = \inf \bigg\{ x: F(x) \le q \bigg\} \]
+
+ki $q \in [0,1]$. Eger $F$ kesinlikle artan ve surekli bir fonksiyon ise
+$F^{-1}(q)$ tekil bir $x$ sayisi ortaya cikarir, ki $F(x) = q$. 
+
+Eger $\inf$ kavramini bilmiyorsak simdilik onu minimum olarak
+dusunebiliriz. 
+
+$F^{-1}(1/4)$ birinci ceyrek
+
+$F^{-1}(1/2)$ medyan (median, ya da ikinci ceyrek), 
+
+$F^{-1}(3/4)$ ucuncu ceyrek 
+
+olarak bilinir. 
+
+Iki rasgele degisken $X$ ve $Y$ dagilimsal olarak birbirine esitligi, yani
+$X \ \buildrel d \over = \ Y$ eger $F_X(x) = F_Y(x)$, $\forall x$. Bu $X,Y$ birbirine esit, birbirinin 
+aynisi demek degildir. Bu degiskenler hakkindaki tum olasiliksal islemler, 
+sonuclar ayni olacak demektir.
+
+Uyari! ``$X$'in dagilimi $F$'tir'' beyanini $X \sim F$ seklinde yazmak bir
+gelenek. Bu biraz kotu bir gelenek aslinda cunku $\sim$ sembolu ayni
+zamanda yaklasiksallik kavramini belirtmek icin de kullaniliyor.
+
+Bernoulli Dagilimi
+
+$X$'in bir yazi-tura atisini temsil ettigini dusunelim. O zaman $P(X = 1) =
+p$, 
+ve $P(X = 0) = 1 - p$ olacaktir, ki $p \in [0,1]$ olmak uzere. O zaman
+$X$'in dagilimi Bernoulli deriz, ve $X \sim Bernoulli(p)$ diye
+gosteririz. Olasilik fonksiyonu $f(x) = p^x(1-p)^{(1-x)}$, $x \in \{0,1\}$.
+
+Yani $x$ ya 0, ya da 1. Parametre $p$, 0 ile 1 arasindaki herhangi bir reel 
+sayi. 
+
+Uyari! 
+
+$X$ bir rasgele degisken; $x$ bu degiskenin alabilecegi spesifik bir deger;
+$p$ degeri ise bir \textbf{parametre}, yani sabit, onceden belirlenmis reel
+sayi. Tabii istatistiki problemlerde (olasilik problemlerinin tersi olarak
+dusunursek) cogunlukla o sabit parametre bilinmez, onun veriden
+hesaplanmasi, kestirilmesi gerekir. Her halukarda, cogu istatistiki modelde
+rasgele degiskenler vardir, ve onlardan ayri olarak parametreler vardir. Bu
+iki kavrami birbiriyle karistirmayalim.
+
+Birbicim (Uniform) Dagilim
+
+$X$ birbicim, $Uniform(a,b)$ olarak dagilmis deriz, ve bu 
+$X \sim
+Uniform(a,b)$ olarak yazilir eger 
+
+\[ f(x)  = 
+\left\{ \begin{array}{ll}
+\frac{ 1}{b-a} & x \in [a,b] \ icin \\
+0 & digerleri
+\end{array} \right.
+ \]
+
+ise ve $a<b$ olacak sekilde. CDF hesabi olasilik egrisinin entegralini
+temel alir, birbicim dagilim bir $a,b$ arasinda $1/b-a$ yuksekliginde bir 
+dikdortgen seklinde olacagi icin, bu dikdortgendeki herhangi bir $x$
+noktasinda CDF dagilimi, yani o $x$'in baslayip sol tarafin alaninin hesabi
+basit bir dikdortgensel alan hesabidir, yani $x-a$ ile $1/b-a$'nin
+carpimidir, o zaman 
+
+\[ F(x) = 
+\left\{ \begin{array}{ll}
+0 & x < a \\
+\frac{ x-a}{b-a} & x \in [a,b] \\
+1 & x > b
+\end{array} \right.
+ \]
+
+Normal (Gaussian) Dagilim
+
+$X \sim N(\mu, \sigma^2)$ ve PDF
+
+\[ f(x) = \frac{1}{\sigma\sqrt{2\pi}} 
+\exp \bigg\{ - \frac{1}{2\sigma^2}(x-\mu)^2  \bigg\}
+, \ x \in \mathbb{R}
+\]
+
+ki $\mu \in \mathbb{R}$ ve $\sigma > 0$ olacak sekilde.
+
+Ileride gorecegiz ki $\mu$ bu dagilimin ``ortasi'', ve $\sigma$ onun
+etrafa ne kadar ``yayildigi'' (spread). Normal dagilim olasilik ve
+istatistikte cok onemli bir rol oynar. Dogadaki pek cok olay
+yaklasiksal olarak Normal dagilima sahiptir. Sonra gorecegimiz uzere,
+mesela bir rasgele degiskenin degerlerinin toplami her zaman Normal
+dagilima yaklasir (Merkezi Limit Teorisi -Central Limit Theorem-). 
+
+Eger $\mu = 0$ ve $\sigma = 1$ ise $X$'in standart Normal dagilim oldugunu
+soyleriz. Gelenege gore standart Normal dagilim rasgele degiskeni $Z$ ile
+gosterilmelidir, PDF ve CDF $\phi(z)$ ve $\Phi(z)$ olarak gosterilir. 
+
+$\Phi(z)$'nin kapali form (closed-form) tanimi yoktur. Bu, matematikte
+``analitik bir forma sahip degil'' demektir, formulu bulunamamaktadir,
+bunun sebebi ise Normal PDF'in entegralinin analitik olarak alinamiyor
+olusudur. 
+
+Bazi faydali puf noktalari
+
+1. Eger $X \sim N(\mu, \sigma^2)$ ise, o zaman $Z = (X-\mu) / \sigma \sim
+N(0,1)$. 
+
+2. Eger $Z \sim N(0,1)$ ise, o zaman $X = \mu + \sigma Z \sim N(\mu,\sigma^2)$
+
+3. Eger $X_i \sim N(\mu_i, \sigma_i^2)$, $i=1,2,...$ ve her $X_i$
+digerlerinden bagimsiz ise, o zaman 
+
+\[ \sum_{i=1}^n X_i = N\bigg( \sum_{i=1}^n\mu_i, \sum_{i=1}^n\sigma^2 \bigg) \]
+
+Tekrar $X \sim N(\mu, \sigma^2)$ alirsak ve 1. kuraldan devam edersek /
+temel alirsak su da dogru olacaktir. 
+
+\[ P(a < X < b) = ? \]
+
+\[ 
+= P\bigg(
+\frac{a-\mu}{\sigma} < 
+\frac{X-\mu}{\sigma} < 
+\frac{b-\mu}{\sigma}
+\bigg) 
+\]
+
+\[
+= P\bigg(\frac{a-\mu}{\sigma} < Z < \frac{b-\mu}{\sigma}\bigg) 
+= 
+\Phi\bigg(\frac{b-\mu}{\sigma}\bigg) - 
+\Phi\bigg(\frac{a-\mu}{\sigma}\bigg) 
+\]
+
+Ilk gecisi nasil elde ettik? Bir olasilik ifadesi $P(\cdot)$ icinde esitligin iki
+tarafina ayni anda ayni toplama, cikarma operasyonlarini yapabiliriz. 
+
+Son ifadenin anlami sudur. Eger standart Normal'in CDF'ini
+hesaplayabiliyorsak, istedigimiz Normal olasilik hesabini yapabiliriz
+demektir, cunku artik $X$ iceren bir hesabin $Z$'ye nasil tercume
+edildigini goruyoruz. 
+
+Tum istatistik yazilimlari $\Phi(z)$ ve $\Phi(z)^{-1}$ hesabi icin gerekli
+rutinlere sahiptir. Tum istatistik kitaplarinda $\Phi(z)$'nin belli
+degerlerini tasiyan bir tablo vardir. Ders notlarimizin sonunda da benzer
+bir tabloyu bulabilirsiniz.
+
+
+Daðýlýmlar Hakkýnda
+
+Doðadan yapýlan çoðu ölçümlerin, sýklýk grafiðini alýnca sonucun
+aþaðýda gibi çýkmasi ilginctir.
+
+\includegraphics[height=4cm]{norm.png}
+
+Mesela, Türkiye'deki 2000 yetiþkinin kilosunu ölçün. Grafiðini alýn,
+kesinlikle yukarýdaki tepe þekli çýkacak. Ya da, 1000 kiþinin boyunu ölçün,
+ayný tepe þekli. Keskin niþancýnýn hedefe attýðý kurþunlarýn hedefe
+geliþini en iyi 12 en kötü 1 olmak üzere ölçün, sýklýk grafiðini alýn. Gene
+ayný tepe þekli!
+
+Nasýl oluyor bu iþ?
+
+Açýklama için, normal daðýlým eðrisinden bahsetmemiz gerekecek.
+
+Not olarak düþelim: Sýklýk grafiði, X sayýsýnýn ne kadar çýktýðýný sayýp, Y
+ekseni üzerinde bu sayýyý X'e tekabül ederek kolon olarak göstermeye
+denir. Mesela, 60 kilo deðeri 13 kere çýktý ise, X=60, Y=13 gibi bir kolon
+çizilecektir.
+
+Normal Daðýlým Eðrisi
+
+Normal daðýlýmýn olasýlýk kavramý ile yakýn baðlarý var. Bu konuda ünlü bir
+deney zar atma deneyidir. Mesela, elimizde tek bir zar olsun, ve bu zarý
+arka arkaya atalým. Sabrýmýz yeterse 1000 kere atalým. Sonuçta, sýklýk
+grafiði eþit bir daðýlým gösterecektir. (Zar tutmuyorsanýz :) )
+
+Bunun sebeplerini anlamak zor deðil. Her zar atýþ olayý birbirinden
+baðýmsýz, ve her sayýnýn üstte gelme ihtimali birbirine eþit olduðu için
+(1/6), her sayýdan eþit miktarda gelecektir. Tabii bunun için deneyin
+birçok kere tekrarlanmasý gerekiyor.
+
+Fakat, bir yerine 2 zar atalým. Hatta hatta, 4 zar atalým, ve bu sefer
+sýklýk grafik hanesine yazmadan çýkan sayýlarý önce toplayalým. Bu çýkan
+toplamýn sýklýk grafiðini alalým.
+
+Ýþte bu sýklýk grafiði göreceðiz ki, önceden bahsettiðimiz tepe grafiðine
+yaklaþýyor. Ne kadar çok zar atarsanýz, bu benzerlik o kadar daha fazla
+olacaktýr.
+
+Bunun sebebi de aslýnda basit: 1..6 arasý sayýlarýn tek bir zardan gelme
+olasýlýðý ayný, evet. Fakat toplamlara gelince, mesela iki zarlý örnekte,
+10 sayýsýnýn olasýlýðý 2 sayýsýndan daha yüksek. Çünkü, 10 sayýsýný 5-5,
+4-6 ya da 6-4 ile alabiliyoruz. 2 sayýsý sadece 1-1 ile geliyor.
+
+Buradan þu sonuç cýkabilir: Eðer doðada ölçtüðümüz bir kavramýn oluþmasýnda
+birden fazla etken var ise, o ölçümlerin sýklýðý her zaman tepe þekli ile
+olacaktýr.
+
+Fakat, daha da gizemli olan bir olay þudur; Sabit olan bir þeyi
+ölçtüðümüzde (yaptýðýmýz hatalar sonucu) çýkan grafiðin bile tepe þekilli
+olmasý! Yani, doðru dürüst hata yapmak bile elimizde deðil gibi
+gözüküyor... Bunun tabii ki olasýlýk açýklamalarý olacaktýr. Ýzlediðimiz
+matematikçilerden bu en son konuda net bir açýklama alamadýk.
+
+Simulasyon
+
+Eðer bu kavramlarý simulasyon ortamýnda göstermek istersek, Python ile
+bunu yapabiliriz.
+
+Ýlk önce, Random.org sitesinden rasgele sayý üretip bilgiyarýmýza
+kopyalacaðýz. Bahsettiðimiz site, kimsenin kullanmadýðý radyo kanallarýndan
+atmosfer gürültüsü dinleyip, bu gürültüleri sayýsal deðere çevirerek
+rasgele sayý üretiyor.
+
+Gerçek rasgele sayý üretmek pek kolay bir iþ deðil. Her ne kadar
+bilgisayarýnýzda rasgele sayý üreten birçok algoritma olsa bile, bu
+algoritmalar belli bir sayý üretiminden sonra kendini tekrar etmeye
+baþlýyorlar. Gerçek rasgele sayýlar için muhakkak dýþ bir kaynaða baðlanmak
+gerekiyor.
+
+Gösterimiz için, rasgele sayýlarý üretip, bir dat dosyasýna
+koyuyoruz. Python ile bu sayýlarý okuyup, ilk önce teker teker
+sayýlarýn sýklýk grafiðini, ondan sonra sayýlarý üçer üçer toplayýp,
+onlarýn grafiðini alýp göstereceðiz. Aþâðýda bu iki grafiði
+bulabilirsiniz.
+
+\begin{minted}[fontsize=\footnotesize]{python}
+A = loadtxt('rasgele.dat')
+plt.hist(A, 50)
+plt.savefig('dagilim_1.png')
+\end{minted}
+
+\includegraphics[height=6cm]{dagilim_1.png}
+
+\begin{minted}[fontsize=\footnotesize]{python}
+A = loadtxt('rasgele.dat');
+B = []
+
+i = 1;
+
+while (i < 998):
+  toplam = 0
+  s = A[i]
+  toplam = toplam + s
+  s = A[i+1]
+  toplam = toplam + s
+  s = A[i+2]
+  toplam = toplam + s
+  B.append(toplam/3)
+  i = i + 3
+
+plt.hist(B, 50);
+plt.savefig('dagilim_2.png')
+\end{minted}
+
+\includegraphics[height=6cm]{dagilim_2.png}
+
+Ornek 
+
+$X \sim N(3,5)$ ise $P(X > 1)$ nedir? Cevap:
+
+\[ P(X>1) = 1 - P(X < 1) = 1 - P( Z < \frac{ 1 - 3}{\sqrt{5 }}) = 
+1 - \Phi(-0.8944) = .81
+ \]
+
+Soru tam $P(a  < X < b)$, sadece $b$ oldugu icin yukaridaki form ortaya
+cikti. 
+
+Ornek 
+
+Simdi oyle bir $q$ bul ki $P(X < q) = .2$ olsun. Yani $\Phi^{-1}(.2)$'yi
+bul. Yine $X \sim N(3,5)$. 
+
+Cevap 
+
+Demek ki tablodan $.2$ degerine tekabul eden esik degerini bulup, ustteki
+formul uzerinden geriye tercume etmemiz gerekiyor. Normal tablosunda
+$\Phi(-0.8416) = .2$, 
+
+\[ .2 = P(X<q) = P( Z < \frac{ q - \mu}{\sigma}) = \Phi(\frac{ q - \mu}{\sigma})
+\]
+
+O zaman 
+
+\[ -0.8416 = \frac{q - \mu}{\sigma} = \frac{ q - 3}{\sqrt{ 5}} \]
+
+\[ q = 3 - 0.8416 \sqrt{ 5} = 1.1181 \]
+
+$t$ (Student's t)ve Cauchy Dagilimi 
+
+$X$, $v$ derece bagimsizlikta $t$ dagilimina sahiptir, ki bu $X \sim t_v$
+diye yazilir eger 
+
+\[ f(x) = 
+\frac{ \Gamma(v+1)/2)} {\sqrt{v\pi}\Gamma(v/2)}
+\bigg(1 + \frac{ x^2}{v}\bigg)^{-(v+1)/2}
+ \]
+
+$t$ dagilimi Normal dagilima benzer ama daha kuyrugu daha kalindir. Aslinda
+Normal dagilimi $t$ dagiliminin $v = \infty$ oldugu hale tekabul
+eder. Cauchy dagilimi da $t$'nin ozel bir halidir, $v = 1$ halidir. Bu
+durumda yogunluk fonksiyonu
+
+\[ f(x)  = \frac{ 1}{\pi(1+ x^2)} \]
+
+Bu formul hakikaten bir yogunluk mudur? Kontrol icin entegralini alalim, 
+
+\[ \int _{ -\infty}^{\infty} f(x) dx = 
+\frac{ 1}{\pi} \int _{ -\infty}^{\infty} \frac{ dx}{1 + x^2} 
+ \]
+
+Cogunlukla entegre edilen yerde  ``1 arti ya da eksi bir seyin karesi''
+turunde  bir ifade gorulurse, yerine gecirme (subsitution) islemi
+trigonometrik  olarak  yapilir. 
+
+\[  x = \tan \theta, \theta = \arctan x \]
+
+\[ 1 + x^2 = 1 + \tan^2\theta = \sec^2\theta\]
+
+\[ dx / d\theta = \sec^2\theta \]
+
+O zaman 
+
+\[ =
+\frac{ 1}{\pi} \int _{ -\infty}^{\infty} \frac{ dx}{1 + x^2}   =
+\frac{ 1}{\pi} \int _{ -\infty}^{\infty}  \frac{ 1}{\sec^2\theta}\sec^2\theta d\theta = 
+\frac{ 1}{\pi} \int _{ -\infty}^{\infty}  1 \ d\theta = 
+ \]
+
+\[ = 
+\frac{ 1}{\pi} \theta | _{ -\infty}^{\infty}   = 
+\frac{ 1}{\pi} [\arctan(\infty) - \arctan(-\infty)]
+ \]
+
+\[ =
+\frac{ 1}{\pi} [\frac{ \pi}{2} - (-\frac{ \pi}{2}) ] = 1
+ \]
+
+
+$\chi^2$ Dagilimi
+
+$X$'in $p$ derece serbestlige sahip bir $\chi^2$ dagilima sahip ise $X \sim
+\chi^2_p$ olarak gosterilir, yogunluk 
+
+\[ f(x) = \frac{ 1}{\Gamma(p/2) 2^{p/2}} x^{(p/2) - 1} e^{-x/2 }, \ x > 0 \]
+
+Eger $Z_1, .. , Z_p$ bagimsiz standart Normal rasgele degiskenler ise,
+$\sum _{ i=1}^{p} Z_p \sim \chi^2_p$ esitligi dogrudur. 
+
+Iki Degiskenli Dagilimlar 
+
+Tanim
+
+Surekli ortamda $(X,Y)$ rasgele degiskenleri icin yogunluk fonksiyonu
+$f(x,y)$ tanimlanabilir eger i) $f(x,y) > 0, \ \forall (x,y)$ ise, ve ii)
+$\int _{ -\infty}^{\infty} \int _{ -\infty}^{\infty} f(x,y) dx dy = 1$ ise ve her kume $A \subset \mathbb{R} \times \mathbb{R}$ icin 
+$P((X,Y) \in A) = \int
+\int_A f(x,y) dx dy$. Hem ayriksal hem surekli durumda 
+birlesik (joint) CDF $F_{X,Y}(x,y) = P (X \le x, Y \le y)$ diye
+gosterilir. 
+
+Bu tanimda $A$ kumesi olarak tanimlanan kavram uygulamalarda bir olaya
+(event) tekabul eder. Mesela
+
+Ornek
+
+$(X,Y)$'in birim kare uzerinde birbicimli (uniform) olsun. O zaman 
+
+\[ 
+f(x,y) =
+\left\{ \begin{array}{ll}
+1 & \textit{eger} \ 0 \le x \le 1, 0 \le y \le 1 \ ise\\
+0 & \textit{diger durumlarda}
+\end{array} \right.
+ \]
+
+$P(X < 1/2, Y < 1/2)$'yi bul. 
+
+Cevap
+
+Burada verilen $A = \{ X < 1/2, Y < 1/2\}$ bir altkumedir ve bir
+olaydir. Olaylari boyle tanimlamamis miydik? Orneklem uzayinin bir
+altkumesi olay degil midir? O zaman $f$'i verilen altkume uzerinden entegre
+edersek, sonuca ulasmis oluruz. 
+
+Ornek 
+
+Eger dagilim kare olmayan bir bolge uzerinden tanimliysa hesaplar biraz
+daha zorlasabilir. $(X,Y)$ yogunlugu 
+
+\[ 
+f(x,y) = 
+\left\{ \begin{array}{ll}
+cx^2y & eger \ x^2 \le y \le 1 \\
+0 & digerleri
+\end{array} \right.
+ \]
+
+Niye $c$ bilinmiyor? Belki problemin modellemesi sirasinda bu bilinmez
+olarak ortaya cikmistir. Olabilir. Bu degeri hesaplayabiliriz, cunku
+$f(x,y)$ yogunluk olmali, ve yogunluk olmanin sarti $f(x,y)$ entegre
+edilince sonucun 1 olmasi. 
+
+Once bir ek bilgi uretelim, eger $x^2 \le 1$ ise, o zaman $-1 \le x \le
+1$ 
+demektir. Bu lazim cunku entegrale sinir degeri olarak verilecek. 
+
+\[ 1 = \int  \int f(x,y) dy dx = c \int _{ -1}^{1} \int _{ x^2}^{1}x^2y  \]
+
+\[=  c \int _{ -1}^{1} x^2 \int _{ x^2}^{1} y dy dx = 
+\int _{ -1}^{1} x^2 (\frac{ 1}{2} - \frac{ x^4}{2} )dx = 1
+ \]
+
+\[=  c \int _{ -1}^{1} x^2 (\frac{ 1 - x^4}{2} ) dx = 1 \]
+
+\[ = \frac{ c}{2} \int _{ -1}^{1} x^2 - x^6 dx  = 1\]
+
+Devam edersek $c = 21/4$ buluruz. 
+
+Simdi, diyelim ki bizden $P(X \ge Y)$'yi hesaplamamiz isteniyor. Bu hangi
+$A$ bolgesine tekabul eder? Elimizdekiler
+
+\[ -1 \le x \le 1, \  x^2 \le y, \ y \le 1   \]
+
+Simdi bunlara bir de $y \le x$ eklememiz lazim. Yani ortadaki esitsizlige
+bir oge daha eklenir.
+
+\[ -1 \le x \le 1 \]
+
+\[  x^2 \le y \le x \]
+
+\[  y \le 1   \]
+
+$x^2 \le y$'yi hayal etmek icin $x^2 = y$'yi dusunelim, bu bir parabol
+olarak cizilebilir, ve parabolun ustunde kalanlar otomatik olarak $x^2 \le
+y$ 
+olur, bu temel irdelemelerden biri. 
+
+
+\includegraphics[height=4cm]{2_1.png}
+
+Ayni sekilde $y \le x$ icin $y = x$'i dusunelim, ki bu 45 derece aciyla
+cizilmis duz bir cizgi. Cizginin alti $y \le x$ olur. Bu iki bolgenin
+kesisimi yukaridaki resimdeki golgeli kisim. 
+
+Ek bir bolge sarti $0 \le x \le 1$. Bu sart resimde bariz goruluyor, ama
+cebirsel olarak bakarsak $y \ge x^2$ oldugunu biliyoruz, o zaman $y \ge 0$
+cunku $x^2$ muhakkak bir pozitif sayi olmali. Diger yandan $x \ge y$
+verilmis, tum bunlari yanyana koyarsak $x \ge 0$ sarti ortaya cikar. 
+
+Artik $P(X \ge Y)$ hesabi icin haziriz, 
+
+\[ P(X \ge Y) = 
+\frac{ 21}{4} \int_{ 0}^{1} \int _{ x^2}^{x} x^2y dy dx = 
+\frac{ 21}{4} \int_{ 0}^{1} x^2 \bigg[ \int _{ x^2}^{x} y dy \bigg] dx 
+ \]
+
+\[ = \frac{ 21}{4} \int _{ 0}^{1} x^2 \frac{ x^2 - x^4}{2} dx = \frac{ 3}{20} \]
+
+
+``Hafizasiz'' Dagilim, Ustel (Exponential) Dagilim
+
+Ustel dagilimin hafizasiz oldugu soylenir. Bunun ne anlama geldigini
+anlatmaya ugrasalim. Diyelim ki rasgele degisken $X$ bir aletin omrunu
+temsil ediyor, yani bir $p(x)$ fonksiyonuna bir zaman ``sordugumuz'' zaman
+bize dondurulen olasilik, o aletin $x$ zamani kadar daha islemesinin
+olasiligi. Eger $p(2) = 0.2$ ise, aletin 2 yil daha yasamasinin olasiligi
+0.2. 
+
+Bu hafizasizligi, olasilik matematigi ile nasil temsil ederiz?
+
+\[ P( X>s+t \ | X>t ) =  P(X>s) , \ \forall s, \ t \ge 0 \]
+
+Yani oyle bir dagilim var ki elimizde, $X>t$ bilgisi veriliyor, ama (kalan)
+zamani hala $P(X>s)$ olasiligi veriyor. Yani $t$ kadar zaman gectigi 
+bilgisi hicbir seyi degistirmiyor. Ne kadar zaman gecmis olursa olsun,
+direk $s$ ile gidip ayni olasilik hesabini yapiyoruz. 
+
+Sartsal (conditional) formulunu uygularsak ustteki soyle olur
+
+\[  \frac{P( X>s+t,  X>t )}{P(X>t)} = P(X>s)  \]
+
+ya da
+
+\[  P( X>s+t,  X>t ) = P(X>s)P(X>t) \]
+
+Bu son denklemin tatmin olmasi icin $X$ ne sekilde dagilmis olmalidir?
+Ustteki denklem sadece $X$ dagilim fonksiyonu ustel (exponential) olursa
+mumkundur, cunku sadece o zaman
+
+\[ e^{-\lambda(s+t)}  = e^{-\lambda s} e^{-\lambda t}\]
+
+gibi bir iliski kurulabilir. 
+
+Ornek
+
+Diyelim ki bir bankadaki bekleme zamani ortalam 10 dakika ve ustel olarak
+dagilmis. Bir musterinin i) bu bankada 15 dakika beklemesinin ihtimali
+nedir? ii) Bu musterinin 10 dakika bekledikten sonra toplam olarak 15
+dakika (ya da daha fazla) beklemesinin olasiligi nedir? 
+
+Cevap
+
+i) Eger $X$ musterinin bankada bekledigi zamani temsil ediyorsa
+
+\[ P(X>15) = e^{-15 \cdot 1/10} = e^{-3/2} \approx 0.223 \]
+
+ii) Sorunun bu kismi musteri 10 dakika gecirdikten sonra 5 dakika daha
+gecirmesinin olasiligini soruyor. Fakat ustel dagilim ``hafizasiz'' oldugu
+icin kalan zamani alip yine direk ayni fonksiyona geciyoruz, 
+
+\[ P(X>5> = e^{-5 \cdot 1/10} = e^{-1/2} \approx 0.60\]
+
+Bilesen (Marginal) Dagilimlar 
+
+Surekli rasgele degiskenler icin bilesen yogunluk 
+
+\[ f_X(x) = \int f(x,y) dx \]
+
+ve
+
+\[ f_Y(y) = \int f(x,y) dy \]
+
+
+Ustteki integraller gercek bir dagilim fonksiyonu $f(x,y)$ verilince alt ve
+ust limit te tanimlamak zorundadir. Cunku bilesen yogunluk icin bir veya
+daha fazla degiskeni ``integralle disari atmak (integrate out)'' ettigimiz
+soylenir, eger ayriksal (discrete) ortamda olsaydik bu atilan degiskenin
+tum degerlerini goze alarak toplama yapan bir formul yazardik. Surekli
+ortamda integral kullaniyoruz, ama tum degerlerin uzerinden yine bir
+sekilde gecmemiz gerekiyor. Iste alt ve ust limitler bunu
+gerceklestiriyor. Bu alt ve ust limitler, atilan degiskenin ``tum
+degerlerine'' bakmasi gerektigi icin $-\infty,+\infty$ olmalidir. Eger
+problem icinde degiskenin belli degerler arasinda oldugu belirtilmis ise
+(mesela alttaki ornekte $x>0$) o zaman entegral limitleri alt ve ust
+sinirini buna gore degistirebilir. 
+
+
+Ornek 
+
+$f_{X,Y}(x,y) = e^{ -(x+y)}$, olsun ki $x,y \ge 0$. O zaman $f_X(x)$
+
+\[ f_X(x) = e^{ -x} \int _{ 0}^{\infty} e^{ -y}dy = e^{ -x}  \cdot 1  = e^{-x} 
+\]
+
+Ornek 
+
+\[ f(x,y) = 
+\left\{ \begin{array}{ll}
+x+y & eger \ 0 \le x \le 1, \ 0 \le y \le 1 \\
+0 & diger
+\end{array} \right.
+ \]
+
+\[ f_Y(y) = \int _{0}^{1}(x+y) dx = 
+\int _{0}^{1}x dx + \int _{0}^{1}y dx  = 
+\frac{ 1}{2} + y 
+\mlabel{1}
+ \]
+
+Tanim 
+
+Iki rasgele degisken $A,B$ bagimsizdir eger tum $A,B$ degerleri icin 
+
+\[ P(X \in A, Y \in B) = P(X \in A)P(Y \in B) \]
+
+esitligi dogru ise. Bu durumda $X \amalg Y$ yazilir.
+
+Teori 
+
+$X,Y$'nin birlesik PDF'i $f_{X,Y}$ olsun. O zaman ve sadece 
+$f_{X,Y}(x,y) =
+ f_X(x)f_Y(y)$ ise $X \amalg Y$ dogrudur. 
+
+Ornek 
+
+Diyelim ki $X,Y$ bagimsiz, ve ikisinin de ayni yogunlugu var.
+
+\[ f(x) = 
+\left\{ \begin{array}{ll}
+2x & eger \ 0 \le x \le 1 \\
+0 & digerleri
+\end{array} \right.
+ \]
+
+$P(X+Y < 1)$'i hesaplayin. 
+
+Cevap
+
+Bagimsizligi kullanarak birlesik dagilimi hesaplayabiliriz
+
+\[ f(x,y) = f_X(x)f_Y(y) = 
+\left\{ \begin{array}{ll}
+4xy & eger \ 0 \le x \le 1, \ \ 0 \le y \le 1 \\
+0 & digerleri
+\end{array} \right.
+ \]
+
+Simdi bu birlesik yogunluk uzerinden istedigimiz bolgeyi hesaplariz,
+bolgeyi tanimlayan $X+Y \le 1$ ifadesi. 
+
+\[ P(X+Y \le 1) = 
+\int \int_{x+y \le 1} f(x,y) dy dx
+ \]
+
+Entegralin limiti ustteki hali sembolik, hesap icin bu yeterli degil, eger
+$x+y \le 1$ ise,  $y \le 1-x$ demektir, ve bolge $y = 1-x$ cizgisinin alti
+olarak kabul edilebilir. $x,y$ zaten sifirdan buyuk olmali, yani sola dogru
+yatik cizginin alti ve $y,x$ eksenlerinin ustu kismini olusturan bir ucgen,
+
+\[ =
+\int _{ 0}^{1} \int _{ 0}^{1-x} 4yx \ dy dx = 
+4 \int \int _{ 0}^{1} x \bigg[ \int _{ 0}^{1-x} ydy \bigg] dx
+ \]
+
+Numaraya dikkat, hangi degisken uzerinden entegral aldigimiza bakarak, onun
+haricindekileri sabit kabul ederek bu ``sabitleri'' entegral disina
+atiyoruz, boylece isimizi kolaylastiriyoruz. Hesabi tamamlarsak, 
+
+\[ 4 \int _{ 0}^{1} x \frac{ (1- x)^2}{2} dx = \frac{ 1}{6} \]
+
+Kosullu Dagilimlar (Conditional Distributions)
+
+Surekli rasgele degiskenler icin kosullu olasilik yogunluk fonksiyonlari 
+
+\[ f_{X|Y}(x|y) = \frac{ f_{X,Y}(x,y)}{f_Y(y)} \]
+
+Devam edelim, eger kosullu yogunluk uzerinden olay hesabi yapmak istersek,
+ve  $f_Y(y) > 0$ oldugunu farzederek, 
+
+\[ P(X \in A | Y = y) = \int_A f_{X|Y}(x|y) dx \]
+
+
+Ornek 
+
+(1) sonucunu aldigimiz ornege donelim,
+
+\[ f(x,y) = 
+\left\{ \begin{array}{ll}
+x+y & eger \ 0 \le x \le 1, \ 0 \le y \le 1 \\
+0 & diger
+\end{array} \right.
+ \]
+
+$P(X < 1/4 | Y = 1/3)$ nedir? 
+
+Cevap 
+
+Ustteki olasilik hesabi icin $f_{X|Y}$ fonksiyonuna ihtiyacimiz var. (1)'de
+gordugumu uzere, 
+
+\[ f_Y(y) = \frac{ 1}{2} + y 
+ \]
+ 
+Ana formulumuz neydi? 
+
+\[ f_{X|Y}(x|y) = \frac{ f_{X,Y}(x,y)}{f_Y(y)} \]
+
+\[ = 
+\frac{ x+y }{\frac{ 1}{2} + y}
+ \]
+
+
+\[ P(X < 1/4 | Y = 1/3) = 
+\int _{ 0}^{1/4} \frac{ x+ \frac{ 1}{3} }{\frac{ 1}{2} + \frac{1 }{3}} dx = 
+\frac{ \frac{ 1}{32}+ \frac{ 1}{3} }{\frac{ 1}{2} + \frac{1 }{3}} = 
+\frac{ 14}{32}
+\]
+
+Cok Degiskenli (Multivariate) Dagilimlar ve IID Orneklemler (Samples)
+
+$X = (X_1,...,X_n)$ olsun, ki $(X_1,...,X_n)$'lerin herbiri bir rasgele
+degisken, o zaman $X$'e rasgele vektor (random vector) ismi
+verilir. $f(x_1,...,x_n)$'in PDF'i temsil ettigini dusunelim. Bu PDF'i baz
+alarak aynen iki degiskenli (bivariate) orneklerde oldugu gibi, benzer
+tekniklerle bilesenleri, kosullu dagilimlari, vs. hesaplamak mumkundur.
+
+Cok Degiskenli Normal 
+
+Tek degiskenli Normal dagilimin iki parametresi vardi, $\mu,\sigma$. Cok
+degiskenli formda $\mu$ bir vektor, $\sigma$ yerine ise $\Sigma$ matrisi
+var. Once rasgele degiskeni tanimlayalim,
+
+\[ Z = 
+\left[\begin{array}{r}
+Z_1 \\ \vdots \\ Z_k
+\end{array}\right]
+ \]
+
+ki $Z_1,...,Z_k \sim N(0,1)$. $Z$'nin yogunlugu 
+
+\[ f(z) = \prod _{ i=1}^{k}f(z_i) = 
+\frac{ 1}{(2\pi)^{k/2}} \exp 
+\bigg\{ 
+-\frac{ 1}{2}\sum _{ j=1}^{k}z_j^2
+\bigg\}
+ \]
+
+\[ =
+\frac{ 1}{(2\pi)^{k/2}} \exp 
+\bigg\{ 
+-\frac{ 1}{2}z^Tz
+\bigg\}
+ \]
+
+
+Bu durumda $Z$'nin {\em standart} cok degiskenli Normal dagilima sahip
+oldugu soylenir, ve $Z \sim N(0,I)$ olarak gosterilir. Buradaki $0$
+degeri icinde $k$ tane sifir olan bir vektor olarak, $I$ ise $k \times k$
+birim (identity) matrisi olarak anlasilmalidir. 
+
+Daha genel olarak bir vektor $X$'in cok degiskenli Normal dagilimina sahip
+oldugunu soyleriz, ve bunu $X \sim N(\mu,\Sigma)$ olarak gosteririz, eger
+dagilimin yogunlugu 
+
+\[ f(x;\mu,\Sigma) = 
+\frac{ 1}{(2\pi)^{k/2} \det(\Sigma)^{1/2}} \exp 
+\bigg\{ 
+-\frac{ 1}{2}(x-\mu)^T\Sigma^{-1}(x-\mu)
+\bigg\}
+ \]
+
+$\Sigma$ pozitif kesin (positive definite) bir matristir. Hatirlayalim, bir matris
+pozitif kesindir eger tum sifir olmayan $x$ vektorleri icin $x^T\Sigma x >
+0$ ise. 
+
+Not: Karekok kavrami tekil sayilardan matrislere de aktarilabilir. Bir
+matris $B$'nin $A$'nin karekoku oldugu soylenir, eger $B \cdot B = A$ ise.
+
+Devam edersek, eger $\Sigma$ pozitif kesin ise bir $\Sigma^{1/2}$ matrisini
+oldugu gosterilebilir, ki bu matrise $\Sigma$'nin karekoku ismi verilir, ve
+bu karekokun su ozellikleri vardir, (i)  $\Sigma^{1/2}$ simetriktir, (ii)
+$\Sigma =  \Sigma^{1/2}\Sigma^{1/2} = I$ ve $\Sigma^{-1/2} =
+(\Sigma^{1/2})^{-1}$. 
+
+Cok Boyutlu Gaussian'i Parcalamak (Partitioning)
+
+Diyelim ki Normal bir vektor $X$'i $X = (X_1,X_2)$ olarak parcaladik. Bunu
+Gaussian'a etkileri ne olur? Ayni sekilde $\mu = (\mu_1,\mu_2)$ olarak
+parcalayabiliriz. $\Sigma$ ise
+
+\[ \Sigma = 
+\left[\begin{array}{rr}
+\Sigma_{11} & \Sigma_{12}\\
+\Sigma_{21} & \Sigma_{22}
+\end{array}\right]
+ \]
+
+olarak parcalanabilir. $a,b$'nin parcalarinin boyutlari $p,q$ olsun, $n =
+p+q$.
+
+Simdi birlesik Gaussian'i 
+
+\[ f(x;\mu,\Sigma) = 
+\frac{ 1}{(2\pi)^{(p+q)/2} \det(\Sigma)^{1/2}} 
+\exp 
+\bigg\{ 
+-\frac{ 1}{2}
+\left[\begin{array}{r}
+x_1 - \mu_1\\
+x_2 - \mu_2
+\end{array}\right]^T
+\left[\begin{array}{rr}
+\Sigma_{11} & \Sigma_{12}\\
+\Sigma_{21} & \Sigma_{22}
+\end{array}\right]^{-1}
+\left[\begin{array}{r}
+x_1 - \mu_1\\
+x_2 - \mu_2
+\end{array}\right]
+\bigg\}
+ \]
+
+Birlesik yogunlugu parcalar uzerinden belirtirsek, bu yogunlugu $X_2$ icin
+bilesen yogunluga ve $X_1$ icin bir kosullu yogunluga ayirabiliriz. Yani 
+
+\[ f(x_1,x_2) = f(x_1|x_2) f(x_2) \]
+
+tanimindaki parcalari elde etmeye calisacagiz.  Ama bundan once
+boluntulenmis matrislere yakindan bakalim. 
+
+Bir boluntulenmis (partitioned) matrisin tersini almak icin, o matrisin
+parcalarinin tersini almak dogru degildir, yani
+
+\[ 
+\left[\begin{array}{rr}
+E & F \\
+G & H
+\end{array}\right] ^{-1} \ne
+\left[\begin{array}{rr}
+E^{-1} & F ^{-1}\\
+G^{-1} & H^{-1}
+\end{array}\right]  
+ \]
+
+Tersini alma islemi icin bazi numaralar lazim. Ana numara boluntulenmis matrisi 
+kosegen bir matris haline getirmek, cunku kosegen matrislerin tersi,
+kosegendeki elemanlarin tersidir, yani ters alma operasyonu bu tur
+matrislerin ``icine isler'', o yuzden bir sekilde bir kosegen matris
+elde etmeye ugrasacagiz. Bunun icin boluntulenmis matrisimizi sagdan ve
+soldan bazi matrislerle carpacagiz. Ayrica sunu da bilelim, 
+
+\[ XYZ = W \]
+
+durumunda $Y$'nin tersini almak istersek, sag ve soldaki $X,Z$
+matrislerinin tersini almak gerekmez, niye?
+
+\[ X^{-1}XYZ = X^{-1}W \]
+
+\[ YZZ^{-1} = X^{-1}WZ^{-1} \]
+
+\[ Y = X^{-1}WZ^{-1} \]
+
+Simdi iki tarafin da tersini alalim, 
+
+\[ Y^{-1} = ZW^{-1}X \]
+
+Tamam, baslayalim. 
+
+\[ M = 
+\left[\begin{array}{rr}
+E & F \\
+G & H
+\end{array}\right] 
+ \]
+
+matrisini kosegen yapacagiz. Eger sadece alt sol koseyi sifirlayasaydik, 
+bunu yapacak ozel bir matrisle soldan carpardik,
+
+\[ 
+\left[\begin{array}{rr}
+I & -FH^{-1} \\
+0 & I
+\end{array}\right] 
+\left[\begin{array}{rr}
+E & F \\
+G & H
+\end{array}\right] = 
+\left[\begin{array}{rr}
+E & F \\
+0 & H
+\end{array}\right] 
+ \]
+
+Sadece ust sag koseyi sifirlamak isteseydik, sagdan carpardik
+
+\[ 
+\left[\begin{array}{rr}
+E & F \\
+G & H
+\end{array}\right] 
+\left[\begin{array}{rr}
+I & 0 \\
+-H^{-1}G & I
+\end{array}\right] 
+=
+\left[\begin{array}{rr}
+E & 0 \\
+G & H
+\end{array}\right] 
+ \]
+
+Hepsini biraraya koyalim, 
+
+\[ 
+\left[\begin{array}{rr}
+I & -FH^{-1} \\
+0 & I
+\end{array}\right] 
+\left[\begin{array}{rr}
+E & F \\
+G & H
+\end{array}\right] 
+\left[\begin{array}{rr}
+I & 0 \\
+-H^{-1}G & I
+\end{array}\right] 
+= 
+\left[\begin{array}{rr}
+E-FH^{-1}G & 0 \\
+0 & H
+\end{array}\right] 
+\mlabel{2}
+ \]
+
+Bu carpimin dogrulugu carpim elle yapilarak kontrol edilebilir.
+
+Ustte gordugumuz gibi 
+
+\[ XYZ = W \]
+
+ifadesindeki $Y$'nin tersi 
+
+\[ Y^{-1} = ZW^{-1}X \]
+
+ile olur. 
+
+\[ 
+\underbrace{
+\left[\begin{array}{rr}
+I & -FH^{-1} \\
+0 & I
+\end{array}\right] 
+}_{X}
+\underbrace{
+\left[\begin{array}{rr}
+E & F \\
+G & H
+\end{array}\right] 
+}_{Y}
+\underbrace{
+\left[\begin{array}{rr}
+I & 0 \\
+-H^{-1}G & I
+\end{array}\right] 
+}_{Z}
+= 
+\underbrace{
+\left[\begin{array}{rr}
+E-FH^{-1}G & 0 \\
+0 & H
+\end{array}\right] 
+}_{W}
+ \]
+
+
+O zaman 
+
+\[ 
+\left[\begin{array}{rr}
+E & F \\
+G & H
+\end{array}\right]^{-1}
+=
+\left[\begin{array}{rr}
+I & 0 \\
+-H^{-1}G & I
+\end{array}\right] 
+\left[\begin{array}{rr}
+E-FH^{-1}G & 0 \\
+0 & H
+\end{array}\right]^{-1}
+\left[\begin{array}{rr}
+I & -FH^{-1} \\
+0 & I
+\end{array}\right] 
+ \]
+
+Daha kisa olmasi esitligin sag tarafinda, ortadaki matris icin
+$E-FH^{-1}G$ yerine $M/H$ kullanalim (bu arada $M/H$ lineer cebirde ``$M$'in
+$H$'e gore Schur tamamlayicisi (complement)'' olarak bilinir),
+
+\[ 
+\left[\begin{array}{rr}
+E & F \\
+G & H
+\end{array}\right]^{-1}
+=
+\left[\begin{array}{rr}
+I & 0 \\
+-H^{-1}G & I
+\end{array}\right] 
+\left[\begin{array}{rr}
+(M/H)^{-1} & 0 \\
+0 & H^{-1}
+\end{array}\right]
+\left[\begin{array}{rr}
+I & -FH^{-1} \\
+0 & I
+\end{array}\right] 
+\mlabel{3}
+ \]
+
+Esitligin sag tarafindaki carpimi gerceklestirirsek, 
+
+\[ =
+\left[\begin{array}{rr}
+(M/H)^{-1} & -(M/H)^{-1}FH^{-1} \\
+-H^{-1}G(M/H)^{-1} & H^{-1}+H^{-1}G(M/H)^{-1}FH^{-1} 
+\end{array}\right]
+ \]
+
+Bu final ifade boluntulenmis bir matrisin tersini o matrisin icindeki parcalar
+uzerinden temsil eden bir ifadedir. 
+
+Icinde bir kosesi sifir olan boluntulenmis matrislerde determinantlar soyle
+isler,
+
+\[ 
+\det \bigg(
+\left[\begin{array}{rr}
+E & 0 \\
+G & H
+\end{array}\right]
+\bigg) 
+= 
+\det \bigg(
+\left[\begin{array}{rr}
+E & F \\
+0 & H
+\end{array}\right] 
+\bigg) =
+\det(E)\det(H)
+ \]
+
+Ayrica 
+
+\[ \det(AB) = \det(A)\det(B) \]
+
+O zaman (2)'nin determinantini alirsak, $\det$ yerine $||$ kullandik, 
+
+\[ |M| = |M/H||H| 
+\mlabel{4}
+\]
+
+Bu ifade gayet dogal duruyor (bir raslanti herhalde, ya da Schur tamamlayicisi 
+isareti ozellikle boyle secilmis),
+
+Boluntulenmis bir matrisin devrigini almak icin her blogunun ayri ayri devrigi
+alinir, ve tum bloklarin yani boluntulenmis tamaminin bir daha devrigi
+alinir, yani
+
+\[ 
+\left[\begin{array}{rr}
+A & B \\ C & D 
+\end{array}\right]^T = 
+\left[\begin{array}{rr}
+A^T & C^T \\ B^T & D^T
+\end{array}\right]
+ \]
+
+Simdi cok degiskenli Normal icin bilesen ve kosullu yogunluk hesaplarina
+gelelim. Gaussian formulunun $\exp$ kismini alirsak, 
+
+\[ \exp 
+\bigg\{ 
+-\frac{ 1}{2}
+\left[\begin{array}{r}
+x_1 - \mu_1\\
+x_2 - \mu_2
+\end{array}\right]^T
+\left[\begin{array}{rr}
+\Sigma_{11} & \Sigma_{12}\\
+\Sigma_{21} & \Sigma_{22}
+\end{array}\right]^{-1}
+\left[\begin{array}{r}
+x_1 - \mu_1\\
+x_2 - \mu_2
+\end{array}\right]
+\bigg\}
+ \]
+
+
+(3)'teki acilimi kullanirsak, ve $E = \Sigma_{11},F=\Sigma_{12},..$ olacak sekilde,
+
+\[ \exp 
+\bigg\{ 
+-\frac{ 1}{2}
+\left[\begin{array}{r}
+x_1 - \mu_1\\
+x_2 - \mu_2
+\end{array}\right]^T
+\left[\begin{array}{rr}
+I & 0 \\ 
+-\Sigma_{22}^{-1}\Sigma_{21} & I
+\end{array}\right]
+\left[\begin{array}{rr}
+(\Sigma/\Sigma_{22}) & 0 \\ 
+0 & \Sigma_{22}^{-1} 
+\end{array}\right]
+\left[\begin{array}{rr}
+I & -\Sigma_{12}\Sigma_{22}^{-1}  \\ 
+0 & I
+\end{array}\right]
+\left[\begin{array}{r}
+x_1 - \mu_1\\
+x_2 - \mu_2
+\end{array}\right]
+\bigg\}
+ \]
+
+
+Acilimi tamamen yaparsak, 
+
+\[ 
+ \begin{array}{lll}
+= && \exp \bigg\{
+-\frac{1 }{2} 
+(x_1 - \mu_1 - \Sigma_{12}\Sigma_{22}^{-1} (x_2 - \mu_2))^T 
+(\Sigma/\Sigma_{22})^{-1} 
+(x_1 - \mu_1 - \Sigma_{12}\Sigma_{22}^{-1} (x_2 - \mu_2))
+\bigg\} \cdot \\
+&& \exp \bigg\{
+1\frac{ 1}{2}(x_2-\mu_2)^T\Sigma_{22}^{-1} (x_2-\mu_2)
+ \bigg\}
+\end{array}
+ \]
+
+Not: $\Sigma_{12}^T = \Sigma_{21}$. Ustte birinci $\exp$ icinde sol bolumde devrigin icindeki ifadelerden,  
+mesela $x_1^T,\mu_1^T$'den ve $\Sigma_{21}$'li ifadeden devrik islemini cekip, buyuk paranteze 
+alininca bu degisim oldu. 
+
+Simdi mesela 1. $\exp$'ye dikkat edersek, ortada $(\Sigma/\Sigma_{22})^{-1} $ var, ve bu ifadenin solunda ve saginda 
+birbirinin devrigi olan ayni terimler duruyor. Ifadenin tamami bir Normal
+dagilim. Ayni sey 2. $\exp$ icin gecerli. 
+
+Isin $\exp$ tarafini halletik. Simdi $\exp$ oncesindeki kesiri (4) kullanarak
+parcalayalim, 
+
+\[ 
+\frac{ 1}{(2\pi)^{(p+q)/2} \det(\Sigma)^{1/2}}  = 
+\frac{ 1}{(2\pi)^{(p+q)/2} \bigg(\det(\Sigma/\Sigma_{22})\det(\Sigma_{22})\bigg)^{1/2}} 
+ \]
+
+\[ =
+\bigg( \frac{ 1}{(2\pi)^{p/2} \det(\Sigma/\Sigma_{22})^{1/2}} \bigg)
+\bigg( \frac{ 1}{(2\pi)^{q/2} \det(\Sigma_{22})^{1/2}} \bigg)
+ \]
+
+Bu parcalarin her birini ayri bir $\exp$ onunde kullanabiliriz, ve ikinci $\exp$
+ifadesinin 
+
+\[ 
+\frac{ 1}{(2\pi)^{q/2} \det(\Sigma_{22})^{1/2}}
+\exp \bigg\{
+\frac{ 1}{2}(x_2-\mu_2)^T\Sigma_{22}^{-1} (x_2-\mu_2)
+ \bigg\}
+ \]
+
+
+oldugunu goruyoruz. Bu ifade $f(x_2)$ bilesen yogunlugudur! O zaman geri
+kalanlar, yani diger kesir ve birinci $\exp$ hep beraber $f(x_1|x_2)$
+yogunlugu olmalidir. Yani,
+
+\[ 
+\frac{ 1}{(2\pi)^{p/2} \det(\Sigma/\Sigma_{22})^{1/2}} \cdot
+ \]
+\[ 
+\exp \bigg\{
+-\frac{1 }{2} 
+(x_1 - \mu_1 - \Sigma_{12}\Sigma_{22}^{-1} (x_2 - \mu_2))^T 
+(\Sigma/\Sigma_{22})^{-1} 
+(x_1 - \mu_1 - \Sigma_{12}\Sigma_{22}^{-1} (x_2 - \mu_2))
+\bigg\}
+ \]
+
+Buradan genel bir kural cikartabiliriz, 
+
+1) $X_2$'nin bilesen yogunlugu $X_2 \sim N(\mu_2, \Sigma_{22})$
+
+2) $X_2 = x_2$ olmak uzere $X_1$'in kosullu dagilimi 
+
+\[ X_1 | X_2 = x_2 \sim 
+N\bigg(\mu_1 + \Sigma_{12}\Sigma_{22}^{-1} (x_2 -\mu_2) \ , \
+\Sigma/\Sigma_{22} \bigg)
+ \]
+
+$\Sigma/\Sigma_{22}$ nedir? Hatirlarsak, $M/H = E-FH^{-1}G$, ve 
+$E = \Sigma_{11},F=\Sigma_{12},..$ o zaman 
+
+\[ \Sigma/\Sigma_{22} = \Sigma_{11}-\Sigma_{12} \Sigma_{22}^{-1} \Sigma_{21} \]
+
+Yani
+
+\[ X_1 | X_2 = x_2 \sim 
+N\bigg(\mu_1 + \Sigma_{12}\Sigma_{22}^{-1} (x_2 -\mu_2) \ , \
+\Sigma_{11}-\Sigma_{12} \Sigma_{22}^{-1} \Sigma_{21}
+\bigg)
+ \]
+
+Hatirlama Numarasi
+
+Normal Dagilimin formulunu bazen hatirlayamayabiliriz. Peki daha basit bir
+formulden baslayarak onu turetebilir miyiz? Bu mumkun. Daha once {\em
+  $e^{-x^2}$ Nasil Entegre Edilir?} yazisinda
+
+$$ \int _{-\infty}^{+\infty} e^{-x^2} dx= \sqrt{\pi} $$
+
+oldugunu gormustuk. Dikkat edersek bu integral bir formulun olasiliksal
+dagilim olup olmadigini kontrol etmek icin kullandigimiz integrale
+benziyor. Eger integral 1 cikarsa onun olasiliksal dagilim oldugunu
+biliyoruz. Ustteki sonuc $\sqrt{\pi}$, fakat iki tarafi $\sqrt{\pi}$'ye
+bolersek, sag taraf 1 olur ve boylece solda bir dagilim elde ederiz. Yani
+
+$$ \int _{-\infty}^{+\infty} \frac{1}{\sqrt{\pi}} e^{-x^2} dx = 1$$
+
+formulunde integralin sagindaki kisim bir dagilimdir. Bu formulu
+donusturerek Gaussian'a erisebiliriz. Ustteki formulun orta noktasi (mean)
+sifir, varyansi (variance), yani $\sigma^2 = 1/2$ (bunu da ezberlemek lazim
+ama o kadar dert degil). O zaman $\sigma = 1 / \sqrt{2}$.
+
+Ilk amacimiz $\sigma = 1$'e erismek olsun (cunku oradan herhangi bir
+$\sigma$'ya atlayabiliriz), bunun icin $x$'i $\sqrt{2}$'e bolmek lazim,
+tabii ayni anda onun etkisini sifirlamak icin normalize eden sabiti
+dengelemek amaciyla $\sqrt{2}$'ye bolmek lazim,
+
+$$ = \int _{-\infty}^{+\infty} \frac{1}{\sqrt{2\pi}} e^{-(\frac{x}{\sqrt{2}})^2} dx$$
+
+$\sigma = 1$'e erisince oradan herhangi bir $\sigma$ icin, $\sigma$
+degiskenine bolelim, yine hem $e$ ustune hem sabite bu eki yapalim,
+
+$$ = \int _{-\infty}^{+\infty} 
+\frac{1}{\sigma \sqrt{2\pi}} 
+e^{-(\frac{x}{\sqrt{2} \sigma })^2} dx
+$$
+
+Simdi herhangi bir ortalama $\mu$ icin bu degiskeni formule sokalim, bunun
+icin $\mu$'yu $x$'den cikarmak yeterli
+
+$$ = \int _{-\infty}^{+\infty} 
+\frac{1}{\sigma \sqrt{2\pi}} 
+e^{-(\frac{x-\mu}{\sqrt{2} \sigma })^2} dx
+$$
+
+$e$ ustundeki kare alma islemini acarsak,
+
+$$ = \int _{-\infty}^{+\infty} 
+\frac{1}{\sigma \sqrt{2\pi}} 
+e^{-  \frac{(x-\mu)^2}{2 \sigma^2 }} dx
+$$
+
+
+Boylece integral icindeki kisim tek boyutlu Gaussian formuna erismis
+oluyor. 
+
+Beklenti (Expectation) 
+
+Bu deger, dagilim $f(x)$'in tek sayilik bir ozetidir. Yani beklenti hesabina
+bir taraftan bir dagilim fonksiyonu girer, diger taraftan tek bir sayi
+disari cikar. Surekli dagilim fonksiyonlari icin $E(X)$
+
+\[  E(X) = \int x f(x) dx\]
+
+ayriksal durumda
+
+\[ E(X) = \sum_x xf(x) \]
+
+olarak hesaplanir. Hesabin, her $x$ degerini onun olasiligi ile carpip
+topladigina dikkat. Bu tur bir hesap dogal olarak tum $x$'lerin
+ortalamasini verecektir, ve dolayli olarak dagilimin ortalamasini
+hesaplayacaktir. Ortalama $\mu_x$ olarak ta gosterilebilir.
+
+Notasyonel basitlik icin ustteki toplam / entegral yerine 
+
+\[ = \int x \ dF(x) \]
+
+diyecegiz, bu notasyonel bir kullanim sadece, unutmayalim, reel analizde
+$\int x \ dF(x)$'in ozel bir anlami var (hoca tam diferansiyel $dF$'den
+bahsediyor). 
+
+Beklentinin taniminin kapsamli / eksiksiz olmasi icin $E(X)$'in
+``mevcudiyeti'' icin de bir sart tanimlamak gerekir, bu sart soyle olsun, 
+
+\[ \int_x |x|dF_X(x) < \infty \]
+
+ise beklenti mevcut demektir. Tersi sozkonusu ise beklenti mevcut
+degildir. 
+
+
+Ornek 
+
+$X \sim Unif(-1,3)$ olsun. $E(X) = \int xdF(x) = \int x f_X(x)dx = \frac{
+  1}{4} \int _{ -1}^{3} x dx = 1$. 
+
+Ornek 
+
+Cauchy dagiliminin $f_X(x) = \{ \pi (1+x^2) \} ^{-1}$ oldugunu soylemistik. Simdi 
+beklentiyi hesaplayalim. Parcali entegral teknigi lazim, $u=x$, 
+$dv =
+1/1+x^2$ deriz, ve o zaman $v = \tan ^{-1}(x)$ olur, bkz {\em Ters
+  Trigonometrik Formuller} yazimiz. Demek ki 
+
+\[ \int |x|dF(x) = \frac{ 2}{\pi} \int _{ 0}^{\infty}\frac{x dx}{1+x^2}  \]
+
+2 nereden cikti? Cunku $|x|$ kullaniyoruz, o zaman sinir degerlerinde
+sadece sifirin sagina bakip sonucu ikiyle carpmak yeterli. Bir sabit oldugu
+icin $\pi$ ile beraber disari cikiyor. Simdi
+
+\[ \int udv = uv - \int vdu \]
+ 
+uzerinden
+
+\[ = [x \tan ^{-1}(x) ] _{ 0}^{\infty} - \int _{ 0}^{\infty} \tan ^{-1}(x)
+dx  = \infty\]
+
+Yani ustteki hesap sonsuzluga gider. O zaman ustteki tanimimiza gore Cauchy
+dagiliminin beklentisi yoktur. 
+
+
+Toplamlarýn Moment'leri
+
+Olasýlýk matematiðinde "moment üreten iþlevler" olarak adlandýrýlan,
+baþlangýçta pek yararlý gibi gözükmesede bir takým matematiksel özellikleri
+olduðu için, ispatlarda oldukça iþe yarayan bir kavram vardýr.
+
+Her rasgele deðiþkenin bir daðýlýmý olduðunu biliyoruz. Her rasgele
+deðiþkenin de ayrýca bir moment üreten fonksiyonu da vardýr. Ayrýca, moment
+üreten fonksiyon ile rasgele deðiþken arasýnda bire-bir olarak bir iliþki
+mevcuttur. "Bu neye yarar?" diye sorulabilir; Cevap olarak, mesela cebirsel
+olarak türete türete bir moment'e geldiðimiz düþünelim, ve tekrar baþka bir
+taraftan, baþka bir formülden gene türete türete tekrar ayný moment
+iþlevine geliyorsak, bu demektir ki, iki taraftan gelen rasgele deðiþkenler
+(ve tekabül eden daðýlýmlarý) birbirine eþittir. Bazý þartlarda moment
+üreten iþlevler ile cebir yapmak, daðýlým fonksiyonlarýndan daha rahat
+olmaktadýr.
+
+Her rasgele deðiþken için, moment üreten iþlev þöyle bulunur.
+
+$X$ rasgele degiskenin moment ureten operasyonu
+
+$M(t)=E(e^{tX})$ olarak gosterilir
+
+Ayriksal operasyonlar icin
+
+\[ M(t) = \sum_x e^{tx}p(x) \]
+
+Surekli islevler icin
+
+\[ M(t) = \int_{-\infty}^{\infty} e^{tx}f(x)dx   \]
+
+Kuram
+
+Gelelim yazýmýzýn esas konusu olan kuramýmýza.
+
+Eðer $X_1, X_2...X_n$ baðýmsýz rasgele deðiþken ise, ve her deðiþkenin
+$M_i(t)$ $i=1,2,3,...n$ olarak, öz olarak ayný olan birer moment üreten
+iþlevi var ise, o zaman,
+
+\[ Y = \sum_{i=1}^n  aX_i \]
+
+acilimi
+
+\[ M_y(t) = \prod_{i=1}^n M(a_i t) \]
+
+olacaktir. 
+
+Ispat
+
+\[ M_y(t) = E(e^{tY}=E(e^{t(a_1X_1+a_2X_2+..+a_nX_n)} \]
+
+\[ = E[\exp(ta_1 X_1 ta_2X_2...+ta_nX_n)] \]
+
+\[ = E[\exp(ta_1X_1)+\exp(ta_2X_2)+ ... + \exp(ta_nX_n)] \]
+
+\[ = E[\exp(ta_1X_1)]+E[\exp(ta_2X_2)]+ ... + E[\exp(ta_nX_n)]\]
+
+Daha once belirttigimiz gibi
+
+\[ M_i(t) = E[\exp(tX_i)] \]
+
+olduguna gore ve $t$ yerine $ta_i$ koyuldugunu dusunelim
+
+\[ M_y(t) = \prod_{i=1}^n M_y(a_it) \]
+
+olacaktir. 
+
+Bunu $M_y(t)= (M_i(a_it))^n$ seklinde de gosterebiliriz. 
+Ortalama (Mean) ve Medyan (Median)
+
+Ozet Istatistikleri 
+
+Genellikle istatistik kitaplari hemen ortalama (mean), medyan (median) ve
+baglantili ozet istatistiklerinden (summary statistics) bahsederek ise
+girerler. Bu istatistikleri dikkatle kullanmak gerekir, cunku her turlu
+veri, her yerde gecerli degildirler. Mesela ortalama sadece tek merkezi bir
+tepesi olan (unimodal) dagilimlar icin gecerlidir. Eger bu temel varsayim
+gecerli degilse, ortalama kullanarak yapilan hesaplar bizi yanlis yollara
+goturur. Ayrica bir dagilimi simetrik olup olmadigi da ortalama ya da
+medyan kullanilip kullanilmamasi kararinda onemlidir. Eger simetrik, tek
+tepeli bir dagilim var ise, ortalama ve medyan birbirine yakin
+olacaktir. Fakat veri baska turde bir dagilim ise, o zaman bu iki olcut
+birbirinden cok farkli olabilir.
+
+Once ortalama ve standart sapmayi (standart deviation) gorelim.
+
+$$ m  = \frac{ 1}{n}\sum_i x_i $$
+
+Standart sapma veri noktalarin "ortalamadan farkinin ortalamasini"
+verir. Tabii bazen noktalar ortalamanin altinda, bazen ustunde olacaktir,
+bizi bu negatiflik, pozitiflik ilgilendirmez, biz sadece farkla
+alakaliyiz. O yuzden her sapmanin karesini aliriz, bunlari toplayip nokta
+sayisina boleriz .
+
+$$ s^2 = \frac{ 1}{n} \sum_i (x_i - m)^2 $$
+
+Eger $m$ tanimini ustte yerine koyarsak, 
+
+$$ = \frac{ 1}{n} \sum_i x_i^2 + \frac{ 1}{n} \sum_i m^2 - \frac{ 2}{n} \sum_i x_im  $$
+
+$$ = \frac{ 1}{n} \sum_i x_i^2 + \frac{ m^2n}{n} - \frac{ 2mn}{n}m $$
+
+$$ = \frac{ 1}{n} \sum_i x_i^2 +  m^2 - 2m^2 $$
+
+$$ = \frac{ 1}{n} \sum_i x_i^2 - m^2 $$
+
+Bu olcuye varyans (variance) denir ve teorik olarak ortalamadan daha onemli
+oldugu soylenebilir. Fakat dagilimin yayilma olcusu olarak biz bu olcuyu
+oldugu gibi degil, onun karesini kullanacagiz (ki standart sapma buna
+deniyor aslinda). Niye? Cunku o zaman veri noktalarinin ve yayilma olcusunun
+birimleri birbiri ile ayni olacak. Eger veri setimiz bir alisveris
+sepetindeki malzemelerin lira cinsinden degerleri olsaydi, varyans bize
+sonucu "karekok lira" olarak verecekti ve bunun pek anlami olmayacakti. 
+
+Medyan ve Yuzdelikler (Percentile)
+
+Ustteki hesaplar sayilari toplayip, bolmek uzerinden yapildi. Medyan
+ve diger yuzdeliklerin hesabi (ki medyan 50. yuzdelige tekabul eder)
+icin eldeki tum degerleri "siraya dizmemiz" ve sonra 50. yuzdelik icin
+ortadakine bakmamiz gerekiyor. Mesela eger ilk 5. yuzdeligi ariyorsak
+ve elimizde 80 tane deger var ise, bastan 4. sayiya / vektor hucresine
+/ ogeye bakmamiz gerekiyor. Eger 100 eleman var ise, 5. sayiya
+bakmamiz gerekiyor, vs.
+
+Bu siraya dizme islemi kritik. Kiyasla ortalama hesabi hangi sirada olursa
+olsun, sayilari birbirine topluyor ve sonra boluyor. Zaten ortalama ve
+sapmanin istatistikte daha cok kullanilmasinin tarihi sebebi de aslinda bu;
+bilgisayar oncesi cagda sayilari siralamak (sorting) zor bir isti. Bu
+sebeple hangi sirada olursa olsun, toplayip, bolerek hesaplanabilecek
+ozetler daha makbuldu. Fakat artik siralama islemi kolay, ve veri setleri
+her zaman tek tepeli, simetrik olmayabiliyor. 
+
+Ornek veri seti olarak unlu \verb!dellstore2! tabanindaki satis miktarlari
+kullanirsak, 
+
+\begin{minted}[fontsize=\footnotesize]{python}
+data = np.loadtxt("dell.csv")
+plt.hist(data,40)
+plt.savefig('05_02.png')
+\end{minted}
+
+\includegraphics[height=6cm]{05_02.png}
+
+\begin{minted}[fontsize=\footnotesize]{python}
+print np.mean(data)
+\end{minted}
+
+\begin{verbatim}
+213.948899167
+\end{verbatim}
+
+\begin{minted}[fontsize=\footnotesize]{python}
+print np.median(data)
+\end{minted}
+
+\begin{verbatim}
+214.06
+\end{verbatim}
+
+\begin{minted}[fontsize=\footnotesize]{python}
+print np.std(data)
+\end{minted}
+
+\begin{verbatim}
+125.118481954
+\end{verbatim}
+
+\begin{minted}[fontsize=\footnotesize]{python}
+print np.mean(data)+2*np.std(data)
+\end{minted}
+
+\begin{verbatim}
+464.185863074
+\end{verbatim}
+
+\begin{minted}[fontsize=\footnotesize]{python}
+print np.percentile(data, 95)
+\end{minted}
+
+\begin{verbatim}
+410.4115
+\end{verbatim}
+
+Goruldugu gibi uc nokta hesabi icin ortalamadan iki sapma otesini
+kullanirsak, 464.18, fakat 95. yuzdeligi kullanirsak 410.41 elde
+ediyoruz. Niye? Sebep ortalamanin kendisi hesaplanirken cok uc
+degerlerin toplama dahil edilmis olmasi ve bu durum, ortalamanin
+kendisini daha buyuk seviyeye dogru itiyor. Yuzdelik hesabi ise sadece
+sayilari siralayip belli bazi elemanlari otomatik olarak uc nokta
+olarak addediyor.
+
+Box Whisker Grafikleri
+
+Tek boyutlu bir verinin dagilimini gormek icin Box ve Whisker grafikleri
+faydali araclardir; medyan (median), dagilimin genisligini ve siradisi
+noktalari (outliers) acik sekilde gosterirler. Isim nereden geliyor? Box
+yani kutu, dagilimin agirliginin nerede oldugunu gosterir, medyanin
+sagindada ve solunda olmak uzere iki ceyregin arasindaki kisimdir, kutu
+olarak resmedilir. Whiskers kedilerin biyiklarina verilen isimdir, zaten
+grafikte birazcik biyik gibi duruyorlar. Bu uzantilar medyan noktasindan
+her iki yana kutunun iki kati kadar uzatilir sonra verideki "ondan az olan
+en buyuk" noktaya kadar geri cekilir. Tum bunlarin disinda kalan veri ise
+teker teker nokta olarak grafikte basilir. Bunlar siradisi (outlier)
+olduklari icin daha az olacaklari tahmin edilir.
+
+BW grafikleri iki veriyi dagilimsal olarak karsilastirmak icin
+birebirdir. Mesela Larsen and Marx adli arastirmacilar cok az veri
+iceren Quintus Curtius Snodgrass veri setinin degisik oldugunu
+ispatlamak icin bir suru hesap yapmislardir, bir suru matematiksel
+isleme girmislerdir, fakat basit bir BW grafigi iki setin farkliligini
+hemen gosterir.
+
+BW grafikleri iki veriyi dagilimsal olarak karsilastirmak icin
+birebirdir. Mesela Larsen and Marx adli arastirmacilar cok az veri
+iceren Quintus Curtius Snodgrass veri setinin degisik oldugunu
+ispatlamak icin bir suru hesap yapmislardir, bir suru matematiksel
+isleme girmislerdir, fakat basit bir BW grafigi iki setin farkliligini
+hemen gosterir.
+
+Python uzerinde basit bir BW grafigi 
+
+\begin{minted}[fontsize=\footnotesize]{python}
+spread= rand(50) * 100
+center = ones(25) * 50
+flier_high = rand(10) * 100 + 100
+flier_low = rand(10) * -100
+data =concatenate((spread, center, flier_high, flier_low), 0)
+plt.boxplot(data)
+plt.savefig('05_03.png')
+\end{minted}
+
+\includegraphics[height=6cm]{05_03.png}
+
+Bir diger ornek Glass veri seti uzerinde
+
+\begin{minted}[fontsize=\footnotesize]{python}
+data = loadtxt("glass.data",delimiter=",")
+head = data[data[:,10]==7]
+tableware = data[data[:,10]==6]
+containers = data[data[:,10]==5]
+
+print head[:,1]
+
+data =(containers[:,1], tableware[:,1], head[:,1])
+
+plt.yticks([1, 2, 3], ['containers', 'tableware', 'head'])
+
+plt.boxplot(data,0,'rs',0,0.75)
+plt.savefig('05_04.png')
+\end{minted}
+
+\begin{verbatim}
+[ 1.51131  1.51838  1.52315  1.52247  1.52365  1.51613  1.51602  1.51623
+  1.51719  1.51683  1.51545  1.51556  1.51727  1.51531  1.51609  1.51508
+  1.51653  1.51514  1.51658  1.51617  1.51732  1.51645  1.51831  1.5164
+  1.51623  1.51685  1.52065  1.51651  1.51711]
+\end{verbatim}
+
+\includegraphics[height=6cm]{05_04.png}
+
+Guven Araligi (Confidence Intervals)
+
+Bu kavram istatistikte tartisilan konulardan biri. Bayes ve Frenkansçý 
+(Frequentist) istatistik arasindaki felsefi farklardan biri burada ortaya
+cikiyor. Frekansci tanim soyledir:
+
+"Bir parametre $\theta$ icin $1-\alpha$ seviyesinde bir $C_n=(a,b)$ guven araligi
+tanimlanabilir -- bu aralik $a=a(X_1,..,X_n)$ ve $b=b(X_1,..,X_n)$ adli iki
+fonksiyon uzerinden tanimlanabilir. Bu fonksiyonlar veri uzerinde isleyen, 
+{\em verinin} fonksiyonlaridir, ve sonucta
+
+$$ \mathbb{P}_\theta (\theta \in C_n) \ge 1-\alpha, \ \ \forall \theta \in \Theta $$
+
+Yani $(a,b)$ araligi $1-\alpha$ olasiliginda $\theta$ 'yi icine alir / hapseder.
+
+Daha detayli olarak deney arka arkaya pek cok kez tekrarlandiginda
+parametrenin tahmininin $1-\alpha$ oraninda tanimlanan araliga
+dusecegi soylenir. $1-\alpha$ sayisina guven araliginin kapsami
+(coverage) ismi de verilir. Genellikle insanlar yuzde 95 guven
+araligini kullanirlar, ve bu yuzdeye tekabul eden $\alpha = 0.05$
+rakami kullanilir.
+
+Uzerine basarak belirtmek gerekir ki $C_n$ rasgele (random) bir degerdir,
+ama $\theta$ sabittir, cunku $C_n$ verinin bir fonksiyonudur, ve veriden,
+yani bir orneklemden gelecegi icin o da rasgele olmalidir.
+
+Eger $\theta$ bir vektor ise o zaman bir aralik yerine bir guven kumesi
+kullanilir (mesela bir kure, ya da elips)."
+
+Fakat frekansci yaklasimda aralik fonksiyonlari $a,b$ ile guven
+araligi arasindaki baglanti net degildir. Hangi fonksiyon secimi hangi
+$\alpha$'ya sebebiye vermektedir? Bu durum net oldugu durumlarda bile
+teorik olarak saglamligi suphelidir, ayrica hesabin sozel olarak
+ortaya konmasinda bazi eksikler vardir. "Deney arka arkaya pek cok kez
+tekrarlandiginda parametrenin tahmini, $1-\alpha$ guven araliga
+dusecektir" ibaresi mesela; "deney tekrari" her durumda gecerli
+olmayabilir. Meteoroloji "yarin yuzde 80 ihtimali ile yagmur
+yagacak" diyorsa, o hesap sartlarinin bir daha ortaya cikmasinin
+olasiligi cok dusuktur, Kaos Teorisi bize en azindan bunu soyluyor.
+
+Wiki sayfasinda [1] tartismanin boyutlari gorulebilir.
+
+Son onyillarda ortaya cikan yaklasim ise Bayes Teorisini devreye
+sokmak. Bir guven araligi tanimlamanin en saglam yolu bu hesabi bir
+dagilimi baz alarak yapmak. Eger sonuc olarak bir tekil sayi degil, bir
+dagilim elde edersek bu dagilim uzerinde guvenlik hesaplarini yapmak cok
+kolay hale gelir. Mesela sonuc (sonsal dagilim) bir Gaussian dagilim ise,
+bu dagilimin yuzde 95 agirliginin nerede oldugu, ve nasil hesaplandigi
+bellidir. 
+
+Bayes Teorisi
+
+$$ P(A|B)  = \frac{ P(B|A)P(A)}{P(B)} $$
+
+Veri analizi baglaminda diyelim ki deneyler yaparak tahmini olarak
+hesaplamak (estimate) istedigimiz bir parametre var, bu bir protonun
+kutlesi ya da bir ameliyat sonrasi hayatta kalma orani olabilir. Bu
+durumlarda iki ayri "olaydan" bahsetmemiz gerekir, B olayi spesifik bazi
+olcumlerin elde edilmesi "olayidir", mesela olcum uc sayidan olusuyorsa,
+biz bir olcumde spesifik olarak $\{0.2,4,5.4\}$ degerlerini elde
+etmisiz. Ikinci olay bilmedigimiz parametrenin belli bir degere sahip
+olmasi olacak. O zaman Bayes Teorisinin su sekilde tekrar yazabiliriz, 
+
+$$ P(parametre | veri ) \propto P(data | parametre)P(parametre) $$
+
+$\propto$ isareti orantili olmak (proportional to) anlamina geliyor. Boleni
+attik cunku o bir sabit (tamamen veriye bagli, tahmini hesaplamak
+istedigimiz parametreye bagli degil). Tabii bu durumda sol ve sag taraf
+birbirine esit olmaz, o yuzden esitlik yerine orantili olmak isaretini
+kullandik. Bu cercevede "belli bir numerik sabit cercevesinde birbirine
+esit (equal within a numeric constant)" gibi cumleler de gorulebilir. 
+
+Ornek
+
+Diyelim ki bir bozuk para ile 10 kere yazi-tura attik, ve sonuc altta
+
+T H H H H T T H H H
+
+Bu veriye bakarak paranin hileli olup olmadigini anlamaya
+calisacagiz. Bayes ifadesini bu veriye gore yazalim,
+
+$$ P(p | \{ \textrm{T H H H H T T H H H} \} \propto 
+P(\{ \textrm{T H H H H T T H H H} | p) P(p) \}
+$$
+
+$P(p)$ ifadesi ne anlama gelir? Aslinda bu ifadeyi $P([Dagilim] = p)$
+olarak gormek daha iyi, artik $p$ parametresini bir dagilimdan gelen bir
+tekil deger olarak gordugumuze gore, o dagilimin belli bir $p$'ye esit
+oldugu zamani modelliyoruz burada. Her halukarda $P(p)$ dagilimini, yani
+onsel (prior) olasiligi bilmiyoruz, hesaptan once her degerin mumkun
+oldugunu biliyoruz, o zaman bu onsel dagilimi duz (flat) olarak aliriz,
+yani $P(p) = 1$. 
+
+$P(\{\textrm{T H H H H T T H H H} | p)$ ifadesi goz korkutucu olabilir, ama
+buradaki her ogenin bagimsiz ozdesce dagilmis (independent identically
+distributed) oldugunu gorursek, ama bu ifadeyi ayri ayri
+$P(\{\textrm{T}|p)$ ve $P(\{\textrm{H}|p)$ carpimlari olarak gorebiliriz. $P(\{\textrm{T}|p) = p$ ve 
+$P(\{\textrm{H}|p)=1-p$ oldugunu biliyoruz. O zaman 
+
+$$ P(p | \{ \textrm{7 Tura, 3 Yazi} \} \propto
+p^7(1-p)^3
+$$
+
+Grafiklersek, 
+
+\includegraphics[height=6cm]{05_01.png}
+
+Boylece $p$ icin bir sonsal (posterior) dagilim elde ettik. Artik bu
+dagilimin yuzde 95 agirliginin nerede oldugunu rahatca gorebiliriz /
+hesaplayabiliriz. Dagilimin tepe noktasinin $p=0.7$ civarinda oldugu
+goruluyor. Bir dagilimla daha fazlasini yapmak ta mumkun, mesela bu
+fonksiyonu $p$'ye bagli baska bir fonksiyona karsi entegre etmek mumkun,
+mesela beklentiyi bu sekilde hesaplayabiliriz. 
+
+Onsel dagilimin her noktaya esit agirlik veren birornek (uniform) secilmis
+olmasi, yani problemi cozmeye sifir bilgiden baslamis olmamiz, yontemin bir
+zayifligi olarak gorulmemeli. Yontemin kuvveti elimizdeki bilgiyle baslayip
+onu net bir sekilde veri ve olurluk uzerinden sonsal tek dagilima
+goturebilmesi. Baslangic ve sonuc arasindaki baglanti gayet net. Fazlasi da
+var; ilgilendigimiz alani (domain) ogrendikce, basta hic bilmedigimiz onsel
+dagilimi daha net, bilgili bir sekilde secebiliriz ve bu sonsal dagilimi da
+daha olmasi gereken modele daha yaklastirabilir. 
+
+Gaussian Kontrolu
+
+Diyelim ki Gaussian dagilimina sahip oldugunu dusundugumuz $\{ x_i\}$
+verilerimiz var. Bu verilerin Gaussian dagilimina uyup uymadigini nasil
+kontrol edecegiz? Normal bir dagilimin her veri noktasi icin soyle temsil
+edebiliriz,
+
+$$ y_i = \Phi\bigg(\frac{ x_i - \mu}{\sigma}\bigg) $$
+
+Burada $\Phi$ standart Gaussian'i temsil ediyor (detaylar icin
+*Istatistik Ders 1*) ve CDF fonksiyonuna tekabul ediyor. CDF
+fonksiyonunun ayni zamanda ceyregi (quantile) hesapladigi soylenir,
+aslinda CDF son derece detayli bir olasilik degeri verir fakat evet,
+dolayli yoldan noktanin hangi ceyrek icine dustugu de gorulecektir.
+
+Simdi bir numara yapalim, iki tarafa ters Gaussian formulunu uygulayalim,
+yani $\Phi^{-1}$.
+
+$$ \Phi^{-1}(y_i) = \Phi^{-1}\bigg( \Phi\bigg(\frac{ x_i - \mu}{\sigma}\bigg)\bigg) $$
+
+$$ \Phi^{-1}(y_i) = \frac{ x_i - \mu}{\sigma}$$
+
+$$ x_i = \Phi^{-1}(y_i) \sigma + \mu  $$ 
+
+Bu demektir ki elimizdeki verileri $\Phi^{-1}(y_i)$ bazinda grafiklersek,
+bu noktalar egimi $\sigma$, baslangici (intercept) $\mu$ olan bir duz cizgi
+olmalidir. Eger kabaca noktalar duz cizgi olusturmuyorsa, verimizin 
+Gaussian dagilima sahip olmadigina karar verebiliriz. 
+
+Ustte tarif edilen grafik,  olasilik grafigi (probability plot) olarak
+bilinir. 
+
+Ters Gaussian teorik fonksiyonunu burada vermeyecegiz, Scipy
+\verb!scipy.stats.invgauss! hesaplar icin kullanilabilir. Fakat $y_i$'nin
+kendisi nereden geliyor? Eger $y_i$, CDF'in bir sonucu ise, pur veriye
+bakarak bir CDF degeri de hesaplayabilmemiz gerekir. Bunu yapmak icin bir
+baska numara lazim. 
+
+1. Eldeki sayilari artan sekilde siralayin
+
+2. Her veri noktasina bir derece (rank) atayin (siralama sonrasi hangi
+seviyede oldugu yeterli, 1'den baslayarak). 
+
+3. Ceyrek degeri $y_i$ bu sira / $n+1$, $n$ eldeki verinin buyuklugu. 
+
+Bu teknik niye isliyor? $x$'in CDF'i $x_i < x$ sartina uyan $x_i$'lerin
+orani degil midir? Yani bir siralama soz konusu ve ustteki teknik te bu
+siralamayi biz elle yapmis olduk, ve bu siralamadan gereken bilgiyi aldik. 
+
+
+Moment Fonksiyonlari
+
+Olasýlýk matematiðinde "moment üreten iþlevler" olarak adlandýrýlan,
+baþlangýçta pek yararlý gibi gözükmesede bir takým matematiksel
+özellikleri olduðu için, ispatlarda oldukça iþe yarayan bir kavram
+vardýr.
+
+Her rasgele deðiþkenin bir daðýlýmý olduðunu biliyoruz. Her rasgele
+deðiþkenin de ayrýca bir moment üreten fonksiyonu da vardýr. Ayrýca,
+moment üreten fonksiyon ile rasgele deðiþken arasýnda bire-bir olarak
+bir iliþki mevcuttur. "Bu neye yarar?" diye sorulabilir; Cevap olarak,
+mesela cebirsel olarak türete türete bir moment'e geldiðimiz
+düþünelim, ve tekrar baþka bir taraftan, baþka bir formülden gene
+türete türete tekrar ayný moment iþlevine geliyorsak, bu demektir ki,
+iki taraftan gelen rasgele deðiþkenler (ve tekabül eden daðýlýmlarý)
+birbirine eþittir. Bazý þartlarda moment üreten iþlevler ile cebir
+yapmak, daðýlým fonksiyonlarýndan daha rahat olmaktadýr.
+
+Her rasgele deðiþken için, moment üreten iþlev þöyle bulunur.
+
+$X$ rasgele degiskenin moment ureten operasyonu
+
+$M(t)=E(e^{tX})$ olarak gosterilir
+
+Ayriksal operasyonlar icin
+
+\[ M(t) = \sum_x e^{tx}p(x) \]
+
+Surekli islevler icin
+
+\[ M(t) = \int_{-\infty}^{\infty} e^{tx}f(x)dx   \]
+
+Kuram
+
+Gelelim yazýmýzýn esas konusu olan kuramýmýza.
+
+Eðer $X_1, X_2...X_n$ baðýmsýz rasgele deðiþken ise, ve her deðiþkenin
+$M_i(t)$ $i=1,2,3,...n$ olarak, öz olarak ayný olan birer moment üreten
+iþlevi var ise, o zaman,
+
+\[ Y = \sum_{i=1}^n  aX_i \]
+
+acilimi
+
+\[ M_y(t) = \prod_{i=1}^n M(a_i t) \]
+
+olacaktir. 
+
+Ispat
+
+\[ M_y(t) = E(e^{tY}=E(e^{t(a_1X_1+a_2X_2+..+a_nX_n)} \]
+
+\[ = E[\exp(ta_1 X_1 ta_2X_2...+ta_nX_n)] \]
+
+\[ = E[\exp(ta_1X_1)+\exp(ta_2X_2)+ ... + \exp(ta_nX_n)] \]
+
+\[ = E[\exp(ta_1X_1)]+E[\exp(ta_2X_2)]+ ... + E[\exp(ta_nX_n)]\]
+
+Daha once belirttigimiz gibi
+
+\[ M_i(t) = E[\exp(tX_i)] \]
+
+olduguna gore ve $t$ yerine $ta_i$ koyuldugunu dusunelim
+
+\[ M_y(t) = \prod_{i=1}^n M_y(a_it) \]
+
+olacaktir. 
+
+Bunu $M_y(t)= (M_i(a_it))^n$ seklinde de gosterebiliriz. 
+
+Orneklem Dagilimlari (Sampling Distributions)
+
+Diyelim ki elimizde (hakkinda) ogrenmek istedigimiz bir sayisal obek
+(population) var. Bu obekteki her elemani ayri ayri incelemek
+istemiyoruz, problem degil, nufustan bir orneklem (sample) aliriz.
+Eger bu orneklem nufusu yeterince iyi temsil ediyorsa, problem cikmaz.
+Bu temsiliyeti garantilemenin iyi bir yolu orneklemi rasgele yapmaktir.
+
+Simdi, diyelim ki, bu orneklemi bir sekilde ozetlemek istiyoruz yani
+orneklem verisi kullanilarak hesaplanmis temsili bir istatistik
+(descriptive statistic) elde edecegiz.
+
+Fakat orneklemimiz rasgele idi. Bu istatistigimiz (ki o da sonucta bir
+rasgele degiskendir ve onun da bir dagilimi vardir), nasil bir
+dagilima sahiptir? Yani nufus dagilimi (population distribution), ve
+orneklem dagiliminin (sampling distribution) birbiriyle
+baglantisiyla ilgileniyoruz.
+
+Teori
+
+Eger $X_1,..,X_n$ bir $N(\mu,\sigma)$ dagiliminda alinmis orneklem olsun.
+O zaman orneklem ortalamasinin dagilimi $N(\mu,\sigma/\sqrt{n})$. 
+
+[TBD - Ispat]
+
+Teori
+
+Eger $X_1,..,X_n$ bir $N(\mu,\sigma)$ dagiliminda alinmis orneklem olsun.
+O zaman su buyukluk
+
+$$ T = \frac{ \bar{X}-\mu}{S / \sqrt{n}} $$
+
+$t_{n-1}$ dagilimina, yani $n-1$ serbestlik derecesindeki (degree of
+freedom) bir Student's t Dagilimidir.
+
+[TBD - Ispat]
+
+Hipotez Testleri (Hypothesis Testing)
+
+Hipotez testi (bir veriye dayanarak) farzedilen bir parametreyi bir
+sabit degerle karsilastirmak, ya da iki parametreyi birbiriyle
+karsilastirmak icin kullanilir. 
+
+Bir hipotez testi, sonucta sadece iki cevap verebilecek bir sorudur;
+bu sonuclar "reddetmek" ya da "reddetmemek" olabilir. Dikkat: bu
+sonuclardan biri "kabul etmek" degil, bir istatistiki hipotezi kabul
+etmek mumkun degildir. Tek soyleyebildigimiz "bir hipotezi reddetmek
+icin elimizde yeterli veri olmadigini" soylemektir. Ama
+reddedebiliyorsak, bu sonucta daha bir kesinlik vardir. 
+
+Tek Orneklem t Testi (One-sample t test)
+
+Bu test verinin Normal dagilimdan geldigini farzeder, tek orneklem
+durumunda elde $x_1,...,x_n$ verisi vardir, ve bu veri $N(\mu,\Sigma)$
+dagilimindan gelmistir ve test etmek istedigimiz hipotez /
+karsilastirma $\mu = \mu_0$. 
+
+\begin{minted}[fontsize=\footnotesize]{python}
+from scipy.stats import ttest_1samp, wilcoxon, ttest_ind
+import pandas as pd
+daily_intake = np.array([5260,5470,5640,6180,6390,6515, 6805,7515,7515,8230,8770])
+df = pd.DataFrame(daily_intake)
+print df.describe()
+\end{minted}
+
+\begin{verbatim}
+                 0
+count    11.000000
+mean   6753.636364
+std    1142.123222
+min    5260.000000
+25%    5910.000000
+50%    6515.000000
+75%    7515.000000
+max    8770.000000
+\end{verbatim}
+
+\begin{minted}[fontsize=\footnotesize]{python}
+t_statistic, p_value = ttest_1samp(daily_intake, 7725)
+print "one-sample t-test", p_value
+\end{minted}
+
+\begin{verbatim}
+one-sample t-test 0.0181372351761
+\end{verbatim}
+
+Sonuc \verb!p_value! \verb!0.05!'ten kucuk cikti yani
+yuzde 5 onemliligini (significance) baz aldik bu durumda veri
+hipotezden onemli derecede (significantly) uzakta. Demek ki
+ortalamanin 7725 oldugu hipotezini reddetmemiz gerekiyor.
+
+Testi iki orneklemli kullanalim, gruplar 0/1 degerleri ile
+isaretlendi, ve test etmek istedigimiz iki grubun ortalamasinin (mean)
+ayni oldugu hipotezini test etmek. t-test bu arada varyansin ayni
+oldugunu farzeder.
+
+\begin{minted}[fontsize=\footnotesize]{python}
+energ = np.array([
+[9.21, 0],
+[7.53, 1],
+[7.48, 1],
+[8.08, 1],
+[8.09, 1],
+[10.15, 1],
+[8.40, 1],
+[10.88, 1],
+[6.13, 1],
+[7.90, 1],
+[11.51, 0],
+[12.79, 0],
+[7.05, 1],
+[11.85, 0],
+[9.97, 0],
+[7.48, 1],
+[8.79, 0],
+[9.69, 0],
+[9.68, 0],
+[7.58, 1],
+[9.19, 0],
+[8.11, 1]])
+group1 = energ[energ[:, 1] == 0][:, 0]
+group2 = energ[energ[:, 1] == 1][:, 0]
+t_statistic, p_value = ttest_ind(group1, group2)
+print "two-sample t-test", p_value
+\end{minted}
+
+\begin{verbatim}
+two-sample t-test 0.00079899821117
+\end{verbatim}
+
+$p-value < 0.05$ yani iki grubun ortalamasi ayni degildir. Ayni oldugu
+hipotezi reddedildi.
+
+Eslemeli t-Test (Paired t-test)
+
+Eslemeli testler ayni deneysel birimin olcumu alindigi zaman
+kullanilabilir, yani olcum alinan ayni grupta, deney sonrasi deneyin
+etki edip etmedigi test edilebilir. Bunun icin ayni olcum deney
+sonrasi bir daha alinir ve "farklarin ortalamasinin sifir oldugu"
+hipotezi test edilebilir. Altta bir grup hastanin deney oncesi ve
+sonrasi ne kadar yiyecek tukettigi listelenmis. 
+
+\begin{minted}[fontsize=\footnotesize]{python}
+intake = np.array([
+[5260, 3910],
+[5470, 4220],
+[5640, 3885],
+[6180, 5160],
+[6390, 5645],
+[6515, 4680],
+[6805, 5265],
+[7515, 5975],
+[7515, 6790],
+[8230, 6900],
+[8770, 7335],
+])
+pre = intake[:, 0]
+post = intake[:, 1]
+t_statistic, p_value = ttest_1samp(post - pre, 0)
+print "paired t-test", p_value
+\end{minted}
+
+\begin{verbatim}
+paired t-test 3.05902094293e-07
+\end{verbatim}
+
+Wilcoxon isaretli-sirali testi (Wilcoxon signed-rank test)
+
+t Testleri Normal dagilima gore sapmalari yakalamak acisindan,
+ozellikle buyuk orneklemler var ise, oldukca saglamdir. Fakat bazen
+verinin Normal dagilimdan geldigi faraziyesini yapmak istemeyebiliriz.
+Bu durumda {\em dagilimdan bagimsiz metotlar} daha uygundur, bu tur
+metotlar icin verinin yerine cogunlukla onun sira istatistiklerini
+(order statistics) kullanir.
+
+Tek orneklemli Wilcoxon testi icin prosedur $\mu_0$'i tum veriden
+cikartmak ve geri kalan (farklari) isaretine bakmadan numerik degerine
+gore siralamak, ve bu sira degerini bir kenara yazmak. Daha sonra geri
+donup bu sefer cikartma islemi sonucunun isaretine bakmak, ve eksi
+isareti tasiyan sira degerlerini toplamak, ayni islemi arti isareti
+icin yapmak, ve eksi toplami arti toplamindan cikartmak. Sonucta
+elimize bir istatistik $W$ gelecek. Bu test istatistigi aslinda $1..n$
+tane sayi icinden herhangi birini $1/2$ olasiligiyla secmek, ve
+sonuclari toplamaya tekabul etmektedir. Ve bu sonuc yine \verb!0.05!
+ile karsilastirilir.
+
+\begin{minted}[fontsize=\footnotesize]{python}
+z_statistic, p_value = wilcoxon(daily_intake - 7725)
+print "one-sample wilcoxon-test", p_value
+\end{minted}
+
+\begin{verbatim}
+one-sample wilcoxon-test 0.0279991628713
+\end{verbatim}
+
+Hipotezi yine reddettik.
+
+Ustte yaptigimiz eslemeli t-testi simdi Wilcoxon testi ile yapalim,
+
+\begin{minted}[fontsize=\footnotesize]{python}
+z_statistic, p_value = wilcoxon(post - pre)
+print "paired wilcoxon-test", p_value
+\end{minted}
+
+\begin{verbatim}
+paired wilcoxon-test 0.00463608893545
+\end{verbatim}
+
+Binom Testi
+
+Binom dagilimi belli sayida "deney" icinde her seferinde $p$ olasiligi
+tasiyan iki kategorili bir olaydan {\em kac tane} olabilecegini
+modeller. Dagilim
+
+$$
+P(K = k) = \left( \begin{array}{ccc}
+n \\ k
+\end{array} \right)
+p^k q^{n-k}
+$$
+
+olarak belirtilir, ki $q = 1-p$ degeridir. Bu dagilimin $n>20$, yani
+"yeterince buyuk" degerleri icin Normal (Gaussian) Dagilima yaklastigi
+/ onun gibi oldugu bilinmektedir. Bu yaklasilan dagilim ortalamasi
+$np$ ve standart sapmasi $\sqrt{npq}$ olan bir Normal dagilim olacaktir, yani
+$N(np,\sqrt{npq})$.
+
+Devam edelim, madem elimizde bir normal dagilim var, bu normal dagilimi diger
+her normal dagilim gibi standardize edebiliriz,
+
+$$
+Z = \frac{ K - np}{\sqrt{npq}} \sim N_{0,1}
+$$
+
+Burada rasgele degisken $K$, yani her binom deneyi ardindan ele
+gececek basari sayisi burada. Binom testi icin test etmek istedigimiz
+sey budur.  O zaman $p$ yerine test ettigimiz ana binom dagilimindan
+gelen ana orani $\hat{p}$ kullaniriz, ki bu basari / tum deney sayisi
+olarak hesaplanir, $K$ yeni deneydeki ele gecen basari sayisidir, n
+ornekleminin buyuklugudur, bu sayilari yerine koyarak $Z$ dagilimindan
+bir guven rakami (confidence) elde edebiliriz.
+
+Bir ornek uzerinde gorelim: diyelim ki elimizde bir Web sitesinin
+gunluk ziyaret, tiklama sayilarini gosteren bir veri seti var (CVR
+ziyaretcilerin, sitedeki tiklayan musteriye "cevirme' orani,
+-conversion-)
+
+\begin{minted}[fontsize=\footnotesize]{python}
+import pandas as pd
+from scipy import stats
+a = pd.DataFrame({'tiklama': [20.,2.,40.,5.,10.,100.],
+                  'ziyaret': [100.,10.,300.,400.,30.,800.]})
+a['cvr'] = a['tiklama'] / a['ziyaret'] 
+print a
+\end{minted}
+
+\begin{verbatim}
+   tiklama  ziyaret       cvr
+0       20      100  0.200000
+1        2       10  0.200000
+2       40      300  0.133333
+3        5      400  0.012500
+4       10       30  0.333333
+5      100      800  0.125000
+\end{verbatim}
+
+Diyelim ki bu veri seti icin cvr'in 0.16, yani yuzde 16 oldugunu
+onceden biliyoruz. Ustteki basari orani binom dagili ile
+modellenebilir, ziyaretler "deneylerdir", yani orneklem buyuklugunu
+gosterirler. Tiklama ise basaridir,
+
+\begin{minted}[fontsize=\footnotesize]{python}
+p_hat = 0.16
+btest = lambda x: (x['cvr']-p_hat) / np.sqrt( p_hat*(1-p_hat)/x['ziyaret'])
+a['guven'] = a.apply(btest, axis=1)
+a['guven'] = np.round(stats.zprob(a['guven'])*100,2)
+print a
+\end{minted}
+
+\begin{verbatim}
+   tiklama  ziyaret       cvr  guven
+0       20      100  0.200000  86.24
+1        2       10  0.200000  63.50
+2       40      300  0.133333  10.39
+3        5      400  0.012500   0.00
+4       10       30  0.333333  99.52
+5      100      800  0.125000   0.35
+\end{verbatim}
+
+Büyük Sayýlar Kanunu
+
+Olasýlýk kuramýnda önemli matematiksel bir denklem, büyük sayýlar
+kanunudur. Bu kanun, tahmini olarak bildiðimiz günlük bir gerçeðin
+matematiksel ispatýdýr da denebilir.
+
+Yazý-tura atarken yazý çýkma ihtimalinin 1/2 olduðunu biliyoruz. Herhalde
+çoðumuz da bu yazý-tura iþleminin "bir çok kere" tekrarlandýðý durumda,
+toplam sonucun aþaðý yukarý "yarýsýnýn" yazý olacaðýný tahmin biliyoruz. Bu
+tahminin matematiksel olarak söylemi, büyük sayýlar kanunudur. Yýllarca
+önce Öklid'in geometriyi ispat ederek yaptýðý gibi, matematiðe eklediðimizi
+her yeni bilgi daðarcýðýný önce matematiksel olarak ispatlamamýz gerekiyor.
+
+Farzedelim ki her yazý-tura atýþý bir deney olsun. Her ayrý deneyin sonucu
+$X_1, X_2...X_n$ olarak rasgelen deðiþkenlerle tanýmlanmýþ olsun. Bu
+deðiþkenler ya 1 ya da 0 deðeri taþýyacak, Yazý=1, Tura=0 olmak üzere.
+
+Buna göre, n tane deneyden sonra elimize gelmesi gereken yazý oraný þudur.
+
+\[ \bar{X_n} = \frac{1}{n} \sum_{i=1}^n X_i  \]
+
+Büyük sayýlar kanunu, $n$ büyüdükçe $X_n$'in 1/2'ye yaklaþtýðýný ispatlar.
+
+Baþlayalým.
+
+$X_1,X_2,..,X_n$ bagimsiz degiskenler olsun. 
+
+\[ E(X_i) = \mu \]
+
+\[ Var(X_i) = \sigma \]
+
+\[ \bar{X_n} = \frac{1}{n} \sum_{i=1}^n X_i  \]
+
+O zaman her $\epsilon > 0$ icin ve $n \rightarrow \infty $, $p(|\bar{X_n} -
+\mu|) \rightarrow 0$. 
+
+Bu tanýmlara göre, her rasgele deðiþkenin (deneyin) ortalamasý ayni
+deðerdir diyoruz. Bu zaten beklenir bir tanýmdý, çünkü her rasgele
+deðiþkenin daðýlýmýnýn ayný olduðunu kabul etmiþtik. Her yazý tura ayný
+þartlar altýnda atýlmazlar mý?
+
+$\bar{X_n}$ de bir rasgele deðiþkendir, çünku Büyük sayýlar kanununu,
+matematiksel olarak,$\bar{X_n}$ deðiþkeninin ortalamasýný tekil olarak her
+Xi daðýlýmýnýn (ayný olan) ortalamasý arasýnda birkü onun da formülü baþka
+rasgelen deðiþkenlere dayanýyor.
+
+Ýspat devam etmek için, þapkalý Xn daðýlýmýnýn beklentisini bulmamýz gerekiyor. 
+
+\[ \bar{X_n} = \frac{1}{n} \sum_{i=1}^n X_i  \]
+
+\[ E(\bar{X_n}) = E(\frac{1}{n} \sum_{i=1}^n X_i)  \]
+
+E dogrusal bir islec (linear operator) oldugu icin disaridan iceri dogru
+nufuz eder. 
+
+\[ = \frac{1}{n} \sum_{i=1}^n E(X_i) = \frac{1}{n}n\mu \]
+
+\[ = \mu \]
+
+$\bar{X_n}$ daðýlýmýnýn standart sapmasýný da bulalým. 
+
+Diger bir olasilik kuramina gore
+
+\[ Y = a + bX \]
+
+\[ Var(Y) = b^2Var(X) \]
+
+oldugunu biliyoruz. O zaman,
+
+\[ \bar{X_n} = \frac{1}{n} \sum_{i=1}^n X_i  \]
+
+\[ Var(\bar{X_n}) = Var(\frac{1}{n}\sum_{i=1}^nX_i) = 
+\frac{1}{n^2}\sum_{i=1}^n Var(X_i)
+\]
+
+\[ Var(\bar{X_n}) = \frac{1}{n^2}\sum_{i=1}^n \sigma^2 = 
+\frac{1}{n^2}n\sigma^2 = \frac{\sigma^2}{n} 
+\]
+
+Artýk Çebiþev kuramýný kullanmaya hazýrýz. 
+
+$n \rightarrow \infty$, \[ P(|\bar{X_n}-\mu| > \epsilon) \rightarrow 0 \]
+
+Cebisev'den
+
+\[ P(|\bar{X_n}-\mu| > \epsilon) \le \frac{Var(\bar{X_n})}{\epsilon^2} \]
+
+\[ P(|\bar{X_n}-\mu| > \epsilon) \le \frac{\sigma^2}{n\epsilon^2}
+\rightarrow 0 \]
+
+$\sigma^2 / n\epsilon^2$'in sifira gitmesi normal cunku n sonsuza gidiyor.
+
+Peki $P(|\bar{X_n}-\mu| > \epsilon)$'nin sifira gittigini gosterdik mi? 
+
+$\sigma^2 / n\epsilon^2$'nin sifira gittigini gosterdik. $\sigma^2 /
+n\epsilon^2$ de $P(|\bar{X_n}-\mu| > \epsilon)$'den buyuk olduguna gore,
+demek ki o da sifira iner. 
+
+Çebiþev Eþitsizliði
+
+Olasýlýk matematiðinde, büyük sayýlar kuramý adýnda anýlan ve olasýlýk
+matematiðinin belkemiðini oluþturan kuramý ispatlamak için, diðer bir kuram
+olan Çebiþev eþitsizliðini de anlamamýz gerekiyor. Çebiþev eþitsizliði bir
+rasgele deðiþken, onun ortalamasý (beklentisi) ve herhangi bir sabit sayý
+arasýndaki üçlü arasýnda bir 'eþitsizlik' baðlantýsý kurar, ve bu baðlantý
+diðer olasýlýk iþlemlerimizde ispat verisi olarak iþimize yarar.
+
+Teori: Herhangi bir $t$ deðeri için, 
+
+\[ P(|X-\mu| > t) \le \frac{\sigma^2}{t^2} \]
+
+Ýspata baþlayalým. Entegral ile olasýlýk hesabý yapmak için bize bir $x$
+uzayý lazým.
+
+\[ R = {x: |x-\mu| > t} \]
+
+Yani R uzayý, $x$ ile ortalamasýnýn farkýnýn, $t$'den büyük olduðu bütün
+sayýlarýn kümesidir.
+
+O zaman, 
+
+\[ P(|X-\mu| > t) = \int_R f(x)dx \]
+
+Dikkat edelim $P(..)$ içindeki formül, küme tanýmý ile ayný. O yüzden $P()$
+hesabý ortada daha olmayan, ama varolduðu kesin bir daðýlým fonksiyonu
+tanýmlamýþ da oluyor. Buna $f(x)$ deriz. $P()$'in, $f(x)$ fonksiyonunun $R$
+üzerinden entegral olduðunu olasýlýða giriþ dersinden bilmemiz lazým.
+
+Eger $x \in R$ dersek o zaman
+
+\[ \frac{|x-\mu|^2}{t^2} \ge 1 \]
+
+t'nin denkleme bu þekilde nereden geldiði þaþkýnlýk yaratabilir. Daha önce
+tanýmlanan þu ibareye dikkat edelim, $x: |x-u| > t$ diye belirtmiþtik. Bu
+ifadeyi deðiþtirerek, yukarýdaki denkleme gelebiliriz.
+
+Devam edersek, elimizdeki 1'den büyük bir deðer var. Bu deðeri kullanarak,
+aþaðýdaki tanýmý yapmamýz doðru olacaktýr.
+
+\[ \int_R f(x)dx \le \int_R \frac{(x-\mu)^2}{t^2}f(x)dx \le
+\int_{-\infty}^{\infty}\frac{(x-\mu)^2}{t^2}f(x)dx 
+ \]
+
+
+Ortadaki entegral niye birinci entegralden büyük? Çünkü ortadaki entegraldeki
+$F(x)dx$ ibaresinden önce gelen kýsmýn, her zaman 1'den büyük olacaðýný
+belirttiðimize göre, ikinci entegralin birinciden büyük olmasý normaldir.
+
+Evet...Üçüncü entegral ispata oldukça yaklaþtý aslýnda. Standart sapma
+iþaretini hala ortada göremiyoruz, fakat son entegraldeki ibare standart
+sapma deðerini zaten içeriyor. Önce daha önceki olasýlýk natematiði
+bilgimize dayanarak, standart sapmanýn tanýmýný yazýyoruz. Dikkat edelim,
+bu ibare þu anki ispatýmýz dahilinden deðil, haricinden önceki bilgimize
+dayanarak geldi. Standart sapmanýn tanýmý þöyledir.
+
+\[ \sigma^2 = \int_{-\infty}^{\infty} (x-\mu)^2f(x)dx \]
+
+O zaman
+
+\[ \frac{\sigma^2}{t^2} = \int_{-\infty}^{\infty}\frac{(x-\mu)^2}{t^2}f(x)dx \]
+
+yani
+
+\[ \int_R f(x)dx \le \frac{\sigma^2}{t^2} = 
+\int_{-\infty}^{\infty} \frac{(x-\mu)^2}{t^2}f(x)dx
+\]
+
+ki $\int_R f(x)dx$ zaten $P(|X-\mu| > t)$ olarak tanimlanmisti. 
+
+
+Kaynaklar
+
+
+[1] \url{http://en.wikipedia.org/wiki/Confidence_interval}
+
+[2] Janert, P., Data Analysis with Open Source Tools
+
+[3] Introduction to Probability Models, Sheldon Ross, 8th Edition, sf. 273
+
+\verb!https://gist.github.com/mblondel/1761714!
+
+Introductory Statistics with R
+
+Introduction to Probability and Statistics Using R
+
+\end{document}
