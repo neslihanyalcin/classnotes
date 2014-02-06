@@ -10,7 +10,7 @@ if len(sys.argv) == 1 or sys.argv[1] == 'tex':
     stat_hadoop_logreg/stat_hadoop_logreg.pdf \
     stat_hadoop_AtA_qr/stat_AtA_qr.pdf \
     stat_hadoop_rand_proj/stat_hadoop_rand_proj.pdf \
-    stat_normtable/stat_normtable.pdf \
+    stat_appendix/stat_normtable.pdf \
     output ~/Dropbox/Public/skfiles/stat.pdf
     """)
     exit()
