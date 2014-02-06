@@ -1,5 +1,6 @@
 \documentclass[12pt,fleqn]{article}\usepackage{../common}
 \begin{document}
+Testler
 
 Hipotez Testleri (Hypothesis Testing)
 
@@ -252,6 +253,56 @@ print a
 4       10       30  0.333333  99.52
 5      100      800  0.125000   0.35
 \end{verbatim}
+
+Gaussian Kontrolu
+
+Diyelim ki Gaussian dagilimina sahip oldugunu dusundugumuz $\{ x_i\}$
+verilerimiz var. Bu verilerin Gaussian dagilimina uyup uymadigini nasil
+kontrol edecegiz? Normal bir dagilimin her veri noktasi icin soyle temsil
+edebiliriz,
+
+$$ y_i = \Phi\bigg(\frac{ x_i - \mu}{\sigma}\bigg) $$
+
+Burada $\Phi$ standart Gaussian'i temsil ediyor (detaylar icin
+*Istatistik Ders 1*) ve CDF fonksiyonuna tekabul ediyor. CDF
+fonksiyonunun ayni zamanda ceyregi (quantile) hesapladigi soylenir,
+aslinda CDF son derece detayli bir olasilik degeri verir fakat evet,
+dolayli yoldan noktanin hangi ceyrek icine dustugu de gorulecektir.
+
+Simdi bir numara yapalim, iki tarafa ters Gaussian formulunu uygulayalim,
+yani $\Phi^{-1}$.
+
+$$ \Phi^{-1}(y_i) = \Phi^{-1}\bigg( \Phi\bigg(\frac{ x_i - \mu}{\sigma}\bigg)\bigg) $$
+
+$$ \Phi^{-1}(y_i) = \frac{ x_i - \mu}{\sigma}$$
+
+$$ x_i = \Phi^{-1}(y_i) \sigma + \mu  $$ 
+
+Bu demektir ki elimizdeki verileri $\Phi^{-1}(y_i)$ bazinda grafiklersek,
+bu noktalar egimi $\sigma$, baslangici (intercept) $\mu$ olan bir duz cizgi
+olmalidir. Eger kabaca noktalar duz cizgi olusturmuyorsa, verimizin 
+Gaussian dagilima sahip olmadigina karar verebiliriz. 
+
+Ustte tarif edilen grafik,  olasilik grafigi (probability plot) olarak
+bilinir. 
+
+Ters Gaussian teorik fonksiyonunu burada vermeyecegiz, Scipy
+\verb!scipy.stats.invgauss! hesaplar icin kullanilabilir. Fakat $y_i$'nin
+kendisi nereden geliyor? Eger $y_i$, CDF'in bir sonucu ise, pur veriye
+bakarak bir CDF degeri de hesaplayabilmemiz gerekir. Bunu yapmak icin bir
+baska numara lazim. 
+
+1. Eldeki sayilari artan sekilde siralayin
+
+2. Her veri noktasina bir derece (rank) atayin (siralama sonrasi hangi
+seviyede oldugu yeterli, 1'den baslayarak). 
+
+3. Ceyrek degeri $y_i$ bu sira / $n+1$, $n$ eldeki verinin buyuklugu. 
+
+Bu teknik niye isliyor? $x$'in CDF'i $x_i < x$ sartina uyan $x_i$'lerin
+orani degil midir? Yani bir siralama soz konusu ve ustteki teknik te bu
+siralamayi biz elle yapmis olduk, ve bu siralamadan gereken bilgiyi aldik. 
+
 
 [1] Introductory Statistics with R
 
