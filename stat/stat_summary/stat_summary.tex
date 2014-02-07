@@ -76,7 +76,9 @@ Tanim
 
 $x_1,..,x_n$ verilerini iceren orneklemin (sample) ortalamasi 
 
-$$ \bar{x} = \frac{1}{n} \sum x_i$$
+$$ \bar{x} = \frac{1}{n} \sum x_i
+\mlabel{1}
+$$
 
 Dikkat bu orneklemdeki verinin ortalamasi. Hicbir dagilim hakkinda hicbir
 faraziye yapmadik. Ayrica tanim kullandik, yani bu ifadenin ne oldugu
@@ -110,7 +112,9 @@ Tanim
 
 $y_1,..,y_n$ ornekleminin varyansi 
 
-$$ \frac{1}{n} \sum (y_i - \bar{y})^2$$
+$$ \frac{1}{n} \sum (y_i - \bar{y})^2
+\mlabel{2}
+$$
 
 Standart sapma veri noktalarin "ortalamadan farkinin ortalamasini"
 verir. Tabii bazen noktalar ortalamanin altinda, bazen ustunde olacaktir,
@@ -163,23 +167,31 @@ var.
 
 Tanim
 
-$X,Y$ rasgele degiskenlerin arasindaki kovaryans soyle
+$X,Y$ rasgele degiskenlerin arasindaki kovaryans,
 
 $$ Cov(X,Y) = E(X-E(X))(Y-E(Y)) $$
 
 Yani hem $X$ hem $Y$'nin beklentilerinden ne kadar saptiklarini her veri
 ikilisi icin, cikartarak tespit ediyoruz, daha sonra bu farklari birbiriyle
 carpiyoruz, ve beklentisini aliyoruz (yani tum olasilik uzerinden ne
-yapacagini hesapliyoruz). Carpimlarin ilginc ozelligi sudur, arti deger
-arti degerle carpilinca arti deger cikar, pozitif ilinti var demektir,
-eksi-eksi arti verir, yine pozitif, eksi-arti eksi verir, negatif ilinti
-var demektir.
+olacagini hesapliyoruz). Carpimlarin ilginc ozelligi sudur, arti deger arti
+degerle carpilinca arti, eksi-eksi arti verir, eksi-arti eksi
+verir. Pozitif sonuc pozitif korelasyon, negatif ise tersi sekilde ilinti
+var anlamina gelir. 
+
+Ayri ayri $X,Y$ degiskenleri yerine cok boyutlu $X$ kullanirsak, ki
+boyutlari $m,n$ olsun yani $m$ veri noktasi ve $n$ boyut (ozellik, oge)
+var, tanimi soyle ifade edebiliriz,
+
+$$ \Sigma = Cov(X) = E((X-E(X))^T(X-E(X))) $$
 
 Verisel Kovaryans (Empirical Covariance) 
 
 Tanim
 
-tbd
+$$ S = \frac{1}{n} (X-E(X))^T(X-E(X))) $$
+
+Pandas ile \verb!cov! cagrisi bu hesabi hizli bir sekilde yapar,
 
 \begin{minted}[fontsize=\footnotesize]{python}
 print df.cov()
@@ -193,10 +205,13 @@ Petal Length      1.273682    -0.321713      3.113179     1.296387
 Petal Width       0.516904    -0.117981      1.296387     0.582414
 \end{verbatim}
 
+Eger kendimiz bu hesabi yapmak istersek,
+
 \begin{minted}[fontsize=\footnotesize]{python}
 means = df.mean()
+n = df.shape[0]
 df2 = df.apply(lambda x: x - means, axis=1)
-print np.dot(df2.T,df2) / df.shape[0]
+print np.dot(df2.T,df2) / n
 \end{minted}
 
 \begin{verbatim}
@@ -208,13 +223,13 @@ print np.dot(df2.T,df2) / df.shape[0]
 
 Medyan ve Yuzdelikler (Percentile)
 
-Ustteki hesaplar sayilari toplayip, bolmek uzerinden yapildi. Medyan
-ve diger yuzdeliklerin hesabi (ki medyan 50. yuzdelige tekabul eder)
-icin eldeki tum degerleri "siraya dizmemiz" ve sonra 50. yuzdelik icin
-ortadakine bakmamiz gerekiyor. Mesela eger ilk 5. yuzdeligi ariyorsak
-ve elimizde 80 tane deger var ise, bastan 4. sayiya / vektor hucresine
-/ ogeye bakmamiz gerekiyor. Eger 100 eleman var ise, 5. sayiya
-bakmamiz gerekiyor, vs.
+Ustteki hesaplarin cogu sayilari toplayip, bolmek uzerinden yapildi. Medyan
+ve diger yuzdeliklerin hesabi (ki medyan 50. yuzdelige tekabul eder) icin
+eldeki tum degerleri "siraya dizmemiz" ve sonra 50. yuzdelik icin
+ortadakine bakmamiz gerekiyor. Mesela eger ilk 5. yuzdeligi ariyorsak ve
+elimizde 80 tane deger var ise, bastan 4. sayiya / vektor hucresine / ogeye
+bakmamiz gerekiyor. Eger 100 eleman var ise, 5. sayiya bakmamiz gerekiyor,
+vs.
 
 Bu siraya dizme islemi kritik. Kiyasla ortalama hesabi hangi sirada olursa
 olsun, sayilari birbirine topluyor ve sonra boluyor. Zaten ortalama ve
@@ -342,85 +357,90 @@ plt.savefig('05_04.png')
 
 \includegraphics[height=6cm]{05_04.png}
 
-Guven Araligi (Confidence Intervals)
+Parametre Tahmin Ediciler (Estimators) 
 
-Bir guven araligi tanimlamanin Bayes usulu bu hesabi bir dagilimi baz
-alarak yapmak. Eger sonuc olarak bir tekil sayi degil, bir dagilim elde
-edersek bu dagilim uzerinde guvenlik hesaplarini yapmak cok kolay hale
-gelir. Mesela sonuc (sonsal dagilim) bir Gaussian dagilim ise, bu dagilimin
-yuzde 95 agirliginin nerede oldugu, ve nasil hesaplandigi bellidir.
+Maksimum Olurluk (maximum likelihood) kavramini kullanarak ilginc bazi
+sonuclara erismek mumkun; bu sayede dagilim fonksiyonlari ve veri arasinda
+bazi sonuclar elde edebiliriz. Maksimum olurluk nedir? MO ile verinin her
+noktasi teker teker olasilik fonksiyonuna gecilir, ve elde edilen olasilik
+sonuclarinin birbiri ile carpilir. Cogunlukla formul icinde bilinmeyen
+bir(kac) parametre vardir, ve bu carpim sonrasi, icinde bu parametre(ler)
+olan yeni bir formul ortaya cikar. Bu nihai formulun kismi turevi alinip
+sifira esitlenince cebirsel bazi teknikler ile bilinmeyen parametre
+bulunabilir. Bu sonuc eldeki veri baglaminda en mumkun (olur) parametre
+degeridir. Oyle ya, mesela Gaussian $N(10,2)$ dagilimi var ise, 60,90 gibi
+degerlerin ``olurlugu'' dusuktur. Gaussin uzerinde ornek,
 
-Bayes Teorisi
+$$ f(x;\mu,\sigma) = \frac{1}{\sigma\sqrt{2\pi}} 
+\exp \bigg\{ - \frac{1}{2\sigma^2}(x-\mu)^2  \bigg\}
+, \ x \in \mathbb{R}
+$$
+ 
+Carpim sonrasi
 
-$$ P(A|B)  = \frac{ P(B|A)P(A)}{P(B)} $$
-
-Veri analizi baglaminda diyelim ki deneyler yaparak tahmini olarak
-hesaplamak (estimate) istedigimiz bir parametre var, bu bir protonun
-kutlesi ya da bir ameliyat sonrasi hayatta kalma orani olabilir. Bu
-durumlarda iki ayri "olaydan" bahsetmemiz gerekir, B olayi spesifik bazi
-olcumlerin elde edilmesi "olayidir", mesela olcum uc sayidan olusuyorsa,
-biz bir olcumde spesifik olarak $\{0.2,4,5.4\}$ degerlerini elde
-etmisiz. Ikinci olay bilmedigimiz parametrenin belli bir degere sahip
-olmasi olacak. O zaman Bayes Teorisinin su sekilde tekrar yazabiliriz, 
-
-$$ P(parametre | veri ) \propto P(data | parametre)P(parametre) $$
-
-$\propto$ isareti orantili olmak (proportional to) anlamina geliyor. Boleni
-attik cunku o bir sabit (tamamen veriye bagli, tahmini hesaplamak
-istedigimiz parametreye bagli degil). Tabii bu durumda sol ve sag taraf
-birbirine esit olmaz, o yuzden esitlik yerine orantili olmak isaretini
-kullandik. Bu cercevede "belli bir numerik sabit cercevesinde birbirine
-esit (equal within a numeric constant)" gibi cumleler de gorulebilir. 
-
-Ornek
-
-Diyelim ki bir bozuk para ile 10 kere yazi-tura attik, ve sonuc altta
-
-T H H H H T T H H H
-
-Bu veriye bakarak paranin hileli olup olmadigini anlamaya
-calisacagiz. Bayes ifadesini bu veriye gore yazalim,
-
-$$ P(p | \{ \textrm{T H H H H T T H H H} \} \propto 
-P(\{ \textrm{T H H H H T T H H H} | p) P(p) \}
+$$ f(x_1,..,x_n;\mu,\sigma) = 
+\prod \frac{1}{\sigma\sqrt{2\pi}} 
+\exp \bigg\{ - \frac{1}{2\sigma^2}(x_i-\mu)^2  \bigg\}
 $$
 
-$P(p)$ ifadesi ne anlama gelir? Aslinda bu ifadeyi $P([Dagilim] = p)$
-olarak gormek daha iyi, artik $p$ parametresini bir dagilimdan gelen bir
-tekil deger olarak gordugumuze gore, o dagilimin belli bir $p$'ye esit
-oldugu zamani modelliyoruz burada. Her halukarda $P(p)$ dagilimini, yani
-onsel (prior) olasiligi bilmiyoruz, hesaptan once her degerin mumkun
-oldugunu biliyoruz, o zaman bu onsel dagilimi duz (flat) olarak aliriz,
-yani $P(p) = 1$. 
-
-$P(\{\textrm{T H H H H T T H H H} | p)$ ifadesi goz korkutucu olabilir, ama
-buradaki her ogenin bagimsiz ozdesce dagilmis (independent identically
-distributed) oldugunu gorursek, ama bu ifadeyi ayri ayri
-$P(\{\textrm{T}|p)$ ve $P(\{\textrm{H}|p)$ carpimlari olarak gorebiliriz. $P(\{\textrm{T}|p) = p$ ve 
-$P(\{\textrm{H}|p)=1-p$ oldugunu biliyoruz. O zaman 
-
-$$ P(p | \{ \textrm{7 Tura, 3 Yazi} \} \propto
-p^7(1-p)^3
+$$ =
+\frac{(2\pi)^{-n/2}}{\sigma^n}
+\exp \bigg\{ - \frac{\sum (x_i-\mu)^2}{2\sigma^2}  \bigg\}
 $$
 
-Grafiklersek, 
+Ustel kisim $-n/2$ nereden geldi? Cunku bolen olan karekoku uste cikardik,
+boylece $-1/2$ oldu, $n$ cunku $n$ tane veri noktasi yuzunden formul $n$
+kere carpiliyor. Veri noktalari $x_i$ icinde. Eger log, yani $\ln$ alirsak
+$\exp$'den kurtuluruz, ve biliyoruz ki log olurlugu maksimize etmek normal
+olurlugu maksimize etmek ile ayni seydir, cunku $\ln$ transformasyonu
+monoton bir transformasyondur. Ayrica olurluk icbukeydir (concave) yani
+kesin tek bir maksimumu vardir. 
 
-\includegraphics[height=6cm]{05_01.png}
+$$ \ln f = -\frac{1}{2} n \ln (2\pi) 
+- n \ln \sigma - 
+\frac{\sum (x_i-\mu)^2}{2\sigma^2}  
+$$
 
-Boylece $p$ icin bir sonsal (posterior) dagilim elde ettik. Artik bu
-dagilimin yuzde 95 agirliginin nerede oldugunu rahatca gorebiliriz /
-hesaplayabiliriz. Dagilimin tepe noktasinin $p=0.7$ civarinda oldugu
-goruluyor. Bir dagilimla daha fazlasini yapmak ta mumkun, mesela bu
-fonksiyonu $p$'ye bagli baska bir fonksiyona karsi entegre etmek mumkun,
-mesela beklentiyi bu sekilde hesaplayabiliriz. 
+Turevi alip sifira esitleyelim
 
-Onsel dagilimin her noktaya esit agirlik veren birornek (uniform) secilmis
-olmasi, yani problemi cozmeye sifir bilgiden baslamis olmamiz, yontemin bir
-zayifligi olarak gorulmemeli. Yontemin kuvveti elimizdeki bilgiyle baslayip
-onu net bir sekilde veri ve olurluk uzerinden sonsal tek dagilima
-goturebilmesi. Baslangic ve sonuc arasindaki baglanti gayet net. Fazlasi da
-var; ilgilendigimiz alani (domain) ogrendikce, basta hic bilmedigimiz onsel
-dagilimi daha net, bilgili bir sekilde secebiliriz ve bu sonsal dagilimi da
-daha olmasi gereken modele daha yaklastirabilir. 
+$$ \frac{\partial (\ln f)}{\partial \mu} =
+\frac{\sum (x_i-\mu)^2}{2\sigma^2}   = 0 
+$$
+
+$$ \hat{\mu} = \frac{\sum x_i }{n} $$
+
+
+Bu sonuc (1)'deki formul, yani orneklem ortalamasi ile ayni! Fakat buradan
+hemen bir baglantiya ziplamadan once sunu hatirlayalim - orneklem
+ortalamasi formulunu {\em biz} tanimladik. ``Tanim'' diyerek bir ifade
+yazdik, ve budur dedik. Simdi sonradan, verinin dagiliminin Gaussian
+oldugunu farzederek, bu verinin mumkun kilabilecegi en optimal parametre
+degeri nedir diye hesap ederek ayni formule eristik, fakat bu bir anlamda
+bir guzel raslanti oldu.. Daha dogrusu bu aynilik Gaussian / Normal
+dagilimlarinin ``normalligi'' ile alakali muhakkak, fakat ornekleme
+ortalamasi hicbir dagilim faraziyesi yapmiyor, herhangi bir dagilimdan
+geldigi bilinen ya da bilinmeyen bir veri uzerinde kullanilabiliyor (ise
+yaramayabilir de tabii). Bunu unutmayalim. Istatistikte matematigin
+lakaytlasmasi (sloppy) kolaydir, o sebeple neyin tanim, neyin hangi
+faraziyeye gore optimal, neyin nufus (population) neyin orneklem (sample)
+oldugunu hep hatirlamamiz lazim.
+
+Devam edelim, maksimum olurluk ile $\hat{\sigma}$ hesaplayalim,
+
+$$ \frac{\partial (\ln f)}{\partial \sigma} =
+-\frac{n}{\sigma} + \frac{\sum (x_i-\mu)^2}{2\sigma^3}   = 0 
+$$
+
+Cebirsel birkac duzenleme sonrasi ve $\mu$ yerine yeni hesapladigimiz
+$\hat{\mu}$ kullanarak,
+
+$$ \hat{\sigma}^2 = \frac{\sum (x_i-\hat{\mu})^2}{n} $$
+
+Bu da orneklem varyansi ile ayni! 
+
+Kaynaklar
+
+[1] \url{http://mathworld.wolfram.com/MaximumLikelihood.html}
+
 
 \end{document}
