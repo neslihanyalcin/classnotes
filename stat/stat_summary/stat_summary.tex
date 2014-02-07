@@ -2,6 +2,42 @@
 \begin{document}
 Ozet Istatistikleri, Grafikleri
 
+\begin{minted}[fontsize=\footnotesize]{python}
+import pandas as pd
+df = pd.read_csv('iris.csv')
+df = df.ix[:,0:4]
+pd.scatter_matrix(df)
+plt.savefig('stat_summary_01.png')
+\end{minted}
+
+\includegraphics[height=8cm]{stat_summary_01.png}
+
+\begin{minted}[fontsize=\footnotesize]{python}
+print df.cov()
+\end{minted}
+
+\begin{verbatim}
+              Sepal Length  Sepal Width  Petal Length  Petal Width
+Sepal Length      0.685694    -0.039268      1.273682     0.516904
+Sepal Width      -0.039268     0.188004     -0.321713    -0.117981
+Petal Length      1.273682    -0.321713      3.113179     1.296387
+Petal Width       0.516904    -0.117981      1.296387     0.582414
+\end{verbatim}
+
+\begin{minted}[fontsize=\footnotesize]{python}
+means = df.mean()
+df2 = df.apply(lambda x: x - means, axis=1)
+print np.dot(df2.T,df2) / df.shape[0]
+\end{minted}
+
+\begin{verbatim}
+[[ 0.68112222 -0.03900667  1.26519111  0.51345778]
+ [-0.03900667  0.18675067 -0.319568   -0.11719467]
+ [ 1.26519111 -0.319568    3.09242489  1.28774489]
+ [ 0.51345778 -0.11719467  1.28774489  0.57853156]]
+\end{verbatim}
+
+
 Ortalama (Mean) ve Medyan (Median)
 
 Genellikle istatistik kitaplari hemen ortalama (mean), medyan (median) ve
