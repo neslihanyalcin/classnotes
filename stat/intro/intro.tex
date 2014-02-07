@@ -910,245 +910,78 @@ $$
 Boylece integral icindeki kisim tek boyutlu Gaussian formuna erismis
 oluyor. 
 
-Beklenti (Expectation) 
 
-Bu deger, dagilim $f(x)$'in tek sayilik bir ozetidir. Yani beklenti hesabina
-bir taraftan bir dagilim fonksiyonu girer, diger taraftan tek bir sayi
-disari cikar. Surekli dagilim fonksiyonlari icin $E(X)$
 
-$$  E(X) = \int x f(x) dx$$
+Çebiþev Eþitsizliði
 
-ayriksal durumda
+Olasýlýk matematiðinde, büyük sayýlar kuramý adýnda anýlan ve olasýlýk
+matematiðinin belkemiðini oluþturan kuramý ispatlamak için, diðer bir kuram
+olan Çebiþev eþitsizliðini de anlamamýz gerekiyor. Çebiþev eþitsizliði bir
+rasgele deðiþken, onun ortalamasý (beklentisi) ve herhangi bir sabit sayý
+arasýndaki üçlü arasýnda bir 'eþitsizlik' baðlantýsý kurar, ve bu baðlantý
+diðer olasýlýk iþlemlerimizde ispat verisi olarak iþimize yarar.
 
-$$ E(X) = \sum_x xf(x) $$
+Teori: Herhangi bir $t$ deðeri için, 
 
-olarak hesaplanir. Hesabin, her $x$ degerini onun olasiligi ile carpip
-topladigina dikkat. Bu tur bir hesap dogal olarak tum $x$'lerin
-ortalamasini verecektir, ve dolayli olarak dagilimin ortalamasini
-hesaplayacaktir. Ortalama $\mu_x$ olarak ta gosterilebilir.
+$$ P(|X-\mu| > t) \le \frac{\sigma^2}{t^2} $$
 
-Notasyonel basitlik icin ustteki toplam / entegral yerine 
+Ýspata baþlayalým. Entegral ile olasýlýk hesabý yapmak için bize bir $x$
+uzayý lazým.
 
-$$ = \int x \ dF(x) $$
+$$ R = {x: |x-\mu| > t} $$
 
-diyecegiz, bu notasyonel bir kullanim sadece, unutmayalim, reel analizde
-$\int x \ dF(x)$'in ozel bir anlami var (hoca tam diferansiyel $dF$'den
-bahsediyor). 
+Yani R uzayý, $x$ ile ortalamasýnýn farkýnýn, $t$'den büyük olduðu bütün
+sayýlarýn kümesidir.
 
-Beklentinin taniminin kapsamli / eksiksiz olmasi icin $E(X)$'in
-``mevcudiyeti'' icin de bir sart tanimlamak gerekir, bu sart soyle olsun, 
+O zaman, 
 
-$$ \int_x |x|dF_X(x) < \infty $$
+$$ P(|X-\mu| > t) = \int_R f(x)dx $$
 
-ise beklenti mevcut demektir. Tersi sozkonusu ise beklenti mevcut
-degildir. 
+Dikkat edelim $P(..)$ içindeki formül, küme tanýmý ile ayný. O yüzden $P()$
+hesabý ortada daha olmayan, ama varolduðu kesin bir daðýlým fonksiyonu
+tanýmlamýþ da oluyor. Buna $f(x)$ deriz. $P()$'in, $f(x)$ fonksiyonunun $R$
+üzerinden entegral olduðunu olasýlýða giriþ dersinden bilmemiz lazým.
 
+Eger $x \in R$ dersek o zaman
 
-Ornek 
+$$ \frac{|x-\mu|^2}{t^2} \ge 1 $$
 
-$X \sim Unif(-1,3)$ olsun. $E(X) = \int xdF(x) = \int x f_X(x)dx = \frac{
-  1}{4} \int _{ -1}^{3} x dx = 1$. 
+t'nin denkleme bu þekilde nereden geldiði þaþkýnlýk yaratabilir. Daha önce
+tanýmlanan þu ibareye dikkat edelim, $x: |x-u| > t$ diye belirtmiþtik. Bu
+ifadeyi deðiþtirerek, yukarýdaki denkleme gelebiliriz.
 
-Ornek 
+Devam edersek, elimizdeki 1'den büyük bir deðer var. Bu deðeri kullanarak,
+aþaðýdaki tanýmý yapmamýz doðru olacaktýr.
 
-Cauchy dagiliminin $f_X(x) = \{ \pi (1+x^2) \} ^{-1}$ oldugunu soylemistik. Simdi 
-beklentiyi hesaplayalim. Parcali entegral teknigi lazim, $u=x$, 
-$dv =
-1/1+x^2$ deriz, ve o zaman $v = \tan ^{-1}(x)$ olur, bkz {\em Ters
-  Trigonometrik Formuller} yazimiz. Demek ki 
+$$ \int_R f(x)dx \le \int_R \frac{(x-\mu)^2}{t^2}f(x)dx \le
+\int_{-\infty}^{\infty}\frac{(x-\mu)^2}{t^2}f(x)dx 
+ $$
 
-$$ \int |x|dF(x) = \frac{ 2}{\pi} \int _{ 0}^{\infty}\frac{x dx}{1+x^2}  $$
 
-2 nereden cikti? Cunku $|x|$ kullaniyoruz, o zaman sinir degerlerinde
-sadece sifirin sagina bakip sonucu ikiyle carpmak yeterli. Bir sabit oldugu
-icin $\pi$ ile beraber disari cikiyor. Simdi
+Ortadaki entegral niye birinci entegralden büyük? Çünkü ortadaki entegraldeki
+$F(x)dx$ ibaresinden önce gelen kýsmýn, her zaman 1'den büyük olacaðýný
+belirttiðimize göre, ikinci entegralin birinciden büyük olmasý normaldir.
 
-$$ \int udv = uv - \int vdu $$
- 
-uzerinden
+Evet...Üçüncü entegral ispata oldukça yaklaþtý aslýnda. Standart sapma
+iþaretini hala ortada göremiyoruz, fakat son entegraldeki ibare standart
+sapma deðerini zaten içeriyor. Önce daha önceki olasýlýk natematiði
+bilgimize dayanarak, standart sapmanýn tanýmýný yazýyoruz. Dikkat edelim,
+bu ibare þu anki ispatýmýz dahilinden deðil, haricinden önceki bilgimize
+dayanarak geldi. Standart sapmanýn tanýmý þöyledir.
 
-$$ = [x \tan ^{-1}(x) ] _{ 0}^{\infty} - \int _{ 0}^{\infty} \tan ^{-1}(x)
-dx  = \infty$$
+$$ \sigma^2 = \int_{-\infty}^{\infty} (x-\mu)^2f(x)dx $$
 
-Yani ustteki hesap sonsuzluga gider. O zaman ustteki tanimimiza gore Cauchy
-dagiliminin beklentisi yoktur. 
+O zaman
 
-Moment
+$$ \frac{\sigma^2}{t^2} = \int_{-\infty}^{\infty}\frac{(x-\mu)^2}{t^2}f(x)dx $$
 
-Olasýlýk matematiðinde "moment üreten iþlevler" olarak adlandýrýlan,
-baþlangýçta pek yararlý gibi gözükmesede bir takým matematiksel özellikleri
-olduðu için, ispatlarda oldukça iþe yarayan bir kavram vardýr.
+yani
 
-Her rasgele deðiþkenin bir daðýlýmý olduðunu biliyoruz. Her rasgele
-deðiþkenin de ayrýca bir moment üreten fonksiyonu da vardýr. Ayrýca, moment
-üreten fonksiyon ile rasgele deðiþken arasýnda bire-bir olarak bir iliþki
-mevcuttur. "Bu neye yarar?" diye sorulabilir; Cevap olarak, mesela cebirsel
-olarak türete türete bir moment'e geldiðimiz düþünelim, ve tekrar baþka bir
-taraftan, baþka bir formülden gene türete türete tekrar ayný moment
-iþlevine geliyorsak, bu demektir ki, iki taraftan gelen rasgele deðiþkenler
-(ve tekabül eden daðýlýmlarý) birbirine eþittir. Bazý þartlarda moment
-üreten iþlevler ile cebir yapmak, daðýlým fonksiyonlarýndan daha rahat
-olmaktadýr.
+$$ \int_R f(x)dx \le \frac{\sigma^2}{t^2} = 
+\int_{-\infty}^{\infty} \frac{(x-\mu)^2}{t^2}f(x)dx
+$$
 
-Her rasgele deðiþken için, moment üreten iþlev þöyle bulunur.
-
-$X$ rasgele degiskenin moment ureten operasyonu
-
-$M(t)=E(e^{tX})$ olarak gosterilir
-
-Ayriksal operasyonlar icin
-
-$$ M(t) = \sum_x e^{tx}p(x) $$
-
-Surekli islevler icin
-
-$$ M(t) = \int_{-\infty}^{\infty} e^{tx}f(x)dx   $$
-
-Kuram
-
-Gelelim yazýmýzýn esas konusu olan kuramýmýza.
-
-Eðer $X_1, X_2...X_n$ baðýmsýz rasgele deðiþken ise, ve her deðiþkenin
-$M_i(t)$ $i=1,2,3,...n$ olarak, öz olarak ayný olan birer moment üreten
-iþlevi var ise, o zaman,
-
-$$ Y = \sum_{i=1}^n  aX_i $$
-
-acilimi
-
-$$ M_y(t) = \prod_{i=1}^n M(a_i t) $$
-
-olacaktir. 
-
-Ispat
-
-$$ M_y(t) = E(e^{tY}=E(e^{t(a_1X_1+a_2X_2+..+a_nX_n)} $$
-
-$$ = E[\exp(ta_1 X_1 ta_2X_2...+ta_nX_n)] $$
-
-$$ = E[\exp(ta_1X_1)+\exp(ta_2X_2)+ ... + \exp(ta_nX_n)] $$
-
-$$ = E[\exp(ta_1X_1)]+E[\exp(ta_2X_2)]+ ... + E[\exp(ta_nX_n)]$$
-
-Daha once belirttigimiz gibi
-
-$$ M_i(t) = E[\exp(tX_i)] $$
-
-olduguna gore ve $t$ yerine $ta_i$ koyuldugunu dusunelim
-
-$$ M_y(t) = \prod_{i=1}^n M_y(a_it) $$
-
-olacaktir. 
-
-Bunu $M_y(t)= (M_i(a_it))^n$ seklinde de gosterebiliriz. 
-
-Moment Fonksiyonlari
-
-Olasýlýk matematiðinde "moment üreten iþlevler" olarak adlandýrýlan,
-baþlangýçta pek yararlý gibi gözükmesede bir takým matematiksel
-özellikleri olduðu için, ispatlarda oldukça iþe yarayan bir kavram
-vardýr.
-
-Her rasgele deðiþkenin bir daðýlýmý olduðunu biliyoruz. Her rasgele
-deðiþkenin de ayrýca bir moment üreten fonksiyonu da vardýr. Ayrýca,
-moment üreten fonksiyon ile rasgele deðiþken arasýnda bire-bir olarak
-bir iliþki mevcuttur. "Bu neye yarar?" diye sorulabilir; Cevap olarak,
-mesela cebirsel olarak türete türete bir moment'e geldiðimiz
-düþünelim, ve tekrar baþka bir taraftan, baþka bir formülden gene
-türete türete tekrar ayný moment iþlevine geliyorsak, bu demektir ki,
-iki taraftan gelen rasgele deðiþkenler (ve tekabül eden daðýlýmlarý)
-birbirine eþittir. Bazý þartlarda moment üreten iþlevler ile cebir
-yapmak, daðýlým fonksiyonlarýndan daha rahat olmaktadýr.
-
-Her rasgele deðiþken için, moment üreten iþlev þöyle bulunur.
-
-$X$ rasgele degiskenin moment ureten operasyonu
-
-$M(t)=E(e^{tX})$ olarak gosterilir
-
-Ayriksal operasyonlar icin
-
-$$ M(t) = \sum_x e^{tx}p(x) $$
-
-Surekli islevler icin
-
-$$ M(t) = \int_{-\infty}^{\infty} e^{tx}f(x)dx   $$
-
-Kuram
-
-Gelelim yazýmýzýn esas konusu olan kuramýmýza.
-
-Eðer $X_1, X_2...X_n$ baðýmsýz rasgele deðiþken ise, ve her deðiþkenin
-$M_i(t)$ $i=1,2,3,...n$ olarak, öz olarak ayný olan birer moment üreten
-iþlevi var ise, o zaman,
-
-$$ Y = \sum_{i=1}^n  aX_i $$
-
-acilimi
-
-$$ M_y(t) = \prod_{i=1}^n M(a_i t) $$
-
-olacaktir. 
-
-Ispat
-
-$$ M_y(t) = E(e^{tY}=E(e^{t(a_1X_1+a_2X_2+..+a_nX_n)} $$
-
-$$ = E[\exp(ta_1 X_1 ta_2X_2...+ta_nX_n)] $$
-
-$$ = E[\exp(ta_1X_1)+\exp(ta_2X_2)+ ... + \exp(ta_nX_n)] $$
-
-$$ = E[\exp(ta_1X_1)]+E[\exp(ta_2X_2)]+ ... + E[\exp(ta_nX_n)]$$
-
-Daha once belirttigimiz gibi
-
-$$ M_i(t) = E[\exp(tX_i)] $$
-
-olduguna gore ve $t$ yerine $ta_i$ koyuldugunu dusunelim
-
-$$ M_y(t) = \prod_{i=1}^n M_y(a_it) $$
-
-olacaktir. 
-
-Bunu $M_y(t)= (M_i(a_it))^n$ seklinde de gosterebiliriz. 
-
-Orneklem Dagilimlari (Sampling Distributions)
-
-Diyelim ki elimizde (hakkinda) ogrenmek istedigimiz bir sayisal obek
-(population) var. Bu obekteki her elemani ayri ayri incelemek
-istemiyoruz, problem degil, nufustan bir orneklem (sample) aliriz.
-Eger bu orneklem nufusu yeterince iyi temsil ediyorsa, problem cikmaz.
-Bu temsiliyeti garantilemenin iyi bir yolu orneklemi rasgele yapmaktir.
-
-Simdi, diyelim ki, bu orneklemi bir sekilde ozetlemek istiyoruz yani
-orneklem verisi kullanilarak hesaplanmis temsili bir istatistik
-(descriptive statistic) elde edecegiz.
-
-Fakat orneklemimiz rasgele idi. Bu istatistigimiz (ki o da sonucta bir
-rasgele degiskendir ve onun da bir dagilimi vardir), nasil bir
-dagilima sahiptir? Yani nufus dagilimi (population distribution), ve
-orneklem dagiliminin (sampling distribution) birbiriyle
-baglantisiyla ilgileniyoruz.
-
-Teori
-
-Eger $X_1,..,X_n$ bir $N(\mu,\sigma)$ dagiliminda alinmis orneklem olsun.
-O zaman orneklem ortalamasinin dagilimi $N(\mu,\sigma/\sqrt{n})$. 
-
-[TBD - Ispat]
-
-Teori
-
-Eger $X_1,..,X_n$ bir $N(\mu,\sigma)$ dagiliminda alinmis orneklem olsun.
-O zaman su buyukluk
-
-$$ T = \frac{ \bar{X}-\mu}{S / \sqrt{n}} $$
-
-$t_{n-1}$ dagilimina, yani $n-1$ serbestlik derecesindeki (degree of
-freedom) bir Student's t Dagilimidir.
-
-[TBD - Ispat]
-
+ki $\int_R f(x)dx$ zaten $P(|X-\mu| > t)$ olarak tanimlanmisti. 
 
 Büyük Sayýlar Kanunu
 
@@ -1247,77 +1080,6 @@ Peki $P(|\bar{X_n}-\mu| > \epsilon)$'nin sifira gittigini gosterdik mi?
 $\sigma^2 / n\epsilon^2$'nin sifira gittigini gosterdik. $\sigma^2 /
 n\epsilon^2$ de $P(|\bar{X_n}-\mu| > \epsilon)$'den buyuk olduguna gore,
 demek ki o da sifira iner. 
-
-Çebiþev Eþitsizliði
-
-Olasýlýk matematiðinde, büyük sayýlar kuramý adýnda anýlan ve olasýlýk
-matematiðinin belkemiðini oluþturan kuramý ispatlamak için, diðer bir kuram
-olan Çebiþev eþitsizliðini de anlamamýz gerekiyor. Çebiþev eþitsizliði bir
-rasgele deðiþken, onun ortalamasý (beklentisi) ve herhangi bir sabit sayý
-arasýndaki üçlü arasýnda bir 'eþitsizlik' baðlantýsý kurar, ve bu baðlantý
-diðer olasýlýk iþlemlerimizde ispat verisi olarak iþimize yarar.
-
-Teori: Herhangi bir $t$ deðeri için, 
-
-$$ P(|X-\mu| > t) \le \frac{\sigma^2}{t^2} $$
-
-Ýspata baþlayalým. Entegral ile olasýlýk hesabý yapmak için bize bir $x$
-uzayý lazým.
-
-$$ R = {x: |x-\mu| > t} $$
-
-Yani R uzayý, $x$ ile ortalamasýnýn farkýnýn, $t$'den büyük olduðu bütün
-sayýlarýn kümesidir.
-
-O zaman, 
-
-$$ P(|X-\mu| > t) = \int_R f(x)dx $$
-
-Dikkat edelim $P(..)$ içindeki formül, küme tanýmý ile ayný. O yüzden $P()$
-hesabý ortada daha olmayan, ama varolduðu kesin bir daðýlým fonksiyonu
-tanýmlamýþ da oluyor. Buna $f(x)$ deriz. $P()$'in, $f(x)$ fonksiyonunun $R$
-üzerinden entegral olduðunu olasýlýða giriþ dersinden bilmemiz lazým.
-
-Eger $x \in R$ dersek o zaman
-
-$$ \frac{|x-\mu|^2}{t^2} \ge 1 $$
-
-t'nin denkleme bu þekilde nereden geldiði þaþkýnlýk yaratabilir. Daha önce
-tanýmlanan þu ibareye dikkat edelim, $x: |x-u| > t$ diye belirtmiþtik. Bu
-ifadeyi deðiþtirerek, yukarýdaki denkleme gelebiliriz.
-
-Devam edersek, elimizdeki 1'den büyük bir deðer var. Bu deðeri kullanarak,
-aþaðýdaki tanýmý yapmamýz doðru olacaktýr.
-
-$$ \int_R f(x)dx \le \int_R \frac{(x-\mu)^2}{t^2}f(x)dx \le
-\int_{-\infty}^{\infty}\frac{(x-\mu)^2}{t^2}f(x)dx 
- $$
-
-
-Ortadaki entegral niye birinci entegralden büyük? Çünkü ortadaki entegraldeki
-$F(x)dx$ ibaresinden önce gelen kýsmýn, her zaman 1'den büyük olacaðýný
-belirttiðimize göre, ikinci entegralin birinciden büyük olmasý normaldir.
-
-Evet...Üçüncü entegral ispata oldukça yaklaþtý aslýnda. Standart sapma
-iþaretini hala ortada göremiyoruz, fakat son entegraldeki ibare standart
-sapma deðerini zaten içeriyor. Önce daha önceki olasýlýk natematiði
-bilgimize dayanarak, standart sapmanýn tanýmýný yazýyoruz. Dikkat edelim,
-bu ibare þu anki ispatýmýz dahilinden deðil, haricinden önceki bilgimize
-dayanarak geldi. Standart sapmanýn tanýmý þöyledir.
-
-$$ \sigma^2 = \int_{-\infty}^{\infty} (x-\mu)^2f(x)dx $$
-
-O zaman
-
-$$ \frac{\sigma^2}{t^2} = \int_{-\infty}^{\infty}\frac{(x-\mu)^2}{t^2}f(x)dx $$
-
-yani
-
-$$ \int_R f(x)dx \le \frac{\sigma^2}{t^2} = 
-\int_{-\infty}^{\infty} \frac{(x-\mu)^2}{t^2}f(x)dx
-$$
-
-ki $\int_R f(x)dx$ zaten $P(|X-\mu| > t)$ olarak tanimlanmisti. 
 
 
 Kaynaklar

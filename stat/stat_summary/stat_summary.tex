@@ -2,6 +2,147 @@
 \begin{document}
 Ozet Istatistikleri, Grafikleri
 
+Beklenti (Expectation) 
+
+Bu deger, dagilim $f(x)$'in tek sayilik bir ozetidir. Yani beklenti hesabina
+bir taraftan bir dagilim fonksiyonu girer, diger taraftan tek bir sayi
+disari cikar. 
+
+Tanim
+
+Surekli dagilim fonksiyonlari icin $E(X)$
+
+$$  E(X) = \int x f(x) dx$$
+
+ayriksal dagilimlar icin
+
+$$ E(X) = \sum_x xf(x) $$
+
+Hesabin, her $x$ degerini onun olasiligi ile carpip topladigina dikkat. Bu
+tur bir hesap dogal olarak tum $x$'lerin ortalamasini verecektir, ve
+dolayli olarak dagilimin ortalamasini hesaplayacaktir. Ortalama $\mu_x$
+olarak ta gosterilebilir.
+
+$E(X)$'in bir tanim olduguna dikkat, yani bu ifade tamamen bizim
+yarattigimiz, ortaya cikarttigimiz bir sey, matematigin baz kurallarindan
+gelerek turetilen bir kavram degil. 
+
+Notasyonel basitlik icin ustteki toplam / entegral yerine 
+
+$$ = \int x \ dF(x) $$
+
+diyecegiz, bu notasyonel bir kullanim sadece, unutmayalim, reel analizde
+$\int x \ dF(x)$'in ozel bir anlami var (hoca tam diferansiyel $dF$'den
+bahsediyor). 
+
+Beklentinin taniminin kapsamli / eksiksiz olmasi icin $E(X)$'in
+``mevcudiyeti'' icin de bir sart tanimlamak gerekir, bu sart soyle olsun, 
+
+$$ \int_x |x|dF_X(x) < \infty $$
+
+ise beklenti mevcut demektir. Tersi sozkonusu ise beklenti mevcut
+degildir. 
+
+Ornek 
+
+$X \sim Unif(-1,3)$ olsun. $E(X) = \int xdF(x) = \int x f_X(x)dx = \frac{
+  1}{4} \int _{ -1}^{3} x dx = 1$. 
+
+Ornek 
+
+Cauchy dagiliminin $f_X(x) = \{ \pi (1+x^2) \} ^{-1}$ oldugunu soylemistik. Simdi 
+beklentiyi hesaplayalim. Parcali entegral teknigi lazim, $u=x$, 
+$dv =
+1/1+x^2$ deriz, ve o zaman $v = \tan ^{-1}(x)$ olur, bkz {\em Ters
+  Trigonometrik Formuller} yazimiz. Demek ki 
+
+$$ \int |x|dF(x) = \frac{ 2}{\pi} \int _{ 0}^{\infty}\frac{x dx}{1+x^2}  $$
+
+2 nereden cikti? Cunku $|x|$ kullaniyoruz, o zaman sinir degerlerinde
+sadece sifirin sagina bakip sonucu ikiyle carpmak yeterli. Bir sabit oldugu
+icin $\pi$ ile beraber disari cikiyor. Simdi
+
+$$ \int udv = uv - \int vdu $$
+ 
+uzerinden
+
+$$ = [x \tan ^{-1}(x) ] _{ 0}^{\infty} - \int _{ 0}^{\infty} \tan ^{-1}(x)
+dx  = \infty$$
+
+Yani ustteki hesap sonsuzluga gider. O zaman ustteki tanimimiza gore Cauchy
+dagiliminin beklentisi yoktur. 
+
+Tanim
+
+$x_1,..,x_n$ verilerini iceren orneklemin (sample) ortalamasi 
+
+$$ \bar{x} = \frac{1}{n} \sum x_i$$
+
+Dikkat bu orneklemdeki verinin ortalamasi. Hicbir dagilim hakkinda hicbir
+faraziye yapmadik. Ayrica tanim kullandik, yani bu ifadenin ne oldugu
+tamamen bize bagli. 
+
+Orneklem ortalamasi sadece tek merkezi bir tepesi olan (unimodal)
+dagilimlar icin gecerlidir. Eger bu temel varsayim gecerli degilse,
+ortalama kullanarak yapilan hesaplar bizi yanlis yollara goturur. Ayrica
+bir dagilimi simetrik olup olmadigi da ortalama ya da medyan kullanilip
+kullanilmamasi kararinda onemlidir. Eger simetrik, tek tepeli bir dagilim
+var ise, ortalama ve medyan birbirine yakin olacaktir. Fakat veri baska
+turde bir dagilim ise, o zaman bu iki olcut birbirinden cok farkli
+olabilir.
+
+
+Tanim
+
+$Y$ rasgele degiskeninin varyansi (variance) 
+
+$$ Var(Y) = E((Y-E(Y))^2) $$
+
+Ifadede toplama ve bolme gibi islemler olmadigina dikkat; onun yerine kare
+ifadeleri uzerinde beklenti ifadesi var. Yani $Y$'nin beklentisini rasgele
+degiskenin kendisinden cikartip kareyi aliyoruz, ve bu islemin $Y$'den
+gelen tum zar atislari uzerinden beklentisi bize varyansi veriyor. Bir
+rasgele degisken gorunce onun yerine ``dagilimdan uretilen sayi'' dusunmek
+faydalidir, ki bu gercek dunya sartlarindan (ve buyuk miktarda olunca) veri
+noktalarini temsil eder. 
+
+Tanim
+
+$y_1,..,y_n$ ornekleminin varyansi 
+
+$$ \frac{1}{n} \sum (y_i - \bar{y})^2$$
+
+Standart sapma veri noktalarin "ortalamadan farkinin ortalamasini"
+verir. Tabii bazen noktalar ortalamanin altinda, bazen ustunde olacaktir,
+bizi bu negatiflik, pozitiflik ilgilendirmez, biz sadece farkla
+alakaliyiz. O yuzden her sapmanin karesini aliriz, bunlari toplayip nokta
+sayisina boleriz. Ilginc bir cebirsel islem sudur. Eger $\bar{y}$ tanimini
+ustteki formule sokarsak,
+
+$$ = \frac{ 1}{n} \sum_i y_i^2 + \frac{ 1}{n} \sum_i m^2 - \frac{ 2}{n} \sum_i y_i\bar{y}  $$
+
+$$ = \frac{ 1}{n} \sum_i y_i^2 + \frac{ \bar{y}^2n}{n} - \frac{ 2\bar{y}n}{n}\bar{y} $$
+
+$$ = \frac{ 1}{n} \sum_i y_i^2 +  \bar{y}^2 - 2\bar{y}^2 $$
+
+$$ = \frac{ 1}{n} \sum_i y_i^2 - \bar{y}^2 $$
+
+Bu arada standard sapma varyansin karesidir, ve biz kareli olan versiyon
+ile calismayi tercih ediyoruz. Niye? Cunku o zaman veri noktalarinin ve
+yayilma olcusunun birimleri birbiri ile ayni olacak. Eger veri setimiz bir
+alisveris sepetindeki malzemelerin lira cinsinden degerleri olsaydi,
+varyans bize sonucu "karekok lira" olarak verecekti ve bunun pek anlami
+olmayacakti.
+
+Kovaryans ve Korelasyon (Covariance and Correlation)
+
+Iki veya daha fazla boyutun arasindaki iliskileri gormek veri analizinde
+onemli bir yer tutar. Yontemlerden birisi verideki mumkun her ikili
+iliskiyi grafiksel olarak gostermektir. Pandas \verb!scatter_matrix! bunu
+yapabilir. Iris veri seti uzerinde gorelim, her boyut hem y-ekseni hem
+x-ekseninde verilmis, iliskiyi gormek icin eksende o boyutu bulup kesisme
+noktalarindaki grafige bakmak lazim. 
+
 \begin{minted}[fontsize=\footnotesize]{python}
 import pandas as pd
 df = pd.read_csv('iris.csv')
@@ -11,6 +152,34 @@ plt.savefig('stat_summary_01.png')
 \end{minted}
 
 \includegraphics[height=8cm]{stat_summary_01.png}
+
+
+Iliski oldugu zaman o iliskiye tekabul eden grafikte ``duz cizgiye benzer''
+bir goruntu olur, demek ki degiskenlerden biri artinca oteki de artiyor,
+azalinca oteki de azaliyor demektir. Eger ilinti yok ise bol gurultulu, ya
+da yuvarlak kureye benzer bir sekil cikar. Ustteki grafige gore yaprak
+genisligi (petal width) ile yaprak boyu (petal length) arasinda bir iliski
+var. 
+
+Tanim
+
+$X,Y$ rasgele degiskenlerin arasindaki kovaryans soyle
+
+$$ Cov(X,Y) = E(X-E(X))(Y-E(Y)) $$
+
+Yani hem $X$ hem $Y$'nin beklentilerinden ne kadar saptiklarini her veri
+ikilisi icin, cikartarak tespit ediyoruz, daha sonra bu farklari birbiriyle
+carpiyoruz, ve beklentisini aliyoruz (yani tum olasilik uzerinden ne
+yapacagini hesapliyoruz). Carpimlarin ilginc ozelligi sudur, arti deger
+arti degerle carpilinca arti deger cikar, pozitif ilinti var demektir,
+eksi-eksi arti verir, yine pozitif, eksi-arti eksi verir, negatif ilinti
+var demektir.
+
+Verisel Kovaryans (Empirical Covariance) 
+
+Tanim
+
+tbd
 
 \begin{minted}[fontsize=\footnotesize]{python}
 print df.cov()
@@ -37,51 +206,6 @@ print np.dot(df2.T,df2) / df.shape[0]
  [ 0.51345778 -0.11719467  1.28774489  0.57853156]]
 \end{verbatim}
 
-
-Ortalama (Mean) ve Medyan (Median)
-
-Genellikle istatistik kitaplari hemen ortalama (mean), medyan (median) ve
-baglantili ozet istatistiklerinden (summary statistics) bahsederek ise
-girerler. Bu istatistikleri dikkatle kullanmak gerekir, cunku her turlu
-veri, her yerde gecerli degildirler. Mesela ortalama sadece tek merkezi bir
-tepesi olan (unimodal) dagilimlar icin gecerlidir. Eger bu temel varsayim
-gecerli degilse, ortalama kullanarak yapilan hesaplar bizi yanlis yollara
-goturur. Ayrica bir dagilimi simetrik olup olmadigi da ortalama ya da
-medyan kullanilip kullanilmamasi kararinda onemlidir. Eger simetrik, tek
-tepeli bir dagilim var ise, ortalama ve medyan birbirine yakin
-olacaktir. Fakat veri baska turde bir dagilim ise, o zaman bu iki olcut
-birbirinden cok farkli olabilir.
-
-Once ortalama ve standart sapmayi (standart deviation) gorelim.
-
-$$ m  = \frac{ 1}{n}\sum_i x_i $$
-
-Standart sapma veri noktalarin "ortalamadan farkinin ortalamasini"
-verir. Tabii bazen noktalar ortalamanin altinda, bazen ustunde olacaktir,
-bizi bu negatiflik, pozitiflik ilgilendirmez, biz sadece farkla
-alakaliyiz. O yuzden her sapmanin karesini aliriz, bunlari toplayip nokta
-sayisina boleriz .
-
-$$ s^2 = \frac{ 1}{n} \sum_i (x_i - m)^2 $$
-
-Eger $m$ tanimini ustte yerine koyarsak, 
-
-$$ = \frac{ 1}{n} \sum_i x_i^2 + \frac{ 1}{n} \sum_i m^2 - \frac{ 2}{n} \sum_i x_im  $$
-
-$$ = \frac{ 1}{n} \sum_i x_i^2 + \frac{ m^2n}{n} - \frac{ 2mn}{n}m $$
-
-$$ = \frac{ 1}{n} \sum_i x_i^2 +  m^2 - 2m^2 $$
-
-$$ = \frac{ 1}{n} \sum_i x_i^2 - m^2 $$
-
-Bu olcuye varyans (variance) denir ve teorik olarak ortalamadan daha onemli
-oldugu soylenebilir. Fakat dagilimin yayilma olcusu olarak biz bu olcuyu
-oldugu gibi degil, onun karesini kullanacagiz (ki standart sapma buna
-deniyor aslinda). Niye? Cunku o zaman veri noktalarinin ve yayilma olcusunun
-birimleri birbiri ile ayni olacak. Eger veri setimiz bir alisveris
-sepetindeki malzemelerin lira cinsinden degerleri olsaydi, varyans bize
-sonucu "karekok lira" olarak verecekti ve bunun pek anlami olmayacakti. 
-
 Medyan ve Yuzdelikler (Percentile)
 
 Ustteki hesaplar sayilari toplayip, bolmek uzerinden yapildi. Medyan
@@ -98,18 +222,8 @@ sapmanin istatistikte daha cok kullanilmasinin tarihi sebebi de aslinda bu;
 bilgisayar oncesi cagda sayilari siralamak (sorting) zor bir isti. Bu
 sebeple hangi sirada olursa olsun, toplayip, bolerek hesaplanabilecek
 ozetler daha makbuldu. Fakat artik siralama islemi kolay, ve veri setleri
-her zaman tek tepeli, simetrik olmayabiliyor. 
-
-Ornek veri seti olarak unlu \verb!dellstore2! tabanindaki satis miktarlari
-kullanirsak, 
-
-\begin{minted}[fontsize=\footnotesize]{python}
-data = np.loadtxt("dell.csv")
-plt.hist(data,40)
-plt.savefig('05_02.png')
-\end{minted}
-
-\includegraphics[height=6cm]{05_02.png}
+her zaman tek tepeli, simetrik olmayabiliyor. Ornek veri seti olarak unlu
+\verb!dellstore2! tabanindaki satis miktarlari kullanirsak,
 
 \begin{minted}[fontsize=\footnotesize]{python}
 print np.mean(data)
