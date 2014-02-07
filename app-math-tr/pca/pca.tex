@@ -5,12 +5,12 @@ Temel Bileþen Analizi (Principal Component Analysis -PCA-)
 PCA yontemi boyut azaltan yontemlerden biri, takip edilmeden (unsupervised)
 isleyebilir. Ana fikir veri noktalarinin izdusumunun yapilacagi yonler
 bulmaktir ki bu yonler baglaminda (izdusum sonrasi) noktalarin arasindaki
-varyans (variance) en fazla olsun, yani noktalar grafik baglaminda
-dusunursek en "yayilmis" sekilde bulunsunlar. Boylece birbirinden daha
-uzaklasan noktalarin mesela daha rahat kumelenebilecegini umabiliriz.  Bir
-diger amac, hangi degiskenlerin varyansinin daha fazla oldugunun gorulmesi
-uzerine, o degiskenlerin daha onemli olabileceginin anlasilmasi. Ornek
-olarak alttaki grafige bakalim,
+sayisal varyans (empirical variance) en fazla olsun, yani noktalar grafik
+baglaminda dusunursek en "yayilmis" sekilde bulunsunlar. Boylece
+birbirinden daha uzaklasan noktalarin mesela daha rahat kumelenebilecegini
+umabiliriz.  Bir diger amac, hangi degiskenlerin varyansinin daha fazla
+oldugunun gorulmesi uzerine, o degiskenlerin daha onemli olabileceginin
+anlasilmasi. Ornek olarak alttaki grafige bakalim,
 
 \begin{minted}[fontsize=\footnotesize]{python}
 from pandas import *
@@ -62,20 +62,9 @@ ortaya cikartiliyor. Genel olarak ifade edersek, bir nokta icin
 
 $$z = w^T x$$
 
-Yapmaya calistigimiz varyansi maksimize etmek demistik. Ozel bir
-izdusum yonunu referans alirsak, en buyuk $Var(z_1)$'i bulacagiz. Not:
-Bunu soyler soylemez $x$'i ve $z$'yi rasgele degiskenler olarak
-gordugumuzu belirtmis oluyoruz. Ardi ardina alet cantasindan temsili
-numaralari kullaniyoruz - $x$'i bir yandan vektor yapiyoruz, bir
-yandan bir dagilimdan gelen zar atisi gibi goruyoruz, problemi
-cozmemize ne yardim edecekse onu surekli devreye sokuyoruz. Devam
-edelim, rasgele degisken deyince, demek ki $x,z$ dagilimlardan
-gelecektir, bu dagilimlarin cok boyutlu normal (multivariate normal)
-oldugunu kabul edebiliriz. Peki eger $x$, $N(\mu,\Sigma)$ gibi cok
-boyutlu normal dagilimdan geliyorsa, ki $\mu$ ortalama ve $\Sigma$
-kovaryanstir, $w^Tx$ nedir?
-
-Bu yeni "seyin" beklentisi ve varyansina bakalim,
+Yapmaya calistigimiz sayisal varyansi maksimize etmek demistik. Ozel bir
+izdusum yonunu referans alirsak, en buyuk $Var(z_1)$'i bulacagiz. Bu yeni
+"seyin" beklentisi ve varyansina bakalim,
 
 $$ E[w^Tx] = w^T E[x] = w^T \mu $$
 
@@ -84,11 +73,9 @@ $$ Var(w^Tx)  = w^T Var(x) w = w^T \Sigma w$$
 Ustteki sonuclarin boyutlarina dikkat: $w^T \mu$ durumunda $1 \times N
 \cdot N \times 1 = 1 \times 1$ , $w^T \Sigma w$ durumunda ise $1 \times N
 \cdot N \times N \cdot N \times 1 = 1 \times 1$.  Iki durumda da tek
-boyutlu skalar degerler elde ettik. Demek ki $w^T$ ile carpim sonrasi bir
-$N(w^T\mu,w^T\Sigma w)$ dagilimi elde ederiz ve bu dagilim bir tek boyutlu
-bir dagilimdir. Yani $w$ yonundeki izdusum bize tek boyutlu bir Gaussian
-dagilimini verecektir. Bu sonuc aslinda cok sasirtici olmasa gerek, tum
-veri noktalarini alip, baslangici basnokta 0,0 (origin) noktasinda olan
+boyutlu skalar degerler elde ettik. Yani $w$ yonundeki izdusum bize tek
+boyutlu bir cizgi verecektir. Bu sonuc aslinda cok sasirtici olmasa gerek,
+tum veri noktalarini alip, baslangici basnokta 0,0 (origin) noktasinda olan
 vektorlere cevirip ayni yone isaret edecek sekilde duzenliyoruz, bu
 vektorleri tekrar nokta olarak dusunursek, tabii ki ayni yonu
 gosteriyorlar, bilahere ayni cizgi uzerindeki noktalara donusuyorlar. Ayni
