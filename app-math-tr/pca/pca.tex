@@ -150,17 +150,20 @@ kovaryansini hesaplayacagiz.
 import numpy.linalg as lin
 from pandas import *
 data = read_csv("testSet.txt",sep="\t",header=None)
+print data.shape
 print data[:10]
 
 means = data.mean()
 meanless_data = data - means
 cov_mat = np.cov(meanless_data, rowvar=0)
+print cov_mat.shape
 eigs,eigv = lin.eig(cov_mat)
 eig_ind = np.argsort(eigs)
 print eig_ind
 \end{minted}
 
 \begin{verbatim}
+(1000, 2)
            0          1
 0  10.235186  11.321997
 1  10.122339  11.810993
@@ -172,6 +175,7 @@ print eig_ind
 7   9.003615  10.039206
 8   9.534872  10.096991
 9   9.498181  10.825446
+(2, 2)
 [0 1]
 \end{verbatim}
 
@@ -275,11 +279,11 @@ $U$ kolonlari icin uygulayabilecegimize gore demek ki $U$'nun
 kolonlarinda $AA^T$'nin ozvektorleri vardir, ve $AA^T$'nin ozdegerleri
 $A$'nin tekil degerlerinin karesidir.
 
-Bu muthis bir bulus. Demek ki $AA^T$'nin ozektorlerini hesaplamak icin
-$A$ uzerinde SVD uygulayarak $U$'yu bulmamiz yeterli, kovaryans
-matrisini hesaplamak bile gerekmiyor! $AA^T$ ozdegerleri uzerinde
-buyukluk karsilastirmasi icin ise $A$'nin tekil degerlerine bakmak
-yeterli! 
+Bu muthis bir bulus. Demek ki $AA^T$'nin ozektorlerini hesaplamak icin $A$
+uzerinde SVD uygulayarak $U$'yu bulmak ise yarar, kovaryans matrisini
+hesaplamak gerekli degil (bir hesap yerine otekini koymus olduk $A^TA$
+carpimi yerine yerine $AA^T$ hesabi). $AA^T$ ozdegerleri uzerinde buyukluk
+karsilastirmasi icin ise $A$'nin tekil degerlerine bakmak yeterli!
 
 Ornek
 
@@ -357,9 +361,9 @@ weighting -IDF-) ismi veriliyor - her dokumanda aþýrý fazla ortaya
 cikan kelimelerin onemi ozellikle azaltiliyor, ki diger kelimelerin
 etkisi artabilsin.
 
-IDF kodlamasi alttaki gibidir. Once class.labels kolonunu
+IDF kodlamasi alttaki gibidir. Once \verb!class.labels! kolonunu
 atariz. Sonra "herhangi bir deger iceren" her hucrenin 1 digerlerinin
-0 olmasi icin kullanilan DataFrame uzerinde astype(bools) isletme
+0 olmasi icin kullanilan DataFrame uzerinde \verb!astype(bools)! isletme
 numarasini kullaniriz, boylece asiri buyuk degerler bile sadece 1
 olacaktir. Bazi diger islemler sonrasi her satiri kendi icinde tekrar
 normalize etmek icin o satirdaki tum degerlerin karesinin toplaminin
@@ -371,15 +375,15 @@ degeri eklememize dikkat cekelim, bunu toplamin sifir olma durumu icin
 yapiyoruz, ki sonra sifirla bolerken NaN sonucundan kacinalim. 
 
 \begin{minted}[fontsize=\footnotesize]{python}
-nyt = nyt.drop(['class.labels'],axis=1)
-freq = nyt.astype(bool).sum(axis=0)
+nyt2 = nyt.drop('class.labels',axis=1)
+freq = nyt2.astype(bool).sum(axis=0)
 freq = freq.replace(0,1)
-w = np.log(float(nyt.shape[0])/freq)
-nyt = nyt.apply(lambda x: x*w,axis=1)
-nyt = nyt.apply(lambda x: x / np.sqrt(np.sum(np.square(x))+1e-16), axis=1)
-
-nyt=nyt.ix[:,1:] # ilk kolonu atladik
-print nyt.ix[:8,102:107]
+w = np.log(float(nyt2.shape[0])/freq)
+nyt2 = nyt2.apply(lambda x: x*w,axis=1)
+nyt2 = nyt2.apply(lambda x: x / np.sqrt(np.sum(np.square(x))+1e-16), axis=1)
+#nyt2 = nyt2.div(nyt2.sum(axis=0), axis=1)
+nyt2=nyt2.ix[:,1:] # ilk kolonu atladik
+print nyt2.ix[:8,102:107]
 \end{minted}
 
 \begin{verbatim}
@@ -400,29 +404,29 @@ Not: Bir diger normalize metotu
 \begin{minted}[fontsize=\footnotesize]{python}
 import pandas as pd
 
-df = pd.DataFrame([[1.,1.,1.],
-                   [2.,2.,2.],
-                   [3.,3.,3.]])
+df = pd.DataFrame([[1.,1.,np.nan],
+                   [1.,2.,0.],
+                   [1.,3.,np.nan]])
 print df
-print df.div(df.sum(axis=1), axis=1)
+print df.div(df.sum(axis=0), axis=1)
 \end{minted}
 
 \begin{verbatim}
-   0  1  2
-0  1  1  1
-1  2  2  2
-2  3  3  3
-          0         1         2
-0  0.333333  0.166667  0.111111
-1  0.666667  0.333333  0.222222
-2  1.000000  0.500000  0.333333
+   0  1   2
+0  1  1 NaN
+1  1  2   0
+2  1  3 NaN
+          0         1   2
+0  0.333333  0.166667 NaN
+1  0.333333  0.333333 NaN
+2  0.333333  0.500000 NaN
 \end{verbatim}
 
 SVD yapalim
 
 \begin{minted}[fontsize=\footnotesize]{python}
-nyt = nyt - nyt.mean(0)
-u,s,v = lin.svd(nyt.T,full_matrices=False)
+nyt3 = nyt2 - nyt2.mean(0)
+u,s,v = lin.svd(nyt3.T,full_matrices=False)
 print s[:10]
 \end{minted}
 
@@ -501,10 +505,5 @@ SVD numerik hesabini yapmanin tek yontemi ozdeger/vektor yontemi
 degildir. Mesela Numpy Linalg kutuphanesi icindeki SVD, LAPACK dgesdd
 rutinini kullanir ve bu rutin ic kodlamasinda QR, ve bir tur bol /
 istila et (divide and conquer) algoritmasi isletmektedir.
-
-
-
-
-
 
 \end{document}

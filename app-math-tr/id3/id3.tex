@@ -2,42 +2,40 @@
 \begin{document}
 ID3
 
-Zeki arama konusunda gördüðümüz gibi, arama algoritmasýna tahmin yeteneðini
-kazandirdigimizda problem sonucuna ulaþým hýzýmýzý arttýrmýþtýk. Tahmin
-yeteneði, oyun tahtasýna deðer biçebilen iþlev sayesinde bilgisayara
-kodlanmýþtý.
+Zeki arama yazisinda, arama algoritmasýna tahmin yeteneði kazandirdigimizda
+problem sonucuna ulaþým hýzýný arttýrmýþtýk. Tahmin yeteneði oyun tahtasýna
+deðer biçebilen iþlev sayesinde bilgisayara kodlanmýþtý.
 
-Bu noktada önemli bir soru þu olacaktýr; Ýnsan zekasýnda, tahmin neye
-dayanýr? Üzerinde bilgimiz, tecrübemiz olmayan konu hakkýnda tahmin
-yapabilirmiyiz? Hayýr. Öyle ise, bilgisayara tahmin özelliði
-kazandýrdýðýmýz zaman, ayný zamanda makinaya "bilgi" verdiðimizi
-söyleyebiliriz. Makinayý bilgilendirdik, ona tecrübe kazandýrdýk da
-diyebiliriz çünkü tahmin, bir konu hakkýnda bilgimize, tecrübemize
-dayandýðý ölçüde baþarýlý olabilir.
+Bir soru; Ýnsan zekasýnda tahmin neye dayanýr? Üzerinde bilgimiz,
+tecrübemiz olmayan konu hakkýnda tahmin yapabilirmiyiz? Hayýr. Öyleyse
+bilgisayara tahmin özelliði kazandýrdýðýmýz zaman ayný zamanda makinaya
+"bilgi" verdiðimizi söyleyebiliriz. Makinayý bilgilendirdik, ona tecrübe
+kazandýrdýk da diyebiliriz çünkü tahmin, bir konu hakkýnda bilgimize,
+tecrübemize dayandýðý ölçüde baþarýlý olabilir.
 
 Bilgisayara bilgiyi iki þekilde verebiliriz: Yapýsal, ya da iþlevsel. Zeki
 arama örneði iþlevsel bir örnek gösterdi. Bilgiyi, bilgisayara algoritma
 halinde verdik. Tahta deðerlendiren iþlev, her taþa göre nasýl hesap
 yapacaðýný biliyordu. Bu hesabý toplama ve çarpma iþlemlerini kullanarak ve
 daha önceden "bildiði" aðýrlýklara göre birbirine ekleyerek tahta hakkýnda
-ne düþündüðünü tek bir sayý halinde bildirdi, ve algoritmanýn geri kalaný,
+ne düþündüðünü tek bir sayý halinde bildirdi, ve algoritmanýn geri kalaný
 bu deðerler ile doðru seçimi yaparak sonuca ulaþtý.
 
-Bu yazýmýzda oyun oynama yerine, birçok seçeneðin arasýnda karar vermek
-konusunu iþleyeceðiz. Zeki aramanýn aksine, bilgiyi bilgisayara iþlev
-olarak deðil, bir karar aðaç yapýsý olarak vereceðiz, ve daha da iyisi
-bilgisayarýn bu yapýyý "örnek veriden" kendi kendine öðrenmesini
-saðlayacaðýz.
+Bu yazýda oyun oynama yerine birçok seçeneðin arasýnda karar vermek
+konusunu iþleyeceðiz. Zeki aramanýn aksine bilgi bilgisayara iþlev olarak
+deðil, bir karar aðaç yapýsý olarak verilecek, ve daha da iyisi
+bilgisayarýn bu yapýyý "örnek veriden" kendi kendine öðrenmesi
+saðlanacak.
 
 Karar Aðacý Nedir?
 
-Video, televizyon gibi bir ev elektronik eþyasýnýn kýlavuzuna baktýðýnýzda,
-"þu, þöyle olduysa þöyle yap" gibi tariflerin dolu olduðunu görürsünüz. Ýlk
-önce kontrol edilmesi tavsiye edilen ayarlar vardýr, ve bu ayarlardan gelen
-cevaba göre deðiþik ayarlara bakýlmasý tavsiye edilir ve en sonunda kýlavuz
-ne hangi özel düðmeye basýlmasý gerektiðini söyler. Kullaným kýlavuzlarý
-onlarca sayfalýk bir karar aðacýdýr denebilir. Ýnsanlara karar aðacýn
-kavramý doðal geldiði için kýlavuzlar bu þekilde hazýrlanmýþtýr.
+Video, televizyon gibi bir ev elektronik eþyasýnýn kýlavuzunda "þu, þöyle
+olduysa þöyle yap" gibi tarifler vardir. Ýlk önce kontrol edilmesi tavsiye
+edilen ayarlar vardýr, ve bu ayarlardan gelen cevaba göre deðiþik ayarlara
+bakýlmasý tavsiye edilir ve en sonunda kýlavuz ne hangi özel düðmeye
+basýlmasý gerektiðini söyler. Kullaným kýlavuzlarý onlarca sayfalýk bir
+karar aðacýdýr denebilir. Ýnsanlara karar aðacýn kavramý doðal geldiði için
+kýlavuzlar bu þekilde hazýrlanmýþtýr.
 
 Diðer bir örnek, lokantalarda çok yemek yiyen birisinin kullandýðý karar
 aðacý olabilir. Bu kimse her türlü deðiþik þart altýnda deðiþik lokantalara
