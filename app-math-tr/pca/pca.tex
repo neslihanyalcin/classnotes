@@ -60,31 +60,43 @@ gibi bir goruntuden bahsediyoruz. Hayali bir $w$ kullandik, ve noktalardan
 biri veri noktasi, $w$ uzerine izdusum yapilarak yeni bir vektoru / noktayi
 ortaya cikartiliyor. Genel olarak ifade edersek, bir nokta icin
 
-$$z = w^T x$$
+$$ z_i =  x_i^Tw = x_i \cdot w$$
 
-Yapmaya calistigimiz sayisal varyansi maksimize etmek demistik. Ozel bir
-izdusum yonunu referans alirsak, en buyuk $Var(z_1)$'i bulacagiz. Bu yeni
-"seyin" beklentisi ve varyansina bakalim,
+Yapmaya calistigimiz sayisal varyansi maksimize etmek demistik. Bu arada
+verinin hangi dagilimdan geldigini soylemedik, ``her veri noktasi
+birbirinden ayri, bagimsiz ama ayni bir dagilimdandir'' bile
+demedik. Sadece sayisal varyans ile is yapacagiz. Sayisal varyans,
 
-$$ E[w^Tx] = w^T E[x] = w^T \mu $$
+$$ \frac{1}{n}\sum_i  (x_i \cdot w)^2 $$
 
-$$ Var(w^Tx)  = w^T Var(x) w = w^T \Sigma w$$
+Toplama islemi yerine soyle dusunelim, tum $x_i$ noktalarini istifleyip bir
+$x$ matrisi haline getirelim, o zaman $xw$ ile bir yansitma yapabiliriz, bu
+yansitma sonucu bir vektordur. Bu tek vektorun karesini almak demek onun
+devrigini alip kendisi ile carpmak demektir, yani
 
-Ustteki sonuclarin boyutlarina dikkat: $w^T \mu$ durumunda $1 \times N
-\cdot N \times 1 = 1 \times 1$ , $w^T \Sigma w$ durumunda ise $1 \times N
-\cdot N \times N \cdot N \times 1 = 1 \times 1$.  Iki durumda da tek
-boyutlu skalar degerler elde ettik. Yani $w$ yonundeki izdusum bize tek
-boyutlu bir cizgi verecektir. Bu sonuc aslinda cok sasirtici olmasa gerek,
-tum veri noktalarini alip, baslangici basnokta 0,0 (origin) noktasinda olan
-vektorlere cevirip ayni yone isaret edecek sekilde duzenliyoruz, bu
-vektorleri tekrar nokta olarak dusunursek, tabii ki ayni yonu
-gosteriyorlar, bilahere ayni cizgi uzerindeki noktalara donusuyorlar. Ayni
-cizgi uzerinde olmak ne demek? Tek boyuta inmis olmak demek.
+$$ = \frac{1}{n}(xw)^T(xw) = \frac{1}{n} w^Tx^Txw$$
 
-Bastaki amacimiza donersek, $Var(z_1)$'i maksimize etmek ayni anda
-$Var(w_1^T\Sigma w_1)$'i maksimize etmek demektir.
+$$ =  w^T\frac{x^Tx}{n}w$$
 
-Ufak bir sorun $w_1^T\Sigma w_1$'i surekli daha buyuk $w_1$'lerle sonsuz
+$x^Tx / n$ sayisal kovaryanstir (empirical covariance). Ona $\Sigma$
+diyelim. 
+
+$$ =  w^T\Sigma w$$
+
+
+Ustteki sonuclarin boyutlari $1 \times N \cdot N \times N \cdot N \times 1
+= 1 \times 1$.  
+
+Yani tek boyutlu skalar degerler elde ettik.  Yani $w$ yonundeki izdusum
+bize tek boyutlu bir cizgi verecektir. Bu sonuc aslinda cok sasirtici
+olmasa gerek, tum veri noktalarini alip, baslangici basnokta 0,0 (origin)
+noktasinda olan vektorlere cevirip ayni yone isaret edecek sekilde
+duzenliyoruz, bu vektorleri tekrar nokta olarak dusunursek, tabii ki ayni
+yonu gosteriyorlar, bilahere ayni cizgi uzerindeki noktalara
+donusuyorlar. Ayni cizgi uzerinde olmak ne demek? Tek boyuta inmis olmak
+demek.
+
+Ufak bir sorun $w^T\Sigma w$'i surekli daha buyuk $w_1$'lerle sonsuz
 kadar buyutebilirsiniz. Bize ek bir kisitlama sarti daha lazim, bu sart
 $||w|| = 1$ olabilir, yani $w$'nin norm'u 1'den daha buyuk olmasin. Boylece
 optimizasyon $w$'yi surekli buyute buyute maksimizasyon yapmayacak, sadece
@@ -92,49 +104,53 @@ yon bulmak ile ilgilenecek, iyi, zaten biz $w$'nin yonu ile
 ilgileniyoruz. Aradigimiz ifadeyi yazalim, ve ek siniri Lagrange ifadesi
 olarak ekleyelim, ve yeni bir $L$ ortaya cikartalim,
 
-$$ L(w_1,\lambda) =  w_1^T \Sigma w_1  - \lambda(w_1^T w_1 - 1) $$
+$$ L(w,\lambda) =  w^T \Sigma w  - \lambda(w^T w - 1) $$
 
 Niye eksiden sonraki terim o sekilde eklendi? O terim oyle sekilde
-secildi ki, $\partial L / \partial \lambda = 0$ alininca $w_1^Tw_1 =
-1$ geri gelsin / ortaya ciksin [2, sf 340], bu Lagrange'in dahice
-bulusu. Bunu kontrol edebilirsiniz, $\lambda$ 'ya gore turev alirken
-$w_1$ sabit olarak yokolur, parantez icindeki ifadeler kalir ve sifira
-esitlenince orijinal kisitlama ifadesi geri gelir. Simdi
+secildi ki, $\partial L / \partial \lambda = 0$ alininca $w^Tw =
+1$ geri gelsin / ortaya ciksin [2, sf 340]. 
 
-$$ \max\limits_{w_1} L(w_1,\lambda) $$
+Bu Lagrange'in dahice bulusu. Bu kontrol edilebilir, $\lambda$ 'ya gore
+turev alirken $w_1$ sabit olarak yokolur, parantez icindeki ifadeler kalir
+ve sifira esitlenince orijinal kisitlama ifadesi geri gelir. Simdi
 
-Turevi $w_1$'e gore alirsak, ve sifira esitlersek,
+$$ \max\limits_{w} L(w,\lambda) $$
 
-$$ 2w_1 \Sigma - 2 \lambda w_1 = 0 $$
+icin turevi $w$'e gore alirsak, ve sifira esitlersek,
 
-$$ 2w_1 \Sigma = 2 \lambda w_1 $$
+$$ \frac{\partial L}{\partial w} = 2w \Sigma - 2 \lambda w_= 0 $$
 
-$$ \Sigma w_1  = \lambda w_1 $$
+$$ 2w \Sigma = 2 \lambda w $$
+
+$$ \Sigma w  = \lambda w $$
 
 Ustteki ifade ozdeger, ozvektor ana formulune benzemiyor mu?
-Evet. Eger $w_1$, $\Sigma$'nin ozvektoru ise ve esitligin sagindaki
+Evet. Eger $w$, $\Sigma$'nin ozvektoru ise ve esitligin sagindaki
 $\lambda$ ona tekabul eden ozdeger ise, bu esitlik dogru olacaktir.
 
 Peki hangi ozdeger / ozvektor maksimal degeri verir? Unutmayalim,
-maksimize etmeye calistigimiz sey $w_1^T \Sigma w_1$ idi
+maksimize etmeye calistigimiz sey $w^T \Sigma w$ idi
 
-Eger $\Sigma w_1  = \lambda w_1$ yerine koyarsak
+Eger $\Sigma w  = \lambda w$ yerine koyarsak
 
-$$ w_1^T \lambda w_1 =  \lambda w_1^T  w_1 = \lambda $$
+$$ w^T \lambda w =  \lambda w^T  w = \lambda $$
 
-Cunku $w_1^T w$'nin 1 olacagi sartini koymustuk. Neyse, maksimize
-etmeye calistigimiz deger $\lambda$ cikti, o zaman en buyuk $\lambda$
-kullanirsak, en maksimal varyansi elde ederiz, bu da en buyuk
-ozdegerin ta kendisidir.
+Cunku $w_1^T w$'nin 1 olacagi sartini koymustuk. Neyse, maksimize etmeye
+calistigimiz deger $\lambda$ cikti, o zaman en buyuk $\lambda$ kullanirsak,
+en maksimal varyansi elde ederiz, bu da en buyuk ozdegerin ta
+kendisidir. Demek ki izdusum yapilacak "yon" kovaryans $\Sigma$'nin en
+buyuk ozdegerine tekabul eden ozvektor olarak secilirse, temel
+bilesenlerden en onemlisini hemen bulmus olacagiz. Ikinci, ucuncu en buyuk
+ozdegerin ozvektorleri ise diger daha az onemli yonleri bulacaklar. 
 
-Demek ki izdusum yapilacak "yon" kovaryans $\Sigma$'nin en buyuk
-ozdegerine tekabul eden ozvektor olarak secilirse, temel bilesenlerden
-en onemlisini hemen bulmus olacagiz.
+$\Sigma$ matrisi $n \times n$ boyutunda bir matris, bu sebeple $n$ tane
+ozvektoru olacak. Her kovaryans matrisi simetriktir, o zaman lineer cebir
+bize der ki ozvektorler birbirine dikgen (orthogonal) olmali. Yine $\Sigma$
+bri kovaryans matrisi oldugu icin bir pozitif matris olmali, yani herhangi
+bir $x$ icin $x \Sigma x \ge 0$. Bu bize tum ozvektorlerin $\ge 0$ olmasi
+gerektigini soyluyor. 
 
-Cebirin geri kalani $w_2$,$w_3$ icin devam eder, bu turetmenin
-detaylarini [1] ve [2] gibi kaynaklarda bulabilirsiniz. Fakat ulasilan
-sonuc en bilesenlerin onem sirasinin aynen ozdegerlerin buyukluk
-sirasina tekabul ediyor olmasi.
+Ustteki ozvektorler verinin temel bilesenleridir (principal components). 
 
 Ornek
 
