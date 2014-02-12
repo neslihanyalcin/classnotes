@@ -463,16 +463,35 @@ averaji alinirsa, elde edilen sonucun $X_i$'lerin (ayni olan) beklentisine
 yaklasacaginin soyler, yani $n$ büyüdükçe $\bar{X}_n$'in 1/2'ye
 yaklaþtýðýný ispatlar, yani $E[X_i] = 1/2$ degerine.
 
-Formulsel olarak,
+Formulsel olarak, herhangi bir $\epsilon > 0$ icin,
 
 $$ \lim_{n \to \infty} P(|\bar{X} - \mu| \le \epsilon) = 1$$
+ya da
+
+ $$ \lim_{n \to \infty} P(|\bar{X}_n-\mu| > \epsilon) = 0 $$
+ya da 
+
+ $$ P(|\bar{X}_n-\mu| > \epsilon) \rightarrow 0 $$
 
 
 Burada ne soylendigine dikkat edelim, $X_i$ dagilimi {\em ne olursa olsun},
 yani ister Binom, ister Gaussian olsun, {\em orneklem} uzerinden hesaplanan
 sayisal ortalamanin (empirical mean) formulsel olasilik beklentisine
-yaklastigini soyluyoruz!  Istatistik ile olasilik teorisi arasindaki
-baglanti bu. Ispata baþlayalým.
+yaklastigini soyluyoruz! $X_i$'ler en absurt dagilimlar olabilirler, bu
+dagilimlarin fonksiyonu son derece cetrefil, tek tepeli (unimodal) bile
+olmayabilir, o formuller uzerinden beklenti icin gereken entegralin belki
+analitik cozumu bile mevcut olmayabilir! Ama yine de ortalama, o
+dagilimlarin beklentisine yaklasacaktir.  Istatistik ile olasilik teorisi
+arasindaki cok onemli bir baglanti bu.
+
+Ozellikle orneklem ile genel nufus (population) arasinda kurulan baglantiya
+dikkat edelim. Istatigin onemli bir bolumunun bu baglanti oldugu
+soylenebilir. Orneklem, bilmedigimiz ama genel nufusu temsil eden bir
+dagilimla ayni dagilima sahip olan $X_i$'dir dedik, ve bu ayniliktan ve
+bagimsizliktan yola cikarak bize genel nufus hakkinda bir ipucu saglayan
+bir kanun gelistirdik (ve birazdan ispatlayacagiz).
+
+Ispata baþlayalým.
 
 $X_1,X_2,..,X_n$ bagimsiz degiskenler olsun. 
 
@@ -487,8 +506,6 @@ $\bar{X}_n$ de bir rasgele deðiþkendir, çünku $\bar{X}_n$ deðiþkeni her
 $X_i$ daðýlýmýyla alakali.
 
 Ýspat devam etmek için, $\bar{X}_n$ daðýlýmýnýn beklentisini bulmamýz gerekiyor. 
-
-$$ \bar{X}_n = \frac{1}{n} \sum_{i=1}^n X_i  $$
 
 $$ E(\bar{X}_n) = E(\frac{1}{n} \sum_{i=1}^n X_i)  $$
 
@@ -522,7 +539,8 @@ $$ Var(\bar{X}_n) = \frac{1}{n^2}\sum_{i=1}^n \sigma^2 =
 \frac{1}{n^2}n\sigma^2 = \frac{\sigma^2}{n} 
 $$
 
-Artýk Çebiþev kuramýný kullanmaya hazýrýz. $n \rightarrow \infty$ iken,
+Artýk Çebiþev kuramýný kullanmaya hazýrýz. Ispatlamaya calistigimiz neydi?
+$n \rightarrow \infty$ iken,
 
  $$ P(|\bar{X}_n-\mu| > \epsilon) \rightarrow 0 $$
 
@@ -557,9 +575,9 @@ Teori: Herhangi bir $t$ deðeri için,
 Ýspata baþlayalým. Entegral ile olasýlýk hesabý yapmak için bize bir $x$
 uzayý lazým.
 
-\[ R = {x: |x-\mu| > t} \]
+\[ \mathbb{R} = {x: |x-\mu| > t} \]
 
-Yani R uzayý, $x$ ile ortalamasýnýn farkýnýn, $t$'den büyük olduðu bütün
+Yani $\mathbb{R}$ uzayý, $x$ ile ortalamasýnýn farkýnýn, $t$'den büyük olduðu bütün
 sayýlarýn kümesidir.
 
 O zaman, 
@@ -569,7 +587,7 @@ O zaman,
 Dikkat edelim $P(..)$ içindeki formül, küme tanýmý ile ayný. O yüzden $P()$
 hesabý ortada daha olmayan, ama varolduðu kesin bir daðýlým fonksiyonu
 tanýmlamýþ da oluyor. Buna $f(x)$ deriz. $P()$'in, $f(x)$ fonksiyonunun $R$
-üzerinden entegral olduðunu olasýlýða giriþ dersinden bilmemiz lazým.
+üzerinden entegral olduðunu olasýlýða giriþ dersinden bilmemiz lazým. 
 
 Eger $x \in R$ dersek o zaman
 
@@ -587,9 +605,13 @@ aþaðýdaki tanýmý yapmamýz doðru olacaktýr.
  \]
 
 
-Ortadaki entegral niye birinci entegralden büyük? Çünkü ortadaki entegraldeki
-$F(x)dx$ ibaresinden önce gelen kýsmýn, her zaman 1'den büyük olacaðýný
-belirttiðimize göre, ikinci entegralin birinciden büyük olmasý normaldir.
+Ortadaki entegral niye birinci entegralden büyük? Çünkü ortadaki
+entegraldeki $f(x)dx$ ibaresinden önce gelen kýsmýn, her zaman 1'den büyük
+olacaðýný belirttiðimize göre, ikinci entegralin birinciden büyük olmasý
+normaldir, cunku birinci entegral $f(x)$ olasilik dagilimina bagli,
+entegral ise bir alan hesabidir ve olasilik dagilimlarinin sonsuzlar
+arasindaki entegrali her zaman 1 cikar, kaldi ki ustteki $x$'in uzayini
+daha da daralttik. 
 
 Evet...Üçüncü entegral ispata oldukça yaklaþtý aslýnda. Standart sapma
 iþaretini hala ortada göremiyoruz, fakat son entegraldeki ibare standart
