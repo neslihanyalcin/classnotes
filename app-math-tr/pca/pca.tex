@@ -86,18 +86,16 @@ $$ =  w^T\Sigma w$$
 
 
 Ustteki sonuclarin boyutlari $1 \times N \cdot N \times N \cdot N \times 1
-= 1 \times 1$.  
-
-Yani tek boyutlu skalar degerler elde ettik.  Yani $w$ yonundeki izdusum
-bize tek boyutlu bir cizgi verecektir. Bu sonuc aslinda cok sasirtici
-olmasa gerek, tum veri noktalarini alip, baslangici basnokta 0,0 (origin)
-noktasinda olan vektorlere cevirip ayni yone isaret edecek sekilde
+= 1 \times 1$. Tek boyutlu skalar degerler elde ettik.  Yani $w$ yonundeki
+izdusum bize tek boyutlu bir cizgi verecektir. Bu sonuc aslinda cok
+sasirtici olmasa gerek, tum veri noktalarini alip, baslangici basnokta 0,0
+(origin) noktasinda olan vektorlere cevirip ayni yone isaret edecek sekilde
 duzenliyoruz, bu vektorleri tekrar nokta olarak dusunursek, tabii ki ayni
 yonu gosteriyorlar, bilahere ayni cizgi uzerindeki noktalara
 donusuyorlar. Ayni cizgi uzerinde olmak ne demek? Tek boyuta inmis olmak
 demek.
 
-Ufak bir sorun $w^T\Sigma w$'i surekli daha buyuk $w_1$'lerle sonsuz
+Ufak bir sorun $w^T\Sigma w$'i surekli daha buyuk $w$'lerle sonsuz
 kadar buyutebilirsiniz. Bize ek bir kisitlama sarti daha lazim, bu sart
 $||w|| = 1$ olabilir, yani $w$'nin norm'u 1'den daha buyuk olmasin. Boylece
 optimizasyon $w$'yi surekli buyute buyute maksimizasyon yapmayacak, sadece
@@ -107,19 +105,18 @@ olarak ekleyelim, ve yeni bir $L$ ortaya cikartalim,
 
 $$ L(w,\lambda) =  w^T \Sigma w  - \lambda(w^T w - 1) $$
 
-Niye eksiden sonraki terim o sekilde eklendi? O terim oyle sekilde
-secildi ki, $\partial L / \partial \lambda = 0$ alininca $w^Tw =
-1$ geri gelsin / ortaya ciksin [2, sf 340]. 
-
-Bu Lagrange'in dahice bulusu. Bu kontrol edilebilir, $\lambda$ 'ya gore
-turev alirken $w_1$ sabit olarak yokolur, parantez icindeki ifadeler kalir
-ve sifira esitlenince orijinal kisitlama ifadesi geri gelir. Simdi
+Niye eksiden sonraki terim o sekilde eklendi? O terim oyle sekilde secildi
+ki, $\partial L / \partial \lambda = 0$ alininca $w^Tw = 1$ geri gelsin /
+ortaya ciksin [2, sf 340]. Bu Lagrange'in dahice bulusu. Bu kontrol
+edilebilir, $\lambda$ 'ya gore turev alirken $w_1$ sabit olarak yokolur,
+parantez icindeki ifadeler kalir ve sifira esitlenince orijinal kisitlama
+ifadesi geri gelir. Simdi
 
 $$ \max\limits_{w} L(w,\lambda) $$
 
 icin turevi $w$'e gore alirsak, ve sifira esitlersek,
 
-$$ \frac{\partial L}{\partial w} = 2w \Sigma - 2 \lambda w_= 0 $$
+$$ \frac{\partial L}{\partial w} = 2w \Sigma - 2 \lambda w = 0 $$
 
 $$ 2w \Sigma = 2 \lambda w $$
 
@@ -147,21 +144,21 @@ ozdegerin ozvektorleri ise diger daha az onemli yonleri bulacaklar.
 $\Sigma$ matrisi $n \times n$ boyutunda bir matris, bu sebeple $n$ tane
 ozvektoru olacak. Her kovaryans matrisi simetriktir, o zaman lineer cebir
 bize der ki ozvektorler birbirine dikgen (orthogonal) olmali. Yine $\Sigma$
-bri kovaryans matrisi oldugu icin bir pozitif matris olmali, yani herhangi
+bir kovaryans matrisi oldugu icin pozitif bir matris olmali, yani herhangi
 bir $x$ icin $x \Sigma x \ge 0$. Bu bize tum ozvektorlerin $\ge 0$ olmasi
-gerektigini soyluyor. 
+gerektigini soyluyor.
 
-Ustteki ozvektorler verinin temel bilesenleridir (principal components). 
+Kovaryansin ozvektorleri verinin temel bilesenleridir (principal
+components), ki metotun ismi burada geliyor.
 
 Ornek
 
 Simdi tum bunlari bir ornek uzerinde gorelim. Iki boyutlu ornek veriyi
-ustte yuklemistik. Simdi veriyi "sifirda ortalayacagiz" yani her kolon
-icin o kolonun ortalama degerini tum kolondan cikartacagiz. PCA ile
-islem yaparken tum degerlerin sifir merkezli olmasi gerekiyor.
-
-Daha sonra ozdegerlerini, vektorlerini hesaplayabilmek icin verinin
-kovaryansini hesaplayacagiz.
+ustte yuklemistik. Simdi veriyi "sifirda ortalayacagiz" yani her kolon icin
+o kolonun ortalama degerini tum kolondan cikartacagiz. PCA ile islem
+yaparken tum degerlerin sifir merkezli olmasi gerekiyor, cunku bu sayisal
+kovaryans icin gerekli. Daha sonra ozdeger / vektor hesabi icin kovaryansi
+bulacagiz.
 
 \begin{minted}[fontsize=\footnotesize]{python}
 import numpy.linalg as lin
@@ -263,8 +260,8 @@ $U$ matrisi $n \times n$ dikgen (orthogonal), $V$ ise $m \times m$
 dikgen. $S$'in sadece kosegeni uzerinde degerler var ve bu  $\sigma_j$
 degerleri $A$'nin tekil degerleri (singular values) olarak biliniyor.
 
-Simdi $A$ yerine $AA^T$ koyalim, yani $A$'nin kovaryans matrisinin SVD
-ayristirmasini yapalim, acaba elimize ne gececek?
+Simdi $A$ yerine $AA^T$ koyalim, ve bu matrisin SVD ayristirmasini yapalim,
+acaba elimize ne gececek?
 
 $$ AA^T = (USV^T)(USV^T)^T $$
 
@@ -298,9 +295,12 @@ $A$'nin tekil degerlerinin karesidir.
 
 Bu muthis bir bulus. Demek ki $AA^T$'nin ozektorlerini hesaplamak icin $A$
 uzerinde SVD uygulayarak $U$'yu bulmak ise yarar, kovaryans matrisini
-hesaplamak gerekli degil (bir hesap yerine otekini koymus olduk $A^TA$
-carpimi yerine yerine $AA^T$ hesabi). $AA^T$ ozdegerleri uzerinde buyukluk
-karsilastirmasi icin ise $A$'nin tekil degerlerine bakmak yeterli!
+hesaplamak gerekli degil. $AA^T$ ozdegerleri uzerinde buyukluk
+karsilastirmasi icin ise $A$'nin tekil degerlerine bakmak yeterli! 
+
+Dikkat, daha once kovaryansi $A^TA$ olarak tanimlamistik, simdi $AA^T$
+ifadesi goruyoruz, bir devrik uyusmazligi var, bu sebeple, aslinda
+$A^T$'nin SVD'si alinmali (altta goruyoruz).
 
 Ornek
 

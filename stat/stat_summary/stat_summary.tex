@@ -443,28 +443,36 @@ Büyük Sayılar Kanunu (Law of Large Numbers)
 Olasılık kuramında önemli matematiksel bir denklem, büyük sayılar
 kanunudur. Bu kanun, orneklem (sample) ile rasgele degiskenler, yani
 matematiksel olasilik dagilimlari olan dunya arasinda bir baglanti gorevi
-gorur. Kabaca bildiğimiz günlük bir gerçeğin matematiksel ispatıdır da
+gorur. 
+
+Kanun kabaca bildiğimiz günlük bir gerçeğin matematiksel ispatıdır da
 denebilir. Yazı-tura atarken yazı çıkma ihtimalinin 1/2 olduğunu biliyoruz
 (cunku zar atisini bir dagilim gibi goruyoruz). Herhalde çoğumuz da bu
 yazı-tura işleminin "bir çok kere" tekrarlandığı durumda, toplam sonucun
 aşağı yukarı yarısının yazı olacağını tahmin biliyoruz.
 
-Farzedelim ki her yazı-tura atışı bir deney olsun. Her ayrı deneyin sonucu
-$X_1, X_2...X_n$ olarak rasgelen değişkenlerle tanımlanmış olsun. Bu
-değişkenler ya 1 ya da 0 değeri taşıyacak, Yazı=1, Tura=0.
+Matematiksel olarak, farzedelim ki her yazı-tura atışı bir deney olsun. Her
+ayrı deneyin sonucu $X_1, X_2...X_n$ olarak rasgelen değişkenlerle
+tanımlanmış olsun, bu degiskenlerin dagilimi ayni (cunku ayni zar), ama
+birbirlerinden bagimsizlar (cunku her deney digerinden
+alakasiz). Değişkenlerin sonucu 1 ya da 0 değeri taşıyacak, Yazı=1,
+Tura=0. 
 
-Buna göre, n tane deneyden sonra elimize gelmesi gereken yazı oranı şudur.
+Buyuk Sayilar Kanunu tum bu deney sonuclarinin, yani rasgele degiskenlerin
+averaji alinirsa, elde edilen sonucun $X_i$'lerin (ayni olan) beklentisine
+yaklasacaginin soyler, yani $n$ büyüdükçe $\bar{X}_n$'in 1/2'ye
+yaklaştığını ispatlar, yani $E[X_i] = 1/2$ degerine.
 
-$$ \bar{X}_n = \frac{1}{n} \sum_{i=1}^n X_i  $$
+Formulsel olarak,
 
-Büyük sayılar kanunu, $n$ büyüdükçe $\bar{X}_n$'in 1/2'ye yaklaştığını
-ispatlar, yani $E[X_i] = 1/2$ degerine. Burada ne soylendigine dikkat
-edelim, $X_i$ dagilimi {\em ne olursa olsun}, yani ister Binom, ister
-Gaussian olsun, {\em orneklem} uzerinden hesaplanan sayisal ortalamanin
-(empirical mean) formulsel olasilik beklentisine yaklastigini soyluyoruz!
-Istatistik ile olasilik teorisi arasindaki baglanti bu.
+$$ \lim_{n \to \infty} P(|\bar{X} - \mu| \le \epsilon) = 1$$
 
-Başlayalım.
+
+Burada ne soylendigine dikkat edelim, $X_i$ dagilimi {\em ne olursa olsun},
+yani ister Binom, ister Gaussian olsun, {\em orneklem} uzerinden hesaplanan
+sayisal ortalamanin (empirical mean) formulsel olasilik beklentisine
+yaklastigini soyluyoruz!  Istatistik ile olasilik teorisi arasindaki
+baglanti bu. Ispata başlayalım.
 
 $X_1,X_2,..,X_n$ bagimsiz degiskenler olsun. 
 
@@ -474,18 +482,11 @@ $$ Var(X_i) = \sigma $$
 
 $$ \bar{X}_n = \frac{1}{n} \sum_{i=1}^n X_i  $$
 
-O zaman her $\epsilon > 0$ icin ve $n \rightarrow \infty $, $p(|\bar{X}_n -
-\mu|) \rightarrow 0$. 
 
-Bu tanımlara göre, her rasgele değişkenin (deneyin) ortalaması ayni
-değerdir diyoruz. Bu zaten beklenir bir tanımdı, çünkü her rasgele
-değişkenin dağılımının aynı olduğunu kabul etmiştik. Her yazı tura aynı
-şartlar altında atılmazlar mı?
+$\bar{X}_n$ de bir rasgele değişkendir, çünku $\bar{X}_n$ değişkeni her
+$X_i$ dağılımıyla alakali.
 
-$\bar{X}_n$ de bir rasgele değişkendir, çünku $\bar{X}_n$ değişkeni her $X_i$
-dağılımıyla alakali.
-
-İspat devam etmek için, şapkalı $X_n$ dağılımının beklentisini bulmamız gerekiyor. 
+İspat devam etmek için, $\bar{X}_n$ dağılımının beklentisini bulmamız gerekiyor. 
 
 $$ \bar{X}_n = \frac{1}{n} \sum_{i=1}^n X_i  $$
 
@@ -498,9 +499,12 @@ $$ = \frac{1}{n} \sum_{i=1}^n E(X_i) = \frac{1}{n}n\mu $$
 
 $$ = \mu $$
 
-$\bar{X}_n$ dağılımının standart sapmasını da bulalım. 
+Dikkat edelim, bu {\em ortalamanin} beklentisi, ortalamanin kendisinin
+hangi degere yaklasacagini hala gostermiyor. Eger oyle olsaydi isimiz
+bitmis olurdu :) Daha yapacak cok is var.
 
-Diger bir olasilik kuramina gore
+Simdi $\bar{X}_n$ dağılımının standart sapmasını da bulalım. Diger bir
+olasilik kuramina gore
 
 $$ Y = a + bX $$
 
@@ -518,9 +522,9 @@ $$ Var(\bar{X}_n) = \frac{1}{n^2}\sum_{i=1}^n \sigma^2 =
 \frac{1}{n^2}n\sigma^2 = \frac{\sigma^2}{n} 
 $$
 
-Artık Çebişev kuramını kullanmaya hazırız. 
+Artık Çebişev kuramını kullanmaya hazırız. $n \rightarrow \infty$ iken,
 
-$n \rightarrow \infty$, $$ P(|\bar{X}_n-\mu| > \epsilon) \rightarrow 0 $$
+ $$ P(|\bar{X}_n-\mu| > \epsilon) \rightarrow 0 $$
 
 Cebisev'den
 
@@ -534,8 +538,87 @@ $\sigma^2 / n\epsilon^2$'in sifira gitmesi normal cunku n sonsuza gidiyor.
 Peki $P(|\bar{X}_n-\mu| > \epsilon)$'nin sifira gittigini gosterdik mi? 
 
 $\sigma^2 / n\epsilon^2$'nin sifira gittigini gosterdik. $\sigma^2 /
-n\epsilon^2$ de $P(|\bar{X}_n-\mu| > \epsilon)$'den buyuk olduguna gore,
-demek ki o da sifira iner. 
+n\epsilon^2$ de $P(|\bar{X}_n-\mu| > \epsilon)$'den 
+buyuk olduguna gore, demek ki o da sifira iner.
+
+Çebişev Eşitsizliği
+
+Olasılık matematiğinde, büyük sayılar kuramı adında anılan ve olasılık
+matematiğinin belkemiğini oluşturan kuramı ispatlamak için, diğer bir kuram
+olan Çebişev eşitsizliğini de anlamamız gerekiyor. Çebişev eşitsizliği bir
+rasgele değişken, onun ortalaması (beklentisi) ve herhangi bir sabit sayı
+arasındaki üçlü arasında bir 'eşitsizlik' bağlantısı kurar, ve bu bağlantı
+diğer olasılık işlemlerimizde ispat verisi olarak işimize yarar.
+
+Teori: Herhangi bir $t$ değeri için, 
+
+\[ P(|X-\mu| > t) \le \frac{\sigma^2}{t^2} \]
+
+İspata başlayalım. Entegral ile olasılık hesabı yapmak için bize bir $x$
+uzayı lazım.
+
+\[ R = {x: |x-\mu| > t} \]
+
+Yani R uzayı, $x$ ile ortalamasının farkının, $t$'den büyük olduğu bütün
+sayıların kümesidir.
+
+O zaman, 
+
+\[ P(|X-\mu| > t) = \int_R f(x)dx \]
+
+Dikkat edelim $P(..)$ içindeki formül, küme tanımı ile aynı. O yüzden $P()$
+hesabı ortada daha olmayan, ama varolduğu kesin bir dağılım fonksiyonu
+tanımlamış da oluyor. Buna $f(x)$ deriz. $P()$'in, $f(x)$ fonksiyonunun $R$
+üzerinden entegral olduğunu olasılığa giriş dersinden bilmemiz lazım.
+
+Eger $x \in R$ dersek o zaman
+
+\[ \frac{|x-\mu|^2}{t^2} \ge 1 \]
+
+t'nin denkleme bu şekilde nereden geldiği şaşkınlık yaratabilir. Daha önce
+tanımlanan şu ibareye dikkat edelim, $x: |x-u| > t$ diye belirtmiştik. Bu
+ifadeyi değiştirerek, yukarıdaki denkleme gelebiliriz.
+
+Devam edersek, elimizdeki 1'den büyük bir değer var. Bu değeri kullanarak,
+aşağıdaki tanımı yapmamız doğru olacaktır.
+
+\[ \int_R f(x)dx \le \int_R \frac{(x-\mu)^2}{t^2}f(x)dx \le
+\int_{-\infty}^{\infty}\frac{(x-\mu)^2}{t^2}f(x)dx 
+ \]
+
+
+Ortadaki entegral niye birinci entegralden büyük? Çünkü ortadaki entegraldeki
+$F(x)dx$ ibaresinden önce gelen kısmın, her zaman 1'den büyük olacağını
+belirttiğimize göre, ikinci entegralin birinciden büyük olması normaldir.
+
+Evet...Üçüncü entegral ispata oldukça yaklaştı aslında. Standart sapma
+işaretini hala ortada göremiyoruz, fakat son entegraldeki ibare standart
+sapma değerini zaten içeriyor. Önce daha önceki olasılık natematiği
+bilgimize dayanarak, standart sapmanın tanımını yazıyoruz. Dikkat edelim,
+bu ibare şu anki ispatımız dahilinden değil, haricinden önceki bilgimize
+dayanarak geldi. Standart sapmanın tanımı şöyledir.
+
+\[ \sigma^2 = \int_{-\infty}^{\infty} (x-\mu)^2f(x)dx \]
+
+O zaman
+
+\[ \frac{\sigma^2}{t^2} = \int_{-\infty}^{\infty}\frac{(x-\mu)^2}{t^2}f(x)dx \]
+
+yani
+
+\[ \int_R f(x)dx \le \frac{\sigma^2}{t^2} = 
+\int_{-\infty}^{\infty} \frac{(x-\mu)^2}{t^2}f(x)dx
+\]
+
+ki $\int_R f(x)dx$ zaten $P(|X-\mu| > t)$ olarak tanimlanmisti. 
+
+Bayes Usulu Guven Araligi (Confidence Intervals) 
+
+Bayes ile bu hesabi yapmak icin bir dagilimi baz almak lazim. Eger sonuc
+olarak bir tekil sayi degil, bir dagilim elde edersek bu dagilim uzerinde
+guvenlik hesaplarini yapariz. Mesela sonuc, sonsal dagilim (posterior) bir
+Gaussian dagilim ise, bu dagilimin yuzde 95 agirliginin nerede oldugu, ve
+nasil hesaplandigi bellidir.
 
 Kaynaklar
 
