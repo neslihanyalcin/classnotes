@@ -552,8 +552,10 @@ $$ Var(\bar{X}_n) = Var(\frac{1}{n}\sum_{i=1}^nX_i) =
 \frac{1}{n^2}\sum_{i=1}^n Var(X_i)
 $$
 
-$$ Var(\bar{X}_n) = \frac{1}{n^2}\sum_{i=1}^n \sigma^2 = 
+$$ 
+Var(\bar{X}_n) = \frac{1}{n^2}\sum_{i=1}^n \sigma^2 = 
 \frac{1}{n^2}n\sigma^2 = \frac{\sigma^2}{n} 
+\mlabel{3}
 $$
 
 Artýk Çebiþev kuramýný kullanmaya hazýrýz. Ispatlamaya calistigimiz neydi?
@@ -579,7 +581,8 @@ buyuk olduguna gore, demek ki o da sifira iner.
 Buyuk Sayilar Kanunu orneklem ortalamasinin ve varyansinin $X_i$'in
 beklentisi ve varyansi ile baglanti kurar. Merkezi Limit Teorisi bir adim
 daha atar, ve der ki ``$\bar{X}$'in dagilimi Gaussian dagilim olmalidir
-yani normal egrisi seklinde cikmalidir!'' 
+yani normal egrisi seklinde cikmalidir!''. Teorinin detaylari bu bolumde
+bulunabilir. 
 
 Çebiþev Eþitsizliði
 
@@ -626,7 +629,6 @@ aþaðýdaki tanýmý yapmamýz doðru olacaktýr.
 \int_{-\infty}^{\infty}\frac{(x-\mu)^2}{t^2}f(x)dx 
  \]
 
-
 Ortadaki entegral niye birinci entegralden büyük? Çünkü ortadaki
 entegraldeki $f(x)dx$ ibaresinden önce gelen kýsmýn, her zaman 1'den büyük
 olacaðýný belirttiðimize göre, ikinci entegralin birinciden büyük olmasý
@@ -656,9 +658,39 @@ yani
 
 ki $\int_R f(x)dx$ zaten $P(|X-\mu| > t)$ olarak tanimlanmisti. 
 
+Merkezi Limit Teorisi (Central Limit Theorem -CLT-)
+
+Buyuk Sayilar Kanunu orneklem ortalamasinin gercek nufus beklentisine
+yaklasacagini ispatladi. Orneklem herhangi bir dagilimdan
+gelebiliyordu. CLT bu teoriyi bir adim ilerletiyor ve diyor ki kendisi de
+bir rasgele degisken olan orneklem ortalamasi $\bar{X}$ Normal dagilima
+sahiptir! Daha detaylandirmal gerekirse, 
+
+Diyelim ki $X_1,..,X_i$ orneklemi birbirinden bagimsiz, ayni dagilimli ve
+ortalamasi $\mu$, standart sapmasi $\sigma$ olan (ki o da ayni dagilima
+sahip) bir nufustan geliyorlar. Orneklem ortalamasi $\bar{X}$, ki bu
+rasgele degiskenin beklentisinin $\mu$, ve (3)'e gore standart sapmasinin
+$\sigma / \sqrt{n}$ oldugunu biliyoruz. Dikkat: $\bar{X}$'in kendisinden
+degil, {\em beklentisinden} bahsediyoruz, yani ortalama dagiliminin
+ortalamasi (kafalar yeterince karisti mi?). Teori der ki $n$ buyudukce
+$\bar{X}$ dagilimi bir $N(\mu, \sigma/\sqrt{n})$ dagilimina yaklasir. 
+
+Biraz daha temizlemek gerekirse, herhangi bir normal dagilimi standart
+normal'e donusturmeyi daha once gormustuk, beklentiyi cikartip standart
+sapmaya boluyoruz, o zaman orneklem dagilimi $\bar{X}$,
+
+$$ Z = \frac{\bar{X} - \mu}{\sigma / \sqrt{n}} $$
+
+dagilimina yaklasir diyoruz, ki $Z = N(0,1)$ dagilimidir, beklentisi sifir,
+standart sapmasi 1 degerindedir. 
+
+Bu teorinin ispatini simdilik vermeyecegiz. 
+
 Kaynaklar
 
 [1] \url{http://mathworld.wolfram.com/MaximumLikelihood.html}
+
+[2] Introduction to Probability and Statistics Using R
 
 
 \end{document}
