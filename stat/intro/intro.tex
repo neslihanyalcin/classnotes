@@ -1,7 +1,5 @@
 \documentclass[12pt,fleqn]{article}\usepackage{../common}
 \begin{document}
-Giris
-
 Bu notlar makine ogrenimi, veri madenciligi gibi konularda gerekli olasilik
 ve istatistik bilgisini paylasmak icin hazirlaniyor. Notlarda olasilik ve
 istatistik ayni anda anlatilacak, ve uygulamalara agirlik verilecek. 
@@ -44,24 +42,24 @@ Fakat, bir yerine 2 zar atalým. Hatta hatta, 4 zar atalým, ve bu sefer
 sýklýk grafik hanesine yazmadan çýkan sayýlarý önce toplayalým. Bu çýkan
 toplamýn sýklýk grafiðini alalým.
 
-Ýþte bu sýklýk grafiði göreceðiz ki, önceden bahsettiðimiz tepe grafiðine
+Ýþte bu sýklýk grafiði göreceðiz ki, ustte gorulen tepe grafiðine
 yaklaþýyor. Ne kadar çok zar atarsanýz, bu benzerlik o kadar daha fazla
 olacaktýr.
 
-Bunun sebebi de aslýnda basit: 1..6 arasý sayýlarýn tek bir zardan gelme
-olasýlýðý ayný, evet. Fakat toplamlara gelince, mesela iki zarlý örnekte,
-10 sayýsýnýn olasýlýðý 2 sayýsýndan daha yüksek. Çünkü, 10 sayýsýný 5-5,
-4-6 ya da 6-4 ile alabiliyoruz. 2 sayýsý sadece 1-1 ile geliyor.
+Bunun sebebi sezgisel olarak tahmin edilebilir, 1..6 arasý sayýlarýn tek
+bir zardan gelme olasýlýðý ayný, evet. Fakat toplamlara gelince, mesela iki
+zarlý örnekte, 10 sayýsýnýn olasýlýðý 2 sayýsýndan daha yüksek. Çünkü, 10
+sayýsýný 5-5, 4-6 ya da 6-4 ile alabiliyoruz. 2 sayýsý sadece 1-1 ile
+geliyor.
 
 Buradan þu sonuç cýkabilir: Eðer doðada ölçtüðümüz bir kavramýn oluþmasýnda
-birden fazla etken var ise, o ölçümlerin sýklýðý her zaman tepe þekli ile
-olacaktýr.
+birden fazla etken var ise, o ölçümlerin sýklýðý her zaman çan þekli ile
+olacaktýr. Bir kisinin boyunu, kilosunu etkileyen pek cok diger faktor
+oldugu icin bu tek olcutleri dagilimlarinin normal ciktigi iddia
+edilebilir. 
 
-Fakat, daha da gizemli olan bir olay þudur; Sabit olan bir þeyi
-ölçtüðümüzde (yaptýðýmýz hatalar sonucu) çýkan grafiðin bile tepe þekilli
-olmasý! Yani, doðru dürüst hata yapmak bile elimizde deðil gibi
-gözüküyor... Bunun tabii ki olasýlýk açýklamalarý olacaktýr. Ýzlediðimiz
-matematikçilerden bu en son konuda net bir açýklama alamadýk.
+Toplamlarin daðýlýmýnýn çan eðrisine yaklaþmasý durumu Istatistikte Merkezi
+Limit Teorisi ile ispatlanmistir. 
 
 Simulasyon
 
@@ -74,16 +72,16 @@ atmosfer gürültüsü dinleyip, bu gürültüleri sayýsal deðere çevirerek
 rasgele sayý üretiyor.
 
 Gerçek rasgele sayý üretmek pek kolay bir iþ deðil. Her ne kadar
-bilgisayarýnýzda rasgele sayý üreten birçok algoritma olsa bile, bu
+bilgisayarýmýzda rasgele sayý üreten birçok algoritma olsa bile, bu
 algoritmalar belli bir sayý üretiminden sonra kendini tekrar etmeye
-baþlýyorlar. Gerçek rasgele sayýlar için muhakkak dýþ bir kaynaða baðlanmak
-gerekiyor.
+baþlýyorlar. Gerçek rasgele sayýlar için dýþ bir kaynaða baðlanmak bir
+secenek olabilir. Ama sunu da soylemek lazim, simulasyon tekniklerinin
+tamami icin yari-rasgele (pseudorandom) sayilar yeterlidir.
 
-Gösterimiz için, rasgele sayýlarý üretip, bir dat dosyasýna
-koyuyoruz. Python ile bu sayýlarý okuyup, ilk önce teker teker
-sayýlarýn sýklýk grafiðini, ondan sonra sayýlarý üçer üçer toplayýp,
-onlarýn grafiðini alýp göstereceðiz. Aþâðýda bu iki grafiði
-bulabilirsiniz.
+Siteden rasgele sayýlarý üretip, bir veri dosyasýna koyuyoruz. Python ile
+bu sayýlarý okuyup, ilk önce teker teker sayýlarýn sýklýk grafiðini, ondan
+sonra sayýlarý üçer üçer toplayýp, onlarýn grafiðini alýp
+göstereceðiz. 
 
 \begin{minted}[fontsize=\footnotesize]{python}
 A = loadtxt('rasgele.dat')

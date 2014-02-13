@@ -174,10 +174,11 @@ $$ Cov(X,Y) = E(X-E(X))(Y-E(Y)) $$
 Yani hem $X$ hem $Y$'nin beklentilerinden ne kadar saptiklarini her veri
 ikilisi icin, cikartarak tespit ediyoruz, daha sonra bu farklari birbiriyle
 carpiyoruz, ve beklentisini aliyoruz (yani tum olasilik uzerinden ne
-olacagini hesapliyoruz). Carpimlarin ilginc ozelligi sudur, arti deger arti
-degerle carpilinca arti, eksi-eksi arti verir, eksi-arti eksi
-verir. Pozitif sonuc pozitif korelasyon, negatif ise tersi sekilde ilinti
-var anlamina gelir. 
+olacagini hesapliyoruz). Carpimlarin bildigimiz ozelligine gore, arti deger
+arti degerle carpilinca arti, eksi ile eksi arti, eksi ile arti eksi verir,
+ve bu bilgi bize ilinti bulma hakkinda guzel bir ipucu sunar. Pozitif
+sonucun pozitif korelasyon, negatif ise tersi sekilde ilinti oldugu
+sonucuna boylece kolayca erisebiliriz.
 
 Ayri ayri $X,Y$ degiskenleri yerine cok boyutlu $X$ kullanirsak, ki
 boyutlari $m,n$ olsun yani $m$ veri noktasi ve $n$ boyut (ozellik, oge)
@@ -363,7 +364,7 @@ Maksimum Olurluk (maximum likelihood) kavramini kullanarak ilginc bazi
 sonuclara erismek mumkun; bu sayede dagilim fonksiyonlari ve veri arasinda
 bazi sonuclar elde edebiliriz. Maksimum olurluk nedir? MO ile verinin her
 noktasi teker teker olasilik fonksiyonuna gecilir, ve elde edilen olasilik
-sonuclarinin birbiri ile carpilir. Cogunlukla formul icinde bilinmeyen
+sonuclari birbiri ile carpilir. Cogunlukla formul icinde bilinmeyen
 bir(kac) parametre vardir, ve bu carpim sonrasi, icinde bu parametre(ler)
 olan yeni bir formul ortaya cikar. Bu nihai formulun kismi turevi alinip
 sifira esitlenince cebirsel bazi teknikler ile bilinmeyen parametre
@@ -459,9 +460,10 @@ alakasiz). Değişkenlerin sonucu 1 ya da 0 değeri taşıyacak, Yazı=1,
 Tura=0. 
 
 Buyuk Sayilar Kanunu tum bu deney sonuclarinin, yani rasgele degiskenlerin
-averaji alinirsa, elde edilen sonucun $X_i$'lerin (ayni olan) beklentisine
-yaklasacaginin soyler, yani $n$ büyüdükçe $\bar{X}_n$'in 1/2'ye
-yaklaştığını ispatlar, yani $E[X_i] = 1/2$ degerine.
+averaji alinirsa, yani $\bar{X} = X_1 + .. + X_n$ ile, elde edilen sonucun
+$X_i$'lerin (ayni olan) beklentisine yaklasacaginin soyler, yani $n$
+büyüdükçe $\bar{X}_n$'in 1/2'ye yaklaştığını ispatlar, yani $E[X_i] = 1/2$
+degerine. Notasyonel olarak $E(X_i) = \mu$ olarak da gosterilebilir.
 
 Formulsel olarak, herhangi bir $\epsilon > 0$ icin,
 
@@ -485,22 +487,24 @@ dagilimlarin beklentisine yaklasacaktir.  Istatistik ile olasilik teorisi
 arasindaki cok onemli bir baglanti bu.
 
 Sonuc sasirtici, fakat bir ek daha yapalim, sezgisel (intuite) olarak
-bakarsak aslinda sonuc cok sasirtici olmayabilir. Niye? Diyelim ki
-orneklem $N(\mu,\sigma^2)$ seklinde bir Normal dagilim. Bu durumda
-orneklemdeki veri noktalarinin $\mu$'ya yakin degerler olmasini beklemek
-mantikli olmaz mi? Cunku bu dagilim ``zar atinca'' onu $\mu,\sigma^2$'e
-gore atacak. Orneklemi zar atisi sonuclari olarak gordugumuze gore elde
-edilen verilerin bu sekilde olacagi sasirtici olmamali. Ve bu zar
-atislarinin ortalamasinin, son derece basit bir aritmetik bir islemle
-hesaplaniyor olsa bile, $\mu$'ye yaklasmasi normal olmali. 
+bakarsak aslinda sonuc cok sasirtici olmayabilir. Niye? Diyelim ki genel
+veri $N(\mu,\sigma^2)$ seklinde bir Normal dagilimdan geliyor ve orneklem
+de bu sebeple ayni dagilima sahip. Bu durumda orneklemdeki veri
+noktalarinin $\mu$'ya yakin degerler olmasini beklemek mantikli olmaz mi?
+Cunku bu dagilim ``zar atinca'' ya da bir genel nufustan bir ``ornek
+toplayinca'' (ki bunu bir anlamda istatistiksel bir zar atisi olarak
+gorebiliriz) onu $\mu,\sigma^2$'e gore atacak. Orneklemi zar atisi
+sonuclari olarak gordugumuze gore elde edilen verilerin bu sekilde olacagi
+sasirtici olmamali. Ve bu zar atislarinin ortalamasinin, son derece basit
+bir aritmetik bir islemle hesaplaniyor olsa bile, $\mu$'ye yaklasmasi
+normal olmali.
 
 Bu arada, bu argumana tersten bakarsak Monte Carlo entegralinin niye
-isledigine erismis oluyoruz (bkz {\em Monte Carlo, Entegraller, MCMC}
-yazisi). 
+isledigine gorebiliriz (bkz {\em Monte Carlo, Entegraller, MCMC} yazisi).
 
 Ozellikle orneklem ile genel nufus (population) arasinda kurulan baglantiya
 dikkat edelim. Istatigin onemli bir bolumunun bu baglanti oldugu
-soylenebilir. Orneklem, bilmedigimiz ama genel nufusu temsil eden bir
+soylenebilir. Her orneklem, bilmedigimiz ama genel nufusu temsil eden bir
 dagilimla ayni dagilima sahip olan $X_i$'dir dedik, ve bu ayniliktan ve
 bagimsizliktan yola cikarak bize genel nufus hakkinda bir ipucu saglayan
 bir kanun gelistirdik (ve birazdan ispatlayacagiz).
@@ -514,7 +518,6 @@ $$ E(X_i) = \mu $$
 $$ Var(X_i) = \sigma $$
 
 $$ \bar{X}_n = \frac{1}{n} \sum_{i=1}^n X_i  $$
-
 
 $\bar{X}_n$ de bir rasgele değişkendir, çünku $\bar{X}_n$ değişkeni her
 $X_i$ dağılımıyla alakali.
@@ -572,6 +575,11 @@ Peki $P(|\bar{X}_n-\mu| > \epsilon)$'nin sifira gittigini gosterdik mi?
 $\sigma^2 / n\epsilon^2$'nin sifira gittigini gosterdik. $\sigma^2 /
 n\epsilon^2$ de $P(|\bar{X}_n-\mu| > \epsilon)$'den 
 buyuk olduguna gore, demek ki o da sifira iner.
+
+Buyuk Sayilar Kanunu orneklem ortalamasinin ve varyansinin $X_i$'in
+beklentisi ve varyansi ile baglanti kurar. Merkezi Limit Teorisi bir adim
+daha atar, ve der ki ``$\bar{X}$'in dagilimi Gaussian dagilim olmalidir
+yani normal egrisi seklinde cikmalidir!'' 
 
 Çebişev Eşitsizliği
 
