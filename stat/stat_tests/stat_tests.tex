@@ -87,6 +87,30 @@ $$ P\bigg(63.84 \le \mu \le 65.08\bigg) = 0.95 $$
 
 Yani \%95 guven araligi $63.84 \le \mu \le 65.08$. 
 
+Kac Tane $n$?
+
+Hatirlarsak guven araligini ustteki sekilde hesaplayabilmemizin sebebi CLT
+sayesinde $\bar{X}$'in normal dagilima yaklasiyor olmasiydi. Ve, teoriyi
+tekrar dusunursek yaklasma $n \to \infty$ oldugu zaman oluyordu. Buradan
+$\bar{X}$'in normalliginin ``buyukce'' $n$ degerleri icin daha gecerli
+olacagi sonucuna varabiliriz. Peki $n$ ne kadar buyuk olmali?  Literature
+gore CLT'nin genellikle $n \ge 30$ durumunda gecerli oldugu soylenir. Tabii
+nufus dagiliminin ne oldugu da onemlidir, eger nufus normal ise, ya da
+genel olarak simetrik tek tepeli dagilim ise orneklem daha ufak kalsa da
+bazi sonuclara varabiliriz. Eger nufus dagilimi cok yamuk (skewed),
+etekleri genis dagilim ise o zaman daha buyuk orneklem daha iyi olur.
+
+Bilinmeyen $\sigma$
+
+Eger $\sigma$ bilinmiyorsa, bu durumda $\sigma$ yerine orneklem varyansi
+$S$ kullanilabilir, 
+
+$$ S^2 = \frac{1}{n} \sum (X_i - \bar{X})^2
+$$
+
+ki ustteki degerin karekoku $S$ olacaktir. $\sigma$ yerine $S$ kullanmanin 
+buyuk $n$ degerlerinde CLT'yi etkilemedigi ispat edilmistir [5]. 
+
 Hipotez Testleri (Hypothesis Testing)
 
 Hipotez testi (bir veriye dayanarak) farzedilen bir parametreyi bir
@@ -396,6 +420,8 @@ siralamayi biz elle yapmis olduk, ve bu siralamadan gereken bilgiyi aldik.
 [3] \verb!https://gist.github.com/mblondel/1761714!
 
 [4] Applied Statistics and Probability for Engineers
+
+[5] \url{http://math.stackexchange.com/questions/243348/sample-variance-converge-almost-surely}
 
 \end{document}
 
