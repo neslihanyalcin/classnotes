@@ -25,5 +25,3 @@ linear/*/*.pdf
 func_analysis/*/*.pdf
 data/*/*.pdf
 stat/*/*.dat
-stat/*/*/*.dat
-stat/*/*/*/*.dat
