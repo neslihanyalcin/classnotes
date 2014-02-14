@@ -2,9 +2,90 @@
 \begin{document}
 Guven Araliklari, Hipotez Testleri
 
-Guven
+Guven Araliklari
 
+Diyelim ki $X_1,..,X_i$ orneklemi birbirinden bagimsiz, ayni dagilimli ve
+ortalamasi $\mu$, standart sapmasi $\sigma$ ve yine ayni olan bir nufus
+dagilimindan geliyor. O zaman biliyoruz ki, Merkezi Limit Teorisi (Central
+Limit Theorem) teorisine gore, orneklem ortalamasi $\bar{X} = \frac{1}{n}
+X_1+..+X_n$, ortalamasi $\mu$, standart sapmasi $\sigma/n^2$ olan bir
+normal dagilima yaklasiyor.
 
+Peki veriyi (yani orneklemi) ve CLT'yi kullanarak $\mu$ hakkinda bir tahmin
+yapabilir miyiz? Yani Buyuk Sayilar Kanunua gore $\mu$ hakkinda noktasal
+tahmin yapabiliriz fakat, belki ondan bir adim otesi, bir ``guven araligi''
+hesaplamaktan bahsediyoruz. Bu tahmin ``gercek $\mu$, \%95 ihtimalde su iki deger
+arasindadir'' turunde bir tahmin olacak.
+
+Bu araligin hesabi icin once $\bar{X}$'i standardize edelim, yani $N(0,1)$ haline cevirelim,
+
+$$ Z = \frac{\bar{X} - \mu}{\sigma / \sqrt{n}} $$
+
+Z-skorlarini isledigimiz yazida 
+
+$$
+P(z_1 < Z < z_2) =  \Phi(z_1) - \Phi(z_2) 
+$$
+
+gibi bir ifade gorduk. Esitligin sag tarafi aslinda bir alan hesabidir,
+surekli fonksiyonlarda olasilik bir entegral, ya da iki kumulatif yogunluk
+fonksiyonunun farki. Guven araligi icin bize lazim olan da bir olasilik,
+hatta ``kesin'' bir olasilik, \%95 olasiligi. Demek ki esitligin sag tarafi
+.95 olacak. .95 hesabi icin, normal egrisini dusunursek, sagindan ve
+solundan 0.25 buyuklugunde iki parcayi ``kirpmamiz'' lazim. O zaman 0.975
+olasiliginin z degeri ile, 0.025 olasiliginin z degeri arasindaki
+olasilikta olmamiz lazim. Bu hesaplarda baz alinan $z_{\alpha/2}$ degeri ve
+bu $100 \cdot \alpha / 2$ ust yuzdelik kismina, ornegimizde 0.975 kismina
+tekabul ediyor. Normal dagilimin simetrisi sebebiyle onun eksisi alinmis
+hali oteki (soldaki) parcayi verir, yani $-z_{\alpha/2}$. 
+
+\includegraphics[height=6cm]{norm95.jpg}
+
+z-skoru hesaplarken tabloya danismistik, tabloya tersinden bakacagiz,
+kesisme noktasinda 0.975 diyen yeri bulup kordinatlari alacagiz, ki bu
+deger 1.96. Istatistik kaynaklarinda ``sihirli deger'' seklinde tarif
+edilen bir deger bu, gozlerimiz kamasmasin, geldigi yer burasi iste. Simdi
+formulu buna gore degistirelim, 
+
+$$ 
+P \bigg( 
+-z_{\alpha/2} \
+\le \frac{\bar{X} - \mu}{\sigma / \sqrt{n}} 
+\le z_{\alpha/2}
+\bigg) = 1-\alpha
+ $$
+
+$P(\cdot)$ icinde biraz duzenleme, tum terimleri $\sigma / \sqrt{n}$ ile
+carpalim, $\bar{X}$ cikartalim, ve $-1$ ile carpalim,
+
+$$ 
+P \bigg( 
+\bar{X} - z_{\alpha/2}\frac{\sigma}{\sqrt{n}}
+\le \mu
+\le \bar{X} + z_{\alpha/2}\frac{\sigma}{\sqrt{n}}
+\bigg) = 1-\alpha
+ $$
+
+Guven araligi ifadesine aslina erismis olduk. Eger \%95 kesinlikten
+bahsediyor olsaydik, ve nufusun gercek varyansi $\sigma^2$ biliniyor
+olsaydi, $P(\dot)$ icine bu degerleri gececektik, $\bar{X}$ zaten verinin
+aritmetik ortalamasindan ibarettir, bu bize $\mu$'nun solunda ve saginda
+bazi degerler dondurecekti. Bu degerler bizim guven araligimiz
+olacakti. Mesela veri 64.1, 64.7, 64.5, 64.6, 64.5, 64.3, 64.6, 64.8, 64.2,
+seklinde 64.3, $n=10$ cunku 10 nokta var, $\sigma = 1$ olarak verilmis. 
+Ortalamayi hesapliyoruz, 64.46. $\alpha=0.5$ icin
+
+$$ 
+P \bigg( 
+64.46 - 1.96\frac{1}{\sqrt{10}}
+\le \mu
+\le 64.46 + 1.96\frac{1}{\sqrt{10}}
+\bigg) = 0.95
+ $$
+
+$$ P\bigg(63.84 \le \mu \le 65.08\bigg) = 0.95 $$
+
+Yani \%95 guven araligi $63.84 \le \mu \le 65.08$. 
 
 Hipotez Testleri (Hypothesis Testing)
 
