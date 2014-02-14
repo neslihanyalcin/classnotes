@@ -41,11 +41,11 @@ hali oteki (soldaki) parcayi verir, yani $-z_{\alpha/2}$.
 
 \includegraphics[height=6cm]{norm95.jpg}
 
-z-skoru hesaplarken tabloya danismistik, tabloya tersinden bakacagiz,
+z-skoru hesaplarken tabloya danismistik, simdi tabloya tersinden bakacagiz,
 kesisme noktasinda 0.975 diyen yeri bulup kordinatlari alacagiz, ki bu
 deger 1.96. Istatistik kaynaklarinda ``sihirli deger'' seklinde tarif
 edilen bir deger bu, gozlerimiz kamasmasin, geldigi yer burasi iste. Simdi
-formulu buna gore degistirelim, 
+formulu buna gore degistirelim,
 
 $$ 
 P \bigg( 
@@ -73,7 +73,7 @@ P \bigg(
  bazi degerler dondurecekti. Bu degerler bizim guven araligimiz
  olacakti. Mesela veri 64.1, 64.7, 64.5, 64.6, 64.5, 64.3, 64.6, 64.8,
  64.2, 64.3 seklinde, $n=10$ cunku 10 nokta var, $\sigma = 1$ olarak
- verilmis.  Ortalamayi hesapliyoruz, 64.46. $\alpha=0.5$ icin
+ verilmis.  Ortalamayi hesapliyoruz, 64.46. $\alpha=0.05$ icin
 
 $$ 
 P \bigg( 
@@ -86,6 +86,13 @@ P \bigg(
 $$ P\bigg(63.84 \le \mu \le 65.08\bigg) = 0.95 $$
 
 Yani \%95 guven araligi $63.84 \le \mu \le 65.08$. 
+
+Neler yaptik? CLT bilgisinden hareketle $\bar{X}$ hakkinda bir seyler
+biliyorduk. Fakat $\bar{X}$'in {\em kesin} hangi normal dagilima
+yaklastigini bilmek icin nufus paremetreleri $\mu,\sigma$ da
+bilinmelidir. Diger yandan eger tek bilinmeyen $\mu$ ise, teoriyi bu
+bilinmez etrafinda tamamen tekrar sekillendirip / degistirip CLT'yi
+bilinmeyen $\mu$ etrafinda bir guven araligi yaratmak icin kullandik.
 
 Kac Tane $n$?
 
