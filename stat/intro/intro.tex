@@ -253,16 +253,23 @@ Uyari! ``$X$'in dagilimi $F$'tir'' beyanini $X \sim F$ seklinde yazmak bir
 gelenek. Bu biraz kotu bir gelenek aslinda cunku $\sim$ sembolu ayni
 zamanda yaklasiksallik kavramini belirtmek icin de kullaniliyor.
 
+Dagilimlar
+
 Bernoulli Dagilimi
 
 $X$'in bir yazi-tura atisini temsil ettigini dusunelim. O zaman $P(X = 1) =
-p$, 
-ve $P(X = 0) = 1 - p$ olacaktir, ki $p \in [0,1]$ olmak uzere. O zaman
+p$, ve $P(X = 0) = 1 - p$ olacaktir, ki $p \in [0,1]$ olmak uzere. O zaman
 $X$'in dagilimi Bernoulli deriz, ve $X \sim Bernoulli(p)$ diye
 gosteririz. Olasilik fonksiyonu $f(x) = p^x(1-p)^{(1-x)}$, $x \in \{0,1\}$.
 
 Yani $x$ ya 0, ya da 1. Parametre $p$, 0 ile 1 arasindaki herhangi bir reel 
 sayi. 
+
+Beklenti ve varyans
+
+$$ E(X) = p $$
+
+$$ Var(X) = p(1-p) $$
 
 Uyari! 
 
@@ -273,6 +280,24 @@ dusunursek) cogunlukla o sabit parametre bilinmez, onun veriden
 hesaplanmasi, kestirilmesi gerekir. Her halukarda, cogu istatistiki modelde
 rasgele degiskenler vardir, ve onlardan ayri olarak parametreler vardir. Bu
 iki kavrami birbiriyle karistirmayalim.
+
+Binom Dagilimi (Binomial Distribution)
+
+Her biri birbirinden bagimsiz ve birbiriyle ayni Bernoulli Dagilimina sahip
+deneylerden $n$ tane yapildigini farzedelim, ki bu deneylerin sadece iki
+sonucu olacak (1/0. basari/basarisizlik, vs). Bu deneylerin $p$'si ayni
+olacak. O zaman $n$ deney icinden toplam kac tanesinin basarili oldugunu
+gosteren $X$ rasgele degiskeni Binom Dagilimina sahiptir denir. 
+
+Bu dagilimin yogunlugu 
+
+$$ f(x;p,n) = {n \choose{x}} p^x(1-p)^{n-x} $$
+
+Bu fonksiyonun parametreleri $p,n$ degerleridir. Beklenti ve varyans
+
+$$ \mu = E(X) = np $$
+
+$$ \sigma^2 = Var(X) = np(1-p) $$
 
 Duz (Uniform) Dagilim
 
@@ -931,7 +956,7 @@ icin $\mu$'yu $x$'den cikarmak yeterli
 $$ = \int _{-\infty}^{+\infty} 
 \frac{1}{\sigma \sqrt{2\pi}} 
 e^{-(\frac{x-\mu}{\sqrt{2} \sigma })^2} dx
-$$
+$$/
 
 $e$ ustundeki kare alma islemini acarsak,
 

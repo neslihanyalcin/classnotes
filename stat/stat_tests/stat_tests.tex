@@ -66,14 +66,14 @@ P \bigg(
 \bigg) = 1-\alpha
  $$
 
- Guven araligi ifadesine aslina erismis olduk. Eger \%95 kesinlikten
- bahsediyor olsaydik, ve nufusun gercek varyansi $\sigma^2$ biliniyor
- olsaydi, $P(\dot)$ icine bu degerleri gececektik, $\bar{X}$ zaten verinin
- aritmetik ortalamasindan ibarettir, bu bize $\mu$'nun solunda ve saginda
- bazi degerler dondurecekti. Bu degerler bizim guven araligimiz
- olacakti. Mesela veri 64.1, 64.7, 64.5, 64.6, 64.5, 64.3, 64.6, 64.8,
- 64.2, 64.3 seklinde, $n=10$ cunku 10 nokta var, $\sigma = 1$ olarak
- verilmis.  Ortalamayi hesapliyoruz, 64.46. $\alpha=0.05$ icin
+Guven araligi ifadesine aslina erismis olduk. Eger \%95 kesinlikten
+bahsediyor olsaydik, ve nufusun gercek varyansi $\sigma^2$ biliniyor
+olsaydi, $P(\dot)$ icine bu degerleri gececektik, $\bar{X}$ zaten verinin
+aritmetik ortalamasindan ibarettir, bu bize $\mu$'nun solunda ve saginda
+bazi degerler dondurecekti. Bu degerler bizim guven araligimiz
+olacakti. Mesela veri 64.1, 64.7, 64.5, 64.6, 64.5, 64.3, 64.6, 64.8,
+64.2, 64.3 seklinde, $n=10$ cunku 10 nokta var, $\sigma = 1$ olarak
+verilmis.  Ortalamayi hesapliyoruz, 64.46. $\alpha=0.05$ icin
 
 $$ 
 P \bigg( 
@@ -117,6 +117,46 @@ $$
 
 ki ustteki degerin karekoku $S$ olacaktir. $\sigma$ yerine $S$ kullanmanin 
 buyuk $n$ degerlerinde CLT'yi etkilemedigi ispat edilmistir [5]. 
+
+
+Binom Dagilimlar ve Normal Yaklasiksallik
+
+Binom ile Bernoulli dagilimi arasindaki baglantiyi biliyoruz. Diyelim ki
+$X_1,..,X_n$ birbirinden bagimsiz ve ayni Bernoulli olarak dagilmis,
+Bernoulli dagilimini temsil eden $Y$ tanimlayalim, o zaman
+
+$$ Y = \sum_{i=1}^n X_i $$
+
+Simdi orneklem ortalamasini hatirlayalim,
+
+$$ \bar{X} = \frac{1}{n}  \sum_{i=1}^n X_i $$
+
+O zaman 
+
+$$ Y = n\bar{X}  $$
+
+Merkezi Limit Teorisinden $\bar{X}$'in nufus beklentisi ve sapmasini iceren
+$N(\mu,\sigma)$ olarak dagilacagini biliyoruz. Nufus parametreleri nedir?
+Her $X_i$'in ayni olan $\mu,\sigma$'si ile alakli, durumda Bernoulli
+parametrelerini alip $N(\cdot)$ icinde direk kullanabiliriz, 
+
+$$E(X_i) = p, Var(X_i) = p(1-p)$$
+
+o zaman 
+
+$$\bar{X} \sim N(\mu,\sigma), \mu = p, \sigma = \sqrt{\frac{p(1-p)}{n}}$$
+
+$Y$ ile $\bar{X}$ baglantisi: Bir genel teoriye gore eger $\bar{X}$ normal
+ise $n\bar{X}$'in de normal oldugu bilinir, ve bu dagilim
+$N(n\mu,\sqrt{n}\sigma)$ olarak gosterilir. Bu teorinin ispatini simdilik
+vermeyecegiz. O zaman $Y = n\bar{X}$ is ve normal olarak dagilmis ise, o zaman 
+
+$$ Y \sim N\bigg(np, \sqrt{np(1-p)}\bigg)$$
+
+demek dogru olacaktir. Standardize etmek gayet basit,
+
+
+$$Z  = \frac{Y - np}{\sqrt{np(1-p)}}$$
 
 Hipotez Testleri (Hypothesis Testing)
 
