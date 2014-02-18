@@ -107,6 +107,34 @@ genel olarak simetrik tek tepeli dagilim ise orneklem daha ufak kalsa da
 bazi sonuclara varabiliriz. Eger nufus dagilimi cok yamuk (skewed),
 etekleri genis dagilim ise o zaman daha buyuk orneklem daha iyi olur.
 
+Soru
+
+IO 800 yillarinda Italya'da Etrusali (Etruscan) toplumu vardi. Bu toplum
+geldigi gibi birdenbire ortadan kayboldu. Bilimciler bu toplumun
+Italyalilar ile fizyolojik, genetik ve kulturel olarak baglantisi olup
+olmadigini hep merak etmistir. Bazilari hafa olculerine bakarak sonuclara
+varmaya ugrasmistir. Arkeolojik kazilarda yapilan olcumlerde 84
+Etrusyalinin kafasi olculmustur. Ayrica bugunku Italyanlarin kafa
+olcumlerinin normal dagilimda $\mu=132.4 mm,\sigma=6.0mm$ oldugu
+bilinmektedir. O zaman, veriye bakarak kafa olcumu ortalamasi icin bir
+\%95 guvenlik araligi olusturuz, ve eger bugunku Italyanlarin olcusu o
+araliga dusmuyorsa, bugunku Italyanlarin Etrusyalilarla baglantisinin
+olmadigi iddia edilebilir. 
+
+\begin{minted}[fontsize=\footnotesize]{python}
+import pandas as pd
+df = pd.read_csv('etrus.dat')
+print float(df.mean()-1.96*(6.0/np.sqrt(84)))
+print float(df.mean()+1.96*(6.0/np.sqrt(84)))
+\end{minted}
+
+\begin{verbatim}
+142.524107721
+145.09035011
+\end{verbatim}
+
+Bugunku Italyanlarin kafa ortalamasi $\mu=132.4$ bu araliga dusmemektedir.
+
 Bilinmeyen $\sigma$
 
 Eger $\sigma$ bilinmiyorsa, bu durumda $\sigma$ yerine orneklem varyansi
@@ -162,6 +190,9 @@ ya da, bolum ve boleni $n$ ile bolersek,
 
 $$Z  = \frac{Y/n - p}{\sqrt{p(1-p)/n}}$$
 
+
+$$Z  = \frac{Y/n - p}{\sqrt{\frac{p(1-p)}{n}}}$$
+
 Soru
 
 Amerikalilarin yuzde 12'sinin zenci oldugunu biliyoruz. Eger 1500 kisiyi
@@ -194,6 +225,56 @@ zenci sayisi elde etmek oldukca dusuk bir ihtimalde.
 
 Binom Guven Araligi
 
+Eger $p$ bilinmiyor ise onun icin maksimum olurluk tahmin edicisi (maximum
+likelihood estimator) $Y/n$'dir [ispati simdilik vermiyoruz]. 
+
+$$Z  = \frac{X/n - p}{\sqrt{\frac{(X/n)(1-(X/n))}{n}}}$$
+
+Bu durumda $Z$ uzerinden, aynen daha once yaptigimiz gibi, bir guvenlik
+araligi tanimlayabiliriz. Baslamak icin 
+
+$$ 
+P \bigg( 
+-z_{\alpha/s} \le
+\frac{X/n - p}{\sqrt{\frac{(X/n)(1-(X/n))}{n}}} \le 
+z_{\alpha/s}
+\bigg) =
+1-\alpha
+$$
+
+ve yine daha oncekine benzer cebirsel islemler sonrasi, ve Binom deneydeki
+basari sayisi olarak $X$ yerine $k$ kullanalim, $P()$ ifadesini cikartalim,
+cunku zaten o ifadenin icinde olusacak sayilarla ilgileniyoruz,
+
+$$ 
+\bigg( 
+\frac{k}{n}-
+z_{\alpha/s}\sqrt{\frac{(k/n)(1-(k/n))}{n}}
+,
+\frac{k}{n} +
+z_{\alpha/s} \sqrt{\frac{(k/n)(1-(k/n))}{n}}
+\bigg)
+$$
+
+Ustteki iki sayi bize gerekli guven araligini verecektir. 
+
+Soru 
+
+Amerika'da 2009 yilinda halkin ne kadarinin arabalarinda yakit tasarrunu
+destekledigi merak konusuydu. Bir Gallup telefon anketinde bu soru 1012
+yetiskine (18 ve ustu yasta) bu soruyu sordu. Cevap 810 kisinin tasarrufu
+destekledigi yonundeydi. Yani $n=1012,k=810$. O zaman $p$ icin \%95 guven
+araligini bulun.
+
+Cevap 
+
+$$ \bigg(
+\frac{810}{1012}-1.96 \frac{(810/1012)(1-810/1012)}{1012} ,
+1.96 \frac{(810/1012)(1-810/1012)}{1012}
+\bigg)
+$$
+
+$$ = (0.776,0825) $$
 
 Hipotez Testleri (Hypothesis Testing)
 
