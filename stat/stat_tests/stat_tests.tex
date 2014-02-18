@@ -158,6 +158,43 @@ demek dogru olacaktir. Standardize etmek gayet basit,
 
 $$Z  = \frac{Y - np}{\sqrt{np(1-p)}}$$
 
+ya da, bolum ve boleni $n$ ile bolersek,
+
+$$Z  = \frac{Y/n - p}{\sqrt{p(1-p)/n}}$$
+
+Soru
+
+Amerikalilarin yuzde 12'sinin zenci oldugunu biliyoruz. Eger 1500 kisiyi
+iceren bir orneklem alsaydik, bu orneklemde 170'den daha az zenci
+olmasinin olasiligi nedir? 
+
+Cevap
+
+\%12 nufus parametresidir, yani $p=0.12$. Orneklem $n=1500$. Normal
+yaklasiksallamasi ile 
+
+\begin{minted}[fontsize=\footnotesize]{python}
+from scipy.stats import norm
+n = 1500
+p = 0.12
+mu = n*p
+std = np.sqrt(n*p*(1-p))
+print mu,std
+print 'olasilik',norm.cdf(170,loc=mu,scale=std)
+\end{minted}
+
+\begin{verbatim}
+180.0 12.585706178
+olasilik 0.213437028747
+\end{verbatim}
+
+Yani $N(180,12.58)$ dagilimini elde ettik ve hesaplari onun uzerinden
+yaptik. Sonuc diyor ki verilen orneklem ve nufus $p$ degeri ile 170 altinda
+zenci sayisi elde etmek oldukca dusuk bir ihtimalde. 
+
+Binom Guven Araligi
+
+
 Hipotez Testleri (Hypothesis Testing)
 
 Hipotez testi (bir veriye dayanarak) farzedilen bir parametreyi bir
@@ -170,6 +207,54 @@ sonuclardan biri "kabul etmek" degil, bir istatistiki hipotezi kabul
 etmek mumkun degildir. Tek soyleyebildigimiz "bir hipotezi reddetmek
 icin elimizde yeterli veri olmadigini" soylemektir. Ama
 reddedebiliyorsak, bu sonucta daha bir kesinlik vardir. 
+
+Binom Testi
+
+Diyelim ki elimizde bir Web sitesinin gunluk ziyaret, tiklama sayilarini
+gosteren bir veri seti var (CVR ziyaretcilerin, sitedeki tiklayan musteriye
+"cevirme' orani, -conversion-)
+
+\begin{minted}[fontsize=\footnotesize]{python}
+import pandas as pd
+from scipy import stats
+a = pd.DataFrame({'tiklama': [20.,2.,40.,5.,10.,100.],
+                  'ziyaret': [100.,10.,300.,400.,30.,800.]})
+a['cvr'] = a['tiklama'] / a['ziyaret'] 
+print a
+\end{minted}
+
+\begin{verbatim}
+   tiklama  ziyaret       cvr
+0       20      100  0.200000
+1        2       10  0.200000
+2       40      300  0.133333
+3        5      400  0.012500
+4       10       30  0.333333
+5      100      800  0.125000
+\end{verbatim}
+
+Bu veri seti icin cvr'in 0.16, yani yuzde 16 oldugunu onceden
+biliyoruz. Ustteki basari orani binom dagili ile modellenebilir, ziyaretler
+"deneylerdir", yani orneklem buyuklugunu gosterirler. Tiklama ise
+basaridir,
+
+\begin{minted}[fontsize=\footnotesize]{python}
+p_hat = 0.16
+btest = lambda x: (x['cvr']-p_hat) / np.sqrt( p_hat*(1-p_hat)/x['ziyaret'])
+a['guven'] = a.apply(btest, axis=1)
+a['guven'] = np.round(stats.zprob(a['guven'])*100,2)
+print a
+\end{minted}
+
+\begin{verbatim}
+   tiklama  ziyaret       cvr  guven
+0       20      100  0.200000  86.24
+1        2       10  0.200000  63.50
+2       40      300  0.133333  10.39
+3        5      400  0.012500   0.00
+4       10       30  0.333333  99.52
+5      100      800  0.125000   0.35
+\end{verbatim}
 
 Tek Orneklem t Testi (One-sample t test)
 
@@ -327,87 +412,6 @@ print "paired wilcoxon-test", p_value
 
 \begin{verbatim}
 paired wilcoxon-test 0.00463608893545
-\end{verbatim}
-
-Binom Testi
-
-Binom dagilimi belli sayida "deney" icinde her seferinde $p$ olasiligi
-tasiyan iki kategorili bir olaydan {\em kac tane} olabilecegini
-modeller. Dagilim
-
-$$
-P(K = k) = \left( \begin{array}{ccc}
-n \\ k
-\end{array} \right)
-p^k q^{n-k}
-$$
-
-olarak belirtilir, ki $q = 1-p$ degeridir. Bu dagilimin $n>20$, yani
-"yeterince buyuk" degerleri icin Normal (Gaussian) Dagilima yaklastigi
-/ onun gibi oldugu bilinmektedir. Bu yaklasilan dagilim ortalamasi
-$np$ ve standart sapmasi $\sqrt{npq}$ olan bir Normal dagilim olacaktir, yani
-$N(np,\sqrt{npq})$.
-
-Devam edelim, madem elimizde bir normal dagilim var, bu normal dagilimi diger
-her normal dagilim gibi standardize edebiliriz,
-
-$$
-Z = \frac{ K - np}{\sqrt{npq}} \sim N_{0,1}
-$$
-
-Burada rasgele degisken $K$, yani her binom deneyi ardindan ele
-gececek basari sayisi burada. Binom testi icin test etmek istedigimiz
-sey budur.  O zaman $p$ yerine test ettigimiz ana binom dagilimindan
-gelen ana orani $\hat{p}$ kullaniriz, ki bu basari / tum deney sayisi
-olarak hesaplanir, $K$ yeni deneydeki ele gecen basari sayisidir, n
-ornekleminin buyuklugudur, bu sayilari yerine koyarak $Z$ dagilimindan
-bir guven rakami (confidence) elde edebiliriz.
-
-Bir ornek uzerinde gorelim: diyelim ki elimizde bir Web sitesinin
-gunluk ziyaret, tiklama sayilarini gosteren bir veri seti var (CVR
-ziyaretcilerin, sitedeki tiklayan musteriye "cevirme' orani,
--conversion-)
-
-\begin{minted}[fontsize=\footnotesize]{python}
-import pandas as pd
-from scipy import stats
-a = pd.DataFrame({'tiklama': [20.,2.,40.,5.,10.,100.],
-                  'ziyaret': [100.,10.,300.,400.,30.,800.]})
-a['cvr'] = a['tiklama'] / a['ziyaret'] 
-print a
-\end{minted}
-
-\begin{verbatim}
-   tiklama  ziyaret       cvr
-0       20      100  0.200000
-1        2       10  0.200000
-2       40      300  0.133333
-3        5      400  0.012500
-4       10       30  0.333333
-5      100      800  0.125000
-\end{verbatim}
-
-Diyelim ki bu veri seti icin cvr'in 0.16, yani yuzde 16 oldugunu
-onceden biliyoruz. Ustteki basari orani binom dagili ile
-modellenebilir, ziyaretler "deneylerdir", yani orneklem buyuklugunu
-gosterirler. Tiklama ise basaridir,
-
-\begin{minted}[fontsize=\footnotesize]{python}
-p_hat = 0.16
-btest = lambda x: (x['cvr']-p_hat) / np.sqrt( p_hat*(1-p_hat)/x['ziyaret'])
-a['guven'] = a.apply(btest, axis=1)
-a['guven'] = np.round(stats.zprob(a['guven'])*100,2)
-print a
-\end{minted}
-
-\begin{verbatim}
-   tiklama  ziyaret       cvr  guven
-0       20      100  0.200000  86.24
-1        2       10  0.200000  63.50
-2       40      300  0.133333  10.39
-3        5      400  0.012500   0.00
-4       10       30  0.333333  99.52
-5      100      800  0.125000   0.35
 \end{verbatim}
 
 Gaussian Kontrolu
