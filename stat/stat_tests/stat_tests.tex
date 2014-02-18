@@ -306,11 +306,11 @@ verinin uzerinden hesaplar yapmaya benzer.
 Bunu bir ornek uzerinden daha iyi anlayabiliriz. Diyelim ki araba ureten
 bir sirket yakit performansini (gas mileage) arttirmaya ugrasiyor. Benzine
 katilan yeni bir madde uzerinde deneyler yapiyorlar, deney icin Boston /
-Los Angales arasinda 30 tane araba sefer yapiyor. Yeni katki maddesi
-olmadigi durumda, normalde, yakit performansinin ortalama 25.0 mil/galon ve
+Los Angeles arasinda 30 tane araba sefer yapiyor. Yeni katki maddesi
+olmadigi durumda (statuko) yakit performansinin ortalama 25.0 mil/galon ve
 standart sapmanin 2.4 mil/galon oldugu biliniyor. Diyelim ki deney
 sonrasinda arabalar ortalama olarak $\bar{y}$=26.3 mil/galon performansi
-gostermisler. Katki maddesi etkili mi, etkili degil mi? 
+gostermisler. Katki maddesi etkili mi, etkili degil mi?
 
 Arastirmacilar 25.0'dan 26.3'e olan degisikligi daha once bahsettigimiz
 mahkeme ornegindeki gibi bir cercevede incelerler. Tipik olarak sifir
@@ -323,9 +323,10 @@ konum $H_0$'i temsil etmelidir.
 
 Bu noktada problemi rasgele degiskenlerin terminolojisi uzerinden tekrar
 tanimlamak faydali olur. Diyelim ki test sirasinda 30 tane aldigimiz olcum
-$y_1,..,y_n$, her $y_i$ normal olarak dagilmis ve bu dagilimlarin
-$\mu$'su ayni, ve bu $\mu$ bilinmiyor. Daha onceki tecrubelerimiz
-gosteriyor ki $\sigma = 2.4$ (bunu daha once gosterdik). Yani, 
+$y_1,..,y_n$, her $y_i$ normal olarak dagilmis ve bu dagilimlarin $\mu$'su
+ayni, ve $\mu$'u birazdan ``eski'' olcumlerin ortalamasi olarak alacagiz,
+cunku curutmek istedigimiz hipotez bu. Ayrica daha onceki tecrubelerimiz
+gosteriyor ki $\sigma = 2.4$. Yani,
 
 $$ 
 f_Y(y;\mu) = \frac{1}{\sqrt{2\pi}(2.4)} 
@@ -340,33 +341,18 @@ $H_0$: $\mu = 25.0$ (Katki maddesi etkili {\em degildir})
 
 $H_0$: $\mu > 25.0$ (Katki maddesi etkilidir)
 
-Burada birkac secim yaptik - yeni deneyden gelen orneklemleri bir dagilim
-ile orneklemeyi sectik mesela, ve bu dagilim bir Gaussian'dir dedik. Daha
-sonra hipotezleri bu Gaussian'in ortalamasinin ne olup olmadigi uzerinden
-tanimladik. Eger $\mu = 25.0$ ise, daha once katkisiz yapilmis olan
-deneylerle olan ``aynilik'' ortaya cikacak, $\mu > 25.0$ ayniligin olmadigi
-hakkinda kanit sunacak. Bu ne kadar gercekci bir secim? $\mu = 25.0$ ama
-alinan olcumler bazen ondan az, bazen fazla olamaz mi? Fakat dikkat, burada
-olumlerin degil, yeni tanimlanan dagilimin $\mu$'su hakkinda bir irdeleme
-yapiyoruz. Eski katkisiz deneylerde de tum alinan sonuclar 25.0 cikmamistir
-muhakkak, bazen ondan az, bazen ondan fazla cikmistir, fakat biz yeni
-orneklem uzerinden bir dagilim tanimladik, ve onun ``eski dagilimla'' ne
-kadar uyusup uyusmadigini tartiyoruz, hatta onun eski dagilimla tipatip
-ayni olup olmadigini test ediyoruz. $\mu$ karsilastirmasi bu bakimdan
-onemli. Ama hangi degerle karsilastirma yapmak gerekli? Ve hangi olasilik
-degerini, ve onun tekabul ettigi hangi $\bar{\mu}^*$ degerini esik degeri
-olarak kabul etmeliyiz? Dikkat, hala hipotez test etme altyapisini
-gelistiriyoruz, her problemde bu dusunce zincirinden tamamini
-kullanmayacagiz. 
-
-Simdi yeni dagilimi standardize edip, bir hayali orneklem degeri uzerinden
-bir olasilik ortaya cikartalim. Diyelim ki test ettigimiz deger 25.25 (esas
-amac 26.3 ama oraya gelecegiz),
+Simdi yeni dagilimi standardize edip, bir hayali ortalama esik degeri
+uzerinden bir sonuc cikartalim, standardize etmek icin kullandigimiz $\mu =
+25.0$
+cunku eski ortalama bu. Simdi diyelim ki test ettigimiz esik deger 25.25
+(esas  amac 26.3 ama oraya gelecegiz), aradigimiz olasilik,
 
 $$ P(\bar{Y}  \ge 25.25) $$
 
-$\bar{Y}$'yi standardize edelim, o sirada esitsizligin sag tarafi da
-degisir, 
+Ustteki ifade ``eger orneklem eski dagilimdan geliyor olsaydi, 25.25
+esik degerini gecmesi ne kadar mumkun olabilirdi'' diye bir soru
+soruyor. $\bar{Y}$'yi standardize edelim, o sirada esitsizligin sag tarafi da
+degisir,
 
 $$ P(\frac{\bar{Y} - 25.0}{2.4 / \sqrt{30}} \ge 
 \frac{25.25 - 25.0}{2.4 / \sqrt{30}}) 
@@ -384,23 +370,22 @@ $$ 1 - P(Z < 0.57)$$
 
 $$ P(Z \ge 0.57) = 0.2843$$
 
-Sezgisel olarak bu olasiligin buyuk oldugunu gorebiliriz. Bu esigin hangi
-tarafina dusersek duselim, icimiz rahat olmazdi. Az farkla sucsuzdur desek
-ya ufak bir ihtimalle supheli suclu ise? Ustteki olasilik pek ufak
-sayilmaz! Ya da araba orneginde (ve pozitif baglamda) yeni yakit kesinlikle
-etkisizdir diyemiyoruz, bu olasilik yeni yakit hakkinda (iyimser) supheler
-baslatti aklimizda. Hic etkisizdir deyip cok karli bir bulusu kullanmamis
-olabiliriz! Yani hipotez testi altyapisi pek iyi olmadi, bize daha kesin
-noktalar lazim, aklimizda bize ``acaba?'' dedittirecek esik degerleri
-istemiyoruz.
+Demek ki yeni deney sonuclarinin, eski dagilima gore, esik degerinden fazla
+gelmesi hala az da muhtemel, demek ki eski hipotezi tam
+curutemedik. Sectigimiz esik degeri bize kesin bir sonuc saglamadi,
+sezgisel olarak bu olasiligin buyuk oldugunu goruyoruz. Mahkeme durumunda
+sucsuz olmasi cok muhtemeldir diyemiyoruz. Ya da araba orneginde (ve
+pozitif baglamda) yeni yakit kesinlikle farklidir / fazladir
+diyemiyoruz. Bize daha kesin noktalar lazim, aklimizda bize ``acaba?''
+dedittirecek esik degerler istemiyoruz.
 
 \includegraphics[height=6cm]{carhyp1.png}
 
-O zaman hayali esik noktasi $\bar{y}^*$'nin daha buyuk olmasi gerekiyor (ki
-ona bagli olan sagdaki olasilik kuculsun, ya da kucuk bir olasiliga tekabul
-eden bir $\bar{y}^*$ bulalim). Eger $\bar{y}^* = 26.50$ olsaydi? Ayni hesap
+Hayali esik noktasi $\bar{y}^*$'nin daha buyuk yapsak (ki o zaman ona bagli
+olan sagdaki olasilik kuculecek). Bu olur mu? Eger $\bar{y}^* = 26.50$
+olsaydi? 
 
-$$ P(\frac{\bar{Y} - 26.5}{2.4 / \sqrt{30}} \ge 
+$$ P(\frac{\bar{Y} - 25.0}{2.4 / \sqrt{30}} \ge 
 \frac{26.50 - 25.0}{2.4 / \sqrt{30}}) 
 $$
 
@@ -411,7 +396,7 @@ $$ = 0.0003 $$
 Bu olasilik ise cok kucuk, yani esik degeri cok buyuk! Citayi cok fazla
 kaldirdik, mahkeme durumunda sanki diyoruz ki sucun 1000 tane tanigi lazim,
 sanik sucunu itiraf etmis olmali, hersey apacik olmali, bir de herseyi
-bizzat ben gormus olmaliyim. Yoksa kabul etmem. Araba orneginde katki
+bizzat ben gormus olmaliyim, yoksa kabul etmem. Araba orneginde katki
 maddesi arabaya Formula-1 yarisi kazandirmazsa biz bu yakiti daha iyi
 olarak kabul etmeyiz diyoruz.
 
@@ -420,7 +405,38 @@ olarak kabul etmeyiz diyoruz.
 Peki eger 0.28 cok fazla, 0.0003 cok kucuk ise hangi olasilik en iyi esik
 degerini verir? Bu soruya kesin olarak ve matematiksel bir cevap vermek
 mumkun degil, fakat hipotez test etme teknigini kullanan arastirmacilarin
-ulastigi konsensus 0.05 olasilik seviyesinin en iyi sonuclar verdigidir.
+ulastigi konsensus 0.05 olasilik seviyesinin en iyi sonuclar verdigidir. Bu
+duruma sifir hipotezinin cok kolayca kenara atilmamasi, ya da ona
+gereginden fazla bagli kalinmamasi mumkun oluyor.
+
+O zaman 0.05 olasiligini verdirtecek esik degeri hesaplayalim,
+
+$$ P(\frac{\bar{Y} - 25.0}{2.4 / \sqrt{30}} \ge 
+\frac{\bar{y}^* - 25.0}{2.4 / \sqrt{30}}) = 0.05
+$$
+
+$$ P(Z \ge  \frac{\bar{y}^* - 25.0}{2.4 / \sqrt{30}}) = 0.05
+$$
+ya da
+
+$$ P(Z \le  \frac{\bar{y}^* - 25.0}{2.4 / \sqrt{30}}) = 0.95 $$
+
+z-Skor tablosuna bakiyoruz, ``hangi z degeri 0.95 degeri sonucunu verir'',
+kordinatlardan 1.64 z-skorunu buluyoruz. 
+
+$$ P(Z \le 1.64)  = 0.95 $$
+O zaman 
+
+$$ \frac{\bar{y}^* - 25.0}{2.4 / \sqrt{30}} = 1.64 $$
+
+ve buradan $\bar{y}^* = 25.178$ sonucu cikiyor. 26.3 degeri bu degerden
+yuksektir demek ki sifir hipotezi curutulmustur. Yeni yakit katkisinin
+performansi arttiriyor olmasi buyuk bir olasiliktir. 
+
+Not: Bu testi aslinda daha basit sekilde $\bar{y}^* = 26.3$ degerlerini
+vererek elde edilen degeri 0.05'ten kucuk olup olmadigina bakarak ta
+yapabilirdik. Fakat metotu insa ediyorduk o sebeple daha fazla ornekli
+anlatmak gerekti. 
 
 Binom Testi
 
