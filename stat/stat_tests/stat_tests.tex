@@ -282,18 +282,151 @@ $$ = (0.776,0825) $$
 
 Hipotez Testleri (Hypothesis Testing)
 
-Hipotez testi (bir veriye dayanarak) farzedilen bir parametreyi bir
-sabit degerle karsilastirmak, ya da iki parametreyi birbiriyle
-karsilastirmak icin kullanilir. 
+Istatistik tek ya da araliklar olarak sayisal tahminler uretmenin otesinde,
+``iki sey arasinda birisini secmek'' turunde bir karar baglaminda da
+kullanilabilir. Bir psikolog bir davaya uzman gorus vermek icin
+cagrilmistir ve sanik hakkinda 'akli olarak dengesiz ya da dengeli'
+arasinda bir secim yapacaktir. Ilac regulasyonu ile ugrasan kurum yeni bir
+ilac hakkinda 'etkili' ya da 'etkisiz' seklinde bir karara ulasacaktir. 
 
-Bir hipotez testi, sonucta sadece iki cevap verebilecek bir sorudur;
-bu sonuclar "reddetmek" ya da "reddetmemek" olabilir. Dikkat: bu
-sonuclardan biri "kabul etmek" degil, bir istatistiki hipotezi kabul
-etmek mumkun degildir. Tek soyleyebildigimiz "bir hipotezi reddetmek
-icin elimizde yeterli veri olmadigini" soylemektir. Ama
-reddedebiliyorsak, bu sonucta daha bir kesinlik vardir. 
+Bir deneyin mumkun sonuclarini belli seceneklere yonlendirip olasilik
+teorisini kullanarak bunlardan birisini secmeye Istatistik biliminde
+Hipotez Test Etmek adi verilir.  
+
+Birbiriyle yaris halinde olan iki hipotez vardir, bunlar sifir hipotezi
+($H_0$ olarak yaziliyor) ve alternatif hipotezdir ($H_1$ olarak
+yaziliyor). $H_o$ ve $H_1$ arasinda nasil secim yapacagimiz kavramsal
+olarak bir davada jurinin yaptigi secime benzer: aynen sanigin, tersi
+ispatlanana kadar, masum kabul edilmesi gibi eger veri tersi sonuca varmaya
+yetmezse $H_0$ da ``kabul edilir'', yani sucsuzlugun devam etmesi gibi
+$H_0$ gorusu terkedilmemis olur. Statusko devam eder. Bu karari verirken
+mahkemenin kanitlari incelemesi, hipotez testinde rasgele degiskenlerle
+verinin uzerinden hesaplar yapmaya benzer.
+
+Bunu bir ornek uzerinden daha iyi anlayabiliriz. Diyelim ki araba ureten
+bir sirket yakit performansini (gas mileage) arttirmaya ugrasiyor. Benzine
+katilan yeni bir madde uzerinde deneyler yapiyorlar, deney icin Boston /
+Los Angales arasinda 30 tane araba sefer yapiyor. Yeni katki maddesi
+olmadigi durumda, normalde, yakit performansinin ortalama 25.0 mil/galon ve
+standart sapmanin 2.4 mil/galon oldugu biliniyor. Diyelim ki deney
+sonrasinda arabalar ortalama olarak $\bar{y}$=26.3 mil/galon performansi
+gostermisler. Katki maddesi etkili mi, etkili degil mi? 
+
+Arastirmacilar 25.0'dan 26.3'e olan degisikligi daha once bahsettigimiz
+mahkeme ornegindeki gibi bir cercevede incelerler. Tipik olarak sifir
+hipotezi statukoyu temsil eder, yani degismesi icin ``ezici sekilde aksi
+yonde veri olmasi gereken sey'' budur. Oyle degil mi? Eger etkisiz bir
+katki maddesine evet dersek, ve ileride oyle olmadigi belli olursa bunun
+sirket icin cok negatif etkileri olacaktir, aynen masum bir kisiyi
+yanlislikla hapse atmis olmak gibi. O yuzden kalmak istedigimiz guvenli
+konum $H_0$'i temsil etmelidir. 
+
+Bu noktada problemi rasgele degiskenlerin terminolojisi uzerinden tekrar
+tanimlamak faydali olur. Diyelim ki test sirasinda 30 tane aldigimiz olcum
+$y_1,..,y_n$, her $y_i$ normal olarak dagilmis ve bu dagilimlarin
+$\mu$'su ayni, ve bu $\mu$ bilinmiyor. Daha onceki tecrubelerimiz
+gosteriyor ki $\sigma = 2.4$ (bunu daha once gosterdik). Yani, 
+
+$$ 
+f_Y(y;\mu) = \frac{1}{\sqrt{2\pi}(2.4)} 
+e^{-\frac{1}{2}(\frac{y-\mu}{2.4})^2},
+-\infty < y < \infty
+$$
+
+
+Hipotezleri soyle tanimlayalim,
+
+$H_0$: $\mu = 25.0$ (Katki maddesi etkili {\em degildir})
+
+$H_0$: $\mu > 25.0$ (Katki maddesi etkilidir)
+
+Burada birkac secim yaptik - yeni deneyden gelen orneklemleri bir dagilim
+ile orneklemeyi sectik mesela, ve bu dagilim bir Gaussian'dir dedik. Daha
+sonra hipotezleri bu Gaussian'in ortalamasinin ne olup olmadigi uzerinden
+tanimladik. Eger $\mu = 25.0$ ise, daha once katkisiz yapilmis olan
+deneylerle olan ``aynilik'' ortaya cikacak, $\mu > 25.0$ ayniligin olmadigi
+hakkinda kanit sunacak. Bu ne kadar gercekci bir secim? $\mu = 25.0$ ama
+alinan olcumler bazen ondan az, bazen fazla olamaz mi? Fakat dikkat, burada
+olumlerin degil, yeni tanimlanan dagilimin $\mu$'su hakkinda bir irdeleme
+yapiyoruz. Eski katkisiz deneylerde de tum alinan sonuclar 25.0 cikmamistir
+muhakkak, bazen ondan az, bazen ondan fazla cikmistir, fakat biz yeni
+orneklem uzerinden bir dagilim tanimladik, ve onun ``eski dagilimla'' ne
+kadar uyusup uyusmadigini tartiyoruz, hatta onun eski dagilimla tipatip
+ayni olup olmadigini test ediyoruz. $\mu$ karsilastirmasi bu bakimdan
+onemli. Ama hangi degerle karsilastirma yapmak gerekli? Ve hangi olasilik
+degerini, ve onun tekabul ettigi hangi $\bar{\mu}^*$ degerini esik degeri
+olarak kabul etmeliyiz? Dikkat, hala hipotez test etme altyapisini
+gelistiriyoruz, her problemde bu dusunce zincirinden tamamini
+kullanmayacagiz. 
+
+Simdi yeni dagilimi standardize edip, bir hayali orneklem degeri uzerinden
+bir olasilik ortaya cikartalim. Diyelim ki test ettigimiz deger 25.25 (esas
+amac 26.3 ama oraya gelecegiz),
+
+$$ P(\bar{Y}  \ge 25.25) $$
+
+$\bar{Y}$'yi standardize edelim, o sirada esitsizligin sag tarafi da
+degisir, 
+
+$$ P(\frac{\bar{Y} - 25.0}{2.4 / \sqrt{30}} \ge 
+\frac{25.25 - 25.0}{2.4 / \sqrt{30}}) 
+$$
+
+
+$$ P(Z \ge 0.57)$$
+
+z-Skoru tablosunu kullanakarak bu hesabi yapmak icin
+
+$$ 1 - P(Z < 0.57)$$
+
+0.57'nin z-skoru (satir 0.5 kolon .07) 0.7157 olarak gosterilmis, o zaman
+1-0.7157 = 0.2843. Demek ki
+
+$$ P(Z \ge 0.57) = 0.2843$$
+
+Sezgisel olarak bu olasiligin buyuk oldugunu gorebiliriz. Bu esigin hangi
+tarafina dusersek duselim, icimiz rahat olmazdi. Az farkla sucsuzdur desek
+ya ufak bir ihtimalle supheli suclu ise? Ustteki olasilik pek ufak
+sayilmaz! Ya da araba orneginde (ve pozitif baglamda) yeni yakit kesinlikle
+etkisizdir diyemiyoruz, bu olasilik yeni yakit hakkinda (iyimser) supheler
+baslatti aklimizda. Hic etkisizdir deyip cok karli bir bulusu kullanmamis
+olabiliriz! Yani hipotez testi altyapisi pek iyi olmadi, bize daha kesin
+noktalar lazim, aklimizda bize ``acaba?'' dedittirecek esik degerleri
+istemiyoruz.
+
+\includegraphics[height=6cm]{carhyp1.png}
+
+O zaman hayali esik noktasi $\bar{y}^*$'nin daha buyuk olmasi gerekiyor (ki
+ona bagli olan sagdaki olasilik kuculsun, ya da kucuk bir olasiliga tekabul
+eden bir $\bar{y}^*$ bulalim). Eger $\bar{y}^* = 26.50$ olsaydi? Ayni hesap
+
+$$ P(\frac{\bar{Y} - 26.5}{2.4 / \sqrt{30}} \ge 
+\frac{26.50 - 25.0}{2.4 / \sqrt{30}}) 
+$$
+
+$$ P(Z \ge 3.42) $$
+
+$$ = 0.0003 $$
+
+Bu olasilik ise cok kucuk, yani esik degeri cok buyuk! Citayi cok fazla
+kaldirdik, mahkeme durumunda sanki diyoruz ki sucun 1000 tane tanigi lazim,
+sanik sucunu itiraf etmis olmali, hersey apacik olmali, bir de herseyi
+bizzat ben gormus olmaliyim. Yoksa kabul etmem. Araba orneginde katki
+maddesi arabaya Formula-1 yarisi kazandirmazsa biz bu yakiti daha iyi
+olarak kabul etmeyiz diyoruz.
+
+\includegraphics[height=6cm]{carhyp2.png}
+
+Peki eger 0.28 cok fazla, 0.0003 cok kucuk ise hangi olasilik en iyi esik
+degerini verir? Bu soruya kesin olarak ve matematiksel bir cevap vermek
+mumkun degil, fakat hipotez test etme teknigini kullanan arastirmacilarin
+ulastigi konsensus 0.05 olasilik seviyesinin en iyi sonuclar verdigidir.
 
 Binom Testi
+
+Bazen Hipotez testi (bir veriye dayanarak) farzedilen bir parametreyi bir
+sabit degerle karsilastirmak, ya da iki parametreyi birbiriyle
+karsilastirmak icin kullanilir.
 
 Diyelim ki elimizde bir Web sitesinin gunluk ziyaret, tiklama sayilarini
 gosteren bir veri seti var (CVR ziyaretcilerin, sitedeki tiklayan musteriye
