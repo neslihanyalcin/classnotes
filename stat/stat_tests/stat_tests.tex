@@ -123,7 +123,7 @@ olmadigi iddia edilebilir.
 
 \begin{minted}[fontsize=\footnotesize]{python}
 import pandas as pd
-df = pd.read_csv('etrus.dat')
+df = pd.read_csv('etrus.csv')
 print float(df.mean()-1.96*(6.0/np.sqrt(84)))
 print float(df.mean()+1.96*(6.0/np.sqrt(84)))
 \end{minted}
