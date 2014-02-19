@@ -588,7 +588,9 @@ Peki $P(|\bar{X}_n-\mu| > \epsilon)$'nin sifira gittigini gosterdik mi?
 
 $\sigma^2 / n\epsilon^2$'nin sifira gittigini gosterdik. $\sigma^2 /
 n\epsilon^2$ de $P(|\bar{X}_n-\mu| > \epsilon)$'den 
-buyuk olduguna gore, demek ki o da sifira iner.
+buyuk olduguna gore, demek ki o da sifira iner. 
+
+$\square$
 
 Buyuk Sayilar Kanunu orneklem ortalamasinin ve varyansinin $X_i$'in
 beklentisi ve varyansi ile baglanti kurar. Merkezi Limit Teorisi bir adim
@@ -607,19 +609,19 @@ diðer olasýlýk iþlemlerimizde ispat verisi olarak iþimize yarar.
 
 Teori: Herhangi bir $t$ deðeri için, 
 
-\[ P(|X-\mu| > t) \le \frac{\sigma^2}{t^2} \]
+$$ P(|X-\mu| > t) \le \frac{\sigma^2}{t^2} $$
 
 Ýspata baþlayalým. Entegral ile olasýlýk hesabý yapmak için bize bir $x$
 uzayý lazým.
 
-\[ \mathbb{R} = {x: |x-\mu| > t} \]
+$$ \mathbb{R} = {x: |x-\mu| > t} $$
 
 Yani $\mathbb{R}$ uzayý, $x$ ile ortalamasýnýn farkýnýn, $t$'den büyük olduðu bütün
 sayýlarýn kümesidir.
 
 O zaman, 
 
-\[ P(|X-\mu| > t) = \int_R f(x)dx \]
+$$ P(|X-\mu| > t) = \int_R f(x)dx $$
 
 Dikkat edelim $P(..)$ içindeki formül, küme tanýmý ile ayný. O yüzden $P()$
 hesabý ortada daha olmayan, ama varolduðu kesin bir daðýlým fonksiyonu
@@ -628,7 +630,7 @@ tanýmlamýþ da oluyor. Buna $f(x)$ deriz. $P()$'in, $f(x)$ fonksiyonunun $R$
 
 Eger $x \in R$ dersek o zaman
 
-\[ \frac{|x-\mu|^2}{t^2} \ge 1 \]
+$$ \frac{|x-\mu|^2}{t^2} \ge 1 $$
 
 t'nin denkleme bu þekilde nereden geldiði þaþkýnlýk yaratabilir. Daha önce
 tanýmlanan þu ibareye dikkat edelim, $x: |x-u| > t$ diye belirtmiþtik. Bu
@@ -637,9 +639,9 @@ ifadeyi deðiþtirerek, yukarýdaki denkleme gelebiliriz.
 Devam edersek, elimizdeki 1'den büyük bir deðer var. Bu deðeri kullanarak,
 aþaðýdaki tanýmý yapmamýz doðru olacaktýr.
 
-\[ \int_R f(x)dx \le \int_R \frac{(x-\mu)^2}{t^2}f(x)dx \le
+$$ \int_R f(x)dx \le \int_R \frac{(x-\mu)^2}{t^2}f(x)dx \le
 \int_{-\infty}^{\infty}\frac{(x-\mu)^2}{t^2}f(x)dx 
- \]
+ $$
 
 Ortadaki entegral niye birinci entegralden büyük? Çünkü ortadaki
 entegraldeki $f(x)dx$ ibaresinden önce gelen kýsmýn, her zaman 1'den büyük
@@ -656,19 +658,21 @@ bilgimize dayanarak, standart sapmanýn tanýmýný yazýyoruz. Dikkat edelim,
 bu ibare þu anki ispatýmýz dahilinden deðil, haricinden önceki bilgimize
 dayanarak geldi. Standart sapmanýn tanýmý þöyledir.
 
-\[ \sigma^2 = \int_{-\infty}^{\infty} (x-\mu)^2f(x)dx \]
+$$ \sigma^2 = \int_{-\infty}^{\infty} (x-\mu)^2f(x)dx $$
 
 O zaman
 
-\[ \frac{\sigma^2}{t^2} = \int_{-\infty}^{\infty}\frac{(x-\mu)^2}{t^2}f(x)dx \]
+$$ \frac{\sigma^2}{t^2} = \int_{-\infty}^{\infty}\frac{(x-\mu)^2}{t^2}f(x)dx $$
 
 yani
 
-\[ \int_R f(x)dx \le \frac{\sigma^2}{t^2} = 
+$$ \int_R f(x)dx \le \frac{\sigma^2}{t^2} = 
 \int_{-\infty}^{\infty} \frac{(x-\mu)^2}{t^2}f(x)dx
-\]
+$$
 
 ki $\int_R f(x)dx$ zaten $P(|X-\mu| > t)$ olarak tanimlanmisti. 
+
+$\square$
 
 Merkezi Limit Teorisi (Central Limit Theorem -CLT-)
 
