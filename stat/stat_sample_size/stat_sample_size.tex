@@ -14,15 +14,39 @@ tahmini olan $X/n$'in en azindan $100(1-\alpha)\%$ olasilikta $p$'nin $d$
 kadar yakininda olmasini istiyoruz. O zaman alttaki denklemi tatmin eden en
 ufak $n$'i buldugumuz anda problemimizi cozduk demektir, 
 
-$$ P\bigg( -d \g \frac{X}{n} - p \le d \bigg)  = 1-\alpha$$
+$$ P\bigg( -d \le \frac{X}{n} - p \le d \bigg)  = 1-\alpha$$
+
+Tahmin edici $X/n$'nin kendisi de bir rasgele degiskendir. Bu degisken
+normal olarak dagilmistir, cunku $X$ Binom olarak dagilmis ise, bu dagilim
+ayri Bernoulli'lerin toplamina esittir. Toplamin aritmetik ortalamasi ise
+Merkezi Limit Kanunu'na gore normal'e yaklasir. O zaman, standardize etmek
+icin $X/n$'i standart sapmaya bolmek gerekir. 
+
+$$ Var(X/n) = \frac{1}{n^2}Var(X) = \frac{1}{n^2}np(1-p)=
+\frac{1}{n}p(1-p) 
+$$
+
+cunku Binom dagilimlar icin $Var(X) = np(1-p)$. Standart sapma ustteki
+ifadenin karekoku, yani 
+
+$$ Std(X/n) = \sqrt{p(1-p)/n}
+$$
 
 
+$$ P\bigg( 
+\frac{-d}{\sqrt{p(1-p)/n}} \le 
+\frac{\frac{X}{n} - p }{\sqrt{p(1-p)/n}}\le 
+\frac{d}{\sqrt{p(1-p)/n}} 
+\bigg)  = 
+1-\alpha$$
 
 
-
-
-
-
+$$ P\bigg( 
+\frac{-d}{\sqrt{p(1-p)/n}} \le 
+Z
+\frac{d}{\sqrt{p(1-p)/n}} 
+\bigg)  = 
+1-\alpha$$
 
 
 
