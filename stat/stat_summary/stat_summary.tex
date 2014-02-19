@@ -125,8 +125,8 @@ alakaliyiz. O yuzden her sapmanin karesini aliriz, bunlari toplayip nokta
 sayisina boleriz. 
 
 Ilginc bir cebirsel islem sudur ve bize verinin uzerinden tek bir kez
-gecerek hem sayisal ortalamayi hem de sayisal varyansi hesaplamamizi
-saglar. Eger $\bar{y}$ tanimini ustteki formule sokarsak,
+gecerek (one pass) hem sayisal ortalamayi hem de sayisal varyansi
+hesaplamamizi saglar. Eger $\bar{y}$ tanimini ustteki formule sokarsak,
 
 $$ = \frac{ 1}{n} \sum_i y_i^2 + \frac{ 1}{n} \sum_i m^2 - \frac{ 2}{n} \sum_i y_i\bar{y}  $$
 
@@ -136,7 +136,7 @@ $$ = \frac{ 1}{n} \sum_i y_i^2 +  \bar{y}^2 - 2\bar{y}^2 $$
 
 $$ = \frac{ 1}{n} \sum_i y_i^2 - \bar{y}^2 $$
 
-Bu arada standard sapm varyansin karesidir, ve biz karekok olan versiyon
+Bu arada standard sapma varyansin karekokudur, ve biz karekok olan versiyon
 ile calismayi tercih ediyoruz. Niye? Cunku o zaman veri noktalarinin ve
 yayilma olcusunun birimleri birbiri ile ayni olacak. Eger veri setimiz bir
 alisveris sepetindeki malzemelerin lira cinsinden degerleri olsaydi,
@@ -676,9 +676,10 @@ ortalamasi $\mu$, standart sapmasi $\sigma$ olan (ki o da ayni dagilima
 sahip) bir nufustan geliyorlar. Orneklem ortalamasi $\bar{X}$, ki bu
 rasgele degiskenin beklentisinin $\mu$, ve (3)'e gore standart sapmasinin
 $\sigma / \sqrt{n}$ oldugunu biliyoruz. Dikkat: $\bar{X}$'in kendisinden
-degil, {\em beklentisinden} bahsediyoruz, yani ortalama dagiliminin
-ortalamasi (kafalar yeterince karisti mi?). Teori der ki $n$ buyudukce
-$\bar{X}$ dagilimi bir $N(\mu, \sigma/\sqrt{n})$ dagilimina yaklasir. 
+degil, {\em beklentisinden} bahsediyoruz, BSK'deki ayni durum, yani
+ortalama dagiliminin ortalamasi. Teori der ki $n$ buyudukce $\bar{X}$
+dagilimi (bu sefer kendisi) bir $N(\mu, \sigma/\sqrt{n})$ dagilimina
+yaklasir.
 
 Bu ifade genelde standart normal olarak gostrilir, herhangi bir normal
 dagilimi standart normal'e donusturmeyi daha once gormustuk zaten,

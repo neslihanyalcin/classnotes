@@ -41,9 +41,9 @@ hali oteki (soldaki) parcayi verir, yani $-z_{\alpha/2}$.
 
 \includegraphics[height=6cm]{norm95.jpg}
 
-z-skoru hesaplarken tabloya danismistik, simdi tabloya tersinden bakacagiz,
+Z-skoru hesaplarken tabloya danismistik, simdi tabloya tersinden bakacagiz,
 kesisme noktasinda 0.975 diyen yeri bulup kordinatlari alacagiz, ki bu
-deger 1.96. Istatistik kaynaklarinda ``sihirli deger'' seklinde tarif
+deger 1.96. Bazi Istatistik kaynaklarinda ``sihirli deger'' seklinde tarif
 edilen bir deger bu, gozlerimiz kamasmasin, geldigi yer burasi iste. Simdi
 formulu buna gore degistirelim,
 
@@ -68,7 +68,7 @@ P \bigg(
 
 Guven araligi ifadesine aslina erismis olduk. Eger \%95 kesinlikten
 bahsediyor olsaydik, ve nufusun gercek varyansi $\sigma^2$ biliniyor
-olsaydi, $P(\dot)$ icine bu degerleri gececektik, $\bar{X}$ zaten verinin
+olsaydi, $P(\cdot)$ icine bu degerleri gececektik, $\bar{X}$ zaten verinin
 aritmetik ortalamasindan ibarettir, bu bize $\mu$'nun solunda ve saginda
 bazi degerler dondurecekti. Bu degerler bizim guven araligimiz
 olacakti. Mesela veri 64.1, 64.7, 64.5, 64.6, 64.5, 64.3, 64.6, 64.8,
@@ -116,10 +116,10 @@ olmadigini hep merak etmistir. Bazilari hafa olculerine bakarak sonuclara
 varmaya ugrasmistir. Arkeolojik kazilarda yapilan olcumlerde 84
 Etrusyalinin kafasi olculmustur. Ayrica bugunku Italyanlarin kafa
 olcumlerinin normal dagilimda $\mu=132.4 mm,\sigma=6.0mm$ oldugu
-bilinmektedir. O zaman, veriye bakarak kafa olcumu ortalamasi icin bir
-\%95 guvenlik araligi olusturuz, ve eger bugunku Italyanlarin olcusu o
-araliga dusmuyorsa, bugunku Italyanlarin Etrusyalilarla baglantisinin
-olmadigi iddia edilebilir. 
+bilinmektedir. Iki toplum arasindaki baglanti kurmak icin, veriye bakarak
+kafa olcumu ortalamasi icin bir \%95 guvenlik araligi olusturabiliriz, ve
+eger bugunku Italyanlarin olcusu o araliga dusmuyorsa, Etrusyalilarla
+baglantilarinin olmadigini iddia edebiliriz.
 
 \begin{minted}[fontsize=\footnotesize]{python}
 import pandas as pd
@@ -135,14 +135,15 @@ print float(df.mean()+1.96*(6.0/np.sqrt(84)))
 
 Bugunku Italyanlarin kafa ortalamasi $\mu=132.4$ bu araliga dusmuyor. Diger
 bir deyisle, 84 tane orneklemden gelen orneklem ortalamasi 143.8 buyuk bir
-ihtimalle $\mu-132.4,\sigma=6.0$ boyutlarindaki bir normal dagilimdan
+ihtimalle $\mu=132.4,\sigma=6.0$ boyutlarindaki bir normal dagilimdan
 gelmemistir. Buna gore, buyuk bir ihtimalle Etrusyalilar Italyanlarin atasi
 degildir. 
 
 Bilinmeyen $\sigma$
 
-Eger $\sigma$ bilinmiyorsa, bu durumda $\sigma$ yerine orneklem varyansi
-$S$ kullanilabilir, 
+Guven Araliklari bolumunden devam edelim. Bilinmeyen $\mu$ durumunu
+gorduk. Eger $\sigma$ bilinmiyorsa, bu durumda $\sigma$ yerine orneklem
+varyansi $S$ kullanilabilir,
 
 $$ S^2 = \frac{1}{n} \sum (X_i - \bar{X})^2
 $$
