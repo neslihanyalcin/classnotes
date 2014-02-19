@@ -43,9 +43,20 @@ hali oteki (soldaki) parcayi verir, yani $-z_{\alpha/2}$.
 
 Z-skoru hesaplarken tabloya danismistik, simdi tabloya tersinden bakacagiz,
 kesisme noktasinda 0.975 diyen yeri bulup kordinatlari alacagiz, ki bu
-deger 1.96. Bazi Istatistik kaynaklarinda ``sihirli deger'' seklinde tarif
-edilen bir deger bu, gozlerimiz kamasmasin, geldigi yer burasi iste. Simdi
-formulu buna gore degistirelim,
+deger 1.96. 
+
+\begin{minted}[fontsize=\footnotesize]{python}
+from scipy.stats.distributions import norm
+print norm.ppf(0.975)
+\end{minted}
+
+\begin{verbatim}
+1.95996398454
+\end{verbatim}
+
+Bazi Istatistik kaynaklarinda ``sihirli deger'' seklinde tarif edilen bir
+deger bu, gozlerimiz kamasmasin, geldigi yer burasi iste. Simdi formulu
+buna gore degistirelim,
 
 $$ 
 P \bigg( 
@@ -368,7 +379,17 @@ z-Skoru tablosunu kullanakarak bu hesabi yapmak icin
 $$ 1 - P(Z < 0.57)$$
 
 0.57'nin z-skoru (satir 0.5 kolon .07) 0.7157 olarak gosterilmis, o zaman
-1-0.7157 = 0.2843. Demek ki
+1-0.7157 = 0.2843. Kod ile
+
+\begin{minted}[fontsize=\footnotesize]{python}
+print 1-norm.cdf(0.57)
+\end{minted}
+
+\begin{verbatim}
+0.284338849046
+\end{verbatim}
+
+Demek ki
 
 $$ P(Z \ge 0.57) = 0.2843$$
 
@@ -425,6 +446,15 @@ $$ P(Z \le  \frac{\bar{y}^* - 25.0}{2.4 / \sqrt{30}}) = 0.95 $$
 
 z-Skor tablosuna bakiyoruz, ``hangi z degeri 0.95 degeri sonucunu verir'',
 kordinatlardan 1.64 z-skorunu buluyoruz. 
+
+\begin{minted}[fontsize=\footnotesize]{python}
+print norm.ppf(0.95)
+\end{minted}
+
+\begin{verbatim}
+1.64485362695
+\end{verbatim}
+
 
 $$ P(Z \le 1.64)  = 0.95 $$
 O zaman 
