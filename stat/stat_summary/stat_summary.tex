@@ -145,53 +145,18 @@ olmayacakti.
 
 Kovaryans ve Korelasyon (Covariance and Correlation)
 
-Iki veya daha fazla boyutun arasindaki iliskileri gormek veri analizinde
-onemli bir yer tutar. Yontemlerden birisi verideki mumkun her ikili
-iliskiyi grafiksel olarak gostermektir. Pandas \verb!scatter_matrix! bunu
-yapabilir. Iris veri seti uzerinde gorelim, her boyut hem y-ekseni hem
-x-ekseninde verilmis, iliskiyi gormek icin eksende o boyutu bulup kesisme
-noktalarindaki grafige bakmak lazim. 
-
-\begin{minted}[fontsize=\footnotesize]{python}
-import pandas as pd
-df = pd.read_csv('iris.csv')
-df = df.ix[:,0:4]
-pd.scatter_matrix(df)
-plt.savefig('stat_summary_01.png')
-\end{minted}
-
-\includegraphics[height=8cm]{stat_summary_01.png}
-
-
-Iliski oldugu zaman o iliskiye tekabul eden grafikte ``duz cizgiye benzer''
-bir goruntu olur, demek ki degiskenlerden biri artinca oteki de artiyor,
-azalinca oteki de azaliyor demektir. Eger ilinti yok ise bol gurultulu, ya
-da yuvarlak kureye benzer bir sekil cikar. Ustteki grafige gore yaprak
-genisligi (petal width) ile yaprak boyu (petal length) arasinda bir iliski
-var. 
-
-Tanim
-
-$X,Y$ rasgele degiskenlerin arasindaki kovaryans,
-
-$$ Cov(X,Y) = E(X-E(X))(Y-E(Y)) $$
-
-Yani hem $X$ hem $Y$'nin beklentilerinden ne kadar saptiklarini her veri
-ikilisi icin, cikartarak tespit ediyoruz, daha sonra bu farklari birbiriyle
-carpiyoruz, ve beklentisini aliyoruz (yani tum olasilik uzerinden ne
-olacagini hesapliyoruz). Carpimlarin bildigimiz ozelligine gore, arti deger
-arti degerle carpilinca arti, eksi ile eksi arti, eksi ile arti eksi verir,
-ve bu bilgi bize ilinti bulma hakkinda guzel bir ipucu sunar. Pozitif
-sonucun pozitif korelasyon, negatif ise tersi sekilde ilinti oldugu
-sonucuna boylece kolayca erisebiliriz.
-
-Ayri ayri $X,Y$ degiskenleri yerine cok boyutlu $X$ kullanirsak, ki
-boyutlari $m,n$ olsun yani $m$ veri noktasi ve $n$ boyut (ozellik, oge)
-var, tanimi soyle ifade edebiliriz,
-
-$$ \Sigma = Cov(X) = E((X-E(X))^T(X-E(X))) $$
-
 Verisel Kovaryans (Empirical Covariance) 
+
+Eger verinin kolonlari arasindaki iliskiyi gormek istersek, en hizli yontem
+matristeki her kolonun (degiskenin) ortalamasini kendisinden cikartmak,
+yani onu ``sifirda ortalamak'' ve bu matrisin devrigini alarak kendisi ile
+carpmaktir. Bu islem her kolonu kendisi ve diger kolonlar ile noktasal
+carpimdan gecirecektir ve carpim, toplama sonucunu nihai matrise
+yazacaktir. Carpimlarin bildigimiz ozelligine gore, arti deger arti degerle
+carpilinca arti, eksi ile eksi arti, eksi ile arti eksi verir, ve bu bilgi
+bize ilinti bulma hakkinda guzel bir ipucu sunar. Pozitif sonucun pozitif
+korelasyon, negatif ise tersi sekilde ilinti oldugu sonucuna boylece
+kolayca erisebiliriz.
 
 Tanim
 
@@ -226,6 +191,49 @@ print np.dot(df2.T,df2) / n
  [ 1.26519111 -0.319568    3.09242489  1.28774489]
  [ 0.51345778 -0.11719467  1.28774489  0.57853156]]
 \end{verbatim}
+
+Verisel kovaryansin sayisal gosterdigini grafiklemek istersek, yani iki
+veya daha fazla boyutun arasindaki iliskileri grafiklemek icin yontemlerden
+birisi verideki mumkun her ikili iliskiyi grafiksel olarak
+gostermektir. Pandas \verb!scatter_matrix! bunu yapabilir. Iris veri seti
+uzerinde gorelim, her boyut hem y-ekseni hem x-ekseninde verilmis, iliskiyi
+gormek icin eksende o boyutu bulup kesisme noktalarindaki grafige bakmak
+lazim.
+
+\begin{minted}[fontsize=\footnotesize]{python}
+import pandas as pd
+df = pd.read_csv('iris.csv')
+df = df.ix[:,0:4]
+pd.scatter_matrix(df)
+plt.savefig('stat_summary_01.png')
+\end{minted}
+
+\includegraphics[height=8cm]{stat_summary_01.png}
+
+Iliski oldugu zaman o iliskiye tekabul eden grafikte ``duz cizgiye benzer''
+bir goruntu olur, demek ki degiskenlerden biri artinca oteki de artiyor
+(eger cizgi soldan sage yukari dogru gidiyorsa), azalinca oteki de azaliyor
+demektir (eger cizgi asagi dogru iniyorsa). Eger ilinti yok ise bol
+gurultulu, ya da yuvarlak kureye benzer bir sekil cikar. Ustteki grafige
+gore yaprak genisligi (petal width) ile yaprak boyu (petal length) arasinda
+bir iliski var.
+
+Tanim
+
+$X,Y$ rasgele degiskenlerin arasindaki kovaryans,
+
+$$ Cov(X,Y) = E(X-E(X))(Y-E(Y)) $$
+
+Yani hem $X$ hem $Y$'nin beklentilerinden ne kadar saptiklarini her veri
+ikilisi icin, cikartarak tespit ediyoruz, daha sonra bu farklari birbiriyle
+carpiyoruz, ve beklentisini aliyoruz (yani tum olasilik uzerinden ne
+olacagini hesapliyoruz). 
+
+Ayri ayri $X,Y$ degiskenleri yerine cok boyutlu $X$ kullanirsak, ki
+boyutlari $m,n$ olsun yani $m$ veri noktasi ve $n$ boyut (ozellik, oge)
+var, tanimi soyle ifade edebiliriz,
+
+$$ \Sigma = Cov(X) = E((X-E(X))^T(X-E(X))) $$
 
 Medyan ve Yuzdelikler (Percentile)
 
@@ -425,11 +433,10 @@ degeri nedir diye hesap ederek ayni formule eristik, fakat bu bir anlamda
 bir guzel raslanti oldu.. Daha dogrusu bu aynilik Gaussian / Normal
 dagilimlarinin ``normalligi'' ile alakali muhakkak, fakat ornekleme
 ortalamasi hicbir dagilim faraziyesi yapmiyor, herhangi bir dagilimdan
-geldigi bilinen ya da bilinmeyen bir veri uzerinde kullanilabiliyor (ise
-yaramayabilir de tabii). Bunu unutmayalim. Istatistikte matematigin
-lakaytlasmasi (sloppy) kolaydir, o sebeple neyin tanim, neyin hangi
-faraziyeye gore optimal, neyin nufus (population) neyin orneklem (sample)
-oldugunu hep hatirlamamiz lazim.
+geldigi bilinen ya da bilinmeyen bir veri uzerinde kullanilabiliyor. Bunu
+unutmayalim. Istatistikte matematigin lakaytlasmasi (sloppy) kolaydir, o
+sebeple neyin tanim, neyin hangi faraziyeye gore optimal, neyin nufus
+(population) neyin orneklem (sample) oldugunu hep hatirlamamiz lazim.
 
 Devam edelim, maksimum olurluk ile $\hat{\sigma}$ hesaplayalim,
 
