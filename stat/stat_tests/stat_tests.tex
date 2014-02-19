@@ -440,15 +440,11 @@ vererek elde edilen degeri 0.05'ten kucuk olup olmadigina bakarak ta
 yapabilirdik. Fakat metotu insa ediyorduk o sebeple daha fazla ornekli
 anlatmak gerekti. 
 
-Binom Testi
-
-Bazen Hipotez testi (bir veriye dayanarak) farzedilen bir parametreyi bir
-sabit degerle karsilastirmak, ya da iki parametreyi birbiriyle
-karsilastirmak icin kullanilir.
+Ornek
 
 Diyelim ki elimizde bir Web sitesinin gunluk ziyaret, tiklama sayilarini
-gosteren bir veri seti var (CVR ziyaretcilerin, sitedeki tiklayan musteriye
-"cevirme' orani, -conversion-)
+gosteren bir veri seti var, CVR ziyaretcilerin sitedeki tiklayan musteriye
+donusmesi orani (conversion). 
 
 \begin{minted}[fontsize=\footnotesize]{python}
 import pandas as pd
@@ -472,11 +468,12 @@ print a
 Bu veri seti icin cvr'in 0.16, yani yuzde 16 oldugunu onceden
 biliyoruz. Ustteki basari orani binom dagili ile modellenebilir, ziyaretler
 "deneylerdir", yani orneklem buyuklugunu gosterirler. Tiklama ise
-basaridir,
+basaridir, onceki binom ornegindeki ayni formulu kullanirsak, normal
+yaklasiksalligi uzerinden bir z-skoru hesaplayabiliriz,
 
 \begin{minted}[fontsize=\footnotesize]{python}
-p_hat = 0.16
-btest = lambda x: (x['cvr']-p_hat) / np.sqrt( p_hat*(1-p_hat)/x['ziyaret'])
+p = 0.16
+btest = lambda x: (x['cvr']-p) / np.sqrt( p*(1-p_hat)/x['ziyaret'])
 a['guven'] = a.apply(btest, axis=1)
 a['guven'] = np.round(stats.zprob(a['guven'])*100,2)
 print a
