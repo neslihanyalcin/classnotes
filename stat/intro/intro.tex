@@ -258,9 +258,12 @@ Dagilimlar
 Bernoulli Dagilimi
 
 $X$'in bir yazi-tura atisini temsil ettigini dusunelim. O zaman $P(X = 1) =
-p$, ve $P(X = 0) = 1 - p$ olacaktir, ki $p \in [0,1]$ olmak uzere. O zaman
-$X$'in dagilimi Bernoulli deriz, ve $X \sim Bernoulli(p)$ diye
-gosteririz. Olasilik fonksiyonu $f(x) = p^x(1-p)^{(1-x)}$, $x \in \{0,1\}$.
+p$, 
+ve $P(X = 0) = 1 - p$ olacaktir, ki $p \in [0,1]$ olmak uzere. O zaman
+$X$'in dagilimi Bernoulli deriz, $X \sim Bernoulli(p)$ diye
+gosteririz. Olasilik fonksiyonu, $x \in \{0,1\}$.
+
+$$ f(x;p) = p^x(1-p)^{(1-x)} $$
 
 Yani $x$ ya 0, ya da 1. Parametre $p$, 0 ile 1 arasindaki herhangi bir reel 
 sayi. 
@@ -291,7 +294,10 @@ gosteren $X$ rasgele degiskeni Binom Dagilimina sahiptir denir.
 
 Bu dagilimin yogunlugu 
 
-$$ f(x;p,n) = {n \choose{x}} p^x(1-p)^{n-x} $$
+$$ f(x;p,n) = {n \choose{x}} p^x(1-p)^{n-x} 
+$$
+
+$$ = \frac{n!}{x!(n-x)!} p^x(1-p)^{n-x}  $$
 
 Bu fonksiyonun parametreleri $p,n$ degerleridir. Beklenti ve varyans
 
