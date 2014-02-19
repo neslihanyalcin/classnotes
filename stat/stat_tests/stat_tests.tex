@@ -473,7 +473,7 @@ yaklasiksalligi uzerinden bir z-skoru hesaplayabiliriz,
 
 \begin{minted}[fontsize=\footnotesize]{python}
 p = 0.16
-btest = lambda x: (x['cvr']-p) / np.sqrt( p*(1-p_hat)/x['ziyaret'])
+btest = lambda x: (x['cvr']-p) / np.sqrt( p*(1-p)/x['ziyaret'])
 a['guven'] = a.apply(btest, axis=1)
 a['guven'] = np.round(stats.zprob(a['guven'])*100,2)
 print a

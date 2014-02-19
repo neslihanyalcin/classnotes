@@ -14,24 +14,42 @@ tahmini olan $X/n$'in en azindan $100(1-\alpha)\%$ olasilikta $p$'nin $d$
 kadar yakininda olmasini istiyoruz. O zaman alttaki denklemi tatmin eden en
 ufak $n$'i buldugumuz anda problemimizi cozduk demektir, 
 
-$$ P\bigg( -d \le \frac{X}{n} - p \le d \bigg)  = 1-\alpha$$
+$$ P\bigg( -d \le \frac{X}{n} - p \le d \bigg)  = 1-\alpha
+\mlabel{1}
+$$
 
 Tahmin edici $X/n$'nin kendisi de bir rasgele degiskendir. Bu degisken
 normal olarak dagilmistir, cunku $X$ Binom olarak dagilmis ise, bu dagilim
-ayri Bernoulli'lerin toplamina esittir. Toplamin aritmetik ortalamasi ise
-Merkezi Limit Kanunu'na gore normal'e yaklasir. O zaman, standardize etmek
-icin $X/n$'i standart sapmaya bolmek gerekir. 
+ayri Bernoulli dagilimlarinin toplamina esittir. Toplamin aritmetik
+ortalamasi ise Merkezi Limit Kanunu'na gore normal'e yaklasir. O zaman,
+standardize etmek icin $X/n$'den beklentiyi cikartip standart sapmaya
+bolmek gerekir. Beklenti zaten cikartilmis durumda (sansa bak!),
+beklentinin ne oldugunu kontrol edelim tabii, ezbere yapmayalim bu isi,
+eger her Bernoulli'yi $X_i$ olarak temsil edersek,
+
+$$ X = X_1 + .. + X_n $$
+
+$$ X/n = 1/n(X_1 + .. + X_n )$$
+
+$$ E[X/n] = E[1/n(X_1 + .. + X_n )]$$
+
+$$  = 1/nE[(X_1 + .. + X_n )]$$
+
+$$  = n(1/n) p = p$$
+
+Varyans icin
 
 $$ Var(X/n) = \frac{1}{n^2}Var(X) = \frac{1}{n^2}np(1-p)=
 \frac{1}{n}p(1-p) 
 $$
 
-cunku Binom dagilimlar icin $Var(X) = np(1-p)$. Standart sapma ustteki
-ifadenin karekoku, yani 
+Binom dagilimlar icin $Var(X) = np(1-p)$ oldugunu biliyoruz. Standart sapma
+ustteki ifadenin karekoku, yani
 
 $$ Std(X/n) = \sqrt{p(1-p)/n}
 $$
 
+Simdi standardize edelim,
 
 $$ P\bigg( 
 \frac{-d}{\sqrt{p(1-p)/n}} \le 
@@ -48,6 +66,55 @@ Z
 \bigg)  = 
 1-\alpha$$
 
+Daha onceki z-skoru iceren esitsizlikleri hatirlarsak, ustteki ifade 
+
+$$ \frac{d}{\sqrt{p(1-p)/n}} = z_{\alpha/2} 
+$$
+
+O zaman 
+
+$$ \frac{z_{\alpha/2}^2p(1-p)}{d^2} = n $$
+
+Fakat bu bir nihai sonuc olamaz, cunku $n$, $p$'nin bir fonksiyonun haline
+geldi ve $p$ bilinmeyen bir deger. Fakat biliyoruz ki $0 \le p \le 1$, ve
+$p(1-p) \le \frac{1}{4}$. 
+
+Bunu kontrol edelim, $p(1-p)$ hangi $p$'de maksimize olur? $p$'ye gore
+turev aliriz, sifira esitleriz, $(p-p^2)' = 1 - 2p = 0, p=1/2$. Ve hesabi
+yaparsak, $1/2(1-1/2)=1/4$. Demek ki $p(1-p)$ degeri $1/4$'ten daha buyuk
+olamaz. Buna gore, ustteki formule $p(1-p)$ yerine onun olabilecegi en
+buyuk degeri koyarsak, 
+
+$$ \frac{z_{\alpha/2}^21/4}{d^2} = n $$
+
+$$ n = \frac{z_{\alpha/2}^2}{4d^2} $$
+
+
+Ornek
+
+Buyuk bir sehirde cocuklarin kacta kacinin asisini almis olup olmadigini
+anlamak icin bir anket gerceklestirilecek. Anketi duzenleyenler orneklem
+orani olan $X/n$'in en az 98\% oranda gercek oran $p$'nin 0.05 yakininda
+olmasini istiyorlar. Orneklem ne kadar buyuk olmalidir? 
+
+Burada $100(1-\alpha) = 98$, o zaman $\alpha = 0.02$, demek ki $z_{alpha/2}
+= z_{0.02/2} = z_{0.01}$ 
+degerine ihtiyacimiz var. Python ile
+
+\begin{minted}[fontsize=\footnotesize]{python}
+from scipy.stats.distributions import norm
+print norm.ppf(0.99)
+\end{minted}
+
+\begin{verbatim}
+2.32634787404
+\end{verbatim}
+
+Tum hesap icin
+
+$$ n = \frac{(2.33)^2}{4(0.05)^2} = 543$$
+
+Demek ki kabul edilebilir en ufak deger 543. 
 
 
 \end{document}
