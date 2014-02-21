@@ -239,6 +239,55 @@ Yani $N(180,12.58)$ dagilimini elde ettik ve hesaplari onun uzerinden
 yaptik. Sonuc diyor ki verilen orneklem ve nufus $p$ degeri ile 170 altinda
 zenci sayisi elde etmek oldukca dusuk bir ihtimalde. 
 
+Ornek
+
+Diyelim ki elimizde bir Web sitesinin gunluk ziyaret, tiklama sayilarini
+gosteren bir veri seti var, CVR ziyaretcilerin sitedeki tiklayan musteriye
+donusmesi orani (conversion). 
+
+\begin{minted}[fontsize=\footnotesize]{python}
+import pandas as pd
+from scipy import stats
+a = pd.DataFrame({'tiklama': [20.,2.,40.,5.,10.,100.],
+                  'ziyaret': [100.,10.,300.,400.,30.,800.]})
+a['cvr'] = a['tiklama'] / a['ziyaret'] 
+print a
+\end{minted}
+
+\begin{verbatim}
+   tiklama  ziyaret       cvr
+0       20      100  0.200000
+1        2       10  0.200000
+2       40      300  0.133333
+3        5      400  0.012500
+4       10       30  0.333333
+5      100      800  0.125000
+\end{verbatim}
+
+Bu veri seti icin cvr'in 0.16, yani yuzde 16 oldugunu onceden
+biliyoruz. Ustteki basari orani binom dagili ile modellenebilir, ziyaretler
+"deneylerdir", yani orneklem buyuklugunu gosterirler. Tiklama ise
+basaridir, onceki binom ornegindeki ayni formulu kullanirsak, normal
+yaklasiksalligi uzerinden bir z-skoru hesaplayabiliriz,
+
+\begin{minted}[fontsize=\footnotesize]{python}
+p = 0.16
+btest = lambda x: (x['cvr']-p) / np.sqrt( p*(1-p)/x['ziyaret'])
+a['guven'] = a.apply(btest, axis=1)
+a['guven'] = np.round(stats.zprob(a['guven'])*100,2)
+print a
+\end{minted}
+
+\begin{verbatim}
+   tiklama  ziyaret       cvr  guven
+0       20      100  0.200000  86.24
+1        2       10  0.200000  63.50
+2       40      300  0.133333  10.39
+3        5      400  0.012500   0.00
+4       10       30  0.333333  99.52
+5      100      800  0.125000   0.35
+\end{verbatim}
+
 Binom Guven Araligi
 
 Binom'un Normal yaklasiksalligi konusundan bir ornek daha. Eger $p$
@@ -292,6 +341,69 @@ $$ \bigg(
 $$
 
 $$ = (0.776,0825) $$
+
+
+Hata Payi (Margin of Error)
+
+Basinda oranlari rapor ederken onunla beraber telafuz edilen bir kavram
+hata payidir. Aslinda bu binom dagilimlarda guven araligi ile cok yakinda
+alakalidir;  hata payi \%95 guven araliginin en maksimum genisliginin yarisi
+olarak bilinir. Yani \%95 araliginin bir ucunu diger ucundan cikartirsak ve
+ikiye bolersek, istenen sonuca erisiriz. Formulsel olarak genislik $w$,
+
+$$ w = \frac{k}{n} + 
+1.96 \sqrt{\frac{(k/n)(1-k/n)}{n}} - 
+- \bigg[ 
+\frac{k}{n} -
+1.96 \sqrt{\frac{(k/n)(1-k/n)}{n}}
+\bigg]
+ $$
+
+$$ = 3.92 \sqrt{\frac{(k/n)(1-k/n)}{n}} $$
+
+Simdi $(k/n)(1-k/n)$ carpimini dusunelim. {\em Orneklem Buyuklugu}
+bolumunde gorduk, $n$ her zaman $k$'den buyuk olduguna gore $k/n$ her zaman
+0 ve 1 arasindadir, o zaman $(k/n)(1-k/n) \le 1/4$ olmalidir, yani
+gosterilen carpim 1/4'ten buyuk olamaz. Bunu alip ustteki formul icine
+koyarsak,
+
+$$ \max w = 3.92 \sqrt{\frac{1}{4n}} $$
+
+elde ederiz. Bunun yarisi hata payidir $d$ olur, yani
+
+$$ d = \frac{0.98}{\sqrt{n}} $$
+
+Ornek
+
+Bir secim kampaynasi sirasinda A ve B adaylari arasinda hangisinin daha
+once oldugunu bulmak icin bir anket yapilir. Telefonda 597 kisiye
+soruldugunda A adayinin 299 kisinin oyunu alacagi saptanmistir. Basin
+durumu ``A adayinin avantaji hata payi \%4 icinde oldugu icin o onde kabul
+edilebilir'' diye rapor etmistir. A oylarinin hata payi hakikaten \%4'mudur?
+
+\begin{minted}[fontsize=\footnotesize]{python}
+n = 597.
+k = 299
+print n/2
+print k/n
+d = 0.98/np.sqrt(n) 
+print d*100
+\end{minted}
+
+\begin{verbatim}
+298.5
+0.500837520938
+4.01087299444
+\end{verbatim}
+
+Evet hata payi \%4 cikti. 
+
+Dikkat edilirse hata payinin anketten gelen sonuclarla hicbir alakasi yok,
+A icin tercih \%25, \%75 olabilirdi ama ustteki hata payi hesabi yine ayni
+kalirdi. Bunun sebebi formulun $n$'ye bagli olmasi. 
+
+Daha onemli soru hata payi basinin ustteki ifadesinin gercekten secim
+sonucu ile alakali olup olmadigi! 
 
 Hipotez Testleri (Hypothesis Testing)
 
@@ -445,7 +557,7 @@ ya da
 $$ P(Z \le  \frac{\bar{y}^* - 25.0}{2.4 / \sqrt{30}}) = 0.95 $$
 
 z-Skor tablosuna bakiyoruz, ``hangi z degeri 0.95 degeri sonucunu verir'',
-kordinatlardan 1.64 z-skorunu buluyoruz. 
+kordinatlardan 1.64 z-skorunu buluyoruz. Ya da
 
 \begin{minted}[fontsize=\footnotesize]{python}
 print norm.ppf(0.95)
@@ -472,52 +584,29 @@ anlatmak gerekti.
 
 Ornek
 
-Diyelim ki elimizde bir Web sitesinin gunluk ziyaret, tiklama sayilarini
-gosteren bir veri seti var, CVR ziyaretcilerin sitedeki tiklayan musteriye
-donusmesi orani (conversion). 
+SAT-I testinde ulke averajina oldukca yakin sonuclar alan bir lisede yeni
+bir mufredat denenmesine karar veriliyor. Deneme icin 86 ogrenci rasgele
+sekilde seciliyor ve yeni bir tur cebir ve geometri dersine
+sokuluyor. Sonraki SAT-1 testinde sonuclarina gore bu cocuklar ortalama 502
+sonuc almislar, ulke capindaki ortalama 494, standart sapma
+124. $\alpha=0.05$ onemliligi (significance) seviyesinde yeni mufredatin
+basarili oldugu iddia edilebilir mi? 
 
-\begin{minted}[fontsize=\footnotesize]{python}
-import pandas as pd
-from scipy import stats
-a = pd.DataFrame({'tiklama': [20.,2.,40.,5.,10.,100.],
-                  'ziyaret': [100.,10.,300.,400.,30.,800.]})
-a['cvr'] = a['tiklama'] / a['ziyaret'] 
-print a
-\end{minted}
+Ilk once $\mu$ parametresinin yeni mufredatin gercek ortalamasi oldugunu
+farzediyoruz. O zaman statusko nedir? Bu ortalamanin ulke ortalamasi
+seviyesinde kalmasidir, yani $\mu_0 = 494$ olmasidir. Fakat bu sefer
+alternatif hipotez iki yonlu (two-sided) olmali cunku yeni mufredat hic
+istenmese de test sonuclarinda negatif sonuca da yol acabilir! O zaman
+$H_0$'i reddetmeliyiz eger z istatistigi $\le -z_{0.025}$ ise (yani
+-1.96'dan kucuk ise), ya da $\ge z_{0.025}$ (yani 1.96'dan buyuk ise). 
 
-\begin{verbatim}
-   tiklama  ziyaret       cvr
-0       20      100  0.200000
-1        2       10  0.200000
-2       40      300  0.133333
-3        5      400  0.012500
-4       10       30  0.333333
-5      100      800  0.125000
-\end{verbatim}
+$$ z = \frac{502-494}{124\sqrt{86}} = 0.60$$
 
-Bu veri seti icin cvr'in 0.16, yani yuzde 16 oldugunu onceden
-biliyoruz. Ustteki basari orani binom dagili ile modellenebilir, ziyaretler
-"deneylerdir", yani orneklem buyuklugunu gosterirler. Tiklama ise
-basaridir, onceki binom ornegindeki ayni formulu kullanirsak, normal
-yaklasiksalligi uzerinden bir z-skoru hesaplayabiliriz,
+Sonuc 1.96'dan buyuk degil. O zaman $H_0$'i, yani statukoyu
+degistiremedik. Elde edilen sonuclar bir ilerlemedir fakat bu ilerlemenin sans
+eseri olmasi da muhtemel.
 
-\begin{minted}[fontsize=\footnotesize]{python}
-p = 0.16
-btest = lambda x: (x['cvr']-p) / np.sqrt( p*(1-p)/x['ziyaret'])
-a['guven'] = a.apply(btest, axis=1)
-a['guven'] = np.round(stats.zprob(a['guven'])*100,2)
-print a
-\end{minted}
-
-\begin{verbatim}
-   tiklama  ziyaret       cvr  guven
-0       20      100  0.200000  86.24
-1        2       10  0.200000  63.50
-2       40      300  0.133333  10.39
-3        5      400  0.012500   0.00
-4       10       30  0.333333  99.52
-5      100      800  0.125000   0.35
-\end{verbatim}
+\includegraphics[height=5cm]{sat1.png}
 
 Tek Orneklem t Testi (One-sample t test)
 
