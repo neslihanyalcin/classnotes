@@ -607,6 +607,65 @@ degistiremedik. Elde edilen sonuclar bir ilerlemedir fakat bu ilerlemenin sans
 eseri olmasi da muhtemel.
 
 \includegraphics[height=5cm]{sat1.png}
+Binom Hipotez Testleri
+
+Binom dagiliminin Normal yaklasiksalligi bize
+
+$$ \frac{X-np}{\sqrt{np(1-p)}} $$
+
+vermisti. Bu yaklasiksalligi hipotez testleri icin kullanilabilir.
+
+Ornek
+
+Erteleme Teorisi: Yaygin bir inanisa gore insanlar olum tarihlerini onlar
+icin onemli bir gun sonrasina erteleyebiliyorlar, mesela kendi dogum
+gunleri, aile toplantilari, bir akrabanin donusunu beklemek, vs. gibi Hatta
+ulke capinda secimlerin bile olum gunlerini etkiledigi gorulmustur,
+baskanlik secimleri olan Eylul ve Ekim aylari sirasinda olum oranlarinin
+dustugu saptanmistir. Bu teoriye gore pek cok yasli insan kimin kazandigini
+gormek icin ``biraz daha dayaniyor''.
+
+Bir arastirma bu teorinin dogru olup olmadigini kontrol etti. Bu baglamda
+Salt Lake City sehrindeki bir gazetenin olum ilani kismina bakildi ve 747
+kisi icinden sadece 60 kisinin, daha dogrusu \%8'inin kendi dogumgunlerinin
+3 ay oncesi icinde oldugunu saptadi. Eger insanlarin olumu rasgele olsaydi
+yaklasik olarak \%25'inin bu periyod icinde olmesini beklerdiniz. O zaman
+bu \%25'den \%8'e dususu nasil aciklamaliyiz?  Arastirma teoriyi
+destekleyecek rakamlari veriyor mu?
+
+Diyelim ki 747 olum iki kategori uzerinden temsil edilsin, dogumgunu
+oncesindeki 3 ay icinde olenler ve olmeyenler. $k_i=1$ ile $i$'inci kisinin
+1. kategoriye, $k_i=0$ ise 2. kategoriye ait olmasini temsil ediyoruz. O
+zaman $k = k_1 + k_2 + .. + k_{747}$ birinci kategorideki toplam olumu
+temsil ediyor. Ustteki her $k$ dogal olarak Binom dagilimi, ve $p$
+parametresini kullaniyor ki 
+
+$$ p = P(\textrm{sahis dogumgunu oncesindeki 3 ay icinde oluyor}) $$
+
+Eger insanlar olumlerini ertelemeseydi $p = 3/12 = 0.25$ olurdu. Eger
+erteliyorlar ise $p$ 0.25'den daha kucuk olmali. Bu azalmanin ne kadar
+onemli (significant) oldugunu irdelemek icin tek tarafli bir Binom Testi
+uygulamak lazim. 
+
+$H_0$: $p = 0.25$
+
+$H_1$: $p < 0.25$
+
+Test icin $p_0$ oldugunu farzettigimiz ``gercek'' dagilimi (ki statuskoyu
+onun uzerinden temsil edecegiz) kullanacagiz. 
+
+$$ z = \frac{k-np_0}{\sqrt{np_0(1-p_0)}} \le -z_{0.05} = -1.64 $$
+
+$$ = \frac{60-747(0.25)}{747(0.25)(0.75)} = -10.7 $$
+
+Test istatistigi kritik degerin asiri derecede sol tarafina dustu. Demek ki
+ezici miktarda kanit, veri, sonuc elde ettik, \%25'ten \%8'e dususun pur
+sans disinda baska bir sebebi var. Tabii bu sebep Erteleme Teorisi
+haricinde bir sey de olabilir, fakat yine de ortaya cikan kalip bize olum
+vaktimizin kontrolumuzde oldugunu destekleyen yonde bir sonuc veriyor.
+
+Not: Ustteki test ``buyuk orneklem'' oldugu durumlarda gecerlidir. Kucuk
+orneklem durumunda Binom dagiliminin kendisi test icin kullanilabilir.
 
 Tek Orneklem t Testi (One-sample t test)
 
