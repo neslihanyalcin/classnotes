@@ -31,23 +31,90 @@ beklendigi gibi can egrisi $f_Z(z)$ seklinde degil, daha ``etekleri
 kabarik'' baska bir dagilim gibi gozuktugunu farketti, yani sifirdan cok
 kucuk ya da ondan cok buyuk oranlarin ihtimali cok dusuk degildi. 
  
-
 \includegraphics[height=5cm]{t1.png}
 
+Ustteki histogram $S$ kullanarak hesaplanmistir, $n=4$ olmak uzere 500
+orneklem uzerinden hesap yapilmistir. Iki dagilimin birbirinden uzaklastigi
+goruluyor. 
 
-$t$ t Dagilimi (Student's t) ve Cauchy Dagilimi 
+Turetmek 
 
-$X$, $v$ derece bagimsizlikta $t$ dagilimina sahiptir, ki bu $X \sim t_v$
-diye yazilir eger 
+Genel olarak olasilik dagilimlari iki buyuk kategori altina duser. Asagi
+yukari bir duzine kadari gercek dunyadan alinabilecek her olcumu oldugu
+haliyle iyi modelleme kabiliyetine sahiptir; mesela normal, binom, Poisson,
+ustel dagilimlar gibi. Diger yandan daha az sayida (ama bir o kadar onemli)
+dagilimlar $n$ tane rasgele degiskenin uzerinden hesaplanan {\em
+  fonksiyonlarin} nasil davrandigini cok iyi modeller. Iste bu dagilimlara
+orneklem dagilimlari ismi verilir ve tipik kullanim alanlari cikarsama
+(inference) yapmaktir. 
 
-$$ f(x) = 
-\frac{ \Gamma(v+1)/2)} {\sqrt{v\pi}\Gamma(v/2)}
-\bigg(1 + \frac{ x^2}{v}\bigg)^{-(v+1)/2}
+Normal dagilimi her iki kategoriye de aittir. Hem ayri ayri olcumleri
+modellemek, hem de $T = \frac{\bar{Y}-\mu}{\sigma / \sqrt{n}}$'in
+olasiliksal davranisini modellemek icin kullanilir. Ikinci kullanimi normal
+dagilimin bir orneklem dagilimi olarak kullanilmasina ornektir. 
+
+Normal dagilimdan sonra en onemli uc orneklem dagilimi Ogrenci t Dagilimi,
+chi kare dagilimi ve F dagilimidir. Son iki dagilim t oranini temsil eden
+$f_T(t)$'yi, yani $T = \frac{\bar{Y}-\mu}{\sigma / \sqrt{n}}$'yi turetmek icin gerekli.
+
+$\chi^2$ Dagilimi
+
+$X$, $p$ derece serbestlige sahip bir $\chi^2$ dagilima sahip ise, ki $X \sim
+\chi^2_p$ olarak 
+gosterilir, yogunluk 
+
+$$ f(x) = \frac{ 1}{\Gamma(\frac{p}{2}) 2^{p/2}} x^{(p/2) - 1} e^{-x/2 }, \ x > 0 $$
+
+formulune esittir. Bu bir teoridir ve ispatlanabilir.
+
+Tanim
+
+$Z_1, .. , Z_p$ bagimsiz standart Normal rasgele degiskenler ise, $\sum _{
+  i=1}^{p} Z_p^2 \sim \chi^2_p$ 
+esitligi dogrudur, ki bu dagilima $p$ derecede serbestlige (degrees of
+freedom) olan chi kare dagilimi ismi verilir.
+
+Teori
+
+$Y_1,..,Y_n$ ortalamasi $\mu$, varyansi $\sigma^2$ olan bir normal
+dagilimdan alinan $n$ orneklem olsun. O zaman 
+
+a. $S^2$ ve $\bar{Y}$ birbirinden bagimsizdir
+
+b. $\frac{(n-1)S^2}{\sigma^2} =
+\frac{1}{\sigma^2}\sum_{i=1}^{n}(Y_i-\bar{Y})^2)$ hesabi $n-1$ derece
+serbestligike sahip bir chi kare dagilimidir.
+
+Ispati icin [1]'e bakiniz.
+
+Tanim
+
+$Z$ bir standart normal rasgele degisken, $U$ ise $n$ derece serbestlikteki
+bir chi kare rasgele degisken olsun. O zaman $n$ derece serbestligi olan
+Ogrenci t orani (Student's t ratio)
+
+$$ T_n = \frac{Z}{\sqrt{ \frac{U}{n}}} $$
+
+olarak belirtilir.
+
+t Dagilimi (Student's t) ve Cauchy Dagilimi 
+
+$X$, $n$ derece bagimsizlikta $t$ dagilimina sahiptir, ve dagilimi
+
+$$ 
+f_T(t) = 
+\frac
+{
+\Gamma(\frac{n+1}{2})
+}
+{
+\sqrt{n\pi}\Gamma(\frac{n}{2})
+\bigg(1+\frac{t^2}{n}\bigg)^{(n+1)/2}
+}
  $$
 
-$t$ dagilimi Normal dagilima benzer ama daha kuyrugu daha kalindir. Aslinda
-Normal dagilimi $t$ dagiliminin $v = \infty$ oldugu hale tekabul
-eder. Cauchy dagilimi da $t$'nin ozel bir halidir, $v = 1$ halidir. Bu
+Aslinda Normal dagilimi $t$ dagiliminin $v = \infty$ oldugu hale tekabul
+eder. Cauchy dagilimi da $t$'nin ozel bir halidir, $n = 1$ halidir. Bu
 durumda yogunluk fonksiyonu
 
 $$ f(x)  = \frac{ 1}{\pi(1+ x^2)} $$
@@ -86,15 +153,8 @@ $$ =
  $$
 
 
-$\chi^2$ Dagilimi
+Kaynaklar
 
-$X$'in $p$ derece serbestlige sahip bir $\chi^2$ dagilima sahip ise $X \sim
-\chi^2_p$ olarak gosterilir, yogunluk 
-
-$$ f(x) = \frac{ 1}{\Gamma(p/2) 2^{p/2}} x^{(p/2) - 1} e^{-x/2 }, \ x > 0 $$
-
-Eger $Z_1, .. , Z_p$ bagimsiz standart Normal rasgele degiskenler ise,
-$\sum _{ i=1}^{p} Z_p \sim \chi^2_p$ esitligi dogrudur. 
-
+Larsen, {\em Introduction to Mathematical Statistics and Its Applications}
 
 \end{document}
