@@ -160,8 +160,9 @@ $$ S^2 = \frac{1}{n} \sum (X_i - \bar{X})^2
 $$
 
 ki ustteki degerin karekoku $S$ olacaktir. $\sigma$ yerine $S$ kullanmanin 
-buyuk $n$ degerlerinde CLT'yi etkilemedigi ispat edilmistir [5]. 
-
+buyuk $n$ degerlerinde CLT'yi etkilemedigi ispat edilmistir [5]. Fakat daha
+kucuk orneklem durumunda t Dagilimi daha uygun olur. Bu koun t Testleri
+bolumunde anlatilacak.
 
 Binom Dagilimlar ve Normal Yaklasiksallik
 
@@ -181,10 +182,13 @@ $$ Y = n\bar{X}  $$
 
 Merkezi Limit Teorisinden $\bar{X}$'in nufus beklentisi ve sapmasini iceren
 $N(\mu,\sigma)$ olarak dagilacagini biliyoruz. Nufus parametreleri nedir?
-Her $X_i$'in ayni olan $\mu,\sigma$'si ile alakli, durumda Bernoulli
-parametrelerini alip $N(\cdot)$ icinde direk kullanabiliriz, 
+Her $X_i$'in birbirinden bagimsiz ayni olan $\mu,\sigma$'ler uzerinden
+tanimli oldugu durumda Bernoulli parametrelerini alip $N(\cdot)$ icinde
+direk kullanabiliriz,
 
-$$E(X_i) = p, Var(X_i) = p(1-p)$$
+$$E(X_i) = p$$
+
+$$ Var(X_i) = p(1-p) $$
 
 o zaman 
 
@@ -346,7 +350,7 @@ $$ = (0.776,0825) $$
 Hata Payi (Margin of Error)
 
 Basinda oranlari rapor ederken onunla beraber telafuz edilen bir kavram
-hata payidir. Aslinda bu binom dagilimlarda guven araligi ile cok yakinda
+hata payidir. Aslinda bu binom dagilimlarda guven araligi ile cok yakindan
 alakalidir;  hata payi \%95 guven araliginin en maksimum genisliginin yarisi
 olarak bilinir. Yani \%95 araliginin bir ucunu diger ucundan cikartirsak ve
 ikiye bolersek, istenen sonuca erisiriz. Formulsel olarak genislik $w$,
@@ -595,8 +599,8 @@ basarili oldugu iddia edilebilir mi?
 Ilk once $\mu$ parametresinin yeni mufredatin gercek ortalamasi oldugunu
 farzediyoruz. O zaman statusko nedir? Bu ortalamanin ulke ortalamasi
 seviyesinde kalmasidir, yani $\mu_0 = 494$ olmasidir. Fakat bu sefer
-alternatif hipotez iki yonlu (two-sided) olmali cunku yeni mufredat hic
-istenmese de test sonuclarinda negatif sonuca da yol acabilir! O zaman
+alternatif hipotez iki yonlu (two-sided) olmali cunku yeni mufredat, hic
+istenmese de, test sonuclarinda negatif sonuca da yol acabilir! O zaman
 $H_0$'i reddetmeliyiz eger z istatistigi $\le -z_{0.025}$ ise (yani
 -1.96'dan kucuk ise), ya da $\ge z_{0.025}$ (yani 1.96'dan buyuk ise). 
 
@@ -614,7 +618,7 @@ Binom dagiliminin Normal yaklasiksalligi bize
 
 $$ \frac{X-np}{\sqrt{np(1-p)}} $$
 
-vermisti. Bu yaklasiksalligi hipotez testleri icin kullanilabilir.
+vermisti. Bu yaklasiksallik hipotez testleri icin kullanilabilir.
 
 Ornek
 
@@ -657,7 +661,7 @@ onun uzerinden temsil edecegiz) kullanacagiz.
 
 $$ z = \frac{k-np_0}{\sqrt{np_0(1-p_0)}} \le -z_{0.05} = -1.64 $$
 
-$$ = \frac{60-747(0.25)}{747(0.25)(0.75)} = -10.7 $$
+$$ = \frac{60-747(0.25)}{747(0.25)(0.75)} = -10.7 \le -1.64  $$
 
 Test istatistigi kritik degerin asiri derecede sol tarafina dustu. Demek ki
 ezici miktarda kanit, veri, sonuc elde ettik, \%25'ten \%8'e dususun pur
@@ -716,28 +720,17 @@ oldugunu farzeder.
 
 \begin{minted}[fontsize=\footnotesize]{python}
 energ = np.array([
-[9.21, 0],
-[7.53, 1],
-[7.48, 1],
-[8.08, 1],
-[8.09, 1],
-[10.15, 1],
-[8.40, 1],
-[10.88, 1],
-[6.13, 1],
-[7.90, 1],
-[11.51, 0],
-[12.79, 0],
-[7.05, 1],
-[11.85, 0],
-[9.97, 0],
-[7.48, 1],
-[8.79, 0],
-[9.69, 0],
-[9.68, 0],
-[7.58, 1],
-[9.19, 0],
-[8.11, 1]])
+[9.21, 0],[7.53, 1],
+[7.48, 1],[8.08, 1],
+[8.09, 1],[10.15, 1],
+[8.40, 1],[10.88, 1],
+[6.13, 1],[7.90, 1],
+[11.51, 0],[12.79, 0],
+[7.05, 1],[11.85, 0],
+[9.97, 0],[7.48, 1],
+[8.79, 0],[9.69, 0],
+[9.68, 0],[7.58, 1],
+[9.19, 0],[8.11, 1]])
 group1 = energ[energ[:, 1] == 0][:, 0]
 group2 = energ[energ[:, 1] == 1][:, 0]
 t_statistic, p_value = ttest_ind(group1, group2)
@@ -748,7 +741,7 @@ print "two-sample t-test", p_value
 two-sample t-test 0.00079899821117
 \end{verbatim}
 
-$p-value < 0.05$ yani iki grubun ortalamasi ayni degildir. Ayni oldugu
+$p$ degeri < 0.05 yani iki grubun ortalamasi ayni degildir. Ayni oldugu
 hipotezi reddedildi.
 
 Eslemeli t-Test (Paired t-test)
@@ -762,16 +755,11 @@ sonrasi ne kadar yiyecek tukettigi listelenmis.
 
 \begin{minted}[fontsize=\footnotesize]{python}
 intake = np.array([
-[5260, 3910],
-[5470, 4220],
-[5640, 3885],
-[6180, 5160],
-[6390, 5645],
-[6515, 4680],
-[6805, 5265],
-[7515, 5975],
-[7515, 6790],
-[8230, 6900],
+[5260, 3910],[5470, 4220],
+[5640, 3885],[6180, 5160],
+[6390, 5645],[6515, 4680],
+[6805, 5265],[7515, 5975],
+[7515, 6790],[8230, 6900],
 [8770, 7335],
 ])
 pre = intake[:, 0]

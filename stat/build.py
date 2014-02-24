@@ -2,8 +2,9 @@ import os, sys, glob
 
 if len(sys.argv) == 1 or sys.argv[1] == 'tex':
     os.system("""
-    pdftk stat_00/stat_00.pdf stat_intro/intro.pdf stat_summary/stat_summary.pdf \
-    stat_tests/stat_tests.pdf ./stat_sample_size/stat_sample_size.pdf \
+    pdftk stat_00/stat_00.pdf stat_intro/intro.pdf stat_sampling*/stat_sampling*.pdf \
+    stat_summary/stat_summary.pdf stat_tests/stat_tests.pdf \
+    ./stat_sample_size/stat_sample_size.pdf \
     stat_mcmc/stat_mcmc.pdf stat_coal/stat_coal.pdf \
     stat_gauss_fusion/stat_gauss_fusion.pdf stat_pandas_ratings/ratings.pdf  \
     stat_factor/stat_factor.pdf stat_wells/stat_wells.pdf \
