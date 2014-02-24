@@ -1,0 +1,68 @@
+\documentclass[12pt,fleqn]{article}\usepackage{../common}
+\begin{document}
+
+
+
+$t$ t Dagilimi (Student's t) ve Cauchy Dagilimi 
+
+$X$, $v$ derece bagimsizlikta $t$ dagilimina sahiptir, ki bu $X \sim t_v$
+diye yazilir eger 
+
+$$ f(x) = 
+\frac{ \Gamma(v+1)/2)} {\sqrt{v\pi}\Gamma(v/2)}
+\bigg(1 + \frac{ x^2}{v}\bigg)^{-(v+1)/2}
+ $$
+
+$t$ dagilimi Normal dagilima benzer ama daha kuyrugu daha kalindir. Aslinda
+Normal dagilimi $t$ dagiliminin $v = \infty$ oldugu hale tekabul
+eder. Cauchy dagilimi da $t$'nin ozel bir halidir, $v = 1$ halidir. Bu
+durumda yogunluk fonksiyonu
+
+$$ f(x)  = \frac{ 1}{\pi(1+ x^2)} $$
+
+Bu formul hakikaten bir yogunluk mudur? Kontrol icin entegralini alalim, 
+
+$$ \int _{ -\infty}^{\infty} f(x) dx = 
+\frac{ 1}{\pi} \int _{ -\infty}^{\infty} \frac{ dx}{1 + x^2} 
+ $$
+
+Cogunlukla entegre edilen yerde  ``1 arti ya da eksi bir seyin karesi''
+turunde  bir ifade gorulurse, yerine gecirme (subsitution) islemi
+trigonometrik  olarak  yapilir. 
+
+$$  x = \tan \theta, \theta = \arctan x $$
+
+$$ 1 + x^2 = 1 + \tan^2\theta = \sec^2\theta$$
+
+$$ dx / d\theta = \sec^2\theta $$
+
+O zaman 
+
+$$ =
+\frac{ 1}{\pi} \int _{ -\infty}^{\infty} \frac{ dx}{1 + x^2}   =
+\frac{ 1}{\pi} \int _{ -\infty}^{\infty}  \frac{ 1}{\sec^2\theta}\sec^2\theta d\theta = 
+\frac{ 1}{\pi} \int _{ -\infty}^{\infty}  1 \ d\theta = 
+ $$
+
+$$ = 
+\frac{ 1}{\pi} \theta | _{ -\infty}^{\infty}   = 
+\frac{ 1}{\pi} [\arctan(\infty) - \arctan(-\infty)]
+ $$
+
+$$ =
+\frac{ 1}{\pi} [\frac{ \pi}{2} - (-\frac{ \pi}{2}) ] = 1
+ $$
+
+
+$\chi^2$ Dagilimi
+
+$X$'in $p$ derece serbestlige sahip bir $\chi^2$ dagilima sahip ise $X \sim
+\chi^2_p$ olarak gosterilir, yogunluk 
+
+$$ f(x) = \frac{ 1}{\Gamma(p/2) 2^{p/2}} x^{(p/2) - 1} e^{-x/2 }, \ x > 0 $$
+
+Eger $Z_1, .. , Z_p$ bagimsiz standart Normal rasgele degiskenler ise,
+$\sum _{ i=1}^{p} Z_p \sim \chi^2_p$ esitligi dogrudur. 
+
+
+\end{document}
