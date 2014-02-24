@@ -1,6 +1,38 @@
 \documentclass[12pt,fleqn]{article}\usepackage{../common}
 \begin{document}
+Orneklem Dagilimlari (Sampling Distributions)
 
+$\frac{\bar{Y}-\mu}{\sigma / \sqrt{n}}$ ve $\frac{\bar{Y}-\mu}{S /
+  \sqrt{n}}$ Karsilastirmasi
+
+Diyelim ki normal olarak dagildigini bildigimiz bir nufustan $Y_1,..,Y_n$
+rasgele orneklemini topladik, ve amacimiz bilinmeyen gercek $\mu$ hakkinda
+bazi sonuclara varmak. Eger varyans $\sigma^2$ biliniyorsa, bu noktadan
+sonra ne yapacagimiz gayet acik: daha once gordugumuz gibi bir karar kurali
+ortaya cikartmak, ya da guven araligi hesaplamak cok kolay, ki bu
+tekniklerin temelinde $Z = \frac{\bar{Y}-\mu}{\sigma / \sqrt{n}}$ dagiliminin standart normal $f_Z(z)$'ye 
+yaklasmasi yatiyor. 
+
+Fakat pratikte $\sigma^2$ genellikle bilinmez, o zaman nufus varyansinin
+tahmin edicisi $S^2 = \frac{1}{n-1}\sum_{i=1}^n (Y_i-\bar{Y})^2$
+kullanilir, ki bu maksimum olurluk tahmin edicisinin yansiz (unbiased)
+versiyonu. Fakat buradaki onemli soru su: $\sigma^2$ yerine $S^2$ koyma Z
+oranini nasil etkiler? Daha once buyuk orneklemler icin bir fark
+olmadigindan bahsettik. Peki kucuk orneklemler icin? 
+
+Kucuk $n$ icin bu iki oraninin birbirinden farkli oldugununun kesfi William
+Sealy Gossett adli arastirmaciya ait. 1899'da Oxford'dan Kimya ve Matematik
+bolumunden mezun olduktan sonra Gossey, Guiness adli sirkette calismaya
+basladi. Urunlerin uzerinde yapacagi deneylerden aldigi veriler lojistik
+bazi sebepler dolasisiyla cok azdi, ve ``gercek'' $\sigma^2$'nin bilinmesi
+mumkun degildi. Cogu zaman $n$ 4 ya da 5'den bile az oluyordu. Bu gibi
+durumlarla ugrasa ugrasa Gossey $\frac{\bar{Y}-\mu}{S / \sqrt{n}}$'nin
+beklendigi gibi can egrisi $f_Z(z)$ seklinde degil, daha ``etekleri
+kabarik'' baska bir dagilim gibi gozuktugunu farketti, yani sifirdan cok
+kucuk ya da ondan cok buyuk oranlarin ihtimali cok dusuk degildi. 
+ 
+
+\includegraphics[height=5cm]{t1.png}
 
 
 $t$ t Dagilimi (Student's t) ve Cauchy Dagilimi 
