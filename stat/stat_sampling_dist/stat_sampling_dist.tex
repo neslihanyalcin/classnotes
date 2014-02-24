@@ -59,25 +59,31 @@ $f_T(t)$'yi, yani $T = \frac{\bar{Y}-\mu}{\sigma / \sqrt{n}}$'yi turetmek icin g
 
 $\chi^2$ Dagilimi
 
-$X$, $p$ derece serbestlige sahip bir $\chi^2$ dagilima sahip ise, ki $X \sim
-\chi^2_p$ olarak 
-gosterilir, yogunluk 
-
-$$ f(x) = \frac{ 1}{\Gamma(\frac{p}{2}) 2^{p/2}} x^{(p/2) - 1} e^{-x/2 }, \ x > 0 $$
-
-formulune esittir. Bu bir teoridir ve ispatlanabilir.
-
 Tanim
 
-$Z_1, .. , Z_p$ bagimsiz standart Normal rasgele degiskenler ise, $\sum _{
-  i=1}^{p} Z_p^2 \sim \chi^2_p$ 
-esitligi dogrudur, ki bu dagilima $p$ derecede serbestlige (degrees of
-freedom) olan chi kare dagilimi ismi verilir.
+$Z_1, .. , Z_p$ bagimsiz standart Normal rasgele degiskenler ise, $U = \sum
+_{ i=1}^{p} Z_p^2 \sim \chi^2_p$ 
+ki bu dagilima $p$ derecede serbestlige (degrees of freedom) olan chi kare
+dagilimi (chi square distribution) ismi verilir.
 
 Teori
 
-$Y_1,..,Y_n$ ortalamasi $\mu$, varyansi $\sigma^2$ olan bir normal
-dagilimdan alinan $n$ orneklem olsun. O zaman 
+$U$, $p$ derece serbestlige sahip bir $\chi^2$ dagilima sahip ise, ki $U \sim
+\chi^2_p$ olarak 
+gosterilir, yogunluk 
+
+$$ f_U(u) = \frac{ 1}{\Gamma(\frac{p}{2}) 2^{p/2}} u^{(p/2) - 1} e^{-u/2
+} $$
+
+$$ u \ge 0 $$
+
+formulune esittir. Ustteki yogunlugun $r=m/2$ ve $\lambda=1/2$ olan bir
+Gamma dagilimi oldugu da soylenebilir. Ispat icin [1]'e bakiniz.
+
+Teori
+
+$Y_1,..,Y_n$ ortalamasi $\mu$, varyansi $\sigma^2$ olan bir normal dagilimdan alinan $n$ 
+orneklem olsun. O zaman 
 
 a. $S^2$ ve $\bar{Y}$ birbirinden bagimsizdir
 
@@ -85,7 +91,7 @@ b. $\frac{(n-1)S^2}{\sigma^2} =
 \frac{1}{\sigma^2}\sum_{i=1}^{n}(Y_i-\bar{Y})^2)$ hesabi $n-1$ derece
 serbestligike sahip bir chi kare dagilimidir.
 
-Ispati icin [1]'e bakiniz.
+Ispat icin [1].
 
 Tanim
 
@@ -97,7 +103,7 @@ $$ T_n = \frac{Z}{\sqrt{ \frac{U}{n}}} $$
 
 olarak belirtilir.
 
-t Dagilimi (Student's t) ve Cauchy Dagilimi 
+t Dagilimi (Student's t) 
 
 $X$, $n$ derece bagimsizlikta $t$ dagilimina sahiptir, ve dagilimi
 
@@ -151,6 +157,39 @@ $$ =
 $$ =
 \frac{ 1}{\pi} [\frac{ \pi}{2} - (-\frac{ \pi}{2}) ] = 1
  $$
+
+
+Guven Araliklari
+
+Daha once Z oranini temel alarak guven araliklari ya da hipotez testleri
+olusturmustuk. Bu islemler icin standart normal dagilimin ust ve alt
+yuzdelikleri hakkinda bazi bilgiler gerekmisti. Bu bilgiler bir tablodan
+bakilan degerlerdi ya da istatistik yazilimimizda gerekli bir cagri ile
+halledilmisti. 
+
+\includegraphics[height=4cm]{t2.png}
+
+Ogrenci t'nin Z'ye gore farkli bir tarafi belli bir degeri bulmak icin iki
+parametreye ihtiyac olmasi, bunlardan biri $\alpha$ digeri ise serbestlik
+derecesi. t icin artik tablolarla ugrasmayacagiz, 21. yuzyildayiz, yazilim
+ile bu isi halledelim! Mesela $T$ bir Ogrenci t dagilimi ise, ve serbestlik
+derecesi 3 ise, $\alpha=0.01$ icin icin $f_T(t)$'nin $100(1-\alpha)$ yuzdeligi nedir?
+
+\begin{minted}[fontsize=\footnotesize]{python}
+from scipy.stats.distributions import t
+df = 3
+print t.ppf(0.99,df)
+print 1-t.cdf(4.541,df)
+\end{minted}
+
+\begin{verbatim}
+4.5407028587
+0.00999823806449
+\end{verbatim}
+
+Yani
+
+$$ P(T_3 \ge 4.541) = 0.01 $$
 
 
 Kaynaklar
