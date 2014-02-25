@@ -37,8 +37,6 @@ Ustteki histogram $S$ kullanarak hesaplanmistir, $n=4$ olmak uzere 500
 orneklem uzerinden hesap yapilmistir. Iki dagilimin birbirinden uzaklastigi
 goruluyor. 
 
-Turetmek 
-
 Genel olarak olasilik dagilimlari iki buyuk kategori altina duser. Asagi
 yukari bir duzine kadari gercek dunyadan alinabilecek her olcumu oldugu
 haliyle iyi modelleme kabiliyetine sahiptir; mesela normal, binom, Poisson,
@@ -55,22 +53,35 @@ dagilimin bir orneklem dagilimi olarak kullanilmasina ornektir.
 
 Normal dagilimdan sonra en onemli uc orneklem dagilimi Ogrenci t Dagilimi,
 chi kare dagilimi ve F dagilimidir. Son iki dagilim t oranini temsil eden
-$f_T(t)$'yi, yani $T = \frac{\bar{Y}-\mu}{\sigma / \sqrt{n}}$'yi turetmek icin gerekli.
+$f_T(t)$'yi, yani $T = \frac{\bar{Y}-\mu}{\sigma / \sqrt{n}}$'yi turetmek
+icin gerekli.
 
-$\chi^2$ Dagilimi
+Turetmek 
+
+t Dagiliminin ispati icin su basamaklar gerekiyor; Once standart normal
+rasgele degiskenlerin karelerinin toplaminin gamma dagilimin ozel bir hali
+olan chi kare dagilimi oldugunu gostermek. Daha sonra normal dagilmis olan
+bir nufustan alinan $n$ orneklemden elde edilen $\bar{Y}$ ve $S^2$'nin
+birbirinden bagimsiz rasgele degiskenler oldugunu gostermek, ve
+$\frac{n-1}{S^2}$'nin chi kare olarak dagildigini ispatlamak. Daha sonra
+sira birbirinden bagimsiz iki chi kare yogunluk fonksiyonunun arasindaki
+orani turetmeye gelecek, ki bu bir F dagilimidir. En son olarak $T^2
+=(\frac{\bar{Y}-\mu}{S / \sqrt{n}})^2$ ifadesinin 
+birbirinden bagimsiz iki chi kare dagiliminin orani oldugunu gostermek ki
+$T^2$  ifadesi F dagiliminin ozel bir halidir.
+
+Chi Kare, $\chi^2$ Dagilimi
 
 Tanim
 
 $Z_1, .. , Z_p$ bagimsiz standart Normal rasgele degiskenler ise, $U = \sum
-_{ i=1}^{p} Z_p^2 \sim \chi^2_p$ 
+_{ i=1}^{p} Z_p^2$ 
 ki bu dagilima $p$ derecede serbestlige (degrees of freedom) olan chi kare
-dagilimi (chi square distribution) ismi verilir.
+dagilimi (chi square distribution, yani $\chi^2$) ismi verilir.
 
 Teori
 
-$U$, $p$ derece serbestlige sahip bir $\chi^2$ dagilima sahip ise, ki $U \sim
-\chi^2_p$ olarak 
-gosterilir, yogunluk 
+$U$, $p$ derece serbestlige sahip bir $\chi^2$ dagilima sahip ise, ki yogunluk 
 
 $$ f_U(u) = \frac{ 1}{\Gamma(\frac{p}{2}) 2^{p/2}} u^{(p/2) - 1} e^{-u/2
 } $$
@@ -78,7 +89,21 @@ $$ f_U(u) = \frac{ 1}{\Gamma(\frac{p}{2}) 2^{p/2}} u^{(p/2) - 1} e^{-u/2
 $$ u \ge 0 $$
 
 formulune esittir. Ustteki yogunlugun $r=m/2$ ve $\lambda=1/2$ olan bir
-Gamma dagilimi oldugu da soylenebilir. Ispat icin [1]'e bakiniz.
+Gamma dagilimi oldugu soylenebilir. Ispat icin [1].
+
+F Dagilimi
+
+Diyelim ki $U$ ve $V$ birbirinden bagimsiz, ve sirasiyla $m$ ve $n$ derece
+serbestlige sahip iki chi kare dagilimi. O zaman $\frac{V/m}{U/m}$ olarak
+hesaplanan yeni bir rasgele degiskenin dagilimi, $m,n$ derece serbestlige
+sahip bir F dagilimi olarak ifade edilir.
+
+Teori
+
+Rasgele degisken $\frac{Z^2}{U/n}$, ki $U$ bir chi kare dagilimidir, 1,n
+derece serbestlige sahip bir F dagilimina sahiptir. 
+
+Ispati burada vermiyoruz.
 
 Teori
 
@@ -89,9 +114,11 @@ a. $S^2$ ve $\bar{Y}$ birbirinden bagimsizdir
 
 b. $\frac{(n-1)S^2}{\sigma^2} =
 \frac{1}{\sigma^2}\sum_{i=1}^{n}(Y_i-\bar{Y})^2)$ hesabi $n-1$ derece
-serbestligike sahip bir chi kare dagilimidir.
+serbestlige sahip bir chi kare dagilimidir.
 
 Ispat icin [1].
+
+Nihayet  $\frac{\bar{Y}-\mu}{S / \sqrt{n}}$ ifadesinin yogunlugunu bulmak icin tum altyapiya sahibiz. 
 
 Tanim
 
@@ -99,9 +126,39 @@ $Z$ bir standart normal rasgele degisken, $U$ ise $n$ derece serbestlikteki
 bir chi kare rasgele degisken olsun. O zaman $n$ derece serbestligi olan
 Ogrenci t orani (Student's t ratio)
 
-$$ T_n = \frac{Z}{\sqrt{ \frac{U}{n}}} $$
+$$ T_n = \frac{Z}{\sqrt{ \frac{U}{n}}} \mlabel{2} $$
 
 olarak belirtilir.
+
+Teori
+
+$Y_1,..,Y_n$, bir $\mu,\sigma$ normal bir dagilimdan alinmis bir rasgele
+orneklem olsun. O zaman 
+
+$$ T_{n-1} = \frac{\bar{Y}-\mu}{S/\sqrt{n}}$$
+
+$n-1$ serbestlik derecesine sahip bir t Dagilimidir. 
+
+Ispat
+
+$\frac{\bar{Y}-\mu}{S/\sqrt{n}}$ ifadesini su sekilde yazabiliriz, 
+
+$$ \frac{\bar{Y}-\mu}{S/\sqrt{n}} =
+\frac{\frac{\bar{Y}-\mu}{\sigma/\sqrt{n}} }
+{\sqrt{\frac{(n-1)S^2}{\sigma^2(n-1)}}}
+$$
+
+Degil mi? Bolendeki $n-1$'ler birbirini iptal eder, ve $\sigma$ bolumdekini
+iptal eder, ve nihai bolume $\sqrt{S^2}$ yani $S$ yerlestirilmis olur, ve
+esitligin solundaki ifadeye erisiriz. Fakat bu donusturucu bolum ifadesi
+sayesinde esitligin sag tarafinda yeni bir formule eristik; karekok ifadesi
+icine bakarsak ustteki (b) teorisiyle uyumlu olarak
+$\frac{(n-1)S^2}{\sigma^2}$ goruyoruz, ki bu ifade bir chi kare dagilimi.
+
+Diger yandan esitligin sagindaki bolum kismi bir standart normal. Yani
+(2)'de tarif edilen duruma erismis oluyoruz, ustteki ifade bu tanima gore
+bir t Dagilimi. 
+
 
 t Dagilimi (Student's t) 
 
@@ -159,21 +216,27 @@ $$ =
  $$
 
 
-Guven Araliklari
+Guven Araliklari, Testler
 
 Daha once Z oranini temel alarak guven araliklari ya da hipotez testleri
 olusturmustuk. Bu islemler icin standart normal dagilimin ust ve alt
 yuzdelikleri hakkinda bazi bilgiler gerekmisti. Bu bilgiler bir tablodan
 bakilan degerlerdi ya da istatistik yazilimimizda gerekli bir cagri ile
-halledilmisti. 
+hemen bulunabiliyorlardi.
 
 \includegraphics[height=4cm]{t2.png}
 
 Ogrenci t'nin Z'ye gore farkli bir tarafi belli bir degeri bulmak icin iki
 parametreye ihtiyac olmasi, bunlardan biri $\alpha$ digeri ise serbestlik
-derecesi. t icin artik tablolarla ugrasmayacagiz, 21. yuzyildayiz, yazilim
-ile bu isi halledelim! Mesela $T$ bir Ogrenci t dagilimi ise, ve serbestlik
-derecesi 3 ise, $\alpha=0.01$ icin icin $f_T(t)$'nin $100(1-\alpha)$ yuzdeligi nedir?
+derecesi (degree of freedom -dof-). Standart normal icin tablo paylastik,
+fakat t icin artik tablolarla ugrasmayacagiz, bilgisayar cagindayiz,
+yazilim ile bu isi halledelim! 
+
+Ornek
+
+$T$ bir Ogrenci t dagilimi ise, ve serbestlik derecesi 3 ise, $\alpha=0.01$
+icin icin $f_T(t)$'nin $100(1-\alpha)$ yuzdeligi nedir? Ustteki grafikteki
+$t_{\alpha,n}$ notasyonundan hareketle $t_{0.01,3}$ degerini ariyoruz yani.
 
 \begin{minted}[fontsize=\footnotesize]{python}
 from scipy.stats.distributions import t
@@ -190,6 +253,17 @@ print 1-t.cdf(4.541,df)
 Yani
 
 $$ P(T_3 \ge 4.541) = 0.01 $$
+
+$\frac{\bar{Y}-\mu}{S/\sqrt{n}}$ ifadesinin n-1 derece serbestlige sahip Ogrenci t dagilimina sahip 
+oldugunu bilmek alttaki ifadeyi mumkun kilar, 
+
+$$ P \bigg(
+-t_{\alpha/2,n-1} \le
+\frac{\bar{Y}-\mu}{S/\sqrt{n}} \le 
+t_{\alpha/2,n-1}
+\bigg) = 1-\alpha
+ $$
+
 
 
 Kaynaklar
