@@ -47,16 +47,24 @@ bu dagilimlara orneklem dagilimlari ismi verilir ve tipik kullanim alanlari
 cikarsama (inference) yapmaktir.
 
 Normal dagilimi her iki kategoriye de aittir. Hem ayri ayri olcumleri
-modellemek, hem de $T = \frac{\bar{Y}-\mu}{\sigma / \sqrt{n}}$'in
-olasiliksal davranisini modellemek icin kullanilir. Ikinci kullanimi normal
-dagilimin bir orneklem dagilimi olarak kullanilmasina ornektir. 
+modellemek, hem de $\frac{\bar{Y}-\mu}{\sigma / \sqrt{n}}$'in olasiliksal davranisini modellemek icin kullanilir. 
+Ikinci kullanimi normal dagilimin bir orneklem dagilimi olarak kullanilmasina 
+ornektir. 
 
 Normal dagilimdan sonra en onemli uc orneklem dagilimi Ogrenci t Dagilimi,
 chi kare dagilimi ve F dagilimidir. Son iki dagilim t oranini temsil eden
-$f_T(t)$'yi, yani $T = \frac{\bar{Y}-\mu}{\sigma / \sqrt{n}}$'yi turetmek
-icin gerekli.
+$f_T(t)$'yi, yani $T = \frac{\bar{Y}-\mu}{S / \sqrt{n}}$'yi turetmek icin gerekli.
 
 Turetmek 
+
+Sasirtici gelebilir ama t dagiliminin yogunluk fonksiyonunu turetmek pek
+kolay bir is degildir, ilk basta kolay yapilabilirmis gibi geliyor, cunku
+Merkezi Limit Teorisinin temelini olusturan $\frac{\bar{Y}-\mu}{\sigma /
+  \sqrt{n}}$'in yogunlugunu turetmek nisbeten basit, moment ureten
+fonksiyonlar ile yapilabiliyor. Fakat $\frac{\bar{Y}-\mu}{\sigma /
+  \sqrt{n}}$ ifadesinden $\frac{\bar{Y}-\mu}{S / \sqrt{n}}$ ifadesine
+gecmek cok daha zor, cunku bu durumda T {\em iki tane} rasgele degiskeninin
+bir orani haline gelmistir.
 
 t Dagiliminin ispati icin su basamaklar gerekiyor; Once standart normal
 rasgele degiskenlerin karelerinin toplaminin gamma dagilimin ozel bir hali
