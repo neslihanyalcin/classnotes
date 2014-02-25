@@ -361,7 +361,7 @@ kayitlanmis. Acaba bu hanimlarin aldigi enerji tavsiye edilen 7725'ten ne
 kadar sapmistir?
 
 \begin{minted}[fontsize=\footnotesize]{python}
-daily_intake = np.array([5260,5470,5640,6180,6390,6515, 6805,7515,7515,8230,8770])
+daily_intake = np.array([5260.,5470.,5640.,6180.,6390.,6515.,6805.,7515.,7515.,8230.,8770.])
 \end{minted}
 
 Orneklem kucuk. O sebeple t dagilimi kullanmak mantikli. t degerini
@@ -369,34 +369,36 @@ $\frac{\bar{y}-\mu_o}{s/\sqrt{n}}$ olarak hesaplayacagiz, ki $\mu_0=7725$ olacak
 
 \begin{minted}[fontsize=\footnotesize]{python}
 from scipy.stats.distributions import t
-df = len(daily_intake)-1 # serbestlik derecesi
-mu0 = 7725
-ybar = np.mean(daily_intake)
-s = np.std(daily_intake)
-tval = (ybar-mu0)/(s/np.sqrt(len(daily_intake)))
-print 'tval',tval
-print 'sol',t.ppf(0.025,df)
-print 'sag',t.ppf(0.975,df)
+import pandas as pd, math
+data = pd.DataFrame(daily_intake)
+n = len(data)
+df = n-1 # serbestlik derecesi
+mu0 = 7725.
+ybar = float(data.mean())
+s = float(data.std())
+print 'ortalama',ybar,'std',s
+tval = (ybar-mu0)/(s/np.sqrt(n))
+print 'df',df,'tval',tval
+print t.cdf(tval,df)
 \end{minted}
 
 \begin{verbatim}
-tval -2.95843181751
-sol -2.22813885196
-sag 2.22813885196
+ortalama 6753.63636364 std 1142.12322214
+df 10 tval -2.82075406083
+0.00906861758805
 \end{verbatim}
 
-Sonuc t degeri soldaki esik degerinden kucuk cikti demek ki \%95
-seviyesinde hipotezi reddetmek gerekir. Benzer bir hesabi kutuphane cagrisi
-ile yaparsak,
+p degeri hesaplamak 0.05'ten kucuk cikti. Benzer bir hesabi kutuphane
+cagrisi ile yaparsak,
 
 \begin{minted}[fontsize=\footnotesize]{python}
 from scipy.stats import ttest_1samp
-t_statistic, p_value = ttest_1samp(daily_intake, 7725)
-print "one-sample t-test", p_value
+t_statistic, p_value = ttest_1samp(daily_intake, mu0)
+print 't', t_statistic, 'one-sample t-test', p_value
 \end{minted}
 
 \begin{verbatim}
-one-sample t-test 0.0181372351761
+t -2.82075406083 one-sample t-test 0.0181372351761
 \end{verbatim}
 
 Sonuc \verb!p_value! \verb!0.05!'ten kucuk cikti yani yuzde 5 onemliligini
