@@ -209,6 +209,7 @@ $$ P(a<X<b) = \int_{a}^{b}f_X(x)dx $$
 Bu durumda $f_X$ olasilik yogunluk fonksiyonudur (probability density function
 -PDF-). 
 
+
 $$ F_X = \int_{\infty}^{x}f_X(t)dt $$
 
 Ayrica $F_X(x)$'in turevi alinabildigi her $x$ noktasinda  $f_X(x) = F'_X(x)$
@@ -222,6 +223,37 @@ buyuk olabilir, ama PMF olamaz. PDF'in 1'den buyuk olabilmesi entegrali
 bozmaz mi? Unutmayalim, entegral hesabi yapiyoruz, noktasal degerlerin 1
 olmasi tum 1'lerin toplandigi anlamina gelmez. Bakiniz {\em Entegralleri
   Nasil Dusunelim} yazimiz.
+
+Olasilik degerleri, $P(a < X < b)$ ifadesi, alan hesabi ve rasgele
+degiskenler arasindaki baglantiyi biraz daha detaylandirmak gerekirse; $X$
+bir rasgele degisken, nokta (kesin) degeri olmasa da denklemde
+kullanilabiliyor, toplanip cikartilabiliyor, vs. Bu degiskene ``degeri
+soruldugunda'' bu deger o $X$'in bagli oldugu dagilimin zar atmasi
+sonucunda gelecektir. Bu zar atisi ise olasilik fonksiyonunun yuksek deger
+verdigi $x$ degerlerini daha fazla uretecektir dogal olarak. Bunu kavramsal
+olarak soyluyoruz tabii, istatistiki problemlerde illa bu zar atisini
+yapmamiz gerekmeyebilir.
+
+\includegraphics[height=4cm]{dagilim_3.jpeg}
+
+Mesela ustteki dagilim icin 100 ve cevresindeki degerlerinin olasiligi cok
+yuksek, mesela grafige bakarsak, kabaca, $f_X(100) = 0.027$, ya da
+$f_X(120) = 0.015$.  Demek ki bu dagilima bagli bir $X$, o cevreden daha
+fazla deger uretir.
+
+Rasgele degiskene bagli olasilik hesabi icin ise, mesela $P(X < 120)$
+diyelim, bu ifade ile ne diyoruz? Sordugumuz sudur, zar atislarinin belli
+deger altinda gelmesi olasiligi... Bu hesap tabii ki bir alan hesabidir, x
+eksenindeki belli araliklar, bolgelerin toplam olasiliginin ne olacagi o
+bolgenin tam uzerindeki yogunlugun toplami olacaktir, aynen tekil
+degerlerin olasiliginin o degerin tekil yogunluk degeri olmasi gibi. Yani
+bu tur olasilik hesaplari direk $f_X(x)$ uzerinden yapilacaktir. Zar
+atildiginda 100'den kucuk degerlerin gelme olasiligi nedir? Alana bakarsak
+0.5, yani 1/2, tum alanin yarisi. Bu normal, cunku 100'den kucuk degerler
+dagilimin yarisini temsil ediyor. 200'den kucuk degerler gelme olasiligi
+nedir, yani $P(X < 200)$? Olasilik 1. $f_X$ alaninin tamami. Yani
+kesin. Cunku yogunluk fonksiyonunun tamami zaten 200'den kucuk degerler
+icin tanimli. ``Yogunluk orada''.
 
 Tanim
 
