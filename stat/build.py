@@ -20,7 +20,6 @@ if len(sys.argv) == 1 or sys.argv[1] == 'tex':
     stat_appendix/stat_normtable.pdf \
     output ~/Dropbox/Public/skfiles/stat.pdf
     """
-    print cmd
     os.system(cmd)
 
     exit()

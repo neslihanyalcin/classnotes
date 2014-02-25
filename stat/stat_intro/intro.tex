@@ -476,13 +476,17 @@ $\Phi(1.13)$ nedir?
 
 \includegraphics[height=5cm]{zscore.png}
 
-z-skoruna bakmanin bir diger yolu o degerin ``kac standart sapma uzakta''
-oldugunu gosterilmesidir. Yani olcumuz standart sapma, ve bu deger sola ya
-da saga cekildikce ona tekabul eden alan (ustte sari renkle gosterilen
-kisim), yani olasilik azalip cogaliyor. Grafikte mesela ``1.13 standart
-sapma'' yani z-skor nereyi gosteriyor deyince, gorulen sekil / olasilik
-ortaya cikiyor. Tabii dagilim standart dagilim ve standart sapma 1 oldugu
-icin ``kac standart sapma'' ile z-skor arasinda direk bir baglanti var. 
+Olasilik fonksiyonuna gecilen z degerlerinin bir diger ismi ise z-skoru. Bu
+degerleri anlamanin bir yolu (skora cevirilmis) orijinal degerlerin ``kac
+standart sapma uzakta'' oldugunu gostermesidir. Bundan sonra olcumuz
+standart sapma haline geliyor, ve bu deger sola ya da saga cekildikce ona
+tekabul eden alan (ustte sari renkle gosterilen kisim), yani olasilik
+azalip cogaliyor. Grafikte mesela ``1.13 standart sapma'' yani z-skor
+nereyi gosteriyor deyince, gorulen sekil / olasilik ortaya cikiyor. Tabii
+temel aldigimiz deger bastan z-skorunun kendisi ise dagilim standart
+dagilim ve standart sapma 1 oldugu icin ``kac standart sapma'' ile z-skoru
+birbirine esit. z-Skorlari hakkinda ek bir anlatim bu bolumun sonunda
+bulunabilir.
 
 Ornek 
 
@@ -976,7 +980,7 @@ degerler olacagini biliriz. Tabii ki ``kesin'' her zaman ne olacagini
 bilmeyiz, zaten bir modelde noktasal deger (tipik cebirsel degiskenler)
 yerine rasgele degisken kullanmanin sebeplerinden biri budur.
 
-Rasgele degiskenlerin matematiksel formullerde kullanilmasi $Z = X + Y$
+Rasgele degiskenlerin matematiksel formullerde kullanilmasi $C = X + Y$
 seklinde olabilir mesela. O zaman elde edilen yeni degisken de bir rasgele
 degisken olur. Bu tur formuller envai sekle girebilir, hatta rasgele
 degisken iceren formullerin turevi bile alinabiliyor, tabii bunun icin ozel
@@ -1003,6 +1007,25 @@ dagiliminin ``zar attigi'' ve her zar atisinin rasgele degiskenlerden
 birinin icini doldurdugu dusunebilir. Orneklem nufustan geldigi icin
 dagiliminin aynen nufus gibi oldugu kabul edilir. Bu baglantidan yola
 cikilarak bircok istatistiki analiz yapmak mumkundur.
+
+z-Skorlari
+
+Bu degerler bazen kafa karisikligi yaratabiliyor, cunku z-degeri,
+z-''skoru'' gibi kelimeler gecince sanki bu z buyuklukleri bir olasilik
+degeriymis gibi bir anlam cikabiliyor. Bu dogru degil, z degerleri yogunluk
+fonksiyonlarina {\em gecilen} seyler. Yani $z=0.08$ ``skorunun''
+olasiligini hesaplamak icin $p(z)$ ile hesabini yapmak lazim. Bir diger
+karisiklik sebebi mesela $z_{0.05} = -1.64$ gibi bir ifade. Burada z-skoru
+$-1.64$. $z$ altina yazilan deger bir notasyonel puf nokta, ve aslinda
+$p(z)$ sonucunun ta kendisi, yani $p(-1.64) = 0.05$, bu bazi hesaplar icin
+gormesi kolay olsun diye $z_{0.05}$ olarak yaziliyor.
+
+Bu yuzden, $P(z_1 < Z < z_2)$ gibi bir ifadede mesela, $Z$'nin iki
+tarafindaki her iki deger birer z-degeri, olasilik degerleri
+degil. Olasilik degeri $P(\cdot)$ hesabi sonucunda elde edilecek. 
+
+Tabii z-skorlari ile ona bagli olasilik degeri arasinda birebir baglanti
+var, fakat z-degerinin ``kendisi'' olasilik degeri degildir.
 
 Kaynaklar
 

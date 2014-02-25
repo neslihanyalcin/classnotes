@@ -264,7 +264,135 @@ t_{\alpha/2,n-1}
 \bigg) = 1-\alpha
  $$
 
+Bu ifadeyi daha once standart normal icin yaptigimiz gibi tekrar
+duzenlersek,
 
+$$ P \bigg(
+\bar{Y}-t_{\alpha/2,n-1}\frac{S}{\sqrt{n}} \le
+\mu \le 
+\bar{Y}+t_{\alpha/2,n-1}\frac{S}{\sqrt{n}}
+\bigg) = 1-\alpha
+$$
+
+Tabii, $Y_i$'larin normal dagilimdan gelmis olmasi lazim. Bunun sonucunda
+gercek veri temel alinarak hesaplanacak $S$ ve $\bar{Y}$ bize $\mu$ icin
+bir $100(1-\alpha)$ guven araligi verecektir. 
+
+
+Tek Orneklem t Testi (The One-Sample t test)
+
+Bu test verinin bir $N(\mu,\sigma)$ Normal dagilimindan geldigini farzeder,
+test etmek istedigimiz hipotez / karsilastirma $\mu = \mu_0$. Ayrica
+$\sigma$ bilinmiyor, ki Ogrenci t dagilimindan bahsetmemizin ana sebebi
+buydu zaten, o zaman hipotez testine Tek Orneklem t Testi adi verilir.
+
+Ornek
+
+Alttaki veride bir grup hanimin ne kadar kalori tukettigi
+kayitlanmis. Acaba bu hanimlarin aldigi enerji tavsiye edilen 7725'ten ne
+kadar sapmistir?
+
+\begin{minted}[fontsize=\footnotesize]{python}
+daily_intake = np.array([5260,5470,5640,6180,6390,6515, 6805,7515,7515,8230,8770])
+\end{minted}
+
+t degerini $\frac{\bar{y}-\mu_o}{s/\sqrt{n}}$ olarak hesaplayacagiz, ki $\mu_0=7725$ olacak. 
+
+\begin{minted}[fontsize=\footnotesize]{python}
+from scipy.stats.distributions import t
+df = len(daily_intake)-1 # serbestlik derecesi
+mu0 = 7725
+ybar = np.mean(daily_intake)
+s = np.std(daily_intake)
+tval = (ybar-mu0)/(s/np.sqrt(len(daily_intake)))
+print 'tval',tval
+print 'sol',t.ppf(0.025,df)
+print 'sag',t.ppf(0.975,df)
+\end{minted}
+
+\begin{verbatim}
+tval -2.95843181751
+sol -2.22813885196
+sag 2.22813885196
+\end{verbatim}
+
+Sonuc t degeri soldaki esik degerinden kucuk cikti demek ki \%95
+seviyesinde hipotezi reddetmek gerekir. Ayni hesabi kutuphane cagrisi ile
+yaparsak,
+
+\begin{minted}[fontsize=\footnotesize]{python}
+from scipy.stats import ttest_1samp
+t_statistic, p_value = ttest_1samp(daily_intake, 7725)
+print "one-sample t-test", p_value
+\end{minted}
+
+\begin{verbatim}
+one-sample t-test 0.0181372351761
+\end{verbatim}
+
+Sonuc \verb!p_value! \verb!0.05!'ten kucuk cikti yani yuzde 5 onemliligini
+(significance) baz aldik bu durumda veri hipotezden onemli derecede
+(significantly) uzakta. Demek ki ortalamanin 7725 oldugu hipotezini
+reddetmemiz gerekiyor.
+
+Testi iki orneklemli kullanalim, gruplar 0/1 degerleri ile
+isaretlendi, ve test etmek istedigimiz iki grubun ortalamasinin (mean)
+ayni oldugu hipotezini test etmek. t-test bu arada varyansin ayni
+oldugunu farzeder.
+
+\begin{minted}[fontsize=\footnotesize]{python}
+energ = np.array([
+[9.21, 0],[7.53, 1],
+[7.48, 1],[8.08, 1],
+[8.09, 1],[10.15, 1],
+[8.40, 1],[10.88, 1],
+[6.13, 1],[7.90, 1],
+[11.51, 0],[12.79, 0],
+[7.05, 1],[11.85, 0],
+[9.97, 0],[7.48, 1],
+[8.79, 0],[9.69, 0],
+[9.68, 0],[7.58, 1],
+[9.19, 0],[8.11, 1]])
+group1 = energ[energ[:, 1] == 0][:, 0]
+group2 = energ[energ[:, 1] == 1][:, 0]
+t_statistic, p_value = ttest_ind(group1, group2)
+print "two-sample t-test", p_value
+\end{minted}
+
+\begin{verbatim}
+two-sample t-test 0.00079899821117
+\end{verbatim}
+
+$p$ degeri < 0.05 yani iki grubun ortalamasi ayni degildir. Ayni oldugu
+hipotezi reddedildi.
+
+Eslemeli t-Test (Paired t-test)
+
+Eslemeli testler ayni deneysel birimin olcumu alindigi zaman
+kullanilabilir, yani olcum alinan ayni grupta, deney sonrasi deneyin
+etki edip etmedigi test edilebilir. Bunun icin ayni olcum deney
+sonrasi bir daha alinir ve "farklarin ortalamasinin sifir oldugu"
+hipotezi test edilebilir. Altta bir grup hastanin deney oncesi ve
+sonrasi ne kadar yiyecek tukettigi listelenmis. 
+
+\begin{minted}[fontsize=\footnotesize]{python}
+intake = np.array([
+[5260, 3910],[5470, 4220],
+[5640, 3885],[6180, 5160],
+[6390, 5645],[6515, 4680],
+[6805, 5265],[7515, 5975],
+[7515, 6790],[8230, 6900],
+[8770, 7335],
+])
+pre = intake[:, 0]
+post = intake[:, 1]
+t_statistic, p_value = ttest_1samp(post - pre, 0)
+print "paired t-test", p_value
+\end{minted}
+
+\begin{verbatim}
+paired t-test 3.05902094293e-07
+\end{verbatim}
 
 Kaynaklar
 

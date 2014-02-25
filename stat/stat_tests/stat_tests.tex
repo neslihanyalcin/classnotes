@@ -672,106 +672,6 @@ vaktimizin kontrolumuzde oldugunu destekleyen yonde bir sonuc veriyor.
 Not: Ustteki test ``buyuk orneklem'' oldugu durumlarda gecerlidir. Kucuk
 orneklem durumunda Binom dagiliminin kendisi test icin kullanilabilir.
 
-Tek Orneklem t Testi (One-sample t test)
-
-Bu test verinin Normal dagilimdan geldigini farzeder, tek orneklem
-durumunda elde $x_1,...,x_n$ verisi vardir, ve bu veri $N(\mu,\Sigma)$
-dagilimindan gelmistir ve test etmek istedigimiz hipotez /
-karsilastirma $\mu = \mu_0$. 
-
-\begin{minted}[fontsize=\footnotesize]{python}
-from scipy.stats import ttest_1samp, wilcoxon, ttest_ind
-import pandas as pd
-daily_intake = np.array([5260,5470,5640,6180,6390,6515, 6805,7515,7515,8230,8770])
-df = pd.DataFrame(daily_intake)
-print df.describe()
-\end{minted}
-
-\begin{verbatim}
-                 0
-count    11.000000
-mean   6753.636364
-std    1142.123222
-min    5260.000000
-25%    5910.000000
-50%    6515.000000
-75%    7515.000000
-max    8770.000000
-\end{verbatim}
-
-\begin{minted}[fontsize=\footnotesize]{python}
-t_statistic, p_value = ttest_1samp(daily_intake, 7725)
-print "one-sample t-test", p_value
-\end{minted}
-
-\begin{verbatim}
-one-sample t-test 0.0181372351761
-\end{verbatim}
-
-Sonuc \verb!p_value! \verb!0.05!'ten kucuk cikti yani
-yuzde 5 onemliligini (significance) baz aldik bu durumda veri
-hipotezden onemli derecede (significantly) uzakta. Demek ki
-ortalamanin 7725 oldugu hipotezini reddetmemiz gerekiyor.
-
-Testi iki orneklemli kullanalim, gruplar 0/1 degerleri ile
-isaretlendi, ve test etmek istedigimiz iki grubun ortalamasinin (mean)
-ayni oldugu hipotezini test etmek. t-test bu arada varyansin ayni
-oldugunu farzeder.
-
-\begin{minted}[fontsize=\footnotesize]{python}
-energ = np.array([
-[9.21, 0],[7.53, 1],
-[7.48, 1],[8.08, 1],
-[8.09, 1],[10.15, 1],
-[8.40, 1],[10.88, 1],
-[6.13, 1],[7.90, 1],
-[11.51, 0],[12.79, 0],
-[7.05, 1],[11.85, 0],
-[9.97, 0],[7.48, 1],
-[8.79, 0],[9.69, 0],
-[9.68, 0],[7.58, 1],
-[9.19, 0],[8.11, 1]])
-group1 = energ[energ[:, 1] == 0][:, 0]
-group2 = energ[energ[:, 1] == 1][:, 0]
-t_statistic, p_value = ttest_ind(group1, group2)
-print "two-sample t-test", p_value
-\end{minted}
-
-\begin{verbatim}
-two-sample t-test 0.00079899821117
-\end{verbatim}
-
-$p$ degeri < 0.05 yani iki grubun ortalamasi ayni degildir. Ayni oldugu
-hipotezi reddedildi.
-
-Eslemeli t-Test (Paired t-test)
-
-Eslemeli testler ayni deneysel birimin olcumu alindigi zaman
-kullanilabilir, yani olcum alinan ayni grupta, deney sonrasi deneyin
-etki edip etmedigi test edilebilir. Bunun icin ayni olcum deney
-sonrasi bir daha alinir ve "farklarin ortalamasinin sifir oldugu"
-hipotezi test edilebilir. Altta bir grup hastanin deney oncesi ve
-sonrasi ne kadar yiyecek tukettigi listelenmis. 
-
-\begin{minted}[fontsize=\footnotesize]{python}
-intake = np.array([
-[5260, 3910],[5470, 4220],
-[5640, 3885],[6180, 5160],
-[6390, 5645],[6515, 4680],
-[6805, 5265],[7515, 5975],
-[7515, 6790],[8230, 6900],
-[8770, 7335],
-])
-pre = intake[:, 0]
-post = intake[:, 1]
-t_statistic, p_value = ttest_1samp(post - pre, 0)
-print "paired t-test", p_value
-\end{minted}
-
-\begin{verbatim}
-paired t-test 3.05902094293e-07
-\end{verbatim}
-
 Wilcoxon isaretli-sirali testi (Wilcoxon signed-rank test)
 
 t Testleri Normal dagilima gore sapmalari yakalamak acisindan,
@@ -793,6 +693,8 @@ sonuclari toplamaya tekabul etmektedir. Ve bu sonuc yine \verb!0.05!
 ile karsilastirilir.
 
 \begin{minted}[fontsize=\footnotesize]{python}
+from scipy.stats import wilcoxon, ttest_ind
+daily_intake = np.array([5260,5470,5640,6180,6390,6515,6805,7515,7515,8230,8770])
 z_statistic, p_value = wilcoxon(daily_intake - 7725)
 print "one-sample wilcoxon-test", p_value
 \end{minted}
@@ -801,9 +703,9 @@ print "one-sample wilcoxon-test", p_value
 one-sample wilcoxon-test 0.0279991628713
 \end{verbatim}
 
-Hipotezi yine reddettik.
+Hipotezi reddettik.
 
-Ustte yaptigimiz eslemeli t-testi simdi Wilcoxon testi ile yapalim,
+Eslemeli t-testi simdi Wilcoxon testi ile yapalim,
 
 \begin{minted}[fontsize=\footnotesize]{python}
 z_statistic, p_value = wilcoxon(post - pre)
