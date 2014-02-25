@@ -361,7 +361,8 @@ kayitlanmis. Acaba bu hanimlarin aldigi enerji tavsiye edilen 7725'ten ne
 kadar sapmistir?
 
 \begin{minted}[fontsize=\footnotesize]{python}
-daily_intake = np.array([5260.,5470.,5640.,6180.,6390.,6515.,6805.,7515.,7515.,8230.,8770.])
+daily_intake = np.array([5260.,5470.,5640.,6180.,6390.,6515.,6805.,\
+7515.,7515.,8230.,8770.])
 \end{minted}
 
 Orneklem kucuk. O sebeple t dagilimi kullanmak mantikli. t degerini
@@ -379,17 +380,39 @@ s = float(data.std())
 print 'ortalama',ybar,'std',s
 tval = (ybar-mu0)/(s/np.sqrt(n))
 print 'df',df,'tval',tval
-print t.cdf(tval,df)
+print 'sol',t.ppf(0.025,df)
+print 'sag',t.ppf(0.975,df)
 \end{minted}
 
 \begin{verbatim}
 ortalama 6753.63636364 std 1142.12322214
 df 10 tval -2.82075406083
-0.00906861758805
+sol -2.22813885196
+sag 2.22813885196
 \end{verbatim}
 
-p degeri hesaplamak 0.05'ten kucuk cikti. Benzer bir hesabi kutuphane
-cagrisi ile yaparsak,
+Sol ve sag esik degerlerini hesapladik ve t degeri bu araligin icine
+dusmuyor. Yani hipotezi reddediyoruz. Bazilari bu problemde p degeri gormek
+isteyebilir, 
+
+\begin{minted}[fontsize=\footnotesize]{python}
+print 't degeri', tval
+print 'iki tarafli p degeri', 2*t.cdf(tval,df)
+\end{minted}
+
+\begin{verbatim}
+t degeri -2.82075406083
+iki tarafli p degeri 0.0181372351761
+\end{verbatim}
+
+p degeri hesapladik 0.05'ten kucuk cikti. Ikiyle carpmamizin sebebi
+iki-tarafli p-testi yapmis olmamiz, yani kabul edilebilir bolgenin hem
+solundan hem de sagindan ne kadar disina dusuyorsak, bu iki taraftaki p
+degerini birbirine toplamaliyiz. Tabii t dagilimi simetrik oldugu icin her
+iki taraftan da ayni sekilde disarida kaliyoruz. Bazi kaynaklar iki tarafli
+p testinin $|t| < -t_{esik,derece}$ karsilastirmasini yaptigini soyler.
+
+Benzer bir hesabi kutuphane cagrisi ile yaparsak,
 
 \begin{minted}[fontsize=\footnotesize]{python}
 from scipy.stats import ttest_1samp
@@ -401,15 +424,16 @@ print 't', t_statistic, 'one-sample t-test', p_value
 t -2.82075406083 one-sample t-test 0.0181372351761
 \end{verbatim}
 
-Sonuc \verb!p_value! \verb!0.05!'ten kucuk cikti yani yuzde 5 onemliligini
+Sonuc p degeri 0.05'ten kucuk cikti yani yuzde 5 onemliligini
 (significance) baz aldik bu durumda veri hipotezden onemli derecede
 (significantly) uzakta. Demek ki ortalamanin 7725 oldugu hipotezini
 reddetmemiz gerekiyor.
 
-Testi iki orneklemli kullanalim, gruplar 0/1 degerleri ile
-isaretlendi, ve test etmek istedigimiz iki grubun ortalamasinin (mean)
-ayni oldugu hipotezini test etmek. t-test bu arada varyansin ayni
-oldugunu farzeder.
+Iki Orneklemli Test
+
+Gruplar 0/1 degerleri ile isaretlendi, ve test etmek istedigimiz iki grubun
+ortalamasinin (mean) ayni oldugu hipotezini test etmek. t-test bu arada
+varyansin ayni oldugunu farzeder.
 
 \begin{minted}[fontsize=\footnotesize]{python}
 energ = np.array([
