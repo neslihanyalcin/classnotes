@@ -284,8 +284,68 @@ $$
 
 Tabii, $Y_i$'larin normal dagilimdan gelmis olmasi lazim. Bunun sonucunda
 gercek veri temel alinarak hesaplanacak $S$ ve $\bar{Y}$ bize $\mu$ icin
-bir $100(1-\alpha)$ guven araligi verecektir. 
+bir $\%100(1-\alpha)$ guven araligi verecektir. 
 
+Ornek
+
+Yapiskan elementlerin uzerinde yapilan deneyler sonucundaki olcumler altta
+verilmistir. Acaba $\mu$ icin \%95 guven araligi nedir?
+
+Oncelikle verinin normal dagilimdan geldigi dogru mudur? Bu faraziyeyi
+kontrol etmemiz gerekir yoksa t dagilimini kullanamayiz. Once bir kutu
+grafigi (boxplot) yapalim,
+
+\begin{minted}[fontsize=\footnotesize]{python}
+data = np.array([19.8,10.1,14.9,7.5,15.4,15.4,15.4,18.5,7.9,12.7,
+11.9,11.4,11.4,14.1,17.6,16.7,15.8,19.5,8.8,13.6,11.9,11.4])
+plt.boxplot(data)
+plt.savefig('stat_sampling_dist_01.png')
+\end{minted}
+
+\includegraphics[height=4cm]{stat_sampling_dist_01.png}
+
+Simdi normal olasilik grafigi (normal probability plot) yapalim, ki bu
+grafik verinin normal dagilima ne kadar uyumlu oldugunu grafik olarak
+gosterir, eger uyumlu ise veri duz cizgiye yakin cikmalidir,
+
+\begin{minted}[fontsize=\footnotesize]{python}
+import scipy.stats as stats
+res = stats.probplot(data, plot=plt)
+plt.savefig('stat_sampling_dist_02.png')
+\end{minted}
+
+\includegraphics[height=6cm]{stat_sampling_dist_02.png}
+
+Bu grafiklere bakinca verinin normal oldugu belli oluyor. Zaten orneklem
+sayisi az, bu sebeple t dagilimi kullanmak uygun. Veri sayisal ortalamasi
+ve sayisal standart sapmasina bakalim, ve guven araligini hesaplayalim, 
+yani
+
+$$ \bar{x} - t_{\alpha/2,n-1}s/\sqrt{n} \le
+\mu \le
+ \bar{x} + t_{\alpha/2,n-1}s/\sqrt{n}
+$$
+
+\begin{minted}[fontsize=\footnotesize]{python}
+from scipy.stats.distributions import t
+n = len(data)
+dof = len(data)-1
+m = np.mean(data)
+s = np.std(data)
+print 'ortalama',m
+print 'sapma',s
+print m + t.ppf(0.025,dof) * s / np.sqrt(n),\
+      m - t.ppf(0.025,dof) * s / np.sqrt(n)
+\end{minted}
+
+\begin{verbatim}
+ortalama 13.7136363636
+sapma 3.47187340764
+12.174293931 15.2529787962
+\end{verbatim}
+
+Guven araligi oldukca genis, cunku (demek ki) olcumlerde yuksek degiskenlik
+var. 
 
 Tek Orneklem t Testi (The One-Sample t test)
 
@@ -304,7 +364,8 @@ kadar sapmistir?
 daily_intake = np.array([5260,5470,5640,6180,6390,6515, 6805,7515,7515,8230,8770])
 \end{minted}
 
-t degerini $\frac{\bar{y}-\mu_o}{s/\sqrt{n}}$ olarak hesaplayacagiz, ki $\mu_0=7725$ olacak. 
+Orneklem kucuk. O sebeple t dagilimi kullanmak mantikli. t degerini
+$\frac{\bar{y}-\mu_o}{s/\sqrt{n}}$ olarak hesaplayacagiz, ki $\mu_0=7725$ olacak.
 
 \begin{minted}[fontsize=\footnotesize]{python}
 from scipy.stats.distributions import t
@@ -325,8 +386,8 @@ sag 2.22813885196
 \end{verbatim}
 
 Sonuc t degeri soldaki esik degerinden kucuk cikti demek ki \%95
-seviyesinde hipotezi reddetmek gerekir. Ayni hesabi kutuphane cagrisi ile
-yaparsak,
+seviyesinde hipotezi reddetmek gerekir. Benzer bir hesabi kutuphane cagrisi
+ile yaparsak,
 
 \begin{minted}[fontsize=\footnotesize]{python}
 from scipy.stats import ttest_1samp
