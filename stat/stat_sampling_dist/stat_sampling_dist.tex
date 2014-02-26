@@ -555,14 +555,16 @@ degeri olarak kullanamadik cunku chi kare simetrik degil. Esik degerinin
 belli noktalarda ayri ayri hesaplanmasi gerekiyor.
 
 Ustteki denklem birkac cebirsel islem sonrasinda $\sigma^2$'yi ortada tek
-basina birakacak sekilde degistirilebilir,
+basina birakacak sekilde degistirilebilir, once esitsizlikleri tersine
+ceviriyoruz, ayni anda ortadaki bolume tersine ceviriyoruz, ve yeni boleni
+hem sol hem saga carparak tasiyoruz,
 
 $$
 P
 \bigg(
-\frac{(n-1)S^2}{\chi_{\alpha/2,n-1}^2} \le
+\frac{(n-1)S^2}{\chi_{1-\alpha/2,n-1}^2} \le
 \sigma^2  \le
-\frac{(n-1)S^2}{\chi_{1-\alpha/2,n-1}^2}
+\frac{(n-1)S^2}{\chi_{\alpha/2,n-1}^2} 
 \bigg) = 1-\alpha
 $$
 
@@ -572,12 +574,43 @@ araligi
 
 $$
 \bigg(
-\sqrt{\frac{(n-1)S^2}{\chi_{\alpha/2,n-1}^2}}
-,
 \sqrt{\frac{(n-1)S^2}{\chi_{1-\alpha/2,n-1}^2}}
+,
+\sqrt{\frac{(n-1)S^2}{\chi_{\alpha/2,n-1}^2}}
 \bigg) 
 $$
 
+Ornek
+
+Bir fabrikada deterjanlari doldurmak icin bir makina kullaniliyor. Rasgele
+secilen bir orneklemde 20 tane deterjan plastik siseden alinan olcumlerde
+orneklem varyansinin $s^2 = 0.0153$ oldugu hesaplaniyor (birim $ons^2$). Bu
+olcumlerin standart sapmasi $\sigma^2$ icin \%95'lik ust guven siniri nedir? 
+
+$$ 
+\sigma^2 \le
+\sqrt{\frac{(19)0.0153}{\chi_{0.05,19}^2}}
+ $$
+
+\begin{minted}[fontsize=\footnotesize]{python}
+from scipy.stats.distributions import chi2
+print chi2.ppf(0.05,19)
+\end{minted}
+
+\begin{verbatim}
+10.1170130639
+\end{verbatim}
+
+$$ 
+\sigma^2 \le
+\sqrt{\frac{(19)0.0153}{10.117}} = 0.0287
+ $$
+
+Yani
+
+$$ \sigma \le 0.17 $$
+
+Demek ki nufusun gercek standart sapmasi 0.17 ons kadar buyuk olabilir.
 
 Kaynaklar
 
