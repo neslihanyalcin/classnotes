@@ -91,13 +91,18 @@ Teori
 
 $U$, $p$ derece serbestlige sahip bir $\chi^2$ dagilima sahip ise, ki yogunluk 
 
-$$ f_U(u) = \frac{ 1}{\Gamma(\frac{p}{2}) 2^{p/2}} u^{(p/2) - 1} e^{-u/2
+$$ f_U(u;p) = \frac{ 1}{\Gamma(\frac{p}{2}) 2^{p/2}} u^{(p/2) - 1} e^{-u/2
 } $$
 
 $$ u \ge 0 $$
 
 formulune esittir. Ustteki yogunlugun $r=m/2$ ve $\lambda=1/2$ olan bir
-Gamma dagilimi oldugu soylenebilir. Ispat icin [1].
+Gamma dagilimi oldugu soylenebilir. Fonksiyonunun parametresi sadece
+$p$'dir. Ispat icin [1].
+
+$$ E[U] = p $$
+
+$$ Var[U] = 2p $$
 
 F Dagilimi
 
@@ -113,7 +118,7 @@ derece serbestlige sahip bir F dagilimina sahiptir.
 
 Ispati burada vermiyoruz.
 
-Teori
+Teori $\mlabel{1}$
 
 $Y_1,..,Y_n$ ortalamasi $\mu$, varyansi $\sigma^2$ olan bir normal dagilimdan alinan $n$ 
 orneklem olsun. O zaman 
@@ -489,11 +494,51 @@ print "paired t-test", p_value
 paired t-test 3.05902094293e-07
 \end{verbatim}
 
+Normal Nufusun Varyansinin Guvenlik Araligi
+
+Bazen nufusun varyansi ya da standart sapmasi uzerinde bir guven araligi
+hesaplamak gerekebilir. Eger nufus normal olarak dagilmis ise, simdiye
+kadar gosterdigimiz tekniklerin hepsi kullanilabilir. (1) teorisinin b
+kismindaki ifadeyi kullanirsak, nufusu $\mu,\sigma$ parametreli bir
+normalden alinan $X_1,..,X_n$ orneklemi uzerinden hesaplanan
+$X^2 = \frac{(n-1)S^2}{\sigma^2}$ ifadesinin $n-1$ serbestlik derecesindeki bir
+chi kare dagilimi oldugunu biliyoruz.
+
+Chi karenin yuzdelik kisimlari altta gorulebilir,
+
+\includegraphics[height=5cm]{chi_1.png}
+
+\begin{minted}[fontsize=\footnotesize]{python}
+from scipy.stats.distributions import chi2
+print chi2.ppf(0.05,5)
+print chi2.ppf(0.99,5)
+\end{minted}
+
+\begin{verbatim}
+1.14547622606
+15.0862724694
+\end{verbatim}
+
+Dikkat edilmesi gereken bir konu chi karenin yamuk (skewed) olmasi
+sebebiyle sagdaki ve soldaki alan hesaplarinin arasinda z skorunda oldugu
+gibi her seferinde birebir gecis yapilamayabilecegi. 
+
+Notasyonel olarak $\chi_{p,n}^2$ ifadesi, x eksenindeki bir esik noktasini
+ifade eder ki bu degerin sol tarafindaki alan buyuklugu $p$, $n$ serbestlik
+derecesindeki chi kare dagiliminin alanidir. Mesela ustte $\chi_{0.05,5}^2 =
+1.145$ 
+ve $\chi_{0.99,5}^2 = 15.086$. Olasilik ifadesi olarak 
+
+$$ P(\chi_5^2 \le 1.145) = 0.05 $$
+
+$$ P(\chi_5^2 \le 15.086) = 0.05 $$
+
+
 Kaynaklar
 
 [1] Larsen, {\em Introduction to Mathematical Statistics and Its Applications}
 
-[2] Applied Statistics and Probability for Engineers
+[2] Runger, {\em Applied Statistics and Probability for Engineers}
 
 
 \end{document}
