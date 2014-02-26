@@ -6,7 +6,7 @@ if len(sys.argv) == 1 or sys.argv[1] == 'tex':
 ./pfractions/pfractions.pdf matmult/matmult2.pdf ratio/ratio.pdf compos/compos.pdf \
 ./series/series.pdf poldiv/poldiv.pdf ./fundamental/fundamental.pdf  \
 ./cauchy/cauchy.pdf ./integral-mult/integral-mult.pdf ./lhospital/lhospital.pdf ./euler/euler.pdf \
-./intexp/intexp.pdf ./taylor/taylor.pdf ./taylor2d/taylor2d.pdf ./pca/pca.pdf \
+./taylor/taylor.pdf ./taylor2d/taylor2d.pdf ./pca/pca.pdf \
 ./matderiv/matderiv.pdf ./logaritma/logaritma.pdf ./complexity/complexity.pdf \
 ./probsolve/probsolve.pdf ./dynp/dynp.pdf ./id3/id3.pdf ./knn/knn.pdf ./turev/turev.pdf \
 ./totaldiff/totaldiff.pdf ./eigseg/eigseg.pdf ./rayleigh/rayleigh.pdf \
@@ -15,7 +15,7 @@ if len(sys.argv) == 1 or sys.argv[1] == 'tex':
 ./pde-wave-deriv/pde_01.pdf ./heat-deriv/heat-deriv.pdf ./heat/heat.pdf \
 ./curvature/curvature.pdf ./level/level.pdf ./lk/lk.pdf ./varcalc/varcalc.pdf \
 ./filter/filter.pdf ./svdcluster/svdcluster.pdf ./rndsvd/rndsvd.pdf ./svdrecom/svdrecom.pdf \
-./svdapprox/svdapprox.pdf ./regularization/regular.pdf ./mixbern/mixbern.pdf ./meanshift/meanshift.pdf \
+./svdapprox/svdapprox.pdf ./mixbern/mixbern.pdf ./meanshift/meanshift.pdf \
 ./ztransform/z.pdf  ./pagerank/pagerank.pdf \
 ./phd/phd.pdf  \
 output ~/Dropbox/Public/skfiles/app-math-tr.pdf "

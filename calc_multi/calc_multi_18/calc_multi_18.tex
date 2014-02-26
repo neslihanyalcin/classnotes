@@ -345,21 +345,107 @@ ugrasilabilir. Teker teker
 $u,v$ baglaminda bir ucgen elde edildi, ve bu ucgen uygun sekilde kesilerek
 cift entegral hesaplanabilir. 
 
+Ornek
 
+$e^{-x^2}$ Nasil Entegre Edilir? 
 
+\[ \int_{-\infty}^{\infty} e^{-x^2} dx
+\mlabel{1} 
+\]
 
+ifadesi ozellikle olasilik matematiginde cokca gorulen bir ifadedir. Bu
+hesabi yapmak icin kutupsal kordinatlar kullanacagiz. 
 
+Simdi ustteki ifadeyle alakali su ifadeye bakalim. 
 
+\[ \int_{-\infty}^{\infty} \int_{-\infty}^{\infty} e^{-x^2-y^2} dx dy \]
 
+Iddia ediyorum ki bu son ifade (1)'in sadece karesi, yani (1)'in kendisiyle
+carpimi. Niye boyle? Cunku $e$ ifadelerini carpim olarak gosterirsek
 
+\[ \int_{-\infty}^{\infty} 
+\underbrace{\int_{-\infty}^{\infty} e^{-x^2} e^{-y^2} dx}
+dy \]
 
+cift entegral icinde isaretlenen blokta yer alan $e^{-y^2}$ $x$'ten
+bagimsiz, o zaman bloktaki entegralin disina alinabilir. Yani soyle olabilir
 
+\[ \int_{-\infty}^{\infty} 
+e^{-y^2} \int_{-\infty}^{\infty} e^{-x^2}  dx
+dy \]
 
+Devam edelim: ustteki ic entegral (1) ifadesi degil mi? Evet. Simdi bir
+ilginc durum daha ortaya cikti, 
 
+\[ \int_{-\infty}^{\infty}  e^{-y^2} 
+\underbrace{\int_{-\infty}^{\infty} e^{-x^2}  dx}
+dy \]
 
+simdi de isaretlenen blok $y$ entegraline gore sabit, o da ikinci
+entegralin disina cikarilabilir! (1) yerine $I$ kullanirsak 
 
+\[ I \int_{-\infty}^{\infty}  e^{-y^2} dy \]
 
+Icinde $y$ iceren entegral nedir? O da $I$'dir! Niye, cunku bu ifade 
+(1)'in icinde $y$ olan versiyonundan ibaret. O zaman 
 
+\[ I \cdot I = I^2 \]
 
+Tum bu taklalari niye attik peki? Cunku cift entegralli ifadenin
+entegralini almak daha kolay, eger onu hesaplarsak, sonucun karekokunu
+aldigimiz anda $I$'yi bulmus olacagiz. 
+
+O zaman ifadeyi hesaplayalim, 
+
+\[ I^2 = \int_{-\infty}^{\infty} \int_{-\infty}^{\infty} e^{-x^2-y^2} dx dy \]
+
+Basta soyledigimiz gibi kullanacagimiz numara kutupsal forma
+gecmek. Entegralin sinirlarina bakalim, tum $x$ ve tum $y$ ekseni uzerinden
+entegral aliyoruz. Kutupsal formda bu $r$'nin 0'dan sonsuza ve $\theta$'nin
+0'dan $2\pi$'a gitmesi anlamina geliyor. 
+
+\[ r^2 = x^2 + y^2 \]
+
+Peki $e^{-x^2-y^2}$ kutupsal formda nedir? 
+
+\[ e^{-x^2-y^2} = e^{-(x^2+y^2)} = e^{-r^2} \]
+
+Entegrali yazalim
+
+\[ \int_{0}^{\infty} \int_{0}^{2\pi} e^{-r^2} r d\theta dr 
+\mlabel{2}
+\]
+
+Niye entegral sirasinda $\theta$'yi once yazdim? Cunku entegral icindeki
+ifadede $\theta$'ya bagli hicbir terim yok, o zaman ic entegral bana sadece
+$2\pi$ verir. Geriye kalanlar
+
+\[=  2\pi \int_{0}^{\infty} e^{-r^2} r dr \]
+
+Bu entegral cok daha kolay. Yerine koyma (subtitution) teknigi ile bu
+problemi cozebiliriz. 
+
+\[ u = -r^2 \]
+
+\[ du =  -2r \ dr\]
+
+\[=  2\pi \int_{0}^{\infty} e^u \frac{-1}{2} du \]
+
+\[=  -\pi \int_{0}^{\infty} e^u  du \]
+
+\[=  -\pi  e^u  \bigg|_{0}^{\infty} = -\pi  e^{-r^2}  \bigg|_{0}^{\infty} \]
+
+\[ = \pi \]
+
+Bu sonuc $I^2$. Eger $I$ degerini istiyorsak, karekok almaliyiz, yani
+aradigimiz sonuc $\sqrt{\pi}$. 
+
+Tek degiskenli bir problemi aldik ve cift degiskenli problem haline
+getirdik. Isleri kolaylastiran (2) denklemindeki $r$ degiskeni oldu, onun
+sayesinde yerine gecirme islemi cok kolaylasti, ve sonuca ulastik. 
+
+Kaynaklar
+
+\url{http://www.youtube.com/watch?v=fWOGfzC3IeY}
 
 \end{document}
