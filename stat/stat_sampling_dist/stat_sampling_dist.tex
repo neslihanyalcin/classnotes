@@ -534,6 +534,51 @@ $$ P(\chi_5^2 \le 1.145) = 0.05 $$
 $$ P(\chi_5^2 \le 15.086) = 0.05 $$
 
 
+Not: Bazi kaynaklar esit ifadesinin sag tarafini referans aliyor her
+nedense, bu duruma dikkat.
+
+$\sigma^2$ Icin Guvenlik Araligi
+
+Chi kare tanimindan hareketle su ifadeyi yazabiliriz, 
+
+$$ P\bigg(
+\chi_{\alpha/2,n-1}^2 \le
+\frac{(n-1)S^2}{\sigma^2}  \le
+\chi_{1-\alpha/2,n-1}^2
+\bigg) = 1-\alpha
+$$
+
+
+Belirtildigi uzere, ustteki ifadenin $Z$'li halinde oldugu gibi, bir z
+degerini alip, eksi ile carparak (ve carpmayarak) hem sol hem sagda esik
+degeri olarak kullanamadik cunku chi kare simetrik degil. Esik degerinin
+belli noktalarda ayri ayri hesaplanmasi gerekiyor.
+
+Ustteki denklem birkac cebirsel islem sonrasinda $\sigma^2$'yi ortada tek
+basina birakacak sekilde degistirilebilir,
+
+$$
+P
+\bigg(
+\frac{(n-1)S^2}{\chi_{\alpha/2,n-1}^2} \le
+\sigma^2  \le
+\frac{(n-1)S^2}{\chi_{1-\alpha/2,n-1}^2}
+\bigg) = 1-\alpha
+$$
+
+Esitsizligin karekokunu alirsak, $\sigma$ icin $\%100(1-\alpha)$ guven
+araligi
+
+
+$$
+\bigg(
+\sqrt{\frac{(n-1)S^2}{\chi_{\alpha/2,n-1}^2}}
+,
+\sqrt{\frac{(n-1)S^2}{\chi_{1-\alpha/2,n-1}^2}}
+\bigg) 
+$$
+
+
 Kaynaklar
 
 [1] Larsen, {\em Introduction to Mathematical Statistics and Its Applications}
