@@ -108,6 +108,15 @@ rasgele degisken gorunce onun yerine ``dagilimdan uretilen sayi'' dusunmek
 faydalidir, ki bu gercek dunya sartlarindan (ve buyuk miktarda olunca) veri
 noktalarini temsil eder. 
 
+Varyans formulunu acarsak, ileride isimize yarayacak baska bir formul elde
+edebiliriz, 
+
+$$ Var(Y) = E( Y^2  - 2YE(Y) + (E(Y)^2) )$$
+
+$$  = E(Y^2)  - 2E(Y)E(Y) + (E(Y)^2)$$
+
+$$ Var(Y) = E(Y^2) - (E(Y)^2)$$
+
 Tanim
 
 $y_1,..,y_n$ ornekleminin varyansi (literaturde $S^2$ olarak gecebiliyor,
@@ -423,7 +432,6 @@ $$
 
 $$ \hat{\mu} = \frac{\sum x_i }{n} $$
 
-
 Bu sonuc (1)'deki formul, yani orneklem ortalamasi ile ayni! Fakat buradan
 hemen bir baglantiya ziplamadan once sunu hatirlayalim - orneklem
 ortalamasi formulunu {\em biz} tanimladik. ``Tanim'' diyerek bir ifade
@@ -450,6 +458,177 @@ $\hat{\mu}$ kullanarak,
 $$ \hat{\sigma}^2 = \frac{\sum (x_i-\hat{\mu})^2}{n} $$
 
 Bu da orneklem varyansi ile ayni! 
+
+Yansizlik (Unbiasedness)
+
+Tahmin edicilerin kendileri de birer rasgele degisken oldugu icin her
+orneklem icin degisik degerler verirler. Diyelim ki $\theta$ icin bir
+tahmin edici $\hat{\theta}$ hesapliyoruz, bu $\hat{\theta}$ gercek $\theta$
+icin bazi orneklemler icin cok kucuk, bazi orneklemler icin cok buyuk
+sonuclar (tahminler) verebilecektir. Kabaca ideal durumun, az cikan
+tahminlerin cok cikan tahminleri bir sekilde dengelemesi oldugunu tahmin
+edebiliriz, yani tahmin edicinin uretecegi pek cok degerin $\theta$'yi bir
+sekilde ``ortalamasi'' iyi olacaktir.
+
+\includegraphics[height=5cm]{unbias.png}
+
+Bu durumu soyle aciklayalim, madem tahmin ediciler birer rasgele degisken,
+o zaman bir dagilim fonksiyonlari var. Ve ustteki resimde ornek olarak
+$\hat{\theta_1},\hat{\theta_2}$ olarak iki tahmin edici gosteriliyor mesela
+ve onlara tekabul eden yogunluklar $f_{\hat{\theta_1}},
+f_{\hat{\theta_1}}$. Ideal durum soldaki resimdir, yogunlugun fazla oldugu
+yer gercek $\theta$'ya yakin olmasi. Bu durumu matematiksel olarak nasil
+belirtiriz? Beklenti ile!
+
+Tanim
+
+$Y_1,..,Y_n$ uzerindeki $\theta$ tahmin edicisi $\hat{\theta} $'den alinmis
+rasgele orneklem. Eger tum $\theta$'lar icin $E(\hat{\theta}) = \theta$
+ise, bu durumda tahmin edicinin yansiz oldugu soylenir.
+
+Ornek olarak maksimum olurluk ile onceden hesapladigimiz $\hat{\sigma}$
+tahmin edicisine bakalim. Bu ifade
+
+$$ \hat{\sigma}^2 = \frac{1}{n}\sum (Y_i-\hat{\mu})^2 $$
+
+ya da 
+
+$$ \hat{\sigma}^2 = \frac{1}{n}\sum_i (Y_i-\bar{Y})^2 $$
+
+ile belirtildi. Tahmin edici $\hat{\sigma}^2$, $\sigma^2$ icin yansiz
+midir?  Tanimimiza gore eger tahmin edici yansiz 
+ise $E(\hat{\sigma}^2) =
+\sigma^2$ olmalidir. 
+
+Not: Faydali olacak bazi esitlikler, daha onceden gordugumuz
+
+$$ Var(X) = E(X^2) - (E(X)^2)$$
+
+ve sayisal ortalama $\bar{Y}$'nin beklentisi $E({\bar{Y}}) =
+E(Y_i)$, 
+ve $Var(\bar{Y}) = 1/n Var(Y_i)$. 
+
+Baslayalim,
+
+$$ E(\hat{\sigma}^2) = E\bigg(\frac{1}{n}\sum_i (Y_i-\bar{Y})^2 \bigg)$$
+Parantez icindeki $1/n$ sonrasindaki ifadeyi acarsak,
+
+
+$$ \sum_i (Y_i-\bar{Y})^2  =  \sum_i (Y_i^2-2Y_i\bar{Y}+ \bar{Y}^2)$$
+
+$$ = \sum_iY_i^2 -2\sum_i Y_i\bar{Y} + n\bar{Y}^2  $$
+
+$\sum_i Y_i$'nin hemen yaninda $\bar{Y}$ goruyoruz. Fakat $\bar{Y}$'nin
+kendisi zaten $1/n \sum_i Y_i$ demek degil midir? Ya da, toplam icinde her
+$i$ icin degismeyecek $\bar{Y}$'yi toplam disina cekersek,
+$\bar{Y}\sum_iY_i$ olur, bu da $\bar{Y} \cdot n \bar{Y}$ demektir ya da $n\bar{Y}^2$, 
+
+$$ = \sum_iY_i^2 -2 n\bar{Y}^2 + n\bar{Y}^2  $$
+
+$$ = \sum_iY_i^2 -n\bar{Y}^2  $$
+Dikkat, artik $-n\bar{Y}^2$ toplama isleminin {\em disinda}. Simdi beklentiye geri
+donelim,
+
+$$ = E \bigg( \frac{1}{n} \bigg( \sum_iY_i^2 -n\bar{Y}^2 \bigg) \bigg) $$
+
+$1/n$ disari cekilir, beklenti toplamdan iceri nufuz eder,
+
+$$ = \frac{1}{n} \bigg(  \sum_i  E(Y_i^2) -n E(\bar{Y}^2) \bigg) $$
+
+Daha once demistik ki (genel baglamda)
+
+$$ Var(X) = E(X^2) - (E(X)^2)$$
+
+Bu ornek icin harfleri degistirirsek,
+
+$$ Var(Y_i) = E(Y_i^2) - E(Y_i)^2$$
+Yani
+$$ E(Y_i^2) = Var(Y_i) + E(Y_i)^2 $$
+
+$E(Y_i) = \mu$ oldugunu biliyoruz,
+
+$$ E(Y_i^2) = Var(Y_i) + \mu^2 $$
+
+Aynisini $ E(\bar{Y}^2)$ icin kullanirsak,
+
+$$  E(\bar{Y}^2) = Var(\bar{Y}) + E(\bar{Y})^2 $$
+
+$E(\bar{Y}) = \mu$, 
+
+$$  E(\bar{Y}^2) = Var(\bar{Y}) + \mu^2 $$
+
+$$ = \frac{1}{n} \bigg(  \sum_i Var(Y_i) + \mu^2   
+-n (Var(\bar{Y}) + \mu^2 ) \bigg) 
+$$
+
+$Var(Y_i) = \sigma$, ve basta verdigimiz esitlikler ile beraber
+
+$$ = \frac{1}{n} \bigg(  \sum_i (\sigma^2 + \mu^2)
+-n (\frac{\sigma^2}{n} + \mu^2 ) \bigg) 
+$$
+
+Tekrar hatirlatalim, $\sum_i$ sadece ilk iki terim icin gecerli, o zaman,
+ve sabit degerleri $n$ kadar topladigimiza gore bu aslinda bir carpim
+islemi olur,
+
+$$ 
+= \frac{1}{n} \bigg(  n\sigma^2 + n\mu^2   
+-n (\frac{\sigma^2}{n} + \mu^2 ) \bigg) 
+$$
+
+$$ 
+=  \sigma^2 + \mu^2 -\frac{\sigma^2}{n} - \mu^2 
+$$
+
+$$ 
+=  \sigma^2 -\frac{\sigma^2}{n} 
+$$
+
+$$ 
+=  \frac{n\sigma^2}{n} -\frac{\sigma^2}{n} 
+$$
+
+
+$$ 
+=  \frac{n\sigma^2 - \sigma^2}{n} 
+$$
+
+$$ 
+=  \frac{\sigma^2(n-1)}{n} 
+$$
+
+$$ = \sigma^2 \frac{n-1}{n} $$
+
+Goruldugu gibi eristigimiz sonuc $\sigma^2$ degil, demek ki bu tahmin edici
+yansiz degil. Kontrol tamamlandi.
+
+Fakat eristigimiz son denklem bize baska bir sey gosteriyor, eger ustteki
+sonucu $\frac{n}{n-1}$ ile carpsaydik, $\sigma^2$ elde etmez miydik? O
+zaman yanli tahmin ediciyi yansiz hale cevirmek icin, onu $\frac{n}{n-1}$
+ile carpariz ve
+
+$$ \frac{n}{n-1} \frac{1}{n}\sum_i (Y_i-\bar{Y})^2 $$
+
+$$ =  \frac{1}{n-1}\sum_i (Y_i-\bar{Y})^2 $$
+
+Ustteki ifade $\sigma^2$'nin yansiz tahmin edicisidir. 
+
+Hesap icin kullandiginiz kutuphanelerin yanli mi yansiz mi hesap yaptigini
+bilmek iyi olur, mesela Numpy versiyon 1.7.1 itibariyle yanli standart
+sapma hesabi yapiyor, fakat Pandas yansiz olani kullaniyor (Pandas
+versiyonu daha iyi)
+
+\begin{minted}[fontsize=\footnotesize]{python}
+import pandas as pd
+arr = np.array([1,2,3])
+print 'numpy', np.std(arr)
+print 'pandas', float(pd.DataFrame(arr).std())
+\end{minted}
+
+\begin{verbatim}
+numpy 0.816496580928
+pandas 1.0
+\end{verbatim}
 
 Büyük Sayýlar Kanunu (Law of Large Numbers)
 
