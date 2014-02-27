@@ -12,11 +12,9 @@ if len(sys.argv) == 1 or sys.argv[1] == 'tex':
 ./totaldiff/totaldiff.pdf ./eigseg/eigseg.pdf ./rayleigh/rayleigh.pdf \
 ./spline/spline.pdf ./ml-tr/ml-tr.pdf ./logreg/logreg2.pdf ./kmeans/kmeans.pdf ./naive/naive.pdf  \
 ./simplex/simplex.pdf ./qp/qp.pdf ./svm/svm.pdf ./fem/fem.pdf ./fourier/fourier.pdf \
-./pde-wave-deriv/pde_01.pdf ./heat-deriv/heat-deriv.pdf ./heat/heat.pdf \
-./curvature/curvature.pdf ./level/level.pdf ./lk/lk.pdf ./varcalc/varcalc.pdf \
-./filter/filter.pdf ./svdcluster/svdcluster.pdf ./rndsvd/rndsvd.pdf ./svdrecom/svdrecom.pdf \
-./svdapprox/svdapprox.pdf ./mixbern/mixbern.pdf ./meanshift/meanshift.pdf \
-./ztransform/z.pdf  ./pagerank/pagerank.pdf \
+./varcalc/varcalc.pdf ./filter/filter.pdf ./svdcluster/svdcluster.pdf ./rndsvd/rndsvd.pdf \
+ ./svdrecom/svdrecom.pdf ./svdapprox/svdapprox.pdf ./mixbern/mixbern.pdf  \
+./meanshift/meanshift.pdf ./ztransform/z.pdf  ./pagerank/pagerank.pdf \
 ./phd/phd.pdf  \
 output ~/Dropbox/Public/skfiles/app-math-tr.pdf "
     os.system(cmd)
