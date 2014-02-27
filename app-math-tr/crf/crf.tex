@@ -1,7 +1,7 @@
 \documentclass[12pt,fleqn]{article}\usepackage{../common}
 \begin{document}
-\textbf{Log Lineer Modeller ve Kosulsal Rasgele Alanlar (Log Linear Models and
-Conditional Random Fields -CRF-)}
+Log Lineer Modeller ve Kosulsal Rasgele Alanlar (Log Linear Models and
+Conditional Random Fields -CRF-)
 
 Ders 2
 
@@ -843,15 +843,15 @@ bunlari atlamayi bilir. Demek ki ayni sekilde kosulsal lineer modeller de
 bu ozellikleri atlayabilir. Eger bir ozellik $a(x)=0$ ise, o ozellik
 agirlik guncellemesi (weight update) sirasinda atlanir. 
 
-Algoritma
-
-Her egitim noktasi $x,y$ icin
-
-$ \ \ $$j$ icin
-    
-$ \ \ \ \ $$E[F_j(x,y')]$ hesapla (buna sadece $E$ diyelim)
-       
-$ \ \ \ \ $Guncelle: $w_j := w_j + \lambda[F_j(x,y) - E]$
+\begin{algorithm}[h]
+\begin{pseudocode}
+\codename $\code{train\_crf}$\\
+\codeline $\code{for }$ her egitim noktasi $x,y$ icin\\
+\codeline \> $j$ icin\\
+\codeline \> \> $E[F_j(x,y')]$ hesapla (buna sadece $E$ diyelim)       \\
+\codeline \> \> Guncelle: $w_j := w_j + \lambda[F_j(x,y) - E]$
+\end{pseudocode}
+\end{algorithm}
 
 
 Bu hesabin en pahali kismi neresi? Beklenti hesabi. Bu beklentileri
