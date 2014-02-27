@@ -11,7 +11,7 @@ if len(sys.argv) == 1 or sys.argv[1] == 'tex':
 ./probsolve/probsolve.pdf ./dynp/dynp.pdf ./id3/id3.pdf ./knn/knn.pdf ./turev/turev.pdf \
 ./totaldiff/totaldiff.pdf ./eigseg/eigseg.pdf ./rayleigh/rayleigh.pdf \
 ./spline/spline.pdf ./ml-tr/ml-tr.pdf ./logreg/logreg2.pdf ./kmeans/kmeans.pdf ./naive/naive.pdf  \
-./simplex/simplex.pdf ./qp/qp.pdf ./svm/svm.pdf ./fem/fem.pdf ./fourier/fourier.pdf \
+./simplex/simplex.pdf ./qp/qp.pdf ./svm/svm.pdf ./fem/fem.pdf \
 ./varcalc/varcalc.pdf ./filter/filter.pdf ./svdcluster/svdcluster.pdf ./rndsvd/rndsvd.pdf \
  ./svdrecom/svdrecom.pdf ./svdapprox/svdapprox.pdf ./mixbern/mixbern.pdf  \
 ./meanshift/meanshift.pdf ./ztransform/z.pdf  ./pagerank/pagerank.pdf \
