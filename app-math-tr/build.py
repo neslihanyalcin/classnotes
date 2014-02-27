@@ -13,7 +13,7 @@ if len(sys.argv) == 1 or sys.argv[1] == 'tex':
 ./spline/spline.pdf ./ml-tr/ml-tr.pdf ./logreg/logreg2.pdf ./kmeans/kmeans.pdf ./naive/naive.pdf  \
 ./simplex/simplex.pdf ./qp/qp.pdf ./svm/svm.pdf ./fem/fem.pdf \
 ./varcalc/varcalc.pdf ./filter/filter.pdf ./svdcluster/svdcluster.pdf ./rndsvd/rndsvd.pdf \
- ./svdrecom/svdrecom.pdf ./svdapprox/svdapprox.pdf ./mixbern/mixbern.pdf  \
+ ./svdrecom/svdrecom.pdf ./svdapprox/svdapprox.pdf  \
 ./meanshift/meanshift.pdf ./ztransform/z.pdf  ./pagerank/pagerank.pdf \
 ./crf/crf.pdf ./phd/phd.pdf  \
 output ~/Dropbox/Public/skfiles/app-math-tr.pdf "
