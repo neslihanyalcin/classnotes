@@ -1,5 +1,43 @@
 \documentclass[12pt,fleqn]{article}\usepackage{../common}
 \begin{document}
+Esle-Indirge Mimarisi (Map-Reduce Architecture)
+
+Bu kavrami bir veri analiz isini iki evreye ayirir. Bunlardan birincisi
+Esleme evresinde, ki bu evrede eline gecen veri parcasini alan her analiz
+servisi (ki bunlardan pek cok var, farkli makinalarda), surecler
+kendilerine verilen dosyaya bakarak anahtar-deger ikilileri
+uretirler. Kelime sayma ornegi icin bu anahtarlar kelimeler, sayilar ise
+hep 1. Mesela "A A B" icin tek bir esleyici A: 1, A: 1, B: 1 uretir.
+
+Bir sonraki evre, indirgeme evresinde, her servisten alinan anahtarlardaki
+degerler "birlestirilir" yani daha aza "indirgenir". Fakat dikkat:
+birlestirme denince tek bir nihai servisin her seyi tek basina indirgedigi
+zannedilmesin. Indirgeme evresi de birden fazla makinada isleyebilir.
+
+Anahtarlar birlestirme "birimini" olustururlar [1]. Indirgeme islemi ise
+iki, uc hatta birden fazla girdiyi isleyebilecek turden bir kod
+olmalidir. Fakat zaten kelime sayma problemin ozunde zaten bu vardir,
+hersey ayri ayri, parca parca toplanabilir, bir Indirgeyici iki eslenmis
+dosya aliyor diyelim, biri A: 1, A: 1, B: 1, digeri A: 1, B:1; bunlari A:
+3, B: 2 olarak indirgeyebilir / birlestirebiliriz.  Diger makinalarda
+baskalari baska veriler almistir, onlar kendi caplarinda kendi
+birlestirimlerini yapmaktadirlar. Indirgeme ve yuk dagitim birimi
+anahtardir, indirgeme safhasinda mesela A anahtari tek bir makinaya
+gonderilecektir, o anahtarin birlesiminden o makina sorumlu olacaktir.
+
+\includegraphics[height=12cm]{mr.png}
+
+Isin mekanigine bakinca oldukca basit gibi gelebilir. Fakat sasirtici kadar
+cok analiz islemi ustteki sekilde temsil edilebilmektedir ve sonuc olarak
+paralelize edilebilmektedir. Tabii isin mekanigi derken sadece anahtarlara
+ayirmaktan bahsetmiyoruz, analiz isleminin, her ne ise, "azar azar, ayri
+ayri ust uste koya koya sonuca ilerleyebilecek" sekilde tekrar tasarlanmasi
+gerekiyor. Kelime toplama, hatta toplama niye burada uygun goruyoruz,
+2,3,4,5 eklerlerken 2+3=5,4+5=9 ardindan 5+9=14 elde edebiliriz, ama diger
+bir sekilde 3+4=7,2+5=7 arkasindan tekrar 7+7=14 yani ayni sonucu elde
+edebiliyoruz. Toplama isleminin ruhunda "siradan bagimsiz olmak" var, ve bu
+bagimsizlik paralelize etmekte isimize yariyor.
+
 Hadoop ile Patent Verisi Islemek
 
 75-99 yillari arasinda hangi patentin hangi hangi patentlere referans
