@@ -39,12 +39,17 @@ def plot(data, mus, sigmas):
   plt.show()
 
 mu1 = np.array([  65.,  200])
-sigma1 = np.matrix([[  7.,    10],[ 10,  1000]])
+sigma1 = np.matrix([[  7.,    10],[ 10,  500]])
 mu2 = np.array([  72.,  200  ])
-sigma2 = np.matrix([[  7,    10],[ 10,  1000]])
+sigma2 = np.matrix([[  7,    10],[ 10,  500]])
+
 mus = []; mus.append(mu1); mus.append(mu2)
 sigmas = []; sigmas.append(sigma1); sigmas.append(sigma2)
 
+iter = 40
+k = len(mus)
 data = np.loadtxt('biometric_data_simple.txt',delimiter=',')
 plot(data, mus, sigmas)
 
+#for i in range(iter):
+#
