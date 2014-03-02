@@ -1,3 +1,15 @@
+'''
+In the E-step, each observation is assigned a responsibility or weight
+for each cluster, based on the likelihood of each of the correspond-
+ing Gaussians. Observations close to the center of a cluster will most
+likely get weight 1 for that cluster, and weight 0 for every other clus-
+ter. Observations half-way between two clusters divide their weight
+accordingly.
+In the M-step, each observation  contributes to the weighted means
+(and covariances) for every cluster.
+'''
+
+
 # Multivariate gaussian, contours
 #
 import numpy as np, math, itertools
