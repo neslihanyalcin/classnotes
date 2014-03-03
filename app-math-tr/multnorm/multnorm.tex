@@ -1,0 +1,20 @@
+\documentclass[12pt,fleqn]{article}\usepackage{../common}
+\begin{document}
+Cok Degiskenli Normal Numaralari  (Multivariate Normal Tricks)
+
+Cok degiskenli normal dagilimlarla is yaparken, mesela Gaussian karisimlari
+kullanirken, bazi numaralari bilmek faydali olabiliyor. Bunlardan birincisi
+$(x-\mu)^T\Sigma^{-1}(x-\mu)$ hesabini yapmaktir, diger logtoplamexp
+numarasi (logsumexp trick) diye bilinen hesaptir.
+
+Birinciden baslayalim, daha kisalastirmak icin $y=x-\mu$ diyelim, yani
+$y^T\Sigma^{-1}y$ olsun. Simdi bu formulde bir ters alma (inversion)
+isleminin oldugunu goruyoruz. Fakat bu islem oldukca pahali bir islem
+olarak bilinir, hele hele boyutlarin yukseldigi durumlardan (binler,
+onbinler), kovaryansi temsil eden $\Sigma$, $n \times n$ olacaktir. Acaba
+tersini almayi baska bir sekilde gerceklestiremez miyiz?
+
+
+
+
+\end{document}
