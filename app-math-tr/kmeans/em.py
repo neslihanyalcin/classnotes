@@ -5,6 +5,7 @@ ing Gaussians. Observations close to the center of a cluster will most
 likely get weight 1 for that cluster, and weight 0 for every other clus-
 ter. Observations half-way between two clusters divide their weight
 accordingly.
+
 In the M-step, each observation  contributes to the weighted means
 (and covariances) for every cluster.
 '''
@@ -48,20 +49,49 @@ def plot(data, mus, sigmas):
     levels = np.linspace(Z.min(), Z.max(), 4)
     plt.contour(X, Y, Z, colors='k', levels=levels)
     plt.hold(True)
-  plt.show()
+  #plt.show()
+  plt.hold(False)
+  
 
+#mu1 = np.array([  100.,  100.])
+#mu2 = np.array([  110.,  110.  ])
 mu1 = np.array([  65.,  200])
-sigma1 = np.matrix([[  7.,    10],[ 10,  500]])
 mu2 = np.array([  72.,  200  ])
-sigma2 = np.matrix([[  7,    10],[ 10,  500]])
+#sigma1 = sigma2 = np.matrix([[  400.,    0],[ 0.,  400.]])
+sigma1 = sigma2 = np.matrix([[  7,    10],[ 10,  500]])
 
 mus = []; mus.append(mu1); mus.append(mu2)
 sigmas = []; sigmas.append(sigma1); sigmas.append(sigma2)
 
-iter = 40
+iter = 20
 k = len(mus)
 data = np.loadtxt('biometric_data_simple.txt',delimiter=',')
-plot(data, mus, sigmas)
-
-#for i in range(iter):
-#
+#plot(data, mus, sigmas)
+n = len(data)
+weights = np.zeros((n,k))
+#print weights.shape
+                   
+for it in range(iter):
+  if it % 5 == 0:
+    plot(data, mus, sigmas)
+    plt.savefig("/tmp/out-%d.png" % it)
+  print it
+  # E-basamagi
+  for j in range(k):
+    for i in range(n):
+      weights[i,j] = norm_pdf(data[i,1:],mus[j],sigmas[j])
+  #weights = np.array(map(lambda x: x / np.sum(x), weights))
+  print weights
+  for j in range(k):
+    mus[j] = np.zeros(mus[j].shape)
+    sigmas[j] = np.matrix(np.zeros(sigmas[j].shape))
+    sigmas[j][0,0] = 100.
+    for i in range(n): mus[j] += data[i,1:]*weights[i,j]
+    mus[j] = mus[j] / np.sum(weights[:,j])
+    for i in range(n):
+      tmp = data[i,1:]-mus[j]
+      sigmas[j] += np.dot(tmp,tmp.T)*weights[i,j] 
+    sigmas[j] = sigmas[j] / np.sum(weights[:,j])
+  print 'mu',mus
+  print 'sigma',sigmas
+        
