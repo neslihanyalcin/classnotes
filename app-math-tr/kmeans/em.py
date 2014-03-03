@@ -1,18 +1,3 @@
-'''
-In the E-step, each observation is assigned a responsibility or weight
-for each cluster, based on the likelihood of each of the correspond-
-ing Gaussians. Observations close to the center of a cluster will most
-likely get weight 1 for that cluster, and weight 0 for every other clus-
-ter. Observations half-way between two clusters divide their weight
-accordingly.
-
-In the M-step, each observation  contributes to the weighted means
-(and covariances) for every cluster.
-'''
-
-
-# Multivariate gaussian, contours
-#
 import numpy as np, math, itertools
 import numpy.linalg as linalg
 import matplotlib.pylab as plt
@@ -66,10 +51,10 @@ sigmas = []; sigmas.append(sigma1); sigmas.append(sigma2)
 iter = 20
 k = len(mus)
 data = np.loadtxt('biometric_data_simple.txt',delimiter=',')
-#plot(data, mus, sigmas)
 n = len(data)
-weights = np.zeros((n,k))
-#print weights.shape
+gamma = np.zeros((n,k))
+pi = np.ones(k)*(1./k)
+print pi
                    
 for it in range(iter):
   if it % 5 == 0:
@@ -79,19 +64,20 @@ for it in range(iter):
   # E-basamagi
   for j in range(k):
     for i in range(n):
-      weights[i,j] = norm_pdf(data[i,1:],mus[j],sigmas[j])
-  #weights = np.array(map(lambda x: x / np.sum(x), weights))
-  print weights
+      gamma[i,j] = norm_pdf(data[i,1:],mus[j],sigmas[j])*pi[j]
+  gamma = np.array(map(lambda x: x / np.sum(x), gamma))
+  print gamma
   for j in range(k):
-    mus[j] = np.zeros(mus[j].shape)
-    sigmas[j] = np.matrix(np.zeros(sigmas[j].shape))
-    sigmas[j][0,0] = 100.
-    for i in range(n): mus[j] += data[i,1:]*weights[i,j]
-    mus[j] = mus[j] / np.sum(weights[:,j])
+    #mus[j] = np.zeros(mus[j].shape)
+    #sigmas[j] = np.matrix(np.zeros(sigmas[j].shape))
+    #sigmas[j][0,0] = 100.
+    for i in range(n):
+      mus[j] += data[i,1:]*gamma[i,j]
+    mus[j] = mus[j] / np.sum(gamma[:,j])
     for i in range(n):
       tmp = data[i,1:]-mus[j]
-      sigmas[j] += np.dot(tmp,tmp.T)*weights[i,j] 
-    sigmas[j] = sigmas[j] / np.sum(weights[:,j])
+      sigmas[j] += np.dot(tmp,tmp.T)*gamma[i,j] 
+    sigmas[j] = sigmas[j] / np.sum(gamma[:,j])
   print 'mu',mus
   print 'sigma',sigmas
         
