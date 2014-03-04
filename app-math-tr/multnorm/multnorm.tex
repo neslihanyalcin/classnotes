@@ -51,7 +51,32 @@ cozum geriye deger gecirmek (backsubstitution) ile aninda bulunabilir.
 
 Demek ki $y^T\Sigma^{-1}y$ hesabi icin once $\Sigma$ uzerinde Cholesky
 aliyoruz, sonra $L^{-1}y$ cozduruyoruz. Elde edilen degerin noktasal
-carpimini alinca $\Sigma$'nin tersini elde etmis olacagiz. 
+carpimini alinca $\Sigma$'nin tersini elde etmis olacagiz. Ornek, once uzun yoldan,
+
+\begin{minted}[fontsize=\footnotesize]{python}
+import numpy.linalg as lin
+Sigma = np.array([[10., 2.],[2., 5.]])
+y = np.array([[1.],[2.]])
+print np.dot(np.dot(y.T,lin.inv(Sigma)),y)
+\end{minted}
+
+\begin{verbatim}
+[[ 0.80434783]]
+\end{verbatim}
+
+Simdi Cholesky ve en az kareler uzerinden
+
+\begin{minted}[fontsize=\footnotesize]{python}
+L = lin.cholesky(Sigma)
+x = lin.lstsq(L,y)[0]
+print np.dot(x.T,x)
+\end{minted}
+
+\begin{verbatim}
+[[ 0.80434783]]
+\end{verbatim}
+
+Ayni sonuca eristik.
 
 log-toplam-exp
 
