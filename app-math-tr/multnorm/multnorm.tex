@@ -4,7 +4,7 @@ Cok Degiskenli Normal Numaralari  (Multivariate Normal Tricks)
 
 Cok degiskenli normal dagilimlarla is yaparken, mesela Gaussian karisimlari
 kullanirken, bazi numaralari bilmek faydali olabiliyor. Bunlardan birincisi
-$(x-\mu)^T\Sigma^{-1}(x-\mu)$ hesabini yapmaktir, diger logtoplamexp
+$(x-\mu)^T\Sigma^{-1}(x-\mu)$ hesabini yapmaktir, diger log-toplam-exp
 numarasi (logsumexp trick) diye bilinen hesaptir.
 
 Birinciden baslayalim, daha kisalastirmak icin $y=x-\mu$ diyelim, yani
@@ -14,7 +14,118 @@ olarak bilinir, hele hele boyutlarin yukseldigi durumlardan (binler,
 onbinler), kovaryansi temsil eden $\Sigma$, $n \times n$ olacaktir. Acaba
 tersini almayi baska bir sekilde gerceklestiremez miyiz?
 
+$\Sigma$ matrisi bir kovaryans matrisi oldugu icin simetrik, pozitif yari
+kesin bir matristir. Bu tur matrislerin Cholesky ayristirmasinin oldugunu
+biliyoruz ve bu islem cok hizli yapilabiliyor. O zaman 
 
+$$ \Sigma = LL^T $$
 
+ki $L$ matrisi alt-ucgensel (lower triangular) bir matristir,
+
+$$ \Sigma^{-1} = (LL^T)^{-1} $$
+
+$$ = L^{-T}L^{-1} $$
+
+Bunu temel alarak iki taraftan $y$'leri geri koyalim,
+
+$$ y^T\Sigma^{-1}y= y^TL^{-T}L^{-1}y $$
+
+Bilindigi gibi lineer cebirde istedigimiz yere parantez koyabiliriz,
+
+$$ = (y^TL^{-T})L^{-1}y $$
+
+Parantezden bir seyin devrigi gibi temsil edersek, parantez icindekilerin
+sirasi degisir ve tek tek devrigi alinir,
+
+$$ = (L^{-1}y)^TL^{-1}y $$
+
+$$  = |L^{-1}y|^2 $$
+
+Ustteki ifadede $|\cdot|$ icindeki kisim $Ax=b$ durumundaki $x$'in en az
+kareler cozumu olan $A^{-1}b$'ye benzemiyor mu? Evet. Bu durumda her
+standart sayisal kutuphanede mevcut bir cagri ile $L^{-1}y$ hesabini
+yapabiliriz, bu cagrilar perde arkasinda ters alma isleminden kacinarak bir
+suru optimizasyon yaparak sonuca erismektedirler. Ustune ustluk $L$
+durumunda bu cok daha hizli olacaktir, cunku $L$ alt-ucgensel oldugu icin
+cozum geriye deger gecirmek (backsubstitution) ile aninda bulunabilir. 
+
+Demek ki $y^T\Sigma^{-1}y$ hesabi icin once $\Sigma$ uzerinde Cholesky
+aliyoruz, sonra $L^{-1}y$ cozduruyoruz. Elde edilen degerin noktasal
+carpimini alinca $\Sigma$'nin tersini elde etmis olacagiz. 
+
+log-toplam-exp
+
+Bu numaranin ilk kismi nisbeten basit. Bazi yapay ogrenim algoritmalari icin
+olasilik degerlerinin birbiriyle carpilmasi gerekiyor, mesela 
+
+$$ r = p_1 \cdot p_2 \dots p_n $$
+
+Olasiliklar 1'den kucuk oldugu icin 1'den kucuk degerlerin carpimi asiri
+kuculebilir, ve küçüklügun tasmasi (underflow) ortaya cikabilir. Eger
+carpim yerine $\log$ alirsak, carpimlar toplama donusur, sonra sonucu
+$\exp$ ile tersine ceviririz, ve $\log$'u alinan degerler cok kuculmez,
+carpma yernie toplama islemi kullanildigi icin de nihai deger de kucukluge
+dogru tasmaz.
+
+$$ \log r = \log p_1 + \log p_2 + \dots + \log p_n $$
+
+$$ r = \exp(\log p_1 + \log p_2 + \dots + \log p_n )$$
+
+Bir diger durum icinde $exp$ ifadesi tasiyan bir olasilik degerinin cok
+kucuk degerler tasiyabilmesidir. Mesela cok degiskenli Gaussian karisimlari
+icin alttaki gibi bir hesap surekli yapilir, 
+
+$$ = \sum_i w_i
+\frac{ 1}{(2\pi)^{k/2} \det(\Sigma)^{1/2}} \exp 
+\bigg\{ 
+-\frac{ 1}{2}(x-\mu)^T\Sigma^{-1}(x-\mu)
+\bigg\}
+ $$
+
+ki $0 \le w_i \le 1$ seklinde bir agirlik degeridir. Ustteki formulun
+cogunlukla $\log$'u alinir, ve, mesela bir ornek uzerinde gorursek (ve
+agirliklari bir kenara birakirsak), 
+
+$$ \log(e^{-1000} + e^{-1001}) $$ 
+
+gibi hesaplar olabilir. Ustteki degerler tamamen uyduruk denemez,
+uygulamalarda pek cok kez karsimiza cikan degerler bunlar. Her neyse, eger
+ustteki ifadeyi kodla hesaplarsak, 
+
+\begin{minted}[fontsize=\footnotesize]{python}
+print np.log(np.exp(-1000) + np.exp(-1001))
+\end{minted}
+
+\begin{verbatim}
+-inf
+\end{verbatim}
+
+Bu durumdan kurtulmak icin bir numara sudur; $\exp$ ifadeleri arasinda en
+buyuk olanini disari cekersiniz, ve $\log$'lar carpimi toplam yapar, 
+
+$$ \log(e^{-1000}(e^{0} + e^{-1} ))$$
+
+$$ -1000 + \log(1 + e^{-1})$$
+
+Bunu hesaplarsak, 
+
+\begin{minted}[fontsize=\footnotesize]{python}
+print -1000 + np.log(1+np.exp(-1))
+\end{minted}
+
+\begin{verbatim}
+-999.686738312
+\end{verbatim}
+
+Bu numaranin yaptigi nedir? Maksimumu disari cekerek en az bir degerin
+kucuklugu tasmamasini garantilemis oluyoruz. Geri kalan terimler icinde
+yine asiri ufalanlar terimler olabilir, fakat bunlar eger tasmamis diger
+degerler varsa onlara eklenecektir, yani eriyip gidecektir. Tum kalan
+terimler asiri ufalirsa daha once dedigimiz gibi, hala elimizde hesap icin
+bir deger gecmis olacak. 
+
+{\em Numerical Recipes, 3rd Edition}
+
+\url{http://makarandtapaswi.wordpress.com/2012/07/18/log-sum-exp-trick/}
 
 \end{document}
