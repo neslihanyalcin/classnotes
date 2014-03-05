@@ -47,7 +47,30 @@ standart sayisal kutuphanede mevcut bir cagri ile $L^{-1}y$ hesabini
 yapabiliriz, bu cagrilar perde arkasinda ters alma isleminden kacinarak bir
 suru optimizasyon yaparak sonuca erismektedirler. Ustune ustluk $L$
 durumunda bu cok daha hizli olacaktir, cunku $L$ alt-ucgensel oldugu icin
-cozum geriye deger gecirmek (backsubstitution) ile aninda bulunabilir. 
+cozum geriye deger vermek (back substitution) ile aninda
+bulunabilir. Geriye deger vermeyi alttaki gibi bir ornekte gorelim,
+
+$$ 
+\left[\begin{array}{cc}
+2 & 0 \\
+3 & 4
+\end{array}\right]
+\left[\begin{array}{c}
+x_1\\
+x_2
+\end{array}\right]
+= 
+\left[\begin{array}{c}
+6\\
+8
+\end{array}\right]
+ $$
+
+En ust satirda her zaman tek bir oge olacak, bu tek bir esitlik demektir,
+$2x_1 = 6$, ve $x_1 = 3$. Bunu alip bir sonraki satira gideriz, 
+artik $x_1$'i biliyoruz, sonraki satirda o zaman sadece $x_2$ bilinmeyen
+kaliyor, $3\cdot x_1 + 4 \cdot x_2 = 8$, yani $x_2 = -1/4$. Sonuca
+ulastik. 
 
 Demek ki $y^T\Sigma^{-1}y$ hesabi icin once $\Sigma$ uzerinde Cholesky
 aliyoruz, sonra $L^{-1}y$ cozduruyoruz. Elde edilen degerin noktasal
@@ -68,7 +91,7 @@ Simdi Cholesky ve en az kareler uzerinden
 
 \begin{minted}[fontsize=\footnotesize]{python}
 L = lin.cholesky(Sigma)
-x = lin.lstsq(L,y)[0]
+x = lin.solve(L,y)
 print np.dot(x.T,x)
 \end{minted}
 
