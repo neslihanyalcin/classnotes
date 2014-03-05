@@ -3,9 +3,11 @@ import os, sys, glob
 if len(sys.argv) == 1 or sys.argv[1] == 'tex':
     cmd = "pdftk ./cover/cover.pdf ./model/model.pdf ./bases/bases.pdf \
 ./karesel/karesel.pdf ./quotient/quotient.pdf ./invtrig/invtrig.pdf \
-./pfractions/pfractions.pdf matmult/matmult2.pdf ratio/ratio.pdf compos/compos.pdf \
-./series/series.pdf poldiv/poldiv.pdf ./fundamental/fundamental.pdf  \
-./cauchy/cauchy.pdf ./integral-mult/integral-mult.pdf ./lhospital/lhospital.pdf ./euler/euler.pdf \
+./norm/norm.pdf ./pfractions/pfractions.pdf matmult/matmult2.pdf \
+./ratio/ratio.pdf compos/compos.pdf ./series/series.pdf \
+./poldiv/poldiv.pdf ./fundamental/fundamental.pdf  \
+./cauchy/cauchy.pdf ./integral-mult/integral-mult.pdf \
+./lhospital/lhospital.pdf ./euler/euler.pdf \
 ./multnorm/multnorm.pdf ./taylor/taylor.pdf ./taylor2d/taylor2d.pdf ./pca/pca.pdf \
 ./matderiv/matderiv.pdf ./logaritma/logaritma.pdf ./complexity/complexity.pdf \
 ./probsolve/probsolve.pdf ./dynp/dynp.pdf ./id3/id3.pdf ./knn/knn.pdf ./turev/turev.pdf \

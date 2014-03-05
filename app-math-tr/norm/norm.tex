@@ -2,21 +2,87 @@
 \begin{document}
 Uzakliklar, Norm, Benzerlik
 
-Literaturdeki anlatim bu kavramlar etrafinda biraz kafa karisikligi
-yaratabilir, bu yazida biraz aciklik getirmeye calisalim. Norm bir buyukluk
-olcusudur, vektor uzaylari ile olan alaksini gormek icin {\em Fonksiyonel
-  Analiz} notlarina bakilabilir. Buyukluk derken yani basitce bir $x$
-vektorunun buyuklugunden bahsediyoruz. Cogunlukla $||x||$ gibi bir kullanim
-gorulur kitaplarda, eger altsimge yok ise, o zaman bu 2 kabul edilir, yani
-$||x||_2$ (bu cogunlukla atlaniyor), ve bu ifade bir L2 norm'unu ifade
-eder. $||x||_1$ varsa L1 norm'u olurdu.
+Literaturdeki anlatim norm ve uzaklik konusu etrafinda biraz kafa
+karisikligi yaratabiliyor, bu yazida biraz aciklik getirmeye
+calisalim. Norm bir buyukluk olcusudur. Vektor uzaylari ile olan alakasini
+gormek icin {\em Fonksiyonel Analiz} notlarina bakilabilir. Buyukluk derken
+bir $x$ vektorunun buyuklugunden bahsediyoruz, ki bu cogunlukla $||x||$
+gibi bir kullanimda gorulur, eger altsimge yok ise, o zaman 2 kabul edilir,
+yani $||x||_2$. Bu ifade bir L2 norm'unu ifade eder. $||x||_1$ varsa L1
+norm'u olurdu.
 
-L1,L2 normalari, ya da genel olarak $L_p$ normlari soyle gosterilir
+L1,L2 normalari, ya da genel olarak $p$ uzerinden $L_p$ normlari soyle gosterilir
 
 $$ ||x||_p = (\sum_i |x_i|^p)^{1/p} $$
 
+ki $x_i$, $x$ vektoru icindeki ogelerdir. Eger $p=2$ ise, L2 norm
+
+$$ ||x||_2 = \bigg(\sum_i |x_i|^2 \bigg)^{1/2} $$
+
+Ustel olarak $1/2$'nin karekok demek oldugunu hatirlayalim, yani 
+
+$$ ||x||_2 = \sqrt{\sum |x_i|^2} $$
+
+Bu norm ayrica Oklitsel (Euclidian) norm olarak ta bilinir, tabii ki bunun
+Oklitsel uzaklik ile yakin baglantisi var (iki vektoru birbirinden cikartip
+Oklit normunu alirsak Oklit uzakligini hesaplamis oluruz).
+
+Eger $p=1$ olsaydi, yani L1 norm, o zaman ustel olarak $1/1$ olur, yani
+hicbir ustel / koksel islem yapilmasina gerek yoktur, iptal olurlar,
+
+$$ ||x||_1 = \sum |x_i|^2 $$
 
 
+Ornek
 
+$$ 
+a = \left[\begin{array}{r}
+3 \\ -2 \\ 1
+\end{array}\right]
+ $$
+
+$$ ||a|| = \sqrt{3^2+(-2)^2+1^2} = 3.742 $$
+
+Ornekte altsimge yok, demek ki L2 norm. 
+
+Ek Notasyon, Islemler
+
+L1 normu icin yapilan islemi dusunelim, vektor ogeleri kendileri ile
+carpiliyor ve sonuclar toplaniyor. Bu islem
+
+$||x||_1 = x^Tx$
+
+olarak ta gosterilemez mi? Ya da $x \cdot x$ olarak ki bu noktasal carpimdir.
+
+Bazen de yapay ogrenim literaturunde $||x||^2$ sekilde bir kullanim
+gorebiliyorsunuz. Burada neler oluyor? Altsimge yok, demek ki L2
+norm. Sonra L2 normun karesi alinmis, fakat L2 normu tanimina gore bir
+karekok almiyor muydu? Evet, fakat o zaman kare islemi karekoku iptal eder,
+demek ki L2 normunun karesini almak bizi L1 normuna dondurur! Eh bu normu
+da $x^Tx$ olarak hesaplayabildigimize gore hemen o notasyona gecebiliriz,
+demek ki $||x||^2 = x^Tx = x \cdot x$. 
+
+Ikisel Vektorlerde Benzerlik
+
+Diger ilginc bir kullanim ikisel degerler iceren iki vektor arasinda
+cakisan 1 degerlerinin toplamini bulmak. Mesela 
+
+\begin{minted}[fontsize=\footnotesize]{python}
+a = np.array([1,0,0,1,0,0,1,1])
+b = np.array([0,0,1,1,0,1,1,0])
+\end{minted}
+
+Bu iki vektor arasindaki 1 uyusumunu bulmak icin noktasal carpim yeterli,
+cunku 1 ve 0, 0 ve 1, 0 ve 0 carpimi sifir verir, ama 1 carpi 1 = 1
+sonucunu verir. O zaman L1 norm bize ikisel iki vektor arasinda kabaca bir
+benzerlik fikri verebilir.
+
+\begin{minted}[fontsize=\footnotesize]{python}
+print np.dot(a,b)
+\end{minted}
+
+\begin{verbatim}
+2
+\end{verbatim}
 
 \end{document}
