@@ -42,13 +42,17 @@ $$ = (L^{-1}y)^TL^{-1}y $$
 $$  = |L^{-1}y|^2 $$
 
 Ustteki ifadede $|\cdot|$ icindeki kisim $Ax=b$ durumundaki $x$'in en az
-kareler cozumu olan $A^{-1}b$'ye benzemiyor mu? Evet. Bu durumda her
-standart sayisal kutuphanede mevcut bir cagri ile $L^{-1}y$ hesabini
-yapabiliriz, bu cagrilar perde arkasinda ters alma isleminden kacinarak bir
-suru optimizasyon yaparak sonuca erismektedirler. Ustune ustluk $L$
-durumunda bu cok daha hizli olacaktir, cunku $L$ alt-ucgensel oldugu icin
-cozum geriye deger vermek (back substitution) ile aninda
-bulunabilir. Geriye deger vermeyi alttaki gibi bir ornekte gorelim,
+kareler cozumu olan $A^{-1}b$'ye benzemiyor mu? Evet. Gerci $n \times n$
+boyutunda bir matris oldugu icin elimizde ``bilinmeyenden fazla denklem''
+yok, yani bu sistem artýk belirtilmiþ (overdetermined) degil, yani en az
+kareler degil direk lineer sistem cozumu yapiyoruz. Her neyse, bu durumda
+her standart lineer cebir kutuphanesinde mevcut bir cagri ile $L^{-1}y$
+hesabini yapabiliriz, mesela \verb!solve! ile, ve bu cagrilar perde arkasinda
+ters alma isleminden kacinarak bir suru optimizasyon yaparak sonuca
+erismektedirler. Ustune ustluk $L$ durumunda bu cok daha hizli olacaktir,
+cunku $L$ alt-ucgensel oldugu icin cozum geriye deger koymak (back
+substitution) ile aninda bulunabilir. Geriye deger koymayi hatirlarsak,
+mesela
 
 $$ 
 \left[\begin{array}{cc}
@@ -66,15 +70,20 @@ x_2
 \end{array}\right]
  $$
 
-En ust satirda her zaman tek bir oge olacak, bu tek bir esitlik demektir,
-$2x_1 = 6$, ve $x_1 = 3$. Bunu alip bir sonraki satira gideriz, 
-artik $x_1$'i biliyoruz, sonraki satirda o zaman sadece $x_2$ bilinmeyen
+En ust satirda her zaman tek bir bilinmeyen olacak, cunku matris alt ucgensel,
+en ust satir her zaman en bos satirdir. Bu tek bir esitlik
+demektir, yani $2x_1 = 6$, ki $x_1 = 3$. Bunu alip bir sonraki satira gideriz,
+artik $x_1$'i biliyoruz, sonraki satirda sadece $x_2$ bilinmeyen
 kaliyor, $3\cdot x_1 + 4 \cdot x_2 = 8$, yani $x_2 = -1/4$. Sonuca
-ulastik. 
+ulastik. Daha fazla boyut olsaydi durum degismezdi, ayni islem daha fazla
+tekrarlanirdi. Bu arada bu turden bir cozumun ne kadar hizli olacagini
+belirtmemize gerek yok herhalde.
 
 Demek ki $y^T\Sigma^{-1}y$ hesabi icin once $\Sigma$ uzerinde Cholesky
 aliyoruz, sonra $L^{-1}y$ cozduruyoruz. Elde edilen degerin noktasal
-carpimini alinca $\Sigma$'nin tersini elde etmis olacagiz. Ornek, once uzun yoldan,
+carpimini alinca $\Sigma$'nin tersini elde etmis olacagiz. 
+
+Ornek (once uzun yoldan),
 
 \begin{minted}[fontsize=\footnotesize]{python}
 import numpy.linalg as lin
@@ -87,7 +96,7 @@ print np.dot(np.dot(y.T,lin.inv(Sigma)),y)
 [[ 0.80434783]]
 \end{verbatim}
 
-Simdi Cholesky ve en az kareler uzerinden
+Simdi Cholesky ve \verb!solve! uzerinden
 
 \begin{minted}[fontsize=\footnotesize]{python}
 L = lin.cholesky(Sigma)
