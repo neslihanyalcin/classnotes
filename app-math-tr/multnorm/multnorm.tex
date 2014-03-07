@@ -45,14 +45,12 @@ Ustteki ifadede $|\cdot|$ icindeki kisim $Ax=b$ durumundaki $x$'in en az
 kareler cozumu olan $A^{-1}b$'ye benzemiyor mu? Evet. Gerci $n \times n$
 boyutunda bir matris oldugu icin elimizde ``bilinmeyenden fazla denklem''
 yok, yani bu sistem artýk belirtilmiþ (overdetermined) degil, yani en az
-kareler degil direk lineer sistem cozumu yapiyoruz. Her neyse, bu durumda
-her standart lineer cebir kutuphanesinde mevcut bir cagri ile $L^{-1}y$
-hesabini yapabiliriz, mesela \verb!solve! ile, ve bu cagrilar perde arkasinda
-ters alma isleminden kacinarak bir suru optimizasyon yaparak sonuca
-erismektedirler. Ustune ustluk $L$ durumunda bu cok daha hizli olacaktir,
-cunku $L$ alt-ucgensel oldugu icin cozum geriye deger koymak (back
-substitution) ile aninda bulunabilir. Geriye deger koymayi hatirlarsak,
-mesela
+kareler degil direk lineer sistem cozumu yapiyoruz. Bu durumda her standart
+lineer cebir kutuphanesinde mevcut bir cagri kullanacagiz, mesela
+\verb!solve_triangular! (ve lower -alt- dogru secenegini kullanacagiz), ki
+bu cagri ozellikle alt ucgensel matris uzerinden cozum yapmaktadir, cunku
+$L$ alt-ucgensel oldugu icin cozum geriye deger koymak (back substitution)
+ile aninda bulunabilir. Geriye deger koymayi hatirlarsak, mesela
 
 $$ 
 \left[\begin{array}{cc}
@@ -96,21 +94,21 @@ print np.dot(np.dot(y.T,lin.inv(Sigma)),y)
 [[ 0.80434783]]
 \end{verbatim}
 
-Simdi Cholesky ve \verb!solve! uzerinden
+Simdi Cholesky ve \verb!solve_triangular! uzerinden
 
 \begin{minted}[fontsize=\footnotesize]{python}
+import scipy.linalg as slin
 L = lin.cholesky(Sigma)
-x = lin.solve(L,y)
+x = slin.solve_triangular(L,y,lower=True)
 print np.dot(x.T,x)
 \end{minted}
 
 \begin{verbatim}
 [[ 0.80434783]]
-\end{verbatim}
 
 Ayni sonuca eristik.
 
-log-toplam-exp
+\end{verbatim}log-toplam-exp
 
 Bu numaranin ilk kismi nisbeten basit. Bazi yapay ogrenim algoritmalari icin
 olasilik degerlerinin birbiriyle carpilmasi gerekiyor, mesela 
