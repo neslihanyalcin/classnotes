@@ -150,6 +150,31 @@ bos olmayan ogelerin indis degerlerini aliyoruz. Bilindigi uzere Movielens,
 Netflix verileri oldukca seyrektir, kullanici binlerce film icinden onlar,
 yuzler baglaminda not verimi yapar, geri kalan degerler bostur. 
 
+Pratikte Atlanabilecek Formuller
+
+Ustteki formulasyon icinde genel, film ve kullanici yanliliklari formul
+icinde belirtilmistir. Pratikte sayisal hesap acisindan bu yanliliklari
+daha SVD baslamadan once veriden cikartmak, ve yanlililiklari rasgele
+guncelleme mantigindan cikartmak daha iyi sonuc veriyor. Bu cikartma soyle
+yapilir; once film ortalamalari hesaplanir, her kullanici icin o
+kullanicinin o film ortalamasina olan farki (offset) hesaplanir ve bu fark
+egitim sirasinda not olarak kullanilir. Boylece SVD tum yanliliklardan
+arinmis bir fark hesabi ile calisir sadece, ve numerik olarak bu daha
+avantajlidir. Yoksa ilk atilan adimda fark cok buyuk olacagi icin bu fark
+gradyan inisinin yonununu agirlikli olarak belirleyecektir, ve bu ilk
+atilan adim hesabin geri kalanina asiri baskin cikabilecektir
+(dominate). Zaten SVD'nin kuzeni olan PCA'den de bildigimiz gibi, bu yontem
+ortalamadan arindirilmis (demeaned) farklarla is yapiyor.
+
+Niye Azar Azar (Incremental) Hesap? 
+
+Madem $U,S,V$ hesabi yapar gibi $q_i,p_u$ hesapliyoruz, niye bu hesabi adim
+adim yapiyoruz? 
+
+Bu sorunun cevabi azar azar hesap yaparken hafizaya sadece o satiri alarak
+daha az bellek kullanmamiz. Milyarlarca boyut ve milyarlarca satir isliyor
+olsaydik bu matrisin tamamini hafizaya almamiz mumkun olmazdi. 
+
 Basit bir ornek
 
 \begin{minted}[fontsize=\footnotesize]{python}
@@ -164,31 +189,28 @@ d =  np.array(
 ])
 data = pd.DataFrame (d, columns=['0','1','2','3','4','5'],
        index=['Ben','Tom','John','Fred','Bob'])
-mu,b_u,b_i,q_i,p_u = ssvd.ssvd(data,rank=3)
-print mu
-print 'b_u',b_u
-print 'b_i',b_i
+avg_movies_data = data.mean(axis=0)
+data_user_offset = data.apply(lambda x: x-avg_movies_data, axis=1)
+q_i,p_u = ssvd.ssvd(data_user_offset,rank=3)
 print 'q_i',q_i
 print 'p_u',p_u
 u = 4; i = 2 # Bob icin tahmin yapalim
-r_ui_hat = mu + b_i[i] + b_u[u] + np.dot(q_i[:,i].T,p_u[u,:])
+r_ui_hat = np.dot(q_i[:,i].T,p_u[u,:]) + avg_movies_data.ix[i] + \
+           np.nan_to_num(data_user_offset.ix[u,i])
 print r_ui_hat
 \end{minted}
 
 \begin{verbatim}
 rank 3
-4.31388888889
-b_u [ 0.05129388  0.01927226  0.0206893   0.0065487   0.06568321]
-b_i [ 0.07820389  0.01958841 -0.03217881  0.01561187  0.04071886  0.07140383]
-q_i [[ 0.03132989  0.02957741  0.02802317  0.02951804  0.0301854   0.03108419]
- [ 0.03132989  0.02957741  0.02802317  0.02951804  0.0301854   0.03108419]
- [ 0.03132989  0.02957741  0.02802317  0.02951804  0.0301854   0.03108419]]
-p_u [[ 0.03053543  0.03053543  0.03053543]
- [ 0.0295772   0.0295772   0.0295772 ]
- [ 0.02963018  0.02963018  0.02963018]
- [ 0.02921864  0.02921864  0.02921864]
- [ 0.03100583  0.03100583  0.03100583]]
-4.34999993855
+q_i [[ 0.02999728  0.02999728  0.02999795  0.02999862  0.02999725  0.02999659]
+ [ 0.02999728  0.02999728  0.02999795  0.02999862  0.02999725  0.02999659]
+ [ 0.02999728  0.02999728  0.02999795  0.02999862  0.02999725  0.02999659]]
+p_u [[ 0.03003012  0.03003012  0.03003012]
+ [ 0.0299783   0.0299783   0.0299783 ]
+ [ 0.02998083  0.02998083  0.02998083]
+ [ 0.02996942  0.02996942  0.02996942]
+ [ 0.03002645  0.03002645  0.03002645]]
+3.33603552974
 \end{verbatim}
 
 Test Etmek
@@ -223,11 +245,21 @@ print df.shape
 (6040, 3699)
 \end{verbatim}
 
+\begin{minted}[fontsize=\footnotesize]{python}
+avg_movies = df.mean(axis=0)
+df_user_offset = df.apply(lambda x: x-avg_movies, axis=1)
+print df.ix[6,5], avg_movies.ix[5], df_user_offset.ix[6,5]
+\end{minted}
+
+\begin{verbatim}
+4.0 3.87872340426 0.121276595745
+\end{verbatim}
+
 Egitim ve test verisi yaratiyoruz,
 
 \begin{minted}[fontsize=\footnotesize]{python}
 import ssvd
-df_train, test_data = ssvd.create_training_test(df,rowlim=500,collim=300)
+df_train, test_data = ssvd.create_training_test(df_user_offset,rowlim=500,collim=300)
 print len(test_data)
 \end{minted}
 
@@ -236,13 +268,11 @@ print len(test_data)
 \end{verbatim}
 
 \begin{minted}[fontsize=\footnotesize]{python}
-mu,b_u,b_i,q_i,p_u = ssvd.ssvd(df_train,rank=25)
-print 'mu',mu
+q_i,p_u = ssvd.ssvd(df_train,rank=25)
 \end{minted}
 
 \begin{verbatim}
 rank 25
-mu 3.23835007474
 \end{verbatim}
 
 Test
@@ -250,14 +280,14 @@ Test
 \begin{minted}[fontsize=\footnotesize]{python}
 rmse = 0; n = 0
 for u,i,real in test_data:
-    r_ui_hat = mu + b_i[i] + b_u[u] + np.dot(q_i[:,i].T,p_u[u,:])
+    r_ui_hat = np.dot(q_i[:,i].T,p_u[u,:])
     rmse += (real-r_ui_hat)**2
     n += 1
 print "rmse", np.sqrt(rmse / n)
 \end{minted}
 
 \begin{verbatim}
-rmse 0.903347878156
+rmse 0.944142356597
 \end{verbatim}
 
 Sonuc oldukca iyi.
@@ -309,8 +339,144 @@ regularizasyon bazi gayri-lineerlikleri probleme sokar, zaten bu cozumu
 olmasa cozum tam SVD olacaktir. Bu bulusun puf noktasi bu bilgide, ve
 ustteki teorik benzerliklerde, onlari biliyor olmakta yatiyor. Eger bunlar
 biliniyor ise, ve saglam lineer cebir bilgisi ile gerektigi zaman onlari ne
-kadar esnetebilecegimizi biliriz. Konu hakkindaki daha fazla detay surada
-[10] bulunabilir.
+kadar esnetebilecegimizi biliriz. Konu hakkindaki daha fazla detay [10]'da
+bulunabilir.
+
+Tavsiye
+
+\begin{minted}[fontsize=\footnotesize]{python}
+movies = pd.read_csv("../../stat/stat_pandas_ratings/movies.dat",\
+         sep='::',names=['idx','movie','type'])
+def eval_user(u):
+    res = {}
+    for i in range(df_user_offset.shape[1]):
+        r_ui_hat = np.dot(q_i[:,i].T,p_u[u,:])
+        res[i] = float(r_ui_hat) + avg_movies.ix[i] + df_user_offset.ix[u,i]
+    res = sorted(res.items(), key=lambda x:x[1], reverse=True)
+
+    print "\n\nTavsiyeler\n\n"
+    for j,(si,sm) in enumerate(res):
+        print movies[movies['idx'] == si]['movie']
+        if j == 10: break
+
+    print "\n\nMevcut Filmler\n\n"
+    row = df.ix[u]
+    idxs = row.index[row.notnull()]
+    for j,idx in enumerate(idxs):
+        print movies[movies['idx'] == idx]['movie'], row[idx]
+        if j == 10: break
+
+eval_user(300)
+eval_user(2900)
+\end{minted}
+
+\begin{verbatim}
+
+
+Tavsiyeler
+
+
+3441    Frequency (2000)
+Name: movie, dtype: object
+105    Muppet Treasure Island (1996)
+Name: movie, dtype: object
+Series([], dtype: object)
+2    Grumpier Old Men (1995)
+Name: movie, dtype: object
+4    Father of the Bride Part II (1995)
+Name: movie, dtype: object
+1    Jumanji (1995)
+Name: movie, dtype: object
+3    Waiting to Exhale (1995)
+Name: movie, dtype: object
+0    Toy Story (1995)
+Name: movie, dtype: object
+5    Heat (1995)
+Name: movie, dtype: object
+6    Sabrina (1995)
+Name: movie, dtype: object
+7    Tom and Huck (1995)
+Name: movie, dtype: object
+
+
+Mevcut Filmler
+
+
+Series([], dtype: object) 5.0
+0    Toy Story (1995)
+Name: movie, dtype: object 3.0
+1    Jumanji (1995)
+Name: movie, dtype: object 4.0
+3    Waiting to Exhale (1995)
+Name: movie, dtype: object 3.0
+4    Father of the Bride Part II (1995)
+Name: movie, dtype: object 5.0
+9    GoldenEye (1995)
+Name: movie, dtype: object 4.0
+15    Casino (1995)
+Name: movie, dtype: object 4.0
+19    Money Train (1995)
+Name: movie, dtype: object 5.0
+20    Get Shorty (1995)
+Name: movie, dtype: object 3.0
+23    Powder (1995)
+Name: movie, dtype: object 4.0
+30    Dangerous Minds (1995)
+Name: movie, dtype: object 5.0
+
+
+Tavsiyeler
+
+
+Series([], dtype: object)
+0    Toy Story (1995)
+Name: movie, dtype: object
+1    Jumanji (1995)
+Name: movie, dtype: object
+2    Grumpier Old Men (1995)
+Name: movie, dtype: object
+3    Waiting to Exhale (1995)
+Name: movie, dtype: object
+4    Father of the Bride Part II (1995)
+Name: movie, dtype: object
+5    Heat (1995)
+Name: movie, dtype: object
+6    Sabrina (1995)
+Name: movie, dtype: object
+7    Tom and Huck (1995)
+Name: movie, dtype: object
+8    Sudden Death (1995)
+Name: movie, dtype: object
+9    GoldenEye (1995)
+Name: movie, dtype: object
+
+
+Mevcut Filmler
+
+
+19    Money Train (1995)
+Name: movie, dtype: object 4.0
+23    Powder (1995)
+Name: movie, dtype: object 4.0
+37    It Takes Two (1995)
+Name: movie, dtype: object 3.0
+45    How to Make an American Quilt (1995)
+Name: movie, dtype: object 5.0
+48    When Night Is Falling (1995)
+Name: movie, dtype: object 5.0
+66    Two Bits (1995)
+Name: movie, dtype: object 5.0
+78    Juror, The (1996)
+Name: movie, dtype: object 4.0
+104    Nobody Loves Me (Keiner liebt mich) (1994)
+Name: movie, dtype: object 5.0
+118    Race the Sun (1996)
+Name: movie, dtype: object 4.0
+134    From the Journals of Jean Seberg (1995)
+Name: movie, dtype: object 2.0
+142    Brothers McMullen, The (1995)
+Name: movie, dtype: object 3.0
+\end{verbatim}
 
 Kaynaklar
 
