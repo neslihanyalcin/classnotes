@@ -282,6 +282,11 @@ bob_2d = np.dot(np.dot(la.inv(S_k),vt.T),bob.T)
 print bob_2d
 \end{minted}
 
+Not: \verb!bob.T! ustteki formuldeki $A^T$ yerine gececek; formulu tekrar
+duzenlerken $A$ uzerinden islem yaptik, fakat formulu ``$A$'ya eklenen
+herhangi bir yeni satir'' olarak ta gorebiliriz, ki bu ornegimizde Bob'un
+verisi olurdu. 
+
 \begin{verbatim}
 (6,)
 (4, 2)
