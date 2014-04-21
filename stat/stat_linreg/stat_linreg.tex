@@ -9,7 +9,30 @@ icin En Az Kareler (Least Squares) en iyi bilinen yontemlerden biri. En Az
 Kareleri daha once pek cok degisik ders notlarinda, yazida turettik. Mesela
 {\em Cok Degiskenli Calculus Ders 9}, {\em Lineer Cebir Ders 15}, ya da
 Uygulamali Matematik yazilarindan {\em Regresyon, En Az Kareler (Least
-  Squares)} yazilarinda. 
+  Squares)} yazilarinda bu turetimi gorduk. 
+
+Lineer Regresyonun sadece iki degisken temelli islemek gerekirse, 
+
+$$ Y = \beta_0 + \beta_1 x + \epsilon$$
+
+olabilir. Burada $\epsilon$ $N(0,\sigma^2)$ dagilimindan gelen hatadir ve
+$\sigma$ bilinmez. Eger veriyi $(x_1,y_1),...(x_n,y_n)$ ikili olarak
+grafiklesek 
+
+\includegraphics[height=4cm]{lin_01.png}
+
+gibi gozukebilirdi, lineer regresyon ile yapmaya calistigimiz tum noktalara
+olabilecek en yakin duz cizgiyi (ustte goruldugu gibi) bulmaktir. 
+
+Bu duz cizgiyi (ki boyutlu ortamda bu cizgi bir hiper duzlem olurdu), En Az
+Kareler bulduktan sonra bazi ``tahmini'' katsayi degerleri elde edecegiz,
+katsayilar $\hat{\beta}_0,\hat{\beta}_1$ olarak tanimlanir. Kullandigimiz
+noktasyon istatistikteki ``tahmin edici (estimator)'' notasyon ile uyumlu,
+bunu bilerek yaptik. Ve bu tahmin ediciler ile elde edilen $y$'nin kendisi
+de bir tahmin edici haline gelir ve bir duz cizgiyi tanimlar,
+
+$$ \hat{y} = \hat{\beta}_0 + \hat{\beta}_1x $$
+
 
 Satis ve Reklamlar
 
@@ -235,7 +258,7 @@ Kaynaklar
 
 [1] Introduction to Mathematical Statistics and Its Applications, sf. 569
 
-
+[2] Runger et al, Applied Statistics and Probability for Engineers, sf. 393
 
 
 
