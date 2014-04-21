@@ -158,5 +158,36 @@ Sales      0.782224  0.576223   0.228299  1.000000
 \end{verbatim}
 
 
+\begin{minted}[fontsize=\footnotesize]{python}
+df = pd.read_csv('bfat.csv',sep=',')
+results = smf.ols('BF ~ 1 + waist', data=df).fit()
+print results.summary()
+print 'artik standart sapmasi (residual sd)', np.sqrt(results.mse_resid)
+\end{minted}
+
+\begin{verbatim}
+                            OLS Regression Results                            
+==============================================================================
+Dep. Variable:                     BF   R-squared:                       0.678
+Model:                            OLS   Adj. R-squared:                  0.677
+Method:                 Least Squares   F-statistic:                     523.3
+Date:                Mon, 21 Apr 2014   Prob (F-statistic):           4.85e-63
+Time:                        13:12:52   Log-Likelihood:                -741.29
+No. Observations:                 250   AIC:                             1487.
+Df Residuals:                     248   BIC:                             1494.
+Df Model:                           1                                         
+==============================================================================
+                 coef    std err          t      P>|t|      [95.0% Conf. Int.]
+------------------------------------------------------------------------------
+Intercept    -42.7341      2.717    -15.731      0.000       -48.084   -37.384
+waist          1.7000      0.074     22.875      0.000         1.554     1.846
+==============================================================================
+Omnibus:                        4.921   Durbin-Watson:                   1.747
+Prob(Omnibus):                  0.085   Jarque-Bera (JB):                3.148
+Skew:                           0.071   Prob(JB):                        0.207
+Kurtosis:                       2.469   Cond. No.                         333.
+==============================================================================
+artik standart sapmasi (residual sd) 4.71257003122
+\end{verbatim}
 
 \end{document}
