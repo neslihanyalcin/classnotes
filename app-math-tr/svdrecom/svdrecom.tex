@@ -321,6 +321,57 @@ Sonuca gore yeni kullanici Bob, en cok Ben ve Fred'e benziyor. Sonuca
 eristik! Artik bu iki kullanicinin yuksek not verdigi ama Bob'un hic
 not vermedigi sezonlari alip Bob'a tavsiye olarak sunabiliriz.
 
+SVD ile Veriyi Olusturmak
+
+\begin{minted}[fontsize=\footnotesize]{python}
+import pandas as pd
+import numpy.linalg as lin
+import numpy as np
+import scipy.sparse.linalg as lin
+import scipy.sparse as sps
+
+d =  np.array(
+[[ 5.,  5.,  3.,  np.nan,  5., 5.],
+ [ 5.,  np.nan,  4.,  np.nan,  4., 4.],
+ [ np.nan,  3.,  np.nan,  5.,  4., 5.],
+ [ 5.,  4.,  3.,  3.,  5., 5.],
+ [ 5.,  5.,  np.nan,  np.nan,  np.nan, 5.]
+])
+data = pd.DataFrame (d, columns=['0','1','2','3','4','5'],
+       index=['Ben','Tom','John','Fred','Bob'])
+print data
+avg_movies_data = data.mean(axis=0)
+print avg_movies_data
+data_user_offset = data.apply(lambda x: x-avg_movies_data, axis=1)
+A = sps.coo_matrix(np.nan_to_num(np.array(data_user_offset)))
+U,S,VT = lin.svds(A,k=3)
+def predict(u,i):
+    r_ui_hat = np.dot(U[u,:],VT[:,i]) + avg_movies_data.ix[i] + \
+               np.nan_to_num(np.array(data_user_offset)[u,i])
+    return r_ui_hat
+
+print predict(4,2)
+print predict(1,1)
+\end{minted}
+
+\begin{verbatim}
+       0   1   2   3   4  5
+Ben    5   5   3 NaN   5  5
+Tom    5 NaN   4 NaN   4  4
+John NaN   3 NaN   5   4  5
+Fred   5   4   3   3   5  5
+Bob    5   5 NaN NaN NaN  5
+0    5.000000
+1    4.250000
+2    3.333333
+3    4.000000
+4    4.500000
+5    4.800000
+dtype: float64
+3.31156413655
+4.29541937081
+\end{verbatim}
+
 Movielens 1M Verisi
 
 Bu veri seti 6000 kullanici tarafindan yaklasik 4000 tane filme
