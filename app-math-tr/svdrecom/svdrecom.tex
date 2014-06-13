@@ -337,8 +337,9 @@ d =  np.array(
  [ 5.,  4.,  3.,  3.,  5., 5.],
  [ 5.,  5.,  np.nan,  np.nan,  np.nan, 5.]
 ])
-data = pd.DataFrame (d, columns=['0','1','2','3','4','5'],
-       index=['Ben','Tom','John','Fred','Bob'])
+users = ['Ben','Tom','John','Fred','Bob']
+seasons = ['0','1','2','3','4','5']
+data = pd.DataFrame (d, columns=seasons,index=users)
 print data
 avg_movies_data = data.mean(axis=0)
 print avg_movies_data
@@ -346,12 +347,12 @@ data_user_offset = data.apply(lambda x: x-avg_movies_data, axis=1)
 A = sps.coo_matrix(np.nan_to_num(np.array(data_user_offset)))
 U,S,VT = lin.svds(A,k=3)
 def predict(u,i):
-    r_ui_hat = np.dot(U[u,:],VT[:,i]) + avg_movies_data.ix[i] + \
-               np.nan_to_num(np.array(data_user_offset)[u,i])
-    return r_ui_hat
+    offset = np.dot(U[u,:],VT[:,i]) 
+    r_ui_hat = offset + avg_movies_data.ix[i] 
+    return r_ui_hat, offset
 
-print predict(4,2)
-print predict(1,1)
+print 'Bob', predict(users.index('Bob'),2)
+print 'Tom', predict(users.index('Tom'),1)
 \end{minted}
 
 \begin{verbatim}
@@ -368,8 +369,8 @@ Bob    5   5 NaN NaN NaN  5
 4    4.500000
 5    4.800000
 dtype: float64
-3.31156413655
-4.29541937081
+Bob (3.3115641365499888, -0.021769196783344661)
+Tom (4.295419370813935, 0.045419370813934629)
 \end{verbatim}
 
 Movielens 1M Verisi
