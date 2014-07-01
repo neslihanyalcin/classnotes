@@ -1,7 +1,6 @@
 from numpy.linalg import linalg as la
 import numpy as np
-import random
-import pandas as pd, os
+import random, pandas as pd
 
 def create_training_test(df,collim=2,rowlim=200):
     test_data = []
@@ -15,16 +14,14 @@ def create_training_test(df,collim=2,rowlim=200):
         if len(test_data) > rowlim: break
     return df_train, test_data
 
-def ssvd(df_train,rank):
-    print 'rank',rank
+def ssvd(df_train,k):
     lam = 0.02 # regularizasyon
-    gamma = 0.001 # adim katsayisi
+    gamma = 0.01 # adim katsayisi
     m,n = df_train.shape
-    c = 0.03
-    b_u = np.ones(m) * c
-    b_i = np.ones(n) * c
-    p_u = np.ones((m, rank)) * c
-    q_i = np.ones((rank, n)) * c
+    b_u = np.random.uniform(0, 0.1, size=m)
+    b_i = np.random.uniform(0, 0.1, size=n)
+    p_u = np.random.rand(m,k)
+    q_i = np.random.rand(k, n)
     r_ui = np.array(df_train)
     for u in range(m):
         row = df_train.ix[u]; idxs = row.index[row.notnull()]

@@ -128,10 +128,14 @@ $$ q_i \leftarrow q_i + \gamma (e_{ui}\cdot p_u - \lambda \cdot q_i) $$
 
 $$ p_u \leftarrow p_u + \gamma (e_{ui}\cdot q_i - \lambda \cdot p_u) $$
 
-Her degisken icin baslangic noktasi rasgele olarak secilebilir, ya da en
-iyi degerler deneme/ yanilma ya da capraz saglama (crossvalidation) ile
-bulunabilir. Ayni durum $\gamma,\lambda$ sabitleri icin de gecerli. Biz bu
-ornekte deneme / yanilma yontemini sectik.
+Her degisken icin baslangic noktasi rasgele olarak secilebilir, hatta
+secilmelidir; Internet'te bu konu hakkinda ``efendim tum degerleri 0.1
+degeri yapsaniz olur'' gibi yorumlar okuyabilirsiniz, bu durumda $q_i,p_u$
+degiskenlerinin tum hucreleri ayni degerde kalir! Yani $q_3$ mesela,
+tamamen 0.6 degerine sahip olur, ki bu istenen bir sey
+olmaz. $\gamma,\lambda$ sabitleri icin en iyi degerler deneme/ yanilma ya
+da capraz saglama (crossvalidation) ile bulunabilir, biz bu ornekte deneme
+/ yanilma yontemini sectik.
 
 Rasgelelik, aynen {\em Lojistik Regresyon} orneginde oldugu gibi verinin
 rasgeliliginden geliyor, her veri noktasini teker teker sirayla isliyoruz
@@ -191,7 +195,7 @@ data = pd.DataFrame (d, columns=['0','1','2','3','4','5'],
        index=['Ben','Tom','John','Fred','Bob'])
 avg_movies_data = data.mean(axis=0)
 data_user_offset = data.apply(lambda x: x-avg_movies_data, axis=1)
-q_i,p_u = ssvd.ssvd(data_user_offset,rank=3)
+q_i,p_u = ssvd.ssvd(data_user_offset,k=3)
 print 'q_i',q_i
 print 'p_u',p_u
 u = 4; i = 2 # Bob icin tahmin yapalim
@@ -201,16 +205,15 @@ print r_ui_hat
 \end{minted}
 
 \begin{verbatim}
-rank 3
-q_i [[ 0.02999728  0.02999728  0.02999795  0.02999862  0.02999725  0.02999659]
- [ 0.02999728  0.02999728  0.02999795  0.02999862  0.02999725  0.02999659]
- [ 0.02999728  0.02999728  0.02999795  0.02999862  0.02999725  0.02999659]]
-p_u [[ 0.03003012  0.03003012  0.03003012]
- [ 0.0299783   0.0299783   0.0299783 ]
- [ 0.02998083  0.02998083  0.02998083]
- [ 0.02996942  0.02996942  0.02996942]
- [ 0.03002645  0.03002645  0.03002645]]
-3.33603552974
+q_i [[ 0.77564986  0.1768796   0.56224297  0.42870962  0.94723452  0.55772707]
+ [ 0.74100171  0.18146607  0.07704434  0.17631144  0.48868432  0.90470742]
+ [ 0.70541948  0.28729857  0.091619    0.46184649  0.64498754  0.27410096]]
+p_u [[ 0.41549541  0.59784095  0.45227968]
+ [ 0.7756159   0.1197948   0.2921504 ]
+ [ 0.82274016  0.58432802  0.46501307]
+ [ 0.1877425   0.21364635  0.1924456 ]
+ [ 0.80554597  0.59254732  0.9775562 ]]
+3.92146103113
 \end{verbatim}
 
 Test Etmek
@@ -268,12 +271,8 @@ print len(test_data)
 \end{verbatim}
 
 \begin{minted}[fontsize=\footnotesize]{python}
-q_i,p_u = ssvd.ssvd(df_train,rank=25)
+q_i,p_u = ssvd.ssvd(df_train,k=8)
 \end{minted}
-
-\begin{verbatim}
-rank 25
-\end{verbatim}
 
 Test
 
@@ -287,10 +286,10 @@ print "rmse", np.sqrt(rmse / n)
 \end{minted}
 
 \begin{verbatim}
-rmse 0.944142356597
+rmse 0.936136196897
 \end{verbatim}
 
-Sonuc oldukca iyi.
+Sonuc fena degil.
 
 Formulasyonun Hikayesi
 

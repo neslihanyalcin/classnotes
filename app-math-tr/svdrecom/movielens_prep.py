@@ -9,8 +9,7 @@ import os
 def one_hot_dataframe(data, cols, replace=False):
     vec = DictVectorizer()
     mkdict = lambda row: dict((col, row[col]) for col in cols)
-    res = data[cols].apply(mkdict, axis=1)
-    vecData = pd.DataFrame(vec.fit_transform(res).toarray())
+    vecData = pd.DataFrame(vec.fit_transform(data[cols].to_dict(outtype='records')).toarray())
     vecData.columns = vec.get_feature_names()
     vecData.index = data.index
     if replace is True:
@@ -21,7 +20,7 @@ def one_hot_dataframe(data, cols, replace=False):
 rnames = ['user_id', 'movie_id', 'rating', 'timestamp']
 ratings = pd.read_table('../../stat/stat_pandas_ratings/ratings.dat', sep='::', header=None,names=rnames)
 df2 = ratings.pivot_table('rating', rows='user_id',cols='movie_id')
-df2.to_csv("/tmp/out41.csv",sep=';')
+df2.to_csv("/tmp/out1.csv",sep=';')
 
 import pandas as pd
 unames = ['user_id', 'gender', 'age', 'occupation', 'zip']
