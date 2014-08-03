@@ -395,7 +395,7 @@ benzer bir hesap yapiliyor.
 Guc siralamasi hesabini yaptiktan sonra -tek bir numerik sayi, bazi
 takimlar icin daha yuksek bazi takimlar icin daha alcak, ki onun uzerinden
 siralama yapilabilsin- onu bir ozellik olarak lojistik regresyon modeline
-dahil edebiliriz. Guc siralamasi esas olarak su tur irdelelerin modelimize
+dahil edebiliriz. Guc siralamasi esas olarak su tur irdelemelerin modelimize
 dahilini mumkun kilar; A takimi B'yi yendiyse, B C'yi yendiyse, A buyuk
 ihtimalle C'yi yener. Bu tur bilgi niye onemli?  Cunku elimizde
 yapilabilecek tum maclarin kombinasyonu yok, mac verisi seyrek
@@ -558,16 +558,17 @@ wc_power_train = game_summaries[game_summaries['competitionid'] == 4].copy()
 Ev sahasi avantaji
 
 Klup verisi ile dunya kupasi verisi arasindaki bazi farklardan biri budur:
-dunya kupasinda, mac basina ev sahibi olmak, deplasmanda olmak ne demektir?
-Resmi olarak tek ev sahibi tum 2014 kupasina ev sahipligi yapan
-Brezilya'dir, o zaman sadece Brezilya mi mac basina sadece ev sahibi
-olabilir? Bu pek akla yatkin gelmiyor. 
+dunya kupasinda bir macta ev sahibi olmak ya da deplasmanda olmak ne
+demektir?  Resmi olarak tek ev sahibi tum 2014 kupasina ev sahipligi yapan
+Brezilya'dir, o zaman sadece Brezilya mi oynadigi maclarda ev sahibi
+olabilir? Bu pek akla yatkin gelmiyor.
 
-Belki diger Latin Amerika takimlarini da ev sahibi olarak gorebiliriz..?
-Diger bazi modeller \verb!is_home!'u sadece Brezilya'ya vermis, sonra ayni
-kitadaki diger takimlara da 'azicik' ev sahipligi vermisler, cunku
-istatistiklere gore bu takimlar kendi kitalarinda daha iyi performans
-gosteriyorlarmis, vs.
+Belki diger Latin Amerika takimlarini da ev sahibi olarak
+gorebiliriz.. Adam ayni kitadan, belki o kitaya alisik, iklimi vs ona
+normal geliyor.. ? Olabilir mi? Diger bazi modeller \verb!is_home!'u sadece
+Brezilya'ya vermis, sonra ayni kitadaki diger takimlara da 'azicik' ev
+sahipligi vermisler, cunku istatistiklere gore bu takimlar kendi
+kitalarinda daha iyi performans gosteriyorlarmis, vs.
 
 Biz daha degisik bir model kullanacagiz, bu model belki biraz
 subjektif.. Biz \verb!is_home! ogesine 0.0 ila 1.0 arasinda bir deger
@@ -713,16 +714,16 @@ guclendirir.
 Katsayilari dogal olarak bir takimin ne kadar iyi oldugunu gosterecektir. 
 
 Tabii regresyona pek cok satir verilecek, Kamerun birden fazla satirda
-ortaya cikabilecek, bazen arti degerli olarak (ev sahibi) bazen eksi
-degerli olarak (deplasman). 
+ortaya cikabilecek (ama hep ayni kolonda, isin puf noktasi burada), bazen
+arti degerli olarak (ev sahibi) bazen eksi degerli olarak (deplasman).
 
 Itiraf etmek gerekir ki veri bilimi baglaminda ustteki teknik, model,
-dusunce tarzi dahiyane bir yaklasim. Bu is kolunun ruhunu gostermesi
-bakimindan son derece onemli bir ornek. Hem ustteki veri temsili, hem de
+dusunce tarzi dahiyane bir yaklasim. Ornek is kolumuzun, veri biliminin
+ruhunu gostermesi bakimindan guzel bir ornek. Veri temsilinden tutun,
 regresyonun kodlanmasinda ceyrekliklere ayirmak, az veri oldugu icin
 yaklasiksallik (convergence) olmayabilir diye degisik parametrelerle
-regresyonu birkac kez isletmek, bunu yaklasiksallik olana kadar yapmak,
-muthis. Iste alanimizin puf noktalari burada gosteriliyor.
+regresyonu birkac kez isletmek, bunu yaklasiksallik olana kadar yapmak, tam
+anlamiyla bir ders niteligi tasiyor. 
 
 Tahmin
 
