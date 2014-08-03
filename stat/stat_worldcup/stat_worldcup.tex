@@ -43,7 +43,7 @@ olacakti, bu modeli bozardi.
 Modelde kullanilacak ozellikler:
 
 \verb!is_home!: Takim evinde mi, deplasmanda mi oynuyor. Futbolda bu
-degiskeninin cok onemli oldugunu anladik.
+degiskenin cok onemli oldugunu anladik.
 
 \verb!avg_points!: Onceki K macta kazanilan ortalama puan (galibiyet icin
 3, esitlik icin 1, kayip icin 0). 
@@ -362,7 +362,7 @@ hesaplayabiliriz (lift) ya da AUC hesabi yapip ROC egrisini hesaplariz. AUC
 herhalde en iyisi, bu hesap cok ilginctir, 0.5 (kafadan atmak) ve 1.0
 arasindadir (mukemmel tahmin), ve bu hesap dengesiz veri setlerine karsi
 dayaniklidir. Mesela 0/1 etiketi tahmininde test setinde diyelim ki yuzde 90
-oraninda 1 olsa ve modelimiz surekli 1 tahmin etse, basit bir olcum bize
+oraninda olsa ve modelimiz surekli 1 tahmin etse, basit bir olcum bize
 modelimizin yuzde 90 basarili oldugunu soylerdi. AUC boyle durumlara karsi
 dayaniklidir, bize 0.5 sonucunu verir. 
 
@@ -381,7 +381,7 @@ plt.savefig('doc_en_01.png')
 
 \includegraphics[height=6cm]{doc_en_01.png}
 
-Modelden eksik olan bir sey var; sonraki maci onceki birkac macin ozetinden
+Modelde eksik olan bir sey var; sonraki maci onceki birkac macin ozetinden
 tahmin etmeye ugrasiyoruz ama belki bazi takimlar onceki K macta cok zorlu
 rakiplerle ugrasmistir, bazilari cok kolay rakiplerle ugrasmistir. Bu
 durumda onceki maclarin istatistigi bize tum hikayeyi anlatmayacaktir. 
@@ -394,14 +394,14 @@ benzer bir hesap yapiliyor.
 
 Guc siralamasi hesabini yaptiktan sonra -tek bir numerik sayi, bazi
 takimlar icin daha yuksek bazi takimlar icin daha alcak, ki onun uzerinden
-siralama yapilabilsin-, onu bir ozellik olarak lojistik regresyon modeline
+siralama yapilabilsin- onu bir ozellik olarak lojistik regresyon modeline
 dahil edebiliriz. Guc siralamasi esas olarak su tur irdelelerin modelimize
 dahilini mumkun kilar; A takimi B'yi yendiyse, B C'yi yendiyse, A buyuk
-ihtimalle C takimindan daha iyidir. Bu niye iyi?  Cunku elimizde
+ihtimalle C'yi yener. Bu tur bilgi niye onemli?  Cunku elimizde
 yapilabilecek tum maclarin kombinasyonu yok, mac verisi seyrek
 (sparse). Ama eldeki birkac mactan bir guc siralamasi hesaplayabilirsek, bu
 bize takimlar arasinda, daha once mac oynamamis olsalar bile, otomatik
-olarak bir ek bilgi saglayacaktir. 
+olarak bir ek irdeleme yapabilmemizi saglayacaktir.
 
 Siralama hesabi yapildiktan sonra bazi kontrolleri hizla, ciplak gozle
 yapabiliriz, mesela sonuca bakariz, eger Wiggan (zayif bir takim) 1.0
