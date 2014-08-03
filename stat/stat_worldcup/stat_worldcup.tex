@@ -1,4 +1,4 @@
-\documentclass[12pt,fleqn]{article}\usepackage{common}
+\documentclass[12pt,fleqn]{article}\usepackage{../common}
 \begin{document}
 Dunya Kupasini 2014 Tahminleri
 
@@ -8,7 +8,7 @@ Projede kullanilan 4 Python dosyasi var:
 
 \verb!features!: Ham istatistik verileri ozelliklere (features) donduruyor,
 ki bu ozellikler yapay ogrenim modeline girilebilsin. Bu ozellikler onceki
-N macin verilerini ozetleme amacli yaratildilar, ki bu ozelliklere
+K macin verilerini ozetleme amacli yaratildilar, ki bu ozelliklere
 dayanarak bir sonraki maci tahmnin edebilelim.
 
 \verb!world_cup! Veriyi temizlemek ve modeli kurmak icin kullanilan
@@ -26,7 +26,6 @@ ne oldugu \verb!history_size! ile tanimli.
 import world_cup
 import features
 import match_stats
-import world_cup
 import pandas as pd
 history_size = 3
 
@@ -34,91 +33,84 @@ game_summaries = features.get_game_summaries()
 data = features.get_features(history_size)
 \end{minted}
 
-The features include rollups from the last K games. Most of them are
-averages that are computed per-minute of game time. Per-minute stats are
-used in order to be able to normalize for games in the world cup that go
-into overtime.  Feature columns:
+Bu ozellikler, dedigimiz gibi, onceki K macin ozeti. Bu ozetlerin cogu
+ortalama, ve ortalamalar dakika bazli olarak alinmis. Ozetler dakika bazli
+cunku mac zamanini asan maclari da hesaba katmak icin boyle yaptik. Mesela
+mac basina yapilan pas degerini alsaydik, zamani asan bir macta normalden
+cok daha fazla olacakti, bu modeli bozardi. 
 
-The following columns are the features that will be used to build the
-prediction model:
+Modelde kullanilacak ozellikler sunlardir:
 
-\verb!is_home!: Whether a team is playing at home or away. This turns out
-to be a big deal in soccer.
+\verb!is_home!: Takim evinde mi, deplasmanda mi oynuyor. Futbolda bu
+degiskeninin cok onemli oldugu goruluyor.
 
-\verb!avg_points!: Average number of points (3 for a win, 1 for a draw, 0
-for a loss) earned in the last K games.
+\verb!avg_points!: Onceki K macta kazanilan ortalama puan (galibiyet icin
+3, esitlik icin 1, kayip icin 0. 
 
-\verb!avg_goals!: Average number of goals scored in the last K games.
+\verb!avg_goals!: Onceki K macta atilan averaj gol.
 
-\verb!op_average_goals!: Average number of goals scored by the opponent in the last K games.
+\verb!op_average_goals!: Rakip tarafindan son K macta atilan averaj gol.
 
-\verb!pass_70/80!: Number of completed passes per minute in the attacking
-30\%-20\% of the field.
+\verb!pass_70/80!: Hucum sahasinin 30\%-20\%'sinde dakika basina verilen
+basarili pas.
 
-\verb!op_pass70/80!: Number of completed passes by the opponent in their
-attacking 30\%-20\% of the field.
+\verb!op_pass70/80!: Hucum sahasinin 30\%-20\%'sinde rakip tarafindan
+verilmis dakika bazinda basarili paslar.
 
-\verb!expected_goals!: Average number of expected goals in the last K
-games, where expected goals is computed based on the number of shots taken
-and their distance from the goal.
+\verb!expected_goals!: Son K mactaki gol beklentisi, ki bu beklenti atilan
+sut ve ve sutun kaleden uzakligi baz alinarak hesaplanan bir sayi.
 
-\verb!passes!: Number of passes completed per minute.
+\verb!passes!: Dakika basina atilan paslar.
 
-\verb!bad_passes!: Number of passes that didn't complete successfully per
-minute.
+\verb!bad_passes!: Dakika bazinda verilen ama basarili olmayan paslar.
 
-\verb!pass_ratio!: Percentage of completed passes.
+\verb!pass_ratio!: Basarili paslarin orani.
 
-\verb!corners!: Number of corner kicks awareded per minute.
+\verb!corners!: Dakika bazinda atilan kornerler.
 
-\verb!fouls!: Number of fouls committed per minute.
+\verb!fouls!: Yapilan faul sayisi (dk bazli)
 
-\verb!cards!: Number of cards recieved (red or yellow) per game.
+\verb!cards!: Kirmizi ya da sari alinan kart ceza sayisi (mac basina).
 
-\verb!shots!: Number of shots taken per minute.
+\verb!shots!: Dakika bazinda atilan sut.
 
-\verb!op_*!: Statistics about the opponent in the historical games. This is
-not the opponent shown in \verb!op_team_name!; instead, these stats show
-how the primary team's opponents have fared against them. For example,
-\verb!op_corners! is how many corners the teams opponents have been awarded
-per minute.
+\verb!op_*!: Rakipler hakkindaki bazi tarihi istatistikler. Dikkat, bu
+``rakip'' \verb!op_team_name!'de gosterilen rakip degil, genel olarak bu
+takimin rakiplerinin ona karsi nasil oynadigini gostermeye calisan bir
+istatistik. Mesela \verb!op_corners! bu takimin rakiplerinin dakika basina
+kac korner kazandigini gosteriyor.
 
-\verb!*_op_ratio!: Ratio of a team's statistics to their opponents.
+\verb!*_op_ratio!: Takimin istatistiklerinin rakiplerine olan orani [?]
 
-Non-feature columns:
+Ozellik olmayan kolonlar
 
-The following columns are included as metadata about the match:
+\verb!matchid!: Macin id'si
 
-\verb!matchid!: Unique id for the match
+\verb!teamid!: Takimin id'si
 
-\verb!teamid!: Unique id for the team whose historical statistics we're looking at.
+\verb!op_teamid!: Rakip takimin tekil id'si
 
-\verb!op_teamid!: Unique id for the opposing team. None of these statistics
-reflect this opponent.
+\verb!team_name!: Takimin ismi
 
-\verb!team_name!: Name of the team whose historical statistics we're looking at.
+\verb!op_team_name!: Rakip takimin ismi
 
-\verb!op_team_name!: Name of the opposing team.
+\verb!timestamp!: Mac ne zaman oynandi
 
-\verb!timestamp!: Time at which the game was played.
+\verb!competitionid!: Genel musabakayi gosteren kod (dunya kupasi, vs).
 
-\verb!competitionid!: Unique id for the competition (separates MLS from FIFA World CUP from EPL).
+Hedef kolonlar:
 
-Target columns:
+Alttaki kolonlar tahmin edilmeye ugrasilabilecek olan kolonlar. Eger
+bilinen veri uzerinde tahmin yapmak istiyorsak, bu kolonlari tahmin oncesi
+disari atmaliyiz, bunu unutmayalim. Birkac hedef kolon var ama, biz
+sadece kazanilan puani tahmin etmeye ugrasacagiz, belki diger modeller
+diger kolonlari tahmin etmeye ugrasirlar, mesela atilan gol sayisi gibi.
 
-The following columns are target variables that we will be attempting to
-predict. These columns must be dropped before any prediction is done, but
-are useful when building a model. The models that we will build below will
-just try to predict outcome (points) but other models may choose to predict
-goals, which is why they are also included here.
+\verb!points!: Macin puan sonucu.
 
-\verb!points!: The outcome of the game. 3 points for a win, 1 point for a draw, 0
-for a loss. (Points are not goals!)
+\verb!goals!: \verb!teamid!'deki takimin attigi gol sayisi.
 
-\verb!goals!: The number of goals the team referenced by \verb!teamid! scored.
-
-\verb!op_goals!: The number of goals the team referenced by
-\verb!op_teamid! scored.
+\verb!op_goals!: \verb!op_teamid! ile gosterilen takimin attigi gol sayisi.
 
 \begin{minted}[fontsize=\footnotesize]{python}
 club_data = data[data['competitionid'] <> 4]
@@ -167,9 +159,8 @@ pass_op_ratio                          1.025426
 Name: 0, dtype: object
 \end{verbatim}
 
-Compute the crosstabs for goals scored vs outcomes. Scoring more than 5
-goals means you're guaranteed to win, and scoring no goals means you lose
-about 75\% of the time (sometimes you tie!).
+Atilan goller ve sonucu eksenlere alarak bir tablo yaratalim
+(crosstab). 
 
 \begin{minted}[fontsize=\footnotesize]{python}
 import pandas as pd
@@ -194,21 +185,21 @@ goals
 8          0    0    1
 \end{verbatim}
 
-Note: How come as goals go beyond 4, the wins do not increase
-automatically? These are goals from penalty shots at the end of games,
-hence both teams might score a lot, but one of them ends up losing. See [1]
-for more details.
+5'den fazla gol atmak tabii ki kazanmayi garantiliyor, hic atmamak 75\%
+ihtimalle kaybedilecek demektir (bazen de beraberlik olur tabii!).
 
-Training the model
+Not: Fakat tabloda 4 gol sonrasi kazanimlar direk artmiyor, niye? Cunku bu
+maclar uzatma sonrasi atilan penaltilardan geliyor, her iki takimda bu
+sirada cok gol atiyor, ama biri mutlaka kaybediyor [1].
 
-We're going to train a logistic regression model based on the club data
-only. This will use an external code file \verb!world_cup.py! to build the
-model.
+Modeli egitmek
 
-The output of this cell this will be a logistic regression model and a test
-set that we can use to test how good we are at predicting outcomes. The
-cell will also print out the Rsquared value for the regression. This is a
-measaure of how good the fit was to the model (higher is better).
+Veri tabanimizdaki klup verisini kullanarak (yani hic dunya kupasi verisi
+kullanmadan) egitecegiz. Bu kod  \verb!world_cup.py! icinde. Sonuc bir
+lojistik regresyon modeli olacak, ve sonra test verisi uzerinde tahmin
+yapacagiz. Regresyonunun Rsquared degerini gosterecegiz, ki bu egitim
+verisi uzerinden gosterilebilir. Rsquared modelin veriye ne kadar uydugunu
+gosteren bir rakamdir (ne kadar yuksekse o kadar iyi).
 
 \begin{minted}[fontsize=\footnotesize]{python}
 import world_cup
@@ -231,21 +222,21 @@ print "Rsquared: %0.03g" % model.prsquared
 Rsquared: 0.149
 \end{verbatim}
 
-Picking important features
+Onemli ozellikleri secmek
 
-The logistic regression model is built using regularization; this means
-that it penalizes complex models. It has the side effect of helping us with
-feature selection. Features that are not important will be dropped out of
-the model completely.
+Lojistik regresyon modelimiz regularizasyon kullaniyor; bu demektir ki daha
+cetrefil modeller cezalandiriliyor. Bu cezalandirmanin yan etkisi olarak
+biz hangi ozelliklerin daha onemli oldugunu gorebiliyoruz, cunku daha
+onemsiz olan ozellikler modelden atiliyorlar (katsayilari sifira iniyor). 
 
-We can divide the features into three buckets:
+Bu baglamda ozellikleri uce ayirabiliriz:
 
-Positive features: These features mean that a team is more likely to win.
+Pozitif ozellikler: Bu ozellikler mevcut ise takimin kazanma sansi yukseliyor.
 
-Negative features: These features mean that a team is less likely to win. 
+Negative features: Tam tersi
 
-Dropped features: These features aren't important, and if we included them
-in the model, we'd probably be overfitting. 
+Dropped features: Onemli olmayan ozellikler, ki bu ozellikler modele dahil
+edilirse asiri uygunluk (overfitting) durumu ortaya cikar. 
 
 \begin{minted}[fontsize=\footnotesize]{python}
 def print_params(model, limit=None):    
@@ -256,14 +247,14 @@ def print_params(model, limit=None):
     if not limit:
         limit = len(params)
 
-    print("Positive features")
+    print("Pozitif ozellikler")
     params.sort(ascending=False)
     print np.exp(params[[param > 0.001 for param in params]]).sub(1)[:limit]
 
-    print("\nDropped features")
+    print("\nAtilan ozellikler")
     print params[[param  == 0.0 for param in params]][:limit]
 
-    print("\nNegative features")
+    print("\nNegatif ozellikler")
     params.sort(ascending=True)
     print np.exp(params[[param < -0.001 for param in params]]).sub(1)[:limit]
 
@@ -271,7 +262,7 @@ print_params(model, 10)
 \end{minted}
 
 \begin{verbatim}
-Positive features
+Pozitif ozellikler
 is_home           0.848337
 pass_70           0.254729
 expected_goals    0.169235
@@ -284,7 +275,7 @@ opp_cards         0.068903
 fouls             0.062809
 dtype: float64
 
-Dropped features
+Atilan ozellikler
 op_pass_70            0
 opp_op_cards          0
 op_bad_passes         0
@@ -297,7 +288,7 @@ op_fouls              0
 opp_goals_op_ratio    0
 dtype: float64
 
-Negative features
+Negatif ozellikler
 opp_pass_70          -0.203015
 opp_expected_goals   -0.144740
 op_corners           -0.137309
@@ -311,43 +302,24 @@ opp_passes           -0.049240
 dtype: float64
 \end{verbatim}
 
-Predicting wins in club data
+Klup verisi uzerinde tahmin
 
-This cell uses the test set (which was not used during the creation of the
-model) to predict outcomes. We can a few of the predictions to see how well
-we did. We'll show 5 each from two buckets: cases where we got it right,
-and cases where we got it wrong. We can see if these make sense. When we
-display these, the home team is always on the left.
+\verb!predicted!: Takimin kazanma sansi (tahmin).
 
-For example, it might show that we predicted Manchester United playing at
-home beating Sunderland. This is completely reasonable and we'd expect that
-the outcome would be 3 points (a victory).
-
-The columns of the output are:
-
-\verb!team_name!: Home team
-
-\verb!op_team_name!: Away team
-
-\verb!predicted!: The percentage chance that we believe the home team will win.
-
-\verb!points!: What actually happenned. 3 points for a win, 1 point for a draw, 0
-points for a loss. 
+\verb!points!: Gercekten ne oldu.
 
 \begin{minted}[fontsize=\footnotesize]{python}
 reload(world_cup)
-results = world_cup.predict_model(model, test, 
-    match_stats.get_non_feature_columns())
+results = world_cup.predict_model(model, test, match_stats.get_non_feature_columns())
 
-predictions = world_cup.extract_predictions(
-    results.copy(), results['predicted'])
+predictions = world_cup.extract_predictions(results.copy(), results['predicted'])
 
-print 'Correct predictions:'
+print 'Dogru tahminler:'
 print predictions[(predictions['predicted'] > 50) & (predictions['points'] == 3)][:5]
 \end{minted}
 
 \begin{verbatim}
-Correct predictions:
+Dogru tahminler:
              team_name         op_team_name  predicted            expected              winner  points
 8     Portland Timbers       Real Salt Lake  52.418756    Portland Timbers    Portland Timbers       3
 42      Rayo Vallecano           Granada CF  60.862465      Rayo Vallecano      Rayo Vallecano       3
@@ -357,12 +329,12 @@ Correct predictions:
 \end{verbatim}
 
 \begin{minted}[fontsize=\footnotesize]{python}
-print 'Incorrect predictions:'
+print 'Yanlis tahminler:'
 print predictions[(predictions['predicted'] > 50) & (predictions['points'] < 3)][:5]
 \end{minted}
 
 \begin{verbatim}
-Incorrect predictions:
+Yanlis tahminler:
                  team_name         op_team_name  predicted                expected               winner  points
 1      Seattle Sounders FC  Vancouver Whitecaps  51.544963     Seattle Sounders FC  Vancouver Whitecaps       0
 2   New England Revolution       Real Salt Lake  63.950714  New England Revolution       Real Salt Lake       0
@@ -371,18 +343,18 @@ Incorrect predictions:
 20      New York Red Bulls           Toronto FC  55.533969      New York Red Bulls           Toronto FC       0
 \end{verbatim}
 
+Tahminlerimizi kontrol etmek
 
-Validating our predictions
-
-Next, we want to actually quantify how good our predictions are. We can
-compute the lift ("How much better are we doing than random chance?"), AUC
-(the area under the ROC curve) and plot the ROC curve. AUC is arguable the
-most interesting number, it ranges between 0.5 (your model is no better
-than dumb luck) and 1.0 (perfect prediction).
+Kontrol icin mesela hesabimizin rasgele tahminden ne kadar iyi oldugunu
+hesaplayabiliriz (lift) ya da AUC hesabi yapip ROC egrisini hesaplariz. AUC
+herhalde en iyisi, bu hesap cok ilginctir, 0.5 (rasgele sans) ve 1.0
+arasindadir (mukemmel tahmin), ve bu hesap dengesiz veri setlerine karsi
+dayaniklidir. Mesela 0/1 etiketi tahmininde test setinde mesela yuzde 90
+oraninda 1 olsa ve modelimiz surekli 1 tahmin etse, basit bir olcum bize
+modelimizin yuzde 90 basarili oldugunu soylerdi. AUC boyle durumlara karsi
+dayaniklidir, bize 0.5 sonucunu verir. 
 
 \begin{minted}[fontsize=\footnotesize]{python}
-# Compute a baseline, which is the percentage of overall outcomes are actually wins.
-# (remember in soccer we can have draws too).
 baseline = (sum([yval == 3 for yval in club_data['points']]) 
             * 1.0 / len(club_data))
 y = [yval == 3 for yval in test['points']]
@@ -397,38 +369,42 @@ plt.savefig('doc_en_01.png')
 
 \includegraphics[height=6cm]{doc_en_01.png}
 
-Need.... more .... power!
+Modelden eksik olan bir sey var; sonraki maci onceki birkac macin ozetinden
+tahmin etmeye ugrasiyoruz ama belki bazi takimlar onceki K macta cok zorlu
+rakiplerle ugrasmistir, bazilari cok kolay rakiplerle ugrasmistir. Bu
+durumda onceki maclarin istatistigi bize tum hikayeyi anlatmayacaktir. 
 
-One thing that is missing, if you're predicting the next game based on the
-previous few games, is that some teams may have just played a really tough
-schedule, while other teams have played against much weaker competition.
+Bu problemi cozmek icin ayri bir regresyon daha isletebiliriz. Bu regresyon
+bir guc siralamasi (power ranking) hesaplayabilir, bu hesap
+FIFA/CocaCola'nin enternasyonel takimlar icin yaptigi 
+guc siralama hesabina benzer. ABD'de beyzbol ve Amerikan futbolu icin de
+benzer bir hesap yapiliyor. 
 
-We can solve for schedule difficulty by running another regression; this
-one computes a power ranking, similar to the FIFA/CocaCola power ranking
-for international soccer teams (there are power rankings for other sports
-like college (american) football that may be familiar.)
+Bu hesabi yaptiktan sonra -tek bir numerik sayi olacaktir, bazi takimlar
+icin daha yuksek bazi takimlar icin daha alcak olacaktir, ki bu rakam
+uzerinden siralama yapilabilsin-, onu bir ozellik olarak lojistik regresyon
+modeline dahil edebiliriz. Guc siralamasi esas olarak su tur irdelelerin
+modelimize dahilini mumkun kilar; eger A takimi B'yi yendiyse, B C'yi
+yendiyse, A buyuk ihtimalle C takimindan daha iyidir. Bu niye iyi? Cunku
+elimizde yapilabilecek tum maclarin kombinasyonu yok, mac verisi seyrek
+(sparse). Ama eldeki birkac mactan bir guc siralamasi hesaplayabiliyoruz
+iste. Bu bir avantaj. 
 
-Once we compute the power ranking (which creates a stack ranking of all of
-the teams), we can add that power ranking as a feature to our model, then
-rebuild it and re-validate it. The regression essentailly automated the
-process of looking at relationships like "Well, team A beat team B and team
-B beat team C, so A is probably better than C".
+Siralama hesabi yapildiktan sonra hizli bazi kontrolleri ciplak gozle
+yapabiliriz, mesela sonuca bakariz, eger Wiggan (zayif bir takim) 1.0
+degeri almis, Chelsea (guclu bir takim) 0.0 degeri almis ise bir seyler
+yanlis demektir. 
 
-The output here will show the power ranking for various teams. This can be
-useful to spot check the ranking, since if we rank Wiggan at 1.0 and
-Chelsea at 0.0, something is likely wrong.
+Tabii buna ragmen bazi takimlara hala uygun siralama veremeyebiliriz,
+mesela A,B'yi, B,C'yi yeniyor, sonra C A'yi yeniyor. Bu sekilde
+siralayamadigimiz durumda takimi 0.5 ile tam ortaya koyacagiz. 
 
-Note that because there isn't a strict ordering to the data (if team A
-beats team B and team B beats team C, sometimes team C will then beat team
-A) we sometimes fail to assign ordering to all of the teams (especially
-where the data is sparse). For teams that we can't rank, we put them in the
-middle (0.5).
+Ayrica enternasyonel takimlarin siralamasi cok gurultulu bir veri oldugu ve
+seyrek oldugu icin onu yuzdeliklere (quartiles) ayirarak gosterecegiz, yani
+siralamalar 0, .33, .66, or 1.0 olarak gozukecekler. 
 
-Additionally, because the rankings for international teams are noisy and
-sparse, we chunk the rankings into quartiles. So teams that have been
-ranked will show up as 0, .33, .66, or 1.0.
-
-Once we add this to the model, the performance generally improves significantly.
+Siralamayi nihai modele dahil edince basari oranimizin onemli derecede
+arttigini gorecegiz. 
 
 \begin{minted}[fontsize=\footnotesize]{python}
 import power
@@ -471,47 +447,17 @@ plt.savefig('doc_en_02.png')
 \begin{verbatim}
 New season 2014
 New season 2013
-QC check did not pass for 19 out of 20 parameters
-Try increasing solver accuracy or number of iterations, decreasing alpha, or switch solvers
-Could not trim params automatically due to failed QC check.  Trimming using trim_mode == 'size' will still work.
 New season 2013
 New season 2012
-QC check did not pass for 24 out of 24 parameters
-Try increasing solver accuracy or number of iterations, decreasing alpha, or switch solvers
-Could not trim params automatically due to failed QC check.  Trimming using trim_mode == 'size' will still work.
 New season 2012
 New season 2011
-QC check did not pass for 24 out of 24 parameters
-Try increasing solver accuracy or number of iterations, decreasing alpha, or switch solvers
-Could not trim params automatically due to failed QC check.  Trimming using trim_mode == 'size' will still work.
-['Blackburn Rovers: 0.000', 'Real Betis: 0.000', 'D.C. United: 0.000',
-'Celta de Vigo: 0.004', 'Deportivo de La Coru\xc3\xb1a: 0.009',
-'Wolverhampton Wanderers: 0.021', 'Reading: 0.022', 'Real Zaragoza: 0.026',
-'Real Valladolid: 0.044', 'Granada CF: 0.062', 'Queens Park Rangers:
-0.073', 'Mallorca: 0.089', 'Aston Villa: 0.092', 'Bolton Wanderers: 0.102',
-'Osasuna: 0.109', 'Espanyol: 0.112', 'Wigan Athletic: 0.124', 'Sunderland:
-0.130', 'Rayo Vallecano: 0.138', 'Almer\xc3\xada: 0.145', 'Levante: 0.148',
-'Elche: 0.154', 'Getafe: 0.170', 'Swansea City: 0.192', 'Southampton:
-0.197', 'Norwich City: 0.206', 'Toronto FC: 0.211', 'Chivas USA: 0.218',
-'West Ham United: 0.220', 'West Bromwich Albion: 0.224', 'Villarreal:
-0.231', 'Stoke City: 0.255', 'Fulham: 0.274', 'Valencia: 0.296', 'Valencia
-CF: 0.296', 'M\xc3\xa1laga: 0.305', 'Newcastle United: 0.342', 'Sevilla:
-0.365', 'Columbus Crew: 0.366', 'Athletic Club: 0.386', 'Liverpool: 0.397',
-'Everton: 0.417', 'Philadelphia Union: 0.466', 'Montreal Impact: 0.470',
-'Chelsea: 0.530', 'Real Sociedad: 0.535', 'Tottenham Hotspur: 0.551',
-'Arsenal: 0.592', 'Houston Dynamo: 0.593', 'FC Dallas: 0.612', 'Chicago
-Fire: 0.612', 'Vancouver Whitecaps: 0.615', 'San Jose Earthquakes: 0.632',
-'New England Revolution: 0.634', 'Atl\xc3\xa9tico de Madrid: 0.672',
-'Colorado Rapids: 0.743', 'Barcelona: 0.759', 'Seattle Sounders FC: 0.781',
-'New York Red Bulls: 0.814', 'Sporting Kansas City: 0.854', 'LA Galaxy:
-0.882', 'Real Salt Lake: 0.922', 'Manchester City: 0.928', 'Real Madrid:
-1.000', 'Manchester United: 1.000', 'Portland Timbers: 1.000'] 
+['Blackburn Rovers: 0.000', 'Real Betis: 0.000', 'D.C. United: 0.000', 'Celta de Vigo: 0.004', 'Deportivo de La Coru\xc3\xb1a: 0.009', 'Wolverhampton Wanderers: 0.021', 'Reading: 0.022', 'Real Zaragoza: 0.026', 'Real Valladolid: 0.044', 'Granada CF: 0.062', 'Queens Park Rangers: 0.073', 'Mallorca: 0.089', 'Aston Villa: 0.092', 'Bolton Wanderers: 0.102', 'Osasuna: 0.109', 'Espanyol: 0.112', 'Wigan Athletic: 0.124', 'Sunderland: 0.130', 'Rayo Vallecano: 0.138', 'Almer\xc3\xada: 0.145', 'Levante: 0.148', 'Elche: 0.154', 'Getafe: 0.170', 'Swansea City: 0.192', 'Southampton: 0.197', 'Norwich City: 0.206', 'Toronto FC: 0.211', 'Chivas USA: 0.218', 'West Ham United: 0.220', 'West Bromwich Albion: 0.224', 'Villarreal: 0.231', 'Stoke City: 0.255', 'Fulham: 0.274', 'Valencia: 0.296', 'Valencia CF: 0.296', 'M\xc3\xa1laga: 0.305', 'Newcastle United: 0.342', 'Sevilla: 0.365', 'Columbus Crew: 0.366', 'Athletic Club: 0.386', 'Liverpool: 0.397', 'Everton: 0.417', 'Philadelphia Union: 0.466', 'Montreal Impact: 0.470', 'Chelsea: 0.530', 'Real Sociedad: 0.535', 'Tottenham Hotspur: 0.551', 'Arsenal: 0.592', 'Houston Dynamo: 0.593', 'FC Dallas: 0.612', 'Chicago Fire: 0.612', 'Vancouver Whitecaps: 0.615', 'San Jose Earthquakes: 0.632', 'New England Revolution: 0.634', 'Atl\xc3\xa9tico de Madrid: 0.672', 'Colorado Rapids: 0.743', 'Barcelona: 0.759', 'Seattle Sounders FC: 0.781', 'New York Red Bulls: 0.814', 'Sporting Kansas City: 0.854', 'LA Galaxy: 0.882', 'Real Salt Lake: 0.922', 'Manchester City: 0.928', 'Real Madrid: 1.000', 'Manchester United: 1.000', 'Portland Timbers: 1.000']
 
 Rsquared: 0.22, Power Coef 2.18
 (3) Lift: 1.56 Auc: 0.791
     Base: 0.374 Acc: 0.708 P(1|t): 0.778 P(0|f): 0.667
     Fp/Fn/Tp/Tn p/n/c: 99/248/347/496 595/595/1190
-Positive features
+Pozitif ozellikler
 power_points      1.177169
 is_home           0.787110
 opp_op_corners    0.170848
@@ -522,7 +468,7 @@ avg_goals         0.035456
 opp_avg_points    0.033857
 dtype: float64
 
-Dropped features
+Atilan ozellikler
 passes                0
 op_pass_80            0
 op_expected_goals     0
@@ -533,7 +479,7 @@ opp_pass_op_ratio     0
 shots                 0
 dtype: float64
 
-Negative features
+Negatif ozellikler
 opp_power_points     -0.540688
 op_corners           -0.145918
 opp_expected_goals   -0.055353
@@ -548,17 +494,18 @@ dtype: float64
 
 \includegraphics[height=6cm]{doc_en_02.png}
 
+Simdi dunya kupasini tahmin edelim!
 
-On to the world cup!
+Aynen klup verisinde yaptigimiz gibi dunya kupasi icin de benzer
+istatistikleri hesaplayabiliriz. Bu durumda elimizde hedefler olmayacak,
+yani kimin kazandigini bilemeyecegiz (aslinda bazi dunya kupasi maclarinin
+sonucunu biliyoruz, ama tahminlerimizi hicbir maci bilmiyormus gibi
+yapalim). Ve tekrar vurgulayalim: klup verisiyle egittigimiz modeli
+kullanarak dunya kupasini tahmin edecegiz. Yani model ve tahmin tamamen
+farkli takimlar uzerinden yapilacak! 
 
-Now that we've got a model that we like, let's look at predicting the world
-cup. We can build the same statistics (features) for the world cup games
-that we did for the club games. In this case, however, we don't have the
-targets; that is, we don't know who won (for some of the previous games, we
-do know who won, but let's predict them all equally as if we didn't know).
-
-\verb!features.get_wc_features()! will return build features from the world
-cup games.
+\verb!features.get_wc_features()! bize tum dunya kupasi maclari icin
+gereken ozellikleri yaratip dondurecektir.
 
 \begin{minted}[fontsize=\footnotesize]{python}
 import world_cup
@@ -572,30 +519,27 @@ wc_labeled = wc_labeled[wc_labeled['competitionid'] == 4]
 wc_power_train = game_summaries[game_summaries['competitionid'] == 4].copy()
 \end{minted}
 
-Predicting the world cup
+Ev sahasi avantaji
 
-Once we have the model and the features, we can start predicting.
+Klup verisi ile dunya kupasi verisi arasindaki bazi farklardan biri bu,
+dunya kupasi icin ev sahibi olmak ne demektir? Tek ev sahibi resmi olarak
+2014 kupasina ev sahipligi yapan Brezilya midir?  Belki diger Latin Amerika
+takimlarini da ev sahibi olarak gorebiliriz? Bazi modeller 'is home''u
+sadece Brezilya'ya vermis, ayni kitadaki diger takimlara da 'azicik' ev
+sahipligi vermis, cunku istatistiklere gore bu takimlar kendi kitalarinda
+daha iyi performans gostermisler, vs.
 
-Home Team Advantage
-
-There are a couple of differences between the world cup and club data. For
-one, while home team advantage is important in club games, who is really at
-home? Is it only Brazil? What about other south american teams? Some models
-give the 'is home' status to only Brazil, others give partial status to
-other teams from the same continent, since historical data shows that teams
-from the same continent tend to outperform.
-
-We use a slightly modified model that is, however, somewhat subjective. We
-assing a value to \verb!is_home! between 0.0 to 1.0 depending on the fan
-support (both numbers and enthusiasm) that a team enjoys. This is a result
-of noticing, in the early rounds, that the teams that had the more
-entusiastic supporters did better. For example, Chile's fans were deafining
-in support of their team, but Spain's fans barely showed up (Chile upset
-spain 2-0). There were a number of other cases like this; many involving
-south american sides, but many involving other teams that had sent a lot of
-supporters (Mexico, for example). Some teams, like the USA, had a lot of
-fans, but they were more reserved... they got a lower score. This factor
-was set based on first-hand reports from the group games.
+Biz daha degisik bir model kullanacagiz, ve bu model belki biraz
+subjektif.. Biz \verb!is_home! ogesine 0.0 ila 1.0 arasinda bir deger
+atayacagiz, ki bu degerin buyuklugu o takimin taraftarlarinin hem sayi, hem
+de destek enerjisi uzerinden olculecek. Bunu yapmamizin sebebi ilk turlarda
+goruldugu uzere, taraftarinin daha iyi destekledigi takimlarin digerlerine
+gore daha iyi performans gostermesi. Mesela Sili'nin taraftari takimini
+muthis destekledi, Ispanya taraftari orali bile olmadi, Sili Ispanya macini
+Sili 2-0 kazandi. Bunun gibi pek cok mac gozlemledik, cogunda guney Amerika
+takimlari vardi, ama cok taraftar gonderen takimlar da vardi, mesela
+Meksika. Ya da ABD vardi, cok taraftari vardi ama sessizdiler, onlar daha
+dusuk skorlar aldilar. 
 
 \begin{minted}[fontsize=\footnotesize]{python}
 import pandas as pd
@@ -619,16 +563,17 @@ for ii in xrange(len(wc_home)):
 add_home_override(wc_data, home_override)    
 \end{minted}
 
-World Cup Power Rankings
+Dunya Kupasi Guc Siralamasi
 
-The lattice of teams playing eachother in the world cup is pretty
-sparse. Many teams haven't played eachother for decades. Many European
-teams rarely play South American ones, and even more rarely play Asian
-ones. We can use the same technique as we did for the club games, but we
-have to be prepared for failure.
+Bu hesabin dunya kupasi verisi uzerinde yapilmasi lazim, cunku guc
+siralamasi o takimlarin arasindaki maclara dayanilarak yapilan bir
+hesap. Bu maclar ise, dunya kupasi takimlari baglaminda, oldukca seyrek
+cunku bazi takimlar bazi takimlarla neredeyse onyildir oynamamis. Cogu
+AVvrupa takimi mesela guney Amerika takimiyla oynamamis, Asyali takimlarla
+daha bile az oynamis. Klup bazinda kullandigimiz ayni nuamrayi burada da
+kullanabiliriz, ama basarisizliga hazir olmak lazim! 
 
-We'll output the power rankings from the previous games. We should eyeball
-them to make sure they make sense.
+Hesap altta
 
 \begin{minted}[fontsize=\footnotesize]{python}
 # When training power data, since the games span multiple competitions, 
@@ -648,9 +593,6 @@ wc_results = world_cup.predict_model(power_model, wc_power_data,
 New season 2013
 New season 2009
 New season 6
-QC check did not pass for 45 out of 50 parameters
-Try increasing solver accuracy or number of iterations, decreasing alpha, or switch solvers
-Could not trim params automatically due to failed QC check.  Trimming using trim_mode == 'size' will still work.
 ['Australia: 0.000', 'Serbia: 0.016', 'USA: 0.017', 'Cameroon: 0.035',
 'Iran: 0.081', 'Croatia: 0.180', 'Nigeria: 0.204', "C\xc3\xb4te d'Ivoire:
 0.244", 'Costa Rica: 0.254', 'Algeria: 0.267', 'Paraguay: 0.277',
@@ -663,46 +605,31 @@ Could not trim params automatically due to failed QC check.  Trimming using trim
 1.000'] 
 \end{verbatim}
 
+Tahmin
 
-Predicting games
+Nihayet hazirlandigimiz ana geldik. Simdi dunya kupasi maclarini tahmin
+edelim. 4 kolon gosterecegiz:
 
-Now's the moment we've been waiting for. Let's predict some world cup games. Let's start with predicting the ones that have already happenned.
+\verb!predicted!: Yuzde kac ihtimalle (ismi ilk gelen) takimin kazanacagi
 
-We will output 4 columns:
+\verb!points!: Gercekten ne oldugu. Oynanmayan mac \verb!NaN!. Dikkat,
+penalti atislarina giden maclar esitlik olarak gosterilecek.
 
-\verb!team_name!: Team we're predicting
+Ama bir dakika! Bu sonuclar daha once gosterdiginiz (Google tahminleri
+kastediliyor) tahminlerden degisik! Bunun sebepleri sunlar: Bazi hatalari
+tamir ettik, yani kod degisti. Ilk model mesela uzayan maclar yuzunden
+kabaran istatistiklerin durumunu hesaba almiyordu. 
 
-\verb!op_team_name!: Team that the team we're predicting is playing against
+Ikinci sebep, model sonu belli (deterministik) degil, egitim verisi icin
+verinin belli bir kismini rasgele olarak seciyoruz, bu sebeple sonuclar bir
+hesaptan digerine degisik cikabiliyor (ki bazen sonuclar cok degisik
+olabiliyor). 
 
-\verb!predicted!: Precentage chance (we believe) that the team will win.
-
-\verb!points!: If the game has been played, what actually happenned. (if
-the game hasn't been played, we'll show a \verb!NaN! here). 3 points is a
-win, 1 point is a draw, 0 points is a loss. Note that for games in the
-knockout phase that went into penalty kicks, we'll mark that as a draw.
-
-But wait! These predictions are different from the ones you published!
-
-There are three reasons why the prediction numbers might be different from
-the numbers you may have seen as published predictions:
-
-We've updated our code several times to fix bugs and improve accuracy. Our
-original model, for example, didn't account for extra time causing inflated
-statistics.
-
-Model building is non-deterministic. Since we pick a random subset of the
-data to use as our training set, the results will change from run to
-run. Sometimes fairly significantly.
-
-When we predicted the round of 16, we used the trailing 3 games to predict
-(since each team had played 3 games in the current world cup). For the
-quarterfinals, we used the trailing 4 games; for the semis, 5, and for the
-finals, we used all 6 [in this notebook, we use different ones at times,
-please check]. The code below will predict based on the last 6 games; for
-many teams, we don't have 6 games of history, and even if we do, that
-history will be from previous world cups. To see a more apples-to-apples
-comparison, set the \verb!history_size!  variable to 3 and rerun the
-notebook.
+16. turu tahmin ederken mesela onceki 3 maci, ceyrek finaller icin onceki
+4, yarifinaller icin 5, ve finaller icin onceki 6 maci kullandik [biz bu
+dokumanda onceki 3 maci kullandik, \verb!history_size! parametresiyle
+oynayarak degisik sonuclar kontrol edilebilir, hatta yazarlarin bahsettigi
+rasgelelik modelden tamamen cikartilabilir].
 
 \begin{minted}[fontsize=\footnotesize]{python}
 pd.set_option('display.max_rows', 5000)
@@ -829,12 +756,18 @@ print wc_pred
 99         Sweden        Germany  10.914079        Germany        Germany       0
 \end{verbatim}
 
-Note: We are uncertain if a cutoff point for training is applied for every
-prediction properly. For the overall logistic regression the cutoff is
-there -only club data is used- however for power rankings, that cutoff
-might not have been done properly.
 
-References
+Kodlar
+
+\inputminted[fontsize=\footnotesize]{python}{world_cup.py}
+
+\inputminted[fontsize=\footnotesize]{python}{power.py}
+
+\inputminted[fontsize=\footnotesize]{python}{features.py}
+
+\inputminted[fontsize=\footnotesize]{python}{match_stats.py}
+
+Kaynaklar
 
 [1] \url{http://googlecloudplatform.blogspot.de/2014/07/google-cloud-platform-goes-8-for-8-in-soccer-predictions.html}
 

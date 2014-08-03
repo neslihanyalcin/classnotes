@@ -13,7 +13,7 @@ if len(sys.argv) == 1 or sys.argv[1] == 'tex':
     ./stat_gauss_fusion/stat_gauss_fusion.pdf \
     ./stat_pandas_ratings/ratings.pdf  \
     ./stat_factor/stat_factor.pdf stat_wells/stat_wells.pdf \
-    ./stat_regular/regular.pdf \
+    ./stat_regular/regular.pdf stat_worldcup/stat_worldcup.pdf \
     ./stat_hadoop_patent/patent.pdf stat_hadoop_kmeans/kmeans.pdf \
     ./stat_hadoop_logreg/stat_hadoop_logreg.pdf \
     ./stat_hadoop_AtA_qr/stat_AtA_qr.pdf \
