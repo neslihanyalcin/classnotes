@@ -69,7 +69,8 @@ def _build_power(games, outcomes, coerce_fn, acc=0.0001, alpha=1.0, snap=True):
         rating and we don't want to get a false specificity.
     """
     outcomes = pd.Series([coerce_fn(val) for val in outcomes])
-    games.to_csv('/tmp/out.csv')
+    games.to_csv('/tmp/games.csv')
+    outcomes.to_csv('/tmp/outcomes.csv')
     model = world_cup.build_model_logistic(outcomes, games, 
         acc=acc, alpha=alpha)
 
