@@ -48,8 +48,8 @@ results = world_cup.predict_model(model, test,
 predictions = world_cup.extract_predictions(
     results.copy(), results['predicted'])
 
-# Compute a baseline, which is the percentage of overall outcomes are actually wins.
-# (remember in soccer we can have draws too).
+# Compute a baseline, which is the percentage of overall outcomes are
+# actually wins.  (remember in soccer we can have draws too).
 baseline = (sum([yval == 3 for yval in club_data['points']]) 
             * 1.0 / len(club_data))
 y = [yval == 3 for yval in test['points']]
@@ -110,9 +110,10 @@ for ii in xrange(len(wc_home)):
 # Add home team overrides.
 add_home_override(wc_data, home_override)
 
-# When training power data, since the games span multiple competitions, just set is_home to 0.5
-# Otherwise when we looked at games from the 2010 world cup, we'd think Brazil was still at
-# home instead of South Africa.
+# When training power data, since the games span multiple
+# competitions, just set is_home to 0.5 Otherwise when we looked at
+# games from the 2010 world cup, we'd think Brazil was still at home
+# instead of South Africa.
 wc_power_train['is_home'] = 0.5
 wc_power_data = power.add_power(wc_data, wc_power_train, power_cols)
 
