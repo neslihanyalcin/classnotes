@@ -2,6 +2,21 @@
 \begin{document}
 Dunya Kupasi 2014 Tahminleri
 
+Dunya Kupasi maclarini tahmin eden yapay ogrenim teknikleri, Google
+muhendisleri tarafindan paylasilmis. Kullanilan istatistik teknigi lojistik
+regresyon. Verinin sekillendirilmesi, veriden ozellik (feature) yaratmak
+isin puf noktalarindan - veri hangi detay seviyesinde (mac seviyesinde mi
+takim seviyesinde mi) ve hangi kolonlar uzerinden modele dahil edilecek?
+Goruluyor ki nihai regresyon her mac icin iki takimi yanyana koyuyor (A
+takimi ogeleri belli kolonlar B ogeleri belli kolonlar) ve 1,0 etiketini
+tahmine ugrasiyor. Ogelerin onemli bir ozelligi o ana kadar her iki takimin
+oynadigi onceki N macin ozeti olmalari. Yani A takimi son 3 macta (N=3)
+macta dakikada 5 pas atmissa passes ogesi 5 olacaktir, B takimi dakikada 10
+atmissa \verb!op_passes! 10 olacaktir. Boylece lojistik regresyona 5'e
+karsi 10 pas agirligi olan bir veri satiri hakkinda irdeleme yapma imkani
+veriyoruz; ve bilinen etikete gore LR gerekli agirliklari hesaplayarak
+sonuca erisiyor.
+
 Projede kullanilan 4 Python dosyasi var: 
 
 \verb!match_stats!: Mac istatistiklerini yukleyen kodlar.
