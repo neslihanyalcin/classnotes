@@ -1,3 +1,4 @@
+==Turkce
 
 ODE, Cok Degiskenli Calculus, Lineer Cebir, Hesapsal Bilim,
 Istatistik, Fonksiyonel Analiz[ video derslerinden, ya da ders
@@ -12,7 +13,7 @@ isletilebilir. ipython kurmak icin
 
 http://ipython.org/install.html
 
-Komut satirindan ipython baslatmak icin
+Komut satirindan [1] ipython baslatmak icin
 
 ipython notebook --pylab=inline
 
@@ -30,7 +31,14 @@ ipython'a baglaniyor, yani ayni temel yapi kullaniliyor). Bu durumda,
 pytexipy-notebook kuruldugunda ve Emacs icinden cagirildiginda o
 gereken tum ipython ayarlari kendisi yapiyor.
 
----
+[1] Komut satiri nedir? Windows uzerindeyseniz Start | All Programs |
+Accessories | Command Prompt ile baslatilir. Terminal usulu metin
+bazli bir iletisim aracidir. Ubuntu uzerinde Applications |
+Accessories | Terminal ile baslatilabilir. Kodlari ve dokumanlari
+nereye actiysaniz, o dizine komut satirindan "cd [dizin ismi]" ile
+gidebilirsiniz, ve buradan ipyton komutunu isletebilirsiniz.
+
+==English
 
 Here are lecture notes in ODE, Multivariate Calculus, Linear Algebra,
 Computational Science, Statistics, Functional Analysis classes written
