@@ -13,6 +13,10 @@ isletilebilir. ipython kurmak icin
 
 http://ipython.org/install.html
 
+Kurulum olarak en acisiz kurulum Anaconda uzerinden
+
+http://continuum.io/downloads
+
 Komut satirindan [1] ipython baslatmak icin
 
 ipython notebook --pylab=inline
@@ -24,12 +28,17 @@ Python olarak isletmek isterseniz, import
 import numpy as np
 import matploblib.pylab as plt
 
-ibarelerini script'in basina eklemek gerekir. Emacs / LaTeX
-dokumanlarin *icinden* Python kodlarini pytexipy-notebook adli bir
-teknoloji uzerinden direk belge icinde isletebiliyoruz (arka planda
-ipython'a baglaniyor, yani ayni temel yapi kullaniliyor). Bu durumda,
-pytexipy-notebook kuruldugunda ve Emacs icinden cagirildiginda o
-gereken tum ipython ayarlari kendisi yapiyor.
+ibarelerini script'in basina eklemek gerekir. Bu durumda kodlar
+dosya.py gibi bir dosya icinde kaydedilir, ve python dosya.py ile
+komut satirindan isletilir. 
+
+Not: Cetrefil bir kullanim, Emacs / LaTeX dokumanlarin *icinden*
+Python kodlarini pytexipy-notebook adli bir teknoloji uzerinden direk
+belge icinde isletmek (arka planda ipython'a baglaniyor, yani ayni
+temel yapi kullaniliyor). Bu durumda, pytexipy-notebook kuruldugunda
+ve Emacs icinden cagirildiginda o gereken tum ipython ayarlari kendisi
+yapiyor.
+
 
 [1] Komut satiri nedir? Windows uzerindeyseniz Start | All Programs |
 Accessories | Command Prompt ile baslatilir. Terminal usulu metin
