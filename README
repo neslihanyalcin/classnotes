@@ -1,4 +1,4 @@
-==Turkce
+## Turkce
 
 ODE, Cok Degiskenli Calculus, Lineer Cebir, Hesapsal Bilim,
 Istatistik, Fonksiyonel Analiz[ video derslerinden, ya da ders
@@ -38,7 +38,7 @@ Accessories | Terminal ile baslatilabilir. Kodlari ve dokumanlari
 nereye actiysaniz, o dizine komut satirindan "cd [dizin ismi]" ile
 gidebilirsiniz, ve buradan ipyton komutunu isletebilirsiniz.
 
-==English
+## English
 
 Here are lecture notes in ODE, Multivariate Calculus, Linear Algebra,
 Computational Science, Statistics, Functional Analysis classes written
