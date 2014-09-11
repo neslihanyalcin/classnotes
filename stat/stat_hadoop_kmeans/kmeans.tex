@@ -2,16 +2,24 @@
 \begin{document}
 Paralel KMeans, Hadoop
 
-K-Means algoritmasini nasil paralel sekilde isletiriz? Ozellikle Hadoop gibi bir Esle-Indirge (Map-Reduce) ortamini dusunelim. Veri cok buyuk olcekte olabilir ve bu veriler birden fazla makinaya bolunecektir. Esle-Indirge kavraminda esleme safhasinda "anahtar uretiriz", ve sonra indirgeme safhasinda Hadoop sistemi oyle kurmustur
-ki ayni anahtarlarlar tek bir makinaya gonderilir, ve bu nihai asamada artik anahtar bazinda indirgeme (ozetleme) yapilir.
+K-Means algoritmasini nasil paralel sekilde isletiriz? Ozellikle Hadoop
+gibi bir Esle-Indirge (Map-Reduce) ortamini dusunelim. Veri cok buyuk
+olcekte olabilir ve bu veriler birden fazla makinaya
+bolunecektir. Esle-Indirge kavraminda esleme safhasinda "anahtar uretiriz",
+ve sonra indirgeme safhasinda Hadoop sistemi oyle kurmustur ki ayni
+anahtarlarlar tek bir makinaya gonderilir, ve bu nihai asamada artik
+anahtar bazinda indirgeme (ozetleme) yapilir.
 
-Paralel K-Means icin anahtar nedir? Anahtar, mesela kume olabilir. Yani kume 1, kume 2 gibi kume
-isaretleri / sayilari anahtar olarak kullanilabilirler.
+Paralel K-Means icin anahtar nedir? Anahtar, mesela kume olabilir. Yani
+kume 1, kume 2 gibi kume isaretleri / sayilari anahtar olarak
+kullanilabilirler.
 
 Peki anahtar ile eslenecek "deger" nedir?
 
-Oyle bir deger ariyoruz ki ust uste konulabilecek bir sey olmali, EI sisteminin kuvveti burada, anahtarlar farkli noktalarda
-uretilebiliyor, sonra tek noktada ust uste konuyor, o zaman degerler oyle uretilmeli ki bu ust uste koyma, ozetleme islemi yapilabilsin.
+Oyle bir deger ariyoruz ki ust uste konulabilecek bir sey olmali, EI
+sisteminin kuvveti burada, anahtarlar farkli noktalarda uretilebiliyor,
+sonra tek noktada ust uste konuyor, o zaman degerler oyle uretilmeli ki bu
+ust uste koyma, ozetleme islemi yapilabilsin.
 
 Ust uste konabilecek sey kumeye (anahtar) ait olan veri noktasi olabilir, yani basbasyagi veri noktasinin kendisi deger olabilir.  Normal K-Means'i hatirlarsak, her nokta icin o noktaya en yakin kumeyi buluyordu ve sonra, atama islemi bitince, her kumenin altindaki noktalarin toparlayip, onlarin ortalamasini alarak yeni kume merkezini hesapliyordu. Bu ortalama islemi ust uste konabilecek bir sey, cunku toplama oyle bir islem, ve / yani farkli makinalarda kume-nokta, eslemelerini uretirsek, indirgeme asamasinda o anahtar icin tum degerleri toplayip, nokta sayisina boleriz ve yeni kume merkezini elde ederiz. 
 
@@ -142,7 +150,7 @@ writing to /tmp/kmeans.burak.20131202.234456.597838/step-1-reducer_part-00000
 8 [ 60238.23021583  52723.48920863]
 11 [ 61762.52830189  45110.81132075]
 12 [ 27191.86813187  57337.64835165]
-14 [ 41387.76223776  47391.7972028 ]
+14 [ 41387.76223776  47391.7972028 ]       
 ...
 \end{verbatim}
 

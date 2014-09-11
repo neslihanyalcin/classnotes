@@ -381,17 +381,20 @@ Kume Ortalamasini Hesaplamak Ne Kadar Mantikli
 
 Eger uzaklik olcutumuz karisik bir olcut ise (hem kosinus hem oklitsel) bu
 durumda ve KMeans baglaminda kume merkezini bulmak icin bir aritmetiksel
-ortalama bulmak isler mi? Isler cunku, simdi vektorsel ortalamanin her
-kolonun kendi bagimsiz ortalamasini aldigini hatirlayalim ve olcutsel
-``gruplari'' dusunelim, kosinus uzaklik kolon grubununun ortalamasini
-aldigimizda neyi hesaplamis oluyoruz? Bu sorunun cevabi durumu
-aydinlatabilir: Kosimus uzakligi bize iki vektor arasindaki aciyi
-veriyor. Gorsel olarak hepsi orijinden baslayan ve degisik yonlere isaret
-eden degisik boylarda vektorleri hayal edebiliriz. Bu durumda ortalama
-almak o ortalamada kullanilan tum vektorleri temsil eden bir vektoru verir,
-kume ortasi baglaminda bu gayet mantiklidir. Oklitsel durum, zaten
+ortalama bulmak isler mi? Isler cunku, gorsel olarak hepsi orijinden
+baslayan ve degisik yonlere isaret eden degisik boylarda vektorleri hayal
+edelim, bu durumda ortalama almak o ortalamada kullanilan tum vektorleri
+temsil eden bir vektoru verir. 
+
+\includegraphics[height=4cm]{kmeans_5.jpg}
+
+Kume ortasi baglaminda bu gayet mantiklidir. Oklitsel durum, zaten
 KMeans'in bastan beri hazir oldugu bir durumdur, demek ki bu iki olcutu
-KMeans baglaminda birlestirmenin bir zarari yoktur.
+KMeans baglaminda birlestirmenin bir zarari yoktur. Ustteki resimde ust
+soldaki iki vektor bir kume, alt sagdaki iki vektor diger bir kume
+olabilir, noktali vektor olarak gosterilen onlarin kabaca ortalamasi
+olabilirdi. Kumeler vektorlerin birbirine ``acisal'' yakinligi uzerinden
+hesaplanacakti ki bu kosinus uzakligidir. 
 
 Normalize Etmek
 
