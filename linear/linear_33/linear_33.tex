@@ -2,49 +2,49 @@
 \begin{document}
 Lineer Cebir 33
 
-Bir matrisin ne zaman mukemmel bir tersi (inverse) bulunur? 2 x 2 bir
-matris mesela, ve bizim matris tersi dedigimiz sey aslinda ``iki tarafli
-ters (two sided inverse)''tir. Mukemmel ters matrisi sagdan da soldan da
-carpsak bize birim matrisi verir. 
+Bir matrisin ne zaman mukemmel bir tersi (inverse) bulunur? $2 \times 2$
+boyutlarinda bir matris mesela, ve bizim matris tersi dedigimiz sey aslinda
+``iki tarafli ters (two sided inverse)''tir. Mukemmel ters matrisi sagdan
+da soldan da carpsak birim matrisi elde ederiz,
 
 $$ A A^{-1} = I = A^{-1}A $$
 
-Ustteki mukemmel durumda $m = n = r$, yani satir, kolon sayisi ve kerte
-(rank) birbirine esit. Bu duruma tam kerte (full rank) ismi verilir. Bu
-durumu kitabin 2. bolumunde isledik. 
+Mukemmel durumda $m = n = r$, yani kare matris durumudur, yani satir, kolon
+sayisi ve kerte (rank) birbirine esittir. Bu duruma tam kerte (full rank)
+ismi de verilir. Kitabin 2. bolumunde isledik.
 
-Sonra 3. bolumde tam kerte olmayan durumlara baktik, ve kertenin ne
-oldugunu bulmayi ogrendik. Bu durumlarin bazilarinda matris tam kolon
-kertesine (full column rank) sahip olabiliyordu, yani $n = r$. Bu durumda
-kolonlar birbirinden bagimsiz olacaktir, ama belki satirlar
-olmayacaktir. Peki bu durumda sifir uzayinda (nullspace) sadece 0 vektoru
-vardir, cunku kolonlar bagimsiz, bu durumda kolonlarin hicbir kombinasyonu
-bize sifir sonucunu vermez, sadece 0 vektoru ile carpmak bize sifir
-sonucunu verebilir. 
+3. bolumde ise tam kerte olmayan durumlara baktik, ve kertenin ne oldugunu
+bulmayi ogrendik. Bu durumlarin bazilarinda matris tam kolon kertesine
+(full column rank) sahip olabiliyordu, yani $n = r$. O zaman kolonlar
+birbirinden bagimsiz oluyordu, ama belki satirlar olmuyordu. Bu durumda
+sifir uzayinda (nullspace) sadece 0 vektoru vardir, cunku kolonlar
+bagimsiz, bu durumda kolonlarin hicbir kombinasyonu bize sifir sonucunu
+vermez, sadece 0 vektoru ile carpmak bize sifir sonucunu verebilir.
 
-Ustteki durumun en az kareler baglaminda onemli oldugunu hatirlayalim, eger
-$Ax = b$'nin bir cozumu var ise bu cozum tek cozumdur, yani ``0 ya da 1
-cozum vardir''.
+Bu durumun en az kareler (least squares) baglaminda onemli oldugunu
+hatirlayalim, eger $Ax = b$'nin bir cozumu var ise bu cozum tek cozumdur,
+yani ``0 ya da 1 cozum vardir''.
 
-Devam edelim, ustteki $r=n$ durumunda $A^TA$ tam kerte olur, 
-cunku $n
-\times m \cdot m \times n = n \times n$ boyutlarindadir, ve bu sonuc
-matrisi tersine cevirilebilir (invertible) bir matristir.
+$r=n$ durumunda $A^TA$ tam kerte olur, cunku $n \times m \cdot m \times
+n = n \times n$ 
+boyutlarindadir, ve bu sonuc matrisi tersine cevirilebilir
+(invertible) bir matristir.
 
-Simdi size $A$'nin tek tarafli tersi (one-sided inverse) oldugunu gostermek
+Simdi $A$'nin tek tarafli tersi (one-sided inverse) oldugunu gostermek
 istiyorum.
 
-$$ (A^TA)^{-1} A^T = A_{left}^{-1} = I$$
+$$ (A^TA)^{-1} A^T = A_{left}^{-1} $$
 
 Yani ustteki ifadenin $A$'nin soldan tersi oldugunu soyledim. Peki $I$'ya
 olan esitligi nereden biliyorum? Cunku ustteki ifadeyi alip $A$'yi soldan
 carparsam, ve parantezleri degisik yerlere koyarsam,
 
-$$ (A^TA)^{-1} (A^TA) = I$$
+$$  A_{left}^{-1} A  = (A^TA)^{-1} (A^TA) = I$$
 
-$A^TA$ ifadesinin en az karelerde katsayi matrisi olarak bulundugunu
-hatirlayalim, tam kolon kerte durumunda $A^TA$'sinin tersi alinabilir, ve
-en az kareler bu sekilde isini yapar.  $A_{left}^{-1}$'nin boyutlari $n \times m$. 
+$A^TA$ tanidik gelebilir, bu ifade en az kareler ortaminda katsayi matrisi
+olarak gorulur. Tam kolon kerte durumunda $A^TA$'sinin tersi alinabilir, ve
+en az kareler bu sekilde isini gorebilir.  $A_{left}^{-1}$'nin boyutlari $n
+\times m$.
 
 Sagdan Ters (Right Inverse)
 
@@ -81,6 +81,102 @@ $$ A^T (AA^T)^{-1}A = ?$$
 
 Bu matris nedir? Yine yansitma matrisi, bu sefer satir uzayina olan bir
 yansitmadir. 
+
+Ozel hali gorduk (sagdan, soldan). 
+
+Artik genel hali gorebiliriz ki buna sozde hal (pseudo case) ismi
+veriliyor. Diyelim ki bir $A$ var, bu $A$'nin kertesi $r < n$, yani satir
+uzayinin biraz sifir uzayi var, $r < m$, yani kolon uzayinin biraz sifir
+uzayinda birseyler var. Matris terisini ``bozan'' sey nihayetinde bu sifir
+uzaylari degil midir? O zaman bu kosulda olabilecek en iyi matris tersi
+nedir?
+
+Bir vektor $x$ var ise, $Ax$ bize $A$'nin kolon uzayinda bir sonuc verir,
+cunku $Ax$, $A$'nin kolonlarini bir sekilde kombine eder. Simdi diyelim ki
+$x$ vektoru $A$'nin kendi satir uzayindan geliyor olsun. Hatta hem $x$ ve
+$y$, $A$'nin satir uzayindan geliyor olsunlar, o zaman hem $Ax$ hem de $Ay$
+$A$'nin kolon uzayinda olacaktir ve $Ax \ne Ay$ eger $x \ne y$ ise. 
+
+Peki eger $Ax = Ay$ ise? O zaman 
+
+$$ A(x-y) = 0 $$
+
+Peki $x-y$ hangi uzaydadir? Satir uzayindadir. Cunku $x$ satir uzayinda,
+$y$ satir uzayinda ise bu iki vektorun farki da satir uzayinda olacaktir. 
+
+Fakat bu durumda $x-y$ hem satir uzayinda hem de sifir uzayinda. Bu vektor
+hangi vektordur? Sifir vektorudur. Yani $Ax = Ay$ ise $x = y$ olmaya
+mecbur. 
+
+Yani $A$'nin herhangi bir satiriyla $A$'nin kolon uzayina gecis
+yapabiliyoruz. $Ax$, ya da $Ay$, vs. O zaman, ve eger kolon uzayindan satir
+uzayina geri gelebilirsek, yani $y = A^{+}(Ay)$ ile yani, bunu yapmamizi
+saglayan $A^{+}$ ile gosterilen sey bir sozde terstir. Bu ifadenin iyi
+tarafi sifir uzaylarindan tamamen uzak duruyor olmamiz. 
+
+Sozde ters $A^{+}$'i nasil buluruz? 
+
+1) SVD ile basla. SVD ile $A = U \Sigma V^T$. Kertesi $r$ olan bir matrisin
+$\Sigma$'sinin sadece $r$ kosegen ogesi sifir olmayan deger icerir,
+digerleri sifirdir. 
+
+$$ 
+\Sigma = 
+\left[\begin{array}{cccc}
+\sigma_1 & & & \\
+ & \ddots & & \\
+ &  & \sigma_r & \\
+ &  &  & 0 \\
+\end{array}\right]
+ $$
+
+Sozde tersi nasil olur? Tam tersi dusunelim, bu cok kolay olurdu, sadece
+sifir olan kosegen degerlere uygulayamazdik bu degisimi, o zaman
+
+$$ 
+\Sigma^{+} = 
+\left[\begin{array}{cccc}
+1/\sigma_1 & & & \\
+ & \ddots & & \\
+ &  & 1/\sigma_r & \\
+ &  &  & 0 \\
+\end{array}\right]
+ $$
+
+Dikkat, $\Sigma$ $n \times m$ boyutlarinda, $\Sigma^{+}$ ise $m \times n$
+boyutlarinda. 
+
+$\Sigma \Sigma^{+}$ nedir? 
+
+
+$$ \Sigma \Sigma^{+} =  
+\left[\begin{array}{cccc}
+1 & & & \\
+ & \ddots & & \\
+ &  & 1 & \\
+ &  &  & 0 \\
+\end{array}\right]
+$$
+
+Boyut $m \times m$. Carpimi degisik yonden yaparsam? 
+
+$$ \Sigma^{+}\Sigma  =  
+\left[\begin{array}{cccc}
+1 & & & \\
+ & \ddots & & \\
+ &  & 1 & \\
+ &  &  & 0 \\
+\end{array}\right]
+$$
+
+Benzer durum, fakat boyut $n \times n$. 
+
+$A = U \Sigma V^T$ formulune donersek, $A^{+}$ nedir? 
+
+$V^{T}$ birim dikey (orthogonal) matristir, ve sozde tersi devrigine
+esittir. $\Sigma$'yi gorduk, $U$ icin benzer durum $U^T$. 
+
+$$ A^{+} =  V \Sigma^{+} U^T$$
 
 
 
