@@ -180,20 +180,17 @@ degerler goruluyor. Bu kolonlari degistirmek icin
 
 \begin{minted}[fontsize=\footnotesize]{python}
 from sklearn.feature_extraction import DictVectorizer
-def one_hot_dataframe(data, cols, replace=False):
+def one_hot_dataframe(data, cols):
     vec = DictVectorizer()
     mkdict = lambda row: dict((col, row[col]) for col in cols)
-    tmp = data[cols].apply(mkdict, axis=1)
-    vecData = pd.DataFrame(vec.fit_transform(tmp).toarray())
+    vecData = pd.DataFrame(vec.fit_transform(data[cols].to_dict(outtype='records')).toarray())
     vecData.columns = vec.get_feature_names()
     vecData.index = data.index
-    if replace is True:
-        data = data.drop(cols, axis=1)
-        data = data.join(vecData)
-    return (data, vecData, vec)
+    data = data.drop(cols, axis=1)
+    data = data.join(vecData)
+    return data
 
-df2, _, _ = one_hot_dataframe(df,['A1','A4','A5','A6','A7','A9','A10','A12','A13'], \
-                              replace=True)
+df2 = one_hot_dataframe(df,['A1','A4','A5','A6','A7','A9','A10','A12','A13'])
 print df2.ix[0]
 \end{minted}
 
@@ -322,8 +319,7 @@ df['A16'] = df['A16'].str.replace('+','1')
 df['A16'] = df['A16'].str.replace('-','0')
 df['A16'] = df['A16'].astype(int)
 
-df2, _, _ = one_hot_dataframe(df,['A1','A4','A5','A6','A7','A9','A10','A12','A13'], \
-                              replace=True)
+df2 = one_hot_dataframe(df,['A1','A4','A5','A6','A7','A9','A10','A12','A13'])
 df2 = df2.drop('A16',axis=1)
 
 df2 = np.array(df2)
@@ -342,7 +338,7 @@ print float(match)/len(df)
 \end{minted}
 
 \begin{verbatim}
-0.816232771822
+0.820826952527
 \end{verbatim}
 
 Bu veri icinde iki tane kume vardi, kumeler A16 kolonunda + ya da - olarak
