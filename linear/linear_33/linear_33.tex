@@ -101,24 +101,26 @@ Peki eger $Ax = Ay$ ise? O zaman
 
 $$ A(x-y) = 0 $$
 
-Peki $x-y$ hangi uzaydadir? Satir uzayindadir. Cunku $x$ satir uzayinda,
-$y$ satir uzayinda ise bu iki vektorun farki da satir uzayinda olacaktir. 
-
-Fakat bu durumda $x-y$ hem satir uzayinda hem de sifir uzayinda. Bu vektor
-hangi vektordur? Sifir vektorudur. Yani $Ax = Ay$ ise $x = y$ olmaya
-mecbur. 
+Bu durumda $x-y$ hangi uzaydadir? Tabii ki satir uzayindadir, cunku $x$
+satir uzayinda, $y$ satir uzayinda ise bu iki vektorun farki da satir
+uzayinda olmali. Devam edelim, fakat bu durumda $x-y$ hem satir uzayinda
+hem de sifir uzayinda. Bu vektor hangi vektordur? Sifir vektorudur. Yani
+$Ax = Ay$ ise $x = y$ olmaya mecbur.
 
 Yani $A$'nin herhangi bir satiriyla $A$'nin kolon uzayina gecis
-yapabiliyoruz. $Ax$, ya da $Ay$, vs. O zaman, ve eger kolon uzayindan satir
-uzayina geri gelebilirsek, yani $y = A^{+}(Ay)$ ile yani, bunu yapmamizi
-saglayan $A^{+}$ ile gosterilen sey bir sozde terstir. Bu ifadenin iyi
-tarafi sifir uzaylarindan tamamen uzak duruyor olmamiz. 
+yapabiliyoruz. $Ax$, ya da $Ay$, vs. 
 
-Sozde ters $A^{+}$'i nasil buluruz? 
+O zaman, ve eger kolon uzayindan satir uzayina geri gelebilirsek, 
+yani $y = A^{+}(Ay)$ ile yani, bunu yapmamizi saglayan $A^{+}$ ile
+gosterilen  sey bir sozde terstir. Bu ifadenin iyi tarafi sifir 
+uzaylarindan bizi tamamen uzak tutuyor olmasi.
 
-1) SVD ile basla. SVD ile $A = U \Sigma V^T$. Kertesi $r$ olan bir matrisin
-$\Sigma$'sinin sadece $r$ kosegen ogesi sifir olmayan deger icerir,
-digerleri sifirdir. 
+Sozde ters $A^{+}$'i nasil buluruz? Bir yontem SVD kullanmak.
+
+SVD ile $A = U \Sigma V^T$. 
+
+Kertesi $r$ olan bir matrisin $\Sigma$'sinin sadece $r$ kosegen ogesi sifir
+olmayan deger icerir, digerleri sifirdir.
 
 $$ 
 \Sigma = 
@@ -130,8 +132,9 @@ $$
 \end{array}\right]
  $$
 
-Sozde tersi nasil olur? Tam tersi dusunelim, bu cok kolay olurdu, sadece
-sifir olan kosegen degerlere uygulayamazdik bu degisimi, o zaman
+Sozde tersi durumunda kosegenler neye benzer? Tam tersi dusunelim, bu
+kolay, bir bolu hesabi yapiyoruz, bu hesabi sadece sifir olan kosegen
+degerlere uygulayamazdik, o zaman
 
 $$ 
 \Sigma^{+} = 
@@ -143,8 +146,7 @@ $$
 \end{array}\right]
  $$
 
-Dikkat, $\Sigma$ $n \times m$ boyutlarinda, $\Sigma^{+}$ ise $m \times n$
-boyutlarinda. 
+Dikkat, $\Sigma$ $n \times m$ boyutlarinda, $\Sigma^{+}$ ise $m \times n$ boyutlarinda. 
 
 $\Sigma \Sigma^{+}$ nedir? 
 
