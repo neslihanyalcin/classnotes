@@ -22,6 +22,71 @@ vardir, cunku kolonlar bagimsiz, bu durumda kolonlarin hicbir kombinasyonu
 bize sifir sonucunu vermez, sadece 0 vektoru ile carpmak bize sifir
 sonucunu verebilir. 
 
+Ustteki durumun en az kareler baglaminda onemli oldugunu hatirlayalim, eger
+$Ax = b$'nin bir cozumu var ise bu cozum tek cozumdur, yani ``0 ya da 1
+cozum vardir''.
+
+Devam edelim, ustteki $r=n$ durumunda $A^TA$ tam kerte olur, 
+cunku $n
+\times m \cdot m \times n = n \times n$ boyutlarindadir, ve bu sonuc
+matrisi tersine cevirilebilir (invertible) bir matristir.
+
+Simdi size $A$'nin tek tarafli tersi (one-sided inverse) oldugunu gostermek
+istiyorum.
+
+$$ (A^TA)^{-1} A^T = A_{left}^{-1} = I$$
+
+Yani ustteki ifadenin $A$'nin soldan tersi oldugunu soyledim. Peki $I$'ya
+olan esitligi nereden biliyorum? Cunku ustteki ifadeyi alip $A$'yi soldan
+carparsam, ve parantezleri degisik yerlere koyarsam,
+
+$$ (A^TA)^{-1} (A^TA) = I$$
+
+$A^TA$ ifadesinin en az karelerde katsayi matrisi olarak bulundugunu
+hatirlayalim, tam kolon kerte durumunda $A^TA$'sinin tersi alinabilir, ve
+en az kareler bu sekilde isini yapar.  $A_{left}^{-1}$'nin boyutlari $n \times m$. 
+
+Sagdan Ters (Right Inverse)
+
+Tam satir kertesi (full row rank) durumu kolon durumunun devrigi alinmis
+hali, bu durumda $A^T$'nin sifir uzayi sifir vektorunu iceriyor, cunku
+satirlar bagimsiz, kolonlar degil, ve $r < m = n$. Bu durumda $Ax = b$'nin
+cozumu kesinlikle vardir, fakat birden fazla cozum vardir. Sagdan ters suna
+benzer, 
+
+$$ A_{right}^{-1} = A^T(AA^T)^{-1} $$
+
+yani 
+
+$$ A A^T(AA^T)^{-1} = I$$
+
+Sagdan ters soldan tersin ayna yansimasi gibi. 
+
+Simdi soldan terse donelim, eger bu tersi soldan degil, sagdan
+uygulasaydik, bu durumda birim matris elde edemezdik, peki ne elde ederdik?
+
+
+$$ A (A^TA)^{-1} A^T = ?$$
+
+Ustteki ifade tanidik geliyor mu? Bu ifade yansitma (projection) matrisi
+$P$ degil mi? Hatirlarsak $P$ matrisi $A$'nin kolon uzayina yansitma
+yapilmasini sagliyordu. Bir baglamda aslinda $P$'ye imkansiz bir gorev
+vermis olduk, o birim matrisine erismeye ugrasiyor fakat bunu her yerde
+yapamiyor, yapabildigi yerde 0 diger yerlerde baska degerlere sahip
+oluyor. 
+
+Ayni sekilde sag tersi soldan carparsak, o zaman 
+
+$$ A^T (AA^T)^{-1}A = ?$$
+
+Bu matris nedir? Yine yansitma matrisi, bu sefer satir uzayina olan bir
+yansitmadir. 
+
+
+
+
+
+
 
 
 \end{document}
