@@ -179,6 +179,13 @@ Bu sorunun cevabi azar azar hesap yaparken hafizaya sadece o satiri alarak
 daha az bellek kullanmamiz. Milyarlarca boyut ve milyarlarca satir isliyor
 olsaydik bu matrisin tamamini hafizaya almamiz mumkun olmazdi. 
 
+Ayrica olmayan verileri atlamak bu SVD hesabini bir ``veri tamamlama
+problemi'' haline getiriyor, piyasadaki neredeyse diger tum kutuphaneler
+olmayan veriyi sifir olarak kabul eder. Bu farkli bir problemdir. Bu diger
+SVD yontemlerinde her ne kadar olan veriyi ortalasak ve sifir degerleri
+sifir averajla ayni anlama gelmeye baslasa bile, yine de olmayan veriyi
+sifir kabul etmek onu atlamaktan farklidir [12]. 
+
 Basit bir ornek
 
 \begin{minted}[fontsize=\footnotesize]{python}
@@ -501,5 +508,7 @@ Kaynaklar
 [10] \url{http://math.stackexchange.com/questions/649701/gradient-descent-on-non-convex-function-works-but-how}
 
 [11] Netflix Odulu, \url{http://www.netflixprize.com}
+
+[12] \url{https://dgleich.wordpress.com/2013/10/19/svd-on-the-netflix-matrix}
 
 \end{document}
