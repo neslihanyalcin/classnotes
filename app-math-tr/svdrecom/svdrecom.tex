@@ -216,7 +216,7 @@ Diyelim ki gitmek istedigimiz nokta azaltilmis $U$, o zaman $U_k$'yi tek
 basina birakalim (dikkat, mesela $V$'nin tersini aldik, fakat bir matrisin
 tersini almak icin o matrisin kare matris olmasi gerekir, eger kare
 degilse, ters alma islemi taklit ters alma islemi -pseudoinverse- ile
-gerceklestirilir, daha fazla detay icin bu konulara bakiniz)
+gerceklestirilir, daha fazla detay icin {\em Lineer Cebir 33}'e bakiniz)
 
 $$ A V_k^{-1} = U_k S V_k V_k^{-1} $$
 
@@ -258,11 +258,10 @@ print np.dot(u.T,u)
  [  4.83147593e-18   1.00000000e+00]]
 \end{verbatim}
 
-Dogal olarak ..e-17 gibi bir sayi sifira cok yakin, yani sifir kabul
+Dogal olarak \verb!1e-17! gibi bir sayi sifira cok yakin, yani sifir kabul
 edilebilir. Devrik ve tersin ayni oldugunu gosterelim: Iki matrisi
 birbirinden cikartip, cok kucuk bir sayidan buyukluge gore filtreleme
-yapalim, ve sonuc icinde bir tane bile True olup olmadigini kontrol
-edelim,
+yapalim, ve sonuc icinde bir tane bile True olup olmadigini kontrol edelim,
 
 \begin{minted}[fontsize=\footnotesize]{python}
 print not any(U.T-la.inv(U) > 1e-15)
@@ -288,16 +287,16 @@ bob_2d = np.dot(np.dot(la.inv(S_k),vt.T),bob.T)
 print bob_2d
 \end{minted}
 
-Not: \verb!bob.T! ustteki formuldeki $A^T$ yerine gececek; formulu tekrar
-duzenlerken $A$ uzerinden islem yaptik, fakat formulu ``$A$'ya eklenen
-herhangi bir yeni satir'' olarak ta gorebiliriz, ki bu ornegimizde Bob'un
-verisi olurdu. 
-
 \begin{verbatim}
 (6,)
 (4, 2)
 [-0.37752201 -0.08020351]
 \end{verbatim}
+
+Not: \verb!bob.T! ustteki formuldeki $A^T$ yerine gececek; formulu tekrar
+duzenlerken $A$ uzerinden islem yaptik, fakat formulu ``$A$'ya eklenen
+herhangi bir yeni satir'' olarak ta gorebiliriz, ki bu ornegimizde Bob'un
+verisi olurdu. 
 
 Ustte \verb!eye! ve \verb!Sigma! ile ufak bir takla attik, bunun sebebi
 \verb!svd! cagrisindan gelen \verb!Sigma!  sonucunun bir vektor olmasi ama
@@ -375,6 +374,81 @@ dtype: float64
 Bob (3.3115641365499888, -0.021769196783344661)
 Tom (4.295419370813935, 0.045419370813934629)
 \end{verbatim}
+
+Alternatif Yontem
+
+Bir diger yontem [1] yeni Bob verisi $y$'yi alip 
+
+$$ z = VV^Ty $$
+
+olarak $z$'ye cevirmek. Bu durumda aslinda cebirsel olarak hicbir sey
+yapmamis oluyoruz,
+
+$$ z = VV^Ty = Iy = y$$
+
+ve iteratif sayisal cogu algoritmanin temelini de bu olusturuyor. Kavramsal
+olarak $y$'yi alip $V$ uzayina ``yansitiyoruz''. Daha kavramsal olarak
+kullanici secimlerini temsil eden veri icin $V$ bir ``kordinat sistemi''
+olusturmustur (SVD'nin dogal sonucu olarak) ve her veri noktasi bu kordinat
+sistemi, bu bazin vektorlerinin bir kombinasyonu olarak temsil edilebilir
+durumdadir (SVD icin kullanilan veriden bahsediyoruz). Bu durumda yeni
+veriyi oraya yansitmak dogal bir islemdir. Tabii yansitip sonra geri
+geliyoruz, yani baslangictaki boyutlara / hale donuyoruz, bu olurken ayni
+zamanda Bob verisinin bos noktalari en makul tahminlerle ``doldurulmus''
+oluyor. 
+
+\begin{minted}[fontsize=\footnotesize]{python}
+from numpy.linalg import linalg as la
+U,Sigma,V=la.svd(data, full_matrices=False)
+print data.shape
+print U.shape, Sigma.shape, V.shape
+u = U[:,:2]
+vt=V[:2,:].T
+print data
+print 'bob', bob
+y = bob
+for i in range(3):
+    z = np.dot(vt,np.dot(vt.T,y))
+    print z
+    z[y>0] = y[y>0]
+print z
+\end{minted}
+
+\begin{verbatim}
+(4, 6)
+(4, 4) (4,) (4, 6)
+      S1  S2  S3  S4  S5  S6
+Ben    5   5   3   0   5   5
+Tom    5   0   4   0   4   4
+John   0   3   0   5   4   5
+Fred   5   4   3   3   5   5
+bob [5 5 0 0 0 5]
+[ 3.26615993  2.27206826  2.16256132  1.04609626  3.37952362  3.45858088]
+[ 3.26615993  2.27206826  2.16256132  1.04609626  3.37952362  3.45858088]
+[ 3.26615993  2.27206826  2.16256132  1.04609626  3.37952362  3.45858088]
+[ 5.          5.          2.16256132  1.04609626  3.37952362  5.        ]
+\end{verbatim}
+
+Sonuca gore Bob buyuk ihtimalle S5'i sevecektir, not tahminleri arasinda en
+yuksek puan orada tahmin edilmis, ki bu daha onceki Ben ve Fred benzerlik
+tahminleri ile uyumlu. 
+
+Not: Dongude $z$'nin hep ayni satir olmasi kafa karisikligi yaratmasin, bu
+cok ufak bir veri seti, daha buyuk veri setlerdinde bu degisim
+gorulecektir. 
+
+Iteratif islem taklit kod olarak,
+
+\begin{algorithm}[h]
+\begin{pseudocode}
+\codename $\code{imputed\_svd}$\\
+\codeline $\code{while }$ $z$'deki degisim azalincaya kadar (convergence)\\
+\codeline \>  $z = VV^Ty$  \\
+\codeline \>  $y$'nin ilk halindeki bilinen noktalari alip $z$'ye kopyala  \\
+\end{pseudocode}
+\end{algorithm}
+
+En son projemizde ustteki islemin en iyi sonuclar verdigini gozlemledik. 
 
 Movielens 1M Verisi
 
@@ -549,12 +623,15 @@ erismistir.
 
 Kaynaklar
 
-[1] \url{http://www.igvita.com/2007/01/15/svd-recommendation-system-in-ruby/}
+[1] \url{http://www.igvita.com/2007/01/15/svd-recommendation-system-in-ruby}
 
 [2] Harrington, P., Machine Learning in Action
 
 [3] \url{http://en.wikipedia.org/wiki/Netflix_Prize}
 
 [4] \url{http://stats.stackexchange.com/questions/31096/how-do-i-use-the-svd-in-collaborative-filtering}
+
+[5] url{https://anandoka.wordpress.com/tag/imputed-svd}
+
 
 \end{document}
