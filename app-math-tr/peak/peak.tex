@@ -12,11 +12,10 @@ from scipy.optimize import fmin
 import pandas as pd
 from numpy.linalg import *
 df = pd.read_csv('oil1.csv',sep='\s')
-df = df[df['year'] < 2008]
+#df = df[df['year'] < 2008]
 
 def hubbard_err(w):
     cm=w[0];bc=w[1];tmc=w[2]
-    #cm=1;bc=1;tmc=w[2]
     yfit = 2*cm / (1+cosh(bc*(df['year']-tmc)))
     diff = df['oil']-yfit
     e=norm(diff)
@@ -28,10 +27,10 @@ print v
 
 \begin{verbatim}
 Optimization terminated successfully.
-         Current function value: 47.983802
-         Iterations: 1460
-         Function evaluations: 2523
-[  7.82312521e+01  -5.46461718e-02   2.00122099e+03]
+         Current function value: 52.188303
+         Iterations: 662
+         Function evaluations: 1143
+[  8.38713153e+01  -4.77383029e-02   2.00814755e+03]
 \end{verbatim}
 
 \begin{minted}[fontsize=\footnotesize]{python}
