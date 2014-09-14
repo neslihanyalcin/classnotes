@@ -12,6 +12,7 @@ from scipy.optimize import fmin
 import pandas as pd
 from numpy.linalg import *
 df = pd.read_csv('oil1.csv',sep='\s')
+print df[:4]
 
 def hubbard(w):
     yfit = (2*w[0]) / (1+cosh( w[1] * (df['year']-w[2])))
@@ -24,6 +25,11 @@ print v
 \end{minted}
 
 \begin{verbatim}
+   year    oil
+0  1950  10.42
+1  1951  11.73
+2  1952  12.34
+3  1953  13.15
 Optimization terminated successfully.
          Current function value: 52.188303
          Iterations: 193
@@ -32,10 +38,14 @@ Optimization terminated successfully.
 \end{verbatim}
 
 \begin{minted}[fontsize=\footnotesize]{python}
-df = df.set_index('year')
-df['oil'].plot(oil)
+df2 = df.set_index('year')
+ax = df2['oil'].plot(title='World Oil Production')
+ax.set_ylabel("Million Barrels / Year")
 plt.savefig('peak_01.png')
 \end{minted}
+
+
+
 
 \includegraphics[height=6cm]{peak_01.png}
 
