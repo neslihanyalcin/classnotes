@@ -1,25 +1,6 @@
 \documentclass[12pt,fleqn]{article}\usepackage{../common}
 \begin{document}
 
-\begin{minted}[fontsize=\footnotesize]{python}
-import pandas as pd
-df = pd.read_csv('oil2.csv',sep='\s*').T
-print df.tail(10)
-\end{minted}
-
-\begin{verbatim}
-             0
-2004  83,160.1
-2005  84,646.9
-2006  84,631.1
-2007  84,555.8
-2008  85,719.3
-2009  84,949.3
-2010  87,524.9
-2011  87,834.3
-2012  89,700.3
-2013  90,057.2
-\end{verbatim}
 
 $$ 
 c = \frac{ 2c_m}{1 + \cosh |b_c(t-t_{mc})|   }
@@ -33,21 +14,21 @@ from numpy.linalg import *
 df = pd.read_csv('oil1.csv',sep='\s*')
 
 def hubbard(w):
-    yfit = (2*w[0]) / (1+cosh( np.abs(w[1] * (df['year']-w[2])) ))
+    yfit = (2*w[0]) / (1+cosh( w[1] * (df['year']-w[2])))
     diff = df['oil'] - yfit
     e=norm(diff)
     return e
 
-v = fmin(hubbard, [2, 2, 1970], maxiter=100000, maxfun=10000)
+v = fmin(hubbard, [2, 2, 1990], maxiter=100000, maxfun=10000)
 print v
 \end{minted}
 
 \begin{verbatim}
 Optimization terminated successfully.
          Current function value: 52.188303
-         Iterations: 298
-         Function evaluations: 540
-[  8.38713684e+01  -4.77382480e-02   2.00814761e+03]
+         Iterations: 193
+         Function evaluations: 352
+[  8.38712818e+01  -4.77382424e-02   2.00814756e+03]
 \end{verbatim}
 
 \begin{minted}[fontsize=\footnotesize]{python}
