@@ -11,7 +11,7 @@ $$
 from scipy.optimize import fmin
 import pandas as pd
 from numpy.linalg import *
-df = pd.read_csv('oil1.csv',sep='\s*')
+df = pd.read_csv('oil1.csv',sep='\s')
 
 def hubbard(w):
     yfit = (2*w[0]) / (1+cosh( w[1] * (df['year']-w[2])))
