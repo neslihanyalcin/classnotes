@@ -1,11 +1,22 @@
 \documentclass[11pt]{article} 
-\usepackage{hyperref} 
 
+\usepackage{palatino,eulervm}
+\usepackage{cancel}
 \usepackage[latin5]{inputenc}
-\usepackage{amsmath}
-\usepackage{graphicx}
-
-\hyphenation{op-tical net-works semi-conduc-tor}
+\usepackage{color}
+\usepackage{latexsym}
+\usepackage{amsfonts}
+\usepackage[hyphens]{url}
+\usepackage[bookmarks=false]{hyperref}
+\makeatletter \renewcommand\verbatim@font{\footnotesize\ttfamily} \makeatother
+% pseudocode
+\usepackage{algorithm}
+\newcommand{\code}[1]{\mbox{\texttt{#1}}}
+\newcounter{lineno}
+\newenvironment{pseudocode}{\begin{small}\begin{tabbing}\textbf{mm}\=mm\=mm\=mm\=mm\=mm\=mm\=mm\=mm\=\kill}{\end{tabbing}\end{small}}
+\newcommand{\codename}{\setcounter{lineno}{0}\>}
+\newcommand{\codeline}{\>\stepcounter{lineno}\textbf{\arabic{lineno}}\'\>}
+\newcommand{\codeskip}{\>\>}
 
 \begin{document}
 \title{3D Visual Tracking with Particle and Kalman Filters}
@@ -116,13 +127,13 @@ point was reflected in the projection accurately. Projection matrices are 3x3,
 Kalman filter also adds a 4th row [0 0 0] to this P turning it into an H matrix
 in 4x3 dimensions.
 
-The reason for using chessboard image was to utilize OpenCV's
-\PVerb!cvFindChessboardCorners! and \PVerb!cvDrawChessboardCorners!
-functions. Using these two methods, a chessboard image can be detected and
-marked (on screen, real-time) with great accuracy and speed. The chessboard
-image had 9 squares on it, giving us 9 points of which, we only used the 5th,
-middle point. At each frame \PVerb!cvFindChessboardCorners! detected the 2D
-pixel locations, and we passed these values over to the Kalman filter that
+The reason for using chessboard image was so \verb!cvFindChessboardCorners!
+and \verb!cvDrawChessboardCorners! OpenCV functions could be used. Using
+these two methods, a chessboard image can be detected and marked (on
+screen, real-time) with great accuracy and speed. The chessboard image had
+9 squares on it, giving us 9 points of which, we only used the 5th, middle
+point. At each frame \verb!cvFindChessboardCorners! detected the 2D pixel
+locations, and we passed these values over to the Kalman filter that
 recursively updated its hidden state.
 
 We tested two scenarios for tracking, one starting from 36cm to the left, the
