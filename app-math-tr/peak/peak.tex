@@ -10,7 +10,9 @@ $$
 \begin{minted}[fontsize=\footnotesize]{python}
 from scipy.optimize import fmin
 import pandas as pd
-df = pd.read_csv('oil1.csv',sep='\s')
+df = pd.read_csv('us.csv',sep='\s')
+#df = pd.read_csv('oil1.csv',sep='\s')
+df = df[df['year'] < 1966]
 #df = df[df['year'] < 2008]
 
 def hubbard_err(w):
@@ -20,16 +22,16 @@ def hubbard_err(w):
     e=norm(diff)
     return e
 
-v = fmin(hubbard_err, [2, 2, 1940], maxiter=100000, maxfun=10000)
+v = fmin(hubbard_err, [3, 3, 2000], maxiter=100000, maxfun=10000)
 print v
 \end{minted}
 
 \begin{verbatim}
 Optimization terminated successfully.
-         Current function value: 52.188303
-         Iterations: 662
-         Function evaluations: 1143
-[  8.38713153e+01  -4.77383029e-02   2.00814755e+03]
+         Current function value: 12120221.612167
+         Iterations: 86
+         Function evaluations: 172
+[  7.02607678e+00  -7.54324342e-04   1.96427493e+03]
 \end{verbatim}
 
 \begin{minted}[fontsize=\footnotesize]{python}
@@ -74,6 +76,6 @@ plt.savefig('peak_02.png')
 
 \url{http://www.countercurrents.org/mushalik270314.htm}
 
-
+\url{http://www.eia.gov/dnav/pet/hist/LeafHandler.ashx?n=PET&s=MCRFPUS1&f=A}
 
 \end{document}
