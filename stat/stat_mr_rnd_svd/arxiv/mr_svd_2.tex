@@ -1,15 +1,11 @@
 \documentclass[11pt]{article} 
 
 \usepackage{palatino,eulervm}
-\usepackage{showkeys}\renewcommand*\showkeyslabelformat[1]{(#1)}
-\usepackage{anysize}
-\usepackage{graphicx}
 \usepackage{cancel}
 \usepackage[latin5]{inputenc}
 \usepackage{color}
 \usepackage{latexsym}
 \usepackage{amsfonts}
-\usepackage{mathrsfs}
 \usepackage[hyphens]{url}
 \usepackage[bookmarks=false]{hyperref}
 \makeatletter \renewcommand\verbatim@font{\footnotesize\ttfamily} \makeatother
@@ -212,6 +208,103 @@ $R$ is very small, $k \times k$, hence it can be kept locally in every
 node. The $INIT$ function is used to store the inverse of $R$ locally, once
 the mapper is initialized, it will always use the same $R^{-1}$ for every
 multiplication. 
+
+
+\begin{algorithm}[h]
+\begin{pseudocode}
+\codename $A^TQ\code{\_job\_map}(key,value)$\\
+\codeline $left = row$ from $A$ \\
+\codeline $right = row$ from $Q$ \\
+\codeline $\code{for }$ each non-zero $j^{th}$ cell in $left$ \\
+\codeline \> $\code{emit } j, left[j] \cdot right$ 
+\end{pseudocode}
+\end{algorithm}
+
+\begin{algorithm}[h]
+\begin{pseudocode}
+\codename $A^TQ\code{\_job\_reduce}(key,value)$\\
+\codeline returns $B^T$ \\
+\codeline $result = \code{zeros}(1,k)$  \\
+\codeline $\code{for }row$ in $value$  \\
+\codeline \> $result = result + row$  \\
+\codeline $\code{emit } key, result$ 
+\end{pseudocode}
+\end{algorithm}
+
+The job above takes an $AQ$ matrix which is assumed to be a join between
+$A$ and $Q$, per row, based on key. We split the row and deduce the $A$
+part and the $Q$ part, then iterate cells of $A$ one by one, which is
+assumed to be sparse, and multiply the entire row of $Q$. Then for each
+$j^{th}$ non-zero cell of $A$, we multiply this value with the row from $Q$
+and emit the multiplication result with key $j$.
+
+The $Q^TA$ job's formula can be seen at \ref{bt}. For implementation
+purposes we changed this formula into
+
+$$ B^T = A^TQ $$
+
+because as output we needed to have a $n \times k$ matrix instead of a $k
+\times n$ one, which would allow us to use map/reduce SVD that translates
+into a local Cholesky and SVD on $k \times k$ matrices. Since we take SVD
+of $B^T$ instead of $B$, that changes the output as well, 
+
+$$ B = U\Sigma V^T $$
+
+becomes
+
+$$ B^T = V\Sigma U^T $$
+
+In other words, in order to obtain $U$ of $B$, we need to take
+$(U_{BT}^T)^T$ from the SVD of $B^T$. This is how $A^TA$ Cholesky Job is
+called, this time with $B^T$ as its input data.
+
+\begin{algorithm}[h]
+\begin{pseudocode}
+\codename $Q\tilde{U}\code{\_job\_map}(key, value)$\\
+\codeline Input $Q,R$ \\
+\codeline Output $U$ \\
+\codeline Initialization $\tilde{U}$ = $\code{svd}$ of $R$ \\
+\codeline $right = row$ from $Q$ \\
+\codeline $\code{for }$ row in $Q$ \\
+\codeline \> $\code{emit } key, row \cdot \tilde{U}$ 
+\end{pseudocode}
+\end{algorithm}
+
+\begin{algorithm}[h]
+\begin{pseudocode}
+\codename $\code{map\_reduce\_svd}$\\
+\codeline $Y$ =  $\code{random\_projection\_map}(A)$ \\
+\codeline $R_Y$ = $A^TA\code{\_cholesky\_job}(Y)$ \\
+\codeline $Q_Y$ = $Q\code{\_job}$ \\
+\codeline $R_{BT}$ = $A^TA\code{\_cholesky\_job}(B^T)$ \\ 
+\codeline $U$ = $Q\tilde{U}\code{\_job}(R_{BT},Q)$ 
+\end{pseudocode}
+\end{algorithm}
+
+
+\subsection{Discussion}
+
+We performed our experiments on the Netflix dataset which has about 100
+million from over 480,000 customers on 17770 movies. The implementation was
+programmed on Sasha distributed framework \cite{bayramli1}, and SVD
+calculation on the full dataset with $k=7$ on two notebook computers,
+utilizing in total 6 cores took 20 minutes. Scipy SVD calculation on the
+same dataset is much faster, however, we need to stress our algorithms are
+prepared for cases where $N$ is very large, i.e. in the billions. As such,
+for example during projection we did not simply create and pre-store a $n
+\times k$ random matrix and multiply multiple rows of $A$ with this
+matrix. This would certainly be possible for Netflix data where $n$ is
+relatively small, but would not work well in cases where $A$ is ``fat''.
+All code relevant for this paper can be found here \cite{bayramli2}.
+
+There are only two passes necessary on the full dataset, and three passes
+on $m$ rows but with reduced $k$ dimensions this time.  Perhaps
+predictably, the procedure spends most of its time at $A^TQ$ Job. This step
+performs not only a join between $A$ and $Q$, it also emits $k$ cells per
+non-zero value of $A$'s rows, then creates partial sums these $k$ vectors
+creating $n \times k$ result. If for simplicity we assume $k$ non-zero
+cells in each $A$ row, the complexity of this step would be $O(mk)$.
+
 
 \begin{thebibliography}{1}
 

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2013.9.21)  15 SEP 2014 01:34
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2013.9.21)  15 SEP 2014 10:19
 entering extended mode
  %&-line parsing enabled.
 **mr_svd_2.tex
@@ -29,51 +29,10 @@ Package: palatino 2005/04/12 PSNFSS-v9.2a (SPQR)
 (/usr/share/texmf-texlive/tex/latex/eulervm/eulervm.sty
 Package: eulervm 2005/01/11 v4.0 (WaS)
 )
-(/usr/share/texmf-texlive/tex/latex/tools/showkeys.sty
-Package: showkeys 2007/08/07 v3.15 Show cite and label keys (DPC, MH)
-)
-(/usr/share/texmf-texlive/tex/latex/anysize/anysize.sty
-Package: anysize 1994/08/13 setting margin sizes
-
-document style option `anysize' loaded
-Michael Salzenberg, Thomas Esser, Dirk Hillbrecht
-Version 1.0, Aug 13, 1994
-\@Leftmargin=\dimen103
-\@Rightmargin=\dimen104
-\@Topmargin=\dimen105
-\@Bottommargin=\dimen106
-) (/usr/share/texmf-texlive/tex/latex/graphics/graphicx.sty
-Package: graphicx 1999/02/16 v1.0f Enhanced LaTeX Graphics (DPC,SPQR)
-
-(/usr/share/texmf-texlive/tex/latex/graphics/keyval.sty
-Package: keyval 1999/03/16 v1.13 key=value parser (DPC)
-\KV@toks@=\toks14
-)
-(/usr/share/texmf-texlive/tex/latex/graphics/graphics.sty
-Package: graphics 2009/02/05 v1.0o Standard LaTeX Graphics (DPC,SPQR)
-
-(/usr/share/texmf-texlive/tex/latex/graphics/trig.sty
-Package: trig 1999/03/16 v1.09 sin cos tan (DPC)
-)
-(/etc/texmf/tex/latex/config/graphics.cfg
-File: graphics.cfg 2009/08/28 v1.8 graphics configuration of TeX Live
-)
-Package graphics Info: Driver file: pdftex.def on input line 91.
-
-(/usr/share/texmf-texlive/tex/latex/pdftex-def/pdftex.def
-File: pdftex.def 2010/03/12 v0.04p Graphics/color for pdfTeX
-\Gread@gobject=\count87
-))
-\Gin@req@height=\dimen107
-\Gin@req@width=\dimen108
-)
-(/usr/share/texmf-texlive/tex/latex/ltxmisc/cancel.sty
-Package: cancel 2000/03/12 v2.1 Cancel math terms
-)
 (/usr/share/texmf-texlive/tex/latex/base/inputenc.sty
 Package: inputenc 2008/03/30 v1.1d Input encoding file
-\inpenc@prehook=\toks15
-\inpenc@posthook=\toks16
+\inpenc@prehook=\toks14
+\inpenc@posthook=\toks15
 
 (/usr/share/texmf-texlive/tex/latex/base/latin5.def
 File: latin5.def 2008/03/30 v1.1d Input encoding file
@@ -85,7 +44,11 @@ Package: color 2005/11/14 v1.0j Standard LaTeX Color (DPC)
 File: color.cfg 2007/01/18 v1.5 color configuration of teTeX/TeXLive
 )
 Package color Info: Driver file: pdftex.def on input line 130.
-)
+
+(/usr/share/texmf-texlive/tex/latex/pdftex-def/pdftex.def
+File: pdftex.def 2010/03/12 v0.04p Graphics/color for pdfTeX
+\Gread@gobject=\count87
+))
 (/usr/share/texmf-texlive/tex/latex/base/latexsym.sty
 Package: latexsym 1998/08/17 v2.2e Standard LaTeX package (lasy symbols)
 \symlasy=\mathgroup4
@@ -94,15 +57,11 @@ LaTeX Font Info:    Overwriting symbol font `lasy' in version `bold'
 )
 (/usr/share/texmf-texlive/tex/latex/amsfonts/amsfonts.sty
 Package: amsfonts 2009/06/22 v3.00 Basic AMSFonts support
-\@emptytoks=\toks17
+\@emptytoks=\toks16
 \symAMSa=\mathgroup5
 \symAMSb=\mathgroup6
 LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
 (Font)                  U/euf/m/n --> U/euf/b/n on input line 96.
-)
-(/usr/share/texmf-texlive/tex/latex/jknapltx/mathrsfs.sty
-Package: mathrsfs 1996/01/01 Math RSFS package v1.0 (jk)
-\symrsfs=\mathgroup7
 )
 (/usr/share/texmf-texlive/tex/latex/ltxmisc/url.sty
 \Urlmuskip=\muskip10
@@ -111,6 +70,10 @@ Package: url 2006/04/12  ver 3.3  Verb mode for urls, etc.
 (/usr/share/texmf-texlive/tex/latex/hyperref/hyperref.sty
 Package: hyperref 2009/10/09 v6.79a Hypertext links for LaTeX
 
+(/usr/share/texmf-texlive/tex/latex/graphics/keyval.sty
+Package: keyval 1999/03/16 v1.13 key=value parser (DPC)
+\KV@toks@=\toks17
+)
 (/usr/share/texmf-texlive/tex/generic/oberdiek/ifpdf.sty
 Package: ifpdf 2009/04/10 v2.0 Provides the ifpdf switch (HO)
 Package ifpdf Info: pdfTeX in pdf mode detected.
@@ -129,7 +92,7 @@ O)
 (/usr/share/texmf-texlive/tex/latex/oberdiek/xcolor-patch.sty
 Package: xcolor-patch 2009/10/02 xcolor patch
 ))
-\@linkdim=\dimen109
+\@linkdim=\dimen103
 \Hy@linkcounter=\count88
 \Hy@pagecounter=\count89
 
@@ -193,8 +156,8 @@ Package pdftexcmds Info: \pdf@primitive is available.
 Package pdftexcmds Info: \pdf@ifprimitive is available.
 )))
 \Fld@menulength=\count90
-\Field@Width=\dimen110
-\Fld@charsize=\dimen111
+\Field@Width=\dimen104
+\Fld@charsize=\dimen105
 \Field@toks=\toks18
 Package hyperref Info: Hyper figures OFF on input line 4377.
 Package hyperref Info: Link nesting OFF on input line 4382.
@@ -238,41 +201,41 @@ Package: ifthen 2001/05/26 v1.1c Standard LaTeX ifthen package (DPC)
  (./mr_svd_2.aux)
 \openout1 = `mr_svd_2.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 25.
-LaTeX Font Info:    ... okay on input line 25.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 25.
-LaTeX Font Info:    ... okay on input line 25.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 25.
-LaTeX Font Info:    ... okay on input line 25.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 25.
-LaTeX Font Info:    ... okay on input line 25.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 25.
-LaTeX Font Info:    ... okay on input line 25.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 25.
-LaTeX Font Info:    ... okay on input line 25.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 25.
-LaTeX Font Info:    ... okay on input line 25.
-LaTeX Font Info:    Try loading font information for OT1+ppl on input line 25.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 20.
+LaTeX Font Info:    ... okay on input line 20.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 20.
+LaTeX Font Info:    ... okay on input line 20.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 20.
+LaTeX Font Info:    ... okay on input line 20.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 20.
+LaTeX Font Info:    ... okay on input line 20.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 20.
+LaTeX Font Info:    ... okay on input line 20.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 20.
+LaTeX Font Info:    ... okay on input line 20.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 20.
+LaTeX Font Info:    ... okay on input line 20.
+LaTeX Font Info:    Try loading font information for OT1+ppl on input line 20.
 
 (/usr/share/texmf-texlive/tex/latex/psnfss/ot1ppl.fd
 File: ot1ppl.fd 2001/06/04 font definitions for OT1/ppl.
 )
-\big@size=\dimen112
+\big@size=\dimen106
 
 (/usr/share/texmf-texlive/tex/context/base/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count98
-\scratchdimen=\dimen113
+\scratchdimen=\dimen107
 \scratchbox=\box28
 \nofMPsegments=\count99
 \nofMParguments=\count100
 \everyMPshowfont=\toks22
 \MPscratchCnt=\count101
-\MPscratchDim=\dimen114
+\MPscratchDim=\dimen108
 \MPnumerator=\count102
 \everyMPtoPDFconversion=\toks23
 )
-Package hyperref Info: Link coloring OFF on input line 25.
+Package hyperref Info: Link coloring OFF on input line 20.
  (/usr/share/texmf-texlive/tex/latex/hyperref/nameref.sty
 Package: nameref 2007/05/29 v2.31 Cross-referencing by name of section
 
@@ -281,98 +244,111 @@ Package: refcount 2008/08/11 v3.1 Data extraction from references (HO)
 )
 \c@section@level=\count103
 )
-LaTeX Info: Redefining \ref on input line 25.
-LaTeX Info: Redefining \pageref on input line 25.
+LaTeX Info: Redefining \ref on input line 20.
+LaTeX Info: Redefining \pageref on input line 20.
 \AtBeginShipoutBox=\box29
-LaTeX Font Info:    Try loading font information for U+zeur on input line 30.
+LaTeX Font Info:    Try loading font information for U+zeur on input line 25.
 
 (/usr/share/texmf-texlive/tex/latex/eulervm/uzeur.fd
 File: uzeur.fd 2005/01/11 v4.0 (WaS)
 )
-LaTeX Font Info:    Try loading font information for U+zeus on input line 30.
+LaTeX Font Info:    Try loading font information for U+zeus on input line 25.
 
 (/usr/share/texmf-texlive/tex/latex/eulervm/uzeus.fd
 File: uzeus.fd 2005/01/11 v4.0 (WaS)
 )
-LaTeX Font Info:    Try loading font information for U+zeuex on input line 30.
+LaTeX Font Info:    Try loading font information for U+zeuex on input line 25.
 
 (/usr/share/texmf-texlive/tex/latex/eulervm/uzeuex.fd
 File: uzeuex.fd 2005/01/11 v4.0 (WaS)
 )
-LaTeX Font Info:    Try loading font information for U+lasy on input line 30.
+LaTeX Font Info:    Try loading font information for U+lasy on input line 25.
 
 (/usr/share/texmf-texlive/tex/latex/base/ulasy.fd
 File: ulasy.fd 1998/08/17 v2.2e LaTeX symbol font definitions
 )
-LaTeX Font Info:    Try loading font information for U+rsfs on input line 30.
-
-(/usr/share/texmf-texlive/tex/latex/jknapltx/ursfs.fd
-File: ursfs.fd 1998/03/24 rsfs font definition file (jk)
-)
 LaTeX Font Info:    Font shape `OT1/ppl/bx/n' in size <10> not available
-(Font)              Font shape `OT1/ppl/b/n' tried instead on input line 31.
+(Font)              Font shape `OT1/ppl/b/n' tried instead on input line 26.
 
-Overfull \hbox (25.01083pt too wide) in paragraph at lines 32--39
-\OT1/ppl/m/n/10 bin-ing well-known ran-dom-ized pro-jec-tion tech-niques with p
-re-vi-ously im-ple-mented map/reduce
+Overfull \hbox (5.21614pt too wide) in paragraph at lines 27--34
+\OT1/ppl/m/n/10 SVD fac-tor-iza-tion, com-bin-ing well-known ran-dom-ized pro-j
+ec-tion tech-
  []
 
 LaTeX Font Info:    Font shape `OT1/ppl/bx/n' in size <14.4> not available
-(Font)              Font shape `OT1/ppl/b/n' tried instead on input line 41.
-LaTeX Font Info:    Try loading font information for OT1+pcr on input line 43.
-(/usr/share/texmf-texlive/tex/latex/psnfss/ot1pcr.fd
-File: ot1pcr.fd 2001/06/04 font definitions for OT1/pcr.
-) [1
+(Font)              Font shape `OT1/ppl/b/n' tried instead on input line 36.
+[1
 
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]
 LaTeX Font Info:    Font shape `OT1/ppl/bx/n' in size <12> not available
-(Font)              Font shape `OT1/ppl/b/n' tried instead on input line 90.
+(Font)              Font shape `OT1/ppl/b/n' tried instead on input line 85.
  [2]
+LaTeX Font Info:    Try loading font information for OT1+pcr on input line 146.
 
-LaTeX Warning: `h' float specifier changed to `ht'.
 
-
-Overfull \hbox (5.13994pt too wide) in paragraph at lines 194--199
-[]\OT1/ppl/m/n/10.95 The $[]$ step is a func-tion pro-vided in most map/reduce
- []
-
+(/usr/share/texmf-texlive/tex/latex/psnfss/ot1pcr.fd
+File: ot1pcr.fd 2001/06/04 font definitions for OT1/pcr.
+)
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
 [3]
-Underfull \hbox (badness 6332) in paragraph at lines 232--235
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+[4]
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+[5] [6]
+Underfull \hbox (badness 3525) in paragraph at lines 330--333
 []\OT1/ppl/m/n/10.95 B. Bayra-mli, \OT1/ppl/m/it/10.95 Map/Reduce Code for Net-
-flix SVD Anal-y-sis\OT1/ppl/m/n/10.95 , []$\OT1/pcr/m/n/10.95 http : / / github
- . com /
+flix SVD Anal-y-sis\OT1/ppl/m/n/10.95 , []$\OT1/pcr/m/n/10.95 http :
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 232--235
-\OT1/pcr/m/n/10.95 burakbayramli / classnotes / tree / master / stat / stat _ m
-r _ rnd _ svd / sasha$[]\OT1/ppl/m/n/10.95 ,
+Underfull \hbox (badness 10000) in paragraph at lines 330--333
+\OT1/pcr/m/n/10.95 / / github . com / burakbayramli / classnotes / tree / maste
+r /
  []
 
-[4] (./mr_svd_2.aux) ) 
+[7] (./mr_svd_2.aux)
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+
+ ) 
 Here is how much of TeX's memory you used:
- 4816 strings out of 495061
- 69908 string characters out of 1182621
- 140696 words of memory out of 3000000
- 7836 multiletter control sequences out of 15000+50000
- 34746 words of font info for 115 fonts, out of 3000000 for 9000
+ 4530 strings out of 495061
+ 65874 string characters out of 1182621
+ 136617 words of memory out of 3000000
+ 7578 multiletter control sequences out of 15000+50000
+ 32650 words of font info for 105 fonts, out of 3000000 for 9000
  28 hyphenation exceptions out of 8191
- 38i,8n,25p,331b,402s stack positions out of 5000i,500n,10000p,200000b,50000s
-{/usr/share/texmf-texlive/fonts/enc/dvips/base/8r.enc}</u
-sr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/te
-xmf-texlive/fonts/type1/public/amsfonts/euler/eufm10.pfb></usr/share/texmf-texl
-ive/fonts/type1/public/amsfonts/euler/eufm7.pfb></usr/share/texmf-texlive/fonts
-/type1/public/amsfonts/euler/eurm10.pfb></usr/share/texmf-texlive/fonts/type1/p
-ublic/amsfonts/euler/eurm7.pfb></usr/share/texmf-texlive/fonts/type1/urw/courie
-r/ucrr8a.pfb></usr/share/texmf-texlive/fonts/type1/urw/palatino/uplb8a.pfb></us
-r/share/texmf-texlive/fonts/type1/urw/palatino/uplr8a.pfb></usr/share/texmf-tex
-live/fonts/type1/urw/palatino/uplri8a.pfb>
-Output written on mr_svd_2.pdf (4 pages, 135653 bytes).
+ 38i,6n,25p,331b,406s stack positions out of 5000i,500n,10000p,200000b,50000s
+{/usr/share/texmf-texlive/fonts/enc/dvips/base/8r.enc}</usr/share/texmf-texli
+ve/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texmf-texlive/fonts/ty
+pe1/public/amsfonts/euler/eufm10.pfb></usr/share/texmf-texlive/fonts/type1/publ
+ic/amsfonts/euler/eufm7.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfon
+ts/euler/eurm10.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/euler
+/eurm7.pfb></usr/share/texmf-texlive/fonts/type1/urw/courier/ucrr8a.pfb></usr/s
+hare/texmf-texlive/fonts/type1/urw/palatino/uplb8a.pfb></usr/share/texmf-texliv
+e/fonts/type1/urw/palatino/uplr8a.pfb></usr/share/texmf-texlive/fonts/type1/urw
+/palatino/uplri8a.pfb>
+Output written on mr_svd_2.pdf (7 pages, 146475 bytes).
 PDF statistics:
- 80 PDF objects out of 1000 (max. 8388607)
- 15 named destinations out of 1000 (max. 500000)
+ 101 PDF objects out of 1000 (max. 8388607)
+ 19 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 
