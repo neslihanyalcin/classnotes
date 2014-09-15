@@ -142,9 +142,11 @@ dimension which would translate to local Cholesky, and SVD calls on $k
 \times k$ matrices that can be performed in a speedy manner. Below we
 outline each map/reduce job.
 
-\begin{algorithm}[h]
+\begin{algorithm}[tbp]
 \begin{pseudocode}
-\codename $\code{random\_projection\_map}(A)$\\
+\codename $\code{random\_projection\_map}(key, value)$\\
+\codeline input $A$ \\
+\codeline returns $Y$ \\
 \codeline Tokenize $value$ and pick out id value pairs\\
 \codeline result = $\code{zeros}$(1,$k$) \\
 \codeline $\code{for each}$ $j^{th}$ $token$ $\in value$ \\
@@ -155,16 +157,15 @@ outline each map/reduce job.
 \end{pseudocode}
 \end{algorithm}
 
-Reduce is a no-op.
-
-Each value of $A$ will arrive to the algorithm as a key and value pair. Key
-is line number or other identifier per row of $A$. Value is a collection of
-id value pairs where id is column id this time, and value is the value for
-that column. Sparsity is handled through this format, if an id for a column
-does not appear in a row of A, it is assumed to be zero. The resulting $Y$
+First random projection job (whose reduce is a no-op). Each value of $A$
+will arrive to the algorithm as a key and value pair. Key is line number or
+other identifier per row of $A$. Value is a collection of id value pairs
+where id is column id this time, and value is the value for that
+column. Sparsity is handled through this format, if an id for a column does
+not appear in a row of A, it is assumed to be zero. The resulting $Y$
 matrix has dimensions $m \times k$.
 
-\begin{algorithm}[h]
+\begin{algorithm}[tbp]
 \begin{pseudocode}
 \codename $A^TA \code{cholesky\_job\_map(key k,value a)}$\\
 \codeline $\code{for }$ $i,row$ in $\code{enumerate} a^Ta$  \\
@@ -172,14 +173,14 @@ matrix has dimensions $m \times k$.
 \end{pseudocode}
 \end{algorithm}
 
-\begin{algorithm}[h]
+\begin{algorithm}[tbp]
 \begin{pseudocode}
 \codename $\code{cholesky\_job\_reduce}(key,value)$\\
 \codeline $\code{emit}$ $k,\code{sum}(v_j^k)$  
 \end{pseudocode}
 \end{algorithm}
 
-\begin{algorithm}[h]
+\begin{algorithm}[tbp]
 \begin{pseudocode}
 \codename $\code{cholesky\_job\_final\_local\_reduce}(key,value)$\\
 \codeline $result = \code{cholesky}(A_{sum})$  \\
@@ -193,7 +194,7 @@ the output of all reducers, naturally a single machine which makes it ideal
 to execute the final Cholesky call on by now a very small ($k \times k$)
 matrix. The output is $R$.
 
-\begin{algorithm}[h]
+\begin{algorithm}[tbp]
 \begin{pseudocode}
 \codename $\code{Q\_job\_map}(key,value)$\\
 \codeline During initialization $R_{inv} = R^{-1}$, store it once for each mapper \\
@@ -202,15 +203,15 @@ matrix. The output is $R$.
 \end{pseudocode}
 \end{algorithm}
 
-There is no reducer in the Q Job, it is a very simple procedure, it merely
-computes multiplication between row of $Y$ and a local matrix $R$. Matrix
-$R$ is very small, $k \times k$, hence it can be kept locally in every
-node. The $INIT$ function is used to store the inverse of $R$ locally, once
-the mapper is initialized, it will always use the same $R^{-1}$ for every
-multiplication. 
+There is no reducer in the $Q\code{\_job}$, it is a very simple procedure,
+it merely computes multiplication between row of $Y$ and a local matrix
+$R$. Matrix $R$ is very small, $k \times k$, hence it can be kept locally
+in every node. The initialiation is used to store the inverse of $R$
+locally, once the mapper is initialized, it will always use the same
+$R^{-1}$ for every multiplication.
 
 
-\begin{algorithm}[h]
+\begin{algorithm}[tbp]
 \begin{pseudocode}
 \codename $A^TQ\code{\_job\_map}(key,value)$\\
 \codeline $left = row$ from $A$ \\
@@ -220,10 +221,10 @@ multiplication.
 \end{pseudocode}
 \end{algorithm}
 
-\begin{algorithm}[h]
+\begin{algorithm}[tbp]
 \begin{pseudocode}
 \codename $A^TQ\code{\_job\_reduce}(key,value)$\\
-\codeline returns $B^T$ \\
+\codeline returs $B^T$ \\
 \codeline $result = \code{zeros}(1,k)$  \\
 \codeline $\code{for }row$ in $value$  \\
 \codeline \> $result = result + row$  \\
@@ -258,19 +259,19 @@ In other words, in order to obtain $U$ of $B$, we need to take
 $(U_{BT}^T)^T$ from the SVD of $B^T$. This is how $A^TA$ Cholesky Job is
 called, this time with $B^T$ as its input data.
 
-\begin{algorithm}[h]
+\begin{algorithm}[tbp]
 \begin{pseudocode}
 \codename $Q\tilde{U}\code{\_job\_map}(key, value)$\\
-\codeline Input $Q,R$ \\
-\codeline Output $U$ \\
-\codeline Initialization $\tilde{U}$ = $\code{svd}$ of $R$ \\
+\codeline input $Q,R$ \\
+\codeline returns $U$ \\
+\codeline initialization $\tilde{U}$ = $\code{svd}$ of $R$ \\
 \codeline $right = row$ from $Q$ \\
 \codeline $\code{for }$ row in $Q$ \\
 \codeline \> $\code{emit } key, row \cdot \tilde{U}$ 
 \end{pseudocode}
 \end{algorithm}
 
-\begin{algorithm}[h]
+\begin{algorithm}[tbp]
 \begin{pseudocode}
 \codename $\code{map\_reduce\_svd}$\\
 \codeline $Y$ =  $\code{random\_projection\_map}(A)$ \\

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2013.9.21)  15 SEP 2014 10:19
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2013.9.21)  15 SEP 2014 11:12
 entering extended mode
  %&-line parsing enabled.
 **mr_svd_2.tex
@@ -28,6 +28,9 @@ Package: palatino 2005/04/12 PSNFSS-v9.2a (SPQR)
 )
 (/usr/share/texmf-texlive/tex/latex/eulervm/eulervm.sty
 Package: eulervm 2005/01/11 v4.0 (WaS)
+)
+(/usr/share/texmf-texlive/tex/latex/ltxmisc/cancel.sty
+Package: cancel 2000/03/12 v2.1 Cancel math terms
 )
 (/usr/share/texmf-texlive/tex/latex/base/inputenc.sty
 Package: inputenc 2008/03/30 v1.1d Input encoding file
@@ -201,21 +204,21 @@ Package: ifthen 2001/05/26 v1.1c Standard LaTeX ifthen package (DPC)
  (./mr_svd_2.aux)
 \openout1 = `mr_svd_2.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 20.
-LaTeX Font Info:    ... okay on input line 20.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 20.
-LaTeX Font Info:    ... okay on input line 20.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 20.
-LaTeX Font Info:    ... okay on input line 20.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 20.
-LaTeX Font Info:    ... okay on input line 20.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 20.
-LaTeX Font Info:    ... okay on input line 20.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 20.
-LaTeX Font Info:    ... okay on input line 20.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 20.
-LaTeX Font Info:    ... okay on input line 20.
-LaTeX Font Info:    Try loading font information for OT1+ppl on input line 20.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 21.
+LaTeX Font Info:    ... okay on input line 21.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 21.
+LaTeX Font Info:    ... okay on input line 21.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 21.
+LaTeX Font Info:    ... okay on input line 21.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 21.
+LaTeX Font Info:    ... okay on input line 21.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 21.
+LaTeX Font Info:    ... okay on input line 21.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 21.
+LaTeX Font Info:    ... okay on input line 21.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 21.
+LaTeX Font Info:    ... okay on input line 21.
+LaTeX Font Info:    Try loading font information for OT1+ppl on input line 21.
 
 (/usr/share/texmf-texlive/tex/latex/psnfss/ot1ppl.fd
 File: ot1ppl.fd 2001/06/04 font definitions for OT1/ppl.
@@ -235,7 +238,7 @@ File: ot1ppl.fd 2001/06/04 font definitions for OT1/ppl.
 \MPnumerator=\count102
 \everyMPtoPDFconversion=\toks23
 )
-Package hyperref Info: Link coloring OFF on input line 20.
+Package hyperref Info: Link coloring OFF on input line 21.
  (/usr/share/texmf-texlive/tex/latex/hyperref/nameref.sty
 Package: nameref 2007/05/29 v2.31 Cross-referencing by name of section
 
@@ -244,109 +247,81 @@ Package: refcount 2008/08/11 v3.1 Data extraction from references (HO)
 )
 \c@section@level=\count103
 )
-LaTeX Info: Redefining \ref on input line 20.
-LaTeX Info: Redefining \pageref on input line 20.
+LaTeX Info: Redefining \ref on input line 21.
+LaTeX Info: Redefining \pageref on input line 21.
 \AtBeginShipoutBox=\box29
-LaTeX Font Info:    Try loading font information for U+zeur on input line 25.
+LaTeX Font Info:    Try loading font information for U+zeur on input line 26.
 
 (/usr/share/texmf-texlive/tex/latex/eulervm/uzeur.fd
 File: uzeur.fd 2005/01/11 v4.0 (WaS)
 )
-LaTeX Font Info:    Try loading font information for U+zeus on input line 25.
+LaTeX Font Info:    Try loading font information for U+zeus on input line 26.
 
 (/usr/share/texmf-texlive/tex/latex/eulervm/uzeus.fd
 File: uzeus.fd 2005/01/11 v4.0 (WaS)
 )
-LaTeX Font Info:    Try loading font information for U+zeuex on input line 25.
+LaTeX Font Info:    Try loading font information for U+zeuex on input line 26.
 
 (/usr/share/texmf-texlive/tex/latex/eulervm/uzeuex.fd
 File: uzeuex.fd 2005/01/11 v4.0 (WaS)
 )
-LaTeX Font Info:    Try loading font information for U+lasy on input line 25.
+LaTeX Font Info:    Try loading font information for U+lasy on input line 26.
 
 (/usr/share/texmf-texlive/tex/latex/base/ulasy.fd
 File: ulasy.fd 1998/08/17 v2.2e LaTeX symbol font definitions
 )
 LaTeX Font Info:    Font shape `OT1/ppl/bx/n' in size <10> not available
-(Font)              Font shape `OT1/ppl/b/n' tried instead on input line 26.
+(Font)              Font shape `OT1/ppl/b/n' tried instead on input line 27.
 
-Overfull \hbox (5.21614pt too wide) in paragraph at lines 27--34
+Overfull \hbox (5.21614pt too wide) in paragraph at lines 28--35
 \OT1/ppl/m/n/10 SVD fac-tor-iza-tion, com-bin-ing well-known ran-dom-ized pro-j
 ec-tion tech-
  []
 
 LaTeX Font Info:    Font shape `OT1/ppl/bx/n' in size <14.4> not available
-(Font)              Font shape `OT1/ppl/b/n' tried instead on input line 36.
+(Font)              Font shape `OT1/ppl/b/n' tried instead on input line 37.
 [1
 
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]
 LaTeX Font Info:    Font shape `OT1/ppl/bx/n' in size <12> not available
-(Font)              Font shape `OT1/ppl/b/n' tried instead on input line 85.
+(Font)              Font shape `OT1/ppl/b/n' tried instead on input line 86.
  [2]
-LaTeX Font Info:    Try loading font information for OT1+pcr on input line 146.
+LaTeX Font Info:    Try loading font information for OT1+pcr on input line 147.
 
 
 (/usr/share/texmf-texlive/tex/latex/psnfss/ot1pcr.fd
 File: ot1pcr.fd 2001/06/04 font definitions for OT1/pcr.
-)
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-[3]
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-[4]
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-[5] [6]
-Underfull \hbox (badness 3525) in paragraph at lines 330--333
+) [3] [4] [5] [6]
+Underfull \hbox (badness 3525) in paragraph at lines 332--335
 []\OT1/ppl/m/n/10.95 B. Bayra-mli, \OT1/ppl/m/it/10.95 Map/Reduce Code for Net-
 flix SVD Anal-y-sis\OT1/ppl/m/n/10.95 , []$\OT1/pcr/m/n/10.95 http :
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 330--333
+Underfull \hbox (badness 10000) in paragraph at lines 332--335
 \OT1/pcr/m/n/10.95 / / github . com / burakbayramli / classnotes / tree / maste
 r /
  []
 
-[7] (./mr_svd_2.aux)
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-
- ) 
+[7] (./mr_svd_2.aux) ) 
 Here is how much of TeX's memory you used:
- 4530 strings out of 495061
- 65874 string characters out of 1182621
- 136617 words of memory out of 3000000
- 7578 multiletter control sequences out of 15000+50000
+ 4557 strings out of 495061
+ 66224 string characters out of 1182621
+ 137439 words of memory out of 3000000
+ 7602 multiletter control sequences out of 15000+50000
  32650 words of font info for 105 fonts, out of 3000000 for 9000
  28 hyphenation exceptions out of 8191
- 38i,6n,25p,331b,406s stack positions out of 5000i,500n,10000p,200000b,50000s
-{/usr/share/texmf-texlive/fonts/enc/dvips/base/8r.enc}</usr/share/texmf-texli
-ve/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texmf-texlive/fonts/ty
-pe1/public/amsfonts/euler/eufm10.pfb></usr/share/texmf-texlive/fonts/type1/publ
-ic/amsfonts/euler/eufm7.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfon
-ts/euler/eurm10.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/euler
-/eurm7.pfb></usr/share/texmf-texlive/fonts/type1/urw/courier/ucrr8a.pfb></usr/s
-hare/texmf-texlive/fonts/type1/urw/palatino/uplb8a.pfb></usr/share/texmf-texliv
-e/fonts/type1/urw/palatino/uplr8a.pfb></usr/share/texmf-texlive/fonts/type1/urw
-/palatino/uplri8a.pfb>
-Output written on mr_svd_2.pdf (7 pages, 146475 bytes).
+ 38i,6n,25p,331b,351s stack positions out of 5000i,500n,10000p,200000b,50000s
+{/usr/share/texmf-texlive/fonts/enc/dvips/base/8r.enc}</u
+sr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/te
+xmf-texlive/fonts/type1/public/amsfonts/euler/eufm10.pfb></usr/share/texmf-texl
+ive/fonts/type1/public/amsfonts/euler/eufm7.pfb></usr/share/texmf-texlive/fonts
+/type1/public/amsfonts/euler/eurm10.pfb></usr/share/texmf-texlive/fonts/type1/p
+ublic/amsfonts/euler/eurm7.pfb></usr/share/texmf-texlive/fonts/type1/urw/courie
+r/ucrr8a.pfb></usr/share/texmf-texlive/fonts/type1/urw/palatino/uplb8a.pfb></us
+r/share/texmf-texlive/fonts/type1/urw/palatino/uplr8a.pfb></usr/share/texmf-tex
+live/fonts/type1/urw/palatino/uplri8a.pfb>
+Output written on mr_svd_2.pdf (7 pages, 146283 bytes).
 PDF statistics:
  101 PDF objects out of 1000 (max. 8388607)
  19 named destinations out of 1000 (max. 500000)
