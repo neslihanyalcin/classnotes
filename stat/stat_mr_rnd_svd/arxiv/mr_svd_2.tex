@@ -194,7 +194,7 @@ matrix. The output is $R$.
 \begin{algorithm}[tbp]
 \begin{pseudocode}
 \codename $\code{Q\_job\_map}(key,value)$\\
-\codeline During initialization $R_{inv} = R^{-1}$, store it once for each mapper \\
+\codeline During initialization, $R_{inv} = R^{-1}$, store it once for each mapper \\
 \codeline $\code{for }$ $row$ in $Y$  \\
 \codeline \> $\code{emit }key, row \cdot R_{inv}$ 
 \end{pseudocode}
@@ -262,7 +262,6 @@ called, this time with $B^T$ as its input data.
 \codeline input $Q,R$ \\
 \codeline returns $U$ \\
 \codeline initialization $\tilde{U}$ = $\code{svd}$ of $R$ \\
-\codeline $right = row$ from $Q$ \\
 \codeline $\code{for }$ row in $Q$ \\
 \codeline \> $\code{emit } key, row \cdot \tilde{U}$ 
 \end{pseudocode}
