@@ -166,14 +166,99 @@ olabilir, geri kalanlar yine bir duzlem olustururlar. Mesela alttaki gibi
 
 \includegraphics[height=4cm]{1_07.png}
 
+Bu iki denklemin kesistigi yer bir cizgidir (line). Bir ucuncu duzlem daha
+eklenince (ustte yok), tum uc duzlemin kesistigi yer bir nokta olur. Bu
+noktanin ne oldugunu ben kafadan bilmiyorum, ama lineer cebir bu noktayi
+bulur.
 
+Fakat herhalde goruyorsunuz, satir bakisini zihnimizde canlandirmak biraz
+zor. Duzlemler, kesismeler vs dusunmemiz gerekiyor. Iki boyutta iki cizgi
+kesismesinde problem yoktu, fakat uc boyutta isler biraz karisti. Dort ya
+da daha fazla boyutu dusunun! 
 
+Kolon bakisi ile
 
+$$ 
+x 
+\left[\begin{array}{r}
+2 \\
+-1 \\
+0
+\end{array}\right]
++
+y
+\left[\begin{array}{r}
+-1 \\
+2 \\
+-3
+\end{array}\right]
++
+z 
+\left[\begin{array}{r}
+0 \\
+-1 \\
+4
+\end{array}\right]
+=
+\left[\begin{array}{r}
+0 \\
+-1 \\
+4
+\end{array}\right]
+ $$
 
+Yani esitligin sol tarafindaki uc boyutlu vektorlerin hangi kombinasyon
+esitligin sagindaki uc boyutlu vektoru verir? Cizmeye ugrasalim mi? 
 
+\includegraphics[height=4cm]{1_08.png}
 
+Hocanin hazirladigi ornekte basit bir cozum var, $z$ katsayilari ile $b$
+ayni, o zaman $[0,0,1]$ denklemi cozer, $z=1$ cozum icin yeterli olur,
+$z$'yi aliriz, geri kalanlari ``istemiyoruz'' onlari sifir yapariz -
+$x=0,y=0,z=1$.
 
+Tabii kolon resminin daha duzgun olmasi her zaman cozumu pat diye
+gorebilecegimiz anlamina gelmiyor, cogu zaman, hatta yuksek boyutlarda bu
+da mumkun degil. Eliminasyon yontemini gorecegiz ileriki derslerde,
+sistematik olarak herhangi bir boyutta bizim icin lineer sistemi cozecek. 
 
+Daha genis resme bir bakalim. Esitligin sag tarafi baska bir sey olsaydi,
+mesela
+
+$$ 
+x 
+\left[\begin{array}{r}
+2 \\
+-1 \\
+0
+\end{array}\right]
++
+y
+\left[\begin{array}{r}
+-1 \\
+2 \\
+-3
+\end{array}\right]
++
+z 
+\left[\begin{array}{r}
+0 \\
+-1 \\
+4
+\end{array}\right]
+=
+\left[\begin{array}{r}
+1 \\
+1 \\
+3
+\end{array}\right]
+ $$
+
+(Bu sag tarafi 1. ve 2. kolonlari birbirine ekleyerek uydurduk bu arada),
+cozum o zaman ne olurdu? Cozum basit (cunku kendimiz pisirdik),
+$x=1,y=1,z=0$. Ustteki durumda ve satir bakisinda tamamen degisik uc tane
+duzlem elde ederdik. Kolon bakisinda hala ayni uc vektorle ugrasiriz,
+sadece onlari degisik sekillerde kombine etmemiz gerekir. 
 
 
 
