@@ -260,6 +260,102 @@ $x=1,y=1,z=0$. Ustteki durumda ve satir bakisinda tamamen degisik uc tane
 duzlem elde ederdik. Kolon bakisinda hala ayni uc vektorle ugrasiriz,
 sadece onlari degisik sekillerde kombine etmemiz gerekir. 
 
+Soru: ustteki denklemi herhangi bir $b$ yani esitligin sag tarafi icin
+cozebilir miyim? 
+
+Bu soruyu daha degisik bir sekle sokabilir miyiz, oyle ki soru lineer
+kombinasyon argumanlarini kullansin. 
+
+Soru: ustteki kolonlarin lineer kombinasyonu butun 3-boyutlu uzayi doldurur
+mu?
+
+Cevap, ustteki (gibi bir) matris icin ``evet''. Bu matris nasil bir matris?
+Bu matris iyi huylu, tekil (singular) olmayan, tersi alinabilir
+(invertible) bir matris. Bu tur matrisler icin her zaman cozum var. 
+
+Peki iyi huylu olmayan durum nasil olurdu? Dusunelim, ne yanlis
+gidebilirdi? Eger tum vektorler ayni duzlem uzerinde olsaydilar, o zaman bu
+vektorlerin her turlu kombinasyonu da ayni duzlem uzerinde olmak
+zorundadir, o zaman basimiz dertte. Mesela 3. kolon 1. ve 2.'nin toplami
+olsa (ki bu durumda her uc vektor ayni duzlemdedir), o zaman isler
+kotu. Niye? Cunku $b$ farkli bir duzlemde ise artik hicbir kombinasyonla
+oraya erisemem. Eger $b$ ayni duzlem uzerinde olsaydi tabii erisilebilirdi,
+yani {\em bazi} $b$'ler icin cozum hala var, ama hepsi, cogunlugu icin yok. 
+
+Iste tekil durum budur, ki bu durumda cogu $b$ icin cozum yoktur.
+
+Boyutlari arttirdigimizi dusunelim. 9 boyut olsaydi ne olurdu? Bu kadar
+boyutu gorsel olarak hayal etmek mumkun degil, ama yine ayni durum, $Ax=b$
+var, bu sefer 9 boyutlu 9 tane kolon var, bunlari kombine edip $b$ elde
+edecegiz? Bunu yapmayi basarabilmemiz tabii ki $A$'nin ne olduguna
+baglidir. Rasgele bir $A$ matrisi uretseydim (ki bu Numpy \verb!rand! ile
+basitce yapilabilir) size garanti ediyorum bu matris iyi huylu olurdu,
+tekil olmayan tersi alinabilen vs. ve bu matris ile $b$'ye
+erisebilirdiniz. 
+
+Kotu durum kolonlar bagimsiz olmadigi zaman. Mesela 7. kolon 5. kolonun
+tipatip aynisi, ki bu durumda 7. kolon sisteme ``yeni hic bir bilgi
+eklemiyor''. Bu yuzden bazi $b$'lere erismem imkansiz hale geliyor. Iyi
+huylu durumda 9 bagimsiz kolonun kombinasyonu tum 9 boyutlu uzayi
+doldurabilirdi. Ama bir bagimli vektor var ise o zaman sadece 9 boyutlu
+uzayin 8 boyutlu bir alt duzlemini doldurabilirsiniz. Dersimizin ileri
+noktalarinda bu kisitli alt uzaylar ile de is yapmayi ogrenecegiz, yapmamiz
+gerekecek. Simdilik guzel kosula odaklanalim.  
+
+Ayrica, simdiye kadar sozel olarak belirttiklerimizi bir de matris
+formunda, cebiriyle anlatmaya deneyelim. $Ax=b$ dedik, $A$ matrisi bir $x$
+vektoru ile carpilir. Bir vektoru bir matris ile nasil carparsiniz? Mesela
+
+$$ 
+\left[\begin{array}{rr}
+2 & 5 \\
+1 & 3
+\end{array}\right]
+\left[\begin{array}{r}
+1 \\
+2
+\end{array}\right]
+ $$
+
+Bunu yapmanin iki yolu var. Once benim en favori yontemimi soyleyeyim,
+belki de surpriz olmayacak, kolonlar kullanarak. Bu durumda, mesela ustteki
+ornekte, $A$'nin 1. kolunundan 1 tane, 2. kolonundan 2 tane alacagim, ve
+toplayacagim. Yani,
+
+$$ =
+1
+\left[\begin{array}{r}
+2 \\
+1
+\end{array}\right]
++
+2
+\left[\begin{array}{r}
+5 \\
+3
+\end{array}\right]
+=
+\left[\begin{array}{r}
+12 \\
+7
+\end{array}\right]
+ $$
+
+Diger bir yontem satir bazli. Bu durumda $A$'nin 1. satiri ile $x$'i
+carpiyorum, yani noktasal carpimini aliyorum, ve bu tek bir deger sonucunu
+verecek, ve tek, skalar degeri alip sonucun ilk hanesine yaziyorum. Ayni
+sekilde $A$'nin 2. satirini tekrar ayni $x$ ile noktsal carpiyorum, ikinci
+haneye yaziyorum. 
+
+Fakat daha once belirttigimiz gibi kolon bakisi biraz daha rahat
+aciklanabilir halde. O zaman sunu soyleyebiliriz: ``$Ax$, $A$'nin
+kolonlarinin bir kombinasyonudur''. 
+
+Bir sonraki derste herhangi boyuttaki bir sistem icin sistematik olarak
+eliminasyon yaparak, eger varsa, bir sonuca ulasmayi ogrenecegiz. Eger
+eliminasyon basarisiz olursa bunun uzerinden ne zaman bir sonuc olmadigini
+gormeyi de ogrenecegiz. 
+
 
 
 \end{document}
