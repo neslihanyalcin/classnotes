@@ -64,7 +64,7 @@ $$
 
 Peki bu arada esitligin sag tarafina, yani $b$'ye ne oldu? Degisimlerin ona
 da yapilmasi lazim, bazi yazilim paketleri mesela Matlab sag tarafi
-sonradan degistiriyor, ben de Matlab gibi olayip bari, degisimi sonradan
+sonradan degistiriyor, ben de Matlab gibi olayim bari, degisimi sonradan
 yapayim. 
 
 Simdiye kadar ne yaptik? 2,1 kordinatindaki sayiyi ``temizlemis'' olduk,
@@ -155,9 +155,9 @@ bulamazdik. Boylece sifir pivot durumu ortaya cikardi, ve bu tersi
 alinamayan matris isareti olurdu.
 
 Neyse; biz basari durumundan devam edelim, artik tum bilinmeyenleri bulmak
-icin geriye koyma (backsubstitution) yapabiliriz. Matlab ne yapardi? Biz ne
-yapariz? Bir teknik, gecirme islemine baslamadan once $b$'yi alip $A$'ya
-eklemlemek, 
+icin geride yerine koyma (backsubstitution) yapabiliriz. Matlab ne yapardi?
+Biz ne yapariz? Bir teknik, gecirme islemine baslamadan once $b$'yi alip
+$A$'ya eklemlemek,
 
 $$ 
 \left[\begin{array}{rrrr}
@@ -187,7 +187,21 @@ $$
 \end{array}\right]}_{c}
  $$
 
+Burada $b$'nin donustugu seyi $c$ olarak belirttim. Yani $A$, $U$ oldu,
+$b$ $c$ oldu. Geriye koyma islemini yapalim simdi, ondan once ustteki
+matrisin hangi denklem sistemine tekabul ettigini yazalim,
 
+$$ x + 2y + z = 2 $$
+
+$$ 2y -2z = 6 $$
+
+$$ 5z = -10 $$
+
+Bu denklem sistemini cozmek artik cok kolay degil mi? Ilk cozulecek denklem
+en sondaki, $5z = -10 \rightarrow z = -2$. Artik $z$'yi biliyorum, onu
+ikinci denklemde geride yerine koyarim (ki isim buradan geliyor, cunku
+sondan geriye dogru gidiyoruz), ve $y = 1$ elde ederim, sonra oradan
+birinci denkleme atlarim, $x = 2$. 
 
 
 
