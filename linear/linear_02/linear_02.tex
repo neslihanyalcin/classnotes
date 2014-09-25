@@ -250,6 +250,127 @@ Boyut olarak $1 \times 3 \cdot 3 \times 3 = 1 \times 3$, yani vektor ile
 matrisi carpinca bir vektor elde etmis olduk, diger bir deyisle
 ``satirlarin lineer kombinasyonunu hesaplamis olduk''.
 
+Eliminasyon icin gereken islemleri, mesela 1. satiri 2. satirdan cikarmayi
+nasil ustteki gibi bir carpma operasyonu ile temsil ederim? Mesela ilk
+yaptigimiz islem 1. satiri uc ile carpip 2. satirdan cikartmak. Yani
+
+$$ 
+\left[\begin{array}{rrr}
+ &  &  \\
+ &  &  \\
+ &  & 
+\end{array}\right]
+\left[\begin{array}{rrr}
+1 & 2 & 1 \\
+3 & 8 & 1 \\
+0 & 4 & 1
+\end{array}\right] =
+\left[\begin{array}{rrr}
+    1 & 2 & 1 \\
+    0 & 2 & -2 \\
+    0 & 4 & 1
+  \end{array}\right]
+ $$
+
+soldaki bos matris ne olmali ki esitligin sag tarafi dogru olsun ?
+
+Bos matrisin ilk satirini dusunelim.. oraya ne gelsin? Esitligin sagina
+bakalim, 1. satir aslinda degismeden kaliyor. Bu ne demektir? Soldaki
+(dolu) matrisin 1. satirini oldugu gibi al demektir, ya da ``satir
+kombinasyonu'' dilinde belirtmek gerekirse, 1. satirdan bir tane 2. ve
+3. satirlardan sifir tane al demektir. 
+
+$$ 
+\left[\begin{array}{rrr}
+1 & 0 & 0 \\
+ &  &  \\
+ &  & 
+\end{array}\right]
+\left[\begin{array}{rrr}
+1 & 2 & 1 \\
+3 & 8 & 1 \\
+0 & 4 & 1
+\end{array}\right] =
+\left[\begin{array}{rrr}
+    1 & 2 & 1 \\
+    0 & 2 & -2 \\
+    0 & 4 & 1
+  \end{array}\right]
+ $$
+
+Bos matrisin son satir nedir? Benzer mantik, bu sefer 1. ve 2. satirdan
+sifir tane, 3. satirdan bir tane
+
+
+$$ 
+\left[\begin{array}{rrr}
+1 & 0 & 0 \\
+ &  &  \\
+0 & 0 & 1
+\end{array}\right]
+\left[\begin{array}{rrr}
+1 & 2 & 1 \\
+3 & 8 & 1 \\
+0 & 4 & 1
+\end{array}\right] =
+\left[\begin{array}{rrr}
+    1 & 2 & 1 \\
+    0 & 2 & -2 \\
+    0 & 4 & 1
+  \end{array}\right]
+ $$
+
+Ilginc bir durum olduk, ustteki bos matris birim matrise (identity matrix)
+benzemeye basladi, aslinda hicbir degisiklik yapmak istemeseydim, orta
+satiri $[0 1 0]$ yapardim o zaman soldan carpan matris birim matris
+olurdu. Birim matrisler aritmetikteki ``1'' sayisidir, onunla yapilan
+carpimin hicbir etkisi yoktur. 
+
+Ama biz tabii ki degisiklik yapmak istiyoruz, esitligin sagindaki (ve
+degisik olan) 2. satira ulasmak istiyoruz. 
+
+Peki o zaman ortadaki satir ne olmali? 1. satiri ucle carpip 2. satirdan
+cikartmak ne demektir? 1. satirdan ``-3 tane'' alsam ve 2. satirdan ``bir
+tane'' alsam (3. satirdan hic), ve birbirine eklesem istedigimi elde
+edebilir miyim? Evet. Yani 
+
+$$ 
+\left[\begin{array}{rrr}
+1 & 0 & 0 \\
+-3 & 1 & 0 \\
+0 & 0 & 1
+\end{array}\right]
+\left[\begin{array}{rrr}
+1 & 2 & 1 \\
+3 & 8 & 1 \\
+0 & 4 & 1
+\end{array}\right] =
+\left[\begin{array}{rrr}
+    1 & 2 & 1 \\
+    0 & 2 & -2 \\
+    0 & 4 & 1
+  \end{array}\right]
+ $$
+
+Kontrol edelim; mesela esitligin sagindaki -2, esitligin solundaki
+1. matrisin 2. satiri ile 2. matrisin 3. kolonunun noktasal carpimidir, ve
+hakiken bu carpimi yapinca -2 elde ederiz. Bu arada gordugunuz gibi
+carpmaya degisik bir bakis daha getirmis olduk, satirlarin kombinasyonunu
+gorduk, kolonlarin kombinasyonunu gorduk, simdi de tekil hucre degerini 
+satir ve kolonun noktasal carpimi olarak gormeyi ogrendik. Bu bakis
+acilarinin hepsini bilmek ilerisi icin faydali.
+
+Artik elimizde tum eliminasyon islemlerini pur matris operayonlari olarak
+belirtmenin bir yolu var. Ustte esitligin solundaki 1. matrise
+``eliminasyon matrisi'' ismi de verilir, diyelim ki ona $E$ sembolunu
+verdik, ve bu ornekte onu $E_{21}$ olarak belirtmek uygun olabilir, ki bu
+sembol esitligin saginda 2,1 kordinatinda sifir elde etmek icin gereken
+matris. 
+
+
+
+
+
 
 
 
