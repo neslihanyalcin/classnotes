@@ -422,8 +422,156 @@ $$ E_{32} (E_{21}A) = U $$
 Matris notasyonunu niye cok sevdigimi anliyorsunuz herhalde, ustteki ifade
 gayet temiz. 
 
+Simdi lineer cebirde carpimi operasyonu hakkinda ilginc bir sey ogrenecegiz
+- ustteki caprim nihai sirasi degisemez, fakat ``parantezlerin yeri
+degisebilir''. Yani $E_{32}$ ile $E_{21}$ matrislerini once carpip, o
+sonucu {\em sonra} $A$ ile carpabilirim. 
 
+$$ (E_{32} E_{21}) A = U $$
 
+Bunun eliminasyon icin faydasi surada, eliminasyon matrislerini birbiriyle
+carpip tek bir eliminasyon matrisi elde edebilirim. 
+
+Parantezlerin yerinin degisebilmesi durumuna daha matematiksel bir isim
+vermek gerekirse buna cagrisimsal kural (associative law) denebilir. 
+
+Bu kural lineer cebirde pek cok kez karsimiza cikacak. Denebilir ki
+alanimizdaki pek cok adim, hatta pek cok gercek (truth) parantezlerin
+yerini degistirme teknigiyle ilintilidir. Kuralin dogru oldugunu ispatlamak
+ta kolay degildir, matris carpiminin en ince detaylarina inip her iki turlu
+carpimi yapmak ve ayni olduklarini gostermek gerekir. 
+
+Bir eliminasyon matris turu var, onu ustteki ornekte gormedik cunku
+gerekmedi. Ama bazi durumlarda gerekebileceginden bahsetmistik, ki bu
+matris iki satirin yerini degistiren bir eliminasyon matrisidir, ki bu
+matrislere ``permutasyon matrisleri'' ismi verilir. Mesela alttaki islemi
+gerceklestirecek matris,
+
+$$ 
+\left[\begin{array}{rr}
+ &  \\
+ & 
+\end{array}\right]
+\left[\begin{array}{rr}
+a & b \\
+c & d
+\end{array}\right]
+=
+\left[\begin{array}{rr}
+c & d \\
+a & b 
+\end{array}\right]
+ $$
+
+Dusunelim, 1. satir icin mesela, eger 1. satirdan 0 tane, 2. satirdan
+sadece bir tane alirsam ve sonucu birbiri ile ``toplarsam'', 
+
+$$ 
+\left[\begin{array}{rr}
+0 & 1 \\
+ & 
+\end{array}\right]
+\left[\begin{array}{rr}
+a & b \\
+c & d
+\end{array}\right]
+=
+\left[\begin{array}{rr}
+c & d \\
+ & 
+\end{array}\right]
+ $$
+
+istedigim sonuc elde etmez miyim? Evet. Geri kalani da soyle,
+
+$$ 
+\left[\begin{array}{rr}
+0 & 1 \\
+1 & 0
+\end{array}\right]
+\left[\begin{array}{rr}
+a & b \\
+c & d
+\end{array}\right]
+=
+\left[\begin{array}{rr}
+c & d \\
+a & b
+\end{array}\right]
+ $$
+
+Burada 1. satirdan bir tane ikincidan sifir tane almis oldum.
+
+Iste soldan carpan sey bir permutasyon matrisidir. Bir permutasyon
+matrisini elde etmenin en kolay yolu bir birim matrisini almak ve olmasini
+istedigimiz degisimi onun uzerinde yapmaktir, ve elde edilen yeni matris
+istedigimiz permutasyon matrisi olacaktir. 
+
+Peki ya bir matrisin kolonlarinin degistirmek isteseydim ne yapardim?
+Eliminasyon icin bu gerekli degil ama zihin egzersizi olarak
+soruyorum. 
+
+Peki bu matris soldan mi, sagdan mi carpmali? 
+
+Cevap, sagdan. Cunku simdi bize ``kolonlarin kombinasyonu'' lazim, ki
+kolonlar uzerinde ``bir tane ondan sifir tane bundan'' diyebilelim, ve bunu
+carpimda yapmanin tek yolu bir matrisi sagdan carpmaktir, cunku kolonlarin
+kombinasyonunu sagdan carpim verir. 
+
+$$ 
+\left[\begin{array}{rr}
+a & b \\
+c & d
+\end{array}\right]
+\left[\begin{array}{rr}
+ &  \\
+ & 
+\end{array}\right]
+=
+\left[\begin{array}{rr}
+b & a \\
+d & c
+\end{array}\right]
+ $$
+
+Yine ayni sekilde, 1. kolon icin soldaki 1. kolondan sifir tane,
+2. kolondan bir tane lazimdir, 
+
+$$ 
+\left[\begin{array}{rr}
+a & b \\
+c & d
+\end{array}\right]
+\left[\begin{array}{rr}
+0 &  \\
+1 & 
+\end{array}\right]
+=
+\left[\begin{array}{rr}
+b &  \\
+d & 
+\end{array}\right]
+ $$
+
+Degil mi? Tamamlarsak,
+
+$$ 
+\left[\begin{array}{rr}
+a & b \\
+c & d
+\end{array}\right]
+\left[\begin{array}{rr}
+0 & 1 \\
+1 & 0
+\end{array}\right]
+=
+\left[\begin{array}{rr}
+b & a \\
+d & c
+\end{array}\right]
+ $$
+
+Bu da birim matrisin {\em kolonlarinin} yer degistirmis halidir. 
 
 
 
