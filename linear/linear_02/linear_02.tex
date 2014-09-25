@@ -367,6 +367,61 @@ verdik, ve bu ornekte onu $E_{21}$ olarak belirtmek uygun olabilir, ki bu
 sembol esitligin saginda 2,1 kordinatinda sifir elde etmek icin gereken
 matris. 
 
+2. adim icin gereken $E$ nedir? 
+
+$$ 
+\left[\begin{array}{rrr}
+ &  &  \\
+ &  &  \\
+ &  & 
+\end{array}\right]
+\left[\begin{array}{rrr}
+  1 & 2 & 1 \\
+  0 & 2 & -2 \\
+  0 & 4 & 1
+\end{array}\right] 
+=
+\left[\begin{array}{rrr}
+1 & 2 & 1 \\
+0 & 2 & -2 \\
+0 & 0 & 5
+\end{array}\right]
+ $$
+
+Bu adim icin 2. satiri iki ile carpip 3. satirdan cikartmistik. Degisen
+sadece 3. satir olduguna gore 1. ve 2. satir birim matrisin ogeleri olacak,
+sadece 3. satir dolu,
+
+$$ 
+\underbrace{
+\left[\begin{array}{rrr}
+1 & 0 & 0 \\
+0 & 1 & 0 \\
+0 & -2 & 1
+\end{array}\right]
+}_{E_{32} }
+\left[\begin{array}{rrr}
+  1 & 2 & 1 \\
+  0 & 2 & -2 \\
+  0 & 4 & 1
+\end{array}\right] 
+=
+\left[\begin{array}{rrr}
+1 & 2 & 1 \\
+0 & 2 & -2 \\
+0 & 0 & 5
+\end{array}\right]
+ $$
+
+
+
+
+
+
+
+
+
+
 
 
 
