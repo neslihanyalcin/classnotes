@@ -83,10 +83,9 @@ $$
 
 Iki ustteki matriste tek bir $x$ haricinde tum $x$'ler yokoldu, tek kalan
 1. satirdaki $x$ ise zaten sonuc demektir. Ustteki durumda elimizde sadece
-iki tane denklem kalmis gibidir artik, $x$ biliniyor. Bundan sonrasi
-ozyineli (recursive) bir islem gibidir sanki, matris icinde daha ufak bir
-matris bulduk, oradan daha ufak baska bir matrise gidecegiz, bu sirada
-cozumleri teker teker bulacagiz.
+iki tane denklem kalmis gibidir. Bundan sonrasi ozyineli (recursive) bir
+islem, matris icinde daha ufak bir matris bulduk, oradan daha ufak baska
+bir matrise gidebiliriz, bu sirada cozumleri teker teker buluruz.
 
 Ikinci pivota ve onun satirina gidelim,
 
@@ -320,11 +319,11 @@ $$
   \end{array}\right]
  $$
 
-Ilginc bir durum olduk, ustteki bos matris birim matrise (identity matrix)
+Ilginc bir durum oldu, ustteki bos matris birim matrise (identity matrix)
 benzemeye basladi, aslinda hicbir degisiklik yapmak istemeseydim, orta
-satiri $[0 1 0]$ yapardim o zaman soldan carpan matris birim matris
-olurdu. Birim matrisler aritmetikteki ``1'' sayisidir, onunla yapilan
-carpimin hicbir etkisi yoktur. 
+satiri $\left[\begin{array}{rrr}0 & 1 & 0 \end{array}\right]$ yapardim o zaman soldan carpan matris birim matris
+olurdu. Birim matrisler basit aritmetikteki ``1'' sayisinin esdegeridir,
+onunla yapilan carpimin hicbir etkisi yoktur.
 
 Ama biz tabii ki degisiklik yapmak istiyoruz, esitligin sagindaki (ve
 degisik olan) 2. satira ulasmak istiyoruz. 
@@ -482,7 +481,7 @@ c & d \\
 \end{array}\right]
  $$
 
-istedigim sonuc elde etmez miyim? Evet. Geri kalani da soyle,
+sonucunu elde etmez miyim? Evet. Geri kalani da soyle,
 
 $$ 
 \left[\begin{array}{rr}
@@ -502,16 +501,16 @@ a & b
 
 Burada 1. satirdan bir tane ikincidan sifir tane almis oldum.
 
-Iste soldan carpan sey bir permutasyon matrisidir. Bir permutasyon
-matrisini elde etmenin en kolay yolu bir birim matrisini almak ve olmasini
-istedigimiz degisimi onun uzerinde yapmaktir, ve elde edilen yeni matris
-istedigimiz permutasyon matrisi olacaktir. 
+Iste soldan carpan sey bir permutasyon matrisidir. Faydali olabilecek guzel
+bir numara bu arada; herhangi bir permutasyon matrisini elde etmenin en
+kolay yolu bir birim matrisini almak ve olmasini istedigimiz degisimi onun
+uzerinde yapmaktir, ve elde edilen yeni matris istedigimiz permutasyon
+matrisi olacaktir.
 
 Peki ya bir matrisin kolonlarinin degistirmek isteseydim ne yapardim?
 Eliminasyon icin bu gerekli degil ama zihin egzersizi olarak
-soruyorum. 
-
-Peki bu matris soldan mi, sagdan mi carpmali? 
+soruyorum. Ondan once bir diger soru, bu matris ana matrisi soldan mi,
+sagdan mi carpmali?
 
 Cevap, sagdan. Cunku simdi bize ``kolonlarin kombinasyonu'' lazim, ki
 kolonlar uzerinde ``bir tane ondan sifir tane bundan'' diyebilelim, ve bunu
@@ -580,7 +579,7 @@ duselim, parantezin yeri degisebilir ama carpim sirasi degisemez,
 $$ A \cdot B \ne B \cdot A $$
 
 Terimsel olarak sirabagimlilik (commutative) kanun gecerli degil
-cagrisimsal kanun gecerli.
+(cagrisimsal kanun gecerli).
 
 Pekala, eliminasyon matrislerini elde ettim, ve onlari carparak tek bir $E$
 matrisi elde edebilirim, vs. Fakat bunu yapmak istemiyorum. Aslinda ters
