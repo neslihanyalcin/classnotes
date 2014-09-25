@@ -203,10 +203,52 @@ ikinci denklemde geride yerine koyarim (ki isim buradan geliyor, cunku
 sondan geriye dogru gidiyoruz), ve $y = 1$ elde ederim, sonra oradan
 birinci denkleme atlarim, $x = 2$. 
 
+Bu gorduklerimiz bu dersin ilk kismiydi. Ikinci kisimda  matris bakis
+acisini isleyecegiz. Simdiye kadar yaptigimiz islemleri matris cebiri ile
+nasil gosterirdik? ``Buyuk resimden'' bahsediyoruz burada, yani teker teker
+satir, hucre ile oynamaktan degil, tum $A$'yi icine alan cebirsel
+operasyonlardan bahsediyoruz. 
+
+Carpma islemini hatirlarsak, ne demistik, matrisi bir vektor ile carpmak,
 
 
+$$ 
+\left[\begin{array}{rrr}
+    \dots & \dots & \dots \\
+    \dots &  \dots & \dots \\
+    \dots & \dots &  \dots
+  \end{array}\right]
+\left[\begin{array}{r}
+3 \\
+4 \\
+5
+\end{array}\right] = 
+3 \times \textrm{ 1. kolon } + 4  \times \textrm{ 2. kolon } + 
+5  \times \textrm{ 3. kolon } 
+$$
 
+Simdi benzer bir dusunce seklini satirlar uzerinde gerceklestirmek
+istiyorum. Niye? Cunku simdiye kadar gordugumuz eliminasyon icin gereken
+islemler hep satir islemleri. Acaba ayni matrisi soldan bir vektor ile
+carpsak ne olur? 
 
+$$ 
+\left[\begin{array}{rrr}
+1 & 2 & 7
+\end{array}\right]
+\left[\begin{array}{rrr}
+    \dots & \dots & \dots \\
+    \dots &  \dots & \dots \\
+    \dots & \dots &  \dots
+  \end{array}\right]
+ = 
+1 \times \textrm{ 1. satir } + 2  \times \textrm{ 2. satir } + 
+7  \times \textrm{ 3. satir } 
+$$
+
+Boyut olarak $1 \times 3 \cdot 3 \times 3 = 1 \times 3$, yani vektor ile
+matrisi carpinca bir vektor elde etmis olduk, diger bir deyisle
+``satirlarin lineer kombinasyonunu hesaplamis olduk''.
 
 
 
