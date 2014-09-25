@@ -573,15 +573,81 @@ d & c
 
 Bu da birim matrisin {\em kolonlarinin} yer degistirmis halidir. 
 
+Neyse, satir islemlerine donersek, eliminasyon matrislerini elde ediyoruz,
+ve biraraya koyuyoruz. Fakat matris carpimi hakkinda onemli bir not
+duselim, parantezin yeri degisebilir ama carpim sirasi degisemez,
 
+$$ A \cdot B \ne B \cdot A $$
 
+Terimsel olarak sirabagimlilik (commutative) kanun gecerli degil
+cagrisimsal kanun gecerli.
 
+Pekala, eliminasyon matrislerini elde ettim, ve onlari carparak tek bir $E$
+matrisi elde edebilirim, vs. Fakat bunu yapmak istemiyorum. Aslinda ters
+yonde gitmek istiyorum, yani $A$'dan $U$ ya gitmek yerine, $U$'dan $A$'ya
+gitmek istiyorum. Bunun icin bana $E$'nin tersi lazim. Simdiye kadar
+tahtada gordugunuz tum matrislerin tersi var bu arada, yani iyi huylu
+matris hepsi.
 
+Ters Alma Operasyonu
 
+Ustteki eliminasyon matrislerinden birini hatirlayalim, 
 
+$$ E_{21} = \left[\begin{array}{rrr}
+1 & 0 & 0 \\
+-3 & 1 & 0 \\
+0 & 0 & 1
+\end{array}\right] $$
 
+Oyle bir matris istiyorum ki bu matrisi notralize etsin. Yani onun etkisini
+yoketsin. Hangi matris bunu basarir? Hangi matris, eliminasyon matrisini
+soldan carpinca bana birim matrisini verir (oyle ya notralize etmek bu
+demektir, birim matrisi haline getirmek). 
 
+$$ 
+ \left[\begin{array}{rrr}
+ &  &  \\
+ &  &  \\
+ &  & 
+\end{array}\right] 
+ \left[\begin{array}{rrr}
+1 & 0 & 0 \\
+-3 & 1 & 0 \\
+0 & 0 & 1
+\end{array}\right] 
+=
+ \left[\begin{array}{rrr}
+1 & 0 & 0 \\
+0 & 1 & 0 \\
+0 & 0 & 1
+\end{array}\right] 
+$$
 
+Bunun icin eliminasyon matrisin ne yaptigini hatirlayalim; 1. satiri 3 ile
+carpip 2. satirdan cikartiyordu. Bu islemin tersi nedir? 1. satiri 3 ile
+carpip toplamak! Bunu yapinca bir onceki islemi notralize etmis oluruz
+degil mi? Yani,
+
+$$ 
+ \left[\begin{array}{rrr}
+1 & 0 & 0 \\
+3 & 1 & 0 \\
+0 & 0 & 1
+\end{array}\right] 
+ \left[\begin{array}{rrr}
+1 & 0 & 0 \\
+-3 & 1 & 0 \\
+0 & 0 & 1
+\end{array}\right] 
+=
+ \left[\begin{array}{rrr}
+1 & 0 & 0 \\
+0 & 1 & 0 \\
+0 & 0 & 1
+\end{array}\right] 
+$$
+
+Notasyonel olarak $E^{-1}$ kullanilir, yani ustteki ifade $E^{-1}E = I$ olur.
 
 
 \end{document}
