@@ -40,9 +40,11 @@ def kruskal(G):
     E = [(G[u][v],u,v) for u in G for v in G[u]]
     T = set()
     C, R = {u:u for u in G}, {u:0 for u in G}   # Comp. reps and ranks
+    print sorted(E)
     for _, u, v in sorted(E):
         if find(C, u) != find(C, v):
             T.add((u, v))
+            print (u, v)
             union(C, R, u, v)
     return T
 
@@ -50,11 +52,26 @@ print list(kruskal(G2))
 \end{minted}
 
 \begin{verbatim}
+[(1, 'a', 'b'), (1, 'b', 'a'), (1, 'b', 'c'), (1, 'c', 'b'), (1, 'd', 'f'), (1, 'e', 'g'), (1, 'f', 'd'), (1, 'g', 'e'), (2, 'a', 'f'), (2, 'd', 'e'), (2, 'e', 'd'), (2, 'f', 'a')]
+('a', 'b')
+('b', 'c')
+('d', 'f')
+('e', 'g')
+('a', 'f')
+('d', 'e')
 [('d', 'e'), ('e', 'g'), ('d', 'f'), ('b', 'c'), ('a', 'f'), ('a', 'b')]
 \end{verbatim}
 
+\begin{minted}[fontsize=\footnotesize]{python}
+m = 100 * 1000
+print m**2
+print m*np.log(m)
+\end{minted}
 
-
+\begin{verbatim}
+10000000000
+1151292.5465
+\end{verbatim}
 
 
 
