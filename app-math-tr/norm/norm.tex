@@ -85,4 +85,84 @@ print np.dot(a,b)
 2
 \end{verbatim}
 
+Ortalama Cikartmak 
+
+Scipy seyrek matrislerde ortalamayi almak kulfetli olabiliyor, Scipy
+ortalamayi cikartmayi izin vermez (olmayan degerler ortalama alirken sifir
+mi kabul edilecektir? bu tam bilinmedigi icin izin verilmemis). Fakat bu
+ozellik gerekiyorsa, soyle yapilir,
+
+\begin{minted}[fontsize=\footnotesize]{python}
+import scipy.sparse as sps
+
+def center(mat):
+    mat = mat.T
+    vec = sps.csc_matrix(mat.mean(axis=1))
+    mat_row = mat.tocsr()
+    vec_row = vec.T
+    mat_row.data -= np.repeat(vec_row.toarray()[0],np.diff(mat_row.indptr))
+    return mat_row.T
+
+mat = sps.csc_matrix([[1, 2, 3, 5.],
+                      [2, 3, 4, 5.],
+                      [3, 4, 5, 5.]])
+
+print center(mat).todense()
+\end{minted}
+
+\begin{verbatim}
+[[-1. -1. -1.  0.]
+ [ 0.  0.  0.  0.]
+ [ 1.  1.  1.  0.]]
+\end{verbatim}
+
+Normalize Etmek 
+
+Standardize etmek hem ortalamayi cikartmak (demean), sonra normalize etmek
+demektir. Bu iki islem birbirinden bagimsiz yapilabilir, bazen biri bazen
+digeri kullanilabilir. Normalize etmek icin scikit-learn paketinin
+fonksiyonlari vardir, 
+
+\begin{minted}[fontsize=\footnotesize]{python}
+from sklearn.preprocessing import normalize
+print normalize(mat, norm='l1', axis=0).todense()
+\end{minted}
+
+\begin{verbatim}
+[[-0.5 -0.5 -0.5  0. ]
+ [ 0.   0.   0.   0. ]
+ [ 0.5  0.5  0.5  0. ]]
+\end{verbatim}
+
+Ustteki cagri matrisin kolonlarini (cunku \verb!axis=0! secildi, bu kolon
+demek) L1 normu kullanarak normalize etti; yani her kolonun L1 buyuklugu
+hesaplandi ve o kolonun her hucresi bu buyukluk ile bolundu. L2 norm
+kullabilirdik, 
+
+\begin{minted}[fontsize=\footnotesize]{python}
+print normalize(mat, norm='l2', axis=0).todense()
+\end{minted}
+
+\begin{verbatim}
+[[-0.70710678 -0.70710678 -0.70710678  0.        ]
+ [ 0.          0.          0.          0.        ]
+ [ 0.70710678  0.70710678  0.70710678  0.        ]]
+\end{verbatim}
+
+Satirlari normalize edebilirdik, 
+
+\begin{minted}[fontsize=\footnotesize]{python}
+print normalize(mat, norm='l1', axis=1).todense()
+\end{minted}
+
+\begin{verbatim}
+[[-0.33333333 -0.33333333 -0.33333333  0.        ]
+ [ 0.          0.          0.          0.        ]
+ [ 0.33333333  0.33333333  0.33333333  0.        ]]
+\end{verbatim}
+
+
+
+
+
 \end{document}
