@@ -2,37 +2,30 @@
 #include <iostream>
 #include <cstdio>
 #include <cstdlib>
-#include "segment-graph.h"
-
-#include <iostream>
 #include <sstream>
 #include <string>
 #include <fstream>
-#include <vector>
-#include <map>
+#include "segment-graph.h"
+
 using namespace std;
-
-
-/*
-0 2 0 0 2
-2 0 1 0 0
-0 1 0 3 0
-0 0 3 0 0
-0 0 0 0 0
- */
 
 void read() {
   ifstream infile("test.mtx");
   string line = "";
-  vector<string> all_words;
+  int i=0;  
   while (getline(infile, line)) {
     if (line.find("%") != std::string::npos) continue;
     stringstream strstr(line);
     string word = "";
+    string ii = ""; string jj = ""; string val = "";
+    int j = 0;
     while (getline(strstr,word, ' ')) {
-      cout << " " << word;
+      if (j == 0) ii = word;
+      if (j == 1) jj = word;
+      if (j == 2) val = word;
+      j++;
     }
-    cout << endl;
+    cout << ii << " " << jj << " " << val << endl;
   }
 
 }
