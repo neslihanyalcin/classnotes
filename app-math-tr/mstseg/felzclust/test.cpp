@@ -1,4 +1,3 @@
-
 #include <iostream>
 #include <cstdio>
 #include <cstdlib>
@@ -9,8 +8,9 @@
 
 using namespace std;
 
-universe* read() {
-  ifstream infile("test.mtx");
+universe* segment_distances(string file, float threshold) {
+  //ifstream infile("test.mtx");
+  ifstream infile(file);  
   string line = "";
   int i=0; int vertices_count = 0; int edges_count = 0;
   edge* edges = NULL;
@@ -40,7 +40,7 @@ universe* read() {
     i++;
   }
 
-  universe *u = segment_graph(vertices_count, edges_count, edges, 1.0);
+  universe *u = segment_graph(vertices_count, edges_count, edges, threshold);
 
   return u;
 
@@ -48,7 +48,7 @@ universe* read() {
 
 int main(int argc, char **argv) {
 
-  universe *u = read();
+  universe *u = segment_distances("test.mtx", 1.0);
 
   /*
   edge* s = new edge[8];
