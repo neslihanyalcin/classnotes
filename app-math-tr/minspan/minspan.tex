@@ -1,7 +1,96 @@
 \documentclass[12pt,fleqn]{article}\usepackage{../common}
 \begin{document}
+Minimum Kapsamli Agac (Minimum Spanning Tree -MST-)
+
+MST algorithmasi kenar agirliklarina (weights) sahip olan bir cizit (graph)
+yapisi icinde minimal ve kapsayan agaci (MST) bulan algoritmaya verilen
+isimdir. Mesela alttaki cizit icinde
+
+\includegraphics[height=4cm]{minspan_0.png}
+
+MST oyle bir baglanti yapisidir ki bastan sona, herhangi bir noktadan
+(node) bir digerine gecis yapilabilsin, ve bu tum yollarin toplami en
+minimal olsun. Dikkat, herhangi bir noktadan digerine giden yol en az olsun
+demiyoruz, bu durumda problem en kisa yol (shortest path) problemi
+olurdu, ki bu problemi {\em Dinamik Programlama} yazisinda gorduk. Burada
+gorecegimiz kapsayan agacin {\em toplaminin} minimal olmasidir. 
+
+Kapsayan agac (spanning tree) kavramini tanimlamak gerekirse, bir cizitin
+kapsayan agaci orijinal cizitin tum noktalarina sahip olmalidir, agac
+icinde hicbir dongu (cycle) olmamalidir. Dongu derken bir noktadan digerine
+atlaya atlaya giderken bizi donup tekrar ayni yere getirebilecek turden
+``kapali devre'' tur bir donguden bahsediyoruz - bu mumkun
+olmamalidir. Ayrica cizit baglantili olmalidir, yani bir kismi diger
+kismindan kopuk bir cizit uzerinde MST bulunamaz. 
+
+Minimum kapsayici agac ise bu tur pek cok alternatif agaclarin icinde en az
+agirlikli olanidir. Not, bir cizitin MST cozumu tekil (unique) olmayabilir,
+ayni agirlikta birden fazla degisik agac mumkundur. Mesela ustteki cizit
+icin mumkun MST'ler altta goruluyor,
+
+\includegraphics[height=4cm]{minspan_1.png}
+
+Kontrol edilebilir, ustteki her agacin kenar toplami 8'dir. Bu agaclarin
+her biri bir MST olarak kabul edilebilir.
+
+Uygulama baglaminda MST bulma algoritmasinin ne kadar kullanisli olacagi
+goruluyor herhalde; mesela elektrik hatlari, telefon iletisim hatlari
+tasarlarken MST kullanilabilir, toplam baglantisi en az olan bir ag yapisi
+her iki durumda da kullanisli olur. Biyolojik, kimyasal aglarin analizinde
+bile MST kullanilmaktadir.
+
+Agaclarin Ozellikleri (Properties of Trees)
+
+Baslamadan once bir agaci agac yapan iki onemli ozelligini belirtelim
+
+1) Elde olan, tanim itibariyle agac olan bir agacin arasinda baglanti
+olmayan iki noktasini birlestiren bir kenar koyarsak bu agacta bir dongu
+yaratmis oluruz.
+
+2) Elde olan bir agacin herhangi bir kenarini cikartirsak bu agaci
+``kopartmis'' oluruz, birbiriyle baglantisiz iki alt-agac ortaya cikar.
 
 \includegraphics[height=8cm]{graph_prop.png}
+
+Resimde her iki durumu goruyoruz. Bu iki ozellik cok onemli, cunku onlari
+MST'lerin cok temel bir ozelligini ispatlamak icin kullanacagiz.
+
+Tanim
+
+Kesik (cut): Bir cizit uzerindeki kesik, bir ciziti birbiriyle alakasiz,
+baglantisiz iki parcaya / kumeye boler. 
+
+Not: Dikkat bir kesik birden fazla kenari kapsayabilir, cunku bir ciziti
+kesmekten bahsediyoruz. Bir agactan bahsediyor olsaydik, yukarida
+belirttigimiz gibi, tek bir kenari kesmek yeterli olurdu.
+
+Birlestiren kenar (crossing edge): birbirinden baglantisiz iki kumedeki
+herhangi bir noktayi diger kumedeki herhangi bir diger noktayla birlestiren
+bir kenardir.
+
+Onerme (Proposition)
+
+Herhangi bir ciziti alalim, ve bu cizitteki bir kesik icindeki (yani
+kopardigi tum kenarlar) icindeki minimum birlestiren kenar o cizitin MST'sinin
+icinde olmalidir. 
+
+Ispat
+
+Bu ispat tersini yanlislama (proof by contradiction) yontemini
+kullanacak. Diyelim ki bir kesik var, ve o kesikteki $e$ minimum
+birlestiren kenar. Bu cizitin MST'si $T$ olsun. Simdi $e$'nin $T$'nin
+icinde olmadigi durumu dusunelim (yani onermenin dediginin tersi), ve
+diyelim ki simdi $e$'yi alip $T$'ye ekliyoruz. Yeni bir cizit ortaya
+cikardi, fakat daha once dedigimiz gibi, $T$'ye bir kenar eklemek ona ayni
+zamanda bir dongu eklemek demektir, ki bu dongunun icinde en az bir diger
+kenar $f$ olacaktir (cunku $e$ MST'de olmadigina gore orada baska bir sey
+var), ki bu $f$, $e$'den buyuktur. Fakat o zaman $f$'yi kesip onun yerine
+daha az agirlikta olan $e$'yi ekleyince MST'yi, hem de daha az agirlikla
+elde etmis olmaz miydik? Evet. Demek ki $e$'nin MST icinde olmamasi
+imkansizdir cunku MST tanim itibariyle en minimal agirliga sahip olmalidir.
+
+\includegraphics[height=5cm]{cross_edge.png}
+
 
 \begin{minted}[fontsize=\footnotesize]{python}
 G1 = {
@@ -14,10 +103,6 @@ G1 = {
   'g': {'e':1, 'a': 6}
 }
 \end{minted}
-
-\includegraphics[height=4cm]{minspan_0.png}
-
-\includegraphics[height=4cm]{minspan_1.png}
 
 
 \begin{minted}[fontsize=\footnotesize]{python}
