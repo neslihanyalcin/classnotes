@@ -36,22 +36,12 @@ bool operator<(const edge &a, const edge &b) {
   return a.w < b.w;
 }
 
-/*
- * Segment a graph
- *
- * Returns a disjoint-set forest representing the segmentation.
- *
- * num_vertices: number of vertices in graph.
- * num_edges: number of edges in graph
- * edges: array of edges.
- * c: constant for treshold function.
- */
 universe *segment_graph(int num_vertices, int num_edges, edge *edges, 
 			float c) { 
   // sort edges by weight
   std::sort(edges, edges + num_edges);
   
-  for (int i = 0; i < num_vertices; i++){
+  for (int i = 0; i < num_edges; i++){
     edge *ppp = &edges[i];
     std::cout << std::to_string(ppp->w) << " "
 	      << std::to_string(ppp->a) << " " 
