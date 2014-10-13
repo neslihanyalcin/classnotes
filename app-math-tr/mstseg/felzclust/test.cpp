@@ -8,11 +8,12 @@
 
 using namespace std;
 
+int vertices_count = 0; int edges_count = 0;
+
 universe* segment_distances(string file, float threshold) {
-  //ifstream infile("test.mtx");
   ifstream infile(file);  
   string line = "";
-  int i=0; int vertices_count = 0; int edges_count = 0;
+  int i=0; 
   edge* edges = NULL;
   while (getline(infile, line)) {
     if (line.find("%") != std::string::npos) continue;
@@ -50,27 +51,20 @@ int main(int argc, char **argv) {
 
   universe *u = segment_distances("test.mtx", 1.0);
 
-  /*
-  edge* s = new edge[8];
-  s[0].w = 0.5; s[0].a = 0; s[0].b = 1;
-  s[1].w = 0.5; s[1].a = 1; s[1].b = 0;
-  s[2].w = 1; s[2].a = 1; s[2].b = 2;
-  s[3].w = 1; s[3].a = 2; s[3].b = 1;
-  s[4].w = 0.33; s[4].a = 2; s[4].b = 3;
-  s[5].w = 0.33; s[5].a = 3; s[5].b = 2;
-  s[6].w = 0.5; s[6].a = 0; s[6].b = 5;
-  s[7].w = 0.5; s[7].a = 5; s[7].b = 0;
-  
-  universe *u = segment_graph(5, 8, s, 1.0);
-  */
-
   cout << "sets " << u->num_sets() << endl << endl;
+  cout << "vert " << vertices_count << endl;
+  
+  /*
   cout << "found " <<  u->find(0) << endl;
   cout << "found " <<  u->find(1) << endl;
   cout << "found " <<  u->find(2) << endl;
   cout << "found " <<  u->find(3) << endl;
-  cout << "found " <<  u->find(4) << endl;
-
+  cout << "found " <<  u->find(4) << endl; 
+  */
+  cout << "point;cluster" << endl;
+  for (int i=0;i<vertices_count;i++){
+    cout << i << ";" << u->find(i) << endl;
+  }
   
   return 0;
 }
