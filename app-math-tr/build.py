@@ -12,7 +12,7 @@ if len(sys.argv) == 1 or sys.argv[1] == 'tex':
 ./matderiv/matderiv.pdf ./logaritma/logaritma.pdf ./complexity/complexity.pdf \
 ./probsolve/probsolve.pdf ./dynp/dynp.pdf ./minspan/minspan.pdf \
 ./id3/id3.pdf ./knn/knn.pdf ./turev/turev.pdf \
-./totaldiff/totaldiff.pdf ./eigseg/eigseg.pdf ./rayleigh/rayleigh.pdf \
+./totaldiff/totaldiff.pdf  ./rayleigh/rayleigh.pdf \
 ./spline/spline.pdf ./ml-tr/ml-tr.pdf ./logreg/logreg2.pdf ./kmeans/kmeans.pdf ./naive/naive.pdf  \
 ./simplex/simplex.pdf ./qp/qp.pdf ./svm/svm.pdf \
 ./varcalc/varcalc.pdf ./filter/filter.pdf ./svdcluster/svdcluster.pdf ./rndsvd/rndsvd.pdf \
