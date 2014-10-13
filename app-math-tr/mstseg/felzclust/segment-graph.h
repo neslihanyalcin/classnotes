@@ -24,6 +24,8 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA
 #include <cmath>
 #include "disjoint-set.h"
 
+using namespace std;
+
 // threshold function
 #define THRESHOLD(size, c) (c/size)
 
@@ -39,14 +41,15 @@ bool operator<(const edge &a, const edge &b) {
 universe *segment_graph(int num_vertices, int num_edges, edge *edges, 
 			float c) { 
   // sort edges by weight
-  std::sort(edges, edges + num_edges);
-  
+  sort(edges, edges + num_edges);
+
+  cout << "segmenting graph" << endl;
   for (int i = 0; i < num_edges; i++){
     edge *ppp = &edges[i];
-    std::cout << std::to_string(ppp->w) << " "
-	      << std::to_string(ppp->a) << " " 
-	      << std::to_string(ppp->b)
-	      << std::endl;
+    cout << to_string(ppp->w) << " "
+	      << to_string(ppp->a) << " " 
+	      << to_string(ppp->b)
+	      << endl;
   }
   
   

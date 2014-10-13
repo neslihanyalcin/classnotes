@@ -9,10 +9,10 @@
 
 using namespace std;
 
-edge* read() {
+universe* read() {
   ifstream infile("test.mtx");
   string line = "";
-  int i=0; int vertices = 0;
+  int i=0; int vertices_count = 0; int edges_count = 0;
   edge* edges = NULL;
   while (getline(infile, line)) {
     if (line.find("%") != std::string::npos) continue;
@@ -28,9 +28,10 @@ edge* read() {
     }    
     cout << a << " " << b << " " << w << endl;
     if (i == 0) {
-      vertices = a;
-      edges = new edge[(int)w];
-      cout << "vertices" << vertices << " edges " << w << endl;      
+      vertices_count = a;
+      edges_count = (int)w;
+      edges = new edge[edges_count];
+      cout << "vertices " << vertices_count << " edges " << edges_count << endl;
     } else {
       edges[i-1].a = a;
       edges[i-1].b = b;
@@ -38,13 +39,16 @@ edge* read() {
     }
     i++;
   }
-  return edges;
+
+  universe *u = segment_graph(vertices_count, edges_count, edges, 0.3);
+
+  return u;
 
 }
 
 int main(int argc, char **argv) {
 
-  edge *edges = read();
+  universe *u = read();
 
   /*
   edge* s = new edge[8];
@@ -58,15 +62,16 @@ int main(int argc, char **argv) {
   s[7].w = 1/2; s[7].a = 5; s[7].b = 0;
   
   universe *u = segment_graph(5, 6, s, 0.3);
-  cout << "sets " << u->num_sets() << endl << endl;
+  */
 
+  cout << "sets " << u->num_sets() << endl << endl;
   cout << "found " <<  u->find(0) << endl;
   cout << "found " <<  u->find(1) << endl;
   cout << "found " <<  u->find(2) << endl;
   cout << "found " <<  u->find(3) << endl;
   cout << "found " <<  u->find(4) << endl;
-  */
 
+  
   return 0;
 }
 
