@@ -49,7 +49,15 @@ universe* segment_distances(string file, float threshold) {
 
 int main(int argc, char **argv) {
 
-  universe *u = segment_distances("test.mtx", 1.0);
+  if( argc != 3){
+      cout << "Usage: felzcluster file threshold" << endl;
+      return -1;
+  }
+  
+  string file = argv[1];
+  float threshold = atoi(argv[2]);
+  
+  universe *u = segment_distances(file, threshold);
 
   //cout << "sets " << u->num_sets() << endl << endl;
   //cout << "vert " << vertices_count << endl;
