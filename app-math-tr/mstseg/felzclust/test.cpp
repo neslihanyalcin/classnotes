@@ -17,12 +17,12 @@ void read() {
     if (line.find("%") != std::string::npos) continue;
     stringstream strstr(line);
     string word = "";
-    string ii = ""; string jj = ""; string val = "";
+    int ii; int jj; float val;
     int j = 0;
     while (getline(strstr,word, ' ')) {
-      if (j == 0) ii = word;
-      if (j == 1) jj = word;
-      if (j == 2) val = word;
+      if (j == 0) ii = atoi(word.c_str());
+      else if (j == 1) jj = atoi(word.c_str());
+      else if (j == 2) val = atof(word.c_str());
       j++;
     }
     cout << ii << " " << jj << " " << val << endl;
@@ -33,6 +33,8 @@ void read() {
 int main(int argc, char **argv) {
 
   read();
+  string ss = "234234";
+  cout << atoi(ss.c_str()) << endl;
   
   edge* s = new edge[8];
   s[0].w = 1/2; s[0].a = 0; s[0].b = 1;
