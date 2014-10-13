@@ -27,12 +27,12 @@ universe* segment_distances(string file, float threshold) {
       else if (j == 2) w = atof(word.c_str());
       j++;
     }    
-    cout << a << " " << b << " " << w << endl;
+    //cout << a << " " << b << " " << w << endl;
     if (i == 0) {
       vertices_count = a;
       edges_count = (int)w;
       edges = new edge[edges_count];
-      cout << "vertices " << vertices_count << " edges " << edges_count << endl;
+      //cout << "vertices " << vertices_count << " edges " << edges_count << endl;
     } else {
       edges[i-1].a = a;
       edges[i-1].b = b;
@@ -51,16 +51,9 @@ int main(int argc, char **argv) {
 
   universe *u = segment_distances("test.mtx", 1.0);
 
-  cout << "sets " << u->num_sets() << endl << endl;
-  cout << "vert " << vertices_count << endl;
+  //cout << "sets " << u->num_sets() << endl << endl;
+  //cout << "vert " << vertices_count << endl;
   
-  /*
-  cout << "found " <<  u->find(0) << endl;
-  cout << "found " <<  u->find(1) << endl;
-  cout << "found " <<  u->find(2) << endl;
-  cout << "found " <<  u->find(3) << endl;
-  cout << "found " <<  u->find(4) << endl; 
-  */
   cout << "point;cluster" << endl;
   for (int i=0;i<vertices_count;i++){
     cout << i << ";" << u->find(i) << endl;

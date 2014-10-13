@@ -42,7 +42,8 @@ universe *segment_graph(int num_vertices, int num_edges, edge *edges,
 			float c) { 
   // sort edges by weight
   sort(edges, edges + num_edges);
-
+  
+  /*
   cout << "segmenting graph" << endl;
   for (int i = 0; i < num_edges; i++){
     edge *ppp = &edges[i];
@@ -51,7 +52,7 @@ universe *segment_graph(int num_vertices, int num_edges, edge *edges,
 	      << to_string(ppp->b)
 	      << endl;
   }
-  
+  */
   
   // make a disjoint-set forest
   universe *u = new universe(num_vertices);
