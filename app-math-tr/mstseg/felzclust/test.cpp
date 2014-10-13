@@ -12,20 +12,30 @@ using namespace std;
 void read() {
   ifstream infile("test.mtx");
   string line = "";
-  int i=0;  
+  int i=0;
+  edge* edges = NULL;
   while (getline(infile, line)) {
     if (line.find("%") != std::string::npos) continue;
     stringstream strstr(line);
     string word = "";
-    int ii; int jj; float val;
+    int a; int b; float w;
     int j = 0;
     while (getline(strstr,word, ' ')) {
-      if (j == 0) ii = atoi(word.c_str());
-      else if (j == 1) jj = atoi(word.c_str());
-      else if (j == 2) val = atof(word.c_str());
+      if (j == 0) a = atoi(word.c_str());
+      else if (j == 1) b = atoi(word.c_str());
+      else if (j == 2) w = atof(word.c_str());
       j++;
+    }    
+    cout << a << " " << b << " " << w << endl;
+    if (i == 0) {
+      edges = new edge[(int)w];
+      cout << "done" << endl;      
+    } else {
+      edges[i-1].a = a;
+      edges[i-1].b = b;
+      edges[i-1].w = w;      
     }
-    cout << ii << " " << jj << " " << val << endl;
+    i++;
   }
 
 }
