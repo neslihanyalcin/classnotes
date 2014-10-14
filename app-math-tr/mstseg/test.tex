@@ -1,0 +1,32 @@
+\documentclass[12pt,fleqn]{article}\usepackage{../common}
+\begin{document}
+
+\begin{minted}[fontsize=\footnotesize]{python}
+import numpy as np
+from scipy.io import mmread, mmwrite
+import scipy.sparse as sps
+A = mmread('./felzclust/test.mtx')
+#print A
+\end{minted}
+
+\begin{verbatim}
+<type 'exceptions.ValueError'> negative row index found
+\end{verbatim}
+
+\begin{minted}[fontsize=\footnotesize]{python}
+A = sps.lil_matrix((5,5))
+A[0,1] = 0.5
+A[1,0] = 0.5
+A[1,2] = 1.0
+A[2,1] = 1.0
+A[2,3] = 0.33
+A[3,2] = 0.33
+A[0,4] = 0.5
+A[4,0] = 0.5
+mmwrite('./felzclust/test2.mtx',A)
+\end{minted}
+
+
+
+
+\end{document}
