@@ -60,8 +60,8 @@ konu baska bir yazida islenecek.
 Ornek test verisi altta
 
 \begin{minted}[fontsize=\footnotesize]{python}
-from pandas import *
-data = read_csv("synthetic.txt",names=['a','b'],sep="   ")
+import pandas as pd
+data = pd.aread_csv("synthetic.txt",names=['a','b'],sep="   ")
 print data.shape
 data = np.array(data)
 \end{minted}
