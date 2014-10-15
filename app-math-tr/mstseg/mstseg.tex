@@ -1,5 +1,6 @@
 \documentclass[12pt,fleqn]{article}\usepackage{../common}
 \begin{document}
+Felzenswalb Gruplamasi (Felzenswalb Clustering)
 
 Imaj Bolgelerinin Ikili Karsilastirmasi 
 
@@ -93,17 +94,40 @@ $S=(C_1,..,C_r)$
 \begin{algorithm}[h]
 \begin{pseudocode}
 \codename $\code{felzenswalb}\left(G\right)$\\
-\codeline \> $E$'yi $\pi = (o_1,..,o_m)$ seklinde kucukten buyuge dogru sirala. \\
-\codeline \> Ilk basta $S^0$ gruplamasini al, ki bu durumda her kenar $v_i$ kendi bileseni icindedir. \\
+\codeline \> $E$ kenarlarini $\pi = (o_1,..,o_m)$ seklinde kucukten buyuge dogru sirala. \\
+\codeline \> Ilk basta $S^0$ gruplamasini al. Bu durumda her kenar $v_i$
+kendi bileseni icindedir. \\ 
 \codeline \> $\code{for }$ $q = 1,..,m$ \\
 \codeline \> \> $S^{q-1}$ gruplamasini baz alip $S^q$ gruplamasini soyle
-yarat; $q$'inci siradaki \\
-\codeline \> \> kenarin birlestirdigi noktalari $v_i,v_j$ oldugunu farz edelim, yani $o_q = (v_i,v_j)$. 
-\\
-\codeline \> $\code{return } S=(C_1,...,C_r)$ 
+yarat; $q$'inci siradaki  \\
+\codeline \> \> kenarin birlestirdigi noktalari $v_i,v_j$ oldugunu farz
+edelim, yani $o_q = (v_i,v_j)$. \\ 
+\codeline \> \> Eger $v_i,v_j$ $S^{q-1}$ gruplamasi icinde farkli iki
+bilesen icindeyseler, ve $w(o_q)$ her  \\
+\codeline \> \> iki bilesenin icsel farkina kiyasla cok kucuk ise, bu iki
+bileseni birlestir, \\ 
+\codeline \> \> yoksa hicbir sey yapma. \\
+\codeline \> $\code{return } S=S^m$ 
 \end{pseudocode}
 \end{algorithm}
 
+Ustteki dongu icindeki en son irdelemede icsel farktan bahsediliyor, bu
+tabii ki $MInt(C_1,C_2)$. Daha formel sekilde $MInt(C_1^{q-1},C_2^{q-1})$
+cunku bilesenlerin icerikleri hangi adimda oldugumuza gore degisebilir, $q$
+adiminda bir onceki $q-1$'den bize ``miras kalan'' gruplamalar ve
+bilesenler uzerinden is yapiyoruz. Bir sonraki adima ya birlesmis, ya da
+birlesmemis (ayni) gruplamalari aktariyoruz. 
+
+\begin{minted}[fontsize=\footnotesize]{python}
+import felz
+edges = [(8, 5, 5),(0.5, 1, 2),(0.5, 1, 5),(0.5, 2, 1),
+         (1, 2, 3),(1, 3, 2),(0.33, 3, 4),(0.33, 4, 3),(0.5, 5, 1)]
+felz.felzenswalb(edges)
+\end{minted}
+
+\begin{verbatim}
+[(0.33, 3, 4), (0.33, 4, 3), (0.5, 1, 2), (0.5, 1, 5), (0.5, 2, 1), (0.5, 5, 1), (1, 2, 3), (1, 3, 2), (8, 5, 5)]
+\end{verbatim}
 
 
 
@@ -113,14 +137,11 @@ yarat; $q$'inci siradaki \\
 
 
 
+Kaynaklar
 
-
-
-
-
-
-
-
+[1] Pedro F. Felzenszwalb and Daniel P. Huttenlocher, {\em Efficient
+  Graph-Based Image Segmentation},
+\url{http://scikit-image.org/docs/dev/auto_examples/plot_segmentations.html}
 
 
 \end{document}
