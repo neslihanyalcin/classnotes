@@ -122,15 +122,17 @@ birlesmemis (ayni) gruplamalari aktariyoruz.
 
 \begin{minted}[fontsize=\footnotesize]{python}
 import felz
-edges = [(8, 5, 5),(0.5, 1, 2),(0.5, 1, 5),(0.5, 2, 1),
-         (1, 2, 3),(1, 3, 2),(0.33, 3, 4),(0.33, 4, 3),(0.5, 5, 1)]
-felz.felzenswalb(edges, t=1)
+import scipy.sparse as sps
+import scipy.io as io
+X = io.mmread('simple.mtx')
+clf = felz.Felzenswalb(t=1)
+clf.fit(X)
 \end{minted}
 
 \begin{verbatim}
-[(0.33, 3, 4), (0.33, 4, 3), (0.5, 1, 2), (0.5, 1, 5), (0.5, 2, 1), (0.5, 5, 1), (1, 2, 3), (1, 3, 2), (8, 5, 5)]
-{1: 1, 2: 2, 3: 3, 4: 4, 5: 5}
-{1: 1, 2: 1, 3: 1, 4: 1, 5: 1}
+[(0.33000000000000002, 2, 3), (0.33000000000000002, 3, 2), (0.5, 0, 1), (0.5, 0, 4), (0.5, 1, 0), (0.5, 4, 0), (1.0, 1, 2), (1.0, 2, 1)]
+{0: 0, 1: 1, 2: 2, 3: 3, 4: 4}
+{0: 1, 1: 1, 2: 1, 3: 1, 4: 1}
 \end{verbatim}
 
 
