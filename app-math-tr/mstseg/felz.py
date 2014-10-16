@@ -19,8 +19,9 @@ def union(C, R, u, v):
         R[v] += 1
 
 class Felzenswalb:
-    def __init__(self, threshold):
+    def __init__(self, threshold, c):
         self.threshold_ = threshold
+        self.c_ = c
 
     def fit(self, X):
         print X.shape
@@ -33,17 +34,22 @@ class Felzenswalb:
         
         ts = {x:threshold(1,self.threshold_) for x in C}
         
-        for _, u, v in sorted(E):
-            print u, v
+        for w, u, v in sorted(E):
+            print 'edge', w, u, v            
             if find(C, u) != find(C, v):
-                T.add((u, v))
-                print 'C1',C
-                union(C, R, u, v)
-                print 'C2',C
+                if w <= ts[u] and w <= ts[v]:
+                    T.add((u, v))
+                    union(C, R, u, v)
+                    ts[u] = w + threshold(len(C),self.c_)
                 
-        #for (v,i,j) in E: print v,i,j
-
         print T
+        print C
                 
         return T
         
+import scipy.sparse as sps
+import scipy.io as io
+X = io.mmread('simple.mtx')
+clf = Felzenswalb(threshold=1,c=1)
+clf.fit(X)
+    
