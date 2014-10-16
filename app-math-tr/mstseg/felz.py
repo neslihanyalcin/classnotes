@@ -1,6 +1,6 @@
 import scipy.sparse as sps
 import scipy.io as io
-import itertools
+import itertools, numpy as np
 
 def threshold(size, c): return c / size 
 
@@ -41,15 +41,14 @@ class Felzenswalb:
                     T.add((u, v))
                     union(C, R, u, v)
                     ts[u] = w + threshold(len(C),self.c_)
-                
-        print T
-        print C
-                
-        return T
+
+        self.labels_ = [np.nan for i in range(len(C))]
+        for i in range(len(C)): self.labels_[i] = int(C[i])
+        self.T_ = T
         
 import scipy.sparse as sps
 import scipy.io as io
 X = io.mmread('simple.mtx')
 clf = Felzenswalb(threshold=1,c=1)
 clf.fit(X)
-    
+print clf.labels_    
