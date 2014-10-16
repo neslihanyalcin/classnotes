@@ -1,6 +1,7 @@
 import scipy.sparse as sps
 import scipy.io as io
 import pandas as pd, os, sys, felz
+import matplotlib.pyplot as plt
 import itertools, numpy as np
 
 syn = pd.read_csv("../kmeans/synthetic.txt",names=['a','b'],sep="   ")
@@ -18,7 +19,14 @@ X4 = sps.triu(X3)
 print 'non-zero items', len(X4.nonzero()[0])
 print X4.shape
 
-clf = felz.Felzenswalb(threshold=100,c=60000)
+clf = felz.Felzenswalb(threshold=50,c=1000)
 clf.fit(X4)
 syn['cluster'] = clf.labels_
 print len(syn['cluster'].unique())
+
+import random
+for clust in syn['cluster'].unique():
+    tmp = np.array(syn[syn['cluster'] == clust][['a','b']])
+    plt.scatter(tmp[:,0], tmp[:,1], c=np.random.rand(3,1))
+    
+plt.show()
