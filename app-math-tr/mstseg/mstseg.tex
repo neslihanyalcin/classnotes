@@ -120,11 +120,6 @@ birlesmemis (ayni) gruplamalari aktariyoruz.
 
 \inputminted[fontsize=\footnotesize]{python}{felz.py}
 
-\begin{verbatim}
-(5, 5)
-[1, 1, 3, 3, 1]
-\end{verbatim}
-
 \begin{minted}[fontsize=\footnotesize]{python}
 import pandas as pd, os, sys
 syn = pd.read_csv("../kmeans/synthetic.txt",names=['a','b'],sep="   ")
@@ -149,28 +144,28 @@ non-zero items 87010
 
 \begin{minted}[fontsize=\footnotesize]{python}
 import felz
-clf = felz.Felzenswalb(threshold=50,c=1000)
+clf = felz.Felzenswalb(min_size=20,c=800)
 clf.fit(X4)
 \end{minted}
 
 \begin{verbatim}
-(5, 5)
-[1, 1, 3, 3, 1]
 (3000, 3000)
 \end{verbatim}
 
 \begin{minted}[fontsize=\footnotesize]{python}
 syn['cluster'] = clf.labels_
+print len(syn['cluster'].unique()), 'clusters found'
 print syn[:5]
 \end{minted}
 
 \begin{verbatim}
+14 clusters found
        a      b  cluster
-0  54620  43523      120
-1  52694  42750      120
-2  53253  43024      120
-3  54925  42624      120
-4  54973  43980      120
+0  54620  43523      238
+1  52694  42750      238
+2  53253  43024      238
+3  54925  42624      238
+4  54973  43980      238
 \end{verbatim}
 
 \begin{minted}[fontsize=\footnotesize]{python}

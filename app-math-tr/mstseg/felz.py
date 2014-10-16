@@ -15,19 +15,16 @@ def union(C, R, u, v, S):
     u, v = find(C, u), find(C, v)
     if R[u] > R[v]:                             # Union by rank
         C[v] = u
-        S[v] = S[u] + S[v]
         S[u] = S[u] + S[v]
     else:
         C[u] = v
-        tmp = S[u] + S[v]
-        S[u] = tmp
-        S[v] = tmp
+        S[v] = S[u] + S[v]
     if R[u] == R[v]:                            # A tie: Move v up a level
         R[v] += 1
 
 class Felzenswalb:
-    def __init__(self, threshold, c):
-        self.threshold_ = threshold
+    def __init__(self, min_size, c):
+        self.min_size_ = min_size
         self.c_ = c
 
     def fit(self, X):
@@ -49,14 +46,12 @@ class Felzenswalb:
                     T.add((u, v))
                     union(C, R, u, v, S)
                     ts[u] = w + threshold(S[u],self.c_)
-                                        
+
+        for _, u, v in E:
+            if find(C, u) != find(C, v):
+                if S[C[u]] < self.min_size_ or S[C[v]] < self.min_size_:
+                    union(C, R, u, v, S)
+         
         self.labels_ = [np.nan for i in range(len(C))]
         for i in range(len(C)): self.labels_[i] = int(C[i])
         self.T_ = T
-        
-import scipy.sparse as sps
-import scipy.io as io
-X = io.mmread('simple.mtx')
-clf = Felzenswalb(threshold=1,c=1.0)
-clf.fit(X)
-print clf.labels_    

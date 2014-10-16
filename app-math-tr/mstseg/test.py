@@ -19,7 +19,7 @@ X4 = sps.triu(X3)
 print 'non-zero items', len(X4.nonzero()[0])
 print X4.shape
 
-clf = felz.Felzenswalb(threshold=50,c=1000)
+clf = felz.Felzenswalb(min_size=20,c=800)
 clf.fit(X4)
 syn['cluster'] = clf.labels_
 print len(syn['cluster'].unique())
