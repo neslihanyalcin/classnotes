@@ -15,10 +15,10 @@ def union(C, R, u, v, S):
     u, v = find(C, u), find(C, v)
     if R[u] > R[v]:                             # Union by rank
         C[v] = u
-        S[u] = S[u] + S[v]
+        S[v] = S[u] = S[u] + S[v]
     else:
         C[u] = v
-        S[v] = S[u] + S[v]
+        S[v] = S[u] = S[u] + S[v]
     if R[u] == R[v]:                            # A tie: Move v up a level
         R[v] += 1
 
