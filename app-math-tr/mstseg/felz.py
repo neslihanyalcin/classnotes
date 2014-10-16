@@ -32,10 +32,9 @@ class Felzenswalb:
         T = set()
         C, R = {u:u for u in G}, {u:0 for u in G}   # Comp. reps and ranks
         
-        ts = {x:threshold(1,self.threshold_) for x in C}
+        ts = {x:threshold(1,self.c_) for x in C}
         
         for w, u, v in sorted(E):
-            print 'edge', w, u, v            
             if find(C, u) != find(C, v):
                 if w <= ts[u] and w <= ts[v]:
                     T.add((u, v))
@@ -49,6 +48,7 @@ class Felzenswalb:
 import scipy.sparse as sps
 import scipy.io as io
 X = io.mmread('simple.mtx')
-clf = Felzenswalb(threshold=1,c=1)
+#clf = Felzenswalb(threshold=1,c=1)
+clf = Felzenswalb(threshold=1,c=1.0)
 clf.fit(X)
 print clf.labels_    
