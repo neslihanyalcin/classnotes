@@ -49,18 +49,23 @@ import scipy.sparse.linalg as slin
 import scipy.linalg as lin
 
 df3 = df2.copy()
-#df3 -= np.mean(df3, axis=0)
-#df3 /= np.std(df3, axis=0)
 df3 = normalize(df3, norm='l2', axis=0)
 df3 = normalize(df3, norm='l2', axis=1)
 
-#u,s,v=lin.svd(df3)
 u,s,v=slin.svds(df3,k=2)
 plt.scatter(u[:,0],u[:,1])
 plt.savefig('test_01.png')
 \end{minted}
 
 \includegraphics[height=6cm]{test_01.png}
+
+\begin{minted}[fontsize=\footnotesize]{python}
+print s
+\end{minted}
+
+\begin{verbatim}
+[  6.68558115  14.81145675]
+\end{verbatim}
 
 \begin{minted}[fontsize=\footnotesize]{python}
 clf = KMeans(n_clusters=2)
