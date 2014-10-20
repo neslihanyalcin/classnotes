@@ -55,7 +55,7 @@ df3 = normalize(df3, norm='l2', axis=0)
 df3 = normalize(df3, norm='l2', axis=1)
 
 #u,s,v=lin.svd(df3)
-u,s,v=slin.svds(df3,k=3)
+u,s,v=slin.svds(df3,k=2)
 plt.scatter(u[:,0],u[:,1])
 plt.savefig('test_01.png')
 \end{minted}
@@ -72,7 +72,7 @@ print float(match)/len(df)
 \end{minted}
 
 \begin{verbatim}
-0.580398162328
+0.785604900459
 \end{verbatim}
 
 
