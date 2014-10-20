@@ -61,7 +61,7 @@ Ornek test verisi altta
 
 \begin{minted}[fontsize=\footnotesize]{python}
 import pandas as pd
-data = pd.aread_csv("synthetic.txt",names=['a','b'],sep="   ")
+data = pd.read_csv("synthetic.txt",names=['a','b'],sep="   ")
 print data.shape
 data = np.array(data)
 \end{minted}
@@ -114,7 +114,7 @@ print cf.labels_
 \end{minted}
 
 \begin{verbatim}
-[2 2 2 ..., 0 0 0]
+[3 3 3 ..., 2 2 2]
 \end{verbatim}
 
 Ustteki sonucun icinde iki ana vektor var, bu vektorlerden birincisi icinde
@@ -338,7 +338,7 @@ print float(match)/len(df)
 \end{minted}
 
 \begin{verbatim}
-0.820826952527
+0.816232771822
 \end{verbatim}
 
 Bu veri icinde iki tane kume vardi, kumeler A16 kolonunda + ya da - olarak
