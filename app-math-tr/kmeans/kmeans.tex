@@ -260,40 +260,41 @@ veri satirlari arasinda uzaklik hesabi yapmak ise yarar mi?
 
 Yapay Ogrenim literaturunde bu tur veriler uzerinde kosinus benzerligi
 (cosine similarity) kullanmak daha yaygindir. Bu konuyu {\em SVD, Toplu
-Tavsiye} yazisinda daha iyi gorebilirsiniz. Kosinus benzerligi bize
-0 ile 1 arasinda bir deger dondurur. Benzerligi uzakliga cevirmek icin
-basit bir sekilde 1-benzerlik formulunu kullanabiliriz.
-
-Bir cozum su olabilir: normal numerik degerler icin Oklitsel, kategorik
-1-hot kodlanmis kolonlar icin Kosinus uzakligi kullanilir, bu uzakliklar
-bazi agirliklar uzerinden birlestirilir, ve KMeans bunun ile is
+  Tavsiye} yazisinda daha iyi gorebilirsiniz. Kosinus benzerligi bize 0 ile
+1 arasinda bir deger dondurur. Benzerligi uzakliga cevirmek icin basit bir
+sekilde 1-benzerlik formulunu kullanabiliriz. O zaman soyle bir cozum
+kullanabilir: normal numerik degerler icin Oklitsel, kategorik 1-hot
+kodlanmis kolonlar icin Kosinus uzakligi kullanilir, bu uzakliklar bazi
+agirliklar uzerinden birlestirilir, ve KMeans bu uzaklik ile is
 yapar. Teknik olarak imkansiz degil; KMeans merkez bulmak icin ortalama
 alir ve Kosinus uzakliginin verdigi aradaki aci, ortalama alma islemi ile
-uyumludur. Problem sudur, iki uzakligi birlestiren agirliklar ne olmalidir?
-Bu yontemi denedigimizde bu agirliklarin ne secildiginin cok onemli
-oldugunu farkettik, ve kumeleme gibi izlenmeyen (unsupervised) bir yontemde
-bu hiperparametreleri deneme / yanilma yontemi ile bulma sansimiz yoktur. 
+uyumludur. Yani icinde hem Oklitsel hem 1-hot kodlanmis verilerin oldugu
+vektorlerin ortalamasini alabiliriz, demek ki KMeans isleyebilir.
 
 \includegraphics[height=4cm]{kmeans_5.jpg}
 
-Bu durumda SVD kullanarak tum matrisi azaltmak ve onun uzerinde pur
-Oklitsel uzakliklar kullanmak bir secenektir. 
+Problem sudur, iki uzakligi birlestiren agirliklar ne olmalidir?  Bu
+yontemi denedigimizde bu agirliklarin ne secildiginin cok onemli oldugunu
+farkettik, ve kumeleme gibi izlenmeyen (unsupervised) bir yontemde bu
+hiperparametreleri deneme / yanilma yontemi ile bulma sansimiz yoktur.
 
-Numerik ve kategorik karisik verileri iceren veriyi kumelemek icin tavsiye
-edilen yontem sudur: 
+Bu durumda kullanilabilecek bir yontem sudur: SVD kullanarak tum matrisi
+azaltmak ve onun uzerinde pur Oklitsel uzakliklar kullanmak. Numerik ve
+kategorik karisik verileri iceren verileri kumelemek icin tavsiye edilen
+yontem sudur:
 
 1) Kategorik veriler uzerinde 1-hot kodlama yap. 
 
-2) hem kolonlari hem de satirlari normalize et
+2) Once kolonlari sonra satirlari normalize et.
 
 3) Tum matris uzerinde cok kucuk olmayan bir $k$ ile SVD al (mesela alttaki
 veri seti icin once 10)
 
-4) $S$ vektorune bak, ortalamadan buyuk olan kac tane hucre oldugunu gor
+4) $S$ vektorune bak, ortalamadan buyuk olan kac tane hucre oldugunu gor.
 
-5) Bu sayi yeni $k$ olacak, SVD'yi tekrar bu $k$ ile islet. 
+5) Bu sayi yeni $k$ degerimiz olacak, SVD'yi tekrar bu $k$ ile islet. 
 
-6) Elde edilen $U$ uzerinde kumeleme yap
+6) Elde edilen $U$ uzerinde kumeleme yap,
 
 \begin{minted}[fontsize=\footnotesize]{python}
 from sklearn.preprocessing import normalize
@@ -327,7 +328,8 @@ print s
 Bakiyoruz, averajdan yuksek olan en buyuk sadece iki kolon var. SVD
 literaturunde bu kolonlarin matrisin ``enerjisini'' icerdigi soylenir,
 hakikaten eger SVD ayristirma sonrasi bu ilk kolona bu kadar onem verdiyse,
-onlar onemli olmalidirlar. Simdi SVD'yi $k=2$ ile tekrar isletiyoruz, 
+onlar onemli, ``enerjiyi iceriyor'' olmalidirlar. Simdi SVD'yi $k=2$ ile
+tekrar isletiyoruz,
 
 \begin{minted}[fontsize=\footnotesize]{python}
 u,s,v=slin.svds(df3,k=2)
@@ -338,8 +340,12 @@ print s
 [  6.68558115  14.81145675]
 \end{verbatim}
 
-Simdi kontrol icin kenara koydugumuz bilinen etiketler uzerinden kumeleme
-basarimizi olcecegiz, 
+Simdi $U$ uzerinde kumeleme yapacagiz, ve kontrol icin kenara koydugumuz
+bilinen etiketler uzerinden kumeleme basarimizi olcecegiz. Avustralya Kredi
+Verisi aslinda izlenen (supervised) algoritmalar icin kullanilir, ama biz
+onu izlenmeyen kumeleme problemi icin kullandik, bilinen etiketleri veri
+icinden cikartip bir kenara koyuyoruz, ve sonra kumeleme tahmini yaparak bu
+etiketlerle olan uyumu olcuyoruz. 
 
 \begin{minted}[fontsize=\footnotesize]{python}
 clf = KMeans(n_clusters=2)
