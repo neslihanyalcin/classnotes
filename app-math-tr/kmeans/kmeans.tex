@@ -81,9 +81,9 @@ def euc_to_clusters(x,y):
     return np.sqrt(np.sum((x-y)**2, axis=1))
 
 class KMeans():
-    def __init__(self,k,iter):
-        self.k = k
-        self.iter = iter
+    def __init__(self,n_clusters,n_iter=10):
+        self.k = n_clusters
+        self.iter = n_iter
     def fit(self,X):
         # her veri noktasi icin rasgele kume merkezi ata
         labels = [random.randint(0,self.k-1) for i in range(X.shape[0])]
@@ -264,54 +264,43 @@ Tavsiye} yazisinda daha iyi gorebilirsiniz. Kosinus benzerligi bize
 0 ile 1 arasinda bir deger dondurur. Benzerligi uzakliga cevirmek icin
 basit bir sekilde 1-benzerlik formulunu kullanabiliriz.
 
-O zaman karisik veriler uzerinde KMeans kullanmak icin, verinin en
-bastan numerik olan kismi icin Oklit uzakligi, diger kalan kismi icin
-kosinus uzakligi kullanabiliriz. Her iki kisimdan elde edilen uzaklik
-degerlerini toplariz.
+Bir cozum su olabilir: normal numerik degerler icin Oklitsel, kategorik
+1-hot kodlanmis kolonlar icin Kosinus uzakligi kullanilir, bu uzakliklar
+bazi agirliklar uzerinden birlestirilir, ve KMeans bunun ile is
+yapar. Teknik olarak imkansiz degil; KMeans merkez bulmak icin ortalama
+alir ve Kosinus uzakliginin verdigi aradaki aci, ortalama alma islemi ile
+uyumludur. Problem sudur, iki uzakligi birlestiren agirliklar ne olmalidir?
+Bu yontemi denedigimizde bu agirliklarin ne secildiginin cok onemli
+oldugunu farkettik, ve kumeleme gibi izlenmeyen (unsupervised) bir yontemde
+bu hiperparametreleri deneme / yanilma yontemi ile bulma sansimiz yoktur. 
+
+\includegraphics[height=4cm]{kmeans_5.jpg}
+
+Bu durumda SVD kullanarak tum matrisi azaltmak ve onun uzerinde pur
+Oklitsel uzakliklar kullanmak bir secenektir. 
+
+Numerik ve kategorik karisik verileri iceren veriyi kumelemek icin tavsiye
+edilen yontem sudur: 
+
+1) Kategorik veriler uzerinde 1-hot kodlama yap. 
+
+2) hem kolonlari hem de satirlari normalize et
+
+3) Tum matris uzerinde cok kucuk olmayan bir $k$ ile SVD al (mesela alttaki
+veri seti icin once 10)
+
+4) $S$ vektorune bak, ortalamadan buyuk olan kac tane hucre oldugunu gor
+
+5) Bu sayi yeni $k$ olacak, SVD'yi tekrar bu $k$ ile islet. 
+
+6) Elde edilen $U$ uzerinde kumeleme yap
 
 \begin{minted}[fontsize=\footnotesize]{python}
-from numpy import linalg as la
-import pandas as pd, os
-import scipy.sparse as sps
-import numpy, random
+from sklearn.preprocessing import normalize
+import scipy.sparse.linalg as slin
+import scipy.linalg as lin
+import pandas as pd
 
-def cos_dist(inA,inB):
-    num = float(np.dot(inA.T,inB))
-    denom = la.norm(inA)*la.norm(inB)
-    sim = 0.5+0.5*(num/denom)
-    return 1. - sim
-
-def mixed_to_clusters(vect,x,euc_n,weights):
-    res1 = euc_to_clusters(vect[:,0:euc_n],x[0:euc_n])
-    res2 = map(lambda y: cos_dist(x[euc_n:],y), vect[:,euc_n:])
-    res = np.array(res1)*weights[0] + np.array(res2)*weights[1]
-    return res
-
-class MixedKMeans():
-    def __init__(self,k,iter,euc_n,weights=[1.,1.]):
-        self.k = k
-        self.iter = iter
-        self.euc_n = euc_n
-        self.weights = weights
-    def fit(self,X,iter=10):
-        labels = [random.randint(0,self.k-1) for i in range(X.shape[0])]
-        self.labels_ = np.array(labels)
-        self.centers_ = np.zeros((self.k,X.shape[1]))
-        for i in range(self.iter):
-            for j in range(self.k):
-                if len(X[self.labels_ == j]) == 0: continue
-                center = np.mean(X[self.labels_ == j],axis=0)
-                self.centers_[j,:] = center
-            self.labels_ = []
-            for point in X:
-                c = np.argmin(mixed_to_clusters(self.centers_, \
-                              point, self.euc_n,self.weights))
-                self.labels_.append(int(c))
-
-            self.labels_ = np.array(self.labels_)
-\end{minted}
-
-\begin{minted}[fontsize=\footnotesize]{python}
 df = pd.read_csv("crx.csv",sep=',',na_values=['?'])
 df = df.dropna()
 
@@ -321,112 +310,54 @@ df['A16'] = df['A16'].astype(int)
 
 df2 = one_hot_dataframe(df,['A1','A4','A5','A6','A7','A9','A10','A12','A13'])
 df2 = df2.drop('A16',axis=1)
-
 df2 = np.array(df2)
+df3 = df2.copy()
+df3 = normalize(df3, norm='l2', axis=0)
+df3 = normalize(df3, norm='l2', axis=1)
 
-# veriyi normalize et, ortalama cikar ve standart sapmaya bol
-df2 -= np.mean(df2, axis=0)
-df2 /= np.std(df2, axis=0)
-
-cf = MixedKMeans(2,iter=10,euc_n=6,weights=[1.,3.])
-cf.fit(df2)
-
-labels_true = np.array(df['A16'])
-labels_pred = cf.labels_
-match = np.sum((labels_true == labels_pred).astype(int))
-print float(match)/len(df)
+u,s,v=slin.svds(df3,k=10)
+print s
 \end{minted}
 
 \begin{verbatim}
-0.816232771822
+[  4.45826083   4.49654025   4.68382638   4.93391665   4.98604314
+   5.153349     5.63521289   5.70490968   6.68558115  14.81145675]
 \end{verbatim}
 
-Bu veri icinde iki tane kume vardi, kumeler A16 kolonunda + ya da - olarak
-isaretli. Kumeleme takip edilmeyen (unsupervised) bir Yapay Ogrenim
-metotududur, hangi noktanin hangi kumeye ait oldugunu onceden bilmeyiz,
-ornek veri setini kullanirken bu isaretleri gormemezlikten geliyoruz,
-sadece kontrol amacli olarak sonradan bu isaretlere bakiyoruz. Ve ustteki
-kod ile yuzde 82 civari (bazen 82, bazen 18 degeri gelebilir, cunku kume
-atamalari ``1. kume'' ya da ``0. kume'' arasinda bir secim yapamaz, sadece
-onlarin ayri kume olduklarini bulabilir, tahminler bu sebeple bazen tam
-tersi cikabiliyor, fakat bu cok onemli degil) oraninda bir basariyla dogru
-kumeyi bulabilmisiz.
-
-Parametre olarak gecilen \verb!euc_n! degiskeni her veri noktasi icin "ilk
-kac noktanin numerik" oldugunu belirtiyor. Boylece uzaklik fonksiyonu
-sadece o kisimda Oklit uzakligi kullaniyor. Peki numerik degerler niye hep
-basta?  Basta olmasinin sebebi \verb!one_hot_dataframe! cagrisinin yeni
-kolonlari yaratirken eskileri silmesi ve eklenen yeni kolonlarin hep en
-sona konmasi, boylece en bastakiler hep numerik kolon olacak!
-
-Agirliklar
-
-Oklit ve kosinus uzakliklarini birbirine toplarken, birine digerinden
-daha fazla agirlik vermek mumkun, belki de bir veri seti icin numerik
-veriler kategorik olanlardan daha onemli olabilir, bu durumda
-agirliklari, mesela ustte 1'e 3 olarak tanimladik, Oklit uzakligina 3
-kat daha fazla onem / agirlik vermis oluruz cunku kategorik verileri 3
-kat daha "fazlalastiriyoruz", "uzaklastiriyoruz". Tabi bu konuyu
-degisik bir acidan gormek te mumkun, eger kategorik kismin sayilari
-numerik olanlar ile ayni olcekte degilse, carparak her iki kismi
-esitlemis oldugumuz da soylenebilir. Her neyse - agirliklarin ne
-oldugu tahmin, deneme / yanilma ile bulunabilir, her veri setine gore
-degisik olacaklardir.
-
-Kume Ortalamasini Hesaplamak Ne Kadar Mantikli
-
-Eger uzaklik olcutumuz karisik bir olcut ise (hem kosinus hem oklitsel) bu
-durumda ve KMeans baglaminda kume merkezini bulmak icin bir aritmetiksel
-ortalama bulmak isler mi? Isler cunku, gorsel olarak hepsi orijinden
-baslayan ve degisik yonlere isaret eden degisik boylarda vektorleri hayal
-edelim, bu durumda ortalama almak o ortalamada kullanilan tum vektorleri
-temsil eden bir vektoru verir. 
-
-\includegraphics[height=4cm]{kmeans_5.jpg}
-
-Kume ortasi baglaminda bu gayet mantiklidir. Oklitsel durum, zaten
-KMeans'in bastan beri hazir oldugu bir durumdur, demek ki bu iki olcutu
-KMeans baglaminda birlestirmenin bir zarari yoktur. Ya da sadece kosinus
-uzakligi kullanan bir KMeans kullanmanin bir zarari da yoktur. 
-
-Ustteki resimde ust soldaki iki vektor bir kume, alt sagdaki iki vektor
-diger bir kume olabilir, noktali vektor olarak gosterilen onlarin kabaca
-ortalamasi olabilirdi. Kumeler vektorlerin birbirine ``acisal'' yakinligi
-uzerinden hesaplanacakti ki bu kosinus uzakligidir.
-
-Normalize Etmek
-
-Ustteki ornekte veriyi 1-in-n kodlamasiyla cevirdikten sonra bir de
-normalize ettik, yani her kolon bazinda o kolonun ortalamasini o
-kolondaki tum degerlerden cikarttik ve standart sapmaya bolduk,
-boylece her kolonu 0 etrafinda ortalayip onun iki tarafina dusebilecek
--/+ degerleri kucultuyoruz. Bu veriyi bir tur "sekle sokma" islemidir,
-ne zaman kullanilacagi tecrubeyle ortaya cikar, mesela ustteki karisik
-veride bunun isleyebilecegini tahmin ettik. 
-
-Kume sayisini bulmak
-
-KMeans'e kume sayisinin onceden verilmis olmasi gerekiyor, ve bu
-sayiyi KMeans baglaminda bastan bilmiyoruz. Bu sayiyi bir sekilde
-bulmanin yolu olamaz mi?
-
-Boyut azaltma teknigi SVD yardimci olabilir. SVD sonrasi gelen
-matrisin "onemli" kolonlarinda daha azaltilmis bir veri seti elde
-edebiliriz, bu veride en basta olan kolonlar en onemli olanlardir, ve
-bu kolonlari, mesela ilk ikisini alarak ekrana basabiliriz. Avustralya
-Kredi setinde [3] bunu yaparsak sunu goruruz:
+Bakiyoruz, averajdan yuksek olan en buyuk sadece iki kolon var. SVD
+literaturunde bu kolonlarin matrisin ``enerjisini'' icerdigi soylenir,
+hakikaten eger SVD ayristirma sonrasi bu ilk kolona bu kadar onem verdiyse,
+onlar onemli olmalidirlar. Simdi SVD'yi $k=2$ ile tekrar isletiyoruz, 
 
 \begin{minted}[fontsize=\footnotesize]{python}
-import scipy.linalg as lin
-u,s,vt=lin.svd(df2) # normalize edilmis veri uzerinde
-plt.plot(u[:,0], u[:,1],'.')
-plt.savefig('kmeans_4.png')
+u,s,v=slin.svds(df3,k=2)
+print s
 \end{minted}
 
-\includegraphics[height=6cm]{kmeans_4.png}
+\begin{verbatim}
+[  6.68558115  14.81145675]
+\end{verbatim}
 
-Iki tane ana blok oldugu acik bir sekilde goruluyor. Demek ki kume sayisi
-k = 2 kullanmak gerekir. 
+Simdi kontrol icin kenara koydugumuz bilinen etiketler uzerinden kumeleme
+basarimizi olcecegiz, 
+
+\begin{minted}[fontsize=\footnotesize]{python}
+clf = KMeans(n_clusters=2)
+clf.fit(u)
+labels_true = np.array(df['A16'])
+labels_pred = clf.labels_
+match = np.sum((labels_true == labels_pred).astype(int))
+print float(match)/len(df), 1-float(match)/len(df)
+\end{minted}
+
+\begin{verbatim}
+0.217457886677 0.782542113323
+\end{verbatim}
+
+Basari yuzde \%78. Cok iyi. Ustteki ornek kume sayisinin (dikkat SVD
+$k$'sinden farkli) bilindigini farz etti. Kume sayisinin bilinmedigi
+durumlarda bile isleyen bir kumeleme algoritmasini baska bir yazida
+gorecegiz. 
 
 Bazi ek notlar
 
