@@ -6,17 +6,30 @@ Minimum Kapsayan Agac (Minimum Spanning Tree -MST-) kavramini kullanan
 Felzenswalb kumelemesini gorecegiz. MST'yi daha once isledik. Literaturde
 Felzenswalb metotunun imaj gruplamasi icin kullanildigini gorebilirsiniz,
 biz imaj gruplamasi yapan algoritma icinden veri kumelemesi yapan kismi
-cikarttik ve ayri bir sekilde paylasiyoruz.
-
-Bu gruplama algoritmasinin daha once paylastigimiz Kruskal'in MST koduna
-yapilacak birkac ekleme sayesinde elde edilebilmesi hakikaten
-ilginc. Normal MST cizitin ayri bolgelerinde ayri agaclar yaratir ve
-bunlari yavas yavas buyutur, gerektigi noktalarda onlari
-birlestirir. Felzenswalb sadece bu birlestirme mantigini biraz degistirip,
-ayri agaclari bir grup olarak kabul eder, ve bu gruplarin kendi icinde
-benzerligin maksimal gruplararasi benzerligin minimal olacak hale
+cikarttik ve ayri bir sekilde paylasiyoruz. Bu gruplama algoritmasinin daha
+once paylastigimiz Kruskal'in MST koduna yapilacak birkac ekleme sayesinde
+elde edilebilmesi hakikaten ilginc. Normal MST cizitin ayri bolgelerinde
+ayri agaclar yaratir ve bunlari yavas yavas buyutur, gerektigi noktalarda
+onlari birlestirir. Felzenswalb sadece bu birlestirme mantigini biraz
+degistirip, ayri agaclari bir grup olarak kabul eder, ve bu gruplarin kendi
+icinde benzerligin maksimal gruplararasi benzerligin minimal olacak hale
 getirir. Bu sekilde bildik Kruskal isletilince cok hizli isleyen hizli bir
 gruplama algoritmasi elde edilmis olur!
+
+Felzenswalb veri olarak, MST gibi, bir cizit alir, bu cizit veri
+noktalarinin arasindaki yakinlik bilgisini iceren bir matris olarak
+verilebilir. Mesela 5 veri noktasi var ise, 0. nokta ile 1. nokta
+arasindaki '10' buyuklugundeki bir mesafe $A(0,1) = 10$ olarak
+kaydedilebilir. Kumeler birbirine yakin ogeler arasindan secilir.
+
+Algoritmanin onemli avantajlarindan biri kume sayisinin (KMeans'de oldugu
+gibi) onceden tanimlanmasina gerek olmamasidir. Belli esik degerleri
+tanimlaninca kume sayisi kendiliginden bulunur. Tabii ``disaridan verilen
+bir parametreyi baska biriyle degistirmis mi olduk?'' sorusu akla
+gelebilir, Felzenswalb'in aldigi hiperparametreler kabaca ayarlanabilen ve
+veri kaynagi baglaminda akla uygun seyler, ve belli degerler etrafinda
+stabilite ortaya cikabiliyor. Kiyasla ``kume sayisi'' ciddi bir rakam ve
+degismesi mumkun degil. 
 
 Felzenswalb'in matematiginde once imaj bolgelerinin (ya da veri kumeleri
 olarak dusunebiliriz) ikili karsilastirmaya bir olcut gerekir. Bu bolumde
@@ -214,6 +227,132 @@ plt.savefig('mstseg_01.png')
 \end{minted}
 
 \includegraphics[height=6cm]{mstseg_01.png}
+
+Simdi {\em SVD ile Kumeleme} yazisinda gordugumuz kelime gruplamasi ornegini
+Felzenswalb ile gruplayalim. 
+
+\begin{minted}[fontsize=\footnotesize]{python}
+def levenshtein(s1, s2):
+  l1 = len(s1)
+  l2 = len(s2)
+
+  matrix = [range(l1 + 1)] * (l2 + 1)
+  for zz in range(l2 + 1):
+    matrix[zz] = range(zz,zz + l1 + 1)
+  for zz in range(0,l2):
+    for sz in range(0,l1):
+      if s1[sz] == s2[zz]:
+        matrix[zz+1][sz+1] = min(matrix[zz+1][sz] + 1, matrix[zz][sz+1] + 1, matrix[zz][sz])
+      else:
+        matrix[zz+1][sz+1] = min(matrix[zz+1][sz] + 1, matrix[zz][sz+1] + 1, matrix[zz][sz] + 1)
+  return matrix[l2][l1]
+
+s1 = "pizza"
+s2 = "pioazza"   
+distance = levenshtein(s1, s2)       
+print 'The Levenshtein-Distance of ',s1, ' and ', s2, ' is ', distance
+
+s1 = "hamburger"
+s2 = "haemmurger"   
+distance = levenshtein(s1, s2)       
+print 'The Levenshtein-Distance of ',s1, ' and ', s2, ' is ', distance
+
+import scipy.linalg as lin
+import scipy.sparse as sps
+import itertools
+
+words = np.array(
+    ['the', 'be', 'to', 'of', 'and', 'a', 'in', 'that', 'have',
+     'I', 'it', 'for', 'not', 'on', 'with', 'he', 'as', 'you',
+     'do', 'at', 'this', 'but', 'his', 'by', 'from', 'they', 'we',
+     'say', 'her', 'she', 'or', 'an', 'will', 'my', 'one', 'all',
+     'would', 'there', 'their', 'what', 'so', 'up', 'out', 'if',
+     'about', 'who', 'get', 'which', 'go', 'me', 'when', 'make',
+     'can', 'like', 'time', 'no', 'just', 'him', 'know', 'take',
+     'people', 'into', 'year', 'your', 'good', 'some', 'could',
+     'them', 'see', 'other', 'than', 'then', 'now', 'look',
+     'only', 'come', 'its', 'over', 'think', 'also', 'back',
+     'after', 'use', 'two', 'how', 'our', 'work', 'first', 'well',
+     'way', 'even', 'new', 'want', 'because', 'any', 'these',
+     'give', 'day', 'most', 'us'])
+
+(dim,) = words.shape
+f = lambda (x,y): levenshtein(x,y)
+res=np.fromiter(itertools.imap(f, itertools.product(words, words)),dtype=np.uint8)
+A = sps.coo_matrix(np.reshape(res,(dim,dim)))
+print A.shape
+\end{minted}
+
+\begin{verbatim}
+The Levenshtein-Distance of  pizza  and  pioazza  is  2
+The Levenshtein-Distance of  hamburger  and  haemmurger  is  2
+(100, 100)
+\end{verbatim}
+
+Kumelemeyi yapalim, \verb!min_size=2! sectik cunku ufak kumeler de mumkun.
+
+\begin{minted}[fontsize=\footnotesize]{python}
+import felz
+clf = felz.Felzenswalb(min_size=2,c=0.1)
+clf.fit(A)
+labels = np.array(clf.labels_)
+c = len(np.unique(labels))
+print c, 'clusters found'
+\end{minted}
+
+\begin{verbatim}
+(100, 100)
+16 clusters found
+\end{verbatim}
+
+\begin{minted}[fontsize=\footnotesize]{python}
+for c in np.unique(labels):
+    print 'cluster', c
+    print words[labels==c]
+\end{minted}
+
+\begin{verbatim}
+cluster 9
+['a' 'I' 'as' 'at' 'up' 'also' 'use' 'because' 'us']
+cluster 10
+['in' 'it' 'with' 'which' 'its' 'first']
+cluster 13
+['of' 'for' 'on' 'from' 'or' 'one' 'if' 'people' 'only' 'after' 'our'
+ 'work']
+cluster 15
+['the' 'be' 'have' 'he' 'by' 'they' 'we' 'her' 'she' 'my' 'their' 'who'
+ 'get' 'me' 'when' 'time' 'year' 'them' 'see' 'other' 'then' 'over' 'back'
+ 'even' 'give']
+cluster 18
+['to' 'not' 'do' 'so' 'go' 'no' 'know' 'into' 'good' 'now' 'look' 'two'
+ 'how' 'new' 'most']
+cluster 22
+['this' 'his' 'him' 'think']
+cluster 31
+['and' 'an' 'all' 'can' 'want' 'any']
+cluster 39
+['that' 'what' 'than']
+cluster 42
+['but' 'out' 'about' 'just']
+cluster 59
+['make' 'like' 'take']
+cluster 63
+['you' 'your']
+cluster 66
+['would' 'could']
+cluster 75
+['some' 'come']
+cluster 88
+['will' 'well']
+cluster 89
+['say' 'way' 'day']
+cluster 95
+['there' 'these']
+\end{verbatim}
+
+
+
+
 
 
 Kaynaklar
