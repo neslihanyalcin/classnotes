@@ -232,34 +232,11 @@ Simdi {\em SVD ile Kumeleme} yazisinda gordugumuz kelime gruplamasi ornegini
 Felzenswalb ile gruplayalim. 
 
 \begin{minted}[fontsize=\footnotesize]{python}
-def levenshtein(s1, s2):
-  l1 = len(s1)
-  l2 = len(s2)
-
-  matrix = [range(l1 + 1)] * (l2 + 1)
-  for zz in range(l2 + 1):
-    matrix[zz] = range(zz,zz + l1 + 1)
-  for zz in range(0,l2):
-    for sz in range(0,l1):
-      if s1[sz] == s2[zz]:
-        matrix[zz+1][sz+1] = min(matrix[zz+1][sz] + 1, matrix[zz][sz+1] + 1, matrix[zz][sz])
-      else:
-        matrix[zz+1][sz+1] = min(matrix[zz+1][sz] + 1, matrix[zz][sz+1] + 1, matrix[zz][sz] + 1)
-  return matrix[l2][l1]
-
-s1 = "pizza"
-s2 = "pioazza"   
-distance = levenshtein(s1, s2)       
-print 'The Levenshtein-Distance of ',s1, ' and ', s2, ' is ', distance
-
-s1 = "hamburger"
-s2 = "haemmurger"   
-distance = levenshtein(s1, s2)       
-print 'The Levenshtein-Distance of ',s1, ' and ', s2, ' is ', distance
-
 import scipy.linalg as lin
 import scipy.sparse as sps
-import itertools
+import itertools, sys
+sys.path.append('../svdcluster/')
+import leven
 
 words = np.array(
     ['the', 'be', 'to', 'of', 'and', 'a', 'in', 'that', 'have',
@@ -277,15 +254,13 @@ words = np.array(
      'give', 'day', 'most', 'us'])
 
 (dim,) = words.shape
-f = lambda (x,y): levenshtein(x,y)
+f = lambda (x,y): leven.levenshtein(x,y)
 res=np.fromiter(itertools.imap(f, itertools.product(words, words)),dtype=np.uint8)
 A = sps.coo_matrix(np.reshape(res,(dim,dim)))
 print A.shape
 \end{minted}
 
 \begin{verbatim}
-The Levenshtein-Distance of  pizza  and  pioazza  is  2
-The Levenshtein-Distance of  hamburger  and  haemmurger  is  2
 (100, 100)
 \end{verbatim}
 
