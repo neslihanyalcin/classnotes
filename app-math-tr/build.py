@@ -10,8 +10,8 @@ if len(sys.argv) == 1 or sys.argv[1] == 'tex':
     ./euler/euler.pdf ./multnorm/multnorm.pdf ./taylor/taylor.pdf \
     ./taylor2d/taylor2d.pdf ./pca/pca.pdf ./matderiv/matderiv.pdf \
     ./logaritma/logaritma.pdf ./complexity/complexity.pdf \
-    ./probsolve/probsolve.pdf ./dynp/dynp.pdf ./mstseg/mstseg.pdf \
-    ./minspan/minspan.pdf  ./id3/id3.pdf ./knn/knn.pdf ./turev/turev.pdf \
+    ./probsolve/probsolve.pdf  ./id3/id3.pdf ./dynp/dynp.pdf  \
+    ./minspan/minspan.pdf ./mstseg/mstseg.pdf ./knn/knn.pdf ./turev/turev.pdf \
     ./totaldiff/totaldiff.pdf ./rayleigh/rayleigh.pdf ./spline/spline.pdf \
     ./ml-tr/ml-tr.pdf ./logreg/logreg2.pdf ./kmeans/kmeans.pdf \
     ./naive/naive.pdf ./simplex/simplex.pdf ./qp/qp.pdf ./svm/svm.pdf \
