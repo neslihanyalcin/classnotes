@@ -8,6 +8,16 @@ Felzenswalb metotunun imaj gruplamasi icin kullanildigini gorebilirsiniz,
 biz imaj gruplamasi yapan algoritma icinden veri kumelemesi yapan kismi
 cikarttik ve ayri bir sekilde paylasiyoruz.
 
+Bu gruplama algoritmasinin daha once paylastigimiz Kruskal'in MST koduna
+yapilacak birkac ekleme sayesinde elde edilebilmesi hakikaten
+ilginc. Normal MST cizitin ayri bolgelerinde ayri agaclar yaratir ve
+bunlari yavas yavas buyutur, gerektigi noktalarda onlari
+birlestirir. Felzenswalb sadece bu birlestirme mantigini biraz degistirip,
+ayri agaclari bir grup olarak kabul eder, ve bu gruplarin kendi icinde
+benzerligin maksimal gruplararasi benzerligin minimal olacak hale
+getirir. Bu sekilde bildik Kruskal isletilince cok hizli isleyen hizli bir
+gruplama algoritmasi elde edilmis olur!
+
 Felzenswalb'in matematiginde once imaj bolgelerinin (ya da veri kumeleri
 olarak dusunebiliriz) ikili karsilastirmaya bir olcut gerekir. Bu bolumde
 bir beyan $D$'yi ortaya koyacagiz, ki bu beyan, imajdaki iki bilesen (ki
