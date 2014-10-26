@@ -4,48 +4,48 @@ Taylor Serisi
 
 Formul 
 
-\[ f(x) = \sum _{n=0}^{\infty} \frac{f^{n}(0)}{n!} x^n  \]
+$$ f(x) = \sum _{n=0}^{\infty} \frac{f^{n}(0)}{n!} x^n  $$
 
 Bu formule nasil ulasirim? Su sekildeki bir seri olsun
 
-\[ f(x) = a_0 + a_1x + a_2x^2 +a_3x^3 + ...   \]
+$$ f(x) = a_0 + a_1x + a_2x^2 +a_3x^3 + ...   $$
 
 Usttekinin turevini alalim.  Tabii ki sabit $a_0$ yokolacak, $x$'in
 onundeki katsayi kalacak, vs. Sonuc
 
-\[ f' = a_1 + 2a_2x + 3a_3 x^2 + .. \]
+$$ f' = a_1 + 2a_2x + 3a_3 x^2 + .. $$
 
 Birkac kez daha
 
-\[ f'' =  2a_2 + 3 \cdot 2 a_3 x + .. \]
+$$ f'' =  2a_2 + 3 \cdot 2 a_3 x + .. $$
 
-\[ f''' = 3 \cdot 2 a_3 + 4 \cdot 3 \cdot 2 a_4 x+ ... \]
+$$ f''' = 3 \cdot 2 a_3 + 4 \cdot 3 \cdot 2 a_4 x+ ... $$
 
 Eger son formule sifir verirsem, 3. terimi cimbizla cekip alabilirim
 
-\[ f'''(0) = 3 \cdot 2 a_3 \]
+$$ f'''(0) = 3 \cdot 2 a_3 $$
 
 Cunku geri kalan her sey sifir olup yokoldu, geriye sabitler kaldi. O zaman
 $a_3$'u elde etmek istiyorsam,
 
-\[ \frac{f'''(0)}{3 \cdot 2 \cdot 1}  = a_3\]
+$$ \frac{f'''(0)}{3 \cdot 2 \cdot 1}  = a_3$$
 
 Bir kalip ortaya cikmistir herhalde, genel olarak 
 
-\[ a_n = \frac{f^n(0)}{n!} \]
+$$ a_n = \frac{f^n(0)}{n!} $$
 
-\[ n! = n(n-1)(n-2)...1 \]
+$$ n! = n(n-1)(n-2)...1 $$
 
 Bu katsayilar Taylor formulunde $x_n$ onune gelecek katsayilardir. 
 
 O zaman 
 
-\[ f(x) = f(0) + f'(0)x + f'' \frac{x^2}{2!} + ...\]
+$$ f(x) = f(0) + f'(0)x + f'' \frac{x^2}{2!} + ...$$
 
 Daha genel olarak 0 yerine $a$ alirsak, $a$ yakinindaki fonksiyonun
 acilimini temsil edebiliriz
 
-\[ f(x) = f(a) + f'(a)(x-a) + f'' \frac{(x-a)^2}{2!} + ...\]
+$$ f(x) = f(a) + f'(a)(x-a) + f'' \frac{(x-a)^2}{2!} + ...$$
 
 Alternatif Turetim
 
@@ -58,18 +58,18 @@ Turetmek icin
 
 Calculus'un Temel Teorisi der ki:
 
-\[ \int_a^x f' \left({t}\right) \ \mathrm d t = 
+$$ \int_a^x f' \left({t}\right) \ \mathrm d t = 
 f \left({x}\right) - f \left({a} \right)
-\]
+$$
 
 Bu formulu tekrar duzenlersek, alttakini elde ederiz:
 
-\[ f \left({x}\right) = f \left({a}\right) + \int_a^x f'(t) \ \mathrm d t \]
+$$ f \left({x}\right) = f \left({a}\right) + \int_a^x f'(t) \ \mathrm d t $$
 
 Bunun uzerinde Parcali Entegral yontemini uygulariz. Parcali Entegral
 teknigi genel olarak soyledir:
 
-\[ \int_a^b u \ dv = u \ v - \int_a^b v \ du \]
+$$ \int_a^b u \ dv = u \ v - \int_a^b v \ du $$
 
 Simdi iki ustteki formulun entegral icindeki kismini parcali entegrale
 uyacak sekilde bolusturelim
@@ -78,47 +78,47 @@ $u = f' \left({t}\right)$ ve $dv = dt$
 
 O zaman acilim
 
-\[ f \left({a}\right) + x f' \left({x}\right) - a f' \left({a}\right) - \int_a^x t f'' \left({t}\right) \ \mathrm d t \]
+$$ f \left({a}\right) + x f' \left({x}\right) - a f' \left({a}\right) - \int_a^x t f'' \left({t}\right) \ \mathrm d t $$
 
 Alttaki formulu kullanarak
 
-\[ \int_a^x x f'' \left({t}\right) \ \mathrm d t = x f' (x)-x f' (a) \]
+$$ \int_a^x x f'' \left({t}\right) \ \mathrm d t = x f' (x)-x f' (a) $$
 
 iki ustteki formulu su hale getiririz
 
-\[ f \left({a}\right) + \int_a^x x f'' \left({t}\right) \ \mathrm d t + x f' \left({a}\right) - a f' \left({a}\right)-\int_a^x \, t f'' \left({t}\right) \ \mathrm d t \]
+$$ f \left({a}\right) + \int_a^x x f'' \left({t}\right) \ \mathrm d t + x f' \left({a}\right) - a f' \left({a}\right)-\int_a^x \, t f'' \left({t}\right) \ \mathrm d t $$
 
 Bazi ortak terimleri disari cekersek
 
-\[ f \left({a}\right) + (x-a) f' \left({a}\right) + \int_a^x (x-t) f'' \left({t}\right) \ \mathrm d t \]
+$$ f \left({a}\right) + (x-a) f' \left({a}\right) + \int_a^x (x-t) f'' \left({t}\right) \ \mathrm d t $$
 
 Ayni teknigi bir daha uygulayinca
 
-\[ f \left({x}\right) = f \left({a}\right)+(x-a) f' \left({a}\right)+ \frac 1 2 (x-a)^2f'' \left({a}\right) + \frac 1 2 \int_a^x (x-t)^2 f''' \left({t}\right) \ \mathrm d t\]
+$$ f \left({x}\right) = f \left({a}\right)+(x-a) f' \left({a}\right)+ \frac 1 2 (x-a)^2f'' \left({a}\right) + \frac 1 2 \int_a^x (x-t)^2 f''' \left({t}\right) \ \mathrm d t$$
 
 Tum bunlari daha genel olarak kurallastirmamiz gerekirse, tumevarim
 (induction) teknigini kullanalim, varsayiyoruz ki Taylor'un Teorisi bir $n$
 icin gecerli ve
 
-\[ f(x) = f(x) + \frac{f'(a)}{1!}(x - a) + ... 
+$$ f(x) = f(x) + \frac{f'(a)}{1!}(x - a) + ... 
 \frac{f^{(n)}(a)}{n!}(x - a)^n + 
 \int_a^x \frac{f^{(n+1)} (t)}{n!} (x - t)^n \ \mathrm d t
-\]
+$$
 
 Sonuncu entegrali parcali entegral teknigi ile tekrar yazmamiz
 mumkundur. $(x-t)^n$'in anti-turevi (anti-derivative)
 $\frac{-(x-t)^{n+1}}{n+1}$ ile verilir, o zaman
 
-\[  \int_a^x \frac{f^{(n+1)} \left({t}\right)}{n!} \left({x - t}\right)^n \ 
-\mathrm d t\]
+$$  \int_a^x \frac{f^{(n+1)} \left({t}\right)}{n!} \left({x - t}\right)^n \ 
+\mathrm d t$$
 
-\[ =  - \left[ \frac{f^{(n+1)} \left({t}\right)}{(n+1)n!} \left({x - t}\right)^{n+1} \right]_a^x + \int_a^x \frac{f^{(n+2)} \left({t}\right)}{(n+1)n!} \left({x - t}\right)^{n+1} \ \mathrm d t \]
+$$ =  - \left[ \frac{f^{(n+1)} \left({t}\right)}{(n+1)n!} \left({x - t}\right)^{n+1} \right]_a^x + \int_a^x \frac{f^{(n+2)} \left({t}\right)}{(n+1)n!} \left({x - t}\right)^{n+1} \ \mathrm d t $$
 
-\[ = \frac{f^{(n+1)} (a)}{(n+1)!} (x - a)^{n+1} + \int_a^x \frac{f^{(n+2)} \left({t}\right)} {(n+1)!} \left({x - t}\right)^{n+1} \ \mathrm d t \]
+$$ = \frac{f^{(n+1)} (a)}{(n+1)!} (x - a)^{n+1} + \int_a^x \frac{f^{(n+2)} \left({t}\right)} {(n+1)!} \left({x - t}\right)^{n+1} \ \mathrm d t $$
 
 Son entegral hemen cozulebilir
 
-\[ R_n = \frac{f^{(n+1)}(\xi)}{(n+1)!} (x-a)^{n+1} \]
+$$ R_n = \frac{f^{(n+1)}(\xi)}{(n+1)!} (x-a)^{n+1} $$
 
 Alternatif Form
 
@@ -128,45 +128,222 @@ farzederek Taylor serileri uzerinden $f(t+h)$'i gelistirmek suretiyle
 temsil edebiliriz. Eger $x = t+h$ ve $a = t$ alirsak alttaki orijinal
 Taylor serisini
 
-\[ f(x) = f (a)+(x-a) f'(a) + \frac1 2 (x-a)^2f''(x) + ...\]
+$$ f(x) = f (a)+(x-a) f'(a) + \frac1 2 (x-a)^2f''(x) + ...$$
 
 donusturebiliriz. Baslayalim,
 
-\[ x = t + h \Rightarrow h = x-t \]
+$$ x = t + h \Rightarrow h = x-t $$
 
-\[ t = a \]
+$$ t = a $$
 
 Once $a=t$ gecisini yapalim
 
-\[ f(t+h) = f(t) +  f'(t)(x-t) + f''(t)\frac{(x-t)^2}{2!} + ...\]
+$$ f(t+h) = f(t) +  f'(t)(x-t) + f''(t)\frac{(x-t)^2}{2!} + ...$$
 
 Simdi $h = x-t$ gecisi
 
-\[ f(t+h) = f(t) +  f'(t)h + f''(t)\frac{(h)^2}{2!} + ...\]
+$$ f(t+h) = f(t) +  f'(t)h + f''(t)\frac{(h)^2}{2!} + ...$$
 
 Boylece
 
-\[ f(t+h) = f (t)+h f'(t) + \frac 1 2 h^2 f''(t) + ...\]
+$$ f(t+h) = f (t)+h f'(t) + \frac 1 2 h^2 f''(t) + ...$$
 
 Bu tanimin, birinci turevin formuluyle olan alakasini gormek icin
 
-\[ f'(x) \approx \frac {f(x+h) - f(x)}{h} \]
+$$ f'(x) \approx \frac {f(x+h) - f(x)}{h} $$
 
 ifadesini hatirlamak yararli olabilir, yaklasiksal isareti $\approx$
 kullanildi, cunku bu ifade sadece $h \to 0$ iken dogrudur (turevlerin limit
 olarak tanimindan hareketle). Biraz cebirsel manipulasyon yaparsak
 
-\[ f(x+h) - f(x) \approx f'(x)h  \]
+$$ f(x+h) - f(x) \approx f'(x)h  $$
 
-\[ f(x+h)  \approx f'(x)h + f(x) \]
+$$ f(x+h)  \approx f'(x)h + f(x) $$
 
 En son formulun Taylor serisi 1. derece acilimiyla ayni oldugu goruluyor. 
+
+Iki Boyutlu f(x,y) Fonksiyonunun Taylor Acilimi
+
+Bir $f(x,y)$ fonksiyonunun Taylor acilimini yapmak icin, daha onceden
+gordugumuz tek boyutlu fonksiyon acilimindan faydalanabiliriz. 
+
+Once iki boyutlu fonksiyonu tek boyutlu olarak gostermek gerekir. Tek
+boyutta isleyen bir fonksiyon $F$ dusunelim ve bu $F$, arka planda iki
+boyutlu $f(x,y)$'i kullaniyor olsun
+
+Eger 
+
+$$ f(x_0 +\Delta x, y_o + \Delta y) $$
+
+fonksiyonun acilimini elde etmek istiyorsak, onu
+
+$$ F(t) = f(x_0 + t\Delta x, y_o + t\Delta y) $$
+
+uzerinden $t=1$ oldugu durumda hayal edebiliriz. $x,y$ parametrize 
+oldugu icin  $f(x(t),y(t))$, yani
+
+$$ x(t) = x_0 + t\Delta x $$
+
+$$ y(t) = y_0 + t\Delta y $$
+
+$F(t)$ baglaminda $x_o, y_o, \Delta x, \Delta y$ sabit olarak kabul edilecekler. Simdi bildigimiz
+tek boyutlu Taylor acilimini bu fonksiyon uzerinde, bir $t_0$ noktasi yakininda 
+yaparsak,
+
+$$ F(t) = F(t_0) + F'(t_0)(t-t_0) + \frac{1}{2}F''(t_0)(t-t_0)^2 + ... $$
+
+Eger $t=1,t_0=0$ dersek
+
+$$ F(1) = F(0) + F'(0) + \frac{1}{2}F''(0) + ... $$
+
+olurdu. Bu iki degeri, yani $t=1,t_0=0$'i kullanmamizin sebepleri $t=1$ ile
+mesela $x_0 + t\Delta x$'in $x_0 + \Delta x$ olmasi, diger yandan $t=0$ ile
+ustteki formulde $t$'nin yokolmasi, basit bir tek boyutlu acilim elde
+etmek.
+
+Simdi bize gereken $F',F''$ ifadelerini $x,y$ baglaminda elde edelim, ki bu
+diferansiyeller $F$'in $t$'ye gore birinci ve ikinci diferansiyelleri. Ama
+$F$'in icinde $x,y$ oldugu icin acilimin Zincirleme Kanunu ile yapilmasi
+lazim.
+
+$$ \frac{dF}{dt} = \frac{\partial F}{\partial x}\frac{dx(t)}{dt} +
+\frac{\partial F}{\partial y}\frac{dy(t)}{dt} 
+ $$
+
+Ayrica
+
+$$ \frac{d}{dt}x(t) = \Delta x $$
+
+$$ \frac{d}{dt}y(t) = \Delta y $$
+
+olduguna gore, tam diferansiyel daha da basitlesir
+
+$$ \frac{dF}{dt} = \frac{\partial F}{\partial x}\Delta x +
+\frac{\partial F}{\partial y}\Delta y
+ $$
+
+Simdi bu ifadenin bir tam diferansiyelini alacagiz. Ama ondan once sunu
+anlayalim ki ustteki ifade icinde mesela birinci terim de aslinda bir
+fonksiyon, ve asil hali
+
+$$ \frac{dF}{dt} = \frac{\partial F(x(t),y(t))}{\partial x}\Delta x + ...
+ $$
+
+seklinde. O zaman, bu terim uzerinde tam diferansiyel islemini bir daha
+uyguladigimizda, Zincirleme Kanunu yine isleyecek, mesela ustte $dx(t)/dt$'nin 
+bir daha disari cikmasi gerekecek. O zaman 
+
+$$ \frac{d^2F}{dt} =
+\bigg(
+\frac{\partial ^2 F}{\partial x^2}\frac{dx}{dt} + 
+\frac{\partial ^2 F}{\partial x \partial y}\frac{dy}{dt} + 
+\bigg) \Delta x +
+\bigg(
+\frac{\partial ^2 F}{\partial y \partial x}\frac{dy}{dt} + 
+\frac{\partial ^2 F}{\partial y^2}\frac{dx}{dt} + 
+\bigg) \Delta y 
+$$
+
+$$ =
+\bigg(
+\frac{\partial ^2 F}{\partial x^2}\Delta x + 
+\frac{\partial ^2 F}{\partial x \partial y}\Delta y 
+\bigg) \Delta x +
+\bigg(
+\frac{\partial ^2 F}{\partial y \partial x}\Delta x + 
+\frac{\partial ^2 F}{\partial y^2}\Delta y 
+\bigg) \Delta y 
+ $$
+
+$$ =
+\bigg(
+\frac{\partial ^2 F}{\partial x^2}\Delta x^2 + 
+\frac{\partial ^2 F}{\partial x \partial y}\Delta y \Delta x
+\bigg) +
+\bigg(
+\frac{\partial ^2 F}{\partial y \partial x}\Delta x \Delta y + 
+\frac{\partial ^2 F}{\partial y^2}\Delta y^2
+\bigg) 
+ $$
+
+Calculus'tan biliyoruz ki 
+
+$$ 
+\frac{\partial ^2 F}{\partial x \partial y} = 
+\frac{\partial ^2 F}{\partial y \partial x} 
+ $$
+
+Daha kisa notasyonla
+
+$$ f_{xy} = f_{yx} $$
+
+Yani kismi turevin alinma sirasi farketmiyor. O zaman, ve her seyi daha
+kisa notasyonla bir daha yazarsak
+
+$$ =
+(f_{xx}\Delta x^2 + f_{xy}\Delta y \Delta x ) +
+(f_{xy}\Delta x \Delta y + f_{yy}\Delta y^2 )
+ $$
+
+$$
+\frac{d^2F}{dt}  =
+(f_{xx}\Delta x^2 + 2f_{xy}\Delta y \Delta x + f_{yy}\Delta y^2 )
+ $$
+
+Artik elimizde $F$ ve $F'$ var, bunlari 
+
+$$ F(1) = F(0) + F'(0) + \frac{1}{2}F''(0) + ... $$
+
+icine yerlestirebiliriz. En son su kaldi, $F(0)$ nedir? $F$'in $t=0$ oldugu
+anda degeridir, 
+
+$$ F(t) = f(x_0 + t\Delta x, y_o + t\Delta y) $$
+
+$$ F(0) = f(x_0 + 0 \cdot \Delta x, y_o + 0 \cdot \Delta y) $$
+
+$$ = f(x_0 , y_o) $$
+
+Benzer sekilde, tum turevler de $t=0$ noktasinda kullanilacaktir, o zaman
+onlar da
+
+$$ F'(0) = f_x(x_0,y_0) \Delta x + f_y(x_0,y_0) \Delta y $$
+
+$$ F''(0) =  
+f_{xx}(x_0,y_0)\Delta x^2 + 2f_{xy}(x_0,y_0)\Delta y \Delta x + 
+f_{yy}(x_0,y_0)\Delta y^2 
+$$
+
+seklinde olurlar. Tamam. Simdi ana formulde yerlerine koyalim,
+
+$$ 
+\begin{array}{lll}
+F(1) &=& f(x_0 , y_o) +  \\ \\ 
+&& f_x(x_0,y_0) \Delta x + f_y(x_0,y_0) \Delta y +   \\ \\
+&& \frac{1}{2} 
+[ 
+f_{xx}(x_0,y_0)\Delta x^2 + 
+2f_{xy}(x_0,y_0)\Delta y \Delta x +
+f_{yy}(x_0,y_0)\Delta y^2 
+] + ... 
+\end{array}
+ $$
+
+
+Ve
+
+$$  F(1) = f(x_0 +\Delta x, y_o + \Delta y) $$ 
+
+olduguna gore, Taylor 2D acilimimiz tamamlanmis demektir. 
 
 Kaynak
 
 MIT OCW 18.01 Ders 38
 
 http://www.proofwiki.org/wiki/Taylor's\_Theorem
+
+http://www.math.ubc.ca/~feldman/m200/taylor2dSlides.pdf
+
+http://math.uc.edu/~halpern/Calc.4/Handouts/Taylorseries.pdf
 
 \end{document}
 

@@ -8,7 +8,7 @@ if len(sys.argv) == 1 or sys.argv[1] == 'tex':
     ./poldiv/poldiv.pdf ./fundamental/fundamental.pdf ./cauchy/cauchy.pdf \
     ./integral-mult/integral-mult.pdf ./lhospital/lhospital.pdf \
     ./euler/euler.pdf ./multnorm/multnorm.pdf ./taylor/taylor.pdf \
-    ./taylor2d/taylor2d.pdf ./pca/pca.pdf ./matderiv/matderiv.pdf \
+    ./pca/pca.pdf ./matderiv/matderiv.pdf \
     ./logaritma/logaritma.pdf ./complexity/complexity.pdf \
     ./probsolve/probsolve.pdf  ./id3/id3.pdf ./dynp/dynp.pdf  \
     ./minspan/minspan.pdf ./mstseg/mstseg.pdf ./knn/knn.pdf ./turev/turev.pdf \

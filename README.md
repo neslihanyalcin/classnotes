@@ -81,3 +81,9 @@ https://dl.dropboxusercontent.com/u/1570604/skfiles/pde.pdf
 
 https://dl.dropboxusercontent.com/u/1570604/skfiles/functional_analysis.pdf
 
+## Latex Format
+
+The format of these documents, fonts, the pseudocode look-and-feel was
+taken from Andrew Cotter's thesis called *Stochastic Optimization for
+Machine Learning*.
+
