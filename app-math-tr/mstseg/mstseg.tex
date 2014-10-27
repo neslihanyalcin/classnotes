@@ -136,7 +136,7 @@ bilesen icindeyseler, ve $w(o_q)$ her  \\
 \codeline \> \> iki bilesenin icsel farkina kiyasla cok kucuk ise, bu iki
 bileseni birlestir, \\ 
 \codeline \> \> yoksa hicbir sey yapma. \\
-\codeline \> $\code{return } S=S^m$ 
+\codeline \> $\code{return } S^m$ 
 \end{pseudocode}
 \end{algorithm}
 
@@ -146,6 +146,25 @@ cunku bilesenlerin icerikleri hangi adimda oldugumuza gore degisebilir, $q$
 adiminda bir onceki $q-1$'den bize ``miras kalan'' gruplamalar ve
 bilesenler uzerinden is yapiyoruz. Bir sonraki adima ya birlesmis, ya da
 birlesmemis (ayni) gruplamalari aktariyoruz. 
+
+Ya da, ayni algoritmanin biraz daha fazla formul iceren hali [3]
+
+\begin{algorithm}[h]
+\begin{pseudocode}
+\codename $\code{felzenswalb}\left(G\right)$\\
+\codeline \> Butun kenarlari kucukten buyuge dogru sirala. \\
+\codeline \> Ilk basta kenar $v_i$ kendi bileseni icinde olsun, buna $S^0$ gruplamasi diyelim. \\ 
+\codeline \> $\code{for}$ tum kenarlar $e_i = (v_1,v_2) \in E$ icin \\
+\codeline \> \> $v_1 \in C_1$ ve $v_2 \in C_2$'nin birbirinden ayri, ayri bilesenler icinde \\
+\codeline \> \>  ama ayni kenari iceren noktalar oldugunu dusunelim, \\
+\codeline \> \> $\code{if}$ $w(e_i) \le MInt(C_1,C_2)$ \\
+\codeline \> \> \> $C_1$ ve $C_2$'yi birlestir \\
+\codeline \> \> $\code{else}$ \\
+\codeline \> \> \> $S^i = S^{i-1}$ \\
+\codeline \> $\code{return } S$ 
+\end{pseudocode}
+\end{algorithm}
+
 
 Felzenswalb gruplamasinin Python ile yazilmis ornegi alttadir, daha hizli
 isleyen C++ bazli kodu surada [2] bulabilirsiniz.
@@ -167,6 +186,8 @@ print clf.labels_
 (5, 5)
 [1, 1, 3, 3, 1]
 \end{verbatim}
+
+Biraz daha cetrefil bir ornek
 
 \begin{minted}[fontsize=\footnotesize]{python}
 import scipy.sparse as sps
@@ -326,10 +347,6 @@ cluster 95
 \end{verbatim}
 
 
-
-
-
-
 Kaynaklar
 
 [1] Pedro F. Felzenszwalb and Daniel P. Huttenlocher, {\em Efficient
@@ -337,6 +354,9 @@ Kaynaklar
 \url{http://scikit-image.org/docs/dev/auto_examples/plot_segmentations.html}
 
 [2] Bayramli B., \url{https://github.com/burakbayramli/felzenszwalb}
+
+[3] Mihai-Cotizo Sima, {\em An extension of Felzenszwalb-Huttenlocher
+  segmentation to 3D point clouds}, 2012
 
 
 \end{document}
