@@ -1,0 +1,19 @@
+\documentclass[12pt,fleqn]{article}\usepackage{../common}
+\begin{document}
+
+\begin{minted}[fontsize=\footnotesize]{python}
+import pandas as pd, zipfile
+with zipfile.ZipFile('skin.zip', 'r') as z:
+    d =  pd.read_csv(z.open('skin.csv'),sep=',')
+print d[:1]
+\end{minted}
+
+\begin{verbatim}
+   Unnamed: 0   rgbhex   skin        r         g         b         h     s  \
+0           0  #200e08  False  0.12549  0.054902  0.031373  0.041667  0.75   
+
+         v  
+0  0.12549  
+\end{verbatim}
+
+\end{document}
