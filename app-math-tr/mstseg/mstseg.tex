@@ -12,11 +12,11 @@ elde edilebilmesi hakikaten ilginc. Normal MST cizitin ayri bolgelerinde
 ayri agaclar yaratir ve bunlari yavas yavas buyutur, gerektigi noktalarda
 onlari birlestirir. Felzenswalb sadece bu birlestirme mantigini biraz
 degistirip, ayri agaclari bir grup olarak kabul eder, ve bu gruplarin kendi
-icinde benzerligin maksimal gruplararasi benzerligin minimal olacak hale
+icinde benzerligi maksimal, gruplararasi benzerligi minimal olacak hale
 getirir. Bu sekilde bildik Kruskal isletilince cok hizli isleyen hizli bir
 gruplama algoritmasi elde edilmis olur!
 
-Felzenswalb veri olarak, MST gibi, bir cizit alir, bu cizit veri
+Felzenswalb veri olarak, MST gibi, bir cizit alir ve bu cizit veri
 noktalarinin arasindaki yakinlik bilgisini iceren bir matris olarak
 verilebilir. Mesela 5 veri noktasi var ise, 0. nokta ile 1. nokta
 arasindaki '10' buyuklugundeki bir mesafe $A(0,1) = 10$ olarak
@@ -32,16 +32,16 @@ stabilite ortaya cikabiliyor. Kiyasla ``kume sayisi'' ciddi bir rakam ve
 degismesi mumkun degil. 
 
 Felzenswalb'in matematiginde once imaj bolgelerinin (ya da veri kumeleri
-olarak dusunebiliriz) ikili karsilastirmaya bir olcut gerekir. Bu bolumde
-bir beyan $D$'yi ortaya koyacagiz, ki bu beyan, imajdaki iki bilesen (ki
-imaj gruplamasinin dogru olarak bulmaya calisacagi bilesenler) arasinda bir
-sinir olup olmadigina dair kanitin olcusu olacak. Beyanin temeli sudur: iki
-bilesen arasindaki sinirin boyunda yer alan her iki tarafin ogelerinin
-farkliligina bak, ve onu her bilesenin kendi icindeki farkliliga gore
-oranla. Yani bu beyan, bir bilesenin ic farkliligini dis farkliligina
-kiyaslar, ve bu sebeple verinin yerel karakteristikleri gozetmis
-olur. Kiyaslama mesela, global, verinin her yerinde aynen gecerli olacak
-bir sabit esik degerine vs. bagli degildir.
+olarak dusunebiliriz) arasinda ikili karsilastirma icin bir olcut
+gerekir. Bu bolumde bir beyan $D$'yi ortaya koyacagiz, ki bu beyan,
+imajdaki iki bilesen (ki imaj gruplamasinin dogru olarak bulmaya calisacagi
+bilesenler) arasinda bir sinir olup olmadigina dair kanitin olcusu
+olacak. Beyanin temeli sudur: iki bilesen arasindaki sinirin boyunda yer
+alan her iki tarafin ogelerinin farkliligina bak, ve onu her bilesenin
+kendi icindeki farkliliga gore oranla. Yani bu beyan, bir bilesenin ic
+farkliligini dis farkliligina kiyaslar, ve bu sebeple verinin yerel
+karakteristikleri gozetmis olur. Kiyaslama mesela, global, verinin her
+yerinde aynen gecerli olacak bir sabit esik degerine vs. bagli degildir.
 
 Tanim
 
@@ -70,12 +70,12 @@ ediliyor.
 
 Prensip olarak iki bilesen arasindaki en minimal baglantinin problem
 cikartabilecegi dusunulebilirdi, niye en az, niye ortalama vs degil? Fakat
-pratikte bu olcutun cok iyi isledigini gorduk. Hatta iyi olmaktan ote, bu
-olcutu minimal yerine medyan, ya da diger ceyreksel (quantile) olcute
-degistirdigimiz zaman (ki bunu yaparak aykiri degerlere -outlier- karsi
-daha dayanikli olmasini istemistik), algoritma cetrefilligi NP-Zor haline
+pratikte bu olcutun cok iyi isledigi gorulmustur. Hatta iyi olmaktan ote,
+bu olcutu minimal yerine medyan, ya da diger ceyreksel (quantile) olcute
+degistirildigi zaman (ki bunu yaparak aykiri degerlere -outlier- karsi daha
+dayanikli olmasini istenmisti), algoritma cetrefilligi NP-Zor haline
 geliyor. Yani gruplama kriterinde ufacik bir degisiklik problemin cozum
-zorlulugunda muthis bir degisim ortaya cikartiyor. 
+zorlulugunda muthis bir degisim ortaya cikartiyor.
 
 Simdi iki bilesenin karsilastirma beyani $D$'nin tanimina geldik. $D$ olcutu,
 $Dif(C_1,C_2)$'nin $Int(C_1)$ ya da $Int(C_2)$'den herhangi birinden daha
@@ -98,8 +98,8 @@ MInt(C_1,C_2) = \min (Int(C_1)+\tau(C_1), Int(C_2)+\tau(C_2))
  $$
 
 Esik fonksiyonu $\tau$ ustteki irdeledigimiz fark hesaplarinin belli
-derecelerde disaridan etkilemek icin koyulmustur. Eger bunu kullanmasaydik
-sadece $Int$ fonksiyonunu kullanmamiz gerekecekti, fakat bu olcut tek
+derecelerde disaridan etkilemek icin koyulmustur. Eger bu kullanilmasaydi
+sadece $Int$ fonksiyonu kullanilmasi gerekecekti, fakat bu olcut tek
 basina ufak bir bilesenin yerel karakteristiklerini gostermesi acisindan yeterli
 degildir. Asiri durumda mesela $|C| = 1,Int(C)=0$, yani en kucuk $C$
 durumudur bu ($|C|$ bilesenin icindeki oge sayisi), icinde tek oge vardir,
@@ -147,7 +147,7 @@ adiminda bir onceki $q-1$'den bize ``miras kalan'' gruplamalar ve
 bilesenler uzerinden is yapiyoruz. Bir sonraki adima ya birlesmis, ya da
 birlesmemis (ayni) gruplamalari aktariyoruz. 
 
-Ya da, ayni algoritmanin biraz daha fazla formul iceren hali [3]
+Ayni algoritmanin biraz daha fazla formul iceren hali [3]
 
 \begin{algorithm}[h]
 \begin{pseudocode}
@@ -289,7 +289,7 @@ Kumelemeyi yapalim, \verb!min_size=2! sectik cunku ufak kumeler de mumkun.
 
 \begin{minted}[fontsize=\footnotesize]{python}
 import felz
-clf = felz.Felzenswalb(min_size=2,c=0.1)
+clf = felz.Felzenswalb(min_size=1.5,c=0.2)
 clf.fit(A)
 labels = np.array(clf.labels_)
 c = len(np.unique(labels))
