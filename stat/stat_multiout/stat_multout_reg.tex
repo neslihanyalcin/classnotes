@@ -1,0 +1,130 @@
+\documentclass[12pt,fleqn]{article}\usepackage{../common}
+\begin{document}
+
+\begin{minted}[fontsize=\footnotesize]{python}
+import pandas as pd
+ratings =  pd.read_csv('../stat_pandas_ratings/ratings.dat',sep='::',header=None,names=['user_id', 'movie_id', 'rating', 'timestamp'])
+movies =  pd.read_csv('../stat_pandas_ratings/movies.dat',sep='::',header=None,names=['movie_id', 'title', 'genres'])
+users = pd.read_csv('../stat_pandas_ratings/users.dat', sep='::', header=None,names=['user_id', 'gender', 'age', 'occupation', 'zip'])
+\end{minted}
+
+\begin{minted}[fontsize=\footnotesize]{python}
+genre_iter = (set(x.split('|')) for x in movies.genres)
+genres = sorted(set.union(*genre_iter))
+dummies = pd.DataFrame(np.zeros((len(movies), len(genres))), columns=genres)
+for i, gen in enumerate(movies.genres):
+   dummies.ix[i, gen.split('|')] = 1
+movies_windic = movies.join(dummies.add_prefix('Genre_'))
+movies_windic = movies_windic.drop(['title','genres'],axis=1)
+\end{minted}
+
+\begin{minted}[fontsize=\footnotesize]{python}
+joined = ratings.merge(movies_windic, left_on='movie_id',right_on='movie_id')
+\end{minted}
+
+\begin{minted}[fontsize=\footnotesize]{python}
+y = joined.groupby('user_id').sum()
+y = y.drop(['movie_id','rating','timestamp'],axis=1)
+y[y > 0.0] = 1.0
+\end{minted}
+
+\begin{minted}[fontsize=\footnotesize]{python}
+from sklearn.feature_extraction import DictVectorizer
+def one_hot_dataframe(data, cols):
+    vec = DictVectorizer()
+    mkdict = lambda row: dict((col, row[col]) for col in cols)
+    vecData = pd.DataFrame(vec.fit_transform(data[cols].to_dict(outtype='records')).toarray())
+    vecData.columns = vec.get_feature_names()
+    vecData.index = data.index
+    data = data.drop(cols, axis=1)
+    data = data.join(vecData)
+    return data
+
+X = users.copy()
+X['occupation2'] = users['occupation'].map(lambda x: str(x))
+X['zip2'] = users['zip'].map(lambda x: str(x)[0])
+X['zip3'] = users['zip'].map(lambda x: str(x)[:2])
+X = one_hot_dataframe(X,['occupation2','gender','zip2','zip3'])
+X = X.drop(['occupation','zip'],axis=1)
+X = X.set_index('user_id')
+X = X.ix[y.index]
+X = X.reindex(y.index)
+print X.shape, y.shape
+\end{minted}
+
+\begin{verbatim}
+(6040, 134) (6040, 18)
+\end{verbatim}
+
+\begin{minted}[fontsize=\footnotesize]{python}
+from sklearn.metrics import roc_curve, auc
+from sklearn.metrics import roc_auc_score
+from sklearn.cross_validation import train_test_split
+from sklearn.tree import DecisionTreeRegressor
+from sklearn.ensemble import RandomForestRegressor
+from sklearn.linear_model import Lasso, Ridge, LinearRegression
+
+x_train, x_test, y_train, y_test = train_test_split(X, y, test_size=1000)
+clf = RandomForestRegressor(max_depth=3,n_estimators=5)
+#clf = DecisionTreeRegressor(max_depth=4)
+
+clf.fit(x_train,y_train)
+y_pred = clf.predict(x_test)
+
+fpr, tpr, thresholds = roc_curve(np.ravel(y_test), np.ravel(y_pred))
+roc_auc = auc(fpr, tpr)
+print 'Tree AUC', roc_auc
+
+imps = pd.Series(list(clf.feature_importances_),index=X.columns)
+imps = imps.order(ascending=False).head(15)
+print 'important features'
+print np.array(imps.index)
+\end{minted}
+
+\begin{verbatim}
+Tree AUC 0.846524352127
+important features
+['gender=M' 'age' 'occupation2=10' 'zip3=10' 'zip3=31' 'zip3=65' 'zip3=24'
+ 'zip3=27' 'zip3=01' 'zip3=12' 'zip3=29' 'zip3=02' 'zip3=03' 'zip3=04'
+ 'zip3=05']
+\end{verbatim}
+
+\begin{minted}[fontsize=\footnotesize]{python}
+y_naive = np.array(y_train).mean(axis=0)
+y_naive = pd.DataFrame([y_naive], index=range(y_test.shape[0]), columns=list(y.columns))
+fpr, tpr, thresholds = roc_curve(np.ravel(y_test), np.ravel(y_naive))
+roc_auc = auc(fpr, tpr)
+print 'Naive AUC', roc_auc
+\end{minted}
+
+\begin{verbatim}
+Naive AUC 0.833752370725
+\end{verbatim}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}
