@@ -1,14 +1,53 @@
 \documentclass[12pt,fleqn]{article}\usepackage{../common}
 \begin{document}
+Cok Boyutlu Regresyon ile Tavsiye
+
+Tavsiye sistemlerinde, eger arasindaki tercih edilen seylerin sayisi cok
+fazla degilse ilginc bir metot cok boyutlu cikti regresyonu (multioutput
+regression -MR-) kullanmak olabilir. Tavsiye sistemleri bilindigi gibi
+cogunlukla bircok mumkun secenegi siralayarak en iyi secimleri en uste
+koymaya ugrasir, ve yine cogunlukla bu sistemleri egitirken, her secenek
+icin tek bir etiket (begenildi / begenilmedi) ile o etiketin bagli oldugu
+``kaynak'' verisi arasinda iliski kurulmaya ugrasilir. Ve cogunlukla her
+secenek icin ayri bir obje egitilir. 
+
+Fakat MR kullanarak cok boyutlu kaynak verisiyle, yine cok boyutlu cikti
+arasinda {\em ayni anda} bir iliski kurabiliriz, ve daha onemlisi bu
+iliskiyi esnek (soft) bir sekilde kurabiliriz. Ek olarak MR girdi ve cikti
+arasinda iliski kurdugu gibi, ciktilar arasinda da baglantilari bulabilir,
+eger her secenek icin ayri ayri tavsiye objeleri kullansaydik bu iliskiyi
+ogrenemezdik. Mesela 40 yaz ustu Arizona'dan gelen kisiler aksiyon filmi
+seviyor, ve ayni kisiler yine komedi filmi seviyor. MR aksiyon ile komedi
+ciktilari arasindaki iliskiyi ogrenebilir.
+
+Isler bir MR metotunu biz ilk [2] yazisinda gorduk, bu yazida karar agaci
+(decision tree) kullaniliyor, Scikit Learn paketi bunu destekliyor. Ornegin
+amaci bir cemberi ogrenmek. Cember soyle olusturulmus, kaynak tek bir boyut
+- sirali sayilar, cikti ise iki boyutlu, $cos(x)$ digeri $sin(x)$. Bu dogal
+olarak bir cember ortaya cikartacaktir. [2]'de goruldugu gibi MR bu cemberi
+ogreniyor.
+
+Ayni teknigi mesela Movielens 1M verisinde genre ogrenmek icin
+kullanabiliriz. Kaynak musterinin kisisel bilgileri, hedef ise cok boyutlu
+0/1 olarak kodlanmis {\em tum genre'ler} olacak. Eger bir kisi hem komedi
+hem aksiyon sevmis ise matrisin o kisiye tekabul eden satirinda aksiyon ve
+komedi kolonu 1 olacak mesela. Bu sekilde tum musteriler kodlanacak, ve
+kaynak olarak kisisel veri alinacak. 
+
+Bu veriyi {\em Pivotlama} yazisinin dizininde bulabilirsiniz, zip dosyasini
+acmaniz yeterli. 
 
 \begin{minted}[fontsize=\footnotesize]{python}
 import pandas as pd
 cols = ['user_id', 'movie_id', 'rating', 'timestamp']
-ratings =  pd.read_csv('../stat_pandas_ratings/ratings.dat', sep='::',header=None,names=cols)
+ratings =  pd.read_csv('../stat_pandas_ratings/ratings.dat', sep='::',
+           header=None,names=cols)
 cols = ['movie_id', 'title', 'genres']
-movies =  pd.read_csv('../stat_pandas_ratings/movies.dat',sep='::',header=None,names=cols)
+movies =  pd.read_csv('../stat_pandas_ratings/movies.dat',sep='::',
+          header=None,names=cols)
 cols = ['user_id', 'gender', 'age', 'occupation', 'zip']
-users = pd.read_csv('../stat_pandas_ratings/users.dat', sep='::', header=None,names=cols)
+users = pd.read_csv('../stat_pandas_ratings/users.dat', sep='::', 
+        header=None,names=cols)
 \end{minted}
 
 \begin{minted}[fontsize=\footnotesize]{python}
@@ -30,6 +69,15 @@ y = joined.groupby('user_id').sum()
 y = y.drop(['movie_id','rating','timestamp'],axis=1)
 y[y > 0.0] = 1.0
 \end{minted}
+
+Ciktiyi kodlarken Movielens verisinde bir kisi bir filme herhangi bir not
+vermis ise o filmin genre'sini ``tercih edilir'' olarak 1 ile
+isaretledik. Tabii ki o film icin not dusuk olabilir, ama bu kisinin o
+belirli filmi begenmedigini gosterir, o filmi sectiyse musteri buyuk bir
+ihtimalle o genre'yi seviyordur. Bu hipotezi test edebilirsiniz,
+\verb!y[y > 0.0]!  yerine \verb!y[y > 0.3]!  secilirse basari orani
+dusuyor. Yani bize faydali olacak degerli verileri ikinci filtre ile
+kaybediyoruz.
 
 \begin{minted}[fontsize=\footnotesize]{python}
 from sklearn.feature_extraction import DictVectorizer
@@ -92,6 +140,30 @@ important features
  'zip3=20' 'zip3=24' 'zip3=95' 'zip3=08' 'zip3=09' 'zip3=03']
 \end{verbatim}
 
+Test etmek icin AUC olcusunu kullandik. Bir puruz vardi, AUC hem tahmin hem
+de test etiketlerini tek boyutlarda alir, bizim ciktimiz cok boyutlu
+idi. Ne yapmali?  Biz de her iki matrisi (test etiketleri, tahminler)
+``duzlestirdik'', tek boyut haline getirdik. Nasil olsa her iki matris ayni
+sekilde duzlestirildigi ve boyutlari zaten ayni oldugu icin sonuc iki
+vektor de ayni boyutta oldu. Ve bu iki vektor uzerinde AUC hesabi
+yaptik. Sonuc ustte goruldugu gibi \%84.
+
+Ayrica \verb!RandomForestRegressor! objesi regresyonun onemli buldugu
+kaynak ogelerini onem sirasina gore gosterebilir. Ustte cinsiyet (gender),
+yas (age) genre seciminde onemli gorunuyor. Bu akla yatkin. Ayrica
+meslekler (occupation) arasinda 10 kodlu olan onemliymis, bu kodun
+ilkogretim ogrencisine tekabul ettigini gorduk. Ilginc.
+
+Karsilastirmak icin basit bir alternatif kodladik, tum begenilerin
+ortalamasini aldik, ve bu senaryoada tahmin olarak herkes icin surekli ayni
+tahmini yaptik. Buradan gelen sonuc \%83. Evet, bu cok basit bir tahmin
+icin yuksek gelebilir, fakat bir Netflix Veri Bilimcisi'nin soyledigi gibi
+``populeriteyi yenmek zordur''. Neyse ki ustteki MR metotu populeriteyi
+yendi. Ayrica bir sey daha yapti, eger tavsiye sistemi icin populerite
+kullansaydik herkes icin surekli ayni tavsiyeyi vermemiz gerekecekti. MR
+bazli ``kisiellestirilmis'' metot herkes icin ayri tavsiyeler
+verebilecektir.
+
 \begin{minted}[fontsize=\footnotesize]{python}
 y_naive = np.array(y_train).mean(axis=0)
 y_naive = pd.DataFrame([y_naive], index=range(y_test.shape[0]), 
@@ -112,23 +184,9 @@ Naive AUC 0.833752370725
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 \url{http://upload.wikimedia.org/wikipedia/commons/2/24/ZIP_Code_zones.svg}
 
-
+\url{http://scikit-learn.org/stable/auto_examples/tree/plot_tree_regression_multioutput.html}
 
 
 \end{document}
