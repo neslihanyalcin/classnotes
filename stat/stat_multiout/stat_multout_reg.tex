@@ -2,30 +2,32 @@
 \begin{document}
 Cok Boyutlu Regresyon ile Tavsiye
 
-Tavsiye sistemlerinde, eger arasindaki tercih edilen seylerin sayisi cok
-fazla degilse ilginc bir metot cok boyutlu cikti regresyonu (multioutput
-regression -MR-) kullanmak olabilir. Tavsiye sistemleri bilindigi gibi
-cogunlukla bircok mumkun secenegi siralayarak en iyi secimleri en uste
-koymaya ugrasir, ve yine cogunlukla bu sistemleri egitirken, her secenek
-icin tek bir etiket (begenildi / begenilmedi) ile o etiketin bagli oldugu
-``kaynak'' verisi arasinda iliski kurulmaya ugrasilir. Ve cogunlukla her
-secenek icin ayri bir obje egitilir. 
+Tavsiye sistemlerinde eger tercih edilen nesnelerin sayisi cok fazla
+degilse ilginc bir metot cok boyutlu cikti regresyonu (multioutput
+regression -MR-) kullanmak. Tavsiye sistemleri bilindigi gibi cogunlukla
+bircok mumkun secenegi siralayarak en iyi secimleri en uste koymaya
+ugrasir, ve yine, cogunlukla bu sistemleri egitirken her secenek icin tek
+bir etiket (begenildi / begenilmedi) ile o etiketin bagli oldugu ``kaynak''
+verisi arasinda iliski kurulmaya ugrasilir, ve her secenek icin ayri bir
+obje egitilir (SVD bir istisna, bu metot ayni anda tum kullanicilar ve tum
+secimleri gozonune alabilir).
 
-Fakat MR kullanarak cok boyutlu kaynak verisiyle, yine cok boyutlu cikti
-arasinda {\em ayni anda} bir iliski kurabiliriz, ve daha onemlisi bu
-iliskiyi esnek (soft) bir sekilde kurabiliriz. Ek olarak MR girdi ve cikti
-arasinda iliski kurdugu gibi, ciktilar arasinda da baglantilari bulabilir,
-eger her secenek icin ayri ayri tavsiye objeleri kullansaydik bu iliskiyi
-ogrenemezdik. Mesela 40 yaz ustu Arizona'dan gelen kisiler aksiyon filmi
+MR kullanarak cok boyutlu kaynak verisiyle yine cok boyutlu cikti arasinda
+{\em ayni anda} bir iliski kurabiliriz, ve daha onemlisi bu iliskiyi esnek
+(soft) bir sekilde yapabiliriz. Ayrica MR girdi ve cikti arasinda iliski
+kurdugu gibi, ciktilar arasinda da baglantilari bulabilir, eger her secenek
+icin ayri ayri tavsiye objeleri kullansaydik bu iliskiyi
+ogrenemezdik. Mesela 40 yas ustu Arizona'dan gelen kisiler aksiyon filmi
 seviyor, ve ayni kisiler yine komedi filmi seviyor. MR aksiyon ile komedi
 ciktilari arasindaki iliskiyi ogrenebilir.
 
-Isler bir MR metotunu biz ilk [2] yazisinda gorduk, bu yazida karar agaci
-(decision tree) kullaniliyor, Scikit Learn paketi bunu destekliyor. Ornegin
-amaci bir cemberi ogrenmek. Cember soyle olusturulmus, kaynak tek bir boyut
-- sirali sayilar, cikti ise iki boyutlu, $cos(x)$ digeri $sin(x)$. Bu dogal
-olarak bir cember ortaya cikartacaktir. [2]'de goruldugu gibi MR bu cemberi
-ogreniyor.
+Isler bir MR metotunun ornegini [2] yazisinda bulabiliriz, bu yazida karar
+agaci (decision tree) kullaniliyor, \verb!scikit-learn! paketi karar
+agaclarinin ciktinin cok olabilmesini destekliyor. [2]'deki ornegin amaci
+bir cemberi ogrenmek mesela; cember soyle olusturulmus, kaynak tek bir
+boyut - sirali sayilar, cikti ise iki boyutlu, $cos(x)$ digeri $sin(x)$. Bu
+dogal olarak bir cember ortaya cikartacaktir. [2]'de goruldugu gibi MR bu
+cemberi ogreniyor.
 
 Ayni teknigi mesela Movielens 1M verisinde genre ogrenmek icin
 kullanabiliriz. Kaynak musterinin kisisel bilgileri, hedef ise cok boyutlu
@@ -72,12 +74,12 @@ y[y > 0.0] = 1.0
 
 Ciktiyi kodlarken Movielens verisinde bir kisi bir filme herhangi bir not
 vermis ise o filmin genre'sini ``tercih edilir'' olarak 1 ile
-isaretledik. Tabii ki o film icin not dusuk olabilir, ama bu kisinin o
-belirli filmi begenmedigini gosterir, o filmi sectiyse musteri buyuk bir
-ihtimalle o genre'yi seviyordur. Bu hipotezi test edebilirsiniz,
-\verb!y[y > 0.0]!  yerine \verb!y[y > 0.3]!  secilirse basari orani
-dusuyor. Yani bize faydali olacak degerli verileri ikinci filtre ile
-kaybediyoruz.
+isaretledik. Tabii ki o film icin not dusuk olabilir (ve bu durumu bir
+filtre kosulu olarak kullanabilirdik), ama bu, o kisinin o belirli filmi
+begenmedigini gosterir, o filmi sectiyse musteri buyuk bir ihtimalle o
+genre'yi seviyordur. Bu hipotezi test edebilirsiniz, \verb!y[y > 0.0]!
+yerine \verb!y[y > 0.3]!  secilirse basari orani dusuyor. Yani bize faydali
+olacak degerli verileri ikinci filtre ile kaybediyoruz.
 
 \begin{minted}[fontsize=\footnotesize]{python}
 from sklearn.feature_extraction import DictVectorizer
@@ -156,13 +158,7 @@ ilkogretim ogrencisine tekabul ettigini gorduk. Ilginc.
 
 Karsilastirmak icin basit bir alternatif kodladik, tum begenilerin
 ortalamasini aldik, ve bu senaryoada tahmin olarak herkes icin surekli ayni
-tahmini yaptik. Buradan gelen sonuc \%83. Evet, bu cok basit bir tahmin
-icin yuksek gelebilir, fakat bir Netflix Veri Bilimcisi'nin soyledigi gibi
-``populeriteyi yenmek zordur''. Neyse ki ustteki MR metotu populeriteyi
-yendi. Ayrica bir sey daha yapti, eger tavsiye sistemi icin populerite
-kullansaydik herkes icin surekli ayni tavsiyeyi vermemiz gerekecekti. MR
-bazli ``kisiellestirilmis'' metot herkes icin ayri tavsiyeler
-verebilecektir.
+tahmini yaptik. Buradan gelen sonuc \%83. 
 
 \begin{minted}[fontsize=\footnotesize]{python}
 y_naive = np.array(y_train).mean(axis=0)
@@ -177,11 +173,13 @@ print 'Naive AUC', roc_auc
 Naive AUC 0.833752370725
 \end{verbatim}
 
-
-
-
-
-
+Evet, bu cok basit bir tahmin
+icin yuksek gelebilir, fakat bir Netflix Veri Bilimcisi'nin soyledigi gibi
+``populeriteyi yenmek zordur''. Neyse ki ustteki MR metotu populeriteyi
+yendi. Ayrica bir sey daha yapti, eger tavsiye sistemi icin populerite
+kullansaydik herkes icin surekli ayni tavsiyeyi vermemiz gerekecekti. MR
+bazli ``kisiellestirilmis'' metot herkes icin ayri tavsiyeler
+verebilecektir.
 
 
 \url{http://upload.wikimedia.org/wikipedia/commons/2/24/ZIP_Code_zones.svg}
