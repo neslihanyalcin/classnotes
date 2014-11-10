@@ -145,4 +145,3 @@ if __name__ == "__main__":
 
     np.savetxt("/tmp/user_feature_matrix2.dat", user_feature_matrix)
     np.savetxt("/tmp/movie_feature_matrix2.dat", movie_feature_matrix)
-    with open("/tmp/global_average2.dat", 'w') as f: f.write(str(global_average))
