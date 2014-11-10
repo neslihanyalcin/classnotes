@@ -67,8 +67,7 @@ def create_user_feature_matrix(review_matrix, NUM_FEATURES, FEATURE_INIT_VALUE):
     with all cells initialized to FEATURE_INIT_VALUE
     """
     num_users = review_matrix.shape[0]
-    user_feature_matrix = np.empty((NUM_FEATURES, num_users))
-    user_feature_matrix[:] = FEATURE_INIT_VALUE
+    user_feature_matrix = 1./NUM_FEATURES * np.random.randn(NUM_FEATURES, num_users).astype(np.float32)
     return user_feature_matrix
 
 def create_movie_feature_matrix(review_matrix, NUM_FEATURES, FEATURE_INIT_VALUE):
@@ -81,8 +80,7 @@ def create_movie_feature_matrix(review_matrix, NUM_FEATURES, FEATURE_INIT_VALUE)
     with all cells initialized to FEATURE_INIT_VALUE
     """
     num_movies = review_matrix.shape[1]
-    movie_feature_matrix = np.empty((NUM_FEATURES, num_movies))
-    movie_feature_matrix[:] = FEATURE_INIT_VALUE
+    movie_feature_matrix = 1./NUM_FEATURES * np.random.randn(NUM_FEATURES, num_movies).astype(np.float32)
     return movie_feature_matrix
 
 def calculate_pseudo_average_movie_rating(movie_id, review_matrix, global_average):
@@ -97,8 +95,7 @@ def calculate_pseudo_average_movie_rating(movie_id, review_matrix, global_averag
     """
     movie_ratings = get_movie_ratings(movie_id, review_matrix)
     k = 25
-    return (global_average * k + np.sum(movie_ratings)) / (
-        k + np.size(movie_ratings))
+    return (global_average * k + np.sum(movie_ratings)) / (k + np.size(movie_ratings))
 
 def calculate_pseudo_average_user_rating(user_id, review_matrix, global_average):
     """
@@ -112,8 +109,7 @@ def calculate_pseudo_average_user_rating(user_id, review_matrix, global_average)
     """
     user_ratings = get_user_ratings(user_id, review_matrix)
     k = 25
-    return (global_average * k + np.sum(user_ratings)) / (
-        k + np.size(user_ratings))
+    return (global_average * k + np.sum(user_ratings)) / (k + np.size(user_ratings))
 
 
 @jit(nopython=True)
@@ -194,7 +190,7 @@ if __name__ == "__main__":
     FEATURE_INIT_VALUE = 0.1
     NUM_FEATURES = 20
 
-    A = mmread('%s/Downloads/A_ml' % os.environ['HOME'])
+    A = mmread('%s/Downloads/A_m100k_train' % os.environ['HOME'])
 
     user_feature_matrix = create_user_feature_matrix(A, NUM_FEATURES, FEATURE_INIT_VALUE)
     movie_feature_matrix = create_movie_feature_matrix(A, NUM_FEATURES, FEATURE_INIT_VALUE)
