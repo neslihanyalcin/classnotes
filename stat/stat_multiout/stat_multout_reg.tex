@@ -9,8 +9,8 @@ bircok mumkun secenegi siralayarak en iyi secimleri en uste koymaya
 ugrasir, ve yine, cogunlukla bu sistemleri egitirken her secenek icin tek
 bir etiket (begenildi / begenilmedi) ile o etiketin bagli oldugu ``kaynak''
 verisi arasinda iliski kurulmaya ugrasilir, ve her secenek icin ayri bir
-obje egitilir (SVD bir istisna, bu metot ayni anda tum kullanicilar ve tum
-secimleri gozonune alabilir).
+obje egitilir (SVD kismen bir istisna, bu metot ta ayni anda tum
+kullanicilarin ciktisi -etiketleri- arasindaki iliskiyi gozonune alabilir).
 
 MR kullanarak cok boyutlu kaynak verisiyle yine cok boyutlu cikti arasinda
 {\em ayni anda} bir iliski kurabiliriz, ve daha onemlisi bu iliskiyi esnek
@@ -78,7 +78,7 @@ isaretledik. Tabii ki o film icin not dusuk olabilir (ve bu durumu bir
 filtre kosulu olarak kullanabilirdik), ama bu, o kisinin o belirli filmi
 begenmedigini gosterir, o filmi sectiyse musteri buyuk bir ihtimalle o
 genre'yi seviyordur. Bu hipotezi test edebilirsiniz, \verb!y[y > 0.0]!
-yerine \verb!y[y > 0.3]!  secilirse basari orani dusuyor. Yani bize faydali
+yerine \verb!y[y > 3]!  secilirse basari orani dusuyor. Yani bize faydali
 olacak degerli verileri ikinci filtre ile kaybediyoruz.
 
 \begin{minted}[fontsize=\footnotesize]{python}
