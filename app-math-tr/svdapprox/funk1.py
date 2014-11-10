@@ -170,16 +170,13 @@ def calculate_features(A_row, A_col, A_data, user_feature_matrix, movie_feature_
     MIN_ITERATIONS = 100
     rmse = 0
     last_rmse = 0
-    print len(A_data)
-    num_ratings = len(A_data)
     for feature in xrange(NUM_FEATURES):
         iter = 0
         while (iter < MIN_ITERATIONS) or  (rmse < last_rmse - MIN_IMPROVEMENT):
             last_rmse = rmse
             squared_error = sgd_inner(feature, A_row, A_col, A_data, user_feature_matrix, movie_feature_matrix, global_average, user_pseudo_average_ratings, movie_pseudo_average_ratings,NUM_FEATURES)
-            rmse = (squared_error / num_ratings) * 0.5
+            rmse = np.sqrt(squared_error / len(A_data))
             iter += 1
-        print ('Squared error = %f' % squared_error)
         print ('RMSE = %f' % rmse)
         print ('Feature = %d' % feature)
     return last_rmse
