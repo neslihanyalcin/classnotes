@@ -1,6 +1,6 @@
 # Requires Movielens 100k data 
+from scipy.io import mmread, mmwrite
 import numpy as np, time, sys
-from data_loader import DataLoader
 from numba import jit
 import os
 
@@ -193,10 +193,7 @@ LAMBDA = 0.02
 FEATURE_INIT_VALUE = 0.1
 NUM_FEATURES = 20
 
-movielens_file_path = '%s/Downloads/ml-100k/u1.base' % os.environ['HOME']
-
-A = DataLoader.create_review_matrix(movielens_file_path)
-from scipy.io import mmread, mmwrite
+A = mmread('%s/Downloads/A_ml')
 
 user_feature_matrix = create_user_feature_matrix(A, NUM_FEATURES, FEATURE_INIT_VALUE)
 movie_feature_matrix = create_movie_feature_matrix(A, NUM_FEATURES, FEATURE_INIT_VALUE)
