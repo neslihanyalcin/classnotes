@@ -18,5 +18,4 @@ for i in range(len(A.data)):
     sqs.append(tmp)
 
 mse = np.mean(np.array(sqs))
-print 'mse', mse
 print 'rmse', np.sqrt(mse)
