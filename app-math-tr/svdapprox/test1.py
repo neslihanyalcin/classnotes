@@ -14,8 +14,9 @@ for i in range(len(A.data)):
     movie_id = A.col[i]
     real = AA[user_id, movie_id]
     pred = funk1.predict_rating(user_id, movie_id, user_feature_matrix, movie_feature_matrix)
+    print pred, real
     tmp = (real-pred)**2
     sqs.append(tmp)
-
+    
 mse = np.mean(np.array(sqs))
 print 'rmse', np.sqrt(mse)
