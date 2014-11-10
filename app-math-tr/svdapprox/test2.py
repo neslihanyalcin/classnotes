@@ -17,5 +17,6 @@ for i in range(len(A.data)):
     tmp = (real-pred)**2
     sqs.append(tmp)
 
-rmse = np.sqrt(np.sum(np.array(sqs))) / len(sqs)
-print rmse
+mse = np.mean(np.array(sqs))
+print 'mse', mse
+print 'rmse', np.sqrt(mse)
