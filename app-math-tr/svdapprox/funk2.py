@@ -133,7 +133,7 @@ LAMBDA = 0.02
 FEATURE_INIT_VALUE = 0.1
 NUM_FEATURES = 20
 
-A = mmread('%s/Downloads/A_ml')
+A = mmread('%s/Downloads/A_ml' % os.environ['HOME'])
 
 user_feature_matrix = create_user_feature_matrix(A, NUM_FEATURES, FEATURE_INIT_VALUE)
 movie_feature_matrix = create_movie_feature_matrix(A, NUM_FEATURES, FEATURE_INIT_VALUE)

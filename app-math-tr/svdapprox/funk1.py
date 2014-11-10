@@ -181,7 +181,7 @@ def calculate_features(A_row, A_col, A_data, user_feature_matrix, movie_feature_
         while (iter < MIN_ITERATIONS) or  (rmse < last_rmse - MIN_IMPROVEMENT):
             last_rmse = rmse
             squared_error = sgd_inner(feature, A_row, A_col, A_data, user_feature_matrix, movie_feature_matrix, global_average, user_pseudo_average_ratings, movie_pseudo_average_ratings,NUM_FEATURES)
-            rmse = (squared_error / num_ratings) 
+            rmse = (squared_error / num_ratings) * 0.5
             iter += 1
         print ('Squared error = %f' % squared_error)
         print ('RMSE = %f' % rmse)
@@ -193,7 +193,7 @@ LAMBDA = 0.02
 FEATURE_INIT_VALUE = 0.1
 NUM_FEATURES = 20
 
-A = mmread('%s/Downloads/A_ml')
+A = mmread('%s/Downloads/A_ml' % os.environ['HOME'])
 
 user_feature_matrix = create_user_feature_matrix(A, NUM_FEATURES, FEATURE_INIT_VALUE)
 movie_feature_matrix = create_movie_feature_matrix(A, NUM_FEATURES, FEATURE_INIT_VALUE)
