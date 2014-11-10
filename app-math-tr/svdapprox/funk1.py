@@ -208,3 +208,9 @@ movie_pseudo_average_ratings = np.array([np.nan for x in range(np.max(movies)+1)
 compute_averages(A, user_pseudo_average_ratings, movie_pseudo_average_ratings, global_average)
 rmse = calculate_features(A.row, A.col, A.data, user_feature_matrix, movie_feature_matrix, global_average, user_pseudo_average_ratings, movie_pseudo_average_ratings, NUM_FEATURES )
 print 'rmse', rmse
+
+np.savetxt("/tmp/user_pseudo_average_ratings1.dat", user_pseudo_average_ratings)
+np.savetxt("/tmp/movie_pseudo_average_ratings1.dat", movie_pseudo_average_ratings)
+np.savetxt("/tmp/user_feature_matrix1.dat", user_feature_matrix)
+np.savetxt("/tmp/movie_feature_matrix1.dat", movie_feature_matrix)
+with open("/tmp/global_average.dat", 'w') as f: f.write(str(global_average))

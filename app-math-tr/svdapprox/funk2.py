@@ -143,3 +143,7 @@ A = A.tocoo()
 
 rmse = calculate_features(A.row, A.col, A.data, user_feature_matrix, movie_feature_matrix, NUM_FEATURES )
 print 'rmse', rmse
+
+np.savetxt("/tmp/user_feature_matrix2.dat", user_feature_matrix)
+np.savetxt("/tmp/movie_feature_matrix2.dat", movie_feature_matrix)
+np.savetxt("/tmp/global_average2.dat", global_average)
