@@ -188,29 +188,30 @@ def calculate_features(A_row, A_col, A_data, user_feature_matrix, movie_feature_
         print ('Feature = %d' % feature)
     return last_rmse
 
+if __name__ == "__main__": 
+ 
+    LAMBDA = 0.02
+    FEATURE_INIT_VALUE = 0.1
+    NUM_FEATURES = 20
 
-LAMBDA = 0.02
-FEATURE_INIT_VALUE = 0.1
-NUM_FEATURES = 20
+    A = mmread('%s/Downloads/A_ml' % os.environ['HOME'])
 
-A = mmread('%s/Downloads/A_ml' % os.environ['HOME'])
+    user_feature_matrix = create_user_feature_matrix(A, NUM_FEATURES, FEATURE_INIT_VALUE)
+    movie_feature_matrix = create_movie_feature_matrix(A, NUM_FEATURES, FEATURE_INIT_VALUE)
+    global_average = calculate_global_average(A)
 
-user_feature_matrix = create_user_feature_matrix(A, NUM_FEATURES, FEATURE_INIT_VALUE)
-movie_feature_matrix = create_movie_feature_matrix(A, NUM_FEATURES, FEATURE_INIT_VALUE)
-global_average = calculate_global_average(A)
+    users, movies = A.nonzero()
+    A = A.tocoo()
 
-users, movies = A.nonzero()
-A = A.tocoo()
+    user_pseudo_average_ratings = np.array([np.nan for x in range(np.max(users)+1) ])
+    movie_pseudo_average_ratings = np.array([np.nan for x in range(np.max(movies)+1) ])
 
-user_pseudo_average_ratings = np.array([np.nan for x in range(np.max(users)+1) ])
-movie_pseudo_average_ratings = np.array([np.nan for x in range(np.max(movies)+1) ])
+    compute_averages(A, user_pseudo_average_ratings, movie_pseudo_average_ratings, global_average)
+    rmse = calculate_features(A.row, A.col, A.data, user_feature_matrix, movie_feature_matrix, global_average, user_pseudo_average_ratings, movie_pseudo_average_ratings, NUM_FEATURES )
+    print 'rmse', rmse
 
-compute_averages(A, user_pseudo_average_ratings, movie_pseudo_average_ratings, global_average)
-rmse = calculate_features(A.row, A.col, A.data, user_feature_matrix, movie_feature_matrix, global_average, user_pseudo_average_ratings, movie_pseudo_average_ratings, NUM_FEATURES )
-print 'rmse', rmse
-
-np.savetxt("/tmp/user_pseudo_average_ratings1.dat", user_pseudo_average_ratings)
-np.savetxt("/tmp/movie_pseudo_average_ratings1.dat", movie_pseudo_average_ratings)
-np.savetxt("/tmp/user_feature_matrix1.dat", user_feature_matrix)
-np.savetxt("/tmp/movie_feature_matrix1.dat", movie_feature_matrix)
-with open("/tmp/global_average.dat", 'w') as f: f.write(str(global_average))
+    np.savetxt("/tmp/user_pseudo_average_ratings1.dat", user_pseudo_average_ratings)
+    np.savetxt("/tmp/movie_pseudo_average_ratings1.dat", movie_pseudo_average_ratings)
+    np.savetxt("/tmp/user_feature_matrix1.dat", user_feature_matrix)
+    np.savetxt("/tmp/movie_feature_matrix1.dat", movie_feature_matrix)
+    with open("/tmp/global_average.dat", 'w') as f: f.write(str(global_average))

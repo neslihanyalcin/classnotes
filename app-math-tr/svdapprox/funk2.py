@@ -128,22 +128,23 @@ def calculate_features(A_row, A_col, A_data, user_feature_matrix, movie_feature_
         print ('Feature = %d' % feature)
     return last_rmse
 
+if __name__ == "__main__": 
+ 
+    LAMBDA = 0.02
+    FEATURE_INIT_VALUE = 0.1
+    NUM_FEATURES = 20
 
-LAMBDA = 0.02
-FEATURE_INIT_VALUE = 0.1
-NUM_FEATURES = 20
+    A = mmread('%s/Downloads/A_ml' % os.environ['HOME'])
 
-A = mmread('%s/Downloads/A_ml' % os.environ['HOME'])
+    user_feature_matrix = create_user_feature_matrix(A, NUM_FEATURES, FEATURE_INIT_VALUE)
+    movie_feature_matrix = create_movie_feature_matrix(A, NUM_FEATURES, FEATURE_INIT_VALUE)
 
-user_feature_matrix = create_user_feature_matrix(A, NUM_FEATURES, FEATURE_INIT_VALUE)
-movie_feature_matrix = create_movie_feature_matrix(A, NUM_FEATURES, FEATURE_INIT_VALUE)
+    users, movies = A.nonzero()
+    A = A.tocoo()
 
-users, movies = A.nonzero()
-A = A.tocoo()
+    rmse = calculate_features(A.row, A.col, A.data, user_feature_matrix, movie_feature_matrix, NUM_FEATURES )
+    print 'rmse', rmse
 
-rmse = calculate_features(A.row, A.col, A.data, user_feature_matrix, movie_feature_matrix, NUM_FEATURES )
-print 'rmse', rmse
-
-np.savetxt("/tmp/user_feature_matrix2.dat", user_feature_matrix)
-np.savetxt("/tmp/movie_feature_matrix2.dat", movie_feature_matrix)
-with open("/tmp/global_average2.dat", 'w') as f: f.write(str(global_average))
+    np.savetxt("/tmp/user_feature_matrix2.dat", user_feature_matrix)
+    np.savetxt("/tmp/movie_feature_matrix2.dat", movie_feature_matrix)
+    with open("/tmp/global_average2.dat", 'w') as f: f.write(str(global_average))
