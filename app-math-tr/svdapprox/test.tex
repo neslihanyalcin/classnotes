@@ -3,8 +3,11 @@
 
 \begin{minted}[fontsize=\footnotesize]{python}
 items_file = '%s/Downloads/ml-100k/u.item' % os.environ['HOME']
-item_df = pd.read_csv(items_file, sep='|',header=None,index_col=0)
+item_df = pd.read_csv(items_file, sep='|',header=None)
+item_df['idx'] = item_df[0] - 1
+item_df = item_df.set_index('idx')
 \end{minted}
+
 
 \begin{minted}[fontsize=\footnotesize]{python}
 from scipy.io import mmread, mmwrite
@@ -27,17 +30,17 @@ print preds_df.head(10)
 \end{minted}
 
 \begin{verbatim}
-      movie     score                                      movie_name
-1448   1448  4.759925                       My Favorite Season (1993)
-173     173  4.678653                      Princess Bride, The (1987)
-312     312  4.676880  Midnight in the Garden of Good and Evil (1997)
-21       21  4.640413                   Muppet Treasure Island (1996)
-168     168  4.601788          Monty Python and the Holy Grail (1974)
-11       11  4.583519                            Seven (Se7en) (1995)
-407     407  4.572863                                 Spy Hard (1996)
-49       49  4.565597                                     I.Q. (1994)
-63       63  4.565579                        Santa Clause, The (1994)
-143     143  4.547612                      Sound of Music, The (1965)
+      movie     score                        movie_name
+1448   1448  4.759925            Pather Panchali (1955)
+173     173  4.678653    Raiders of the Lost Ark (1981)
+312     312  4.676880                    Titanic (1997)
+21       21  4.640413                 Braveheart (1995)
+168     168  4.601788        Wrong Trousers, The (1993)
+11       11  4.583519        Usual Suspects, The (1995)
+407     407  4.572863             Close Shave, A (1995)
+49       49  4.565597                  Star Wars (1977)
+63       63  4.565579  Shawshank Redemption, The (1994)
+143     143  4.547612                   Die Hard (1988)
 \end{verbatim}
 
 \begin{minted}[fontsize=\footnotesize]{python}
@@ -46,25 +49,26 @@ movies = A[user_id,:].nonzero()[1]
 ratings = A[user_id,A[user_id,:].nonzero()[1]]
 ratings = np.ravel(ratings.todense())
 likes_df = pd.DataFrame()
-likes_df['movie'] = movies
-likes_df['rating'] = ratings
+likes_df['movie'] = movies; likes_df['rating'] = ratings
+likes_df = likes_df.set_index('movie')
 likes_df.sort_index(by='rating',ascending=False,inplace=True)
 likes_df['movie_name'] = item_df[1]
 print likes_df.head(10)
 \end{minted}
 
 \begin{verbatim}
-    movie  rating                   movie_name
-0      21       5                          NaN
-42    650       5                Clerks (1994)
-1      30       5             Toy Story (1995)
-24    332       5   Rumble in the Bronx (1995)
-34    510       5  Doom Generation, The (1995)
-19    209       5        Antonia's Line (1995)
-18    204       5    White Balloon, The (1995)
-39    602       5          Strange Days (1995)
-15    186       5    Mr. Holland's Opus (1995)
-12    175       5   Usual Suspects, The (1995)
+       rating                                 movie_name
+movie                                                   
+21          5                          Braveheart (1995)
+650         5                               Glory (1989)
+30          5                        Crimson Tide (1995)
+332         5                           Game, The (1997)
+510         5                  Lawrence of Arabia (1962)
+209         5  Indiana Jones and the Last Crusade (1989)
+204         5                              Patton (1970)
+602         5                         Rear Window (1954)
+186         5             Godfather: Part II, The (1974)
+175         5                              Aliens (1986)
 \end{verbatim}
 
 
