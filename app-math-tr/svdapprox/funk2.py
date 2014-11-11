@@ -6,12 +6,14 @@ import os
 
 def create_user_feature_matrix(review_matrix, NUM_FEATURES):
     num_users = review_matrix.shape[0]
-    user_feature_matrix = 1./NUM_FEATURES * np.random.randn(NUM_FEATURES, num_users).astype(np.float32)
+    user_feature_matrix = 1./NUM_FEATURES * \
+        np.random.randn(NUM_FEATURES, num_users).astype(np.float32)
     return user_feature_matrix
 
 def create_movie_feature_matrix(review_matrix, NUM_FEATURES):
     num_movies = review_matrix.shape[1]
-    movie_feature_matrix = 1./NUM_FEATURES * np.random.randn(NUM_FEATURES, num_movies).astype(np.float32)
+    movie_feature_matrix = 1./NUM_FEATURES * \
+        np.random.randn(NUM_FEATURES, num_movies).astype(np.float32)
     return movie_feature_matrix
 
 @jit(nopython=True)
@@ -26,7 +28,9 @@ def predict_rating(user_id, movie_id, user_feature_matrix, movie_feature_matrix)
     return rating
 
 @jit(nopython=True)
-def sgd_inner(feature, A_row, A_col, A_data, user_feature_matrix, movie_feature_matrix, NUM_FEATURES):
+def sgd_inner(feature, A_row, A_col, A_data,
+              user_feature_matrix, movie_feature_matrix,
+              NUM_FEATURES):
     K = 0.015
     LEARNING_RATE = 0.001
     squared_error = 0
@@ -34,7 +38,10 @@ def sgd_inner(feature, A_row, A_col, A_data, user_feature_matrix, movie_feature_
         user_id = A_row[k]
         movie_id = A_col[k]
         rating = A_data[k]
-        p = predict_rating(user_id, movie_id, user_feature_matrix, movie_feature_matrix)
+        p = predict_rating(user_id,
+                           movie_id,
+                           user_feature_matrix,
+                           movie_feature_matrix)
         err = rating - p            
         squared_error += err ** 2
         user_feature_value = user_feature_matrix[feature, user_id]
@@ -46,7 +53,9 @@ def sgd_inner(feature, A_row, A_col, A_data, user_feature_matrix, movie_feature_
 
     return squared_error
 
-def calculate_features(A_row, A_col, A_data, user_feature_matrix, movie_feature_matrix, NUM_FEATURES):
+def calculate_features(A_row, A_col, A_data,
+                       user_feature_matrix, movie_feature_matrix,
+                       NUM_FEATURES):
     MIN_IMPROVEMENT = 0.0001
     MIN_ITERATIONS = 200
     rmse = 0
@@ -57,7 +66,9 @@ def calculate_features(A_row, A_col, A_data, user_feature_matrix, movie_feature_
         iter = 0
         while (iter < MIN_ITERATIONS) or  (rmse < last_rmse - MIN_IMPROVEMENT):
             last_rmse = rmse
-            squared_error = sgd_inner(feature, A_row, A_col, A_data, user_feature_matrix, movie_feature_matrix, NUM_FEATURES)
+            squared_error = sgd_inner(feature, A_row, A_col, A_data,
+                                      user_feature_matrix, movie_feature_matrix,
+                                      NUM_FEATURES)
             rmse = (squared_error / num_ratings)
             iter += 1
         print ('Squared error = %f' % squared_error)
@@ -77,7 +88,9 @@ if __name__ == "__main__":
 
     A = A.tocoo()
 
-    rmse = calculate_features(A.row, A.col, A.data, user_feature_matrix, movie_feature_matrix, NUM_FEATURES )
+    rmse = calculate_features(A.row, A.col, A.data,
+                              user_feature_matrix, movie_feature_matrix,
+                              NUM_FEATURES )
     print 'rmse', rmse
 
     np.savetxt("/tmp/user_feature_matrix2.dat", user_feature_matrix)
