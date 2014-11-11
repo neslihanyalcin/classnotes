@@ -76,7 +76,6 @@ if __name__ == "__main__":
     user_feature_matrix = create_user_feature_matrix(A, NUM_FEATURES)
     movie_feature_matrix = create_movie_feature_matrix(A, NUM_FEATURES)
 
-    users, movies = A.nonzero()
     A = A.tocoo()
 
     rmse = calculate_features(A.row, A.col, A.data, user_feature_matrix, movie_feature_matrix, NUM_FEATURES )
