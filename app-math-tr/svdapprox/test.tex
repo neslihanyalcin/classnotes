@@ -1,0 +1,78 @@
+\documentclass[12pt,fleqn]{article}\usepackage{../common}
+\begin{document}
+
+
+\begin{minted}[fontsize=\footnotesize]{python}
+from scipy.io import mmread, mmwrite
+import numpy as np, time, sys, os
+import funk2, pandas as pd
+
+user_feature_matrix = np.loadtxt("/tmp/user_feature_matrix2.dat")
+movie_feature_matrix = np.loadtxt("/tmp/movie_feature_matrix2.dat")
+
+preds = []
+user_id = 534
+for movie_id in range(1682):
+    pred = funk2.predict_rating(user_id, movie_id, user_feature_matrix, movie_feature_matrix)
+    preds.append([movie_id, pred])
+\end{minted}
+
+\begin{minted}[fontsize=\footnotesize]{python}
+items_file = '%s/Downloads/ml-100k/u.item' % os.environ['HOME']
+item_df = pd.read_csv(items_file, sep='|',header=None,index_col=0)
+\end{minted}
+
+\begin{minted}[fontsize=\footnotesize]{python}
+preds_df = pd.DataFrame(preds,columns=['movie','score'])
+preds_df.sort_index(by='score',ascending=False,inplace=True)
+preds_df['movie_name'] = item_df[1]
+print preds_df.head(10)
+\end{minted}
+
+\begin{verbatim}
+      movie     score                              movie_name
+1448   1448  4.764596               My Favorite Season (1993)
+168     168  4.710916  Monty Python and the Holy Grail (1974)
+407     407  4.638842                         Spy Hard (1996)
+482     482  4.624853                 Some Like It Hot (1959)
+317     317  4.577427        In the Name of the Father (1993)
+63       63  4.569802                Santa Clause, The (1994)
+319     319  4.513617         Everyone Says I Love You (1996)
+962     962  4.497819                 Ruby in Paradise (1993)
+512     512  4.474136                  Wings of Desire (1987)
+602     602  4.471853            American in Paris, An (1951)
+\end{verbatim}
+
+\begin{minted}[fontsize=\footnotesize]{python}
+A = mmread('%s/Downloads/A_m100k_train' % os.environ['HOME']).tocsc()
+movies = A[user_id,:].nonzero()[1]
+ratings = A[user_id,A[user_id,:].nonzero()[1]]
+ratings = np.ravel(ratings.todense())
+likes_df = pd.DataFrame()
+likes_df['movie'] = movies
+likes_df['rating'] = ratings
+likes_df.sort_index(by='rating',ascending=False,inplace=True)
+likes_df['movie_name'] = item_df[1]
+print likes_df.head(10)
+\end{minted}
+
+\begin{verbatim}
+     movie  rating                                         movie_name
+109    381       5     Mystery Science Theater 3000: The Movie (1996)
+89     257       5                                Blade Runner (1982)
+185    708       5                                      Psycho (1960)
+70     193       5                 Four Weddings and a Funeral (1994)
+36     128       5                                    Mad Love (1995)
+38     131       5                                    Net, The (1995)
+39     132       5                                Strange Days (1995)
+40     133       5  To Wong Foo, Thanks for Everything! Julie Newm...
+42     135       5                                      Clerks (1994)
+86     222       5                     Remains of the Day, The (1993)
+\end{verbatim}
+
+
+
+
+
+
+\end{document}
