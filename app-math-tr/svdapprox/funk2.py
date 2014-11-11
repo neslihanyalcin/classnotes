@@ -68,7 +68,6 @@ def calculate_features(A_row, A_col, A_data, user_feature_matrix, movie_feature_
 if __name__ == "__main__": 
  
     LAMBDA = 0.02
-    FEATURE_INIT_VALUE = 0.1
     NUM_FEATURES = 20
 
     A = mmread('%s/Downloads/A_m100k_train' % os.environ['HOME'])
