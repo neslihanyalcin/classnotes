@@ -18,7 +18,7 @@ user_feature_matrix = np.loadtxt("/tmp/user_feature_matrix2.dat")
 movie_feature_matrix = np.loadtxt("/tmp/movie_feature_matrix2.dat")
 
 preds = []
-user_id = 90
+user_id = 110
 for movie_id in range(1682):
     pred = funk2.predict_rating(user_id, movie_id, user_feature_matrix, movie_feature_matrix)
     preds.append([movie_id, pred])
@@ -30,17 +30,17 @@ print preds_df.head(10)
 \end{minted}
 
 \begin{verbatim}
-      movie     score                        movie_name
-1448   1448  4.759925            Pather Panchali (1955)
-173     173  4.678653    Raiders of the Lost Ark (1981)
-312     312  4.676880                    Titanic (1997)
-21       21  4.640413                 Braveheart (1995)
-168     168  4.601788        Wrong Trousers, The (1993)
-11       11  4.583519        Usual Suspects, The (1995)
-407     407  4.572863             Close Shave, A (1995)
-49       49  4.565597                  Star Wars (1977)
-63       63  4.565579  Shawshank Redemption, The (1994)
-143     143  4.547612                   Die Hard (1988)
+      movie     score                                         movie_name
+1448   1448  4.528670                             Pather Panchali (1955)
+317     317  4.401348                            Schindler's List (1993)
+63       63  4.361829                   Shawshank Redemption, The (1994)
+407     407  4.355876                              Close Shave, A (1995)
+168     168  4.349785                         Wrong Trousers, The (1993)
+312     312  4.295258                                     Titanic (1997)
+482     482  4.271783                                  Casablanca (1942)
+173     173  4.203734                     Raiders of the Lost Ark (1981)
+21       21  4.175772                                  Braveheart (1995)
+319     319  4.157602  Paradise Lost: The Child Murders at Robin Hood...
 \end{verbatim}
 
 \begin{minted}[fontsize=\footnotesize]{python}
@@ -57,18 +57,18 @@ print likes_df.head(10)
 \end{minted}
 
 \begin{verbatim}
-       rating                                 movie_name
-movie                                                   
-21          5                          Braveheart (1995)
-650         5                               Glory (1989)
-30          5                        Crimson Tide (1995)
-332         5                           Game, The (1997)
-510         5                  Lawrence of Arabia (1962)
-209         5  Indiana Jones and the Last Crusade (1989)
-204         5                              Patton (1970)
-602         5                         Rear Window (1954)
-186         5             Godfather: Part II, The (1974)
-175         5                              Aliens (1986)
+       rating                     movie_name
+movie                                       
+301         5       L.A. Confidential (1997)
+314         5               Apt Pupil (1998)
+257         4                 Contact (1997)
+285         4    English Patient, The (1996)
+303         4           Fly Away Home (1996)
+310         4  Wings of the Dove, The (1997)
+353         4     Wedding Singer, The (1998)
+302         3             Ulee's Gold (1997)
+320         3                  Mother (1996)
+304         2          Ice Storm, The (1997)
 \end{verbatim}
 
 
