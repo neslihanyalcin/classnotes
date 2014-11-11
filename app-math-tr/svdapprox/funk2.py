@@ -48,7 +48,7 @@ def sgd_inner(feature, A_row, A_col, A_data, user_feature_matrix, movie_feature_
 
 def calculate_features(A_row, A_col, A_data, user_feature_matrix, movie_feature_matrix, NUM_FEATURES):
     MIN_IMPROVEMENT = 0.0001
-    MIN_ITERATIONS = 100
+    MIN_ITERATIONS = 200
     rmse = 0
     last_rmse = 0
     print len(A_data)
@@ -68,7 +68,7 @@ def calculate_features(A_row, A_col, A_data, user_feature_matrix, movie_feature_
 if __name__ == "__main__": 
  
     LAMBDA = 0.02
-    NUM_FEATURES = 20
+    NUM_FEATURES = 30
 
     A = mmread('%s/Downloads/A_m100k_train' % os.environ['HOME'])
 
