@@ -1,7 +1,6 @@
 from scipy.io import mmread, mmwrite
 import numpy as np, time, sys, os
 import funk2
-from numba import jit
 
 user_feature_matrix = np.loadtxt("/tmp/user_feature_matrix2.dat")
 movie_feature_matrix = np.loadtxt("/tmp/movie_feature_matrix2.dat")
