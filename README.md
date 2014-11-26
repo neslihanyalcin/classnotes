@@ -1,4 +1,4 @@
-## Türkçe
+### Türkçe
 
 ODE, Çok Deðiþkenli Calculus, Lineer Cebir, Hesapsal Bilim,
 Istatistik, Fonksiyonel Analiz video derslerinden, ya da ders
@@ -53,14 +53,13 @@ Accessories | Terminal` ile baslatilabilir. Kodlari ve dokumanlari
 nereye actiysaniz, o dizine komut satirindan `cd [dizin ismi]` ile
 gidebilirsiniz, ve buradan ipyton komutunu isletebilirsiniz.
 
-## English
+### English
 
 Here are lecture notes in ODE, Multivariate Calculus, Linear Algebra,
 Computational Science, Statistics, Functional Analysis classes written
 in Latex, in Turkish. There is also a small handbook of collected math,
 applied math articles. All necessary Python code is also shared[ in
 the same directory as the article / classnote.
-
 --
 
 Blog
@@ -87,7 +86,7 @@ https://dl.dropboxusercontent.com/u/1570604/skfiles/pde.pdf
 
 https://dl.dropboxusercontent.com/u/1570604/skfiles/functional_analysis.pdf
 
-## Latex Format
+### Latex Format
 
 The format of these documents, fonts, the pseudocode look-and-feel was
 taken from Andrew Cotter's thesis called *Stochastic Optimization for
