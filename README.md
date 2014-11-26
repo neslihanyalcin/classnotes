@@ -29,7 +29,7 @@ ipython notebook --pylab=inline
 
 kullanilabilir. Tabii bu durumda belgelerde gorulen kodlar elle
 girilecektir. Eger kodlari not defteri disinda, dosya bazli, pur
-Python olarak isletmek isterseniz, import
+Python olarak isletmek isterseniz, 
 
 ```
 import numpy as np
@@ -40,13 +40,11 @@ ibarelerini script'in basina eklemek gerekir. Bu durumda kodlar
 `dosya.py` gibi bir dosya icinde kaydedilir, ve `python dosya.py` ile
 komut satirindan isletilir. 
 
-Not: Cetrefil bir kullanim, Emacs / LaTeX dokumanlarin *icinden*
-Python kodlarini pytexipy-notebook adli bir teknoloji uzerinden direk
-belge icinde isletmek (arka planda ipython'a baglaniyor, yani ayni
-temel yapi kullaniliyor). Bu durumda, pytexipy-notebook kuruldugunda
-ve Emacs icinden cagirildiginda o gereken tum ipython ayarlari kendisi
-yapiyor.
-
+Not: Cetrefil bir kullanim, Emacs icinde LaTeX dokumani *icinde* iken
+Python kodlarini `emacs-ipython` adli bir teknoloji uzerinden direk
+belge icinde isletmektir (arka planda ipython'a baglaniyor, yani ayni
+temel yapi kullaniliyor). Bu durumda, emacs-ipython gereken tum
+ipython ayarlarini kendisi yapiyor.
 
 [1] Komut satiri nedir? Windows uzerindeyseniz `Start | All Programs |
 Accessories | Command Prompt` ile baslatilir. Terminal usulu metin
