@@ -11,25 +11,33 @@ olacaktir.
 Dokumanlarin icinde gorulen kod python/ipython ortami icinden
 isletilebilir. ipython kurmak icin
 
+```
 http://ipython.org/install.html
+```
 
 Kurulum olarak en acisiz kurulum Anaconda uzerinden
 
+```
 http://continuum.io/downloads
+```
 
 Komut satirindan [1] ipython baslatmak icin
 
+```
 ipython notebook --pylab=inline
+```
 
 kullanilabilir. Tabii bu durumda belgelerde gorulen kodlar elle
 girilecektir. Eger kodlari not defteri disinda, dosya bazli, pur
 Python olarak isletmek isterseniz, import
 
+```
 import numpy as np
 import matploblib.pylab as plt
+```
 
 ibarelerini script'in basina eklemek gerekir. Bu durumda kodlar
-dosya.py gibi bir dosya icinde kaydedilir, ve python dosya.py ile
+`dosya.py` gibi bir dosya icinde kaydedilir, ve `python dosya.py` ile
 komut satirindan isletilir. 
 
 Not: Cetrefil bir kullanim, Emacs / LaTeX dokumanlarin *icinden*
@@ -40,11 +48,11 @@ ve Emacs icinden cagirildiginda o gereken tum ipython ayarlari kendisi
 yapiyor.
 
 
-[1] Komut satiri nedir? Windows uzerindeyseniz Start | All Programs |
-Accessories | Command Prompt ile baslatilir. Terminal usulu metin
-bazli bir iletisim aracidir. Ubuntu uzerinde Applications |
-Accessories | Terminal ile baslatilabilir. Kodlari ve dokumanlari
-nereye actiysaniz, o dizine komut satirindan "cd [dizin ismi]" ile
+[1] Komut satiri nedir? Windows uzerindeyseniz `Start | All Programs |
+Accessories | Command Prompt` ile baslatilir. Terminal usulu metin
+bazli bir iletisim aracidir. Ubuntu uzerinde `Applications |
+Accessories | Terminal` ile baslatilabilir. Kodlari ve dokumanlari
+nereye actiysaniz, o dizine komut satirindan `cd [dizin ismi]` ile
 gidebilirsiniz, ve buradan ipyton komutunu isletebilirsiniz.
 
 ## English
@@ -61,7 +69,7 @@ Blog
 
 http://sayilarvekuramlar.blogspot.com
 
-Ders Notlari
+Classnotes
 
 https://dl.dropboxusercontent.com/u/1570604/skfiles/app-math-tr.pdf
 
