@@ -60,6 +60,7 @@ Computational Science, Statistics, Functional Analysis classes written
 in Latex, in Turkish. There is also a small handbook of collected math,
 applied math articles. All necessary Python code is also shared[ in
 the same directory as the article / classnote.
+
 --
 
 Blog
