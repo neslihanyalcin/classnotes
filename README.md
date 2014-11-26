@@ -1,14 +1,14 @@
-## Turkce
+## Türkçe
 
-ODE, Cok Degiskenli Calculus, Lineer Cebir, Hesapsal Bilim,
+ODE, Çok Deðiþkenli Calculus, Lineer Cebir, Hesapsal Bilim,
 Istatistik, Fonksiyonel Analiz video derslerinden, ya da ders
 kitaplarindan alinan notlarin Latex ile yazilmis ve PDF olarak
-uretilmis dosyalari burada bulunabilir. Matematik ve Uygulamali
+üretilmiý dosyalarý burada bulunabilir. Matematik ve Uygulamalý
 Matematik hakkinda yazilmis yazilarimiz da var. Ornek Python kodlari
 gerektigi yerde yazi icinde ya da onunla beraber ayni dizinde
 olacaktir.
 
-Dokumanlarin icinde gorulen kod python/ipython ortami icinden
+Dokümanlarýn içinde gorulen kod python/ipython ortami icinden
 isletilebilir. ipython kurmak icin
 
 ```
