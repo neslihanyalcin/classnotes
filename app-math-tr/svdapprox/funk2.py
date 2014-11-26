@@ -76,8 +76,7 @@ def calculate_features(A_row, A_col, A_data,
         print ('Feature = %d' % feature)
     return last_rmse
 
-if __name__ == "__main__": 
- 
+def main():
     LAMBDA = 0.02
     NUM_FEATURES = 30
 
@@ -95,3 +94,6 @@ if __name__ == "__main__":
 
     np.savetxt("/tmp/user_feature_matrix2.dat", user_feature_matrix)
     np.savetxt("/tmp/movie_feature_matrix2.dat", movie_feature_matrix)
+
+if __name__ == "__main__": 
+    main()
