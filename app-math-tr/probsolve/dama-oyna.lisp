@@ -2,6 +2,11 @@
 
 (oyuna-basla *beyaz*)
 
+(print "----------------------------------------------------")
+(print "Hamleleri mesela siyah icin '((0 2)(1 3)) seklinde girmek gerekli")
+(print "Bu, x=0 y=2'deki tasi x=1, y=3 pozisyonuna getirecektir")
+(print "----------------------------------------------------")
+
 (loop
  (goster *tahta*)
  (print "Hamlenizi giriniz")
