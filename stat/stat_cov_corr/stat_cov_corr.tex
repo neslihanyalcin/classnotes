@@ -60,7 +60,7 @@ bir anlami olacak, onu birazdan, kovaryans uzerinden tanimlayacagiz.
 
 Bazi ilginc noktalar:
 
-Ozellik 
+Ozellik 1
 
 varyansi nasil tanimlamistik? 
 
@@ -81,7 +81,7 @@ $$ = Var(X) $$
 Yani varyans, bir degiskenin ``kendisi ile kovaryansidir''. Ilginc degil
 mi? 
 
-Ozellik
+Ozellik 2
 
 $$ Cov(X,Y) = Cov(Y,X) $$
 
@@ -115,13 +115,42 @@ daha rahat olabilir. Fakat matematiksel olarak bu iki ifade de aynidir.
 
 Iki ozellik bulduk bile. Bir ozellik daha,
 
-Ozellik
+Ozellik 3
 
 $$ Cov(X,c) = 0 $$
 
 Bu nereden geldi? (1)'e bakalim, $Y$ yerine $c$ koymus olduk, yani bir
 sabit. Bu durumda (1)'in $(Y-E(Y))$ kismi $c-E(c)=c-c=0$ olur [aslinda
 bayagi absurt bir durum], ve bu durumda (1) tamamen sifira donusur, sonuc sifir.
+
+Ozellik 4
+
+$Cov(cX,Y) = c \cdot Cov(X,Y)$ 
+
+Ispat icin alttaki formulde
+
+$$ Cov(X,Y) =  E(XY) - E(X)E(Y) $$
+
+$X$ yerine $cX$ koymak yeterli, $c$ her iki terimde de disari cikacaktir,
+ve grubun disina alincan bu ozelligi elde ederiz.
+
+Ozellik 5
+
+$$ Cov(X,Y+Z) = Cov(X,Y) + Cov(X,Z) $$
+
+Ispat icin bir ustteki ozellikte yaptigimizin benzerini yapariz. 
+
+En son iki ozellik oldukca faydalidir bu arada, onlara ikili-lineerlik
+(bilinearity) ismi veriliyor. Isim biraz renkli / sukseli bir isim,
+soylemek istedigi su aslinda, bu son iki ozellikte sanki bir kordinati
+sabit tutup digeri ile islem yapmis gibi oluyoruz, yani bir kordinat sabit
+olunca digeri ``lineermis gibi'' oluyor; Mesela $c$'nin disari ciktigi
+durumda oldugu gibi, bu ozellikte $Y$'ye hicbir sey olmadi, o degismeden
+kaldi. Ayni sekilde 5. ozellikte $X$ hic degismeden esitligin sagina
+aktarildi sanki, sadece ``$Z$ durumu icin'' yeni bir terim ekledik. 
+
+4. ve 5. ozellik cok onemlidir, bunlari bilirseniz bir ton hesabi yapmadan
+hizlica tureterek hesaplarinizi kolaylastirabilirsiniz. 
 
 
 
