@@ -9,25 +9,120 @@ sadece yanlis bir sekilde lineerlik uygulamak yerine probleme farkli bir
 sekilde yaklasmayi ogrenecegiz. 
 
 Diger bir acidan, hatta bu ana kullanimlardan biri, kovaryans iki rasgele
-degiskeni ayni anda analiz etmemize yarayacak. 
+degiskeni beraber / ayni anda analiz etmemize yarayacak. Iki varyans
+olacak, ve onlarin alakasina bakiyor olacagiz, bu sebeple bu analize {\em
+  ko}varyans deniyor zaten. 
 
 Tanim
 
-$$ Cov(X,Y) = E((X-E(X))(Y-E(Y)))  $$
+$$ Cov(X,Y) = E((X-E(X))(Y-E(Y))) \hspace{2em} \label{1} $$
 
-Yani herhangi iki rasgele degiskeni $X,Y$'in kovaryansi $X$'ten
-ortalamasi cikartilmis, $Y$'ten ortalamasi cikartilmis halinin carpilmasi
-ve tum bu carpimlarin ortalamasinin alinmasidir. 
+Burada $X,Y$ ayni uzayda tanimlanmis herhangi iki rasgele degisken. Ustteki
+diyor ki bu iki rasgele degisken $X,Y$'in kovaryansi, $X$'ten ortalamasi
+cikartilmis, $Y$'ten ortalamasi cikartilmis halinin carpilmasi ve tum bu
+carpimlarin ortalamasinin alinmasidir.
 
 Tanim boyle. Simdi bu tanima biraz bakip onun hakkinda sezgi / anlayis
-gelistirmeye ugrasalim. Tanim baska bir sekilde degil, bu sekilde yapilmis? 
+gelistirmeye ugrasalim. Tanim niye bu sekilde yapilmis, baska bir sekilde
+degil?
 
 Ilk once esitligin sag tarafindaki bir carpim, bir sey carpi bir baska
 sey. Bu seylerden biri $X$ ile digeri $Y$ ile alakali, onlari carparak ve
 carpimin bir ozelliginden faydalanarak sunu elde ettik; arti deger carpi
 arti yine arti degerdir, eski carpi arti eksidir, eksi carpi eksi
-artidir. Carpimlardan birinin buyuklugu $X$'in ortalamasina bagli olan bir
-diger, ayni durum $Y$'yi iceren carpim icin gecerli. 
+artidir. Bu sekilde mesela ``ayni anda arti'' olmak gibi kuvvetli bir
+baglanti carpimin arti olmasi ile yakalanabilecektir. Ayni durum eksi,eksi
+de icin gecerli, bu sefer her iki rasgele degisken ayni sekilde
+negatiftir. Eksi carpim sonucu ise sifirdan az bir degerdir, ``kotu
+korelasyon'' olarak alinabilir ve hakikaten de eksi arti carpiminin isareti
+oldugu icin iki degiskenin ters yonlerde oldugunu gosterir. Demek ki bu
+arac / numara hakikaten faydali. 
+
+Unutmayalim, ustteki carpimlardan birisinin buyuklugu $X$'in ortalamasina
+bagli olan bir diger, $Y$ ayni sekilde. Simdi $X,Y$'den bir orneklem
+(sample) aldigimizi dusunelim. Veri setinin her veri noktasi bagimsiz ve
+ayni sekilde dagilmis (i.i.d) durumda. Yani $X,Y$ degiskenlerine ``gelen''
+$x_i,y_i$ ikilileri her $i$ icin digerlerinden bagimsiz; fakat her ikilinin
+arasinda bir baglanti var, yani demek ki bu rasgele degiskenlerin baz
+aldigi dagilimlarin bir alakasi var, ya da bu iki degiskenin bir birlesik
+dagilimi (joint distribution) var.
+
+Not: Eger $X,Y$ bagimsiz olsaydi, o zaman 
+
+$$ Cov(X,Y) = E((X-E(X))E(Y-E(Y))  $$
+
+olarak yazilabilirdi, yani iki beklentinin ayri ayri carpilabildigi
+durum... Ama biz bu derste bagimsizligin olmadigi durumla ilgileniyoruz..
+
+Korelasyon kelimesinden bahsedelim hemen, bu kelime gunluk konusmada cok
+kullaniliyor, ama bu ders baglaminda korelasyon kelimesinin matematiksel
+bir anlami olacak, onu birazdan, kovaryans uzerinden tanimlayacagiz.
+
+Bazi ilginc noktalar:
+
+Ozellik 
+
+varyansi nasil tanimlamistik? 
+
+$$ Var(X) = E((X-E(X))^2)  $$
+
+Bu denklem aslinda 
+
+$$ Cov(X,Y) = E((X-E(X))(Y-E(Y)))  $$
+
+denkleminde $Y$ yerine $X$ kullandigimizda elde ettigimiz seydir, yani
+
+$$ Cov(X,X) = E((X-E(X))(X-E(X)))  $$
+
+$$ Cov(X,X) = E((X-E(X))^2)   $$
+
+$$ = Var(X) $$
+
+Yani varyans, bir degiskenin ``kendisi ile kovaryansidir''. Ilginc degil
+mi? 
+
+Ozellik
+
+$$ Cov(X,Y) = Cov(Y,X) $$
+
+Ispati kolay herhalde, (1) formulunu uygulamak yeterli.
+
+Teori
+
+$$ Cov(X,Y) = E((X-E(X))(Y-E(Y))) = E(XY) - E(X)E(Y)$$
+
+Ispat
+
+Bu ispat cok kolay, esitligin sol tarafindaki carpimi parantezler uzerinden
+acarsak, ve beklenti lineer bir operator oldugu icin toplamin terimleri
+uzerinde ayri ayri uygulanabilir, 
+
+$$ E(XY) -E(X)E(Y) -E(X)E(Y) + E(X)E(Y) $$
+
+$$  =  E(XY) - E(X)E(Y) $$
+
+Carpimi uygularken mesela $E(-X \cdot E(Y))$ gibi bir durum ortaya cikti,
+burada $E(Y)$'nin bir sabit oldugunu unutmayalim, cunku beklenti rasgele
+degiskene uygulaninca tek bir sayi ortaya cikartir, ve vu $E(Y)$ uzerinde
+bir beklenti daha uygulaninca bu ``icerideki'' beklenti sabitmis gibi
+disari cikartilabilir, yani $-E(X)E(Y)$. 
+
+Devam edelim, $E(XY) - E(X)E(Y)$ ifadesini gosterdik, cunku cogu zaman bu
+ifade hesap acisindan (1)'den daha uygundur. Ama (1) ifadesi anlatim /
+sezgisel kavrayis acisindan daha uygun, cunku bu ifade $X$'in ve $Y$'nin
+kendi ortalamalarina izafi olarak belirtilmistir, ve akilda canlandirilmasi
+daha rahat olabilir. Fakat matematiksel olarak bu iki ifade de aynidir. 
+
+Iki ozellik bulduk bile. Bir ozellik daha,
+
+Ozellik
+
+$$ Cov(X,c) = 0 $$
+
+Bu nereden geldi? (1)'e bakalim, $Y$ yerine $c$ koymus olduk, yani bir
+sabit. Bu durumda (1)'in $(Y-E(Y))$ kismi $c-E(c)=c-c=0$ olur [aslinda
+bayagi absurt bir durum], ve bu durumda (1) tamamen sifira donusur, sonuc sifir.
+
 
 
 
