@@ -222,11 +222,246 @@ Teori
 
 Eger $X,Y$ bagimsiz ise bu degiskenler bagimsizdir, yani $Cov(X,Y)=0$.
 
-19:34
+DIKKAT! Bu mantik cizgisinin tersi her zaman dogru olmayabilir, yani
+bagimsizlik kesinlikle $Cov(X,Y)=0$ demektir, ama her $Cov(X,Y)=0$ oldugu
+zaman ortada bir bagimsizlik var diyemeyiz. Bunu bir ornekle gorelim. 
+
+$$ Z \sim N(0,1), X=Z, Y=Z^2 $$
+
+Simdi $X,Y$ kovaryansinin hesabi yapalim
+
+$$ Cov(X,Y) = E(XY) - E(X)E(Y) = E(Z^3) - E(Z)E(Z^2)$$
+
+En sondaki terim sifirdir, cunku hem $E(Z)$ ve $E(Z^3)$ sifirdir [hoca
+burada standart normalin tek sayili (odd) moment'leri hep sifirdir dedi]. O
+zaman su sonucu cikartiyoruz, $X,Y$ arasinda korelasyon yok. 
+
+Ama bagimlilik var mi? Var. Cunku hem $X$ hem $Y$ $Z$'nin birer degiskeni,
+yani bu durumda $X$'i bilmek bize $Y$'yi tamamen bilmemizi sagliyor (sadece
+ek olarak bir kare aliyoruz). Tabii bagimlilik illa herseyin bilinmesi
+demek degildir, biraz bagimlilik ta olabilir, ama biraz bagimlilik bile
+varsa, bagimsizlik var diyemeyiz. Ayni sey ters yon icin de gecerli, $Y$
+bilinince $X$'in ``buyuklugunu'' bilebiliriz, karekok islemi oldugu icin
+-/+ isareti bilemeyiz ama skalar bir buyuklugu elde edebiliriz. Yani ters
+yonde de bagimsizlik yoktur. 
+
+Korelasyon
+
+Tanim
+
+$$ Corr(X,Y) = \frac{Cov(X,Y)}{SD(X)SD(Y)} 
+\mlabel{2}
+$$
+
+Bu arada hatirlarsak ustte SD ile gosterilen standart sapma, varyansin
+karesidir. 
+
+Bu tanim genelde kullanilan tanimdir. Fakat ben daha farkli bir tanimi
+tercih ediyorum. Standardize etmeyi hatirliyoruz degil mi? Bir rasgele
+degiskenden ortalamasini cikartip standart sapmaya bolunce standardize
+ediyorduk. Bunu kullanarak aslinda korelasyonu alttaki gibi
+tanimlayabiliriz, 
+
+$$ Corr(X,Y) = Cov \bigg( \frac{X-E(X)}{SD(X)}, \frac{Y-E(Y)}{SD(Y)}
+\bigg) 
+\mlabel{3}
+$$
+
+Yani korelasyonun anlami aslinda sudur: $X,Y$ degiskenlerini standardize
+et, ondan sonra kovaryanslarini al. 
+
+Niye kovaryans iceren ifadeyi tercih ediyoruz? Cunku, diyelim ki $X,Y$
+degiskenleri bir uzaklik olcusunu temsil ediyor, ve birimleri mesela
+nanometre. Fakat bir baskasi gelip ayni olcumu, atiyorum, isik yili olarak
+kullanmaya baslarsa problem cikabilir. Yani eger birim yoksa ve ben ``$X,Y$
+korelasyonum 42'' dersem, bunun ne oldugunu anlamak zordur. 42 onumuzdeki
+veriye gore kucuk mudur, buyuk mudur? Bilemeyiz. Yani 42 sayisi tabii ki
+evrendeki tum sorularin cevabidir [hoca bir filme atfen espri yapiyor,
+orada 42 sayisinin ozel bir anlami vardi], ama onumuzdeki problem icin,
+nedir? 
+
+Fakat ustteki formul olcu birimsiz (dimensionless) bir sonuc verir, yani
+bir olcu biriminden bahsetmeden birine rahatca aktarabilecegimiz bir
+bilgidir. Niye birimsiz oldu? Cunku $X$'in birimi $cm$ olsa, $X-E(X)$ yine
+$cm$, $SD(X)$ varyansin karekoku oldugu icin $cm^2$'nin karekoku yine $cm$,
+$cm$ bolu $cm$ birim ortadan kalkar.
+
+Bu arada (3) niye (2) ile aynidir? Eger bir rasgele degiskenden bir sabiti
+cikartirsam onun baska bir degisken ile kovaryansini degistirmis olmam. Ki
+standardize etme islemi bunu yapar. O zaman niye bu cikartma islemini
+yaptim? Cunku standardize etme islemini ozellikle kullanmak istedim -
+standardizasyon bilinen ve rahatca kullanilabilen bir islem. Standart
+sapmayi bolmeye gelirsek, simdiye kadar gordugumuz ozelliklerden biri,
+bolumu disari alabilecegimizi gosteriyor, boyle olunca (2) ifadesini aynen
+elde ediyorum. 
+
+[Not: cok ilginc bir noktaya isaret etmek isterim. Hoca $X,Y$'yi
+standardize etti, ama bu demek degil ki $X,Y$ ``standard normal'' dagilimi
+haline geldi, $X,Y$'in eger kendileri normal olsaydi o zaman standart
+normal elde ederdik. Diger durumlarda $X,Y$'yi ortalamasi 0, varyansi 1
+olan bir sey haline getirmis olduk sadece. Ama yine bu dusunceden devam
+edersek, eger $X,Y$ normal olsaydi, standardize bize iki tane $Z$ verirdi,
+ve $Cov(Z,Z)=1$ olurdu. Yani hangi sekilde olursa olsun eger $X,Y$'nin
+ikisi de normal ise korelasyon 1 demektir].
+
+Onemli bir nokta daha: korelasyon her zaman $-1$ ve $+1$ arasindadir. 
+
+Teori
+
+$$ -1 \le Corr(X,Y) \le 1 $$
+
+Yani olcu biriminden bagimsiz olmasi avantajina ek olarak hep ayni skalada
+olan bir degerin rapor edilmesi de faydalidir. Eger korelasyon 0.99
+bulursam bunun hemen yuksek bir korelasyon oldugunu bilirim. 
+
+Bu arada, Cauchy-Schwarz esitsizliginden bahsedeyim -ki bu esitsizlik
+tanimi tum matematikteki en onemli esitsizliklerden biridir- eger
+korelasyon formulunu lineer cebirsel sekilde ifade etseydim direk
+Cauchy-Schwarz esitsizligini elde ederdim. 
+
+Ispat
+
+Once ``WLOG cercevesinde'' $X,Y$'nin onceden standardize edilmis oldugunu
+kabul edelim. [WLOG ne demek? Matematikciler ispatlar sirasinda bunu bazen
+kullanirlar, genelleme kuvvetinde bir kayip olmadan (without loss of
+generality) takip eden seyi kullanabiliriz demektir, yani ``bir baska sey
+kullaniyorum, ama teori bu cercevede de hala gecerli'' demek isterler]. 
+
+Onceden standardize edildigini kabul etmek niye fark yaratmiyor? Cunku bunu
+gorduk, standart olmayan degiskenleri standardize edince yine ayni sonucu
+elde ediyorum, yani bir sey farketmiyor. 
+
+$Var(X+Y)$'i hesaplayalim. 
+
+$$ Var(X+Y) = Var(X) + Var(Y) + 2Cov(X,Y) 
+\mlabel{4}
+$$
+
+Simdi sembol olarak $\rho = Corr(X,Y)$ kullanalim,
+
+Standardize ettigimizi kabul etmistik, o zaman $Var(X)=1,Var(Y)=1$. Ayrica
+(3)'te gordugumuz uzere, standardize durumda kovaryans korelasyona esittir,
+o zaman $Cov(X,Y)=\rho, yani 2Cov(X,Y) = 2\rho$. Tum ifade,
+
+$$ Var(X+Y) = 1 + 1 + 2 \rho  = 2 + 2\rho$$
+
+Peki farklarin varyansi, $Var(X-Y)$ nedir? Bir numara kullanalim,
+$Var(X-Y)$'i $Var(X+(-Y))$ olarak gorelim, 
+
+$$ Var(X-Y) = Var(X) + Var(Y) - 2Cov(X,Y) = 2 - 2\rho $$
+
+Aslinda bu son ifade ispati tamamlamis oldu, cunku varyans negatif olmayam
+bir seydir, yani 
+
+$$ 0 \le Var(X+Y) = 2 + 2\rho$$
+
+$$ 0 \le Var(X-Y) = 2 - 2\rho$$
+
+Bu iki esitsizligi kullanarak 
+
+$$ -2 \le 2\rho$$
+
+$$ -2 \le - 2\rho$$
+
+ve 
+
+$$ -1 \le \rho$$
+
+$$ \rho \le 1 $$
 
 
+Multinom Dagilimin Kovaryansi
 
+Kovaryansi multinom dagilimi baglaminda ele alalim, bildigimiz gibi
+multinom dagilimi bir vektordur [ve binom dagiliminin daha yuksek boyuttaki
+halidir, binom dagilimi bildigimiz gibi $n$ deney icinde kac tane basari
+sayisi oldugunu verir], ve vektorun her hucresinde ``vs. kategorisinde kac
+tane vs var'' gibi bir deger tasinir, ki bu her hucre baglaminda ``o
+kategori icin zar atilsa kac tane basari elde edilir'' gibi okunabilir. 
 
+Biz ise bu hucrelerden iki tanesini alip aralarindaki kovaryasyona bakmak
+istiyoruz. Gayet dogal bir istek. 
+
+Notasyon
+
+Elimizde $k$ tane obje var, 
+
+$$ (X_1,..,X_k) \sim Mult(n,\vec{p}) $$
+
+Dikkat, $p$ bir vektor, tabii ki, cunku binom durumunda $p$ tek sayi idi,
+simdi ``pek cok $p$''ye ihtiyac var. 
+
+Her $i,j$ icin $Cov(X_i,X_j)$'yi hesapla. 
+
+Eger $i=j$ ise $Cov(X_i,X_i)=Var(X_i) = np_i(1-p_i)$. 
+
+ki son ifade binom dagiliminin varyansidir. Bu basit durum tabii ki, ilginc
+olan $i \ne j$ olmadigi zaman. 
+
+Tek ornek secelim, mesela $Cov(X_1,X_2)$, buradan gelen sonuc gayet kolayca
+genellestirilebilir. 
+
+Hesaba baslamadan once kabaca bir akil yurutelim; $Cov(X_1,X_2)$ icin arti
+mi eksi mi bir deger elde ederdik acaba? Multinom dagilimi hatirlayalim,
+belli sayida ``sey'' yine belli sayida kategori arasinda ``kapisiliyor'',
+yani bu kategoriler arasinda bir yaris var. O zaman herhangi iki
+kategorinin kovaryansinin negatif olmasini bekleriz. 
+
+Cozum icin (4) formulunu kullanacagim, ama secici bir sekilde, 
+
+$$ Var(X+Y) = Var(X) + Var(Y) + 2Cov(X,Y) $$
+
+icinde $Var(X+Y),Var(X),Var(Y)$'i biliyorsam, geriye bilinmeyen $Cov(X,Y)$
+kalir. Kisaltma amaciyla $c = Cov(X,Y)$ diyelim,
+
+$$ Var(X_1+X_2) = np_1(1-p_1) + np_2(1-p_2) + 2c$$
+
+Simdi $X_1+X_2$'nin ne oldugunu dusunelim, bu yeni rasgele degisken ``ya
+kategori 1 ya da 2'' sonucunu tasiyan bir degiskendir, ki bu da yeni bir
+``birlesik'' binom degiskenidir. Bu degiskenin $p$'si toplami oldugu iki
+kategorinin $p$'sinin toplamidir, yani $p_1+p_2$. O zaman bu yeni
+degiskenin varyansi, 
+
+$$ Var(X_1+X_2) = n(p_1+p_2)(1-(p_1+p_2))  $$
+
+Eh artik denklemdeki her seyi biliyoruz, sadece $c$'yi bilmiyoruz, ona gore
+herseyi duzenleyelim, 
+
+$$ n(p_1+p_2)(1-(p_1+p_2))  = np_1(1-p_1) + np_2(1-p_2) + 2c $$
+
+Burada biraz haldir huldur islem lazim [bu kismi okuyucu isterse
+yapabilir], sonuc
+
+$$ Cov(X_1,X_2) = -np_1p_2 $$
+
+Genel olarak 
+
+$$ Cov(X_i,X_j) = -np_ip_j, \forall i \ne j $$
+
+Dikkat edin, bu sonuc her zaman negatiftir (cunku $p$ degerleri olasilik
+degerleridirler, yani pozitif olmak zorundadirlar)
+
+Ornek
+
+Binom degiskenin varyansini hesaplayalim simdi. Bunu daha once yapmistik
+ama gostergec (indicator) rasgele degiskenleri kullanarak yapmistik bunu,
+simdi elimizde yeni bir arac var, onu kullanalim. Varacagimiz sonuc 
+$Var(X) = npq$ olacak. Tanimlar,
+
+$$ X \sim Bin(n,p), X = X_1+..+X_n $$
+
+ki $X_i$ degiskenleri i.i.d. Bernoulli. 
+
+Aslinda her $X_i$ degiskeni bir gostergec degiskeni gibi
+gorulebilir. Diyelim ki bir $A$ olayi icin gostergec degisken $I_A$
+olsun. Bu durumda
+
+$$ I_A^2 = I_A $$
+
+$$ I_A^3 = I_A $$
+
+Degil mi? Gostergec sadece 1/0 olabiliyorsa onun karesi, kupu ayni sekilde
+olur. Bunu vurguluyorum, cunku bazen atlaniyor. 
 
 
 
