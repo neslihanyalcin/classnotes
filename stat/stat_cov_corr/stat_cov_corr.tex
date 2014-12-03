@@ -15,7 +15,7 @@ olacak, ve onlarin alakasina bakiyor olacagiz, bu sebeple bu analize {\em
 
 Tanim
 
-$$ Cov(X,Y) = E((X-E(X))(Y-E(Y))) \hspace{2em} \label{1} $$
+$$ Cov(X,Y) = E((X-E(X))(Y-E(Y))) \mlabel{1} $$
 
 Burada $X,Y$ ayni uzayda tanimlanmis herhangi iki rasgele degisken. Ustteki
 diyor ki bu iki rasgele degisken $X,Y$'in kovaryansi, $X$'ten ortalamasi
@@ -151,6 +151,79 @@ aktarildi sanki, sadece ``$Z$ durumu icin'' yeni bir terim ekledik.
 
 4. ve 5. ozellik cok onemlidir, bunlari bilirseniz bir ton hesabi yapmadan
 hizlica tureterek hesaplarinizi kolaylastirabilirsiniz. 
+
+Ozellik 6
+
+$$ Cov(X+Y, Z+W) = Cov(X,Z) + Cov(X,W) + Cov(Y,Z) + Cov(Y,W) $$
+
+Simdi 5. ozelligi hatirlayalim, orada gosterilen sanki bir nevi basit
+cebirdeki dagitimsal (distributive) kuralin uygulanmasi gibiydi sanki, yani
+$(a+b)(c+d)$'i actigimiz gibi, 5. ozellik te sanki kovaryansi carpip
+topluyormus gibi ``aciyordu''. En temelde gercekten olan bu degil ama nihai
+sonuc benzer gozuktugu icin akilda tutmasi kolay bir metot elde etmis
+oluyoruz. Her neyse, 6. ozellik icin aslinda 5. ozelligi tekrar tekrar
+uygulamak yeterli. Bu arada 5. ozellik $Cov(X,Y+Z)$ icin ama $Cov(Y+Z,X)$
+yine ayni sonucu veriyor. 
+
+Bu arada 6. ozellik cok cetrefil toplamlar uzerinde de uygulanabilir,
+mesela 
+
+$$ Cov \bigg( \sum _{i=1}^{m}a_iX_i, \sum _{j=1}^{n}b_iY_i \bigg) $$
+
+Bu son derece karmasik gozukuyor, fakat cozumu icin aynen 6. ozellikte
+oldugu gibi 5. ozelligi yine tekrar tekrar uygulamak yeterli (4. ozellik
+ile de sabiti disari cikaririz, vs).
+
+Cogu zaman ustteki gibi pur kovaryans iceren bir acilimla calismak, icinde
+beklentiler olan formullerle ugrasmaktan daha kolaydir. 
+
+Simdi toplamlara donelim; kovaryanslara girmemizin bir sebebi toplamlarla
+is yapabilmemizi saglamasi. Mesela, bir toplamin varyansini nasil
+hesaplariz? 
+
+Ozellik 7
+
+$$ Var(X_1+X_2) $$
+
+Simdilik iki degisken, ama onu genellestirip daha fazla degiskeni
+kullanabiliriz. 
+
+Cozelim. 1. ozellik der ki varyans degiskenin kendisi ile kovaryansidir,
+yani $Var(X) = Cov(X,X)$. O zaman $Var(X_1+X_2) = Cov(X_1+X_2,
+X_1+X_2)$. 
+Boylece icinde toplamlar iceren bir kovaryans elde ettik ama bunu cozmeyi 
+biliyoruz artik. ``Dagitimsal'' islemleri yaparken $Cov(X_1,X_1)$ gibi
+ifadeler cikacak, bunlar hemen varyansa donusecek. Diger taraftan
+$Cov(X_1,X_2)$ iki kere gelecek, yani
+
+$$ Var(X_1+X_2) = Var(X_1) + Var(X_2)  + 2 Cov(X_1,X_2)$$
+
+Bu alanda bilinen tekerleme gibi bir baska deyis, ``eger kovaryans sifirsa
+toplamin varyansi varyanslarin toplamidir''. Hakikaten kovaryans sifir
+olunca ustteki denklemden dusecektir, geriye sadece varyanslarin toplami
+kalacaktir. Kovaryans ne zaman sifirdir? Eger $X_1,X_2$ birbirinden
+bagimsiz ise. Tabii bu bagimsizlik her zaman ortaya cikmaz. 
+
+Ikiden fazla degisken olunca? Yine tum varyanslarin ayri ayri toplami, ve
+kovaryanslar da sonda toplanacak,
+
+$$ Var(X_1+ .. + X_n ) = Var(X_1) + .. + Var(X_n) + 2 \sum _{i<j}^{} Cov(X_i,X_j) $$
+Sondaki toplamin indisinde bir numara yaptik, sadece 1 ile 2, 2 ile 3,
+vs. eslemek icin, ve mesela 3 ile 1'i tekrar eslememek icin. Tekrar dedik
+cunku $Cov(X_1,X_3) = Cov(X_3,X_1)$. Eger indisleme numarasi
+kullanmasaydik, 2 ile carpimi cikartirdik (ona artik gerek olmazdi),
+
+$$ ..  + \sum _{i \ne j} Cov(X_i,X_j) $$
+
+Simdi, korelasyon konusuna gelmeden once, bagimsizlik kavramini iyice
+anladigimizdan emin olalim. a 
+
+Teori
+
+Eger $X,Y$ bagimsiz ise bu degiskenler bagimsizdir, yani $Cov(X,Y)=0$.
+
+19:34
+
 
 
 
