@@ -3,7 +3,7 @@ import os, sys, glob
 if len(sys.argv) == 1 or sys.argv[1] == 'tex':
     cmd = """
     pdftk \
-    ./stat_00/stat_00.pdf ./stat_intro/intro.pdf \
+    ./stat_00/stat_00.pdf ./stat_intro/intro.pdf ./stat_cov_corr/stat_cov_corr.pdf \
     ./stat_summary/stat_summary.pdf \
     ./stat_tests/stat_tests.pdf ./stat_sample_size/stat_sample_size.pdf \
     ./stat_sampling_dist/stat_sampling_dist.pdf \

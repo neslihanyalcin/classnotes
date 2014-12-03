@@ -501,6 +501,95 @@ $$ Var(X_i) = p - p^2 = p(1-p) = pq$$
 
 
 
+Verisel Kovaryans (Empirical Covariance) 
+
+Eger verinin kolonlari arasindaki iliskiyi gormek istersek, en hizli yontem
+matristeki her kolonun (degiskenin) ortalamasini kendisinden cikartmak,
+yani onu ``sifirda ortalamak'' ve bu matrisin devrigini alarak kendisi ile
+carpmaktir. Bu islem her kolonu kendisi ve diger kolonlar ile noktasal
+carpimdan gecirecektir ve carpim, toplama sonucunu nihai matrise
+yazacaktir. Carpimlarin bildigimiz ozelligine gore, arti deger arti degerle
+carpilinca arti, eksi ile eksi arti, eksi ile arti eksi verir, ve bu bilgi
+bize ilinti bulma hakkinda guzel bir ipucu sunar. Pozitif sonucun pozitif
+korelasyon, negatif ise tersi sekilde ilinti oldugu sonucuna boylece
+kolayca erisebiliriz.
+
+Tanim
+
+$$ S = \frac{1}{n} (X-E(X))^T(X-E(X))) $$
+
+Pandas ile \verb!cov! cagrisi bu hesabi hizli bir sekilde yapar,
+
+\begin{minted}[fontsize=\footnotesize]{python}
+print df.cov()
+\end{minted}
+
+\begin{verbatim}
+              Sepal Length  Sepal Width  Petal Length  Petal Width
+Sepal Length      0.685694    -0.039268      1.273682     0.516904
+Sepal Width      -0.039268     0.188004     -0.321713    -0.117981
+Petal Length      1.273682    -0.321713      3.113179     1.296387
+Petal Width       0.516904    -0.117981      1.296387     0.582414
+\end{verbatim}
+
+Eger kendimiz bu hesabi yapmak istersek,
+
+\begin{minted}[fontsize=\footnotesize]{python}
+means = df.mean()
+n = df.shape[0]
+df2 = df.apply(lambda x: x - means, axis=1)
+print np.dot(df2.T,df2) / n
+\end{minted}
+
+\begin{verbatim}
+[[ 0.68112222 -0.03900667  1.26519111  0.51345778]
+ [-0.03900667  0.18675067 -0.319568   -0.11719467]
+ [ 1.26519111 -0.319568    3.09242489  1.28774489]
+ [ 0.51345778 -0.11719467  1.28774489  0.57853156]]
+\end{verbatim}
+
+Verisel kovaryansin sayisal gosterdigini grafiklemek istersek, yani iki
+veya daha fazla boyutun arasindaki iliskileri grafiklemek icin yontemlerden
+birisi verideki mumkun her ikili iliskiyi grafiksel olarak
+gostermektir. Pandas \verb!scatter_matrix! bunu yapabilir. Iris veri seti
+uzerinde gorelim, her boyut hem y-ekseni hem x-ekseninde verilmis, iliskiyi
+gormek icin eksende o boyutu bulup kesisme noktalarindaki grafige bakmak
+lazim.
+
+\begin{minted}[fontsize=\footnotesize]{python}
+import pandas as pd
+df = pd.read_csv('iris.csv')
+df = df.ix[:,0:4]
+pd.scatter_matrix(df)
+plt.savefig('stat_summary_01.png')
+\end{minted}
+
+\includegraphics[height=8cm]{stat_cov_corr_01.png}
+
+Iliski oldugu zaman o iliskiye tekabul eden grafikte ``duz cizgiye benzer''
+bir goruntu olur, demek ki degiskenlerden biri artinca oteki de artiyor
+(eger cizgi soldan sage yukari dogru gidiyorsa), azalinca oteki de azaliyor
+demektir (eger cizgi asagi dogru iniyorsa). Eger ilinti yok ise bol
+gurultulu, ya da yuvarlak kureye benzer bir sekil cikar. Ustteki grafige
+gore yaprak genisligi (petal width) ile yaprak boyu (petal length) arasinda
+bir iliski var.
+
+Tanim
+
+$X,Y$ rasgele degiskenlerin arasindaki kovaryans,
+
+$$ Cov(X,Y) = E(X-E(X))(Y-E(Y)) $$
+
+Yani hem $X$ hem $Y$'nin beklentilerinden ne kadar saptiklarini her veri
+ikilisi icin, cikartarak tespit ediyoruz, daha sonra bu farklari birbiriyle
+carpiyoruz, ve beklentisini aliyoruz (yani tum olasilik uzerinden ne
+olacagini hesapliyoruz). 
+
+Ayri ayri $X,Y$ degiskenleri yerine cok boyutlu $X$ kullanirsak, ki
+boyutlari $m,n$ olsun yani $m$ veri noktasi ve $n$ boyut (ozellik, oge)
+var, tanimi soyle ifade edebiliriz,
+
+$$ \Sigma = Cov(X) = E((X-E(X))^T(X-E(X))) $$
 
 
 
