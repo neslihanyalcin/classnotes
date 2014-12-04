@@ -2,6 +2,8 @@
 \begin{document}
 Kovaryans ve Korelasyon
 
+Harvard Joe Blitzstein dersinden alinmistir
+
 Bugun ``kovaryans gunu'', bu teknigi kullanarak nihayet bir toplamin
 varyansini bulabilecegiz, varyans lineer degildir (kiyasla beklenti
 -expectation- lineerdir). Bu lineer olmama durumu bizi korkutmayacak tabii,
@@ -18,7 +20,7 @@ Tanim
 $$ Cov(X,Y) = E((X-E(X))(Y-E(Y))) \mlabel{1} $$
 
 Burada $X,Y$ ayni uzayda tanimlanmis herhangi iki rasgele degisken. Ustteki
-diyor ki bu iki rasgele degisken $X,Y$'in kovaryansi, $X$'ten ortalamasi
+diyor ki rasgele degisken $X,Y$'in kovaryansi $X$'ten ortalamasi
 cikartilmis, $Y$'ten ortalamasi cikartilmis halinin carpilmasi ve tum bu
 carpimlarin ortalamasinin alinmasidir.
 
@@ -26,17 +28,17 @@ Tanim boyle. Simdi bu tanima biraz bakip onun hakkinda sezgi / anlayis
 gelistirmeye ugrasalim. Tanim niye bu sekilde yapilmis, baska bir sekilde
 degil?
 
-Ilk once esitligin sag tarafindaki bir carpim, bir sey carpi bir baska
-sey. Bu seylerden biri $X$ ile digeri $Y$ ile alakali, onlari carparak ve
-carpimin bir ozelliginden faydalanarak sunu elde ettik; arti deger carpi
-arti yine arti degerdir, eski carpi arti eksidir, eksi carpi eksi
+Ilk once esitligin sag tarafindaki bir carpimdir, yani ``bir sey carpi bir
+baska sey''. Bu ``seylerden'' biri $X$ ile digeri $Y$ ile alakali, onlari
+carparak ve carpimin bir ozelliginden faydalanarak sunu elde ettik; arti
+carpi arti yine arti degerdir, eksi carpi arti eksidir, eksi carpi eksi
 artidir. Bu sekilde mesela ``ayni anda arti'' olmak gibi kuvvetli bir
 baglanti carpimin arti olmasi ile yakalanabilecektir. Ayni durum eksi,eksi
 de icin gecerli, bu sefer her iki rasgele degisken ayni sekilde
 negatiftir. Eksi carpim sonucu ise sifirdan az bir degerdir, ``kotu
 korelasyon'' olarak alinabilir ve hakikaten de eksi arti carpiminin isareti
 oldugu icin iki degiskenin ters yonlerde oldugunu gosterir. Demek ki bu
-arac / numara hakikaten faydali. 
+arac / numara hakikaten faydali.
 
 Unutmayalim, ustteki carpimlardan birisinin buyuklugu $X$'in ortalamasina
 bagli olan bir diger, $Y$ ayni sekilde. Simdi $X,Y$'den bir orneklem
@@ -480,26 +482,27 @@ gibi goruyoruz, o zaman $EX_j^2 = E(X_j) = p$.
 
 $$ Var(X_i) = p - p^2 = p(1-p) = pq$$
 
+Tum binom dagilimin varyansi, 
 
+$$ Var(X) = npq $$
 
+Bu kadar basit. Cunku $Cov(X_i,X_j)=0,\forall i \ne j$, yani her bernoulli
+deneyi birbirinden bagimsiz, o sebeple binom varyansi icin tum bernoulli
+varyanslarini toplamak yeterli, eger varyansi $pq$ olan $n$ tane bernoulli
+varsa, binom varyansi $npq$. 
 
+Ornek
 
+Daha zor bir ornegi gorelim. 
 
+$$ X \sim HGeom(w,b,n) $$
 
+Bu bir hipergeometrik dagilim. Parametreleri soyle yorumlayabiliriz, bir
+kutu icinde $w$ tane beyaz top var, $b$ tane siyah top var, ve biz bu
+kutudan $n$ buyuklugunde bir orneklem aliyoruz, ve ilgilendigimiz
+orneklemdeki beyaz toplarin dagilimi. 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+[dersin gerisi atlandi]
 
 Verisel Kovaryans (Empirical Covariance) 
 
