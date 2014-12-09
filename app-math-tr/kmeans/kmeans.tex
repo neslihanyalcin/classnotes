@@ -369,6 +369,36 @@ isletirsek en buyuk iki $U$ kolonun grafigi alttaki gibi cikiyor,
 
 \includegraphics[height=6cm]{kmeans_4.png}
 
+Eger rasgele yansitma (random projection) kullansaydik ne olurdu? Bu islemi
+birkac kez yapalim ki rasgele matris \verb!Omega! degisik sekillerde (ama
+hala rasgele) uretilince sonuc degisir miydi gorelim.
+
+\begin{minted}[fontsize=\footnotesize]{python}
+import numpy.random as rand
+for i in range(5):
+     Omega = rand.randn(df3.shape[1],30)
+     u = np.dot(df3,Omega)
+     clf = KMeans(n_clusters=2)
+     clf.fit(u)
+     labels_true = np.array(df['A16'])
+     labels_pred = clf.labels_
+     match = np.sum((labels_true == labels_pred).astype(int))
+     print float(match)/len(df), 1-float(match)/len(df)
+\end{minted}
+
+\begin{verbatim}
+0.436447166922 0.563552833078
+0.258805513017 0.741194486983
+0.367534456355 0.632465543645
+0.390505359877 0.609494640123
+0.456355283308 0.543644716692
+\end{verbatim}
+
+Goruldugu gibi bazen cok iyi sonuclar aliyor olsak bile bazen cok kotu
+sonuclar da alabiliyoruz. Demek ki bu veri setinde SVD teknigi daha
+basarili. 
+
+
 Bazi ek notlar
 
 [1] \url{http://en.wikipedia.org/wiki/Determining_the_number_of_clusters_in_a_data_set}
