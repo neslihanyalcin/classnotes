@@ -348,24 +348,25 @@ Simdi bu veri uzerinde sadece eyalet (state) icin bir anahtarlama numarasi
 yapalim
 
 \begin{minted}[fontsize=\footnotesize]{python}
-N = 4; col = 'state'
-#print hash_col(data, 'state',4)
-for i in range(N): data[col + '_' + str(i)] = 0.0
-data[col + '_hash'] = data.apply(lambda x: hash(x[col]) % N,axis=1)    
-for i in range(N):
-    idx = data[data[col + '_hash'] == i].index
-    data.ix[idx,'%s_%d' % (col,i)] = 1.0
-data = data.drop('state_hash',axis=1)
-print data
+def hash_col(df,col,N):
+    for i in range(N): df[col + '_' + str(i)] = 0.0
+    df[col + '_hash'] = df.apply(lambda x: hash(x[col]) % N,axis=1)    
+    for i in range(N):
+        idx = df[df[col + '_hash'] == i].index
+        df.ix[idx,'%s_%d' % (col,i)] = 1.0
+    df = df.drop([col, col + '_hash'], axis=1)
+    return df
+
+print hash_col(data,'state',4)
 \end{minted}
 
 \begin{verbatim}
-   pop   state  year  state_0  state_1  state_2  state_3
-0  1.5    Ohio  2000        0        1        0        0
-1  1.7    Ohio  2001        0        1        0        0
-2  3.6    Ohio  2002        0        1        0        0
-3  2.4  Nevada  2001        0        0        0        1
-4  2.9  Nevada  2002        0        0        0        1
+   pop  year  state_0  state_1  state_2  state_3
+0  1.5  2000        0        1        0        0
+1  1.7  2001        0        1        0        0
+2  3.6  2002        0        1        0        0
+3  2.4  2001        0        0        0        1
+4  2.9  2002        0        0        0        1
 \end{verbatim}
 
 Kaynaklar
