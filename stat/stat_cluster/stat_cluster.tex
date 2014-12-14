@@ -1,0 +1,283 @@
+\documentclass[12pt,fleqn]{article}\usepackage{../common}
+\begin{document}
+
+\begin{minted}[fontsize=\footnotesize]{python}
+import pandas as pd
+cols = ['user_id', 'gender', 'age', 'occupation', 'zip']
+users = pd.read_csv('../stat_pandas_ratings/users.dat', sep='::', 
+        header=None,names=cols)
+
+from sklearn.feature_extraction import DictVectorizer
+def one_hot_dataframe(data, cols):
+    vec = DictVectorizer()
+    mkdict = lambda row: dict((col, row[col]) for col in cols)
+    tmp = vec.fit_transform(data[cols].to_dict(outtype='records')).toarray()
+    vecData = pd.DataFrame(tmp)
+    vecData.columns = vec.get_feature_names()
+    vecData.index = data.index
+    data = data.drop(cols, axis=1)
+    data = data.join(vecData)
+    return data
+
+df = users.copy()
+df['occupation2'] = users['occupation'].map(lambda x: str(x))
+df['zip2'] = users['zip'].map(lambda x: str(x)[0])
+df['zip3'] = users['zip'].map(lambda x: str(x)[:2])
+df = one_hot_dataframe(df,['occupation2','gender','zip2','zip3'])
+df = df.drop(['occupation','zip'],axis=1)
+df = df.set_index('user_id')
+print df.shape
+print df.columns
+print type(df)
+\end{minted}
+
+\begin{verbatim}
+(6040, 134)
+Index([u'age', u'gender=F', u'gender=M', u'occupation2=0', u'occupation2=1', u'occupation2=10', u'occupation2=11', u'occupation2=12', u'occupation2=13', u'occupation2=14', u'occupation2=15', u'occupation2=16', u'occupation2=17', u'occupation2=18', u'occupation2=19', u'occupation2=2', u'occupation2=20', u'occupation2=3', u'occupation2=4', u'occupation2=5', u'occupation2=6', u'occupation2=7', u'occupation2=8', u'occupation2=9', u'zip2=0', u'zip2=1', u'zip2=2', u'zip2=3', u'zip2=4', u'zip2=5', u'zip2=6', u'zip2=7', u'zip2=8', u'zip2=9', u'zip3=00', u'zip3=01', u'zip3=02', u'zip3=03', u'zip3=04', u'zip3=05', u'zip3=06', u'zip3=07', u'zip3=08', u'zip3=09', u'zip3=10', u'zip3=11', u'zip3=12', u'zip3=13', u'zip3=14', u'zip3=15', u'zip3=16', u'zip3=17', u'zip3=18', u'zip3=19', u'zip3=20', u'zip3=21', u'zip3=22', u'zip3=23', u'zip3=24', u'zip3=25', u'zip3=26', u'zip3=27', u'zip3=28', u'zip3=29', u'zip3=30', u'zip3=31', u'zip3=32', u'zip3=33', u'zip3=34', u'zip3=35', u'zip3=36', u'zip3=37', u'zip3=38', u'zip3=39', u'zip3=40', u'zip3=41', u'zip3=42', u'zip3=43', u'zip3=44', u'zip3=45', u'zip3=46', u'zip3=47', u'zip3=48', u'zip3=49', u'zip3=50', u'zip3=51', u'zip3=52', u'zip3=53', u'zip3=54', u'zip3=55', u'zip3=56', u'zip3=57', u'zip3=58', u'zip3=59', u'zip3=60', u'zip3=61', u'zip3=62', u'zip3=63', u'zip3=64', u'zip3=65', ...], dtype='object')
+<class 'pandas.core.frame.DataFrame'>
+\end{verbatim}
+
+\begin{minted}[fontsize=\footnotesize]{python}
+from sklearn.preprocessing import normalize
+import scipy.sparse.linalg as slin
+import scipy.sparse as sps
+X = sps.csr_matrix(df.fillna(0))
+X = normalize(X, norm='l2', axis=0).tocsr()
+X = normalize(X, norm='l2', axis=1).tocsr()    
+u,s,v=slin.svds(X,10)
+print s
+u,s,v=slin.svds(X,2)
+print s
+\end{minted}
+
+\begin{verbatim}
+[ 10.41316773  10.62319229  10.71084577  11.87868987  12.19950494
+  12.57161526  12.66682847  13.77409265  15.26929548  21.13437606]
+[ 15.26929548  21.13437606]
+\end{verbatim}
+
+\begin{minted}[fontsize=\footnotesize]{python}
+n_clusters=5
+from sklearn.cluster import KMeans
+print u.shape
+clf = KMeans(n_clusters=n_clusters,init='random')
+clf.fit(u)    
+df = df.reset_index()
+df['cluster'] = clf.labels_
+df.to_csv('/tmp/customers_clustered.csv',sep=';',index=None)
+\end{minted}
+
+\begin{verbatim}
+(6040, 2)
+\end{verbatim}
+
+\begin{minted}[fontsize=\footnotesize]{python}
+from sklearn.metrics import roc_curve, auc
+from sklearn.cross_validation import train_test_split
+import os.path,os,logging,datetime,pytz,re, sys
+sys.path.append('%s/Downloads/xgboost/wrapper/' % os.environ['HOME'])
+import xgboost as xgb
+
+df = pd.read_csv('/tmp/customers_clustered.csv',sep=';',index_col='user_id')
+X = df.drop('cluster',axis=1)
+print X.shape
+
+fout = open('/tmp/featmap.txt','wb')
+for i,col in enumerate(X.columns):
+    if  'age' in col: fout.write('%d\t%s\tq\n' % (i,col))
+    else: fout.write('%d\t%s\ti\n' % (i,col))    
+fout.close()
+aucs = []
+for i in range(n_clusters):
+    print 'cluster', i
+    y = (df['cluster'] == i).astype(float)
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.05, random_state=0)
+    xg_train = xgb.DMatrix(X_train, label=y_train)
+    xg_test = xgb.DMatrix(X_test, label=y_test)    
+    watchlist = [ (xg_train,'train'), (xg_test, 'test') ]    
+    param = {}; 
+    num_round = 1
+    param['silent'] = 1
+    param['eval_metric'] = 'auc'
+    param['max_depth'] = 4
+    bst = xgb.train(param, xg_train, num_round, watchlist )
+    pred = bst.predict(xg_test)
+    fpr, tpr, thresholds = roc_curve(y_test, pred)
+    roc_auc = auc(fpr, tpr)
+    print roc_auc
+    aucs.append(roc_auc)
+    bst.dump_model('/tmp/tree-%d.txt' % i,'/tmp/featmap.txt')
+print 'mean auc', np.array(aucs).mean()
+\end{minted}
+
+\begin{verbatim}
+(6040, 134)
+cluster 0
+0.849747474747
+cluster 1
+1.0
+cluster 2
+0.994071146245
+cluster 3
+0.796563192905
+cluster 4
+1.0
+mean auc 0.928076362779
+\end{verbatim}
+
+
+\begin{minted}[fontsize=\footnotesize]{python}
+import pickle
+all_rules = {}
+for cluster in range(n_clusters):
+    #print 'Tree %d' % cluster
+    tree = open('/tmp/tree-%d.txt' % cluster).read()
+    
+    nodes_yn = {}
+    nodes = re.findall(r'(\d+):\[(.*?)\]',tree,re.DOTALL|re.MULTILINE)
+    nodes = dict(x for x in nodes)
+    branches = re.findall(r'(\d+):\[.*?(yes=\d+),(no=\d+)',tree,re.DOTALL|re.MULTILINE)
+    for x in branches: nodes_yn[x[1].replace('yes=','')] = 'yes'
+    for x in branches: nodes_yn[x[2].replace('no=','')] = 'no'
+    branches = dict((x[0],(x[1].replace('yes=',''),x[2].replace('no=',''))) for x in branches)
+    leaves = re.findall(r'(\d+):leaf=(.*?)\n',tree,re.DOTALL|re.MULTILINE)        
+    leaves = dict(x for x in leaves)
+
+    #print 'nodes',nodes, 'branches',branches, 'leaves',leaves
+    #print 'n y', nodes_yn
+
+    parents = {}; rules = []
+
+    # Starting from node follow parents all the way to the top to
+    # determine the "path" that led to that node
+    def trace(node):
+        tr = []
+        while node:
+            # we start from bottom so dont append, insert in the
+            # beginning for the right trace
+            tmp = node # if name exists use it
+            if tmp in nodes: tmp=nodes.get(node)
+            tr.insert(0, (tmp,nodes_yn.get(node)))
+            node=parents.get(node)
+        return tr
+
+    # Walk the tree using recursion, visiting each node, until
+    # reaching a bottommost leaf, and report the path from root to
+    # that bottommost leaf. Those paths are our rules.
+    def walk(T,node):
+        if node not in branches:
+            rules.append(trace(node))
+            return
+        left, right = branches[node]
+        parents[left] = node
+        walk(T, left)
+        parents[right] = node
+        walk(T, right)
+
+    walk(nodes, '0')
+    
+    # filter out rules whose bottommost leaf has probability has 0
+    rules = [rule for rule in rules if float( leaves[rule[-1][0]] ) != 0.0]
+    new_rules = []
+    for rule in rules:
+        tmp = [(rule[i][0],rule[i+1][1]) for i in range(len(rule)-1)]
+        new_rules.append(tmp)
+    all_rules[cluster] = new_rules
+    
+pickle.dump(all_rules, open( '/tmp/rules.pkl', "wb" ) )        
+
+df = pd.read_csv('/tmp/customers_clustered.csv',sep=';',index_col='user_id')
+print 'original dataset', len(df)
+rules = pickle.load(open('/tmp/rules.pkl', 'rb'))
+j = 0
+for i in range(n_clusters):
+    for r,rule in enumerate(rules[i]): 
+        df_slice = df.copy()
+        for x in rule: 
+            if '<' not in x[0]: 
+                df_slice = df_slice[df_slice[x[0]] == int(x[1]=='yes')]
+            else:
+                a,b = x[0].split('<')
+                df_slice = df_slice[(df_slice[a] < float(b)) == (x[1]=='yes') ]
+
+        # only report if slice count is high
+        if len(df_slice) > 500:
+            print 'Rule', j
+            print
+            for x in rule: print x
+            print
+            print 'count', len(df_slice)
+            print
+            j += 1
+\end{minted}
+
+\begin{verbatim}
+original dataset 6040
+Rule 0
+
+('zip2=9', 'yes')
+('zip3=93', 'no')
+('zip3=96', 'no')
+('zip3=99', 'no')
+
+count 1370
+
+Rule 1
+
+('zip2=9', 'no')
+('zip3=55', 'no')
+('zip3=60', 'no')
+('zip3=02', 'no')
+
+count 3697
+
+Rule 2
+
+('zip3=55', 'no')
+
+count 5625
+
+Rule 3
+
+('zip2=9', 'yes')
+('zip3=94', 'no')
+('zip3=93', 'no')
+('zip3=96', 'no')
+
+count 1018
+
+Rule 4
+
+('zip2=9', 'no')
+
+count 4572
+
+Rule 5
+
+('zip3=60', 'no')
+('zip3=02', 'no')
+('zip3=10', 'no')
+('zip3=48', 'no')
+
+count 5174
+
+Rule 6
+
+('zip3=94', 'no')
+
+count 5662
+
+\end{verbatim}
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}
