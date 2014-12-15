@@ -1,24 +1,22 @@
 import pickle, re, pandas as pd, numpy as np
 
-n_clusters = 7
-all_rules = {}
+n_clusters = 6
 
-# Starting from node follow parents all the way to the top to
-# determine the "path" that led to that node
+# Node dugumunden basla ve ebeveynleri tepeye kadar takip et
+# boylece yolu ortaya cikar
 def trace(node):
     tr = []
     while node:
-        # we start from bottom so dont append, insert in the
-        # beginning for the right trace
-        tmp = node # if name exists use it
+        # alttan yukari ciktigimiz icin yol listesinin sonuna ekleme,
+        # bas tarafina "insert" et
+        tmp = node 
         if tmp in nodes: tmp=nodes.get(node)
         tr.insert(0, (tmp,nodes_yn.get(node)))
         node=parents.get(node)
     return tr
 
-# Walk the tree using recursion, visiting each node, until
-# reaching a bottommost leaf, and report the path from root to
-# that bottommost leaf. Those paths are our rules.
+# Ozyineli olarak tum dugumleri ziyaret et, en alta gelince yukari dogru
+# yolu ortaya cikar
 def walk(T,node,rules):
     if node not in branches:
         rules.append(trace(node))
@@ -33,9 +31,10 @@ df = pd.read_csv('/tmp/customers_clustered.csv',sep=';',index_col='user_id')
 print 'original dataset', len(df)
 
 for cluster in range(n_clusters):
-    #print 'Tree %d' % cluster
     trees = open('/tmp/tree-%d.txt' % cluster).read()
     for tree in trees.split('booster[')[1:]:
+
+        # her agacin tum dugumlerinin bilgisini oku
         nodes_yn = {}
         crit = re.DOTALL|re.MULTILINE
         nodes = re.findall(r'(\d+):\[(.*?)\]',tree,crit)
@@ -60,11 +59,15 @@ for cluster in range(n_clusters):
         rules = new_rules            
 
         for rule in rules:
-            # there must be at least one true
+            # kural icinde en azindan bir yane 'yes' olmali
             res = np.array(['yes' in x for x in rule])
             if ~np.any(res): continue
 
             df_slice = df.copy()
+            # kuralin her ogesini gezerken onu dilimleme kriteri olarak
+            # kullaniyoruz, hep ayni df_slice degiskenini kullaniyoruz,
+            # onu kese kese tum kurallari temsil eden nihai veri kesiti
+            # haline getiriyoruz
             for x in rule:
                 if '<' not in x[0]:
                     df_slice = df_slice[df_slice[x[0]] == int(x[1]=='yes')]
@@ -72,7 +75,7 @@ for cluster in range(n_clusters):
                     a,b = x[0].split('<')
                     df_slice = df_slice[(df_slice[a] < float(b)) == (x[1]=='yes') ]
 
-            # only report if slice count is high
+            # sadece eger veri kesiti yeterince buyukse rapor et
             if len(df_slice) > 400:
                 print
                 dedup = [rule[i] for i in range(len(rule)) \
