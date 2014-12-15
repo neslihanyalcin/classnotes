@@ -133,9 +133,6 @@ import scipy.sparse as sps, numpy.random as rand
 X2 = sps.csr_matrix(X.fillna(0))
 X2 = normalize(X2, norm='l2', axis=0).tocsr()
 X2 = normalize(X2, norm='l2', axis=1).tocsr()    
-rand.seed(1000)
-Omega = sps.csr_matrix(rand.randn(X2.shape[1],4))
-#u = X2.dot(Omega)
 u,s,v=slin.svds(X2,10)
 print s
 u,s,v=slin.svds(X2,2)
