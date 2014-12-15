@@ -106,9 +106,9 @@ print X.shape
 (6040, 52)
 \end{verbatim}
 
-Veri hazir. Altta bir de kolon tarif dosyasi uretyoruz, bu birazdan
+Veri hazir. Altta bir de kolon tarif dosyasi uretiyoruz, bu birazdan
 kullanacagimiz \verb!xgboost! agac yapisinin veri kolon isimlerine
-erisebilmesi icin gerekli. Numerik degerler \verb!q!  ile 1-hot ile
+erisebilmesi icin gerekli. Numerik degerler \verb!q!, 1-hot ile
 kodlanmis ikisel kolonlar \verb!i! ile isaretleniyor,
 
 \begin{minted}[fontsize=\footnotesize]{python}
@@ -180,7 +180,7 @@ ceviremez miyiz ? Tabii burada bir cinlik yapmaya ugrasiyoruz, aslinda
 amacimiz ``hic gormedigimiz yeni veri noktalarini'' 1/0 olarak
 etiketleyebilmek degil, ki takip edilen yapay ogrenimde amac bu
 olurdu. Bizim amacimiz baska: 1/0 ile etiketli veride karar agaci
-(ozellikle gradyan destekli karar agaci xgboost) kullanmak ve bu
+(ozellikle gradyan destekli karar agaci \verb!xgboost!) kullanmak ve bu
 teknolojinin egitim sirasinda ortaya cikardigi karar agaci kurma
 mekanizmasindan istifade etmek; cunku ortaya cikan agac yapilarini ``veri
 hakkinda baskalarina soylenebilecek ilginc seyler'' olarak kullanabiliriz!
