@@ -100,7 +100,7 @@ u = X2.dot(Omega)
 \end{verbatim}
 
 \begin{minted}[fontsize=\footnotesize]{python}
-n_clusters=20
+n_clusters=3
 from sklearn.cluster import KMeans
 print u.shape
 clf = KMeans(n_clusters=n_clusters)
@@ -127,16 +127,16 @@ print X3.shape
 
 aucs = []
 for i in range(n_clusters):
-    y = (df3['cluster'] == i).astype(float)
-    X_train, X_test, y_train, y_test = train_test_split(X3, y, test_size=0.05, random_state=0)
+    y = (df3['cluster'] == i).astype(float)    
+    X_train, X_test, y_train, y_test = train_test_split(X3, y, test_size=0.10, random_state=0)
     xg_train = xgb.DMatrix(X_train, label=y_train)
     xg_test = xgb.DMatrix(X_test, label=y_test)    
     watchlist = [ (xg_train,'train'), (xg_test, 'test') ]    
     param = {}; 
-    num_round = 1
+    num_round = 10
     param['silent'] = 1
     param['eval_metric'] = 'auc'
-    param['max_depth'] = 4
+    param['max_depth'] = 3
     bst = xgb.train(param, xg_train, num_round, watchlist )
     pred = bst.predict(xg_test)
     fpr, tpr, thresholds = roc_curve(y_test, pred)
@@ -149,400 +149,82 @@ print 'mean auc', np.array(aucs).mean()
 
 \begin{verbatim}
 (6040, 52)
-cluster 0 0.975225225225 277.0
-cluster 1 0.957269503546 334.0
-cluster 2 0.745703971119 407.0
-cluster 3 0.807092198582 354.0
-cluster 4 0.948563218391 255.0
-cluster 5 0.943564162754 339.0
-cluster 6 0.969922810753 319.0
-cluster 7 0.911730545877 291.0
-cluster 8 0.926436781609 265.0
-cluster 9 0.990519529769 232.0
-cluster 10 0.999155405405 91.0
-cluster 11 0.924231150794 238.0
-cluster 12 0.987347703843 254.0
-cluster 13 0.544214628297 438.0
-cluster 14 0.973834325397 307.0
-cluster 15 0.785946573751 473.0
-cluster 16 0.987572590012 244.0
-cluster 17 0.923944805195 282.0
-cluster 18 0.901339036638 360.0
-cluster 19 0.928017241379 280.0
-mean auc 0.906581570417
+cluster 0 0.954275678295 1881.0
+cluster 1 0.941745764816 2350.0
+cluster 2 0.960718623878 1809.0
+mean auc 0.952246688996
 \end{verbatim}
 
 \begin{minted}[fontsize=\footnotesize]{python}
-import pickle
-all_rules = {}
-
-# Starting from node follow parents all the way to the top to
-# determine the "path" that led to that node
-def trace(node):
-    tr = []
-    while node:
-        # we start from bottom so dont append, insert in the
-        # beginning for the right trace
-        tmp = node # if name exists use it
-        if tmp in nodes: tmp=nodes.get(node)
-        tr.insert(0, (tmp,nodes_yn.get(node)))
-        node=parents.get(node)
-    return tr
-
-# Walk the tree using recursion, visiting each node, until
-# reaching a bottommost leaf, and report the path from root to
-# that bottommost leaf. Those paths are our rules.
-def walk(T,node):
-    if node not in branches:
-        rules.append(trace(node))
-        return
-    left, right = branches[node]
-    parents[left] = node
-    walk(T, left)
-    parents[right] = node
-    walk(T, right)
-
-for cluster in range(n_clusters):
-    #print 'Tree %d' % cluster
-    tree = open('/tmp/tree-%d.txt' % cluster).read()
-
-    nodes_yn = {}
-    nodes = re.findall(r'(\d+):\[(.*?)\]',tree,re.DOTALL|re.MULTILINE)
-    nodes = dict(x for x in nodes)
-    branches = re.findall(r'(\d+):\[.*?(yes=\d+),(no=\d+)',tree,re.DOTALL|re.MULTILINE)
-    for x in branches: nodes_yn[x[1].replace('yes=','')] = 'yes'
-    for x in branches: nodes_yn[x[2].replace('no=','')] = 'no'
-    branches = dict((x[0],(x[1].replace('yes=',''),x[2].replace('no=',''))) for x in branches)
-    leaves = re.findall(r'(\d+):leaf=(.*?)\n',tree,re.DOTALL|re.MULTILINE)        
-    leaves = dict(x for x in leaves)
-
-    parents = {}; rules = []
-
-
-    walk(nodes, '0')
-
-    # filter out rules whose bottommost leaf has probability has 0
-    #rules = [rule for rule in rules if float( leaves[rule[-1][0]] ) > 0.0]
-    new_rules = []
-    for rule in rules:
-        tmp = [(rule[i][0],rule[i+1][1]) for i in range(len(rule)-1)]
-        new_rules.append(tmp)
-    all_rules[cluster] = new_rules
-    
-df = pd.read_csv('/tmp/customers_clustered.csv',sep=';',index_col='user_id')
-print 'original dataset', len(df)
-
-rules = all_rules
-j = 0
-for i in range(n_clusters):
-    for r,rule in enumerate(rules[i]): 
-        df_slice = df.copy()
-        for x in rule: 
-            if '<' not in x[0]: 
-                df_slice = df_slice[df_slice[x[0]] == int(x[1]=='yes')]
-            else:
-                a,b = x[0].split('<')
-                df_slice = df_slice[(df_slice[a] < float(b)) == (x[1]=='yes') ]
-
-        # only report if slice count is high
-        if len(df_slice) > 400:
-            print 'Rule', j
-            print
-            dedup = [rule[i] for i in range(len(rule)) if i == 0 or rule[i] != rule[i-1]]
-            for x in rule: print x
-            print
-            print 'count', len(df_slice)
-            print
-            j += 1
+import clusters
+clusters.describe(n_clusters)
 \end{minted}
 
 \begin{verbatim}
 original dataset 6040
 Rule 0
 
-('zip2=Michigan/Ohio', 'no')
+('occupation=technician/engineer', 'no')
+('zip2=NY Area', 'yes')
 ('occupation=academic/educator', 'no')
-('occupation=clerical/admin', 'no')
-('zip2=Florida', 'no')
 
-count 4477
+count 571
 
 Rule 1
 
-('occupation=programmer', 'no')
-('occupation=writer', 'no')
-('zip2=Northeast', 'yes')
-('occupation=other', 'no')
+('occupation=technician/engineer', 'no')
+('zip2=NY Area', 'no')
+('occupation=executive/managerial', 'yes')
 
-count 530
+count 573
 
 Rule 2
 
-('occupation=programmer', 'no')
-('occupation=writer', 'no')
-('zip2=Northeast', 'no')
-('Genre_War', 'yes')
+('occupation=technician/engineer', 'no')
+('zip2=NY Area', 'no')
+('occupation=executive/managerial', 'no')
 
-count 410
+count 4337
 
 Rule 3
 
-("Genre_Children's", 'no')
-('occupation=sales/marketing', 'no')
-('occupation=K-12 student', 'no')
-('occupation=academic/educator', 'no')
+('zip2=North', 'no')
+('occupation=other', 'yes')
+('zip2=NY Area', 'no')
 
-count 633
+count 566
 
 Rule 4
 
-('occupation=retired', 'no')
-('occupation=academic/educator', 'no')
-('zip2=Texas / Arkansas', 'no')
-('zip2=North', 'yes')
+('zip2=North', 'no')
+('occupation=other', 'no')
+('occupation=K-12 student', 'no')
 
-count 582
+count 4565
 
 Rule 5
 
-('occupation=retired', 'no')
-('occupation=academic/educator', 'no')
-('zip2=Texas / Arkansas', 'no')
-('zip2=North', 'no')
-
-count 4408
-
-Rule 6
-
-('occupation=executive/managerial', 'yes')
-('zip2=California / Alaska', 'no')
-('zip2=North', 'no')
-('zip2=Florida', 'no')
-
-count 422
-
-Rule 7
-
-('occupation=executive/managerial', 'no')
 ('occupation=homemaker', 'no')
-
-count 5269
-
-Rule 8
-
-('occupation=other', 'yes')
-('zip2=California / Alaska', 'no')
-('zip2=Illinois', 'no')
-('zip2=North', 'no')
-
-count 405
-
-Rule 9
-
-('occupation=other', 'no')
-('occupation=artist', 'no')
-('occupation=scientist', 'no')
-('occupation=executive/managerial', 'yes')
-
-count 679
-
-Rule 10
-
-('occupation=other', 'no')
-('occupation=artist', 'no')
-('occupation=scientist', 'no')
-('occupation=executive/managerial', 'no')
-
-count 4239
-
-Rule 11
-
-('zip2=NY Area', 'yes')
-('occupation=other', 'no')
-('occupation=programmer', 'no')
-('occupation=writer', 'no')
-
-count 506
-
-Rule 12
-
-('zip2=NY Area', 'no')
-('occupation=writer', 'no')
-('occupation=lawyer', 'no')
-('zip2=Nevada / Utah', 'no')
-
-count 4740
-
-Rule 13
-
-('occupation=clerical/admin', 'no')
-('occupation=tradesman/craftsman', 'no')
-('zip2=Texas / Arkansas', 'no')
-('zip2=North', 'yes')
-
-count 617
-
-Rule 14
-
-('occupation=clerical/admin', 'no')
-('occupation=tradesman/craftsman', 'no')
-('zip2=Texas / Arkansas', 'no')
-('zip2=North', 'no')
-
-count 4783
-
-Rule 15
-
-('zip2=NY Area', 'no')
-
-count 5378
-
-Rule 16
-
-('occupation=unemployed', 'no')
-('occupation=customer service', 'no')
-
-count 5856
-
-Rule 17
-
 ('occupation=sales/marketing', 'no')
-('occupation=academic/educator', 'no')
-
-count 5210
-
-Rule 18
-
-('zip2=DC', 'no')
-('zip2=Michigan/Ohio', 'yes')
-('occupation=other', 'no')
 ('occupation=lawyer', 'no')
 
-count 509
+count 5517
 
-Rule 19
+\end{verbatim}
 
-('occupation=customer service', 'no')
-('zip2=California / Alaska', 'yes')
-('occupation=technician/engineer', 'no')
-('occupation=K-12 student', 'no')
+\begin{minted}[fontsize=\footnotesize]{python}
+dff = pd.read_csv('/tmp/customers_clustered.csv',sep=';',index_col='user_id')
+\end{minted}
 
-count 1270
+\begin{minted}[fontsize=\footnotesize]{python}
+print len( dff[\
+(dff['occupation=college/grad student'] == 1) & \
+(dff['occupation=technician/engineer'] == 0) & \
+(dff['zip2=DC'] == 0) ] )
+\end{minted}
 
-Rule 20
-
-('occupation=customer service', 'no')
-('zip2=California / Alaska', 'no')
-('occupation=artist', 'no')
-('occupation=retired', 'no')
-
-count 4201
-
-Rule 21
-
-('zip2=Northeast', 'yes')
-('occupation=college/grad student', 'no')
-('occupation=technician/engineer', 'no')
-('occupation=K-12 student', 'no')
-
-count 505
-
-Rule 22
-
-('zip2=Northeast', 'no')
-('zip2=Nevada / Utah', 'no')
-('zip2=NY Area', 'yes')
-('occupation=clerical/admin', 'no')
-
-count 651
-
-Rule 23
-
-('zip2=Northeast', 'no')
-('zip2=Nevada / Utah', 'no')
-('zip2=NY Area', 'no')
-
-count 4410
-
-Rule 24
-
-('zip2=DC', 'no')
-('occupation=academic/educator', 'no')
-('zip2=Michigan/Ohio', 'yes')
-('occupation=executive/managerial', 'no')
-
-count 492
-
-Rule 25
-
-('zip2=DC', 'no')
-('occupation=academic/educator', 'no')
-('zip2=Michigan/Ohio', 'no')
-
-count 4576
-
-Rule 26
-
-('zip2=Nevada / Utah', 'no')
-('occupation=writer', 'no')
-('zip2=Northeast', 'yes')
-('occupation=programmer', 'no')
-
-count 601
-
-Rule 27
-
-('zip2=Nevada / Utah', 'no')
-('occupation=writer', 'no')
-('zip2=Northeast', 'no')
-('zip2=NY Area', 'yes')
-
-count 623
-
-Rule 28
-
-('zip2=Nevada / Utah', 'no')
-('occupation=writer', 'no')
-('zip2=Northeast', 'no')
-('zip2=NY Area', 'no')
-
-count 4203
-
-Rule 29
-
-('occupation=self-employed', 'no')
-('occupation=college/grad student', 'yes')
-('zip2=North', 'no')
-('zip2=California / Alaska', 'no')
-
-count 510
-
-Rule 30
-
-('occupation=self-employed', 'no')
-('occupation=college/grad student', 'no')
-('occupation=technician/engineer', 'no')
-
-count 4538
-
-Rule 31
-
-('occupation=lawyer', 'no')
-('zip2=Florida', 'no')
-('occupation=homemaker', 'no')
-('occupation=executive/managerial', 'yes')
-
-count 621
-
-Rule 32
-
-('occupation=lawyer', 'no')
-('zip2=Florida', 'no')
-('occupation=homemaker', 'no')
-('occupation=executive/managerial', 'no')
-
-count 4826
-
+\begin{verbatim}
+700
 \end{verbatim}
 
 
