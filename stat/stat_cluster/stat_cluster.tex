@@ -157,6 +157,8 @@ cluster 4 0.978581267218 1109.0
 mean auc 0.959402240865
 \end{verbatim}
 
+\inputminted[fontsize=\footnotesize]{python}{clusters.py}
+
 \begin{minted}[fontsize=\footnotesize]{python}
 import clusters
 clusters.describe(n_clusters)
@@ -174,13 +176,15 @@ print len(dff)
 
 \begin{minted}[fontsize=\footnotesize]{python}
 print len( dff[\
-(dff['occupation=college/grad student'] == 1) & \
-(dff['occupation=technician/engineer'] == 0) & \
-(dff['zip2=DC'] == 0) ] )
+(dff['Genre_Fantasy'] == 1) & \
+(dff['occupation=writer'] == 0) ] )
+print len( dff[\
+(dff['occupation=writer'] == 0) ] )
 \end{minted}
 
 \begin{verbatim}
-700
+1083
+5759
 \end{verbatim}
 
 \begin{minted}[fontsize=\footnotesize]{python}
