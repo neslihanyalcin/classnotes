@@ -1,4 +1,4 @@
-import pickle, re, pandas as pd
+import pickle, re, pandas as pd, numpy as np
 
 def describe(n_clusters):
     all_rules = {}
@@ -56,7 +56,11 @@ def describe(n_clusters):
                 new_rules.append([(rule[i][0],rule[i+1][1]) for i in range(len(rule)-1)])
             rules = new_rules            
 
-            for rule in rules: 
+            for rule in rules:
+                # there must be at least one true
+                res = np.array(['yes' in x for x in rule])
+                if ~np.any(res): continue
+                
                 df_slice = df.copy()
                 for x in rule:
                     if '<' not in x[0]:
@@ -66,7 +70,7 @@ def describe(n_clusters):
                         df_slice = df_slice[(df_slice[a] < float(b)) == (x[1]=='yes') ]
 
                 # only report if slice count is high
-                if len(df_slice) > 100:
+                if len(df_slice) > 400:
                     print
                     dedup = [rule[i] for i in range(len(rule)) if i == 0 or rule[i] != rule[i-1]]
                     for x in rule: print x

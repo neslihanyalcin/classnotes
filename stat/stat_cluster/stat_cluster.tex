@@ -100,7 +100,7 @@ u = X2.dot(Omega)
 \end{verbatim}
 
 \begin{minted}[fontsize=\footnotesize]{python}
-n_clusters=3
+n_clusters=5
 from sklearn.cluster import KMeans
 print u.shape
 clf = KMeans(n_clusters=n_clusters)
@@ -136,7 +136,7 @@ for i in range(n_clusters):
     num_round = 10
     param['silent'] = 1
     param['eval_metric'] = 'auc'
-    param['max_depth'] = 3
+    param['max_depth'] = 4
     bst = xgb.train(param, xg_train, num_round, watchlist )
     pred = bst.predict(xg_test)
     fpr, tpr, thresholds = roc_curve(y_test, pred)
@@ -149,10 +149,12 @@ print 'mean auc', np.array(aucs).mean()
 
 \begin{verbatim}
 (6040, 52)
-cluster 0 0.954275678295 1881.0
-cluster 1 0.941745764816 2350.0
-cluster 2 0.960718623878 1809.0
-mean auc 0.952246688996
+cluster 0 0.983958333333 1007.0
+cluster 1 0.95119010405 1461.0
+cluster 2 0.935070470561 1115.0
+cluster 3 0.948211029163 1348.0
+cluster 4 0.978581267218 1109.0
+mean auc 0.959402240865
 \end{verbatim}
 
 \begin{minted}[fontsize=\footnotesize]{python}
@@ -160,61 +162,15 @@ import clusters
 clusters.describe(n_clusters)
 \end{minted}
 
-\begin{verbatim}
-original dataset 6040
-Rule 0
-
-('occupation=technician/engineer', 'no')
-('zip2=NY Area', 'yes')
-('occupation=academic/educator', 'no')
-
-count 571
-
-Rule 1
-
-('occupation=technician/engineer', 'no')
-('zip2=NY Area', 'no')
-('occupation=executive/managerial', 'yes')
-
-count 573
-
-Rule 2
-
-('occupation=technician/engineer', 'no')
-('zip2=NY Area', 'no')
-('occupation=executive/managerial', 'no')
-
-count 4337
-
-Rule 3
-
-('zip2=North', 'no')
-('occupation=other', 'yes')
-('zip2=NY Area', 'no')
-
-count 566
-
-Rule 4
-
-('zip2=North', 'no')
-('occupation=other', 'no')
-('occupation=K-12 student', 'no')
-
-count 4565
-
-Rule 5
-
-('occupation=homemaker', 'no')
-('occupation=sales/marketing', 'no')
-('occupation=lawyer', 'no')
-
-count 5517
-
-\end{verbatim}
-
 \begin{minted}[fontsize=\footnotesize]{python}
+import pandas as pd
 dff = pd.read_csv('/tmp/customers_clustered.csv',sep=';',index_col='user_id')
+print len(dff)
 \end{minted}
+
+\begin{verbatim}
+6040
+\end{verbatim}
 
 \begin{minted}[fontsize=\footnotesize]{python}
 print len( dff[\
@@ -227,7 +183,15 @@ print len( dff[\
 700
 \end{verbatim}
 
+\begin{minted}[fontsize=\footnotesize]{python}
+print len( dff[\
+(dff['Genre_Documentary'] == 0) & \
+(dff['zip2=NY Area'] == 1) ] )
+\end{minted}
 
+\begin{verbatim}
+415
+\end{verbatim}
 
 
 \url{http://upload.wikimedia.org/wikipedia/commons/2/24/ZIP_Code_zones.svg}
