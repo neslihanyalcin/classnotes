@@ -49,8 +49,6 @@ df = df.drop(['zip'],axis=1)
 df = df.set_index('user_id')
 \end{minted}
 
-
-
 \begin{minted}[fontsize=\footnotesize]{python}
 cols = ['user_id', 'movie_id', 'rating', 'timestamp']
 ratings =  pd.read_csv('../stat_pandas_ratings/ratings.dat', sep='::',
@@ -79,7 +77,7 @@ print X.shape
 \begin{minted}[fontsize=\footnotesize]{python}
 fout = open('/tmp/featmap.txt','wb')
 for i,col in enumerate(X.columns):
-    if  'age' in col: fout.write('%d\t%s\tq\n' % (i,col))
+    if  'age'==col: fout.write('%d\t%s\tq\n' % (i,col))
     else: fout.write('%d\t%s\ti\n' % (i,col))    
 fout.close()
 \end{minted}
@@ -98,11 +96,11 @@ u = X2.dot(Omega)
 \end{minted}
 
 \begin{verbatim}
-['age', 'gender=F', 'gender=M', 'occupation2=0', 'occupation2=1', 'occupation2=10', 'occupation2=11', 'occupation2=12', 'occupation2=13', 'occupation2=14', 'occupation2=15', 'occupation2=16', 'occupation2=17', 'occupation2=18', 'occupation2=19', 'occupation2=2', 'occupation2=20', 'occupation2=3', 'occupation2=4', 'occupation2=5', 'occupation2=6', 'occupation2=7', 'occupation2=8', 'occupation2=9', 'zip2=0', 'zip2=1', 'zip2=2', 'zip2=3', 'zip2=4', 'zip2=5', 'zip2=6', 'zip2=7', 'zip2=8', 'zip2=9', 'Genre_Action', 'Genre_Adventure', 'Genre_Animation', "Genre_Children's", 'Genre_Comedy', 'Genre_Crime', 'Genre_Documentary', 'Genre_Drama', 'Genre_Fantasy', 'Genre_Film-Noir', 'Genre_Horror', 'Genre_Musical', 'Genre_Mystery', 'Genre_Romance', 'Genre_Sci-Fi', 'Genre_Thriller', 'Genre_War', 'Genre_Western']
+['age', 'gender=F', 'gender=M', 'occupation=K-12 student', 'occupation=academic/educator', 'occupation=artist', 'occupation=clerical/admin', 'occupation=college/grad student', 'occupation=customer service', 'occupation=doctor/health care', 'occupation=executive/managerial', 'occupation=farmer', 'occupation=homemaker', 'occupation=lawyer', 'occupation=other', 'occupation=programmer', 'occupation=retired', 'occupation=sales/marketing', 'occupation=scientist', 'occupation=self-employed', 'occupation=technician/engineer', 'occupation=tradesman/craftsman', 'occupation=unemployed', 'occupation=writer', 'zip2=California / Alaska', 'zip2=DC', 'zip2=Florida', 'zip2=Illinois', 'zip2=Michigan/Ohio', 'zip2=NY Area', 'zip2=Nevada / Utah', 'zip2=North', 'zip2=Northeast', 'zip2=Texas / Arkansas', 'Genre_Action', 'Genre_Adventure', 'Genre_Animation', "Genre_Children's", 'Genre_Comedy', 'Genre_Crime', 'Genre_Documentary', 'Genre_Drama', 'Genre_Fantasy', 'Genre_Film-Noir', 'Genre_Horror', 'Genre_Musical', 'Genre_Mystery', 'Genre_Romance', 'Genre_Sci-Fi', 'Genre_Thriller', 'Genre_War', 'Genre_Western']
 \end{verbatim}
 
 \begin{minted}[fontsize=\footnotesize]{python}
-n_clusters=30
+n_clusters=20
 from sklearn.cluster import KMeans
 print u.shape
 clf = KMeans(n_clusters=n_clusters)
@@ -151,37 +149,27 @@ print 'mean auc', np.array(aucs).mean()
 
 \begin{verbatim}
 (6040, 52)
-cluster 0 1.0 136.0
-cluster 1 0.804255319149 382.0
-cluster 2 0.980046948357 223.0
-cluster 3 0.784997002398 347.0
-cluster 4 0.889225589226 129.0
-cluster 5 1.0 124.0
-cluster 6 0.826342281879 191.0
-cluster 7 0.989726027397 172.0
-cluster 8 0.923287671233 174.0
-cluster 9 0.991041162228 104.0
-cluster 10 0.979332574896 156.0
-cluster 11 0.997747747748 78.0
-cluster 12 0.794612794613 137.0
-cluster 13 0.825423728814 195.0
-cluster 14 0.911781609195 263.0
-cluster 15 0.888208677136 181.0
-cluster 16 0.977907905244 245.0
-cluster 17 0.827504960317 298.0
-cluster 18 1.0 199.0
-cluster 19 0.973644292757 211.0
-cluster 20 0.930992736077 173.0
-cluster 21 0.941347270616 222.0
-cluster 22 0.997661564626 155.0
-cluster 23 0.836643835616 187.0
-cluster 24 0.990427927928 169.0
-cluster 25 0.952806122449 200.0
-cluster 26 0.972390572391 163.0
-cluster 27 0.865389082462 253.0
-cluster 28 0.987490018632 238.0
-cluster 29 0.91867816092 335.0
-mean auc 0.925297119477
+cluster 0 0.975225225225 277.0
+cluster 1 0.957269503546 334.0
+cluster 2 0.745703971119 407.0
+cluster 3 0.807092198582 354.0
+cluster 4 0.948563218391 255.0
+cluster 5 0.943564162754 339.0
+cluster 6 0.969922810753 319.0
+cluster 7 0.911730545877 291.0
+cluster 8 0.926436781609 265.0
+cluster 9 0.990519529769 232.0
+cluster 10 0.999155405405 91.0
+cluster 11 0.924231150794 238.0
+cluster 12 0.987347703843 254.0
+cluster 13 0.544214628297 438.0
+cluster 14 0.973834325397 307.0
+cluster 15 0.785946573751 473.0
+cluster 16 0.987572590012 244.0
+cluster 17 0.923944805195 282.0
+cluster 18 0.901339036638 360.0
+cluster 19 0.928017241379 280.0
+mean auc 0.906581570417
 \end{verbatim}
 
 \begin{minted}[fontsize=\footnotesize]{python}
@@ -260,6 +248,7 @@ for i in range(n_clusters):
         if len(df_slice) > 400:
             print 'Rule', j
             print
+            dedup = [rule[i] for i in range(len(rule)) if i == 0 or rule[i] != rule[i-1]]
             for x in rule: print x
             print
             print 'count', len(df_slice)
@@ -271,369 +260,290 @@ for i in range(n_clusters):
 original dataset 6040
 Rule 0
 
-('zip2=0', 'no')
+('zip2=Michigan/Ohio', 'no')
+('occupation=academic/educator', 'no')
+('occupation=clerical/admin', 'no')
+('zip2=Florida', 'no')
 
-count 5378
+count 4477
 
 Rule 1
 
-('zip2=9', 'yes')
-('occupation2=0', 'no')
-('occupation2=16', 'no')
-('occupation2=12', 'no')
+('occupation=programmer', 'no')
+('occupation=writer', 'no')
+('zip2=Northeast', 'yes')
+('occupation=other', 'no')
 
-count 1095
+count 530
 
 Rule 2
 
-('zip2=9', 'no')
-('occupation2=6', 'no')
-('zip2=2', 'yes')
-('occupation2=14', 'no')
+('occupation=programmer', 'no')
+('occupation=writer', 'no')
+('zip2=Northeast', 'no')
+('Genre_War', 'yes')
 
-count 409
+count 410
 
 Rule 3
 
-('zip2=9', 'no')
-('occupation2=6', 'no')
-('zip2=2', 'no')
-('occupation2=16', 'no')
+("Genre_Children's", 'no')
+('occupation=sales/marketing', 'no')
+('occupation=K-12 student', 'no')
+('occupation=academic/educator', 'no')
 
-count 3803
+count 633
 
 Rule 4
 
-('occupation2=15', 'no')
-('occupation2=17', 'no')
+('occupation=retired', 'no')
+('occupation=academic/educator', 'no')
+('zip2=Texas / Arkansas', 'no')
+('zip2=North', 'yes')
 
-count 5394
+count 582
 
 Rule 5
 
-('occupation2=11', 'no')
-('zip2=4', 'yes')
-('occupation2=7', 'no')
-('occupation2=12', 'no')
+('occupation=retired', 'no')
+('occupation=academic/educator', 'no')
+('zip2=Texas / Arkansas', 'no')
+('zip2=North', 'no')
 
-count 518
+count 4408
 
 Rule 6
 
-('occupation2=11', 'no')
-('zip2=4', 'no')
-('Genre_Animation', 'yes')
-('zip2=7', 'no')
+('occupation=executive/managerial', 'yes')
+('zip2=California / Alaska', 'no')
+('zip2=North', 'no')
+('zip2=Florida', 'no')
 
-count 718
+count 422
 
 Rule 7
 
-('occupation2=11', 'no')
-('zip2=4', 'no')
-('Genre_Animation', 'no')
+('occupation=executive/managerial', 'no')
+('occupation=homemaker', 'no')
 
-count 1091
+count 5269
 
 Rule 8
 
-('zip2=1', 'yes')
-('occupation2=1', 'no')
-('occupation2=0', 'no')
-('occupation2=16', 'no')
+('occupation=other', 'yes')
+('zip2=California / Alaska', 'no')
+('zip2=Illinois', 'no')
+('zip2=North', 'no')
 
-count 495
+count 405
 
 Rule 9
 
-('zip2=1', 'no')
+('occupation=other', 'no')
+('occupation=artist', 'no')
+('occupation=scientist', 'no')
+('occupation=executive/managerial', 'yes')
 
-count 5378
+count 679
 
 Rule 10
 
-('zip2=5', 'yes')
-('occupation2=4', 'no')
-('occupation2=0', 'no')
-('occupation2=16', 'no')
+('occupation=other', 'no')
+('occupation=artist', 'no')
+('occupation=scientist', 'no')
+('occupation=executive/managerial', 'no')
 
-count 484
+count 4239
 
 Rule 11
 
-('zip2=5', 'no')
-('zip2=6', 'no')
-('occupation2=9', 'no')
+('zip2=NY Area', 'yes')
+('occupation=other', 'no')
+('occupation=programmer', 'no')
+('occupation=writer', 'no')
 
-count 4876
+count 506
 
 Rule 12
 
-('zip2=5', 'yes')
-('occupation2=12', 'no')
-('occupation2=6', 'no')
-('occupation2=16', 'no')
-
-count 556
-
-Rule 13
-
-('zip2=5', 'no')
-
-count 5381
-
-Rule 14
-
-('zip2=5', 'yes')
-('occupation2=1', 'no')
-('occupation2=10', 'no')
-('occupation2=20', 'no')
-
-count 547
-
-Rule 15
-
-('zip2=5', 'no')
-('zip2=2', 'no')
-('occupation2=6', 'no')
+('zip2=NY Area', 'no')
+('occupation=writer', 'no')
+('occupation=lawyer', 'no')
+('zip2=Nevada / Utah', 'no')
 
 count 4740
 
+Rule 13
+
+('occupation=clerical/admin', 'no')
+('occupation=tradesman/craftsman', 'no')
+('zip2=Texas / Arkansas', 'no')
+('zip2=North', 'yes')
+
+count 617
+
+Rule 14
+
+('occupation=clerical/admin', 'no')
+('occupation=tradesman/craftsman', 'no')
+('zip2=Texas / Arkansas', 'no')
+('zip2=North', 'no')
+
+count 4783
+
+Rule 15
+
+('zip2=NY Area', 'no')
+
+count 5378
+
 Rule 16
 
-('occupation2=8', 'no')
-('zip2=0', 'yes')
-('occupation2=7', 'no')
+('occupation=unemployed', 'no')
+('occupation=customer service', 'no')
 
-count 572
+count 5856
 
 Rule 17
 
-('occupation2=8', 'no')
-('zip2=0', 'no')
+('occupation=sales/marketing', 'no')
+('occupation=academic/educator', 'no')
 
-count 5363
+count 5210
 
 Rule 18
 
-('occupation2=9', 'no')
-('occupation2=2', 'no')
+('zip2=DC', 'no')
+('zip2=Michigan/Ohio', 'yes')
+('occupation=other', 'no')
+('occupation=lawyer', 'no')
 
-count 5681
+count 509
 
 Rule 19
 
-('zip2=4', 'no')
-('occupation2=1', 'yes')
-('zip2=8', 'no')
-('zip2=6', 'no')
+('occupation=customer service', 'no')
+('zip2=California / Alaska', 'yes')
+('occupation=technician/engineer', 'no')
+('occupation=K-12 student', 'no')
 
-count 407
+count 1270
 
 Rule 20
 
-('zip2=4', 'no')
-('occupation2=1', 'no')
-('Genre_Horror', 'no')
-('occupation2=3', 'no')
+('occupation=customer service', 'no')
+('zip2=California / Alaska', 'no')
+('occupation=artist', 'no')
+('occupation=retired', 'no')
 
-count 573
+count 4201
 
 Rule 21
 
-('occupation2=1', 'no')
-('zip2=1', 'yes')
-('occupation2=7', 'no')
-('occupation2=12', 'no')
+('zip2=Northeast', 'yes')
+('occupation=college/grad student', 'no')
+('occupation=technician/engineer', 'no')
+('occupation=K-12 student', 'no')
 
-count 464
+count 505
 
 Rule 22
 
-('occupation2=1', 'no')
-('zip2=1', 'no')
-('occupation2=20', 'no')
+('zip2=Northeast', 'no')
+('zip2=Nevada / Utah', 'no')
+('zip2=NY Area', 'yes')
+('occupation=clerical/admin', 'no')
 
-count 4665
+count 651
 
 Rule 23
 
-('occupation2=14', 'no')
-('occupation2=7', 'yes')
-('zip2=8', 'no')
-('zip2=6', 'no')
+('zip2=Northeast', 'no')
+('zip2=Nevada / Utah', 'no')
+('zip2=NY Area', 'no')
 
-count 601
+count 4410
 
 Rule 24
 
-('occupation2=14', 'no')
-('occupation2=7', 'no')
-('occupation2=11', 'no')
-('occupation2=12', 'no')
+('zip2=DC', 'no')
+('occupation=academic/educator', 'no')
+('zip2=Michigan/Ohio', 'yes')
+('occupation=executive/managerial', 'no')
 
-count 4542
+count 492
 
 Rule 25
 
-('occupation2=5', 'no')
-('occupation2=12', 'no')
-('occupation2=6', 'no')
-('zip2=2', 'no')
+('zip2=DC', 'no')
+('occupation=academic/educator', 'no')
+('zip2=Michigan/Ohio', 'no')
 
-count 4904
+count 4576
 
 Rule 26
 
-('Genre_Fantasy', 'no')
-('Genre_Fantasy', 'no')
-('zip2=4', 'no')
-('occupation2=3', 'no')
+('zip2=Nevada / Utah', 'no')
+('occupation=writer', 'no')
+('zip2=Northeast', 'yes')
+('occupation=programmer', 'no')
 
-count 1039
+count 601
 
 Rule 27
 
-('occupation2=13', 'no')
-('zip2=0', 'yes')
-('occupation2=0', 'no')
-('occupation2=10', 'no')
+('zip2=Nevada / Utah', 'no')
+('occupation=writer', 'no')
+('zip2=Northeast', 'no')
+('zip2=NY Area', 'yes')
 
-count 546
+count 623
 
 Rule 28
 
-('occupation2=2', 'no')
-('occupation2=19', 'no')
-('occupation2=17', 'yes')
-('zip2=6', 'no')
+('zip2=Nevada / Utah', 'no')
+('occupation=writer', 'no')
+('zip2=Northeast', 'no')
+('zip2=NY Area', 'no')
 
-count 473
+count 4203
 
 Rule 29
 
-('zip2=1', 'yes')
-('occupation2=20', 'no')
-('occupation2=10', 'no')
-('occupation2=7', 'no')
+('occupation=self-employed', 'no')
+('occupation=college/grad student', 'yes')
+('zip2=North', 'no')
+('zip2=California / Alaska', 'no')
 
-count 497
+count 510
 
 Rule 30
 
-('zip2=1', 'no')
-('occupation2=1', 'no')
-('occupation2=17', 'yes')
-('zip2=4', 'no')
+('occupation=self-employed', 'no')
+('occupation=college/grad student', 'no')
+('occupation=technician/engineer', 'no')
 
-count 421
+count 4538
 
 Rule 31
 
-('zip2=1', 'no')
-('occupation2=1', 'no')
-('occupation2=17', 'no')
+('occupation=lawyer', 'no')
+('zip2=Florida', 'no')
+('occupation=homemaker', 'no')
+('occupation=executive/managerial', 'yes')
 
-count 4439
+count 621
 
 Rule 32
 
-('occupation2=17', 'no')
-('occupation2=19', 'no')
-('occupation2=15', 'no')
-('occupation2=13', 'no')
+('occupation=lawyer', 'no')
+('zip2=Florida', 'no')
+('occupation=homemaker', 'no')
+('occupation=executive/managerial', 'no')
 
-count 5180
-
-Rule 33
-
-('occupation2=7', 'no')
-('occupation2=11', 'no')
-
-count 5232
-
-Rule 34
-
-('occupation2=3', 'no')
-('zip2=4', 'no')
-('Genre_Documentary', 'no')
-
-count 3289
-
-Rule 35
-
-('occupation2=18', 'no')
-('occupation2=2', 'no')
-('occupation2=17', 'yes')
-('zip2=5', 'no')
-
-count 449
-
-Rule 36
-
-('occupation2=18', 'no')
-('occupation2=2', 'no')
-('occupation2=17', 'no')
-('occupation2=15', 'no')
-
-count 5057
-
-Rule 37
-
-('occupation2=6', 'no')
-('occupation2=5', 'no')
-('zip2=5', 'yes')
-('occupation2=7', 'no')
-
-count 566
-
-Rule 38
-
-('occupation2=6', 'no')
-('occupation2=5', 'no')
-('zip2=5', 'no')
-('occupation2=12', 'no')
-
-count 4741
-
-Rule 39
-
-('zip2=6', 'no')
-('zip2=8', 'no')
-('zip2=5', 'no')
-("Genre_Children's", 'yes')
-
-count 616
-
-Rule 40
-
-('zip2=6', 'no')
-('zip2=8', 'no')
-('zip2=5', 'no')
-("Genre_Children's", 'no')
-
-count 609
-
-Rule 41
-
-('occupation2=20', 'no')
-('occupation2=10', 'no')
-('zip2=7', 'no')
-('zip2=0', 'yes')
-
-count 613
-
-Rule 42
-
-('occupation2=20', 'no')
-('occupation2=10', 'no')
-('zip2=7', 'no')
-('zip2=0', 'no')
-
-count 4569
+count 4826
 
 \end{verbatim}
-
 
 
 
