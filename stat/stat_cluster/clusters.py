@@ -79,5 +79,5 @@ def describe(n_clusters):
                     print
                     
 if __name__ == "__main__": 
-    describe(3)
+    describe(7)
     

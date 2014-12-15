@@ -1,7 +1,39 @@
 \documentclass[12pt,fleqn]{article}\usepackage{../common}
 \begin{document}
+Kumeleme ile Veri Kurallari Cikartmak
+
+Daha once {\em K-Means Kumeleme Metodu} ile bir veri uzerinde nasil
+kumeleme yapacagimizi gorduk. Fakat bazen is dunyasi bu kumelerden akilda
+kalacak, tarifsel bazi gozlemlerin ne oldugunu duymak isteyebilir. Mesela
+``bayan musterilerimizin cogu saat 5 sonrasi bizden alisveris yapiyor''
+gibi bir gozlem. Bu gozlem is sureclerinin iyilestirmesi icin faydali
+olabilir, belki yeni bilgi isiginda farkli pazarlama kampanyalari
+dusunulur, vs. 
+
+Bu kurallari sistem otomatik olarak bulmalidir, yani ortada bir kesif
+durumu olacaktir. Ne bulunanacak? Bilmiyoruz. Veri bilimcilere yapilan bu
+tur istekler, bir anlamda, kumsalda oturan bir arkadas grubunda gitar
+calmayi bilen arkadasiniza ``abi guzel bir seyler calsana'' diyen kisinin
+haline benzer. Kisi guzel bir seyler duymayi istemektedir, ama ne oldugunu
+ne o ne de gitar calmayi bilen kisi o anda bilmektedir.
+
+Guzel bir seyler calalim o zaman (!). Tabii verinin uzerinde sadece K-Means
+ya da baska bir kumeleme algoritmasi isletmek yeterli olmaz. K-Means'e
+mesela ``10 tane kume bul'' denecektir, o da gidip takir takir 10 tane kume
+bulacaktir. Fakat bu kumelerin icinde ne vardir? Ilginc hangi tur kurallar
+cikartabiliriz? 
+
+Ornek veri olarak {\em Pivotlama} yazisindanki Movielens 1M verisini
+kullanacagiz. Ayrica bu verideki posta kodu (zip) ve iskolu (occupation)
+veisine README'ye ve bir Internet sitesine [1] danisarak sozel
+aciklamalarini koyduk. Boylece sonuclari yorumlamak cok daha kolay olacak. 
 
 \begin{minted}[fontsize=\footnotesize]{python}
+import pandas as pd
+cols = ['user_id', 'gender', 'age', 'occupation', 'zip']
+users = pd.read_csv('../stat_pandas_ratings/users.dat', sep='::', 
+        header=None,names=cols)
+
 occup_map = \
 { 0:  "other" or not specified,1:  "academic/educator",
   2:  "artist",3:  "clerical/admin",
@@ -19,14 +51,6 @@ zip_map = \
 { 0: 'Northeast', 1: 'NY Area', 2: 'DC', 3: 'Florida', 4: 'Michigan/Ohio', 
   5: 'North', 6: 'Illinois', 7: 'Texas / Arkansas', 8: 'Nevada / Utah', 
   9: 'California / Alaska'}
-\end{minted}
-
-
-\begin{minted}[fontsize=\footnotesize]{python}
-import pandas as pd
-cols = ['user_id', 'gender', 'age', 'occupation', 'zip']
-users = pd.read_csv('../stat_pandas_ratings/users.dat', sep='::', 
-        header=None,names=cols)
 
 from sklearn.feature_extraction import DictVectorizer
 def one_hot_dataframe(data, cols):
@@ -48,6 +72,13 @@ df = one_hot_dataframe(df,['occupation','gender','zip2'])
 df = df.drop(['zip'],axis=1)
 df = df.set_index('user_id')
 \end{minted}
+
+ZIP kodlari altta gosteriliyor
+
+\includegraphics[height=7cm]{zip_code_zones.png}
+
+Simdi hangi film genre'sinin (turunun) kullanici tarafindan kac kez alinmis
+oldugunu ozetleyip kullanici verisine bitisik olarak ekleyecegiz. 
 
 \begin{minted}[fontsize=\footnotesize]{python}
 cols = ['user_id', 'movie_id', 'rating', 'timestamp']
@@ -74,6 +105,12 @@ print X.shape
 \begin{verbatim}
 (6040, 52)
 \end{verbatim}
+
+Veri hazir. Altta bir de kolon tarif dosyasi uretyoruz, bu birazdan
+kullanacagimiz \verb!xgboost! agac yapisinin veri kolon isimlerine
+erisebilmesi icin gerekli. Numerik degerler \verb!q!  ile 1-hot ile
+kodlanmis ikisel kolonlar \verb!i! ile isaretleniyor,
+
 \begin{minted}[fontsize=\footnotesize]{python}
 fout = open('/tmp/featmap.txt','wb')
 for i,col in enumerate(X.columns):
@@ -81,6 +118,12 @@ for i,col in enumerate(X.columns):
     else: fout.write('%d\t%s\ti\n' % (i,col))    
 fout.close()
 \end{minted}
+
+Simdi kural cikartmak icin ilk yapmamiz gereken, K-Means yazisinda
+gordugumuz gibi, SVD isletmek. Bu daraltilmis boyut uzerinde ardindan
+K-Means kumelemesi yapacagiz. SVD'nin kac boyuta indirgemesi gerektigini
+once buyukce bir boyuta indirgeyip $s$'e bakarak, daha gerekli ufak boyutu
+ona gore ayarlayarak yapiyoruz.
 
 \begin{minted}[fontsize=\footnotesize]{python}
 print list(X.columns)
@@ -92,15 +135,27 @@ X2 = normalize(X2, norm='l2', axis=0).tocsr()
 X2 = normalize(X2, norm='l2', axis=1).tocsr()    
 rand.seed(1000)
 Omega = sps.csr_matrix(rand.randn(X2.shape[1],4))
-u = X2.dot(Omega)
+#u = X2.dot(Omega)
+u,s,v=slin.svds(X2,10)
+print s
+u,s,v=slin.svds(X2,2)
+print s
 \end{minted}
 
 \begin{verbatim}
 ['age', 'gender=F', 'gender=M', 'occupation=K-12 student', 'occupation=academic/educator', 'occupation=artist', 'occupation=clerical/admin', 'occupation=college/grad student', 'occupation=customer service', 'occupation=doctor/health care', 'occupation=executive/managerial', 'occupation=farmer', 'occupation=homemaker', 'occupation=lawyer', 'occupation=other', 'occupation=programmer', 'occupation=retired', 'occupation=sales/marketing', 'occupation=scientist', 'occupation=self-employed', 'occupation=technician/engineer', 'occupation=tradesman/craftsman', 'occupation=unemployed', 'occupation=writer', 'zip2=California / Alaska', 'zip2=DC', 'zip2=Florida', 'zip2=Illinois', 'zip2=Michigan/Ohio', 'zip2=NY Area', 'zip2=Nevada / Utah', 'zip2=North', 'zip2=Northeast', 'zip2=Texas / Arkansas', 'Genre_Action', 'Genre_Adventure', 'Genre_Animation', "Genre_Children's", 'Genre_Comedy', 'Genre_Crime', 'Genre_Documentary', 'Genre_Drama', 'Genre_Fantasy', 'Genre_Film-Noir', 'Genre_Horror', 'Genre_Musical', 'Genre_Mystery', 'Genre_Romance', 'Genre_Sci-Fi', 'Genre_Thriller', 'Genre_War', 'Genre_Western']
+[ 12.90224699  13.16705714  13.47682441  13.74636749  14.19019079
+  14.6403545   14.79911427  15.23097981  16.22546324  36.78813713]
+[ 16.22546324  36.78813713]
 \end{verbatim}
 
+Goruluyor ki ``enerji'' ilk iki kolonda. Bu sebeple $k=2$ olarak aldik.
+
+Simdi K-Means'e gelelim. Kumelemeyi yapip kume etiketini musteri verisine
+bir kolon olarak ekliyoruz. 
+
 \begin{minted}[fontsize=\footnotesize]{python}
-n_clusters=5
+n_clusters=7
 from sklearn.cluster import KMeans
 print u.shape
 clf = KMeans(n_clusters=n_clusters)
@@ -111,8 +166,27 @@ df2.to_csv('/tmp/customers_clustered.csv',sep=';',index=None)
 \end{minted}
 
 \begin{verbatim}
-(6040, 4)
+(6040, 2)
 \end{verbatim}
+
+Simdi isin en ilginc kismina geldik! Kurallari cikartma zamani.
+
+Kurallari nasil bulacagimizi dusunurken aklimiza ilginc bir fikir
+geldi. Kumeleme proseduru kumeleri buldu, degil mi? Simdi kurallari bulmak
+icin, o kumelerin icine bir sekilde bakmak lazim.. Bu nasil yapilacak?
+Hangi teknoloji bize ``tarifler'' uretir? Acaba her kume icin o kumedeki
+veri noktalarini 1, digerlerini 0 ile isaretlesek, o kumenin tariflerini
+bulma isini karar agaci kullanan bir takip edilen (supervised) probleme
+ceviremez miyiz ? Tabii burada bir cinlik yapmaya ugrasiyoruz, aslinda
+amacimiz ``hic gormedigimiz yeni veri noktalarini'' 1/0 olarak
+etiketleyebilmek degil, ki takip edilen yapay ogrenimde amac bu
+olurdu. Bizim amacimiz baska: 1/0 ile etiketli veride karar agaci
+(ozellikle gradyan destekli karar agaci xgboost) kullanmak ve bu
+teknolojinin egitim sirasinda ortaya cikardigi karar agaci kurma
+mekanizmasindan istifade etmek; cunku ortaya cikan agac yapilarini ``veri
+hakkinda baskalarina soylenebilecek ilginc seyler'' olarak kullanabiliriz!
+
+Altta \verb!xgboost! [2] ile bu isi yapiyoruz. 
 
 \begin{minted}[fontsize=\footnotesize]{python}
 from sklearn.metrics import roc_curve, auc
@@ -136,7 +210,7 @@ for i in range(n_clusters):
     num_round = 10
     param['silent'] = 1
     param['eval_metric'] = 'auc'
-    param['max_depth'] = 4
+    param['max_depth'] = 3
     bst = xgb.train(param, xg_train, num_round, watchlist )
     pred = bst.predict(xg_test)
     fpr, tpr, thresholds = roc_curve(y_test, pred)
@@ -149,13 +223,17 @@ print 'mean auc', np.array(aucs).mean()
 
 \begin{verbatim}
 (6040, 52)
-cluster 0 0.983958333333 1007.0
-cluster 1 0.95119010405 1461.0
-cluster 2 0.935070470561 1115.0
-cluster 3 0.948211029163 1348.0
-cluster 4 0.978581267218 1109.0
-mean auc 0.959402240865
+cluster 0 0.870611149808 743.0
+cluster 1 0.997108416945 505.0
+cluster 2 0.979565746753 467.0
+cluster 3 0.961084990958 828.0
+cluster 4 0.902345958168 1113.0
+cluster 5 0.956547419504 1301.0
+cluster 6 0.915032249572 1083.0
+mean auc 0.940327990244
 \end{verbatim}
+
+Ustte her kume icin bir karar agaci egitiyoruz, 
 
 \inputminted[fontsize=\footnotesize]{python}{clusters.py}
 
@@ -176,30 +254,25 @@ print len(dff)
 
 \begin{minted}[fontsize=\footnotesize]{python}
 print len( dff[\
-(dff['Genre_Fantasy'] == 1) & \
-(dff['occupation=writer'] == 0) ] )
-print len( dff[\
-(dff['occupation=writer'] == 0) ] )
+(dff['Genre_Animation'] == 1) & \
+(dff['age'] >= 18 ) ] )
 \end{minted}
 
 \begin{verbatim}
-1083
-5759
+874
 \end{verbatim}
 
 \begin{minted}[fontsize=\footnotesize]{python}
-print len( dff[\
-(dff['Genre_Documentary'] == 0) & \
-(dff['zip2=NY Area'] == 1) ] )
+print 'Erkek', len( dff[(dff['Genre_Action'] == 1) & (dff['gender=M'] == 1 ) ] ),\
+      'Bayan', len( dff[(dff['Genre_Action'] == 1) & (dff['gender=F'] == 1 ) ] )
 \end{minted}
 
 \begin{verbatim}
-415
+Erkek 41 Bayan 51
 \end{verbatim}
 
+[1] \url{http://www.zipboundary.com/zipcode_faqs.html}
 
-\url{http://upload.wikimedia.org/wikipedia/commons/2/24/ZIP_Code_zones.svg}
-
-\url{http://www.zipboundary.com/zipcode_faqs.html}
+[2] \url{http://sayilarvekuramlar.blogspot.de/2014/09/gradient-boosted-regression-trees-gbrt.html}
 
 \end{document}
