@@ -21,54 +21,92 @@ def one_hot_dataframe(data, cols):
 
 df = users.copy()
 df['occupation2'] = users['occupation'].map(lambda x: str(x))
-df['zip2'] = users['zip'].map(lambda x: str(x)[0])
-df['zip3'] = users['zip'].map(lambda x: str(x)[:2])
-df = one_hot_dataframe(df,['occupation2','gender','zip2','zip3'])
+#df['zip2'] = users['zip'].map(lambda x: str(x)[0])
+#df['zip3'] = users['zip'].map(lambda x: str(x)[:2])
+#df = one_hot_dataframe(df,['occupation2','gender','zip2','zip3'])
+df = one_hot_dataframe(df,['occupation2','gender'])
 df = df.drop(['occupation','zip'],axis=1)
 df = df.set_index('user_id')
 print df.shape
-print df.columns
-print type(df)
+print list(df.columns)
 \end{minted}
 
 \begin{verbatim}
-(6040, 134)
-Index([u'age', u'gender=F', u'gender=M', u'occupation2=0', u'occupation2=1', u'occupation2=10', u'occupation2=11', u'occupation2=12', u'occupation2=13', u'occupation2=14', u'occupation2=15', u'occupation2=16', u'occupation2=17', u'occupation2=18', u'occupation2=19', u'occupation2=2', u'occupation2=20', u'occupation2=3', u'occupation2=4', u'occupation2=5', u'occupation2=6', u'occupation2=7', u'occupation2=8', u'occupation2=9', u'zip2=0', u'zip2=1', u'zip2=2', u'zip2=3', u'zip2=4', u'zip2=5', u'zip2=6', u'zip2=7', u'zip2=8', u'zip2=9', u'zip3=00', u'zip3=01', u'zip3=02', u'zip3=03', u'zip3=04', u'zip3=05', u'zip3=06', u'zip3=07', u'zip3=08', u'zip3=09', u'zip3=10', u'zip3=11', u'zip3=12', u'zip3=13', u'zip3=14', u'zip3=15', u'zip3=16', u'zip3=17', u'zip3=18', u'zip3=19', u'zip3=20', u'zip3=21', u'zip3=22', u'zip3=23', u'zip3=24', u'zip3=25', u'zip3=26', u'zip3=27', u'zip3=28', u'zip3=29', u'zip3=30', u'zip3=31', u'zip3=32', u'zip3=33', u'zip3=34', u'zip3=35', u'zip3=36', u'zip3=37', u'zip3=38', u'zip3=39', u'zip3=40', u'zip3=41', u'zip3=42', u'zip3=43', u'zip3=44', u'zip3=45', u'zip3=46', u'zip3=47', u'zip3=48', u'zip3=49', u'zip3=50', u'zip3=51', u'zip3=52', u'zip3=53', u'zip3=54', u'zip3=55', u'zip3=56', u'zip3=57', u'zip3=58', u'zip3=59', u'zip3=60', u'zip3=61', u'zip3=62', u'zip3=63', u'zip3=64', u'zip3=65', ...], dtype='object')
-<class 'pandas.core.frame.DataFrame'>
+(6040, 24)
+['age', 'gender=F', 'gender=M', 'occupation2=0', 'occupation2=1', 'occupation2=10', 'occupation2=11', 'occupation2=12', 'occupation2=13', 'occupation2=14', 'occupation2=15', 'occupation2=16', 'occupation2=17', 'occupation2=18', 'occupation2=19', 'occupation2=2', 'occupation2=20', 'occupation2=3', 'occupation2=4', 'occupation2=5', 'occupation2=6', 'occupation2=7', 'occupation2=8', 'occupation2=9']
 \end{verbatim}
 
 \begin{minted}[fontsize=\footnotesize]{python}
+cols = ['user_id', 'movie_id', 'rating', 'timestamp']
+ratings =  pd.read_csv('../stat_pandas_ratings/ratings.dat', sep='::',
+           header=None,names=cols)
+cols = ['movie_id', 'title', 'genres']
+movies =  pd.read_csv('../stat_pandas_ratings/movies.dat',sep='::',
+          header=None,names=cols)
+
+genre_iter = (set(x.split('|')) for x in movies.genres)
+genres = sorted(set.union(*genre_iter))
+dummies = pd.DataFrame(np.zeros((len(movies), len(genres))), columns=genres)
+for i, gen in enumerate(movies.genres):
+   dummies.ix[i, gen.split('|')] = 1
+movies_windic = movies.join(dummies.add_prefix('Genre_'))
+movies_windic = movies_windic.drop(['title','genres'],axis=1)
+joined = ratings.merge(movies_windic, left_on='movie_id',right_on='movie_id')
+genres = joined.groupby('user_id').sum()
+genres = genres.drop(['movie_id','rating','timestamp'],axis=1)
+X = pd.merge(df, genres, left_index=True, right_index=True,how='left')
+print X.shape
+\end{minted}
+
+\begin{verbatim}
+(6040, 42)
+\end{verbatim}
+
+\begin{minted}[fontsize=\footnotesize]{python}
+fout = open('/tmp/featmap.txt','wb')
+for i,col in enumerate(X.columns):
+    if  'age' in col: fout.write('%d\t%s\tq\n' % (i,col))
+    else: fout.write('%d\t%s\ti\n' % (i,col))    
+fout.close()
+\end{minted}
+
+\begin{minted}[fontsize=\footnotesize]{python}
+print list(X.columns)
 from sklearn.preprocessing import normalize
 import scipy.sparse.linalg as slin
-import scipy.sparse as sps
-X = sps.csr_matrix(df.fillna(0))
-X = normalize(X, norm='l2', axis=0).tocsr()
-X = normalize(X, norm='l2', axis=1).tocsr()    
-u,s,v=slin.svds(X,10)
+import scipy.sparse as sps, numpy.random as rand
+X2 = sps.csr_matrix(X.fillna(0))
+X2 = normalize(X2, norm='l2', axis=0).tocsr()
+X2 = normalize(X2, norm='l2', axis=1).tocsr()    
+u,s,v=slin.svds(X2,10)
 print s
-u,s,v=slin.svds(X,2)
+u,s,v=slin.svds(X2,2)
 print s
+rand.seed(1000)
+Omega = sps.csr_matrix(rand.randn(X2.shape[1],4))
+u = X2.dot(Omega)
 \end{minted}
 
 \begin{verbatim}
-[ 10.41316773  10.62319229  10.71084577  11.87868987  12.19950494
-  12.57161526  12.66682847  13.77409265  15.26929548  21.13437606]
-[ 15.26929548  21.13437606]
+['age', 'gender=F', 'gender=M', 'occupation2=0', 'occupation2=1', 'occupation2=10', 'occupation2=11', 'occupation2=12', 'occupation2=13', 'occupation2=14', 'occupation2=15', 'occupation2=16', 'occupation2=17', 'occupation2=18', 'occupation2=19', 'occupation2=2', 'occupation2=20', 'occupation2=3', 'occupation2=4', 'occupation2=5', 'occupation2=6', 'occupation2=7', 'occupation2=8', 'occupation2=9', 'Genre_Action', 'Genre_Adventure', 'Genre_Animation', "Genre_Children's", 'Genre_Comedy', 'Genre_Crime', 'Genre_Documentary', 'Genre_Drama', 'Genre_Fantasy', 'Genre_Film-Noir', 'Genre_Horror', 'Genre_Musical', 'Genre_Mystery', 'Genre_Romance', 'Genre_Sci-Fi', 'Genre_Thriller', 'Genre_War', 'Genre_Western']
+[ 13.34399062  14.29037252  14.8560203   15.83497751  17.19937549
+  17.47279701  18.24532587  18.71696292  19.43555793  40.13605738]
+[ 19.43555793  40.13605738]
 \end{verbatim}
 
 \begin{minted}[fontsize=\footnotesize]{python}
-n_clusters=5
+n_clusters=20
 from sklearn.cluster import KMeans
 print u.shape
-clf = KMeans(n_clusters=n_clusters,init='random')
+clf = KMeans(n_clusters=n_clusters)
 clf.fit(u)    
-df = df.reset_index()
-df['cluster'] = clf.labels_
-df.to_csv('/tmp/customers_clustered.csv',sep=';',index=None)
+df2 = X.reset_index()
+df2['cluster'] = clf.labels_
+df2.to_csv('/tmp/customers_clustered.csv',sep=';',index=None)
 \end{minted}
 
 \begin{verbatim}
-(6040, 2)
+(6040, 4)
 \end{verbatim}
 
 \begin{minted}[fontsize=\footnotesize]{python}
@@ -78,20 +116,14 @@ import os.path,os,logging,datetime,pytz,re, sys
 sys.path.append('%s/Downloads/xgboost/wrapper/' % os.environ['HOME'])
 import xgboost as xgb
 
-df = pd.read_csv('/tmp/customers_clustered.csv',sep=';',index_col='user_id')
-X = df.drop('cluster',axis=1)
-print X.shape
+df3 = pd.read_csv('/tmp/customers_clustered.csv',sep=';',index_col='user_id')
+X3 = df3.drop('cluster',axis=1)
+print X3.shape
 
-fout = open('/tmp/featmap.txt','wb')
-for i,col in enumerate(X.columns):
-    if  'age' in col: fout.write('%d\t%s\tq\n' % (i,col))
-    else: fout.write('%d\t%s\ti\n' % (i,col))    
-fout.close()
 aucs = []
 for i in range(n_clusters):
-    print 'cluster', i
-    y = (df['cluster'] == i).astype(float)
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.05, random_state=0)
+    y = (df3['cluster'] == i).astype(float)
+    X_train, X_test, y_train, y_test = train_test_split(X3, y, test_size=0.10, random_state=0)
     xg_train = xgb.DMatrix(X_train, label=y_train)
     xg_test = xgb.DMatrix(X_test, label=y_test)    
     watchlist = [ (xg_train,'train'), (xg_test, 'test') ]    
@@ -104,35 +136,71 @@ for i in range(n_clusters):
     pred = bst.predict(xg_test)
     fpr, tpr, thresholds = roc_curve(y_test, pred)
     roc_auc = auc(fpr, tpr)
-    print roc_auc
+    print 'cluster', i, roc_auc, np.sum(y)
     aucs.append(roc_auc)
     bst.dump_model('/tmp/tree-%d.txt' % i,'/tmp/featmap.txt')
 print 'mean auc', np.array(aucs).mean()
 \end{minted}
 
 \begin{verbatim}
-(6040, 134)
-cluster 0
-0.849747474747
-cluster 1
-1.0
-cluster 2
-0.994071146245
-cluster 3
-0.796563192905
-cluster 4
-1.0
-mean auc 0.928076362779
+(6040, 42)
+cluster 0 0.928571428571 395.0
+cluster 1 0.958373451441 271.0
+cluster 2 0.999533045977 266.0
+cluster 3 0.991434468524 325.0
+cluster 4 0.950615114236 303.0
+cluster 5 0.981552076242 434.0
+cluster 6 0.996185446009 348.0
+cluster 7 0.928489749244 254.0
+cluster 8 0.934098065677 203.0
+cluster 9 0.998009101251 145.0
+cluster 10 0.952144394767 604.0
+cluster 11 0.999939467312 222.0
+cluster 12 0.968590561224 154.0
+cluster 13 0.822991071429 365.0
+cluster 14 0.956718480138 237.0
+cluster 15 0.988721054032 252.0
+cluster 16 0.992142482975 321.0
+cluster 17 0.945652173913 406.0
+cluster 18 0.99906068774 127.0
+cluster 19 0.977603812117 408.0
+mean auc 0.963521306641
 \end{verbatim}
-
 
 \begin{minted}[fontsize=\footnotesize]{python}
 import pickle
 all_rules = {}
+
+# Starting from node follow parents all the way to the top to
+# determine the "path" that led to that node
+def trace(node):
+    tr = []
+    while node:
+        # we start from bottom so dont append, insert in the
+        # beginning for the right trace
+        tmp = node # if name exists use it
+        if tmp in nodes: tmp=nodes.get(node)
+        tr.insert(0, (tmp,nodes_yn.get(node)))
+        node=parents.get(node)
+    return tr
+
+# Walk the tree using recursion, visiting each node, until
+# reaching a bottommost leaf, and report the path from root to
+# that bottommost leaf. Those paths are our rules.
+def walk(T,node):
+    if node not in branches:
+        rules.append(trace(node))
+        return
+    left, right = branches[node]
+    parents[left] = node
+    walk(T, left)
+    parents[right] = node
+    walk(T, right)
+
 for cluster in range(n_clusters):
     #print 'Tree %d' % cluster
     tree = open('/tmp/tree-%d.txt' % cluster).read()
-    
+
     nodes_yn = {}
     nodes = re.findall(r'(\d+):\[(.*?)\]',tree,re.DOTALL|re.MULTILINE)
     nodes = dict(x for x in nodes)
@@ -148,34 +216,9 @@ for cluster in range(n_clusters):
 
     parents = {}; rules = []
 
-    # Starting from node follow parents all the way to the top to
-    # determine the "path" that led to that node
-    def trace(node):
-        tr = []
-        while node:
-            # we start from bottom so dont append, insert in the
-            # beginning for the right trace
-            tmp = node # if name exists use it
-            if tmp in nodes: tmp=nodes.get(node)
-            tr.insert(0, (tmp,nodes_yn.get(node)))
-            node=parents.get(node)
-        return tr
-
-    # Walk the tree using recursion, visiting each node, until
-    # reaching a bottommost leaf, and report the path from root to
-    # that bottommost leaf. Those paths are our rules.
-    def walk(T,node):
-        if node not in branches:
-            rules.append(trace(node))
-            return
-        left, right = branches[node]
-        parents[left] = node
-        walk(T, left)
-        parents[right] = node
-        walk(T, right)
 
     walk(nodes, '0')
-    
+
     # filter out rules whose bottommost leaf has probability has 0
     rules = [rule for rule in rules if float( leaves[rule[-1][0]] ) != 0.0]
     new_rules = []
@@ -184,11 +227,10 @@ for cluster in range(n_clusters):
         new_rules.append(tmp)
     all_rules[cluster] = new_rules
     
-pickle.dump(all_rules, open( '/tmp/rules.pkl', "wb" ) )        
-
 df = pd.read_csv('/tmp/customers_clustered.csv',sep=';',index_col='user_id')
 print 'original dataset', len(df)
-rules = pickle.load(open('/tmp/rules.pkl', 'rb'))
+
+rules = all_rules
 j = 0
 for i in range(n_clusters):
     for r,rule in enumerate(rules[i]): 
@@ -201,7 +243,7 @@ for i in range(n_clusters):
                 df_slice = df_slice[(df_slice[a] < float(b)) == (x[1]=='yes') ]
 
         # only report if slice count is high
-        if len(df_slice) > 500:
+        if len(df_slice) > 100:
             print 'Rule', j
             print
             for x in rule: print x
@@ -215,57 +257,274 @@ for i in range(n_clusters):
 original dataset 6040
 Rule 0
 
-('zip2=9', 'yes')
-('zip3=93', 'no')
-('zip3=96', 'no')
-('zip3=99', 'no')
+('Genre_Adventure', 'yes')
+('occupation2=4', 'no')
+('occupation2=0', 'no')
+('occupation2=16', 'no')
 
-count 1370
+count 235
 
 Rule 1
 
-('zip2=9', 'no')
-('zip3=55', 'no')
-('zip3=60', 'no')
-('zip3=02', 'no')
+('occupation2=11', 'no')
+('occupation2=7', 'no')
+('Genre_Film-Noir', 'yes')
+('occupation2=12', 'no')
 
-count 3697
+count 1054
 
 Rule 2
 
-('zip3=55', 'no')
+('occupation2=11', 'no')
+('occupation2=7', 'no')
+('Genre_Film-Noir', 'no')
 
-count 5625
+count 1644
 
 Rule 3
 
-('zip2=9', 'yes')
-('zip3=94', 'no')
-('zip3=93', 'no')
-('zip3=96', 'no')
+('occupation2=2', 'no')
+('occupation2=9', 'no')
 
-count 1018
+count 5681
 
 Rule 4
 
-('zip2=9', 'no')
+('occupation2=17', 'no')
 
-count 4572
+count 5538
 
 Rule 5
 
-('zip3=60', 'no')
-('zip3=02', 'no')
-('zip3=10', 'no')
-('zip3=48', 'no')
+('occupation2=4', 'no')
+('occupation2=14', 'no')
+('Genre_Horror', 'yes')
 
-count 5174
+count 607
 
 Rule 6
 
-('zip3=94', 'no')
+('occupation2=4', 'no')
+('occupation2=14', 'no')
+('Genre_Horror', 'no')
+('Genre_Horror', 'no')
 
-count 5662
+count 629
+
+Rule 7
+
+('occupation2=12', 'no')
+('occupation2=5', 'no')
+
+count 5540
+
+Rule 8
+
+('Genre_Documentary', 'yes')
+('Genre_Documentary', 'yes')
+('occupation2=0', 'no')
+('occupation2=16', 'no')
+
+count 847
+
+Rule 9
+
+('Genre_Documentary', 'no')
+('occupation2=16', 'no')
+('occupation2=0', 'yes')
+('Genre_Film-Noir', 'yes')
+
+count 109
+
+Rule 10
+
+('Genre_Documentary', 'no')
+('occupation2=16', 'no')
+('occupation2=0', 'yes')
+('Genre_Film-Noir', 'no')
+
+count 183
+
+Rule 11
+
+('Genre_Documentary', 'no')
+('occupation2=16', 'no')
+('occupation2=0', 'no')
+('Genre_Crime', 'yes')
+
+count 404
+
+Rule 12
+
+('Genre_Documentary', 'no')
+('occupation2=16', 'no')
+('occupation2=0', 'no')
+('Genre_Crime', 'no')
+
+count 296
+
+Rule 13
+
+('occupation2=19', 'no')
+('occupation2=18', 'no')
+('occupation2=2', 'no')
+('occupation2=0', 'yes')
+
+count 711
+
+Rule 14
+
+('occupation2=19', 'no')
+('occupation2=18', 'no')
+('occupation2=2', 'no')
+('occupation2=0', 'no')
+
+count 4920
+
+Rule 15
+
+('occupation2=13', 'no')
+('occupation2=8', 'no')
+
+count 5881
+
+Rule 16
+
+('occupation2=0', 'no')
+('occupation2=16', 'no')
+('occupation2=2', 'no')
+('Genre_Fantasy', 'yes')
+
+count 884
+
+Rule 17
+
+('occupation2=0', 'no')
+('occupation2=16', 'no')
+('occupation2=2', 'no')
+('Genre_Fantasy', 'no')
+
+count 961
+
+Rule 18
+
+('occupation2=3', 'no')
+('Genre_Western', 'yes')
+('occupation2=1', 'no')
+('occupation2=20', 'no')
+
+count 1107
+
+Rule 19
+
+('occupation2=3', 'no')
+('Genre_Western', 'no')
+('Genre_Western', 'no')
+
+count 1883
+
+Rule 20
+
+('occupation2=17', 'no')
+('occupation2=15', 'no')
+
+count 5394
+
+Rule 21
+
+('Genre_Romance', 'yes')
+('occupation2=7', 'no')
+('Genre_Romance', 'yes')
+('occupation2=12', 'no')
+
+count 170
+
+Rule 22
+
+('occupation2=14', 'no')
+('Genre_Documentary', 'no')
+('Genre_Horror', 'yes')
+('age<47.5', 'yes')
+
+count 423
+
+Rule 23
+
+('occupation2=14', 'no')
+('Genre_Documentary', 'no')
+('Genre_Horror', 'yes')
+('age<47.5', 'no')
+
+count 111
+
+Rule 24
+
+('occupation2=14', 'no')
+('Genre_Documentary', 'no')
+('Genre_Horror', 'no')
+
+count 572
+
+Rule 25
+
+('occupation2=6', 'no')
+('occupation2=12', 'no')
+('Genre_Crime', 'yes')
+('age<34', 'yes')
+
+count 242
+
+Rule 26
+
+('occupation2=6', 'no')
+('occupation2=12', 'no')
+('Genre_Crime', 'yes')
+('age<34', 'no')
+
+count 253
+
+Rule 27
+
+('occupation2=6', 'no')
+('occupation2=12', 'no')
+('Genre_Crime', 'no')
+
+count 343
+
+Rule 28
+
+('occupation2=4', 'no')
+('Genre_Horror', 'yes')
+('Genre_Animation', 'yes')
+
+count 130
+
+Rule 29
+
+('occupation2=4', 'no')
+('Genre_Horror', 'yes')
+('Genre_Animation', 'no')
+
+count 216
+
+Rule 30
+
+('occupation2=4', 'no')
+('Genre_Horror', 'no')
+
+count 659
+
+Rule 31
+
+('occupation2=15', 'no')
+
+count 5896
+
+Rule 32
+
+('occupation2=7', 'no')
+
+count 5361
 
 \end{verbatim}
 
@@ -276,7 +535,7 @@ count 5662
 
 
 
-
+\url{http://upload.wikimedia.org/wikipedia/commons/2/24/ZIP_Code_zones.svg}
 
 
 
