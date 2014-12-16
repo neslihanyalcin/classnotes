@@ -177,15 +177,83 @@ $$
 ..
  $$
 
- Diger yonden soyle gorebiliriz, $\mathbb{R}^2$ tum $x-y$ duzlemidir. Ve bu
- duzlem bu uzay bir vektor uzayidir. Niye? Cunku ihtiyacimiz olan tum
- noktalar oradadir, orijin bile, oradadir ve ona ihtiyac vardir. Farz
- edelim orijin noktasini bu uzaydan cikardim, fakat vektor uzayi tanimina
- gore herhangi bir vektoru istedigim bir skalar ile carpabilmeliyim,
- sifirla da carpabilmeliyim ve sonuc bu durumda orijin olacaktir, ama
- orijin uzayda yoksa bu bir vektor uzayi olamaz. Ya da
- $\left[\begin{array}{rr}3 & 2\end{array}\right]^T$ vektorune$[-3 \ -2]^T$ ekleyebilmeliyim, ve sonuc yine orijin olacak, ama yoksa problem cikar.
+Diger yonden soyle gorebiliriz, $\mathbb{R}^2$ tum $x-y$ duzlemidir. Ve bu
+duzlem bu uzay bir vektor uzayidir. Niye? Cunku ihtiyacimiz olan tum
+noktalar oradadir, orijin bile, oradadir ve ona ihtiyac vardir. Farz
+edelim orijin noktasini bu uzaydan cikardim, yani $x-y$ duzleminin sanki
+ortasina bir delik actim. Fakat vektor uzayi tanimina gore herhangi bir
+vektoru istedigim bir skalar ile carpabilmeliyim, sifirla da
+carpabilmeliyim ve sonuc bu durumda orijin olacaktir, ama orijin uzayda
+yoksa erisebilecegim her turlu sonucu icermedigi icin bu bir vektor uzayi
+olamaz. Ya da $\left[\begin{array}{rr}3 & 2\end{array}\right]^T$ vektorune$[-3 \ -2]^T$ ekleyebilmeliyim, ve sonuc yine 
+orijin olacak, ama  yoksa problem cikar.
 
+Eger $\mathbb{R}^3$ kullansaydik, bu icinde tum 3 boyutlu reel vektorleri
+iceren uzay olurdu. 
+
+Ya $\mathbb{R}^n$? Icinde $n$ tane reel sayi olan, $n \times 1$ boyutunda
+kolon vektorleri. 
+
+Baska bir ornek gorelim, mesela alttaki durum. Burada sadece $x-y$
+duzleminin sag ust tarafindaki (altta isaretli) alani bir uzay olarak almak
+istedik. 
+
+\includegraphics[height=4cm]{5_02.png}
+
+Soru su: bu bir uzay midir? Yani icindeki vektorlerin tum lineer
+kombinasyonun yine kendisi icinde midir? 
+
+Eger oradaki bir vektoru, mesela $\left[\begin{array}{rr}3 &
+    2\end{array}\right]^T$ alip bir diger vektorle toplarsam mesela
+$\left[\begin{array}{rr}6 & 8\end{array}\right]^T$ sonuc hala bu ust sag kosede olur. Problem bir skalar ile carptigimizda ortaya cikar; eger
+$\left[\begin{array}{rr}3 & 2\end{array}\right]^T$ alip $-3$ ile carparsam, sonuc eksi yone isaret eden bir vektor olur, o zaman sag ust kosenin disina
+tasmis olurum. Yani tanimladigim alan carpma islemi icin ``kapali'' (closed) degildir.
+O zaman bu bir vektor uzayi degildir. 
+
+Ustteki ornekte mevcut bir vektor uzayinin bir kismini aldik, ve vektor
+uzayi olmadigini gorduk. Peki tum alt uzaylar (subspace) bu sekilde vektor
+uzayi degil midir? $\mathbb{R}^2$'ye donelim, onun bir alt uzayina
+bakalim. 
+
+\includegraphics[height=4cm]{5_03.png}
+
+Eger orijinden gecen ve yukari asagi sonsuza giden capraz bir cizgi cizsem,
+bu cizgi bir vektor uzayi olan alt uzay olur muydu? Evet. Niye? Cunku onun
+uzerindeki herhangi iki vektoru birbirine toplasam yine ayni cizgi uzerine
+olurum [hoca bunu gostermek icin bir suru oklar cizdi ayni cizgi
+uzerinde]. Eger sag yukari giden bir vektoru negatif bir skalar ile carpsam
+ters yone giderim ama problem degil, bu yon de mevcut. Unutmayalim, tek
+sayi ile carpinca yonu degistirebiliriz, ama 180 derece terse gidebiliriz
+sadece, azicik daha yukari ya da asagi gidemeyiz. Demek ki hep ayni cizgi
+uzerindeyiz. 
+
+Tabii eklemeye gerek yok, orijin muhakkak uzayin icinde olmali, yoksa sifir
+ile carpinca orijin sonucu gelir, ama o nokta uzayda degilse yine ``disari
+tasmis'' olurum. Mesela 
+
+\includegraphics[height=4cm]{5_04.png}
+
+oncekine paralel [kesik cizgiyle gosteriliyor] yeni bir cizgi cizdim
+mesela. Bu cizgi bir vektor uzayi degildir, cunku sifirla carpinca orijin
+sonucu cikar, bu nokta o kesikli olan uzayda yoktur.
+
+Bu arada $\mathbb{R}^2$'de iken kendimize su soruyu soralim; kac tane
+farkli alt mumkundur? 
+
+1) $\mathbb{R}^2$'nin kendisi (o da bir alt-uzay)
+
+2) Orijinden gecen her cizgi. Dikkat, bir cizgiden bahsedince ve bu cizgi
+tek yonde olunca, akla ``acaba bu cizgi $\mathbb{R}^1$ mi?'' sorusu
+gelebilir. Bu alt uzay $\mathbb{R}^1$ degil, $\mathbb{R}^1$ olsaydi icinde
+iki degil tek sayi olan bir ``vektorden'' bahsediyor olurduk. 
+
+3) Icinde sadece sifir vektor olan bir uzay - ki ben buna cogu zaman
+$\mathbb{Z}$ diyorum. Bu mantikli degil mi? Sifir vektoru aliyorum,
+kendisiyle topluyorum, ayni uzaydayim. Herhangi bir skalar ile carpiyorum,
+mesela 17, sifir carpi herhangi bir baska sey sifir olduguna gore, yine
+ayni uzaydayim! Oyle degil mi? $\left[\begin{array}{rr}0 &
+    0\end{array}\right]^T \cdot 17 = \left[\begin{array}{rr}0 &
+    0\end{array}\right]^T$.
 
 
 
