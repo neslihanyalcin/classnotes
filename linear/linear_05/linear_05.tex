@@ -255,20 +255,74 @@ ayni uzaydayim! Oyle degil mi? $\left[\begin{array}{rr}0 &
     0\end{array}\right]^T \cdot 17 = \left[\begin{array}{rr}0 &
     0\end{array}\right]^T$.
 
+Peki $\mathbb{R}^3$'un kac alt uzayi vardir? Yine $\mathbb{R}^3$'un
+kendisi, orijin noktasi, ve orijinden gecen tum duzlemler (planes). Ya da
+orijinden gecen tum cizgiler. 
 
+Matrislerin Alt Uzayi
 
+Ustteki ornek alt uzaylar $\mathbb{R}^2$, k$\mathbb{R}^3$'ten
+geldiler. Acaba bir matristen bir alt uzay yaramaz miyiz? Mesela 
 
+$$  A =
+\left[\begin{array}{rr}
+1 & 3 \\
+2 & 3 \\
+4 & 1 
+\end{array}\right]
+ $$
 
+matrisinin alt uzayi nedir? 
 
+$A$'nin kolonlarina bakiyorum, bu kolonlar $\mathbb{R}^3$ icindeler. Ve bir
+alt uzay yaratiyorum, o zaman bu kolonlarin o alt uzay icinde olmasini
+isterim. Fakat bir alt uzaya iki tane kolon atip ``iste bu bir alt uzay''
+diyemem. Oraya baska ne koymam lazim? Bu iki kolonun her turlu lineer
+kombinasyonu orada olmali, mesela $ \left[\begin{array}{rrr}4 & 5 &
+    5\end{array}\right]^T$ orada olmali o zaman, ya da sifirla carpacagim,
+$\mathbb{Z}^3$ orada olmali, vs. Ya da ilk kolondan bir tane, ikincisinden
+uc tane alip toplayacagim, bu sonucun da uzay olmasi gerekir. 
 
+Eger tum bunlari yaparsam bir alt uzay yaratmis olurum, ki matris
+baglaminda bu uzaya ``kolon uzayi (columnspace)'' ismi de verilir. Buna
+$C(A)$ diyelim. 
 
+Bu aradigimiz uzay nasil bir sey olur acaba? Iki vektor var, onlarin tum
+kombinasyonlari ayni uzay icinde kalacak, ve orijin dahil
+olacak.. Geometrik olarak dusunelim,
 
+\includegraphics[height=4cm]{5_05.png}
 
+iki vektoru boyle cizdik diyelim. Bu her iki vektoru icinde barindiran, ve
+her turlu kombinasyonunu da iceren sey nedir? Bu sey her ne ise, herhalde
+bir cizgi olamaz, cunku basit bir kac ornekle tamamen farkli yonlere isaret
+eden kombinasyonlar bulabiliriz, ayrica bu her iki vektoru uzerinde tutan
+bir cizgi zaten mumkun degil. O zaman ne? 
 
+Bir duzlem! Her iki vektoru de uzerinde barindiran ve orijinden gecen
+duzlem bir alt uzaydir.
 
+\includegraphics[height=4cm]{5_06.png}
 
+Degil mi? Bu iki vektorun her turlu kombinasyonu bu duzlem uzerindedir. Bu
+kritik bir bulgu - uzerinde iyice dusunelim. Gorelim. Tabii 3 boyutta
+gorebiliriz, ama $\mathbb{R}^{10}$ boyutunda da is yapacagiz, ve bu uzayda
+diyelim 5 tane vektorun kombinasyonunu aliyoruz, ki bu bir alt uzay
+yaratir, [hoca neredeyse $\mathbb{R}^5$'i gorsel olarak tarif etmek ister
+gibi yapti, ama bu uzayi gorsel olarak dusunmek mumkun degil, bilemeyiz
+dedi], 5 vektor ki her birinin 10 tane ogesi var, bunlarin kombinasyonunu
+aliyoruz, sonuc olarak, dikkat, $\mathbb{R}^5$'te degiliz cunku elimizde 10
+ogeli vektorler var. Buyuk ihtimalle bu kombinasyon bir duzlemde olacak,
+ama.. yani eger vektorler o sekilde ise bir cizgi de ortaya
+cikabilir. Anlatabiliyor muyum? Her sey o 5 vektorun ne olduguna bagli. 
 
+Ayni sekilde, bir onceki ornekte, eger iki vektor bir cizgi uzerinde
+olsaydi, onlarin kolon uzayi o cizgi olurdu (ama ornekte alt uzay bir
+duzlem haline geldi). 
 
-
+Bu noktada duralim; bir sonraki derste $Ax=b$'yi biraz once belirttigim dil
+ile nasil gorurum, ona bakacagiz. Bu dilde kolon uzaylari, vektor uzaylari
+var, bunlar $Ax=b$ ile nasil baglantili. Baska ne tur uzaylar vardir? Iki
+tanesini gorduk, baska turleri de var. 
 
 \end{document}
