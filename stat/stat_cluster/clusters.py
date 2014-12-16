@@ -50,8 +50,8 @@ for cluster in range(n_clusters):
         parents = {}; rules = []
         walk(nodes, '0', rules)
 
-        # shift yes/not stuff by one to the left, because
-        # decisions look weird
+        # evet hayir kararlari herkesin bir saginda duruyor, onlari
+        # bir sola cek kurallar temiz gorunsun
         new_rules = []
         for rule in rules:
             new_rules.append([(rule[i][0],rule[i+1][1]) \
@@ -59,7 +59,8 @@ for cluster in range(n_clusters):
         rules = new_rules            
 
         for rule in rules:
-            # kural icinde en azindan bir yane 'yes' olmali
+            # kural icinde en azindan bir yane 'yes' olmali tamami
+            # 'no' olan kurallari sozel olarak belirtmek zor
             res = np.array(['yes' in x for x in rule])
             if ~np.any(res): continue
 

@@ -536,6 +536,25 @@ Erkek 41 Bayan 51
 
 Bunlar muthis dusuk rakamlar. Kural bulunmamis cunku ortada bir kalip yok.
 
+Ayarlar
+
+Metodun ayar (tuning) noktalari K-Means'e verilen kume sayisi ve her kume
+icin ayri ayri egitilen karar agaclarinin kac tane oldugu (cunku gradyan
+destekli -pek cok agac olabilir-) ve bu agaclarin maksimum derinligi. Ustte
+gorulen sayilari biz deneme yanilma ile bulduk, optimal degerler icin
+capraz saglama (cross-validation) ile veri pek cok parcaya bolunup mumkun
+pek cok parametre kombinasyonu denenebilir.
+
+Fakat genel kural olarak sunu gorduk, pek cok kumenin her birinde tek agac
+egitilecegine, az sayida kume icinde pek cok agac egitmek daha iyi. Gradyan
+destekli agaclar bilindigi gibi her yeni agaci bir oncekinin hatalarini
+kapatmak icin egitir, ve her yeni agac potansiyel olarak o verinin icinde
+yeni bir bolunme / agac / kural ortaya cikartabilir. Bu durum K-Means'in ya
+da genel olarak kumeleme mantigi ile de uyumludur. Bir kume icine dusmus
+noktalar degisik sebeplerden dolayi diger noktalara, ve ozellikle o
+noktalarin bir alt-grubuna yakin olmus olabilirler. Pek cok karar agaci bu
+durumdan da istifade edebilecektir. 
+
 [1] \url{http://www.zipboundary.com/zipcode_faqs.html}
 
 [2] \url{http://sayilarvekuramlar.blogspot.de/2014/09/gradient-boosted-regression-trees-gbrt.html}
